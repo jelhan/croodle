@@ -50,16 +50,16 @@ class DataHandler {
 	protected function getNewId() {
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$length = 10;
-		
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, strlen($characters) - 1)];
-    }
+		$randomString = '';
+
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, strlen($characters) - 1)];
+		}
 		
 		// check if id is already used, generate new one if necessary
 		if (file_exists($this->data_folder.$randomString)) $randomString = getNewId();
 		
-    return $randomString;
+		return $randomString;
 	}
 	
 	protected function readData() {
