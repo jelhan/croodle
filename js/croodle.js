@@ -318,10 +318,10 @@ function ScheduleAdd(type) {
 			});
 		}
 		
-		identifier = [{value: 'Datum'}];
+		identifier = [{value: 'date'}];
 		for (var g = 0; g < count; g++) {
 			identifier.push({
-				value: 'Zeit '
+				value: 'time '
 			});
 		}
 		

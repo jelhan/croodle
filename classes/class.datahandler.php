@@ -16,13 +16,13 @@ class DataHandler {
 		$data = $this->readData();
 		if ($data === false) {
 			$return->result = false;
-			$return->errorMsg = 'Es konnten keine Daten mit diesem Identifier gelesen werden.';
+			$return->errorMsg = 'there is no data with this identifier or data could not be read';
+			return $return;
 		}
-		else {
-			$return->result = true;
-			$return->version = md5($data);
-			$return->data = $data;
-		}
+		
+		$return->result = true;
+		$return->version = md5($data);
+		$return->data = $data;
 		return $return;
 	}
 
@@ -33,17 +33,23 @@ class DataHandler {
 		$return = new stdClass();
 		$return->id = $this->id;
 		
-		// Prüfen, ob die Version noch aktuell ist, wenn Datei schon besteht
+		// check if version is out of date
 		$data_org = $this->readData();
 		if ($data_org !== false && md5($data_org) !== $version) {
 			$return->result = false;
-			$return->errorMsg = 'Die Version ist nicht mehr aktuell.';
+			$return->errorMsg = 'used version is out of date';
+			return $return;
 		}
-		else {	
-			$return->result = file_put_contents($this->data_folder.$this->id, $data, LOCK_EX ) ? true : false;
-			if ($return->result === false) $return->errorMsg = 'Die Daten konnten nicht geschrieben werden.';
-			else $return->version = md5($data);
+		
+		// write data
+		if(file_put_contents($this->data_folder.$this->id, $data, LOCK_EX ) === false) {
+			$return->result = false;
+			$return->errorMsg = 'data could not be written';
+			return $return;
 		}
+		
+		$return->version = md5($data);
+		$return->result = true;
 		return $return;
 	}
 	

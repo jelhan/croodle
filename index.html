@@ -38,7 +38,7 @@
 						{{#options}}
 							<td><input type="text" name="selections[]"/></td>
 						{{/options}}
-						<td><input type="submit" id="addUserFormSubmit" value="Speichern"/></td>
+						<td><input type="submit" id="addUserFormSubmit" value="save"/></td>
 					</tr>
 				</tbody>
 			</table>
@@ -55,18 +55,18 @@
 	</script>
 	
 	<script type="text/html" id="ScheduleAdd_template">
-		<h1>Neues Schedule anlegen</h1>
+		<h1>Create new poll</h1>
 		<form id="addScheduleForm">
-			<p>Titel: <input type="text" name="title" /></p>
-			<p>Beschreibung:<br/>
+			<p>Title:  <input type="text" name="title" /></p>
+			<p>Description: <br/>
 				<textarea name="description" /></p>
 			<p id="options">
-				Optionen:<br/>
+				Options: <br/>
 			</p>
 			<div id="moreOptionsButton"></div>
 			<div id="calender"></div>
 			<div id="times"></div>
-			<p><input type="submit" id="addScheduleSubmit" value="Anlegen" /></p>
+			<p><input type="submit" id="addScheduleSubmit" value="create" /></p>
 		</form>
 	</script>
 	
@@ -80,11 +80,11 @@
 	
 	<script type="text/html" id="ScheduleAddCalender_template">
 		<div id="calenderDatePick"></div>
-		<button id="setTimesButton">Uhrzeiten angeben</button>
+		<button id="setTimesButton">define times</button>
 	</script>
 	
 	<script type="text/html" id="ScheduleAddTimes_template">
-		<h2>Eine genauere Zeit angeben</h2>
+		<h2>Define times for your dates</h2>
 		<table id='timestable'>
 			<thead>
 				<tr>
@@ -104,8 +104,8 @@
 				{{/dates}}
 			</tbody>
 		</table>
-		<button id="timesMoreButton">More times</button>
-		<button id="timesCopyTimelineButton">Copy first line</button>
+		<button id="timesMoreButton">more times</button>
+		<button id="timesCopyTimelineButton">copy first line</button>
 	</script>
 	
 	<script type="text/html" id="ScheduleAddTimesTimeHead_template">
@@ -117,7 +117,7 @@
 	</script>
 	
 	<script type="text/html" id="Startpage_template">
-		<h1>Willkommen</h1>
+		<h1>Welcome</h1>
 		<div id="FindADate">
 			<button id="FindADate-Button">find a date</button>
 		</div>
