@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>pure</title>
+	<script src="js/sjcl.js"></script>
+	<script src="js/mustache.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.mustache.js"></script>
+	<script src="js/jquery.datepick.js"></script>
+	<script src="js/jquery.datepick-de.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.datepick.css">
+</head>
+<body>
+	<div id="content"></div>
+	
+	<script type="text/html" id="Schedule_template">
+		<h1 id="title">{{title}}</h1>
+		<p id="description">{{description}}</p>
+		
+		<form id="addUserForm">
+			<table id="choices">
+				<thead id="options">
+					<tr>
+						<td class="option option-name">User</td>
+						{{#options}}
+							<td class="option">{{.}}</td>
+						{{/options}}
+						<td></td>
+					</tr>
+				</thead>
+				<tbody id="userlist">
+					{{#user}}
+						{{>ScheduleUserlistUser_template}}
+					{{/user}}
+					<tr id="addUser">
+						<td><input type="text" name="name"/></td>
+						{{#options}}
+							<td><input type="text" name="selections[]"/></td>
+						{{/options}}
+						<td><input type="submit" id="addUserFormSubmit" value="Speichern"/></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</script>
+	
+	<script type="text/html" id="ScheduleUserlistUser_template">
+		<tr class="user">
+			<td>{{name}}</td>
+			{{#selection}}
+				<td>{{.}}</td>
+			{{/selection}}
+		</tr>
+	</script>
+	
+	<script type="text/html" id="ScheduleAdd_template">
+		<h1>Neues Schedule anlegen</h1>
+		<form id="addScheduleForm">
+			<p>Titel: <input type="text" name="title" /></p>
+			<p>Beschreibung:<br/>
+				<textarea name="description" /></p>
+			<p id="options">
+				Optionen:<br/>
+			</p>
+			<div id="moreOptionsButton"></div>
+			<div id="calender"></div>
+			<div id="times"></div>
+			<p><input type="submit" id="addScheduleSubmit" value="Anlegen" /></p>
+		</form>
+	</script>
+	
+	<script type="text/html" id="ScheduleAddOption_template">
+		<input type="text" name="option" class="option" value="{{value}}"/>
+	</script>
+	
+	<script type="text/html" id="ScheduleAddOptionAddButton_template">
+		<p><input type="button" id="addScheduleAddOption" value="more options" /></p>
+	</script>
+	
+	<script type="text/html" id="ScheduleAddCalender_template">
+		<div id="calenderDatePick"></div>
+		<button id="setTimesButton">Uhrzeiten angeben</button>
+	</script>
+	
+	<script type="text/html" id="ScheduleAddTimes_template">
+		<h2>Eine genauere Zeit angeben</h2>
+		<table id='timestable'>
+			<thead>
+				<tr>
+					{{#identifier}}
+						{{>ScheduleAddTimesTimeHead_template}}
+					{{/identifier}}
+				</tr>
+			</thead>
+			<tbody>
+				{{#dates}}
+					<tr>
+						<td class="date">{{date}}</td>
+						{{#values}}
+							{{>ScheduleAddTimesTimeBody_template}}
+						{{/values}}
+					</tr>
+				{{/dates}}
+			</tbody>
+		</table>
+		<button id="timesMoreButton">More times</button>
+		<button id="timesCopyTimelineButton">Copy first line</button>
+	</script>
+	
+	<script type="text/html" id="ScheduleAddTimesTimeHead_template">
+		<td>{{value}}</td>
+	</script>
+	
+	<script type="text/html" id="ScheduleAddTimesTimeBody_template">
+		<td><input type="time" name="datetime" data-date="{{date}}" value="{{value}}" class="datetime" /></td>
+	</script>
+	
+	<script type="text/html" id="Startpage_template">
+		<h1>Willkommen</h1>
+		<div id="FindADate">
+			<button id="FindADate-Button">find a date</button>
+		</div>
+		<div id="MakeAPoll">
+			<button id="MakeAPoll-Button">make a poll</button>
+		</div>
+	</script>
+	
+	<script src="js/croodle.js"></script>
+</body>
+</html>
