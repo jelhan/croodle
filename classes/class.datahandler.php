@@ -98,7 +98,12 @@ class DataHandler {
 	protected function traficLimiterCanPass() {
 		if (self::TRAFIC_LIMITER === 0) return true;
 		
-		$ip = $_SERVER['REMOTE_ADDR'];
+		if (!isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			$ip = $_SERVER['REMOTE_ADDR'];
+		} else {
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}
+
 		$filename = self::DATA_FOLDER.self::IP_LIST_FILENAME;
 		
 		// create storage for ip_list if not exists
