@@ -17,7 +17,7 @@ if (isset($_REQUEST['action'])) {
 		// write new data or update existing data	
 		case 'set':
 			$id = (isset($_POST['id'])) ? (string) $_POST['id'] : 0;
-			$version = ($_POST['version']) ? (string) $_POST['version'] : '';
+			$version = (isset($_POST['version'])) ? (string) $_POST['version'] : '';
 			
 			if (!isset($_POST['data'])) break;
 			$data = (string) $_POST['data'];
