@@ -13,66 +13,64 @@ class DataHandler {
 	const TRAFIC_LIMITER = 30;
 	
 	protected $id;
+	protected $return;
 	protected $version;
 	
 	public function __construct($id = '') {
 		if ($id === '') $id = $this->getNewId();
 		$this->id = preg_replace('/[^0-9a-zA-Z]/', '', $id); // remove every char, except allowed
+		
+		$this->return = new stdClass();
 	}
 	
 	public function _get() {
-		$return = new stdClass();
-		$return->id = $this->id;
+		$this->return->id = $this->id;
 		
 		$data = $this->readData();
 		if ($data === false) {
-			$return->result = false;
-			$return->errorMsg = 'there is no data with this identifier or data could not be read';
-			return $return;
+			$this->return->result = false;
+			$this->return->errorMsg = 'there is no data with this identifier or data could not be read';
+			return $this->return;
 		}
 		
-		$return->result = true;
-		$return->version = md5($data);
-		$return->data = $data;
-		return $return;
+		$this->return->result = true;
+		$this->return->version = md5(json_encode($data));
+		$this->return->data = $data;
+		return $this->return;
 	}
 
 	public function _set($data, $version = '') {
 		$data = (string) $data;
 		$version = (string) $version;
 		
-		$return = new stdClass();
-		$return->id = $this->id;
+		$this->return = new stdClass();
+		$this->return->id = $this->id;
 		
 		// try to read existing data
 		$data_org = $this->readData();
 		if ($data_org !== false) {
 			// check if version is out of date
-			if (md5($data_org) !== $version) {
-				$return->result = false;
-				$return->errorMsg = 'used version is out of date';
-				return $return;
+			if (md5(json_encode($data_org)) !== $version) {
+				$this->return->result = false;
+				$this->return->errorMsg = 'used version is out of date';
+				return $this->return;
 			}
 		}
 		else {
 			// check traficLimiter
 			if (!$this->traficLimiterCanPass()) {
-				$return->result = false;
-				$return->errorMsg = 'to many request in last ' . self::TRAFIC_LIMITER . ' seconds from your IP address';
-				return $return;
+				$this->return->result = false;
+				$this->return->errorMsg = 'to many request in last ' . self::TRAFIC_LIMITER . ' seconds from your IP address';
+				return $this->return;
 			}
 		}
 		
 		// write data
-		if(file_put_contents(self::DATA_FOLDER.$this->id, $data, LOCK_EX ) === false) {
-			$return->result = false;
-			$return->errorMsg = 'data could not be written';
-			return $return;
-		}
+		if (!$this->writeData($data)) return $this->return;
 		
-		$return->version = md5($data);
-		$return->result = true;
-		return $return;
+		$this->return->version = md5(json_encode($this->readData()));
+		$this->return->result = true;
+		return $this->return;
 	}
 	
 	protected function getNewId() {
@@ -136,7 +134,60 @@ class DataHandler {
 	}
 	
 	protected function readData() {
-		return file_exists(self::DATA_FOLDER.$this->id) ? file_get_contents(self::DATA_FOLDER.$this->id) : false;
+		// check if must have files exist
+		if (!file_exists(self::DATA_FOLDER.$this->id."/head") OR
+				!file_exists(self::DATA_FOLDER.$this->id."/data")) {
+			return false;
+		}
+		
+		$data = new stdClass();
+		$data->head = file_get_contents(self::DATA_FOLDER.$this->id."/head");
+		$data->data = file_get_contents(self::DATA_FOLDER.$this->id."/data");
+		
+		$data->user = array ();
+		$i = 0;
+		while (true) {
+			if (file_exists(self::DATA_FOLDER.$this->id."/user_".$i)) {
+				$data->user[] = file_get_contents(self::DATA_FOLDER.$this->id."/user_".$i);
+				$i++;
+			}
+			else break;
+		}
+		
+		return $data;
+	}
+	
+	protected function writeData($data) {
+		if (!file_exists(self::DATA_FOLDER.$this->id."/")) {
+			if (!mkdir(self::DATA_FOLDER.$this->id)) {
+				$this->return->result = false;
+				$this->return->errorMsg = 'data could not be written 1';
+				return false;
+			}
+		}
+		
+		$data = json_decode($data);
+		
+		if (!$this->writeDatum('head', json_encode($data->head))) return false;
+		if (!$this->writeDatum('data', $data->data)) return false;
+		
+		$i = 0;
+		foreach ($data->user as $user) {
+			if(!$this->writeDatum('user_'.$i, $user)) return false;
+			$i++;
+		}
+		
+		return true;
+	}
+	
+	protected function writeDatum($typ, $data) {
+		if(file_put_contents(self::DATA_FOLDER.$this->id.'/'.$typ, $data, LOCK_EX) === false) {
+			$this->return->result = false;
+			$this->return->errorMsg = 'data could not be written 2'.$typ;
+			return false;
+		}
+		
+		return true;
 	}
 }
 ?>
