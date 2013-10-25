@@ -20,8 +20,10 @@ function DataHandler () {
 				done(result);
 			}
 			else {
-				console.log ('Api hat einen Fehler gemeldet.');
+				console.log ('Api reported an error.');
 				console.log (result.errorMsg);
+				
+				alert('Could not read requested data!\nerror message: ' + result.errorMsg);
 			}
 		})
 		.fail(function(result) {
@@ -53,8 +55,10 @@ function DataHandler () {
 				done(result);
 			}
 			else {
-				console.log('Api hat einen Fehler gemeldet.');
+				console.log('Api reported an error.');
 				console.log(result.errorMsg);
+				
+				alert('Could not save data:\nerror message: ' + result.errorMsg);
 			}
 		})
 		.fail(function(result) {
