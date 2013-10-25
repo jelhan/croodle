@@ -1,4 +1,7 @@
 <?php
+
+require_once "classes/class.request.php"
+
 class DataHandler {
 	// (string) folder to store data in
 	// webserver has to have write access to this folder
@@ -12,19 +15,19 @@ class DataHandler {
 	// (int) limit request per IP in seconds; no limit if zero
 	const TRAFIC_LIMITER = 30;
 	
-	protected $id;
+	protected $request;
 	protected $return;
-	protected $version;
 	
-	public function __construct($id = '') {
-		if ($id === '') $id = $this->getNewId();
-		$this->id = preg_replace('/[^0-9a-zA-Z]/', '', $id); // remove every char, except allowed
+	public function __construct(Request &$request) {
+		$this->request =& $request;
+		if ($request->id === '') $request->id = $this->getNewId();
+		$request->id = preg_replace('/[^0-9a-zA-Z]/', '', $request->id); // remove every char, except allowed
 		
 		$this->return = new stdClass();
 	}
 	
 	public function _get() {
-		$this->return->id = $this->id;
+		$this->return->id = $this->request->id;
 		
 		$data = $this->readData();
 		if ($data === false) {
@@ -39,12 +42,8 @@ class DataHandler {
 		return $this->return;
 	}
 
-	public function _set($data, $version = '') {
-		$data = (string) $data;
-		$version = (string) $version;
-		
-		$this->return = new stdClass();
-		$this->return->id = $this->id;
+	public function _set() {
+		$this->return->id = $this->request->id;
 		
 		// try to read existing data
 		$data_org = $this->readData();
@@ -135,20 +134,20 @@ class DataHandler {
 	
 	protected function readData() {
 		// check if must have files exist
-		if (!file_exists(self::DATA_FOLDER.$this->id."/head") OR
-				!file_exists(self::DATA_FOLDER.$this->id."/data")) {
+		if (!file_exists(self::DATA_FOLDER.$this->request->id."/head") OR
+				!file_exists(self::DATA_FOLDER.$this->request->id."/data")) {
 			return false;
 		}
 		
 		$data = new stdClass();
-		$data->head = file_get_contents(self::DATA_FOLDER.$this->id."/head");
-		$data->data = file_get_contents(self::DATA_FOLDER.$this->id."/data");
+		$data->head = file_get_contents(self::DATA_FOLDER.$this->request->id."/head");
+		$data->data = file_get_contents(self::DATA_FOLDER.$this->request->id."/data");
 		
 		$data->user = array ();
 		$i = 0;
 		while (true) {
-			if (file_exists(self::DATA_FOLDER.$this->id."/user_".$i)) {
-				$data->user[] = file_get_contents(self::DATA_FOLDER.$this->id."/user_".$i);
+			if (file_exists(self::DATA_FOLDER.$this->request->id."/user_".$i)) {
+				$data->user[] = file_get_contents(self::DATA_FOLDER.$this->request->id."/user_".$i);
 				$i++;
 			}
 			else break;
@@ -158,8 +157,8 @@ class DataHandler {
 	}
 	
 	protected function writeData($data) {
-		if (!file_exists(self::DATA_FOLDER.$this->id."/")) {
-			if (!mkdir(self::DATA_FOLDER.$this->id)) {
+		if (!file_exists(self::DATA_FOLDER.$this->request->id."/")) {
+			if (!mkdir(self::DATA_FOLDER.$this->request->id)) {
 				$this->return->result = false;
 				$this->return->errorMsg = 'data could not be written 1';
 				return false;
@@ -181,9 +180,9 @@ class DataHandler {
 	}
 	
 	protected function writeDatum($typ, $data) {
-		if(file_put_contents(self::DATA_FOLDER.$this->id.'/'.$typ, $data, LOCK_EX) === false) {
+		if(file_put_contents(self::DATA_FOLDER.$this->request->id.'/'.$typ, $data, LOCK_EX) === false) {
 			$this->return->result = false;
-			$this->return->errorMsg = 'data could not be written 2'.$typ;
+			$this->return->errorMsg = 'data could not be written to '.$typ;
 			return false;
 		}
 		
