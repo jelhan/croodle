@@ -15,17 +15,17 @@
 	<div id="content"></div>
 	
 	<script type="text/html" id="Schedule_template">
-		<h1 id="title">{{title}}</h1>
-		<p id="description">{{description}}</p>
+		<h1 id="title">{{data.title}}</h1>
+		<p id="description">{{data.description}}</p>
 		
 		<form id="addUserForm">
 			<table id="choices">
 				<thead id="options">
 					<tr>
 						<td class="option option-name">User</td>
-						{{#options}}
+						{{#data.options}}
 							<td class="option">{{.}}</td>
-						{{/options}}
+						{{/data.options}}
 						<td></td>
 					</tr>
 				</thead>
@@ -35,9 +35,9 @@
 					{{/user}}
 					<tr id="addUser">
 						<td><input type="text" name="name"/></td>
-						{{#options}}
+						{{#data.options}}
 							<td><input type="text" name="selections[]"/></td>
-						{{/options}}
+						{{/data.options}}
 						<td><input type="submit" id="addUserFormSubmit" value="save"/></td>
 					</tr>
 				</tbody>
