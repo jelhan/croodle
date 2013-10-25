@@ -12,9 +12,9 @@ class DataHandler {
 	// (int) limit request per IP in seconds; no limit if zero
 	const TRAFIC_LIMITER = 30;
 	
-	protected $id;
-	protected $return;
-	protected $version;
+	protected $id = ''; // stores identifier for data
+	protected $return;	// stores object returned by class
+	protected $version = ''; // stores version of data
 	
 	public function __construct($id = '') {
 		if ($id === '') $id = $this->getNewId();
