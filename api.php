@@ -1,5 +1,5 @@
 <?php
-require_once "classes/class.request.php"
+require_once "classes/class.request.php";
 require_once "classes/class.datahandler.php";
 
 if (isset($_REQUEST['action'])) {
