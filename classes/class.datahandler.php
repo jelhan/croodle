@@ -1,6 +1,6 @@
 <?php
 
-require_once "classes/class.request.php"
+require_once "classes/class.request.php";
 
 class DataHandler {
 	// (string) folder to store data in
@@ -49,7 +49,7 @@ class DataHandler {
 		$data_org = $this->readData();
 		if ($data_org !== false) {
 			// check if version is out of date
-			if (md5(json_encode($data_org)) !== $version) {
+			if (md5(json_encode($data_org)) !== $this->request->version) {
 				$this->return->result = false;
 				$this->return->errorMsg = 'used version is out of date';
 				return $this->return;
@@ -65,7 +65,7 @@ class DataHandler {
 		}
 		
 		// write data
-		if (!$this->writeData($data)) return $this->return;
+		if (!$this->writeData($this->request->data)) return $this->return;
 		
 		$this->return->version = md5(json_encode($this->readData()));
 		$this->return->result = true;
