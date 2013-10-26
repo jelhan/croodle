@@ -11,12 +11,19 @@ function DataHandler () {
 		})
 		.done(function(result) {
 			if (result.result === true) {
-				result.data = JSON.parse(sjcl.decrypt($(location).attr('hash').substring(1), result.data));
+				result.data.data = JSON.parse(sjcl.decrypt($(location).attr('hash').substring(1), result.data.data));
+				
+				for (i = 0; i < result.data.user.length; i++) {
+					result.data.user[i] = JSON.parse(sjcl.decrypt($(location).attr('hash').substring(1), result.data.user[i]));
+				}
+				
 				done(result);
 			}
 			else {
-				console.log ('Api hat einen Fehler gemeldet.');
+				console.log ('Api reported an error.');
 				console.log (result.errorMsg);
+				
+				alert('Could not read requested data!\nerror message: ' + result.errorMsg);
 			}
 		})
 		.fail(function(result) {
@@ -25,6 +32,13 @@ function DataHandler () {
 	};
 	
 	this.write = function (id, version, data, done, fail) {
+		crypt_data = jQuery.extend(true, {}, data);
+		
+		crypt_data.data = sjcl.encrypt($(location).attr('hash').substring(1), JSON.stringify(data.data));
+		for (i = 0; i < data.user.length; i++) {
+			crypt_data.user[i] = sjcl.encrypt($(location).attr('hash').substring(1), JSON.stringify(data.user[i]));
+		}
+		
 		$.ajax({
 			url: 'api.php',
 			type: 'POST',
@@ -33,7 +47,7 @@ function DataHandler () {
 				id: id,
 				action: 'set',
 				version: version,
-				data: sjcl.encrypt($(location).attr('hash').substring(1), JSON.stringify(data))
+				data: JSON.stringify(crypt_data)
 			}
 		})
 		.done(function(result) {
@@ -41,12 +55,14 @@ function DataHandler () {
 				done(result);
 			}
 			else {
-				console.log('Api hat einen Fehler gemeldet.');
+				console.log('Api reported an error.');
 				console.log(result.errorMsg);
+				
+				alert('Could not save data:\nerror message: ' + result.errorMsg);
 			}
 		})
 		.fail(function(result) {
-			fail(result)
+			fail(result);
 		});
 	};
 };
@@ -86,7 +102,7 @@ function Schedule (id) {
 	
 	this.Save = function() {
 		datahandler = new DataHandler();
-		datahandler.write(self.id, self.version, self.data, this.Saved, this.Failed)
+		datahandler.write(self.id, self.version, self.data, this.Saved, this.Failed);
 	};
 	
 	this.Saved = function(result) {
@@ -101,8 +117,6 @@ function Schedule (id) {
 	function AddUser() {;
 		new_user = AddUserGetDataByForm();
 		self.data.user.push(new_user);
-		
-		console.log(self.data);
 		
 		self.Save();
 		$('#userlist #addUser').mustache('ScheduleUserlistUser_template', new_user, { method: 'before' });
@@ -253,7 +267,7 @@ function ScheduleAdd(type) {
 		new_schedule = CreateScheduleGetDataByForm();
 		
 		// check for atleast two options
-		if (new_schedule.options.length < 2) {
+		if (new_schedule.data.options.length < 2) {
 			alert ('You have to add at least two options / dates.');
 			return false; // prevent form to be submitted
 		}
@@ -268,19 +282,21 @@ function ScheduleAdd(type) {
 	function CreateScheduleGetDataByForm() {
 		form = $('#addScheduleForm').serializeArray();
 		new_schedule = {};
-		new_schedule.options = [];
+		new_schedule.head = {};
+		new_schedule.data = {};
+		new_schedule.data.options = [];
 		$.each(form, function(key, value){
 			switch (value.name) {
 				case 'title':
-					new_schedule.title = value.value;
+					new_schedule.data.title = value.value;
 					break;
 				
 				case 'description':
-					new_schedule.description = value.value;
+					new_schedule.data.description = value.value;
 					break;
 					
 				case 'option':
-					if (value.value !== '') { new_schedule.options.push(value.value); }
+					if (value.value !== '') { new_schedule.data.options.push(value.value); }
 					break;
 			}
 		});
@@ -358,7 +374,7 @@ function Startpage() {
 $.Mustache.addFromDom();
 
 id = $(location).attr('search').substring(1);
-password = $(location).attr('hash').substring(1)
+password = $(location).attr('hash').substring(1);
 if (id !== '' && password !== '') {
 	// show existing schedule
 	schedule = new Schedule(id);
