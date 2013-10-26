@@ -167,11 +167,11 @@ class DataHandler {
 		
 		$data = json_decode($data);
 		
-		if (!$this->writeDatum('head', json_encode($data->head))) return false;
-		if (!$this->writeDatum('data', $data->data)) return false;
+		if (!$this->writeDatum('head', json_encode($this->request->data->head))) return false;
+		if (!$this->writeDatum('data', $this->request->data->data->data)) return false;
 		
 		$i = 0;
-		foreach ($data->user as $user) {
+		foreach ($this->request->data->user as $user) {
 			if(!$this->writeDatum('user_'.$i, $user)) return false;
 			$i++;
 		}
