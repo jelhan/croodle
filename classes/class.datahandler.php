@@ -165,8 +165,6 @@ class DataHandler {
 			}
 		}
 		
-		$data = json_decode($data);
-		
 		if (!$this->writeDatum('head', json_encode($data->head))) return false;
 		if (!$this->writeDatum('data', $data->data)) return false;
 		

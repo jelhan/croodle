@@ -1,4 +1,5 @@
 <?php
+
 require_once "classes/class.request.php";
 require_once "classes/class.datahandler.php";
 
@@ -23,7 +24,7 @@ if (isset($_REQUEST['action'])) {
 			$request = new Request();
 			$request->id = (isset($_POST['id'])) ? (string) $_POST['id'] : '';
 			$request->version = (isset($_POST['version'])) ? (string) $_POST['version'] : '';
-			$request->data = (string) $_POST['data'];
+			$request->data = (string) $_POST["data"];
 			
 			$datahandler = new DataHandler($request);
 			echo json_encode($datahandler->_set());
