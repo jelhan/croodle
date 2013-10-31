@@ -10,7 +10,7 @@ class Data {
 	}
 	
 	public function __get($name) {
-		if (!isset($this->$name)) return false; // ToDo: throw exception
+		if (!isset($this->$name)) return null; // ToDo: throw exception
 		return $this->$name;
 	}
 	

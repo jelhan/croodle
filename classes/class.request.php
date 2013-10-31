@@ -12,11 +12,13 @@ class Request {
 	}
 	
 	public function __get($name) {
-		if (!isset($this->$name)) return false; // ToDo: throw exception
+		if (!isset($this->$name)) return null; // ToDo: throw exception
 		return $this->$name;
 	}
 	
 	public function __set($name, $value) {
+		if (!isset($this->$name)) return;
+		
 		switch ($name) {
 			case 'data':
 				$data = json_decode($value);

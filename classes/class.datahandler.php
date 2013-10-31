@@ -16,60 +16,61 @@ class DataHandler {
 	const TRAFIC_LIMITER = 30;
 	
 	protected $request;
-	protected $return;
+	protected $result;
 	
-	public function __construct(Request &$request) {
+	public function __construct(Request &$request, Result &$result) {
 		$this->request =& $request;
 		if ($request->id === '') $request->id = $this->getNewId();
 		$request->id = preg_replace('/[^0-9a-zA-Z]/', '', $request->id); // remove every char, except allowed
 		
-		$this->return = new stdClass();
+		$this->result =& $result;
 	}
 	
 	public function _get() {
-		$this->return->id = $this->request->id;
+		$this->result->id = $this->request->id;
 		
 		$data = $this->readData();
 		if ($data === false) {
-			$this->return->result = false;
-			$this->return->errorMsg = 'there is no data with this identifier or data could not be read';
-			return $this->return;
+			$this->result->result = false;
+			$this->result->errorMsg = 'there is no data with this identifier or data could not be read';
+			return false;
 		}
 		
-		$this->return->result = true;
-		$this->return->version = md5(json_encode($data));
-		$this->return->data = $data;
-		return $this->return;
+		$this->result->result = true;
+		$this->result->version = md5(json_encode($data));
+		$this->result->data = $data;
+		return true;
 	}
 
 	public function _set() {
-		$this->return->id = $this->request->id;
+		$this->result->id = $this->request->id;
 		
 		// try to read existing data
 		$data_org = $this->readData();
 		if ($data_org !== false) {
 			// check if version is out of date
 			if (md5(json_encode($data_org)) !== $this->request->version) {
-				$this->return->result = false;
-				$this->return->errorMsg = 'used version is out of date';
-				return $this->return;
+				$this->result->result = false;
+				$this->result->errorMsg = 'used version is out of date';
+				return false;
 			}
 		}
 		else {
 			// check traficLimiter
 			if (!$this->traficLimiterCanPass()) {
-				$this->return->result = false;
-				$this->return->errorMsg = 'to many request in last ' . self::TRAFIC_LIMITER . ' seconds from your IP address';
-				return $this->return;
+				$this->result->result = false;
+				$this->result->errorMsg = 'to many request in last ' . self::TRAFIC_LIMITER . ' seconds from your IP address';
+				return false;
 			}
 		}
 		
 		// write data
-		if (!$this->writeData($this->request->data)) return $this->return;
+		if (!$this->writeData($this->request->data)) return $this->result;
 		
-		$this->return->version = md5(json_encode($this->readData()));
-		$this->return->result = true;
-		return $this->return;
+		$this->result->version = md5(json_encode($this->readData()));
+		$this->result->result = true;
+		
+		return true;
 	}
 	
 	protected function getNewId() {
@@ -159,8 +160,8 @@ class DataHandler {
 	protected function writeData($data) {
 		if (!file_exists(self::DATA_FOLDER.$this->request->id."/")) {
 			if (!mkdir(self::DATA_FOLDER.$this->request->id)) {
-				$this->return->result = false;
-				$this->return->errorMsg = 'data could not be written 1';
+				$this->result->result = false;
+				$this->result->errorMsg = 'data could not be written 1';
 				return false;
 			}
 		}
@@ -179,8 +180,8 @@ class DataHandler {
 	
 	protected function writeDatum($typ, $data) {
 		if(file_put_contents(self::DATA_FOLDER.$this->request->id.'/'.$typ, $data, LOCK_EX) === false) {
-			$this->return->result = false;
-			$this->return->errorMsg = 'data could not be written to '.$typ;
+			$this->result->result = false;
+			$this->result->errorMsg = 'data could not be written to '.$typ;
 			return false;
 		}
 		

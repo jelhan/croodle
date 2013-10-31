@@ -1,6 +1,7 @@
 <?php
 
 require_once "classes/class.request.php";
+require_once "classes/class.result.php";
 require_once "classes/class.datahandler.php";
 
 if (isset($_REQUEST['action'])) {
@@ -13,8 +14,12 @@ if (isset($_REQUEST['action'])) {
 			$request = new Request();
 			$request->id = (string) $_GET['id'];
 			
-			$datahandler = new DataHandler($request);
-			echo json_encode($datahandler->_get());
+			$result = new Result();
+			
+			$datahandler = new DataHandler($request, $result);
+			$datahandler->_get();
+			
+			echo $result;
 			break;
 		
 		// write new data or update existing data	
@@ -26,8 +31,12 @@ if (isset($_REQUEST['action'])) {
 			$request->version = (isset($_POST['version'])) ? (string) $_POST['version'] : '';
 			$request->data = (string) $_POST["data"];
 			
-			$datahandler = new DataHandler($request);
-			echo json_encode($datahandler->_set());
+			$result = new Result();
+			
+			$datahandler = new DataHandler($request, $result);
+			$datahandler->_set();
+			
+			echo $result;
 			break;
 	}
 }
