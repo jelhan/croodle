@@ -14,7 +14,7 @@
 <body>
 	<div id="content"></div>
 	
-	<script type="text/html" id="Schedule_template">
+	<script type="text/html" id="Poll_template">
 		<h1 id="title">{{data.title}}</h1>
 		<p id="description">{{data.description}}</p>
 		
@@ -31,7 +31,7 @@
 				</thead>
 				<tbody id="userlist">
 					{{#user}}
-						{{>ScheduleUserlistUser_template}}
+						{{>PollUserlistUser_template}}
 					{{/user}}
 					<tr id="addUser">
 						<td><input type="text" name="name"/></td>
@@ -45,7 +45,7 @@
 		</form>
 	</script>
 	
-	<script type="text/html" id="ScheduleUserlistUser_template">
+	<script type="text/html" id="PollUserlistUser_template">
 		<tr class="user">
 			<td>{{name}}</td>
 			{{#selection}}
@@ -54,9 +54,9 @@
 		</tr>
 	</script>
 	
-	<script type="text/html" id="ScheduleAdd_template">
+	<script type="text/html" id="PollAdd_template">
 		<h1>Create new poll</h1>
-		<form id="addScheduleForm">
+		<form id="addPollForm">
 			<p>Title:  <input type="text" name="title" /></p>
 			<p>Description: <br/>
 				<textarea name="description" /></p>
@@ -66,30 +66,30 @@
 			<div id="moreOptionsButton"></div>
 			<div id="calender"></div>
 			<div id="times"></div>
-			<p><input type="submit" id="addScheduleSubmit" value="create" /></p>
+			<p><input type="submit" id="addPollSubmit" value="create" /></p>
 		</form>
 	</script>
 	
-	<script type="text/html" id="ScheduleAddOption_template">
+	<script type="text/html" id="PollAddOption_template">
 		<input type="text" name="option" class="option" value="{{value}}"/>
 	</script>
 	
-	<script type="text/html" id="ScheduleAddOptionAddButton_template">
-		<p><input type="button" id="addScheduleAddOption" value="more options" /></p>
+	<script type="text/html" id="PollAddOptionAddButton_template">
+		<p><input type="button" id="addPollAddOption" value="more options" /></p>
 	</script>
 	
-	<script type="text/html" id="ScheduleAddCalender_template">
+	<script type="text/html" id="PollAddCalender_template">
 		<div id="calenderDatePick"></div>
 		<button id="setTimesButton">define times</button>
 	</script>
 	
-	<script type="text/html" id="ScheduleAddTimes_template">
+	<script type="text/html" id="PollAddTimes_template">
 		<h2>Define times for your dates</h2>
 		<table id='timestable'>
 			<thead>
 				<tr>
 					{{#identifier}}
-						{{>ScheduleAddTimesTimeHead_template}}
+						{{>PollAddTimesTimeHead_template}}
 					{{/identifier}}
 				</tr>
 			</thead>
@@ -98,7 +98,7 @@
 					<tr>
 						<td class="date">{{date}}</td>
 						{{#values}}
-							{{>ScheduleAddTimesTimeBody_template}}
+							{{>PollAddTimesTimeBody_template}}
 						{{/values}}
 					</tr>
 				{{/dates}}
@@ -108,11 +108,11 @@
 		<button id="timesCopyTimelineButton">copy first line</button>
 	</script>
 	
-	<script type="text/html" id="ScheduleAddTimesTimeHead_template">
+	<script type="text/html" id="PollAddTimesTimeHead_template">
 		<td>{{value}}</td>
 	</script>
 	
-	<script type="text/html" id="ScheduleAddTimesTimeBody_template">
+	<script type="text/html" id="PollAddTimesTimeBody_template">
 		<td><input type="time" name="datetime" data-date="{{date}}" value="{{value}}" class="datetime" /></td>
 	</script>
 	

@@ -67,7 +67,7 @@ DataHandler = function () {
 	};
 };
 
-Schedule = function (id) {
+Poll = function (id) {
 	// config
 	this.passwordLength = 40;
 	this.passwordChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -119,7 +119,7 @@ Schedule = function (id) {
 		self.data.user.push(new_user);
 		
 		self.Save();
-		$('#userlist #addUser').mustache('ScheduleUserlistUser_template', new_user, { method: 'before' });
+		$('#userlist #addUser').mustache('PollUserlistUser_template', new_user, { method: 'before' });
 		$('#addUserForm')[0].reset();
 		
 		return false; // prevent form to be submitted
@@ -154,12 +154,12 @@ Schedule = function (id) {
 	}
 	
 	function Print() {
-		$('#content').mustache('Schedule_template', self.data, { method: 'html' });		
+		$('#content').mustache('Poll_template', self.data, { method: 'html' });		
 		$('#addUserForm').bind('submit', AddUser);
 	};
 };
 
-ScheduleAdd = function (type) {
+PollAdd = function (type) {
 	self = this;
 	this.type = type;
 	this.setTimes = false;
@@ -179,7 +179,7 @@ ScheduleAdd = function (type) {
 		
 		// generate new options
 		for (var i = 0; i < dates_formated.length; i++) {
-			$('#options').mustache('ScheduleAddOption_template', { value: dates_formated[i] });
+			$('#options').mustache('PollAddOption_template', { value: dates_formated[i] });
 		}
 		
 		// generate new times table
@@ -187,13 +187,13 @@ ScheduleAdd = function (type) {
 	};
 	
 	this.init = function () {
-		$('#content').mustache('ScheduleAdd_template', {}, { method: 'html' });
+		$('#content').mustache('PollAdd_template', {}, { method: 'html' });
 		
-		$('#addScheduleForm').bind('submit', CreateSchedule);
+		$('#addPollForm').bind('submit', CreatePoll);
 		
 		switch (self.type) {
 			case 'date':
-				$('#calender').mustache('ScheduleAddCalender_template', {});
+				$('#calender').mustache('PollAddCalender_template', {});
 				$('#calenderDatePick').datepick({
 					multiSelect: 999,
 					monthsToShow: 2,
@@ -205,25 +205,25 @@ ScheduleAdd = function (type) {
 			
 			case 'poll':
 				// add 2 option input fields on init
-				$('#options').mustache('ScheduleAddOption_template', {});
-				$('#options').mustache('ScheduleAddOption_template', {});
+				$('#options').mustache('PollAddOption_template', {});
+				$('#options').mustache('PollAddOption_template', {});
 				
 				// add button for adding another option input field
-				$('#moreOptionsButton').mustache('ScheduleAddOptionAddButton_template', {});
-				$('#addScheduleAddOption').bind('click', ButtonAddOption);
+				$('#moreOptionsButton').mustache('PollAddOptionAddButton_template', {});
+				$('#addPollAddOption').bind('click', ButtonAddOption);
 				break;
 		};
 	};
 	
 	function ButtonAddOption() {
-		$('#options').mustache('ScheduleAddOption_template', {});
+		$('#options').mustache('PollAddOption_template', {});
 		return false; // prevent form to be submited
 	}
 	
 	function ButtonAddTime() {
-		$('#timestable thead tr').mustache('ScheduleAddTimesTimeHead_template', {value: 'Zeit'});
+		$('#timestable thead tr').mustache('PollAddTimesTimeHead_template', {value: 'Zeit'});
 		$('#timestable tbody tr').map(function() {
-			$(this).mustache('ScheduleAddTimesTimeBody_template', { date: $(this).children('.date').text(), value: '' });
+			$(this).mustache('PollAddTimesTimeBody_template', { date: $(this).children('.date').text(), value: '' });
 		});
 		return false; // prevent form to be submited
 	}
@@ -250,7 +250,7 @@ ScheduleAdd = function (type) {
 		$('.datetime').map(function() {
 			if ($(this).val() !== '') {
 				// add option with datetime
-				$('#options').mustache('ScheduleAddOption_template', { value: $(this).attr('data-date') + " " + $(this).val() });
+				$('#options').mustache('PollAddOption_template', { value: $(this).attr('data-date') + " " + $(this).val() });
 			}
 		});
 	}
@@ -263,45 +263,45 @@ ScheduleAdd = function (type) {
 		return dates_formated;
 	}
 	
-	function CreateSchedule() {
-		new_schedule = CreateScheduleGetDataByForm();
+	function CreatePoll() {
+		new_poll = CreatePollGetDataByForm();
 		
 		// check for atleast two options
-		if (new_schedule.data.options.length < 2) {
+		if (new_poll.data.options.length < 2) {
 			alert ('You have to add at least two options / dates.');
 			return false; // prevent form to be submitted
 		}
 		
-		// create new schedule
-		schedule = new Schedule('');
-		schedule.Create(new_schedule);
+		// create new poll
+		poll = new Poll('');
+		poll.Create(new_poll);
 		
 		return false; // prevent form to be submitted
 	}
 	
-	function CreateScheduleGetDataByForm() {
-		form = $('#addScheduleForm').serializeArray();
-		new_schedule = {};
-		new_schedule.head = {};
-		new_schedule.data = {};
-		new_schedule.data.options = [];
+	function CreatePollGetDataByForm() {
+		form = $('#addPollForm').serializeArray();
+		new_poll = {};
+		new_poll.head = {};
+		new_poll.data = {};
+		new_poll.data.options = [];
 		$.each(form, function(key, value){
 			switch (value.name) {
 				case 'title':
-					new_schedule.data.title = value.value;
+					new_poll.data.title = value.value;
 					break;
 				
 				case 'description':
-					new_schedule.data.description = value.value;
+					new_poll.data.description = value.value;
 					break;
 					
 				case 'option':
-					if (value.value !== '') { new_schedule.data.options.push(value.value); }
+					if (value.value !== '') { new_poll.data.options.push(value.value); }
 					break;
 			}
 		});
-		new_schedule.user = [];
-		return new_schedule;
+		new_poll.user = [];
+		return new_poll;
 	}
 	
 	function GenerateTimesTable(dates_formated) {
@@ -342,7 +342,7 @@ ScheduleAdd = function (type) {
 		}
 		
 		// generate new table
-		$('#times').mustache('ScheduleAddTimes_template', { identifier: identifier, dates: dates_values }, { method: 'html'});
+		$('#times').mustache('PollAddTimes_template', { identifier: identifier, dates: dates_values }, { method: 'html'});
 		$('#timesMoreButton').bind('click', ButtonAddTime);
 		$('#timesCopyTimelineButton').bind('click', ButtonCopyTimeline);
 		$('.datetime').bind('change', ChangeDateTime);
@@ -352,21 +352,21 @@ ScheduleAdd = function (type) {
 function Startpage() {
 	this.init = function() {
 		$('#content').mustache('Startpage_template', {}, { method: 'html' });
-		$('#FindADate-Button').bind('click', CreateNewScheduleDate);
-		$('#MakeAPoll-Button').bind('click', CreateNewSchedulePoll);
+		$('#FindADate-Button').bind('click', CreateNewPollDate);
+		$('#MakeAPoll-Button').bind('click', CreateNewPollPoll);
 	};
 	
-	function CreateNewSchedule(type) {
-		schedule_add = new ScheduleAdd(type);
-		schedule_add.init();
+	function CreateNewPoll(type) {
+		poll_add = new PollAdd(type);
+		poll_add.init();
 	};
 	
-	function CreateNewScheduleDate() {
-		CreateNewSchedule('date');
+	function CreateNewPollDate() {
+		CreateNewPoll('date');
 	}
 	
-	function CreateNewSchedulePoll() {
-		CreateNewSchedule('poll');
+	function CreateNewPollPoll() {
+		CreateNewPoll('poll');
 	}
 };
 
@@ -376,10 +376,10 @@ $.Mustache.addFromDom();
 id = $(location).attr('search').substring(1);
 password = $(location).attr('hash').substring(1);
 if (id !== '' && password !== '') {
-	// show existing schedule
-	schedule = new Schedule(id);
-	schedule.Load();
-	console.log(schedule);
+	// show existing poll
+	poll = new Poll(id);
+	poll.Load();
+	console.log(poll);
 }
 else {
 	page = new Startpage();
