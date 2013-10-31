@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>pure</title>
+	<title>Croodle</title>
 	<script src="js/sjcl.js"></script>
 	<script src="js/mustache.js"></script>
 	<script src="js/jquery.js"></script>
@@ -35,7 +35,18 @@
 				<tr id="addUser">
 					<td><input type="text" name="name" id="addUserName"/></td>
 					{{#data.options}}
-						<td><input type="text" name="selections[]" class="selection"/></td>
+						<td>
+							{{#data.answers.0}}
+								<select class="selection">
+									{{#data.answers}}
+										<option>{{.}}</option>
+									{{/data.answers}}
+								</select>
+							{{/data.answers.0}}
+							{{^data.answers}}
+								<input type="text" name="selections[]" class="selection"/>
+							{{/data.answers}}
+						</td>
 					{{/data.options}}
 					<td><button id="addUserSave">save</button></td>
 				</tr>
@@ -55,9 +66,15 @@
 	<script type="text/html" id="PollAdd_template">
 		<h1>Create new poll</h1>
 		<div id="addPoll">
-			<p>Title:  <input id="addPollTitle" type="text" name="title" /></p>
+			<p>Title:  <input id="addPollTitle" type="text" /></p>
 			<p>Description: <br/>
-				<textarea id="addPollDescription" name="description" /></p>
+				<textarea id="addPollDescription" /></p>
+			<p>Answertype:
+				<select id="addPollAnswertype">
+					<option value="YesNo">YesNo</option>
+					<option value="YesNoMaybe">YesNoMaybe</option>
+					<option value="Text">Text</option>
+				</select>
 			<p id="options">
 				Options: <br/>
 			</p>

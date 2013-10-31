@@ -285,6 +285,19 @@ PollAdd = function (type) {
 		new_poll.data.options = [];
 		new_poll.data.title = $('#addPollTitle').val();
 		new_poll.data.description = $('#addPollDescription').val();
+		switch ($('#addPollAnswertype').val()) {
+			case 'YesNo':
+				new_poll.data.answers = ['yes', 'no'];
+				break;
+				
+			case 'YesNoMaybe':
+				new_poll.data.answers = ['yes', 'maybe', 'no'];
+				break;
+				
+			case 'Text':
+				new_poll.data.answers = [];
+				break;
+		}
 		$.each($('#addPoll .option'), function(key, value){
 			if (value.value !== '') { new_poll.data.options.push(value.value); }
 		});
@@ -367,7 +380,6 @@ if (id !== '' && password !== '') {
 	// show existing poll
 	poll = new Poll(id);
 	poll.Load();
-	console.log(poll);
 }
 else {
 	page = new Startpage();
