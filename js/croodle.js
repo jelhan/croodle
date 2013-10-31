@@ -115,7 +115,7 @@ Poll = function (id) {
 	};
 	
 	function AddUser() {;
-		new_user = AddUserGetDataByForm();
+		new_user = AddUserGetData();
 		self.data.user.push(new_user);
 		
 		self.Save();
@@ -125,7 +125,7 @@ Poll = function (id) {
 		return false; // prevent form to be submitted
 	};
 	
-	function AddUserGetDataByForm() {
+	function AddUserGetData() {
 		new_user = {};
 		new_user.name = $('#addUserName').val();
 		new_user.selection = [];
@@ -263,7 +263,7 @@ PollAdd = function (type) {
 	}
 	
 	function CreatePoll() {
-		new_poll = CreatePollGetDataByForm();
+		new_poll = CreatePollGetData();
 		
 		// check for atleast two options
 		if (new_poll.data.options.length < 2) {
@@ -278,7 +278,7 @@ PollAdd = function (type) {
 		return false; // prevent form to be submitted
 	}
 	
-	function CreatePollGetDataByForm() {
+	function CreatePollGetData() {
 		new_poll = {};
 		new_poll.head = {};
 		new_poll.data = {};
