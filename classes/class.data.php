@@ -1,32 +1,31 @@
 <?php
 
 class Data {
-	protected $container;
+	protected $head;
+	protected $data = '';
+	protected $user = array();
 	
 	public function __construct() {
-		$this->container = new stdClass();
-		$this->container->head = new stdClass();
-		$this->container->data = '';
-		$this->container->user = array();
+		$this->head = new stdClass();
 	}
 	
 	public function __get($name) {
-		if (!isset($name)) return false;
-		return $this->container->$name;
+		if (!isset($this->$name)) return false; // ToDo: throw exception
+		return $this->$name;
 	}
 	
 	public function __set($name, $value) {
 		switch ($name) {
 			case 'head':
-				if (is_object($value)) $this->container->head = $value;
+				if (is_object($value)) $this->head = $value;
 				break;
 				
 			case 'data':
-				if ($this->is_encrypted($value)) $this->container->data = $value;
+				if ($this->is_encrypted($value)) $this->data = $value;
 				break;
 				
 			case 'user':
-				if (is_array($value)) $this->container->user = $value;
+				if (is_array($value)) $this->user = $value;
 				break;
 		}
 	}

@@ -3,18 +3,17 @@
 require_once "class.data.php";
 
 class Request {
-	
-	protected $container;
+	protected $id = '';
+	protected $version = '';
+	protected $data;
 	
 	public function __construct() {
-		$this->container = new stdClass();
-		$this->container->id = '';
-		$this->container->version = '';
-		$this->container->data = new Data();
+		$this->data = new Data();
 	}
 	
 	public function __get($name) {
-		return $this->container->$name;
+		if (!isset($this->$name)) return false; // ToDo: throw exception
+		return $this->$name;
 	}
 	
 	public function __set($name, $value) {
@@ -22,12 +21,12 @@ class Request {
 			case 'data':
 				$data = json_decode($value);
 				foreach ($data as $p => $v) {
-					$this->container->data->$p = $v;
+					$this->data->$p = $v;
 				}
 				break;
 				
 			default:
-				$this->container->$name = (string) $value;
+				$this->$name = (string) $value;
 		}
 	}
 }
