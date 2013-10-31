@@ -18,31 +18,29 @@
 		<h1 id="title">{{data.title}}</h1>
 		<p id="description">{{data.description}}</p>
 		
-		<form id="addUserForm">
-			<table id="choices">
-				<thead id="options">
-					<tr>
-						<td class="option option-name">User</td>
-						{{#data.options}}
-							<td class="option">{{.}}</td>
-						{{/data.options}}
-						<td></td>
-					</tr>
-				</thead>
-				<tbody id="userlist">
-					{{#user}}
-						{{>PollUserlistUser_template}}
-					{{/user}}
-					<tr id="addUser">
-						<td><input type="text" name="name"/></td>
-						{{#data.options}}
-							<td><input type="text" name="selections[]"/></td>
-						{{/data.options}}
-						<td><input type="submit" id="addUserFormSubmit" value="save"/></td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
+		<table id="choices">
+			<thead id="options">
+				<tr>
+					<td class="option option-name">User</td>
+					{{#data.options}}
+						<td class="option">{{.}}</td>
+					{{/data.options}}
+					<td></td>
+				</tr>
+			</thead>
+			<tbody id="userlist">
+				{{#user}}
+					{{>PollUserlistUser_template}}
+				{{/user}}
+				<tr id="addUser">
+					<td><input type="text" name="name" id="addUserName"/></td>
+					{{#data.options}}
+						<td><input type="text" name="selections[]" class="selection"/></td>
+					{{/data.options}}
+					<td><button id="addUserSave">save</button></td>
+				</tr>
+			</tbody>
+		</table>
 	</script>
 	
 	<script type="text/html" id="PollUserlistUser_template">
@@ -56,18 +54,18 @@
 	
 	<script type="text/html" id="PollAdd_template">
 		<h1>Create new poll</h1>
-		<form id="addPollForm">
-			<p>Title:  <input type="text" name="title" /></p>
+		<div id="addPoll">
+			<p>Title:  <input id="addPollTitle" type="text" name="title" /></p>
 			<p>Description: <br/>
-				<textarea name="description" /></p>
+				<textarea id="addPollDescription" name="description" /></p>
 			<p id="options">
 				Options: <br/>
 			</p>
 			<div id="moreOptionsButton"></div>
 			<div id="calender"></div>
 			<div id="times"></div>
-			<p><input type="submit" id="addPollSubmit" value="create" /></p>
-		</form>
+			<p><button id="addPollSave">create</button></p>
+		</div>
 	</script>
 	
 	<script type="text/html" id="PollAddOption_template">

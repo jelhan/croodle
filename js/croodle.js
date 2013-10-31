@@ -120,18 +120,17 @@ Poll = function (id) {
 		
 		self.Save();
 		$('#userlist #addUser').mustache('PollUserlistUser_template', new_user, { method: 'before' });
-		$('#addUserForm')[0].reset();
+		$('#addUser input').val('');
 		
 		return false; // prevent form to be submitted
 	};
 	
 	function AddUserGetDataByForm() {
-		form = $('#addUserForm').serializeArray();
 		new_user = {};
+		new_user.name = $('#addUserName').val();
 		new_user.selection = [];
-		$.each(form, function(key, value){
-			if (value.name === 'name') { new_user.name = value.value; }
-			else { new_user.selection.push(value.value); }
+		$.each($('#addUser .selection'), function(key, value) {
+			new_user.selection.push(value.value);
 		});
 		return new_user;
 	}
@@ -155,7 +154,7 @@ Poll = function (id) {
 	
 	function Print() {
 		$('#content').mustache('Poll_template', self.data, { method: 'html' });		
-		$('#addUserForm').bind('submit', AddUser);
+		$('#addUser #addUserSave').bind('click', AddUser);
 	};
 };
 
@@ -189,7 +188,7 @@ PollAdd = function (type) {
 	this.init = function () {
 		$('#content').mustache('PollAdd_template', {}, { method: 'html' });
 		
-		$('#addPollForm').bind('submit', CreatePoll);
+		$('#addPollSave').bind('click', CreatePoll);
 		
 		switch (self.type) {
 			case 'date':
@@ -280,25 +279,14 @@ PollAdd = function (type) {
 	}
 	
 	function CreatePollGetDataByForm() {
-		form = $('#addPollForm').serializeArray();
 		new_poll = {};
 		new_poll.head = {};
 		new_poll.data = {};
 		new_poll.data.options = [];
-		$.each(form, function(key, value){
-			switch (value.name) {
-				case 'title':
-					new_poll.data.title = value.value;
-					break;
-				
-				case 'description':
-					new_poll.data.description = value.value;
-					break;
-					
-				case 'option':
-					if (value.value !== '') { new_poll.data.options.push(value.value); }
-					break;
-			}
+		new_poll.data.title = $('#addPollTitle').val();
+		new_poll.data.description = $('#addPollDescription').val();
+		$.each($('#addPoll .option'), function(key, value){
+			if (value.value !== '') { new_poll.data.options.push(value.value); }
 		});
 		new_poll.user = [];
 		return new_poll;
