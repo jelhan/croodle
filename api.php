@@ -19,7 +19,7 @@ if (isset($_REQUEST['action'])) {
 			$datahandler = new DataHandler($request, $result);
 			$datahandler->_get();
 			
-			echo $result;
+			echo json_encode($result);
 			break;
 		
 		// write new data or update existing data	
@@ -36,7 +36,7 @@ if (isset($_REQUEST['action'])) {
 			$datahandler = new DataHandler($request, $result);
 			$datahandler->_set();
 			
-			echo $result;
+			echo json_encode($result);
 			break;
 	}
 }

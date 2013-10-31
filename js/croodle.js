@@ -1,4 +1,4 @@
-function DataHandler () {
+DataHandler = function () {
 	this.read = function (id, done, fail) {
 		$.ajax({
 			url: "api.php",
@@ -67,7 +67,7 @@ function DataHandler () {
 	};
 };
 
-function Schedule (id) {
+Schedule = function (id) {
 	// config
 	this.passwordLength = 40;
 	this.passwordChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -159,7 +159,7 @@ function Schedule (id) {
 	};
 };
 
-function ScheduleAdd(type) {
+ScheduleAdd = function (type) {
 	self = this;
 	this.type = type;
 	this.setTimes = false;
@@ -347,7 +347,7 @@ function ScheduleAdd(type) {
 		$('#timesCopyTimelineButton').bind('click', ButtonCopyTimeline);
 		$('.datetime').bind('change', ChangeDateTime);
 	}
-}
+};
 
 function Startpage() {
 	this.init = function() {
@@ -368,7 +368,7 @@ function Startpage() {
 	function CreateNewSchedulePoll() {
 		CreateNewSchedule('poll');
 	}
-}
+};
 
 // reading templates
 $.Mustache.addFromDom();
@@ -379,6 +379,7 @@ if (id !== '' && password !== '') {
 	// show existing schedule
 	schedule = new Schedule(id);
 	schedule.Load();
+	console.log(schedule);
 }
 else {
 	page = new Startpage();

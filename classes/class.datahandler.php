@@ -1,6 +1,7 @@
 <?php
 
 require_once "classes/class.request.php";
+require_once "classes/class.data.php";
 
 class DataHandler {
 	// (string) folder to store data in
@@ -39,6 +40,7 @@ class DataHandler {
 		$this->result->result = true;
 		$this->result->version = md5(json_encode($data));
 		$this->result->data = $data;
+		
 		return true;
 	}
 
@@ -140,19 +142,20 @@ class DataHandler {
 			return false;
 		}
 		
-		$data = new stdClass();
-		$data->head = file_get_contents(self::DATA_FOLDER.$this->request->id."/head");
+		$data = new Data();
+		$data->head = json_decode(file_get_contents(self::DATA_FOLDER.$this->request->id."/head"));
 		$data->data = file_get_contents(self::DATA_FOLDER.$this->request->id."/data");
 		
-		$data->user = array ();
+		$user = array();
 		$i = 0;
 		while (true) {
 			if (file_exists(self::DATA_FOLDER.$this->request->id."/user_".$i)) {
-				$data->user[] = file_get_contents(self::DATA_FOLDER.$this->request->id."/user_".$i);
+				$user[] = file_get_contents(self::DATA_FOLDER.$this->request->id."/user_".$i);
 				$i++;
 			}
 			else break;
 		}
+		$data->user = $user;
 		
 		return $data;
 	}
