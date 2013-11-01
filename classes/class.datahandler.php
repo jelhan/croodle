@@ -107,11 +107,13 @@ class DataHandler {
 		$filename = self::DATA_FOLDER.self::IP_LIST_FILENAME;
 		
 		// create storage for ip_list if not exists
-		if (file_exists($filename) === false) {
+		if (is_readable($filename) === false) {
 			if (file_put_contents($filename, "<?php\n\$ip_list=array();\n?>") === false) {
 				return false;
 			}
 		}
+		
+		if (is_writeable($filename) === false) throw new Extension ("File for IP list storage is not writeable. Check permissions.");
 		
 		// load ip_list
 		require $filename;
@@ -137,8 +139,8 @@ class DataHandler {
 	
 	protected function readData() {
 		// check if must have files exist
-		if (!file_exists(self::DATA_FOLDER.$this->request->id."/head") OR
-				!file_exists(self::DATA_FOLDER.$this->request->id."/data")) {
+		if (!is_readable(self::DATA_FOLDER.$this->request->id."/head") OR
+				!is_readable(self::DATA_FOLDER.$this->request->id."/data")) {
 			return false;
 		}
 		
@@ -149,7 +151,7 @@ class DataHandler {
 		$user = array();
 		$i = 0;
 		while (true) {
-			if (file_exists(self::DATA_FOLDER.$this->request->id."/user_".$i)) {
+			if (is_readable(self::DATA_FOLDER.$this->request->id."/user_".$i)) {
 				$user[] = file_get_contents(self::DATA_FOLDER.$this->request->id."/user_".$i);
 				$i++;
 			}
@@ -164,7 +166,7 @@ class DataHandler {
 		if (!file_exists(self::DATA_FOLDER.$this->request->id."/")) {
 			if (!mkdir(self::DATA_FOLDER.$this->request->id)) {
 				$this->result->result = false;
-				$this->result->errorMsg = 'data could not be written 1';
+				$this->result->errorMsg = 'data could not be written';
 				return false;
 			}
 		}
