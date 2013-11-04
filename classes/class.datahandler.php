@@ -15,7 +15,7 @@ class DataHandler
     const IP_LIST_FILENAME = 'trafic_limiter.php';
     
     // (int) limit request per IP in seconds; no limit if zero
-    const TRAFIC_LIMITER = 30;
+    const TRAFIC_LIMITER = 5;
     
     protected $request;
     protected $result;
