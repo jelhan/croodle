@@ -32,7 +32,7 @@ DataHandler = function () {
 	};
 	
 	this.write = function (id, version, data, done, fail) {
-		crypt_data = jQuery.extend(true, {}, data);
+		var crypt_data = jQuery.extend(true, {}, data);
 		
 		crypt_data.data = sjcl.encrypt($(location).attr('hash').substring(1), JSON.stringify(data.data));
 		for (i = 0; i < data.user.length; i++) {
@@ -73,7 +73,7 @@ Poll = function (id) {
 	this.passwordChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 	
 	// init
-	self = this;
+	var self = this;
 	this.id = id;
 
 	this.Create = function(data) {
@@ -101,7 +101,7 @@ Poll = function (id) {
 	};
 	
 	this.Save = function() {
-		datahandler = new DataHandler();
+		var datahandler = new DataHandler();
 		datahandler.write(self.id, self.version, self.data, this.Saved, this.Failed);
 	};
 	
@@ -115,7 +115,7 @@ Poll = function (id) {
 	};
 	
 	function AddUser() {;
-		new_user = AddUserGetData();
+		var new_user = AddUserGetData();
 		self.data.user.push(new_user);
 		
 		self.Save();
@@ -126,7 +126,7 @@ Poll = function (id) {
 	};
 	
 	function AddUserGetData() {
-		new_user = {};
+		var new_user = {};
 		new_user.name = $('#addUserName').val();
 		new_user.selection = [];
 		$.each($('#addUser .selection'), function(key, value) {
@@ -136,18 +136,18 @@ Poll = function (id) {
 	}
 	
 	function CreatePassword() {
-    var chars = self.passwordChars;
-		var length = self.passwordLength;
-		
-		var password = '';
-    var list = chars.split('');
-    var len = list.length, i = 0;
-    do {
-      i++;
-      var index = Math.floor(Math.random() * len);
-      password += list[index];
-    
-    } while(i < length);
+        var chars = self.passwordChars;
+        var length = self.passwordLength;
+
+        var password = '';
+        var list = chars.split('');
+        var len = list.length, i = 0;
+        do {
+          i++;
+          var index = Math.floor(Math.random() * len);
+          password += list[index];
+
+        } while(i < length);
 		
 		$(location).attr('hash', '#' + password);
 	}
@@ -159,7 +159,7 @@ Poll = function (id) {
 };
 
 PollAdd = function (type) {
-	self = this;
+	var self = this;
 	this.type = type;
 	this.setTimes = false;
 	
@@ -174,7 +174,7 @@ PollAdd = function (type) {
 			return 0;
 		});
 		
-		dates_formated = ConvertDatesToFormated(dates);
+		var dates_formated = ConvertDatesToFormated(dates);
 		
 		// generate new options
 		for (var i = 0; i < dates_formated.length; i++) {
@@ -238,7 +238,7 @@ PollAdd = function (type) {
 	
 	function ButtonSetTimes() {
 		self.setTimes = true;
-		dates = $('#calenderDatePick').datepick('getDate');
+		var dates = $('#calenderDatePick').datepick('getDate');
 		dates_formated = ConvertDatesToFormated(dates);
 		GenerateTimesTable(dates_formated);
 		return false; // prevent form to be submitted
@@ -255,7 +255,7 @@ PollAdd = function (type) {
 	}
 	
 	function ConvertDatesToFormated(dates) {
-		dates_formated = [];
+		var dates_formated = [];
 		for (var i = 0; i < dates.length; i++) {
 			dates_formated.push($.datepick.formatDate(dates[i]));
 		}
@@ -263,7 +263,7 @@ PollAdd = function (type) {
 	}
 	
 	function CreatePoll() {
-		new_poll = CreatePollGetData();
+		var new_poll = CreatePollGetData();
 		
 		// check for atleast two options
 		if (new_poll.data.options.length < 2) {
@@ -272,14 +272,14 @@ PollAdd = function (type) {
 		}
 		
 		// create new poll
-		poll = new Poll('');
+		var poll = new Poll('');
 		poll.Create(new_poll);
 		
 		return false; // prevent form to be submitted
 	}
 	
 	function CreatePollGetData() {
-		new_poll = {};
+		var new_poll = {};
 		new_poll.head = {};
 		new_poll.data = {};
 		new_poll.data.options = [];
@@ -307,12 +307,12 @@ PollAdd = function (type) {
 	
 	function GenerateTimesTable(dates_formated) {
 		// keep old data
-		count = $('#timestable thead tr td').length - 1;
+		var count = $('#timestable thead tr td').length - 1;
 		if (count === -1) count = 3;
 		
-		dates_values = [];
+		var dates_values = [];
 		for (var i = 0; i < dates_formated.length; i++) {
-			values = [];
+			var values = [];
 			if ($('.datetime[data-date="' + dates_formated[i] + '"]').length > 0) {
 				$('.datetime[data-date="' + dates_formated[i] + '"]').map(function() {
 					values.push({
@@ -335,7 +335,7 @@ PollAdd = function (type) {
 			});
 		}
 		
-		identifier = [{value: 'date'}];
+		var identifier = [{value: 'date'}];
 		for (var g = 0; g < count; g++) {
 			identifier.push({
 				value: 'time '
@@ -358,7 +358,7 @@ function Startpage() {
 	};
 	
 	function CreateNewPoll(type) {
-		poll_add = new PollAdd(type);
+		var poll_add = new PollAdd(type);
 		poll_add.init();
 	};
 	
@@ -371,17 +371,19 @@ function Startpage() {
 	}
 };
 
-// reading templates
-$.Mustache.addFromDom();
+(function() {
+    // reading templates
+    $.Mustache.addFromDom();
 
-id = $(location).attr('search').substring(1);
-password = $(location).attr('hash').substring(1);
-if (id !== '' && password !== '') {
-	// show existing poll
-	poll = new Poll(id);
-	poll.Load();
-}
-else {
-	page = new Startpage();
-	page.init();
-}
+    id = $(location).attr('search').substring(1);
+    password = $(location).attr('hash').substring(1);
+    if (id !== '' && password !== '') {
+        // show existing poll
+        var poll = new Poll(id);
+        poll.Load();
+    }
+    else {
+        var page = new Startpage();
+        page.init();
+    }
+})();
