@@ -19,6 +19,10 @@ if (isset($_REQUEST['action'])) {
             $datahandler = new DataHandler($request, $result);
             $datahandler->get();
             
+            header('Content-Type: application/json; charset=utf-8');
+            header('Strict-Transport-Security: max-age=86400');
+            header("Content-Security-Policy: script-src 'self'");
+            
             echo json_encode($result);
             break;
         
@@ -43,6 +47,10 @@ if (isset($_REQUEST['action'])) {
             
             $datahandler = new DataHandler($request, $result);
             $datahandler->set();
+            
+            header('Content-Type: application/json; charset=utf-8');
+            header('Strict-Transport-Security: max-age=86400');
+            header("Content-Security-Policy: script-src 'self'");
             
             echo json_encode($result);
             break;
