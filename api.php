@@ -4,7 +4,16 @@ require_once "classes/class.request.php";
 require_once "classes/class.result.php";
 require_once "classes/class.datahandler.php";
 
-if (isset($_REQUEST['action'])) {
+$result = new Result();
+
+// check if an action ist set
+if (!isset($_REQUEST['action'])) {
+    $result->status   = 400;
+    $result->errorMsg = "No action specified.";
+}
+else {
+    // process the action
+    
     $action = (string) $_REQUEST['action'];
     
     switch ($action) {
@@ -14,16 +23,9 @@ if (isset($_REQUEST['action'])) {
             $request = new Request();
             $request->id = (string) $_GET['id'];
             
-            $result = new Result();
-            
             $datahandler = new DataHandler($request, $result);
             $datahandler->get();
             
-            header('Content-Type: application/json; charset=utf-8');
-            header('Strict-Transport-Security: max-age=86400');
-            header("Content-Security-Policy: script-src 'self'");
-            
-            echo json_encode($result);
             break;
         
         // write new data or update existing data    
@@ -43,21 +45,62 @@ if (isset($_REQUEST['action'])) {
             }
             $request->data = (string) $_POST["data"];
             
-            $result = new Result();
-            
             $datahandler = new DataHandler($request, $result);
             $datahandler->set();
             
-            header('Content-Type: application/json; charset=utf-8');
-            header('Strict-Transport-Security: max-age=86400');
-            header("Content-Security-Policy: script-src 'self'");
-            
-            echo json_encode($result);
             break;
-            
+           
+        // handling not known action types
         default:
+            $result->status   = 400;
+            $result->errorMsg = "Specified action is not defined.";
+            
             break;
     }
 }
 
+// send response
+
+// set http status code
+switch ($result->status) {
+    case "200":
+        header("HTTP/1.0 200 OK");
+        break;
+    
+    case "400":
+        header("HTTP/1.0 400 Bad Request");
+        break;
+    
+    case "404":
+        header("HTTP/1.0 404 Not Found");
+        break;
+    
+    case "409":
+        header("HTTP/1.0 409 Conflict");
+        break;
+    
+    case "421":
+        header("HTTP/1.0 421 There are too many connections from your internet address");
+        break;
+    
+    case "500":
+        header("HTTP/1.0 500 Internal Server Error");
+        break;
+    
+    default:
+        header("HTTP/1.0 500 Internal Server Error");
+        break;
+}
+
+// set content-type and charset
+header('Content-Type: application/json; charset=utf-8');
+
+// force browser to stay on httpS connection for 1 day
+header('Strict-Transport-Security: max-age=86400');
+
+// forbidde browser to load javascript from an external locatoin
+header("Content-Security-Policy: script-src 'self'");
+
+// send data as encoded json
+echo json_encode($result);
 ?>

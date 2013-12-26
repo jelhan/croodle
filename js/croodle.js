@@ -10,24 +10,16 @@ DataHandler = function () {
 			}
 		})
 		.done(function(result) {
-			if (result.result === true) {
-				result.data.data = JSON.parse(sjcl.decrypt($(location).attr('hash').substring(1), result.data.data));
-				
-				for (i = 0; i < result.data.user.length; i++) {
-					result.data.user[i] = JSON.parse(sjcl.decrypt($(location).attr('hash').substring(1), result.data.user[i]));
-				}
-				
-				done(result);
-			}
-			else {
-				console.log ('Api reported an error.');
-				console.log (result.errorMsg);
-				
-				alert('Could not read requested data!\nerror message: ' + result.errorMsg);
-			}
+            result.data.data = JSON.parse(sjcl.decrypt($(location).attr('hash').substring(1), result.data.data));
+
+            for (i = 0; i < result.data.user.length; i++) {
+                result.data.user[i] = JSON.parse(sjcl.decrypt($(location).attr('hash').substring(1), result.data.user[i]));
+            }
+
+            done(result);
 		})
 		.fail(function(result) {
-			fail(result);
+			fail(result.responseJSON);
 		});
 	};
 	
@@ -51,18 +43,10 @@ DataHandler = function () {
 			}
 		})
 		.done(function(result) {
-			if (result.result === true) {
-				done(result);
-			}
-			else {
-				console.log('Api reported an error.');
-				console.log(result.errorMsg);
-				
-				alert('Could not save data:\nerror message: ' + result.errorMsg);
-			}
+            done(result);
 		})
 		.fail(function(result) {
-			fail(result);
+			fail(result.responseJSON);
 		});
 	};
 };
@@ -84,6 +68,7 @@ Poll = function (id) {
 	};
 
 	this.Failed = function(result) {
+        alert('Could not read requested data!\nerror message: ' + result.errorMsg);
 		console.log("Datahandler fehlgeschlagen.");
 		console.log(result);
 	};

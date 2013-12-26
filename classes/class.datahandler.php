@@ -37,12 +37,11 @@ class DataHandler
         
         $data = $this->_readData();
         if ($data === false) {
-            $this->result->result = false;
+            $this->result->status   = 404;
             $this->result->errorMsg = 'there is no data with this identifier or data could not be read';
             return false;
         }
         
-        $this->result->result = true;
         $this->result->version = md5(json_encode($data));
         $this->result->data = $data;
         
@@ -58,7 +57,7 @@ class DataHandler
         if ($data_org !== false) {
             // check if version is out of date
             if (md5(json_encode($data_org)) !== $this->request->version) {
-                $this->result->result = false;
+                $this->result->status   = 409;
                 $this->result->errorMsg = 'used version is out of date';
                 return false;
             }
@@ -66,7 +65,7 @@ class DataHandler
         else {
             // check traficLimiter
             if (!$this->_traficLimiterCanPass()) {
-                $this->result->result = false;
+                $this->result->status = 421;
                 $this->result->errorMsg = 'to many request in last ' . self::TRAFIC_LIMITER . ' seconds from your IP address';
                 return false;
             }
@@ -78,7 +77,6 @@ class DataHandler
         }
         
         $this->result->version = md5(json_encode($this->_readData()));
-        $this->result->result = true;
         
         return true;
     }
@@ -190,7 +188,7 @@ class DataHandler
     {
         if (!file_exists(self::DATA_FOLDER.$this->request->id."/")) {
             if (!mkdir(self::DATA_FOLDER.$this->request->id)) {
-                $this->result->result = false;
+                $this->result->status   = 500;
                 $this->result->errorMsg = 'data could not be written';
                 return false;
             }
@@ -215,7 +213,7 @@ class DataHandler
     protected function _writeDatum($typ, $data)
     {
         if(file_put_contents(self::DATA_FOLDER.$this->request->id.'/'.$typ, $data, LOCK_EX) === false) {
-            $this->result->result = false;
+            $this->result->status   = 500;
             $this->result->errorMsg = 'data could not be written to '.$typ;
             return false;
         }

@@ -2,7 +2,7 @@
 
 class result implements JsonSerializable
 {
-    protected $result = false;
+    protected $status = "200";
     protected $version = '';
     protected $id = '';
     protected $data = '';
@@ -24,8 +24,8 @@ class result implements JsonSerializable
         }
 
         switch ($name) {
-            case 'result':
-                if (!is_bool($value)) {
+            case 'status':
+                if (!is_int($value)) {
                     throw new Exception ("wrong data type");
                 }
                 break;
@@ -48,7 +48,6 @@ class result implements JsonSerializable
 
     public function jsonSerialize() {
         $container = new stdClass();
-        $container->result     = $this->result;
         $container->version  = $this->version;
         $container->id       = $this->id;
         $container->data     = $this->data;
