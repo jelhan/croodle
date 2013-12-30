@@ -3,144 +3,321 @@
 <head>
 	<meta charset="utf-8">
 	<title>Croodle</title>
-	<script src="js/sjcl.js"></script>
-	<script src="js/mustache.js"></script>
-	<script src="js/jquery.js"></script>
-	<script src="js/jquery.mustache.js"></script>
-	<script src="js/jquery.datepick.js"></script>
-	<script src="js/jquery.datepick-de.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/jquery.datepick.css">
 </head>
 <body>
-	<div id="content"></div>
-	
-	<script type="text/html" id="Poll_template">
-		<h1 id="title">{{data.title}}</h1>
-		<p id="description">{{data.description}}</p>
-		
-		<table id="choices">
-			<thead id="options">
-				<tr>
-					<td class="option option-name">User</td>
-					{{#data.options}}
-						<td class="option">{{.}}</td>
-					{{/data.options}}
-					<td></td>
-				</tr>
-			</thead>
-			<tbody id="userlist">
-				{{#user}}
-					{{>PollUserlistUser_template}}
-				{{/user}}
-				<tr id="addUser">
-					<td><input type="text" name="name" id="addUserName"/></td>
-					{{#data.options}}
-						<td>
-							{{#data.answers.0}}
-								<select class="selection">
-									{{#data.answers}}
-										<option>{{.}}</option>
-									{{/data.answers}}
-								</select>
-							{{/data.answers.0}}
-							{{^data.answers}}
-								<input type="text" name="selections[]" class="selection"/>
-							{{/data.answers}}
-						</td>
-					{{/data.options}}
-					<td><button id="addUserSave">save</button></td>
-				</tr>
-			</tbody>
-		</table>
-	</script>
-	
-	<script type="text/html" id="PollUserlistUser_template">
-		<tr class="user">
-			<td>{{name}}</td>
-			{{#selection}}
-				<td>{{.}}</td>
-			{{/selection}}
-		</tr>
-	</script>
-	
-	<script type="text/html" id="PollAdd_template">
-		<h1>Create new poll</h1>
-		<div id="addPoll">
-			<p>Title:  <input id="addPollTitle" type="text" /></p>
-			<p>Description: <br/>
-				<textarea id="addPollDescription" /></p>
-			<p>Answertype:
-				<select id="addPollAnswertype">
-					<option value="YesNo">YesNo</option>
-					<option value="YesNoMaybe">YesNoMaybe</option>
-					<option value="Text">Text</option>
-				</select>
-			<p id="options">
-				Options: <br/>
-			</p>
-			<div id="moreOptionsButton"></div>
-			<div id="calender"></div>
-			<div id="times"></div>
-			<p><button id="addPollSave">create</button></p>
-		</div>
-	</script>
-	
-	<script type="text/html" id="PollAddOption_template">
-		<input type="text" name="option" class="option" value="{{value}}"/>
-	</script>
-	
-	<script type="text/html" id="PollAddOptionAddButton_template">
-		<p><input type="button" id="addPollAddOption" value="more options" /></p>
-	</script>
-	
-	<script type="text/html" id="PollAddCalender_template">
-		<div id="calenderDatePick"></div>
-		<button id="setTimesButton">define times</button>
-	</script>
-	
-	<script type="text/html" id="PollAddTimes_template">
-		<h2>Define times for your dates</h2>
-		<table id='timestable'>
-			<thead>
-				<tr>
-					{{#identifier}}
-						{{>PollAddTimesTimeHead_template}}
-					{{/identifier}}
-				</tr>
-			</thead>
-			<tbody>
-				{{#dates}}
-					<tr>
-						<td class="date">{{date}}</td>
-						{{#values}}
-							{{>PollAddTimesTimeBody_template}}
-						{{/values}}
-					</tr>
-				{{/dates}}
-			</tbody>
-		</table>
-		<button id="timesMoreButton">more times</button>
-		<button id="timesCopyTimelineButton">copy first line</button>
-	</script>
-	
-	<script type="text/html" id="PollAddTimesTimeHead_template">
-		<td>{{value}}</td>
-	</script>
-	
-	<script type="text/html" id="PollAddTimesTimeBody_template">
-		<td><input type="time" name="datetime" data-date="{{date}}" value="{{value}}" class="datetime" /></td>
-	</script>
-	
-	<script type="text/html" id="Startpage_template">
-		<h1>Welcome</h1>
-		<div id="FindADate">
-			<button id="FindADate-Button">find a date</button>
-		</div>
-		<div id="MakeAPoll">
-			<button id="MakeAPoll-Button">make a poll</button>
-		</div>
-	</script>
-	
-	<script src="js/croodle.js"></script>
+    <!--
+        TEMPLATES
+    -->
+    
+    <!-- application template -->
+    <script type="text/x-handlebars">
+        <div class="main">
+            <h1>Croodle</h1>
+            {{outlet}}
+        </div>
+    </script>
+    
+    <!-- poll template -->
+    <script type="text/x-handlebars" id="poll">
+        <h2>title</h2>
+        <p>{{title}}</p>
+
+        <h2>description</h2>
+        <p>{{description}}</p>
+
+        <h2>type</h2>
+        <p>{{type}}</p>
+
+        <h2>options and user</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td>user</td>
+                    {{#each option in options}}
+                        <td>{{option.title}}</td>
+                    {{/each}}
+                    <td>&nbsp;</td>
+                </tr>
+            </thead>
+        
+            <tbody>
+                {{#each user in users}}
+                    <tr>
+                        <td>{{user.name}}</td>
+                        {{#each selection in selections}}
+                            <td>{{selection.value}}</td>
+                        {{/each}}
+                        <td>&nbsp;</td>
+                    </tr>
+                {{/each}}
+                        
+                <tr class='newUser'>
+                    <td>{{input value=newUserName}}</td>
+                    {{#each option in options}}
+                        <td>{{input value=newUserSelection}}</td>
+                    {{/each}}
+                    <td><button {{action "save"}}> ok </button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>creationDate</h2>
+        <p>{{creationDate}}</p>
+    </script>
+    
+    <!-- create templates -->
+    <script type="text/x-handlebars" id="create">
+        {{outlet}}
+    </script>
+    
+    <script type="text/x-handlebars" id="create/index">
+        <p>
+            type:<br/>
+            {{view Ember.Select
+                contentBinding="App.Types"
+                optionValuePath="content.id"
+                optionLabelPath="content.label"
+                valueBinding="type"}}
+        </p>
+        <p><button {{action "save"}}> ok </button></p>
+    </script>
+    
+    <script type="text/x-handlebars" id="create/meta">
+        <p>title:<br/>{{input value=title}}</p>
+        <p>description:<br/>{{input value=description}}</p>
+        <p><button {{action "save"}}> ok </button></p>
+    </script>
+    
+    <script type="text/x-handlebars" id="create/options">
+        <p>options<br/>
+        {{#each option in options}}
+            {{option.title}}<br/>
+        {{/each}}
+        </p>
+        <p>{{input value=newOptionTitle}} <button {{action "addOption"}}> add option </button></p>
+        <p><button {{action "save"}}> ok </button></p>
+    </script>
+    
+    <script type="text/x-handlebars" id="create/settings">
+        <p>settings</p>
+        <p><button {{action "save"}}> ok </button></p>
+    </script>
+    
+    <!-- DEPEDENCIES -->
+    <script src="lib/jquery-2.0.3.js"></script>
+    <script src="lib/handlebars-v1.2.0.js"></script>
+    <script src="lib/ember.js"></script>
+    <script src="lib/ember-data.js"></script>
+    <script src="lib/localstorage_adapter.js"></script>
+    
+    <!-- EMBER APP CODE -->
+    <script type="text/javascript">
+        // app initialization
+        window.App = Ember.Application.create({
+            LOG_TRANSITIONS: true
+        });
+        
+        // adapter initialization
+        App.ApplicationAdapter = DS.LSAdapter;
+        
+        /*
+         * models
+         */
+        
+        // poll model
+        App.Poll = DS.Model.extend({
+            title : DS.attr('string'),
+            description : DS.attr('string', {defaultValue: ''}),
+            type : DS.attr('string'),
+            options : DS.hasMany('option', {async: true}),
+            users : DS.hasMany('user', {async: true}),
+            creationDate : DS.attr('date')
+        });
+        
+        // option model
+        // used by poll model
+        App.Option = DS.Model.extend({
+            title : DS.attr('string')
+        });
+        
+        // user model
+        // used by poll model
+        App.User = DS.Model.extend({
+            poll : DS.belongsTo('poll'),
+            name : DS.attr('string'),
+            selections : DS.hasMany('selection', {async: true, embedded: 'allways'}),
+            creationDate : DS.attr('date')
+        });
+        
+        // selection model
+        // used by user model
+        App.Selection = DS.Model.extend({
+            option : DS.belongsTo('option'),
+            value : DS.attr('string')
+        });
+        
+        App.Types = [
+           Ember.Object.create({
+                id : "FindADate",
+                label : "Find a date"
+           }),
+           Ember.Object.create({
+                id : "MakeAPoll",
+                label : "Make a poll"
+           })
+        ];
+        
+        /*
+         * routes
+         */
+
+        // defining routes of app
+        App.Router.map(function(){
+             this.route('poll', { path: '/poll/:poll_id' });
+             this.resource('create', function(){
+                 this.route('meta');
+                 this.route('options');
+                 this.route('settings');
+             });
+        });
+        
+        App.CreateRoute = Ember.Route.extend({
+            model: function(){
+                return this.store.createRecord('poll', {
+                    creationDate : new Date()
+                });
+            }
+        });
+        
+        App.CreateIndexRoute = Ember.Route.extend({
+            model: function(){
+                return this.modelFor('create');
+            }
+        });
+        
+        App.CreateMetaRoute = Ember.Route.extend({
+            model: function(){
+                return this.modelFor('create');
+            },
+            
+            // redirect to create/index if type is not set
+            afterModel: function(create){
+                if (create.get('type') === undefined) {
+                    this.transitionTo('create.index');
+                }
+            }
+        });
+
+        App.CreateOptionsRoute = Ember.Route.extend({
+            model: function(){
+                return this.modelFor('create');
+            },
+            
+            // redirect to create/meta if title is not set
+            afterModel: function(create){
+                if (create.get('title') === undefined) {
+                    this.transitionTo('create.meta');
+                }
+            }
+        });
+        
+        App.CreateSettingsRoute = Ember.Route.extend({
+            model: function(){
+                return this.modelFor('create');
+            },
+            
+            // redirect to create/options if less then two options are defined
+            afterModel: function(create){
+                if (create.get('options.length') < 2) {
+                    this.transitionTo('create.options');
+                }
+            }
+        });
+        
+         /*
+          * controller
+          */
+         App.CreateIndexController = Ember.ObjectController.extend({
+            actions: {
+                save: function(){
+                    // redirect to CreateMeta
+                    this.transitionToRoute('create.meta');
+                }
+            }
+         });
+         
+         App.CreateMetaController = Ember.ObjectController.extend({
+            actions: {
+                save: function(){
+                    // redirect to CreateOptions
+                    this.transitionToRoute('create.options');
+                }
+            }
+         });
+         
+         App.CreateOptionsController = Ember.ObjectController.extend({
+            actions: {
+                addOption: function(){
+                    // create new option
+                    var newOptionId = this.get('model.options.length') + 1,
+                    newOption = this.store.createRecord('option', {
+                        id : newOptionId,
+                        title : this.get('newOptionTitle')
+                    });
+                    
+                    // assign it to poll
+                    this.get('model.options').pushObject(newOption);
+                    
+                    // clear newOptionTitle input field
+                    this.set('newOptionTitle', '');
+                },
+                
+                save: function(){
+                    // redirect to CreateSettings
+                    this.transitionToRoute('create.settings');
+                }
+            }
+         });
+         
+         App.CreateSettingsController = Ember.ObjectController.extend({
+            actions: {
+                save: function(){
+                    // save poll
+                    this.get('model').save();
+                    
+                    // redirect to new poll
+                    this.transitionToRoute('poll', this.get('model'));
+                }
+            }
+         });
+         
+         App.PollController = Ember.ObjectController.extend({
+            actions: {
+                save: function(){
+                    // push new user to store
+                    var newUser = this.store.createRecord('user', {
+                        name : this.get('newUserName'),
+                        creationDate : new Date()
+                    });
+                    
+                    // push new selections to store and attend them to user
+                    console.log(this.get('newUserSelection'));
+                    
+                    // save new user
+                    this.get('model.users').pushObject(newUser);
+                }
+            }
+         });
+
+         /*
+          * views
+          */
+          
+        App.PollSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+            attrs: {
+              options: {embedded: 'always'}
+            }
+        });
+    </script>
 </body>
 </html>
