@@ -108,6 +108,8 @@
     <script src="lib/handlebars-v1.2.0.js"></script>
     <script src="lib/ember.js"></script>
     <script src="lib/ember-data.js"></script>
+    <script src="lib/activemodel-adapter.js"></script>
+    <script src="lib/embedded-records-mixin.js"></script>
     <script src="lib/localstorage_adapter.js"></script>
     
     <!-- EMBER APP CODE -->
@@ -118,7 +120,10 @@
         });
         
         // adapter initialization
-        App.ApplicationAdapter = DS.LSAdapter;
+        App.ApplicationAdapter = DS.RESTAdapter.extend({
+            // set namespace to api.php in same subdirectory
+            namespace: 'api.php?'
+        });
         
         /*
          * models
@@ -137,6 +142,7 @@
         // option model
         // used by poll model
         App.Option = DS.Model.extend({
+            poll : DS.belongsTo('poll', {async: true}),
             title : DS.attr('string')
         });
         
@@ -283,10 +289,10 @@
             actions: {
                 save: function(){
                     // save poll
-                    this.get('model').save();
-                    
-                    // redirect to new poll
-                    this.transitionToRoute('poll', this.get('model'));
+                    this.get('model').save().then(function(){
+                        // redirect to new poll
+                        this.transitionToRoute('poll', this.get('model'));
+                    });
                 }
             }
          });
