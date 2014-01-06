@@ -289,9 +289,10 @@
             actions: {
                 save: function(){
                     // save poll
+                    var self = this;
                     this.get('model').save().then(function(){
                         // redirect to new poll
-                        this.transitionToRoute('poll', this.get('model'));
+                        self.transitionToRoute('poll', self.get('model') );
                     });
                 }
             }
