@@ -54,7 +54,7 @@
                 <tr class='newUser'>
                     <td>{{input value=newUserName}}</td>
                     {{#each option in options}}
-                        <td>{{input value=newUserSelection}}</td>
+                        <td>{{input class="newUserSelection" data-option=option.id}}</td>
                     {{/each}}
                     <td><button {{action "save"}}> ok </button></td>
                 </tr>
@@ -106,11 +106,8 @@
     <!-- DEPEDENCIES -->
     <script src="lib/jquery-2.0.3.js"></script>
     <script src="lib/handlebars-v1.2.0.js"></script>
-    <script src="lib/ember.js"></script>
+    <script src="lib/ember-1.2.0.js"></script>
     <script src="lib/ember-data.js"></script>
-    <script src="lib/activemodel-adapter.js"></script>
-    <script src="lib/embedded-records-mixin.js"></script>
-    <script src="lib/localstorage_adapter.js"></script>
     
     <!-- EMBER APP CODE -->
     <script type="text/javascript">
@@ -123,6 +120,11 @@
         App.ApplicationAdapter = DS.RESTAdapter.extend({
             // set namespace to api.php in same subdirectory
             namespace: 'api.php?'
+        });
+        
+        // adding support for attribut data-option-id to input fields
+        Ember.TextField.reopen({
+            attributeBindings: ['data-option']
         });
         
         /*
@@ -149,16 +151,17 @@
         // user model
         // used by poll model
         App.User = DS.Model.extend({
-            poll : DS.belongsTo('poll'),
+            poll : DS.belongsTo('poll', {async: true}),
             name : DS.attr('string'),
-            selections : DS.hasMany('selection', {async: true, embedded: 'allways'}),
+            selections : DS.hasMany('selection', {async: true}),
             creationDate : DS.attr('date')
         });
         
         // selection model
         // used by user model
         App.Selection = DS.Model.extend({
-            option : DS.belongsTo('option'),
+            // option : DS.belongsTo('option'),
+            user : DS.belongsTo('user', {async: true}),
             value : DS.attr('string')
         });
         
@@ -301,17 +304,50 @@
          App.PollController = Ember.ObjectController.extend({
             actions: {
                 save: function(){
-                    // push new user to store
+                    // create new user record in store
                     var newUser = this.store.createRecord('user', {
                         name : this.get('newUserName'),
                         creationDate : new Date()
                     });
+
+                    // create new selection record in store and assign it to the new user
+                    var self = this,
+                    newSelections = [];
+                    $('.newUserSelection').each(function(){
+                        // generate a new selection id
+                        var newSelectionId = function(){
+                            // ToDo: check if id already exists
+                            return newId = Math.floor(Math.random()*(100000)+1);
+                        };
+                        
+                        // create new selection record in store
+                        var newSelection = self.store.createRecord('selection', {
+                            id : newSelectionId(),
+                            value : $(this).val()
+                        });
+
+                        // store new selections in an array
+                        newSelections.push(newSelection);
+                    });
                     
-                    // push new selections to store and attend them to user
-                    console.log(this.get('newUserSelection'));
-                    
-                    // save new user
-                    this.get('model.users').pushObject(newUser);
+                    newUser.get('selections').then(function(selections){
+                        // map over all new selections and assign them to user
+                        var selections = selections;
+                        $.each(newSelections, function(){
+                           selections.pushObject(this);
+                        });
+                        
+                        // save new user
+                        newUser.save().then(function(){
+                            self.get('model.users').then(function(users){
+                                // assign new user to poll
+                                users.pushObject(newUser);
+                                
+                                // update poll
+                                self.get('model').save();
+                            });
+                        });
+                    });
                 }
             }
          });
@@ -319,10 +355,15 @@
          /*
           * views
           */
-          
         App.PollSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
             attrs: {
-              options: {embedded: 'always'}
+                options: {embedded: 'always'}
+            }
+        });
+        
+        App.UserSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+            attrs: {
+                selections: {embedded: 'always'}
             }
         });
     </script>
