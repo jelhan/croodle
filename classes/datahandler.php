@@ -90,6 +90,9 @@ class datahandler {
                 // try to create data folder
                 if(mkdir(self::DATA_FOLDER)) {
                     
+                    // put empty index.html in data folder to prevent directory listing
+                    file_put_contents(self::DATA_FOLDER . "index.html", '');
+                    
                     // check if newly created data folder is writeable
                     if (!is_writeable(self::DATA_FOLDER)) {
                         // data folder created but is not writeable
