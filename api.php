@@ -5,10 +5,9 @@
  * 
  * Returns data back to the client on a GET request on ?/poll/:id or ?/user/:id.
  * Save new data on a POST request on ?/polls or ?/users and return new id back.
+ * Update poll data on a PUT request on ?/polls/:id.
  * 
- * There is no need to check for permission because all data stored on server 
- * is encrypted and could only be read with the correct encryption key. There is
- * no update oder delete feature yet.
+ * A check for permissions have to be added on PUT request / update existing data.
  */
 
 // load classes
@@ -58,6 +57,47 @@ switch ($_SERVER['REQUEST_METHOD']) {
         
         break;
     
+    // update data
+    case 'PUT':
+        // get requested id from uri
+        $query_paramter = split("/",$_SERVER["QUERY_STRING"]);
+        if (isset($query_paramter[2])) {
+            $requested_id = $query_paramter[2];
+        }
+        else {
+            throw new Exception("Requested data but there is no ID in URI");
+        }
+        
+        // get data send with request
+        $data = file_get_contents('php://input');
+        
+        // write new data
+        $result = $datahandler->update($requested_id, $data);
+        
+        if ($result === false) {
+            header("HTTP/1.0 500 Internal Server Error");
+        }
+        else {
+            // set http header
+            header("HTTP/1.0 200 OK");
+            
+            // forbidde browser to lead javascript from an external location
+            header("Content-Security-Policy: script-src 'self'");
+            
+            // set content-type and charset
+            header('Content-Type: application/x-json-encrypted; charset=utf-8');
+            
+            // extend given data with newId
+            // this point has to be fixed at it would not work with encrypted json
+            $newData = json_decode($data);
+            $newData->poll->id = $requested_id;
+            
+            // send back data
+            echo json_encode($newData);
+        }
+        
+        break;
+        
     // write data
     case 'POST':
         // get data send with request
@@ -80,7 +120,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
             // extend given data with newId
             // this point has to be fixed at it would not work with encrypted json
             $newData = json_decode($data);
-            $newData->poll->id = $newId;
+            if (isset($newData->poll)) {
+                $newData->poll->id = $newId;
+            } elseif (isset($newData->user)) {
+                $newData->user->id = $newId;
+            }
             
             // send back data
             echo json_encode($newData);
