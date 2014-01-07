@@ -83,7 +83,28 @@ class datahandler {
         
         // check if new file could be created
         if (!is_writeable(self::DATA_FOLDER)) {
-            return false;
+            
+            // check if data folder exists
+            if (!file_exists(self::DATA_FOLDER)) {
+                
+                // try to create data folder
+                if(mkdir(self::DATA_FOLDER)) {
+                    
+                    // check if newly created data folder is writeable
+                    if (!is_writeable(self::DATA_FOLDER)) {
+                        // data folder created but is not writeable
+                        return false;
+                    }
+                }
+                else {
+                    // data folder do not exist and can not be created
+                    return false;
+                }
+            }
+            else {
+                // data folder allready exists but is not writeable
+                return false;
+            }
         }
         
         // write data
