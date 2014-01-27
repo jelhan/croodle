@@ -108,6 +108,7 @@
     <script src="lib/handlebars-v1.2.0.js"></script>
     <script src="lib/ember.js"></script>
     <script src="lib/ember-data.js"></script>
+		<script src="lib/embedded-adapter.js"></script>
     
     <!-- EMBER APP CODE -->
     <script type="text/javascript">
@@ -117,10 +118,13 @@
         });
         
         // adapter initialization
-        App.ApplicationAdapter = DS.RESTAdapter.extend({
+        App.ApplicationAdapter = DS.EmbeddedAdapter.extend({
             // set namespace to api.php in same subdirectory
             namespace: 'api.php?'
         });
+				
+				// serializer initialization
+				App.ApplicationSerializer = DS.EmbeddedSerializer.extend();
         
         // adding support for attribut data-option-id to input fields
         Ember.TextField.reopen({
@@ -307,7 +311,8 @@
                     // create new user record in store
                     var newUser = this.store.createRecord('user', {
                         name : this.get('newUserName'),
-                        creationDate : new Date()
+                        creationDate : new Date(),
+												poll : this.get('model')
                     });
 
                     // create new selection record in store and assign it to the new user
@@ -355,13 +360,13 @@
          /*
           * views
           */
-        App.PollSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+        App.PollSerializer = App.ApplicationSerializer.extend({
             attrs: {
                 options: {embedded: 'always'}
             }
         });
         
-        App.UserSerializer = DS.ActiveModelSerializer.extend(DS.EmbeddedRecordsMixin, {
+        App.UserSerializer = App.ApplicationSerializer.extend({
             attrs: {
                 selections: {embedded: 'always'}
             }
