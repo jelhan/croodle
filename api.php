@@ -59,43 +59,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         
         break;
-    
-    // update data
-    case 'PUT':
-        // get requested id from query parameter
-        if (!isset($requested_id)) {
-            throw new Exception("Requested data but there is no ID in URI");
-        }
-        
-        // get data send with request
-        $data = file_get_contents('php://input');
-        
-        // write new data
-        $result = $datahandler->update($requested_id, $data);
-        
-        if ($result === false) {
-            header("HTTP/1.0 500 Internal Server Error");
-        }
-        else {
-            // set http header
-            header("HTTP/1.0 200 OK");
-            
-            // forbidde browser to lead javascript from an external location
-            header("Content-Security-Policy: script-src 'self'");
-            
-            // set content-type and charset
-            header('Content-Type: application/x-json-encrypted; charset=utf-8');
-            
-            // extend given data with newId
-            // this point has to be fixed at it would not work with encrypted json
-            $newData = json_decode($data);
-            $newData->poll->id = $requested_id;
-            
-            // send back data
-            echo json_encode($newData);
-        }
-        
-        break;
         
     // write data
     case 'POST':

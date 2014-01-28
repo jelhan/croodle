@@ -140,26 +140,6 @@ class datahandler {
     }
     
     /*
-     * update existing data
-     * returns true on success or false on error
-     */
-    public function update($id, $data) {
-        $file = self::DATA_FOLDER . $id;
-        
-        // check if file is writeable
-        if (!is_writeable($file)) {
-            return false;
-        }
-        
-        // write data
-        if (file_put_contents($file, $data, LOCK_EX) === false) {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    /*
      * store poll data
      * returns new id or false on error
      */
