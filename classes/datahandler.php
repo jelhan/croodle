@@ -15,20 +15,82 @@ class datahandler {
     // (string) characters used to generate a new id
     const ID_CHARACTERS = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     
+    public function __construct() {
+        // check if data folder exists and is writeable
+        // if data folder does not exist, try to create it
+        if (!is_writeable(self::DATA_FOLDER)) {
+            
+            // check if data folder exists
+            if (!file_exists(self::DATA_FOLDER)) {
+                
+                // try to create data folder
+                if(mkdir(self::DATA_FOLDER)) {
+                    
+                    // put empty index.html in data folder to prevent directory listing
+                    file_put_contents(self::DATA_FOLDER . "index.html", '');
+                    
+                    // check if newly created data folder is writeable
+                    if (!is_writeable(self::DATA_FOLDER)) {
+                        throw new Exception("data folder created but is not writeable");
+                    }
+                }
+                else {
+                    throw new Exception("data folder does not exists and can not be created");
+                }
+            }
+            else {
+                throw new Exception("data folder allready exists but is not writeable");
+            }
+        }
+    }
+    
     /*
-     * read data with $id
+     * read poll data
      * return false, if there is no data with this id or if data could not be read
      */
-    public function get($id) {
+    public function get($poll_id) {
         // file with absolut path
-        $file = self::DATA_FOLDER . $id;
+        $folder = self::DATA_FOLDER . "/" . $poll_id;
+        $poll_file = $folder . "/poll_data";
         
         // check if file exists and is readable
-        if (!is_readable($file)) {
+        if (!is_readable($poll_file)) {
             return false;
         }
         
-        return file_get_contents($file);
+        $poll_data_json = file_get_contents($poll_file);
+        
+        $poll_data = json_decode($poll_data_json);
+        $poll_data->poll->users = array();
+        
+        // check for existing user
+        $user_folder = $folder . "/user";
+        if (is_dir($user_folder)) {
+            // read all existing user data and embedded it into poll
+            $resource = opendir($user_folder);
+            
+            // iterate over all files in folder
+            while (false !== ($file = readdir($resource))) {
+                // embedding full user data
+                // read file and extend poll_data;
+                $user_data_json = file_get_contents($user_folder . "/" . $file);
+                
+                if ($user_data_json) {
+                    $user_data = json_decode($user_data_json);
+                    $user_data->user->id = $file;
+                    $poll_data->poll->users[] = $user_data->user;
+                }
+                
+                // embedding user ids
+                /*
+                if ($file != "." && $file != "..") {
+                    $poll_data->poll->user_ids[] = $file;
+                }
+                 */
+            }
+        }
+        
+        return json_encode($poll_data);
     }
     
     /*
@@ -44,11 +106,37 @@ class datahandler {
         }
         
         // check if id is already used, generate new one if necessary
-        if (file_exists(self::DATA_FOLDER.$randomString)) {
+        if (file_exists(self::DATA_FOLDER."/".$randomString)) {
             $randomString = $this->generateNewId();
         }
         
         return $randomString;
+    }
+    
+    /*
+     * get next user id for given poll
+     */
+    protected function getNextUserId($poll_id)
+    {
+        $user_folder = self::DATA_FOLDER . "/" . $poll_id . "/user";
+        
+        // check if user folder exists
+        if (!file_exists($user_folder)) {
+            return 0;
+        }
+        
+        // get all files in user folder
+        $files = scandir($user_folder);
+        
+        // get highest existing id
+        $highest_id = 0;
+        foreach ($files as $f) {
+            if ((int) $f > $highest_id) {
+                $highest_id = (int) $f;
+            }
+        }
+        
+        return $highest_id + 1;
     }
     
     /*
@@ -72,46 +160,57 @@ class datahandler {
     }
     
     /*
-     * stores data
+     * store poll data
      * returns new id or false on error
      */
-    public function write ($data) {
+    public function writePoll ($data) {
         // get a new id
         $new_id = $this->generateNewId();
         
-        $new_file = self::DATA_FOLDER . $new_id;
+        $folder = self::DATA_FOLDER."/".$new_id;
+        $file = $folder . "/poll_data";
         
-        // check if new file could be created
-        if (!is_writeable(self::DATA_FOLDER)) {
+        // create folder for new poll
+        if (!mkdir($folder)) {
+            return false;
+        }
+        
+        // write poll data
+        if (file_put_contents($file, $data, LOCK_EX) === false) {
+            return false;
+        }
+        
+        return $new_id;
+    }
+    
+    /*
+     * stores user data belonging to poll
+     * returns new id or false on error
+     */
+    public function writeUser ($poll_id, $data) {
+        // get a new id
+        $new_id = $this->getNextUserId($poll_id);
+        
+        // check if poll exists
+        if (!is_dir(self::DATA_FOLDER."/".$poll_id)) {
+            throw new Exception("poll does not exists");
+            return false;
+        }
+        
+        $folder = self::DATA_FOLDER."/".$poll_id."/user";
+        $file = $folder . "/" . $new_id;
+        
+        // check if user folder allready exists
+        if (!file_exists($folder)) {
             
-            // check if data folder exists
-            if (!file_exists(self::DATA_FOLDER)) {
-                
-                // try to create data folder
-                if(mkdir(self::DATA_FOLDER)) {
-                    
-                    // put empty index.html in data folder to prevent directory listing
-                    file_put_contents(self::DATA_FOLDER . "index.html", '');
-                    
-                    // check if newly created data folder is writeable
-                    if (!is_writeable(self::DATA_FOLDER)) {
-                        // data folder created but is not writeable
-                        return false;
-                    }
-                }
-                else {
-                    // data folder do not exist and can not be created
-                    return false;
-                }
-            }
-            else {
-                // data folder allready exists but is not writeable
+            // user folder does not exists, try to create it
+            if (!mkdir($folder)) {
                 return false;
             }
         }
         
-        // write data
-        if (file_put_contents($new_file, $data, LOCK_EX) === false) {
+        // write user data
+        if (file_put_contents($file, $data, LOCK_EX) === false) {
             return false;
         }
         

@@ -123,8 +123,8 @@
             namespace: 'api.php?'
         });
 				
-				// serializer initialization
-				App.ApplicationSerializer = DS.EmbeddedSerializer.extend();
+        // serializer initialization
+        App.ApplicationSerializer = DS.EmbeddedSerializer.extend();
         
         // adding support for attribut data-option-id to input fields
         Ember.TextField.reopen({
@@ -347,9 +347,6 @@
                             self.get('model.users').then(function(users){
                                 // assign new user to poll
                                 users.pushObject(newUser);
-                                
-                                // update poll
-                                self.get('model').save();
                             });
                         });
                     });
@@ -362,7 +359,8 @@
           */
         App.PollSerializer = App.ApplicationSerializer.extend({
             attrs: {
-                options: {embedded: 'always'}
+                options: {embedded: 'always'},
+                users: {embedded: 'load'}
             }
         });
         

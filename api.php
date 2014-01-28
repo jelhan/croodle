@@ -16,15 +16,18 @@ require_once 'classes/datahandler.php';
 // initialize
 $datahandler = new datahandler();
 
+// get query parameter
+$query_paramter = split("/",$_SERVER["QUERY_STRING"]);
+$type = $query_paramter[1];
+if (isset($query_paramter[2])) {
+    $requested_id = $query_paramter[2];
+}
+
 switch ($_SERVER['REQUEST_METHOD']) {
     // read data
     case 'GET':
         // get requested id from uri
-        $query_paramter = split("/",$_SERVER["QUERY_STRING"]);
-        if (isset($query_paramter[2])) {
-            $requested_id = $query_paramter[2];
-        }
-        else {
+        if (!isset($requested_id)) {
             throw new Exception("Requested data but there is no ID in URI");
         }
         
@@ -37,7 +40,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             header("HTTP/1.0 404 Not Found");
         }
         else {
-            // extend given data with newId
+            // extend stored data with newId
             // this point has to be fixed at it would not work with encrypted json
             $newData = json_decode($data);
             $newData->poll->id = $requested_id;
@@ -59,12 +62,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
     
     // update data
     case 'PUT':
-        // get requested id from uri
-        $query_paramter = split("/",$_SERVER["QUERY_STRING"]);
-        if (isset($query_paramter[2])) {
-            $requested_id = $query_paramter[2];
-        }
-        else {
+        // get requested id from query parameter
+        if (!isset($requested_id)) {
             throw new Exception("Requested data but there is no ID in URI");
         }
         
@@ -100,10 +99,29 @@ switch ($_SERVER['REQUEST_METHOD']) {
         
     // write data
     case 'POST':
+        $type = $query_paramter[1];
+        
         // get data send with request
         $data = file_get_contents('php://input');
         
-        $newId = $datahandler->write($data);
+        switch ($type) {
+            case "polls":
+                $newId = $datahandler->writePoll($data);
+                break;
+            
+            case "users":
+                // get poll id from user data
+                $data_decoded = json_decode($data);
+                $poll_id = $data_decoded->user->poll_id;
+                
+                $newId = $datahandler->writeUser($poll_id, $data);
+                break;
+            
+            default:
+                throw new Exception("type not defined");
+                break;
+        }
+        
         if ($newId === false) {
             header("HTTP/1.0 500 Internal Server Error");
         }
@@ -120,10 +138,19 @@ switch ($_SERVER['REQUEST_METHOD']) {
             // extend given data with newId
             // this point has to be fixed at it would not work with encrypted json
             $newData = json_decode($data);
-            if (isset($newData->poll)) {
-                $newData->poll->id = $newId;
-            } elseif (isset($newData->user)) {
-                $newData->user->id = $newId;
+            
+            switch ($type) {
+                case "polls":
+                    $newData->poll->id = $newId;
+                    break;
+                
+                case "users":
+                    $newData->user->id = $newId;
+                    break;
+                
+            default:
+                throw new Exception("type not defined");
+                break;
             }
             
             // send back data
