@@ -312,7 +312,7 @@
                     var newUser = this.store.createRecord('user', {
                         name : this.get('newUserName'),
                         creationDate : new Date(),
-												poll : this.get('model')
+                        poll : this.get('model')
                     });
 
                     // create new selection record in store and assign it to the new user
@@ -348,6 +348,10 @@
                                 // assign new user to poll
                                 users.pushObject(newUser);
                             });
+                            
+                            // empty newUser form after user is saved
+                            self.set('newUserName', '');
+                            $('.newUserSelection').val('');
                         });
                     });
                 }
