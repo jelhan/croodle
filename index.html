@@ -44,7 +44,7 @@
                 {{#each user in users}}
                     <tr>
                         <td>{{user.name}}</td>
-                        {{#each selection in selections}}
+                        {{#each selection in user.selections}}
                             <td>{{selection.value}}</td>
                         {{/each}}
                         <td>&nbsp;</td>
