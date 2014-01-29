@@ -67,10 +67,10 @@ class datahandler {
         $user_folder = $folder . "/user";
         if (is_dir($user_folder)) {
             // read all existing user data and embedded it into poll
-            $resource = opendir($user_folder);
+            $files = scandir($user_folder);
             
             // iterate over all files in folder
-            while (false !== ($file = readdir($resource))) {
+            foreach ($files as $file) {
                 // embedding full user data
                 // read file and extend poll_data;
                 $user_data_json = file_get_contents($user_folder . "/" . $file);
