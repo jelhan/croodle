@@ -69,6 +69,9 @@ class datahandler {
             // read all existing user data and embedded it into poll
             $files = scandir($user_folder);
             
+            // natural sorting of files array to have it in creation order
+            natsort($files);
+            
             // iterate over all files in folder
             foreach ($files as $file) {
                 // embedding full user data
