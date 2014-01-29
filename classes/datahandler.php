@@ -80,13 +80,6 @@ class datahandler {
                     $user_data->user->id = $file;
                     $poll_data->poll->users[] = $user_data->user;
                 }
-                
-                // embedding user ids
-                /*
-                if ($file != "." && $file != "..") {
-                    $poll_data->poll->user_ids[] = $file;
-                }
-                 */
             }
         }
         
