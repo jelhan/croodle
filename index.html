@@ -317,7 +317,7 @@
 
                     // create new selection record in store and assign it to the new user
                     var self = this,
-                    newSelections = [];
+                        newSelections = [];
                     $('.newUserSelection').each(function(){
                         // generate a new selection id
                         var newSelectionId = function(){
@@ -337,7 +337,6 @@
                     
                     newUser.get('selections').then(function(selections){
                         // map over all new selections and assign them to user
-                        var selections = selections;
                         $.each(newSelections, function(){
                            selections.pushObject(this);
                         });
