@@ -80,7 +80,11 @@ class datahandler {
                 
                 if ($user_data_json) {
                     $user_data = json_decode($user_data_json);
+                    
+                    // extend id to user object
                     $user_data->user->id = $file;
+                    
+                    // embedd user into poll
                     $poll_data->poll->users[] = $user_data->user;
                 }
             }

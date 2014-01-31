@@ -104,11 +104,12 @@
     </script>
     
     <!-- DEPEDENCIES -->
+    <script src="lib/sjcl.js"></script>
     <script src="lib/jquery-2.0.3.js"></script>
     <script src="lib/handlebars-v1.2.0.js"></script>
     <script src="lib/ember.js"></script>
     <script src="lib/ember-data.js"></script>
-		<script src="lib/embedded-adapter.js"></script>
+    <script src="lib/embedded-adapter.js"></script>
     
     <!-- EMBER APP CODE -->
     <script type="text/javascript">
@@ -131,15 +132,25 @@
             attributeBindings: ['data-option']
         });
         
+        // adding support for encrypted string type
+        App.EncryptedStringTransform = DS.Transform.extend({
+            deserialize: function(serialized) {
+                return Ember.isNone(serialized) ? null : String( sjcl.decrypt('key', serialized) );
+            },
+            serialize: function(deserialized) {
+                return Ember.isNone(deserialized) ? null : String( sjcl.encrypt('key', deserialized) );
+            }
+        });
+        
         /*
          * models
          */
         
         // poll model
         App.Poll = DS.Model.extend({
-            title : DS.attr('string'),
-            description : DS.attr('string', {defaultValue: ''}),
-            type : DS.attr('string'),
+            title : DS.attr('encryptedString'),
+            description : DS.attr('encryptedString', {defaultValue: ''}),
+            type : DS.attr('encryptedString'),
             options : DS.hasMany('option', {async: true}),
             users : DS.hasMany('user', {async: true}),
             creationDate : DS.attr('date')
@@ -149,14 +160,14 @@
         // used by poll model
         App.Option = DS.Model.extend({
             poll : DS.belongsTo('poll', {async: true}),
-            title : DS.attr('string')
+            title : DS.attr('encryptedString')
         });
         
         // user model
         // used by poll model
         App.User = DS.Model.extend({
             poll : DS.belongsTo('poll', {async: true}),
-            name : DS.attr('string'),
+            name : DS.attr('encryptedString'),
             selections : DS.hasMany('selection', {async: true}),
             creationDate : DS.attr('date')
         });
@@ -166,7 +177,7 @@
         App.Selection = DS.Model.extend({
             // option : DS.belongsTo('option'),
             user : DS.belongsTo('user', {async: true}),
-            value : DS.attr('string')
+            value : DS.attr('encryptedString')
         });
         
         App.Types = [
