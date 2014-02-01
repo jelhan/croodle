@@ -28,8 +28,6 @@
         <h2>type</h2>
         <p>{{type}}</p>
 
-        <p>key: {{encryptionKey}}</p>
-
         <h2>options and user</h2>
         <table>
             <thead>
@@ -144,7 +142,7 @@
             return Ember.computed(encryptedField, function(key, decryptedValue) {
                 var encryptKey = this.get('encryptKey'), encryptedValue;
                 
-                // check if we encryptKey is set
+                // check if encryptKey is set
                 if (typeof encryptKey === 'undefined') {
                     console.log("encryption key is not set for: " + this.toString() + " " + encryptedField);
                     
@@ -155,9 +153,6 @@
                         console.log("dirty workaround failed also");
                         return;
                     }
-                }
-                else {
-                    encryptKey = this.get('encryptKey');
                 }
                 
                 //setter
@@ -200,7 +195,7 @@
         // used by poll model
         App.User = DS.Model.extend({
             poll : DS.belongsTo('poll', {async: true}),
-            encrypedName : DS.attr('string'),
+            encryptedName : DS.attr('string'),
             name : Ember.computed.encrypted('encryptedName'),
             selections : DS.hasMany('selection', {async: true}),
             creationDate : DS.attr('date')
