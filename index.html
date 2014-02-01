@@ -28,6 +28,8 @@
         <h2>type</h2>
         <p>{{type}}</p>
 
+        <p>key: {{encryptionKey}}</p>
+
         <h2>options and user</h2>
         <table>
             <thead>
@@ -104,6 +106,11 @@
     </script>
     
     <!-- DEPEDENCIES -->
+    <script type="text/javascript">
+        // enable ember query-params-new feature
+        window.ENV = {FEATURES: {'query-params-new': true}};
+    </script>
+    
     <script src="lib/sjcl.js"></script>
     <script src="lib/jquery-2.0.3.js"></script>
     <script src="lib/handlebars-v1.2.0.js"></script>
@@ -135,10 +142,11 @@
         // adding support for encrypted string type
         App.EncryptedStringTransform = DS.Transform.extend({
             deserialize: function(serialized) {
-                return Ember.isNone(serialized) ? null : String( sjcl.decrypt('key', serialized) );
+                console.log(this.get('controller.encryptionKey'))
+                return Ember.isNone(serialized) ? null : String( sjcl.decrypt( 'key' , serialized) );
             },
             serialize: function(deserialized) {
-                return Ember.isNone(deserialized) ? null : String( sjcl.encrypt('key', deserialized) );
+                return Ember.isNone(deserialized) ? null : String( sjcl.encrypt( 'key' , deserialized) );
             }
         });
         
@@ -317,6 +325,9 @@
          });
          
          App.PollController = Ember.ObjectController.extend({
+            queryParams: ['encryptionKey'],
+            encryptionKey: 'nicht definiert',
+         
             actions: {
                 save: function(){
                     // create new user record in store
