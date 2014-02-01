@@ -144,6 +144,22 @@
             return Ember.computed(encryptedField, function(key, decryptedValue) {
                 var encryptKey = this.get('encryptKey'), encryptedValue;
                 
+                // check if we encryptKey is set
+                if (typeof encryptKey === 'undefined') {
+                    console.log("encryption key is not set for: " + this.toString() + " " + encryptedField);
+                    
+                    // dirty workaround for model of embedded records
+                    console.log("using dirty workaround")
+                    encryptKey = App.__container__.lookup("controller:poll").get('encryptionKey');
+                    if (typeof encryptKey === 'undefined') {
+                        console.log("dirty workaround failed also");
+                        return;
+                    }
+                }
+                else {
+                    encryptKey = this.get('encryptKey');
+                }
+                
                 //setter
                 if (arguments.length == 2) {
                     encryptedValue = Ember.isNone(decryptedValue) ? null : String( sjcl.encrypt( encryptKey , decryptedValue) );
