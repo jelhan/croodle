@@ -40,11 +40,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             header("HTTP/1.0 404 Not Found");
         }
         else {
-            // extend stored data with newId
-            // this point has to be fixed at it would not work with encrypted json
-            $newData = json_decode($data);
-            $newData->poll->id = $requested_id;
-            
             // set http header
             header("HTTP/1.0 200 OK");
             
@@ -55,7 +50,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             header('Content-Type: application/x-json-encrypted; charset=utf-8');
             
             // send data back
-            echo json_encode($newData);
+            echo $data;
         }
         
         break;
@@ -98,17 +93,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
             // set content-type and charset
             header('Content-Type: application/x-json-encrypted; charset=utf-8');
             
-            // extend given data with newId
-            // this point has to be fixed at it would not work with encrypted json
-            $newData = json_decode($data);
-            
             switch ($type) {
                 case "polls":
-                    $newData->poll->id = $newId;
+                    $newData = $datahandler->get($newId);
                     break;
                 
                 case "users":
+                    $newData = json_decode($data);
                     $newData->user->id = $newId;
+                    $newData = json_encode($newData);
                     break;
                 
             default:
@@ -117,7 +110,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             }
             
             // send back data
-            echo json_encode($newData);
+            echo $newData;
         }
         
         break;

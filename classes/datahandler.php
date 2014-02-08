@@ -61,6 +61,15 @@ class datahandler {
         $poll_data_json = file_get_contents($poll_file);
         
         $poll_data = json_decode($poll_data_json);
+        
+        // set id to poll
+        $poll_data->poll->id = $poll_id;
+        
+        // set id to option
+        foreach ($poll_data->poll->options as $k => $v) {
+            $poll_data->poll->options[$k]->id = $poll_id + $k;
+        }
+        
         $poll_data->poll->users = array();
         
         // check for existing user

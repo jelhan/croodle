@@ -103,12 +103,12 @@
     
     <script type="text/x-handlebars" id="create/options">
         <p>options<br/>
-        {{#each option in options}}
-            {{option.title}}<br/>
+        {{#each newOption in view.newOptions}}
+            {{view Ember.TextField valueBinding="newOption.title"}}<br/>
         {{/each}}
         </p>
-        <p>{{input value=newOptionTitle}} <button {{action "addOption"}}> add option </button></p>
-        <p><button {{action "save"}}> ok </button></p>
+        <p><button {{action "moreOptions" target="view"}}> add option </button></p>
+        <p><button {{action "saveOptions" target="view"}}> save </button></p>
     </script>
     
     <script type="text/x-handlebars" id="create/settings">

@@ -66,7 +66,6 @@ App.Poll = DS.Model.extend({
 // option model
 // used by poll model
 App.Option = DS.Model.extend({
-    poll : DS.belongsTo('poll', {async: true}),
     encryptedTitle : DS.attr('string'),
     title : Ember.computed.encrypted('encryptedTitle'),
 });
@@ -100,6 +99,22 @@ App.Types = [
         label : "Make a poll"
    })
 ];
+
+/*
+ * Serializer
+ */
+App.PollSerializer = App.ApplicationSerializer.extend({
+    attrs: {
+        options: {embedded: 'always'},
+        users: {embedded: 'load'}
+    }
+});
+
+App.UserSerializer = App.ApplicationSerializer.extend({
+    attrs: {
+        selections: {embedded: 'always'}
+    }
+});
 
 /*
  * routes
@@ -151,7 +166,7 @@ App.CreateMetaRoute = Ember.Route.extend({
 
     // redirect to create/index if type is not set
     afterModel: function(create){
-        if (create.get('type') === undefined) {
+        if (create.get('type') === null) {
             this.transitionTo('create.index');
         }
     }
@@ -164,7 +179,7 @@ App.CreateOptionsRoute = Ember.Route.extend({
 
     // redirect to create/meta if title is not set
     afterModel: function(create){
-        if (create.get('title') === undefined) {
+        if (create.get('title') === null) {
             this.transitionTo('create.meta');
         }
     }
@@ -214,117 +229,129 @@ App.CreateMetaController = Ember.ObjectController.extend({
 });
 
 App.CreateOptionsController = Ember.ObjectController.extend({
-   actions: {
-       addOption: function(){
-           // create new option                 
-           var newOptionId = this.get('model.options.length') + 1,
-           newOption = this.store.createRecord('option', {
-               encryptKey : this.get('model.encryptKey'),
-               id : newOptionId,
-               title : this.get('newOptionTitle')
-           });
+    actions: {           
+        addOptions: function(options) {
+            var self = this;
+            
+            // iterate over array of options and push them to poll
+            options.forEach(function(option){
+                // check if option has title and if it is unique
+                if( /\S/.test(option.title)) {
+                    // create newOption
+                    var newOption = self.store.createRecord('option', {
+                        encryptKey : self.get('model.encryptKey'),
+                        title : option.title
+                    });
 
-           // assign it to poll
-           this.get('model.options').pushObject(newOption);
+                    // assign it to poll
+                    self.get('model.options').then(function(model){
+                        model.pushObject(newOption);
+                    });
+                }
+            });
 
-           // clear newOptionTitle input field
-           this.set('newOptionTitle', '');
-       },
+            this.send('save');
+        },
 
-       save: function(){
-           // redirect to CreateSettings
-           this.transitionToRoute('create.settings');
-       }
-   }
+        save: function(){
+            // redirect to CreateSettings
+            this.transitionToRoute('create.settings');
+        }
+    }
 });
 
 App.CreateSettingsController = Ember.ObjectController.extend({
-   actions: {
-       save: function(){
-           // save poll
-           var self = this;
-           this.get('model').save().then(function(){
-               // redirect to new poll
-               self.transitionToRoute('poll', self.get('model'), {queryParams: {encryptionKey: self.get('encryptKey')}});
-           });
-       }
-   }
+    actions: {
+        save: function(){
+            // save poll
+            var self = this;
+            this.get('model').save().then(function(){
+                // redirect to new poll
+                self.transitionToRoute('poll', self.get('model'), {queryParams: {encryptionKey: self.get('encryptKey')}});
+            });
+        }
+    }
 });
 
 App.PollController = Ember.ObjectController.extend({
-   queryParams: ['encryptionKey'],
-   encryptionKey: 'nicht definiert',
+    queryParams: ['encryptionKey'],
+    encryptionKey: 'nicht definiert',
 
-   actions: {
-       save: function(){
-           // create new user record in store
-           var newUser = this.store.createRecord('user', {
-               encryptKey : this.get('model.encryptKey'),
-               name : this.get('newUserName'),
-               creationDate : new Date(),
-               poll : this.get('model')
-           });
+    actions: {
+        save: function(){
+            // create new user record in store
+            var newUser = this.store.createRecord('user', {
+                encryptKey : this.get('model.encryptKey'),
+                name : this.get('newUserName'),
+                creationDate : new Date(),
+                poll : this.get('model')
+            });
 
-           // create new selection record in store and assign it to the new user
-           var self = this,
-               newSelections = [];
-           $('.newUserSelection').each(function(){
-               // generate a new selection id
-               var newSelectionId = function(){
-                   // ToDo: check if id already exists
-                   return newId = Math.floor(Math.random()*(100000)+1);
-               };
+            // create new selection record in store and assign it to the new user
+            var self = this,
+                newSelections = [];
+            $('.newUserSelection').each(function(){
+                // generate a new selection id
+                var newSelectionId = function(){
+                    // ToDo: check if id already exists
+                    return newId = Math.floor(Math.random()*(100000)+1);
+                };
 
-               // create new selection record in store
-               var newSelection = self.store.createRecord('selection', {
-                   encryptKey : self.get('model.encryptKey'),
-                   id : newSelectionId(),
-                   value : $(this).val()
-               });
+                // create new selection record in store
+                var newSelection = self.store.createRecord('selection', {
+                    encryptKey : self.get('model.encryptKey'),
+                    id : newSelectionId(),
+                    value : $(this).val()
+                });
 
-               // store new selections in an array
-               newSelections.push(newSelection);
-           });
+                // store new selections in an array
+                newSelections.push(newSelection);
+            });
 
-           newUser.get('selections').then(function(selections){
-               // map over all new selections and assign them to user
-               $.each(newSelections, function(){
-                  selections.pushObject(this);
-               });
+            newUser.get('selections').then(function(selections){
+                // map over all new selections and assign them to user
+                $.each(newSelections, function(){
+                    selections.pushObject(this);
+                });
 
-               // save new user
-               newUser.save().then(function(){
-                   self.get('model.users').then(function(users){
-                       // assign new user to poll
-                       users.pushObject(newUser);
-                   });
+                // save new user
+                newUser.save().then(function(){
+                    self.get('model.users').then(function(users){
+                        // assign new user to poll
+                        users.pushObject(newUser);
+                    });
 
-                   // empty newUser form after user is saved
-                   self.set('newUserName', '');
-                   $('.newUserSelection').val('');
-               });
-           });
-       }
-   },
+                    // empty newUser form after user is saved
+                    self.set('newUserName', '');
+                    $('.newUserSelection').val('');
+                });
+            });
+        }
+    },
 
-   updateEncryptionKey: function() {
-       this.set('encryptKey', this.get('encryptionKey'));
-       this.get('content').reload();
-   }.observes('encryptionKey')
+    updateEncryptionKey: function() {
+        this.set('encryptKey', this.get('encryptionKey'));
+        this.get('content').reload();
+    }.observes('encryptionKey')
 });
 
 /*
  * views
  */
-App.PollSerializer = App.ApplicationSerializer.extend({
-    attrs: {
-        options: {embedded: 'always'},
-        users: {embedded: 'load'}
-    }
-});
-
-App.UserSerializer = App.ApplicationSerializer.extend({
-    attrs: {
-        selections: {embedded: 'always'}
-    }
+App.CreateOptionsView = Ember.View.extend({
+    title: '',
+    newOptions: [{title: ''}, {title: ''}],
+   
+    actions: {
+        moreOptions: function(){
+            // create new Option
+            this.get('newOptions').pushObject({title: ''});
+       },
+       
+       saveOptions: function(){
+            var options = this.get('newOptions');
+            
+            this.get('controller').send('addOptions', options);
+       }
+   }
 });
