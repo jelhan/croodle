@@ -233,6 +233,9 @@ App.CreateOptionsController = Ember.ObjectController.extend({
         addOptions: function(options) {
             var self = this;
             
+            // delete old options in model
+            this.get('model.options').clear();
+            
             // iterate over array of options and push them to poll
             options.forEach(function(option){
                 // check if option has title and if it is unique
@@ -246,6 +249,7 @@ App.CreateOptionsController = Ember.ObjectController.extend({
                     // assign it to poll
                     self.get('model.options').then(function(model){
                         model.pushObject(newOption);
+                        console.log(model.get('length'));
                     });
                 }
             });
@@ -340,8 +344,8 @@ App.PollController = Ember.ObjectController.extend({
  */
 App.CreateOptionsView = Ember.View.extend({
     title: '',
-    newOptions: [{title: ''}, {title: ''}],
-   
+    newOptions: [],
+    
     actions: {
         moreOptions: function(){
             // create new Option
@@ -353,5 +357,24 @@ App.CreateOptionsView = Ember.View.extend({
             
             this.get('controller').send('addOptions', options);
        }
-   }
+    },
+    
+    // set newOptions to existing options or to default
+    willInsertElement: function() {
+        var newOptions = Ember.A();
+        
+        if ( this.get('controller.model.options.length') > 0 ) {
+            // existing options
+            this.get('controller.model.options').forEach(function(option){
+                newOptions.pushObject({title: option.get('title')});
+            });
+        }
+        else {
+            // default
+            for(i = 0; i < 2; i++) {
+                newOptions.pushObject({title: ''});
+            }
+        }
+        this.set('newOptions', newOptions);
+    }
 });
