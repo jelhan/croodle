@@ -27,7 +27,7 @@ Ember.computed.encrypted = function(encryptedField) {
             console.log("encryption key is not set for: " + this.toString() + " " + encryptedField);
 
             // dirty workaround for model of embedded records
-            console.log("using dirty workaround")
+            console.log("using dirty workaround");
             encryptKey = App.__container__.lookup("controller:poll").get('encryptionKey');
             if (typeof encryptKey === 'undefined') {
                 console.log("dirty workaround failed also");
@@ -36,7 +36,7 @@ Ember.computed.encrypted = function(encryptedField) {
         }
 
         //setter
-        if (arguments.length == 2) {
+        if (arguments.length === 2) {
             encryptedValue = Ember.isNone(decryptedValue) ? null : String( sjcl.encrypt( encryptKey , decryptedValue) );
             this.set(encryptedField, encryptedValue);
         }
@@ -67,7 +67,7 @@ App.Poll = DS.Model.extend({
 // used by poll model
 App.Option = DS.Model.extend({
     encryptedTitle : DS.attr('string'),
-    title : Ember.computed.encrypted('encryptedTitle'),
+    title : Ember.computed.encrypted('encryptedTitle')
 });
 
 // user model
@@ -84,7 +84,6 @@ App.User = DS.Model.extend({
 // used by user model
 App.Selection = DS.Model.extend({
     // option : DS.belongsTo('option'),
-    user : DS.belongsTo('user', {async: true}),
     encryptedValue : DS.attr('string'),
     value : Ember.computed.encrypted('encryptedValue')
 });
@@ -142,7 +141,7 @@ App.CreateRoute = Ember.Route.extend({
         do {
             i++;
             var index = Math.floor(Math.random() * len);
-            encryptionKey += list[index]
+            encryptionKey += list[index];
         } while(i < encryptionKeyLength);
 
         // create empty poll
