@@ -83,7 +83,6 @@ App.User = DS.Model.extend({
 // selection model
 // used by user model
 App.Selection = DS.Model.extend({
-    // option : DS.belongsTo('option'),
     encryptedValue : DS.attr('string'),
     value : Ember.computed.encrypted('encryptedValue')
 });
