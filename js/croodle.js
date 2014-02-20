@@ -332,8 +332,13 @@ App.PollController = Ember.ObjectController.extend({
     },
 
     updateEncryptionKey: function() {
-        this.set('encryptKey', this.get('encryptionKey'));
-        this.get('content').reload();
+        // check if they really differ to prevent unnecessary reload of data
+        if (this.get('encryptKey') !== this.get('encryptionKey')) {
+            // update encryptKey
+            this.set('encryptKey', this.get('encryptionKey'));
+            // reload content to recalculate computed properties
+            this.get('content').reload();
+        }
     }.observes('encryptionKey')
 });
 
