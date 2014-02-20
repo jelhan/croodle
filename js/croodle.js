@@ -17,7 +17,7 @@ Ember.TextField.reopen({
     attributeBindings: ['data-option']
 });
 
-//
+// decrypt / encrypt computed property helper
 Ember.computed.encrypted = function(encryptedField) {
     return Ember.computed(encryptedField, function(key, decryptedValue) {
         var encryptKey = this.get('encryptKey'), encryptedValue;
