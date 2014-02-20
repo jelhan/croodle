@@ -2,7 +2,7 @@ croodle
 =======
 Croodle is a web application to schedule a date or to do a poll on a general topics. Stored content data like title and description, labels of options, names of users and there selection is encrypted/decrypted in the browser using 256 bits AES.
 
-This is an alpha version. Changes could brake backward compatibility.
+This is an alpha version. Changes could brake backward compatibility. Also it is not well tested, some features are missing and there is no user friendly design at this stage of development. It is not ment for productive use yet.
 
 Croodle is inspired by ZeroBin: https://github.com/sebsauvage/ZeroBin and of course by Doodle.
 
