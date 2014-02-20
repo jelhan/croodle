@@ -41,8 +41,14 @@ Ember.computed.encrypted = function(encryptedField) {
             this.set(encryptedField, encryptedValue);
         }
 
-        encryptedValue = this.get(encryptedField);
-        return Ember.isNone(encryptedValue) ? null : String( sjcl.decrypt( encryptKey , encryptedValue) );
+        try {
+            encryptedValue = this.get(encryptedField);
+            decryptedValue = sjcl.decrypt( encryptKey , encryptedValue);
+        } catch (e) {
+            console.log('Error on decrypting. Perhaps a wrong encryption key?');
+            decryptedValue = '';
+        }
+        return Ember.isNone(encryptedValue) ? null : String( decryptedValue );
     });
 };
 
