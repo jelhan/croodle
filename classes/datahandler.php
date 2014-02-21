@@ -95,7 +95,7 @@ class datahandler {
                     
                     // extend id to all selection objects
                     foreach ($user_data->user->selections as $k => $v) {
-                        $user_data->user->selections[$k]->id = $poll_id . $k;
+                        $user_data->user->selections[$k]->id = $poll_id . $user_data->user->id . $k;
                     }
                     
                     // embedd user into poll
