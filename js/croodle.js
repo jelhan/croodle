@@ -313,8 +313,6 @@ App.PollController = Ember.ObjectController.extend({
         saveNewUser: function(user){
             var self = this;
             
-            console.log(user);
-            
             // create new user record in store
             var newUser = this.store.createRecord('user', {
                 encryptKey: this.get('model.encryptKey'),
@@ -412,7 +410,6 @@ App.PollView = Ember.View.extend({
             
     actions: {
         addNewUser: function(){
-            console.log(this.get('newUserName'));
             var newUser = {
                 name: this.get('newUserName'),
                 selections: this.get('newUserSelections')
