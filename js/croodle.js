@@ -111,7 +111,8 @@ App.Selection = DS.Model.extend({
 });
 
 App.Encryption = Ember.Object.extend({
-    key : ''
+    key : '',
+    isSet: false
 });
 
 App.Types = [
@@ -348,13 +349,16 @@ App.PollController = Ember.ObjectController.extend({
     },
     
     updateEncryptionKey: function() {
-        // check if they really differ to prevent unnecessary reload of data 
-        if (this.get('encryption.key') !== this.get('encryptionKey')) {
-            // update encryptKey
-            this.set('encryption.key', this.get('encryptionKey'));
-            // reload content to recalculate computed properties
+        // update encryption key
+        this.set('encryption.key', this.get('encryptionKey'));
+        
+        // reload content to recalculate computed properties
+        // if encryption key was set before
+        if (this.get('encryption.isSet') === true) {
             this.get('content').reload();
         }
+        
+        this.set('encryption.isSet', true);
     }.observes('encryptionKey')
 });
 
