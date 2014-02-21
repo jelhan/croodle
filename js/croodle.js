@@ -111,7 +111,7 @@ App.Selection = DS.Model.extend({
 });
 
 App.Encryption = Ember.Object.extend({
-    key : 'test'
+    key : ''
 });
 
 App.Types = [
@@ -305,7 +305,7 @@ App.CreateSettingsController = Ember.ObjectController.extend({
 
 App.PollController = Ember.ObjectController.extend({
     queryParams: ['encryptionKey'],
-    encryptionKey: 'nicht definiert',
+    encryptionKey: '',
 
     actions: {
         saveNewUser: function(user){
@@ -346,9 +346,9 @@ App.PollController = Ember.ObjectController.extend({
             });
         }
     },
-
+    
     updateEncryptionKey: function() {
-        // check if they really differ to prevent unnecessary reload of data
+        // check if they really differ to prevent unnecessary reload of data 
         if (this.get('encryption.key') !== this.get('encryptionKey')) {
             // update encryptKey
             this.set('encryption.key', this.get('encryptionKey'));
