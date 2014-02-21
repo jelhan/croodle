@@ -1,6 +1,11 @@
 // app initialization
 window.App = Ember.Application.create({
-    LOG_TRANSITIONS: true
+    LOG_TRANSITIONS: true,
+    
+    ready: function(){
+        this.register('encryption:current', App.Encryption, {singleton: true});
+        this.inject('controller:poll', 'encryption', 'encryption:current');
+    }
 });
 
 // adapter initialization
@@ -20,7 +25,7 @@ Ember.TextField.reopen({
 // decrypt / encrypt computed property helper
 Ember.computed.encrypted = function(encryptedField) {
     return Ember.computed(encryptedField, function(key, decryptedValue) {
-        var encryptKey = this.get('encryptKey'), encryptedValue;
+        var encryptKey = this.get('encryption.key'), encryptedValue;
 
         // check if encryptKey is set
         if (typeof encryptKey === 'undefined') {
@@ -91,6 +96,10 @@ App.User = DS.Model.extend({
 App.Selection = DS.Model.extend({
     encryptedValue : DS.attr('string'),
     value : Ember.computed.encrypted('encryptedValue')
+});
+
+App.Encryption = Ember.Object.extend({
+    key : 'test'
 });
 
 App.Types = [
@@ -336,6 +345,8 @@ App.PollController = Ember.ObjectController.extend({
             // reload content to recalculate computed properties
             this.get('content').reload();
         }
+        
+        this.set('encryption.key', this.get('encryptionKey'));
     }.observes('encryptionKey')
 });
 
