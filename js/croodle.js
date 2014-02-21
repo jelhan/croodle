@@ -1,10 +1,14 @@
 // app initialization
+Ember.MODEL_FACTORY_INJECTIONS = true;
+
 window.App = Ember.Application.create({
     LOG_TRANSITIONS: true,
     
     ready: function(){
         this.register('encryption:current', App.Encryption, {singleton: true});
         this.inject('controller:poll', 'encryption', 'encryption:current');
+        this.inject('route:create', 'encryption', 'encryption:current');
+        this.inject('model', 'encryption', 'encryption:current');
     }
 });
 
@@ -25,32 +29,40 @@ Ember.TextField.reopen({
 // decrypt / encrypt computed property helper
 Ember.computed.encrypted = function(encryptedField) {
     return Ember.computed(encryptedField, function(key, decryptedValue) {
-        var encryptKey = this.get('encryption.key'), encryptedValue;
+        var encryptKey = this.get('encryption.key'),
+            encryptedValue;
 
         // check if encryptKey is set
         if (typeof encryptKey === 'undefined') {
             console.log("encryption key is not set for: " + this.toString() + " " + encryptedField);
-
-            // dirty workaround for model of embedded records
-            console.log("using dirty workaround");
-            encryptKey = App.__container__.lookup("controller:poll").get('encryptionKey');
-            if (typeof encryptKey === 'undefined') {
-                console.log("dirty workaround failed also");
-                return;
-            }
+            return;
         }
 
-        //setter
+        // setter
         if (arguments.length === 2) {
             encryptedValue = Ember.isNone(decryptedValue) ? null : String( sjcl.encrypt( encryptKey , decryptedValue) );
             this.set(encryptedField, encryptedValue);
         }
+        
+        // get value of field to decrypt
+        encryptedValue = this.get(encryptedField);
+        
+        // check if encryptedField is defined and not null
+        if (typeof encryptedValue === 'undefined' ||
+                encryptedValue === null) {
+            return null;
+        }
 
+        // try to decrypt value
         try {
-            encryptedValue = this.get(encryptedField);
             decryptedValue = sjcl.decrypt( encryptKey , encryptedValue);
         } catch (e) {
-            console.log('Error on decrypting. Perhaps a wrong encryption key?');
+            console.log('Error on decrypting ' + encryptedField);
+            console.log('Value to decrypt:');
+            console.log(encryptedValue);
+            console.log('Error message by SJCL:');
+            console.log(e);
+            console.log('Perhaps a wrong encryption key?');
             decryptedValue = '';
         }
         return Ember.isNone(encryptedValue) ? null : String( decryptedValue );
@@ -144,7 +156,7 @@ App.Router.map(function(){
 });
 
 App.CreateRoute = Ember.Route.extend({
-    model: function(){
+    beforeModel: function(){
         // generate encryptionKey
         var encryptionKeyLength = 40;
         var encryptionKeyChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -158,9 +170,13 @@ App.CreateRoute = Ember.Route.extend({
             encryptionKey += list[index];
         } while(i < encryptionKeyLength);
 
+        // set encryption key
+        this.set('encryption.key', encryptionKey);
+    },
+    
+    model: function(){
         // create empty poll
         return this.store.createRecord('poll', {
-            encryptKey : encryptionKey,
             creationDate : new Date()
         });
     }
@@ -283,7 +299,7 @@ App.CreateSettingsController = Ember.ObjectController.extend({
             var self = this;
             this.get('model').save().then(function(model){
                 // redirect to new poll
-                self.transitionToRoute('poll', model, {queryParams: {encryptionKey: self.get('encryptKey')}});
+                self.transitionToRoute('poll', model, {queryParams: {encryptionKey: self.get('encryption.key')}});
             });
         }
     }
