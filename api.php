@@ -101,6 +101,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 case "users":
                     $newData = json_decode($data);
                     $newData->user->id = $newId;
+                    foreach ($newData->user->selections as $k => $v) {
+                        $newData->user->selections[$k]->id = $poll_id + $k;
+                    }
                     $newData = json_encode($newData);
                     break;
                 

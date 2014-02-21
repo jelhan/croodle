@@ -253,7 +253,6 @@ App.CreateOptionsController = Ember.ObjectController.extend({
                     // assign it to poll
                     self.get('model.options').then(function(model){
                         model.pushObject(newOption);
-                        console.log(model.get('length'));
                     });
                 }
             });
@@ -286,36 +285,33 @@ App.PollController = Ember.ObjectController.extend({
     encryptionKey: 'nicht definiert',
 
     actions: {
-        save: function(){
+        saveNewUser: function(user){
+            var self = this;
+            
+            console.log(user);
+            
             // create new user record in store
             var newUser = this.store.createRecord('user', {
-                encryptKey : this.get('model.encryptKey'),
-                name : this.get('newUserName'),
-                creationDate : new Date(),
-                poll : this.get('model')
+                encryptKey: this.get('model.encryptKey'),
+                name: user.name,
+                creationDate: new Date(),
+                poll: this.get('model'),
+                selections: user.selections
             });
 
             // create new selection record in store and assign it to the new user
-            var self = this,
-                newSelections = [];
-            $('.newUserSelection').each(function(){
-                // generate a new selection id
-                var newSelectionId = function(){
-                    // ToDo: check if id already exists
-                    return newId = Math.floor(Math.random()*(100000)+1);
-                };
-
+            var newSelections = [];
+            user.selections.forEach(function(selection){
                 // create new selection record in store
                 var newSelection = self.store.createRecord('selection', {
-                    encryptKey : self.get('model.encryptKey'),
-                    id : newSelectionId(),
-                    value : $(this).val()
+                    encryptKey: self.get('model.encryptKey'),
+                    value: selection.value
                 });
-
+               
                 // store new selections in an array
                 newSelections.push(newSelection);
             });
-
+            
             newUser.get('selections').then(function(selections){
                 // map over all new selections and assign them to user
                 $.each(newSelections, function(){
@@ -328,10 +324,6 @@ App.PollController = Ember.ObjectController.extend({
                         // assign new user to poll
                         users.pushObject(newUser);
                     });
-
-                    // empty newUser form after user is saved
-                    self.set('newUserName', '');
-                    $('.newUserSelection').val('');
                 });
             });
         }
@@ -385,5 +377,34 @@ App.CreateOptionsView = Ember.View.extend({
             }
         }
         this.set('newOptions', newOptions);
+    }
+});
+
+App.PollView = Ember.View.extend({
+    newUserName: 'name',
+    newUserSelections: [],
+            
+    actions: {
+        addNewUser: function(){
+            console.log(this.get('newUserName'));
+            var newUser = {
+                name: this.get('newUserName'),
+                selections: this.get('newUserSelections')
+            };
+            
+            this.get('controller').send('saveNewUser', newUser);
+        }
+    },
+    
+    // generate selection array for new user
+    willInsertElement: function(){
+        var newUserSelections = Ember.A(),
+            self = this;
+        this.get('controller.model.options').then(function(options){
+            options.forEach(function(){
+                newUserSelections.pushObject({value: ''});
+            });
+            self.set('newUserSelections', newUserSelections);
+        });
     }
 });

@@ -65,11 +65,11 @@
                 {{/each}}
                         
                 <tr class='newUser'>
-                    <td>{{input value=newUserName}}</td>
-                    {{#each option in options}}
-                        <td>{{input class="newUserSelection" data-option=option.id}}</td>
+                    <td>{{input value=view.newUserName}}</td>
+                    {{#each newUserSelection in view.newUserSelections}}
+                        <td>{{input value=newUserSelection.value}}</td>
                     {{/each}}
-                    <td><button {{action "save"}}> ok </button></td>
+                    <td><button {{action "addNewUser" target="view"}}> ok </button></td>
                 </tr>
             </tbody>
         </table>

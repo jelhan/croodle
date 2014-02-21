@@ -93,6 +93,11 @@ class datahandler {
                     // extend id to user object
                     $user_data->user->id = $file;
                     
+                    // extend id to all selection objects
+                    foreach ($user_data->user->selections as $k => $v) {
+                        $user_data->user->selections[$k]->id = $poll_id . $k;
+                    }
+                    
                     // embedd user into poll
                     $poll_data->poll->users[] = $user_data->user;
                 }
