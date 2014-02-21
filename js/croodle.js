@@ -380,7 +380,7 @@ App.CreateOptionsView = Ember.View.extend({
 });
 
 App.PollView = Ember.View.extend({
-    newUserName: 'name',
+    newUserName: '',
     newUserSelections: [],
             
     actions: {
