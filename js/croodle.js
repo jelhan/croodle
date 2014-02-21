@@ -416,6 +416,12 @@ App.PollView = Ember.View.extend({
             };
             
             this.get('controller').send('saveNewUser', newUser);
+            
+            // clear input fields
+            this.set('newUserName', '');
+            this.get('newUserSelections').forEach(function(selection){
+                selection.set('value', '');
+            });
         }
     },
     
@@ -425,7 +431,8 @@ App.PollView = Ember.View.extend({
             self = this;
         this.get('controller.model.options').then(function(options){
             options.forEach(function(){
-                newUserSelections.pushObject({value: ''});
+                newSelection = Ember.Object.create({value: ''});
+                newUserSelections.pushObject(newSelection);
             });
             self.set('newUserSelections', newUserSelections);
         });
