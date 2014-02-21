@@ -295,8 +295,7 @@ App.PollController = Ember.ObjectController.extend({
                 encryptKey: this.get('model.encryptKey'),
                 name: user.name,
                 creationDate: new Date(),
-                poll: this.get('model'),
-                selections: user.selections
+                poll: this.get('model')
             });
 
             // create new selection record in store and assign it to the new user
