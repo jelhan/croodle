@@ -230,7 +230,6 @@ App.CreateSettingsRoute = Ember.Route.extend({
 App.PollRoute = Ember.Route.extend({
     model: function(params){
         return this.store.find('poll', params.poll_id).then(function(poll) {
-            poll.set('encryptKey', params.encryptionKey);
             return poll;
         });
     }
@@ -271,7 +270,6 @@ App.CreateOptionsController = Ember.ObjectController.extend({
                 if( /\S/.test(option.title)) {
                     // create newOption
                     var newOption = self.store.createRecord('option', {
-                        encryptKey : self.get('model.encryptKey'),
                         title : option.title
                     });
 
@@ -315,7 +313,6 @@ App.PollController = Ember.ObjectController.extend({
             
             // create new user record in store
             var newUser = this.store.createRecord('user', {
-                encryptKey: this.get('model.encryptKey'),
                 name: user.name,
                 creationDate: new Date(),
                 poll: this.get('model')
@@ -326,7 +323,6 @@ App.PollController = Ember.ObjectController.extend({
             user.selections.forEach(function(selection){
                 // create new selection record in store
                 var newSelection = self.store.createRecord('selection', {
-                    encryptKey: self.get('model.encryptKey'),
                     value: selection.value
                 });
                
@@ -353,14 +349,12 @@ App.PollController = Ember.ObjectController.extend({
 
     updateEncryptionKey: function() {
         // check if they really differ to prevent unnecessary reload of data
-        if (this.get('encryptKey') !== this.get('encryptionKey')) {
+        if (this.get('encryption.key') !== this.get('encryptionKey')) {
             // update encryptKey
-            this.set('encryptKey', this.get('encryptionKey'));
+            this.set('encryption.key', this.get('encryptionKey'));
             // reload content to recalculate computed properties
             this.get('content').reload();
         }
-        
-        this.set('encryption.key', this.get('encryptionKey'));
     }.observes('encryptionKey')
 });
 
