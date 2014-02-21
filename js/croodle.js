@@ -273,9 +273,9 @@ App.CreateSettingsController = Ember.ObjectController.extend({
         save: function(){
             // save poll
             var self = this;
-            this.get('model').save().then(function(){
+            this.get('model').save().then(function(model){
                 // redirect to new poll
-                self.transitionToRoute('poll', self.get('model'), {queryParams: {encryptionKey: self.get('encryptKey')}});
+                self.transitionToRoute('poll', model, {queryParams: {encryptionKey: self.get('encryptKey')}});
             });
         }
     }
