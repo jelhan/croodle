@@ -102,7 +102,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     $newData = json_decode($data);
                     $newData->user->id = $newId;
                     foreach ($newData->user->selections as $k => $v) {
-                        $newData->user->selections[$k]->id = $poll_id + $user_data->user->id + $k;
+                        $newData->user->selections[$k]->id = $poll_id + $newData->user->id + $k;
                     }
                     $newData = json_encode($newData);
                     break;
