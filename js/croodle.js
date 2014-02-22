@@ -297,8 +297,11 @@ App.CreateSettingsController = Ember.ObjectController.extend({
             // save poll
             var self = this;
             this.get('model').save().then(function(model){
-                // redirect to new poll
-                self.transitionToRoute('poll', model, {queryParams: {encryptionKey: self.get('encryption.key')}});
+                // reload as workaround for bug: duplicated records after save
+                model.reload().then(function(model){
+                   // redirect to new poll
+                   self.transitionToRoute('poll', model, {queryParams: {encryptionKey: self.get('encryption.key')}}); 
+                });
             });
         }
     }
@@ -343,6 +346,8 @@ App.PollController = Ember.ObjectController.extend({
                         // assign new user to poll
                         users.pushObject(newUser);
                     });
+                    // reload as workaround for bug: duplicated records after save
+                    self.get('model').reload();
                 });
             });
         }
