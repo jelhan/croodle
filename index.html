@@ -39,7 +39,15 @@
         <p>{{description}}</p>
 
         <h2>type</h2>
-        <p>{{type}}</p>
+        <p>{{pollType}}</p>
+
+        <h2>answer type</h2>
+        <p>{{answerType}}</p>
+
+        <h2>answers</h2>
+        {{#each answer in answers}}
+            {{answer}}<br/>
+        {{/each}}
 
         <h2>options and user</h2>
         <table>
@@ -67,7 +75,18 @@
                 <tr class='newUser'>
                     <td>{{input value=view.newUserName}}</td>
                     {{#each newUserSelection in view.newUserSelections}}
-                        <td>{{input value=newUserSelection.value}}</td>
+                        <td>
+                        {{#if isFreeText}}
+                            {{input value=newUserSelection.value}}
+                        {{else}}
+                            {{view Ember.Select
+                                contentBinding="answers"
+                                optionValuePath="content"
+                                optionLabelPath="content"
+                                prompt="Please select an answer"
+                                valueBinding="newUserSelection.value"}}
+                        {{/if}}
+                        </td>
                     {{/each}}
                     <td><button {{action "addNewUser" target="view"}}> ok </button></td>
                 </tr>
@@ -84,25 +103,30 @@
     </script>
     
     <script type="text/x-handlebars" id="create/index">
+        <h2>create a poll</h2>
         <p>
             type:<br/>
             {{view Ember.Select
-                contentBinding="App.Types"
+                contentBinding="App.PollTypes"
                 optionValuePath="content.id"
                 optionLabelPath="content.label"
-                valueBinding="type"}}
+                prompt="Please select a poll type"
+                valueBinding="pollType"
+            }}
         </p>
         <p><button {{action "save"}}> ok </button></p>
     </script>
     
     <script type="text/x-handlebars" id="create/meta">
+        <h2>meta data</h2>
         <p>title:<br/>{{input value=title}}</p>
         <p>description:<br/>{{textarea value=description}}</p>
         <p><button {{action "save"}}> ok </button></p>
     </script>
     
     <script type="text/x-handlebars" id="create/options">
-        <p>options<br/>
+        <h2>options</h2>
+        </p>
         {{#each newOption in view.newOptions}}
             {{view Ember.TextField valueBinding="newOption.title"}}<br/>
         {{/each}}
@@ -112,7 +136,16 @@
     </script>
     
     <script type="text/x-handlebars" id="create/settings">
-        <p>settings</p>
+        <h2>settings</h2>
+        <p>answer type:<br/>
+            {{view Ember.Select
+                contentBinding="App.AnswerTypes"
+                optionValuePath="content.id"
+                optionLabelPath="content.label"
+                value="YesNo"
+                prompt="Please define available answers"
+                valueBinding="answerType"}}
+        </p>
         <p><button {{action "save"}}> ok </button></p>
     </script>
     

@@ -42,13 +42,12 @@ Ember.computed.encrypted = function(encryptedField) {
 
         // check if encryptKey is set
         if (typeof encryptKey === 'undefined') {
-            console.log("encryption key is not set for: " + this.toString() + " " + encryptedField);
             return;
         }
 
         // setter
         if (arguments.length === 2) {
-            encryptedValue = Ember.isNone(decryptedValue) ? null : String( sjcl.encrypt( encryptKey , decryptedValue) );
+            encryptedValue = Ember.isNone(decryptedValue) ? null : String(sjcl.encrypt(encryptKey , decryptedValue));
             this.set(encryptedField, encryptedValue);
         }
         
@@ -63,19 +62,51 @@ Ember.computed.encrypted = function(encryptedField) {
 
         // try to decrypt value
         try {
-            decryptedValue = sjcl.decrypt( encryptKey , encryptedValue);
+            decryptedValue = sjcl.decrypt(encryptKey, encryptedValue);
         } catch (e) {
             console.log('Error on decrypting ' + encryptedField);
-            console.log('Value to decrypt:');
-            console.log(encryptedValue);
-            console.log('Error message by SJCL:');
             console.log(e);
             console.log('Perhaps a wrong encryption key?');
             decryptedValue = '';
         }
-        return Ember.isNone(encryptedValue) ? null : String( decryptedValue );
+        return Ember.isNone(encryptedValue) ? null : String(decryptedValue);
     });
 };
+
+/*
+ * array as attribute for models
+ */
+App.ArrayTransform = DS.Transform.extend({
+  // If the outgoing json is already a valid javascript array
+  // then pass it through untouched. In all other cases, replace it
+  // with an empty array.  This means null or undefined values
+  // automatically become empty arrays when serializing this type.
+  serialize: function (jsonData) {
+    if (Em.typeOf(jsonData) === 'array') {
+      return jsonData;
+    }
+    else {
+      return [];
+    }
+  },
+
+  // If the incoming data is a javascript array, pass it through.
+  // If it is a string, then coerce it into an array by splitting
+  // it on commas and trimming whitespace on each element.
+  // Otherwise pass back an empty array.  This has the effect of
+  // turning all other data types (including nulls and undefined
+  // values) into empty arrays.
+  deserialize: function (externalData) {
+    switch (Em.typeOf(externalData)) {
+      case 'array':
+        return externalData;
+      case 'string':
+        return externalData.split(',').map( function(item) { return jQuery.trim(item) } );
+      default:
+        return [];
+    }               
+  }
+}),
 
 /*
  * models
@@ -87,8 +118,11 @@ App.Poll = DS.Model.extend({
     title : Ember.computed.encrypted('encryptedTitle'),
     encryptedDescription : DS.attr('string'),
     description: Ember.computed.encrypted('encryptedDescription'),
-    encryptedType : DS.attr('string'),
-    type : Ember.computed.encrypted('encryptedType'),
+    encryptedPollType : DS.attr('string'),
+    pollType : Ember.computed.encrypted('encryptedPollType'),
+    encryptedAnswerType: DS.attr('string'),
+    answerType : Ember.computed.encrypted('encryptedAnswerType'),
+    answers : DS.attr('array'),
     options : DS.hasMany('option', {async: true}),
     users : DS.hasMany('user', {async: true}),
     creationDate : DS.attr('date')
@@ -123,7 +157,7 @@ App.Encryption = Ember.Object.extend({
     isSet: false
 });
 
-App.Types = [
+App.PollTypes = [
    Ember.Object.create({
         id : "FindADate",
         label : "Find a date"
@@ -132,6 +166,24 @@ App.Types = [
         id : "MakeAPoll",
         label : "Make a poll"
    })
+];
+
+App.AnswerTypes = [
+    Ember.Object.create({
+        id : "YesNo",
+        label : "yes, no",
+        answers : ["yes", "no"]
+    }),
+    Ember.Object.create({
+        id : "YesNoMaybe",
+        label : "yes, no, maybe",
+        answers : ["yes", "no", "maybe"]
+    }),
+    Ember.Object.create({
+        id : "FreeText",
+        label : "free text",
+        answers : []
+    })
 ];
 
 /*
@@ -202,9 +254,9 @@ App.CreateMetaRoute = Ember.Route.extend({
         return this.modelFor('create');
     },
 
-    // redirect to create/index if type is not set
+    // redirect to create/index if poll type is not set
     afterModel: function(create){
-        if (create.get('type') === null) {
+        if (create.get('pollType') === null) {
             this.transitionTo('create.index');
         }
     }
@@ -312,7 +364,22 @@ App.CreateSettingsController = Ember.ObjectController.extend({
                 });
             });
         }
-    }
+    },
+    
+    updateAnswers: function(){
+        var selectedAnswer = this.get('model.answerType'),
+            answers = [];
+        
+        if (selectedAnswer !== null) {
+            for (var i=0; i<App.AnswerTypes.length; i++) {
+                if (App.AnswerTypes[i].id === selectedAnswer) {
+                    answers = App.AnswerTypes[i].answers;
+                }
+            }
+
+            this.set('answers', answers);
+        }
+    }.observes('answerType')
 });
 
 App.PollController = Ember.ObjectController.extend({
@@ -360,6 +427,16 @@ App.PollController = Ember.ObjectController.extend({
             });
         }
     },
+    
+    isFreeText: function() {
+        var answerType = this.get('answerType');
+        if (answerType === 'FreeText') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }.property('answerType'),
     
     updateEncryptionKey: function() {
         // update encryption key
