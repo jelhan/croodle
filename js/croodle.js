@@ -15,7 +15,15 @@ window.App = Ember.Application.create({
 // adapter initialization
 App.ApplicationAdapter = DS.EmbeddedAdapter.extend({
     // set namespace to api.php in same subdirectory
-    namespace: 'api.php?'
+    namespace: window.location.pathname
+            // remove index.html if it's there
+            .replace(/index.html$/, '')
+            // remove leading and trailing slash
+            .replace(/\/$/, '')
+            // add api.php
+            .concat('/api.php?')
+            // remove leading slash
+            .replace(/^\//g, '')
 });
 
 // serializer initialization
