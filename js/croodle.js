@@ -77,35 +77,35 @@ Ember.computed.encrypted = function(encryptedField) {
  * array as attribute for models
  */
 App.ArrayTransform = DS.Transform.extend({
-  // If the outgoing json is already a valid javascript array
-  // then pass it through untouched. In all other cases, replace it
-  // with an empty array.  This means null or undefined values
-  // automatically become empty arrays when serializing this type.
-  serialize: function (jsonData) {
-    if (Em.typeOf(jsonData) === 'array') {
-      return jsonData;
-    }
-    else {
-      return [];
-    }
-  },
+    // If the outgoing json is already a valid javascript array
+    // then pass it through untouched. In all other cases, replace it
+    // with an empty array.  This means null or undefined values
+    // automatically become empty arrays when serializing this type.
+    serialize: function (jsonData) {
+        if (Em.typeOf(jsonData) === 'array') {
+            return jsonData;
+        }
+        else {
+            return [];
+        }
+    },
 
-  // If the incoming data is a javascript array, pass it through.
-  // If it is a string, then coerce it into an array by splitting
-  // it on commas and trimming whitespace on each element.
-  // Otherwise pass back an empty array.  This has the effect of
-  // turning all other data types (including nulls and undefined
-  // values) into empty arrays.
-  deserialize: function (externalData) {
-    switch (Em.typeOf(externalData)) {
-      case 'array':
-        return externalData;
-      case 'string':
-        return externalData.split(',').map( function(item) { return jQuery.trim(item) } );
-      default:
-        return [];
-    }               
-  }
+    // If the incoming data is a javascript array, pass it through.
+    // If it is a string, then coerce it into an array by splitting
+    // it on commas and trimming whitespace on each element.
+    // Otherwise pass back an empty array.  This has the effect of
+    // turning all other data types (including nulls and undefined
+    // values) into empty arrays.
+    deserialize: function (externalData) {
+        switch (Em.typeOf(externalData)) {
+            case 'array':
+                return externalData;
+            case 'string':
+                return externalData.split(',').map( function(item) { return jQuery.trim(item) } );
+            default:
+                return [];
+        }               
+    }
 }),
 
 /*
@@ -123,16 +123,9 @@ App.Poll = DS.Model.extend({
     encryptedAnswerType: DS.attr('string'),
     answerType : Ember.computed.encrypted('encryptedAnswerType'),
     answers : DS.attr('array'),
-    options : DS.hasMany('option', {async: true}),
+    options : DS.attr('array', {defaultValue: [{title: ''}, {title: ''}]}),
     users : DS.hasMany('user', {async: true}),
     creationDate : DS.attr('date')
-});
-
-// option model
-// used by poll model
-App.Option = DS.Model.extend({
-    encryptedTitle : DS.attr('string'),
-    title : Ember.computed.encrypted('encryptedTitle')
 });
 
 // user model
@@ -191,7 +184,6 @@ App.AnswerTypes = [
  */
 App.PollSerializer = App.ApplicationSerializer.extend({
     attrs: {
-        options: {embedded: 'always'},
         users: {embedded: 'load'}
     }
 });
@@ -319,28 +311,26 @@ App.CreateMetaController = Ember.ObjectController.extend({
 
 App.CreateOptionsController = Ember.ObjectController.extend({
     actions: {           
-        addOptions: function(options) {
-            var self = this;
+        saveOptions: function() {
+            var options = this.get('model.options'),
+                newOptions = [];
             
-            // delete old options in model
-            this.get('model.options').clear();
+            console.log(options);
             
-            // iterate over array of options and push them to poll
-            options.forEach(function(option){
-                // check if option has title and if it is unique
-                if( /\S/.test(option.title)) {
-                    // create newOption
-                    var newOption = self.store.createRecord('option', {
-                        title : option.title
-                    });
-
-                    // assign it to poll
-                    self.get('model.options').then(function(model){
-                        model.pushObject(newOption);
-                    });
+            // remove options without value
+            options.forEach(function(option) {
+                if (option.title !== '') {
+                     newOptions.pushObject(option);
                 }
             });
-
+            
+            // check if options have been removed
+            // if so set reduced options as actual options
+            if (options.length !== newOptions.length) {
+                this.set('model.options', newOptions);
+            }
+            
+            // tricker save action
             this.send('save');
         },
 
@@ -348,7 +338,12 @@ App.CreateOptionsController = Ember.ObjectController.extend({
             // redirect to CreateSettings
             this.transitionToRoute('create.settings');
         }
-    }
+    },
+    
+    test: function(){
+        console.log('is triggered');
+        console.log(this.get('options'));
+    }.observes('options')
 });
 
 App.CreateSettingsController = Ember.ObjectController.extend({
@@ -457,38 +452,12 @@ App.PollController = Ember.ObjectController.extend({
  */
 App.CreateOptionsView = Ember.View.extend({
     title: '',
-    newOptions: [],
     
     actions: {
         moreOptions: function(){
             // create new Option
-            this.get('newOptions').pushObject({title: ''});
-       },
-       
-       saveOptions: function(){
-            var options = this.get('newOptions');
-            
-            this.get('controller').send('addOptions', options);
+            this.get('controller.model.options').pushObject({title: ''});
        }
-    },
-    
-    // set newOptions to existing options or to default
-    willInsertElement: function() {
-        var newOptions = Ember.A();
-        
-        if ( this.get('controller.model.options.length') > 0 ) {
-            // existing options
-            this.get('controller.model.options').forEach(function(option){
-                newOptions.pushObject({title: option.get('title')});
-            });
-        }
-        else {
-            // default
-            for(i = 0; i < 2; i++) {
-                newOptions.pushObject({title: ''});
-            }
-        }
-        this.set('newOptions', newOptions);
     }
 });
 
@@ -516,13 +485,13 @@ App.PollView = Ember.View.extend({
     // generate selection array for new user
     willInsertElement: function(){
         var newUserSelections = Ember.A(),
-            self = this;
-        this.get('controller.model.options').then(function(options){
-            options.forEach(function(){
-                newSelection = Ember.Object.create({value: ''});
-                newUserSelections.pushObject(newSelection);
-            });
-            self.set('newUserSelections', newUserSelections);
+            self = this,
+            options = this.get('controller.model.options');
+    
+        options.forEach(function(){
+            newSelection = Ember.Object.create({value: ''});
+            newUserSelections.pushObject(newSelection);
         });
+        self.set('newUserSelections', newUserSelections);
     }
 });
