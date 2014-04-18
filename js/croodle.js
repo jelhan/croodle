@@ -321,9 +321,7 @@ App.CreateOptionsController = Ember.ObjectController.extend({
         saveOptions: function() {
             var options = this.get('model.options'),
                 newOptions = [];
-            
-            console.log(options);
-            
+        
             // remove options without value
             options.forEach(function(option) {
                 if (option.title !== '') {
@@ -345,12 +343,7 @@ App.CreateOptionsController = Ember.ObjectController.extend({
             // redirect to CreateSettings
             this.transitionToRoute('create.settings');
         }
-    },
-    
-    test: function(){
-        console.log('is triggered');
-        console.log(this.get('options'));
-    }.observes('options')
+    }
 });
 
 App.CreateSettingsController = Ember.ObjectController.extend({
