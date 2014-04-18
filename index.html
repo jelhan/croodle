@@ -44,11 +44,6 @@
         <h2>answer type</h2>
         <p>{{answerType}}</p>
 
-        <h2>answers</h2>
-        {{#each answer in answers}}
-            {{answer}}<br/>
-        {{/each}}
-
         <h2>options and user</h2>
         <table>
             <thead>
@@ -81,8 +76,8 @@
                         {{else}}
                             {{view Ember.Select
                                 contentBinding="answers"
-                                optionValuePath="content"
-                                optionLabelPath="content"
+                                optionValuePath="content.label"
+                                optionLabelPath="content.label"
                                 prompt="Please select an answer"
                                 valueBinding="newUserSelection.value"}}
                         {{/if}}

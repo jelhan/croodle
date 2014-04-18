@@ -165,12 +165,19 @@ App.AnswerTypes = [
     Ember.Object.create({
         id : "YesNo",
         label : "yes, no",
-        answers : ["yes", "no"]
+        answers : [
+                {label: "yes"},
+                {label: "no"}
+            ]
     }),
     Ember.Object.create({
         id : "YesNoMaybe",
         label : "yes, no, maybe",
-        answers : ["yes", "no", "maybe"]
+        answers : [
+                {label: "yes"},
+                {label: "no"},
+                {label: "maybe"}
+            ]
     }),
     Ember.Object.create({
         id : "FreeText",
