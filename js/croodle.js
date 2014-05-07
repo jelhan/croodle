@@ -81,12 +81,17 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
         }
         
         switch (dataType) {
-            case 'string':
-                return Ember.isNone(decryptedValue) ? null : String(decryptedValue);
+            case 'array':
+                console.log(decryptedValue);
+                return Ember.isNone(decryptedValue) ? null : decryptedValue;
                 break;
             
             case 'date':
                 return Ember.isNone(decryptedValue) ? null : Date(decryptedValue);
+                break;
+                
+            case 'string':
+                return Ember.isNone(decryptedValue) ? null : String(decryptedValue);
                 break;
         }
     });
@@ -141,7 +146,8 @@ App.Poll = DS.Model.extend({
     pollType : Ember.computed.encrypted('encryptedPollType', 'string'),
     encryptedAnswerType: DS.attr('string'),
     answerType : Ember.computed.encrypted('encryptedAnswerType', 'string'),
-    answers : DS.attr('array'),
+    encryptedAnswers : DS.attr('string'),
+    answers : Ember.computed.encrypted('encryptedAnswers', 'array'),
     options : DS.attr('array', {defaultValue: [{title: ''}, {title: ''}]}),
     users : DS.hasMany('user', {async: true}),
     encryptedCreationDate : DS.attr('string'),
