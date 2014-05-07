@@ -40,8 +40,6 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
         var encryptKey = this.get('encryption.key'),
             encryptedValue;
 
-        console.log('runs');
-
         // check if encryptKey is set
         if (typeof encryptKey === 'undefined') {
             return;
@@ -52,13 +50,11 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
             var decryptedJSON = JSON.stringify(decryptedValue);
             
             encryptedValue = Ember.isNone(decryptedValue) ? null : String(sjcl.encrypt(encryptKey , decryptedJSON));
-            console.log(encryptedValue);
             this.set(encryptedField, encryptedValue);
         }
         
         // get value of field to decrypt
         encryptedJSON = this.get(encryptedField);
-        console.log(encryptedJSON);
         
         // check if encryptedField is defined and not null
         if (typeof encryptedJSON === 'undefined' ||
@@ -69,10 +65,7 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
         // try to decrypt value
         try {
             decryptedJSON = sjcl.decrypt(encryptKey, encryptedJSON);
-            console.log(decryptedJSON);
             decryptedValue = JSON.parse(decryptedJSON);
-            console.log(decryptedValue);
-            console.log(Date(decryptedValue));
         } catch (e) {
             console.log('Error on decrypting ' + encryptedField);
             console.log(e);
@@ -82,7 +75,6 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
         
         switch (dataType) {
             case 'array':
-                console.log(decryptedValue);
                 return Ember.isNone(decryptedValue) ? null : decryptedValue;
                 break;
             
