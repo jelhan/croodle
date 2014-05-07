@@ -35,10 +35,12 @@ Ember.TextField.reopen({
 });
 
 // decrypt / encrypt computed property helper
-Ember.computed.encrypted = function(encryptedField) {
+Ember.computed.encrypted = function(encryptedField, dataType) {
     return Ember.computed(encryptedField, function(key, decryptedValue) {
         var encryptKey = this.get('encryption.key'),
             encryptedValue;
+
+        console.log('runs');
 
         // check if encryptKey is set
         if (typeof encryptKey === 'undefined') {
@@ -47,29 +49,46 @@ Ember.computed.encrypted = function(encryptedField) {
 
         // setter
         if (arguments.length === 2) {
-            encryptedValue = Ember.isNone(decryptedValue) ? null : String(sjcl.encrypt(encryptKey , decryptedValue));
+            var decryptedJSON = JSON.stringify(decryptedValue);
+            
+            encryptedValue = Ember.isNone(decryptedValue) ? null : String(sjcl.encrypt(encryptKey , decryptedJSON));
+            console.log(encryptedValue);
             this.set(encryptedField, encryptedValue);
         }
         
         // get value of field to decrypt
-        encryptedValue = this.get(encryptedField);
+        encryptedJSON = this.get(encryptedField);
+        console.log(encryptedJSON);
         
         // check if encryptedField is defined and not null
-        if (typeof encryptedValue === 'undefined' ||
-                encryptedValue === null) {
+        if (typeof encryptedJSON === 'undefined' ||
+                encryptedJSON === null) {
             return null;
         }
 
         // try to decrypt value
         try {
-            decryptedValue = sjcl.decrypt(encryptKey, encryptedValue);
+            decryptedJSON = sjcl.decrypt(encryptKey, encryptedJSON);
+            console.log(decryptedJSON);
+            decryptedValue = JSON.parse(decryptedJSON);
+            console.log(decryptedValue);
+            console.log(Date(decryptedValue));
         } catch (e) {
             console.log('Error on decrypting ' + encryptedField);
             console.log(e);
             console.log('Perhaps a wrong encryption key?');
             decryptedValue = '';
         }
-        return Ember.isNone(encryptedValue) ? null : String(decryptedValue);
+        
+        switch (dataType) {
+            case 'string':
+                return Ember.isNone(decryptedValue) ? null : String(decryptedValue);
+                break;
+            
+            case 'date':
+                return Ember.isNone(decryptedValue) ? null : Date(decryptedValue);
+                break;
+        }
     });
 };
 
@@ -104,7 +123,7 @@ App.ArrayTransform = DS.Transform.extend({
                 return externalData.split(',').map( function(item) { return jQuery.trim(item) } );
             default:
                 return [];
-        }               
+        }
     }
 }),
 
@@ -115,17 +134,18 @@ App.ArrayTransform = DS.Transform.extend({
 // poll model
 App.Poll = DS.Model.extend({
     encryptedTitle : DS.attr('string'),
-    title : Ember.computed.encrypted('encryptedTitle'),
+    title : Ember.computed.encrypted('encryptedTitle', 'string'),
     encryptedDescription : DS.attr('string'),
-    description: Ember.computed.encrypted('encryptedDescription'),
+    description: Ember.computed.encrypted('encryptedDescription', 'string'),
     encryptedPollType : DS.attr('string'),
-    pollType : Ember.computed.encrypted('encryptedPollType'),
+    pollType : Ember.computed.encrypted('encryptedPollType', 'string'),
     encryptedAnswerType: DS.attr('string'),
-    answerType : Ember.computed.encrypted('encryptedAnswerType'),
+    answerType : Ember.computed.encrypted('encryptedAnswerType', 'string'),
     answers : DS.attr('array'),
     options : DS.attr('array', {defaultValue: [{title: ''}, {title: ''}]}),
     users : DS.hasMany('user', {async: true}),
-    creationDate : DS.attr('date')
+    encryptedCreationDate : DS.attr('string'),
+    creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date')
 });
 
 // user model
@@ -133,16 +153,17 @@ App.Poll = DS.Model.extend({
 App.User = DS.Model.extend({
     poll : DS.belongsTo('poll', {async: true}),
     encryptedName : DS.attr('string'),
-    name : Ember.computed.encrypted('encryptedName'),
+    name : Ember.computed.encrypted('encryptedName', 'string'),
     selections : DS.hasMany('selection', {async: true}),
-    creationDate : DS.attr('date')
+    encryptedCreationDate : DS.attr('string'),
+    creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date')
 });
 
 // selection model
 // used by user model
 App.Selection = DS.Model.extend({
     encryptedValue : DS.attr('string'),
-    value : Ember.computed.encrypted('encryptedValue')
+    value : Ember.computed.encrypted('encryptedValue', 'string')
 });
 
 App.Encryption = Ember.Object.extend({
