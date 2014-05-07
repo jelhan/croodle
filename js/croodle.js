@@ -148,7 +148,7 @@ App.Poll = DS.Model.extend({
     answerType : Ember.computed.encrypted('encryptedAnswerType', 'string'),
     encryptedAnswers : DS.attr('string'),
     answers : Ember.computed.encrypted('encryptedAnswers', 'array'),
-    options : DS.attr('array', {defaultValue: [{title: ''}, {title: ''}]}),
+    options : DS.attr('array'),
     users : DS.hasMany('user', {async: true}),
     encryptedCreationDate : DS.attr('string'),
     creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date')
@@ -264,7 +264,8 @@ App.CreateRoute = Ember.Route.extend({
     model: function(){
         // create empty poll
         return this.store.createRecord('poll', {
-            creationDate : new Date()
+            creationDate : new Date(),
+            options : [{title: ''}, {title: ''}]
         });
     }
 });
