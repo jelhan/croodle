@@ -118,16 +118,10 @@ App.User = DS.Model.extend({
     poll : DS.belongsTo('poll', {async: true}),
     encryptedName : DS.attr('string'),
     name : Ember.computed.encrypted('encryptedName', 'string'),
-    selections : DS.hasMany('selection', {async: true}),
+    encryptedSelections : DS.attr('string'),
+    selections : Ember.computed.encrypted('encryptedSelections', 'array'),
     encryptedCreationDate : DS.attr('string'),
     creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date')
-});
-
-// selection model
-// used by user model
-App.Selection = DS.Model.extend({
-    encryptedValue : DS.attr('string'),
-    value : Ember.computed.encrypted('encryptedValue', 'string')
 });
 
 App.Encryption = Ember.Object.extend({
@@ -177,12 +171,6 @@ App.AnswerTypes = [
 App.PollSerializer = App.ApplicationSerializer.extend({
     attrs: {
         users: {embedded: 'load'}
-    }
-});
-
-App.UserSerializer = App.ApplicationSerializer.extend({
-    attrs: {
-        selections: {embedded: 'always'}
     }
 });
 
@@ -372,40 +360,24 @@ App.PollController = Ember.ObjectController.extend({
         saveNewUser: function(user){
             var self = this;
             
+            console.log(user);
+            
             // create new user record in store
             var newUser = this.store.createRecord('user', {
                 name: user.name,
                 creationDate: new Date(),
-                poll: this.get('model')
-            });
-
-            // create new selection record in store and assign it to the new user
-            var newSelections = [];
-            user.selections.forEach(function(selection){
-                // create new selection record in store
-                var newSelection = self.store.createRecord('selection', {
-                    value: selection.value
-                });
-               
-                // store new selections in an array
-                newSelections.push(newSelection);
+                poll: this.get('model'),
+                selections: user.selections
             });
             
-            newUser.get('selections').then(function(selections){
-                // map over all new selections and assign them to user
-                $.each(newSelections, function(){
-                    selections.pushObject(this);
+            // save new user
+            newUser.save().then(function(){
+                self.get('model.users').then(function(users){
+                    // assign new user to poll
+                    users.pushObject(newUser);
                 });
-
-                // save new user
-                newUser.save().then(function(){
-                    self.get('model.users').then(function(users){
-                        // assign new user to poll
-                        users.pushObject(newUser);
-                    });
-                    // reload as workaround for bug: duplicated records after save
-                    self.get('model').reload();
-                });
+                // reload as workaround for bug: duplicated records after save
+                self.get('model').reload();
             });
         }
     },
