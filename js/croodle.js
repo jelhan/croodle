@@ -360,8 +360,6 @@ App.PollController = Ember.ObjectController.extend({
         saveNewUser: function(user){
             var self = this;
             
-            console.log(user);
-            
             // create new user record in store
             var newUser = this.store.createRecord('user', {
                 name: user.name,
