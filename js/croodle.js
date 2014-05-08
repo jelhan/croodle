@@ -140,7 +140,8 @@ App.Poll = DS.Model.extend({
     answerType : Ember.computed.encrypted('encryptedAnswerType', 'string'),
     encryptedAnswers : DS.attr('string'),
     answers : Ember.computed.encrypted('encryptedAnswers', 'array'),
-    options : DS.attr('array'),
+		encryptedOptions : DS.attr('string'),
+    options : Ember.computed.encrypted('encryptedOptions', 'array'),
     users : DS.hasMany('user', {async: true}),
     encryptedCreationDate : DS.attr('string'),
     creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date')
@@ -349,11 +350,12 @@ App.CreateOptionsController = Ember.ObjectController.extend({
                 }
             });
             
-            // check if options have been removed
-            // if so set reduced options as actual options
-            if (options.length !== newOptions.length) {
-                this.set('model.options', newOptions);
-            }
+            // set updated options
+						// 
+            // we have to hardly set new options even if they wasn't changed to
+						// trigger computed property; push on array doesn't trigger computed
+						// property to recalculate
+            this.set('model.options', newOptions);
             
             // tricker save action
             this.send('save');
