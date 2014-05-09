@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Croodle</title>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Croodle</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/croodle.css" rel="stylesheet">
+  </head>
+  <body>
     <!--
         TEMPLATES
     -->
     
     <!-- application template -->
     <script type="text/x-handlebars">
-        <div class="main">
+        <div class="container">
             <h1>Croodle</h1>
             {{outlet}}
         </div>
@@ -32,18 +37,10 @@
     
     <!-- poll template -->
     <script type="text/x-handlebars" id="poll">
-        <h2>title</h2>
-        <p>{{title}}</p>
-
-        <h2>description</h2>
-        <p>{{description}}</p>
-
-        <h2>type</h2>
-        <p>{{pollType}}</p>
-
-        <h2>answer type</h2>
-        <p>{{answerType}}</p>
-
+        <h2 class="title">{{title}}</h2>
+        <p class="description">{{description}}</p>
+        <p class="creationDate">created on {{creationDate}}</p>
+        
         <h2>options and user</h2>
         <table>
             <thead>
@@ -55,7 +52,7 @@
                     <td>&nbsp;</td>
                 </tr>
             </thead>
-        
+
             <tbody>
                 {{#each user in users}}
                     <tr>
@@ -66,30 +63,27 @@
                         <td>&nbsp;</td>
                     </tr>
                 {{/each}}
-                        
+
                 <tr class='newUser'>
-                    <td>{{input value=view.newUserName}}</td>
+                    <td>{{input value=view.newUserName placeholder="Enter your name..."}}</td>
                     {{#each newUserSelection in view.newUserSelections}}
                         <td>
-                        {{#if isFreeText}}
-                            {{input value=newUserSelection.value}}
-                        {{else}}
-                            {{view Ember.Select
-                                contentBinding="answers"
-                                optionValuePath="content.label"
-                                optionLabelPath="content.label"
-                                prompt="Please select an answer"
-                                valueBinding="newUserSelection.value"}}
-                        {{/if}}
+                            {{#if isFreeText}}
+                                {{input value=newUserSelection.value}}
+                            {{else}}
+                                {{view Ember.Select
+                                    contentBinding="answers"
+                                    optionValuePath="content.label"
+                                    optionLabelPath="content.label"
+                                    prompt="Please select an answer"
+                                    valueBinding="newUserSelection.value"}}
+                            {{/if}}
                         </td>
                     {{/each}}
-                    <td><button {{action "addNewUser" target="view"}}> ok </button></td>
+                    <td><button {{action "addNewUser" target="view" class="btn btn-default"}}> ok </button></td>
                 </tr>
             </tbody>
         </table>
-        
-        <h2>creationDate</h2>
-        <p>{{creationDate}}</p>
     </script>
     
     <!-- create templates -->
@@ -98,50 +92,66 @@
     </script>
     
     <script type="text/x-handlebars" id="create/index">
-        <h2>create a poll</h2>
-        <p>
-            type:<br/>
-            {{view Ember.Select
+        <h2>poll type</h2>
+
+        {{#em-form model=model submit_button=false}}
+            {{em-select
+                property="pollType"
+                label="poll type"
+                prompt="-select-"
                 contentBinding="App.PollTypes"
                 optionValuePath="content.id"
                 optionLabelPath="content.label"
-                prompt="Please select a poll type"
-                valueBinding="pollType"
-            }}
-        </p>
-        <p><button {{action "save"}}> ok </button></p>
+                prompt="Please select a poll type"}}
+            {{em-form-submit text="next"}}
+        {{/em-form}}
     </script>
     
     <script type="text/x-handlebars" id="create/meta">
         <h2>meta data</h2>
-        <p>title:<br/>{{input value=title}}</p>
-        <p>description:<br/>{{textarea value=description}}</p>
-        <p><button {{action "save"}}> ok </button></p>
+        {{#em-form model=model submit_button=false}}
+            {{em-input
+                property="title"
+                label="Title"
+                placeholder="Enter a title..."}}
+            {{em-text
+                property="description"
+                label="Description"
+                placeholder="Enter a description if you like..."
+                rows=4}}
+            {{em-form-submit text="next"}}
+        {{/em-form}}
     </script>
     
     <script type="text/x-handlebars" id="create/options">
         <h2>options</h2>
-        </p>
-        {{#each option in options}}
-           {{view Ember.TextField valueBinding="option.title"}}<br/>
-        {{/each}}
-        </p>
-        <p><button {{action "moreOptions" target="view"}}> add option </button></p>
-        <p><button {{action "saveOptions"}}> save </button></p>
+        <form role="form">
+            <div class="form-group">
+                <label class="control-label">options</label>
+                <fieldset>
+                    {{#each option in options}}
+                        {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
+                    {{/each}}
+                </fieldset>
+            </div>
+            <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
+            <button {{action "submit"}} class="btn btn-default"> next </button>
+        </form>
     </script>
     
     <script type="text/x-handlebars" id="create/settings">
         <h2>settings</h2>
-        <p>answer type:<br/>
-            {{view Ember.Select
+        {{#em-form model=model submit_button=false}}
+            {{em-select
+                property="answerType"
+                label="answer type"
+                prompt="-select-"
                 contentBinding="App.AnswerTypes"
                 optionValuePath="content.id"
                 optionLabelPath="content.label"
-                value="YesNo"
-                prompt="Please define available answers"
-                valueBinding="answerType"}}
-        </p>
-        <p><button {{action "save"}}> ok </button></p>
+                prompt="Please define available answers"}}
+            {{em-form-submit text="save"}}
+        {{/em-form}}
     </script>
     
     <!-- configuration -->
@@ -161,6 +171,8 @@
     <script src="js/lib/ember.js"></script>
     <script src="js/lib/ember-data.js"></script>
     <script src="js/lib/embedded-adapter.js"></script>
+    <script src="js/lib/ember_forms.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/croodle.js"></script>
-</body>
+  </body>
 </html>

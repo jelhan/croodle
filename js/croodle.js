@@ -274,7 +274,7 @@ App.PollRoute = Ember.Route.extend({
  */
 App.CreateIndexController = Ember.ObjectController.extend({
    actions: {
-       save: function(){
+       submit: function(){
            // redirect to CreateMeta
            this.transitionToRoute('create.meta');
        }
@@ -283,7 +283,7 @@ App.CreateIndexController = Ember.ObjectController.extend({
 
 App.CreateMetaController = Ember.ObjectController.extend({
    actions: {
-       save: function(){
+       submit: function(){
            // redirect to CreateOptions
            this.transitionToRoute('create.options');
        }
@@ -292,10 +292,10 @@ App.CreateMetaController = Ember.ObjectController.extend({
 
 App.CreateOptionsController = Ember.ObjectController.extend({
     actions: {           
-        saveOptions: function() {
+        submit: function() {
             var options = this.get('model.options'),
                 newOptions = [];
-        
+            
             // remove options without value
             options.forEach(function(option) {
                 if (option.title !== '') {
@@ -304,10 +304,10 @@ App.CreateOptionsController = Ember.ObjectController.extend({
             });
             
             // set updated options
-						// 
+            // 
             // we have to hardly set new options even if they wasn't changed to
-						// trigger computed property; push on array doesn't trigger computed
-						// property to recalculate
+            // trigger computed property; push on array doesn't trigger computed
+            // property to recalculate
             this.set('model.options', newOptions);
             
             // tricker save action
@@ -323,7 +323,7 @@ App.CreateOptionsController = Ember.ObjectController.extend({
 
 App.CreateSettingsController = Ember.ObjectController.extend({
     actions: {
-        save: function(){
+        submit: function(){
             // save poll
             var self = this;
             this.get('model').save().then(function(model){
