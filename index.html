@@ -42,7 +42,7 @@
         <p class="creationDate">created on {{creationDate}}</p>
         
         <h2>options and user</h2>
-        <table>
+        <table class="user-selections-table">
             <thead>
                 <tr>
                     <td>user</td>
@@ -53,17 +53,7 @@
                 </tr>
             </thead>
 
-            <tbody>
-                {{#each user in users}}
-                    <tr>
-                        <td>{{user.name}}</td>
-                        {{#each selection in user.selections}}
-                            <td>{{selection.value}}</td>
-                        {{/each}}
-                        <td>&nbsp;</td>
-                    </tr>
-                {{/each}}
-
+            <tfoot>
                 <tr class='newUser'>
                     <td>{{input value=view.newUserName placeholder="Enter your name..."}}</td>
                     {{#each newUserSelection in view.newUserSelections}}
@@ -75,13 +65,30 @@
                                     contentBinding="answers"
                                     optionValuePath="content.label"
                                     optionLabelPath="content.label"
-                                    prompt="Please select an answer"
                                     valueBinding="newUserSelection.value"}}
                             {{/if}}
                         </td>
                     {{/each}}
                     <td><button {{action "addNewUser" target="view" class="btn btn-default"}}> ok </button></td>
                 </tr>
+            </tfoot>
+            
+            <tbody>
+                {{#each user in users}}
+                    <tr>
+                        <td>{{user.name}}</td>
+                        {{#each selection in user.selections}}
+                            <td>
+                            {{#if isFreeText}}
+                                {{selection.value}}
+                            {{else}}
+                                <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
+                            {{/if}}
+                            </td>
+                        {{/each}}
+                        <td>&nbsp;</td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </script>

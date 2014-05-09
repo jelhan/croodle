@@ -5,3 +5,18 @@ p.description {
 p.creationDate {
     color: grey;
 }
+
+tbody td .yes,
+tfoot td option[value="yes"] {
+    color: green;
+}
+
+tbody td .no,
+tfoot td option[value="no"]{
+    color: red;
+}
+
+tbody td .maybe,
+tfoot td option[value="maybe"] {
+    color: orange;
+}
