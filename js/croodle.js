@@ -112,13 +112,7 @@ App.Poll = DS.Model.extend({
     creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date'),
     
     isFreeText: function() {
-        var answerType = this.get('answerType');
-        if (answerType === 'FreeText') {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return this.get('answerType') === 'FreeText';
     }.property('answerType')
 });
 
