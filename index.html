@@ -7,6 +7,7 @@
     <title>Croodle</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datepicker3.css" rel="stylesheet">
     <link href="css/croodle.css" rel="stylesheet">
   </head>
   <body>
@@ -132,18 +133,28 @@
     
     <script type="text/x-handlebars" id="create/options">
         <h2>options</h2>
-        <form role="form">
-            <div class="form-group">
-                <label class="control-label">options</label>
-                <fieldset>
-                    {{#each option in options}}
-                        {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
-                    {{/each}}
-                </fieldset>
+        
+        {{#if isMakeAPoll}}
+            <form role="form">
+                <div class="form-group">
+                    <label class="control-label">options</label>
+                    <fieldset>
+                        {{#each option in options}}
+                            {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
+                        {{/each}}
+                    </fieldset>
+                </div>
+                <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
+                <button {{action "submitMakeAPoll"}} class="btn btn-default"> next </button>
+            </form>
+        {{/if}}
+        
+        {{#if isFindADate}}
+            <div id="datepicker">
+                {{view App.Datepicker}}
+                <button {{action "submitFindADate"}} class="btn btn-default"> next </button>
             </div>
-            <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
-            <button {{action "submit"}} class="btn btn-default"> next </button>
-        </form>
+        {{/if}}
     </script>
     
     <script type="text/x-handlebars" id="create/settings">
@@ -179,7 +190,8 @@
     <script src="js/lib/ember-data.js"></script>
     <script src="js/lib/embedded-adapter.js"></script>
     <script src="js/lib/ember_forms.js"></script>
-    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/bootstrap.js"></script>
+    <script src="js/lib/bootstrap-datepicker.js"></script>
     <script src="js/croodle.js"></script>
   </body>
 </html>

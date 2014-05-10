@@ -111,9 +111,15 @@ App.Poll = DS.Model.extend({
     encryptedCreationDate : DS.attr('string'),
     creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date'),
     
+    isFindADate: function() {
+        return this.get('pollType') === 'FindADate';
+    }.property('pollType'),
     isFreeText: function() {
         return this.get('answerType') === 'FreeText';
-    }.property('answerType')
+    }.property('answerType'),
+    isMakeAPoll: function() {
+        return this.get('pollType') === 'MakeAPoll';
+    }.property('pollType'),
 });
 
 // user model
@@ -296,7 +302,7 @@ App.CreateMetaController = Ember.ObjectController.extend({
 
 App.CreateOptionsController = Ember.ObjectController.extend({
     actions: {           
-        submit: function() {
+        submitMakeAPoll: function() {
             var options = this.get('model.options'),
                 newOptions = [];
             
@@ -312,6 +318,27 @@ App.CreateOptionsController = Ember.ObjectController.extend({
             // we have to hardly set new options even if they wasn't changed to
             // trigger computed property; push on array doesn't trigger computed
             // property to recalculate
+            this.set('model.options', newOptions);
+            
+            // tricker save action
+            this.send('save');
+        },
+                
+        submitFindADate: function() {
+            var options = $('.datepicker').datepicker('getDates'),
+                newOptions = [];
+            
+            // sort dates
+            options.sort(function(a,b){
+                return new Date(a) - new Date(b);
+            });
+            
+            // get array in correct form
+            options.forEach(function(option) {
+                newOptions.pushObject({title: option});
+            });
+            
+            // set options
             this.set('model.options', newOptions);
             
             // tricker save action
@@ -444,5 +471,21 @@ App.PollView = Ember.View.extend({
             newUserSelections.pushObject(newSelection);
         });
         self.set('newUserSelections', newUserSelections);
+    }
+});
+
+App.Datepicker = Em.View.extend({
+    classNames: ['datepicker'],
+    
+    didInsertElement: function() {
+        this._super();
+        
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd hh:mm:ss",
+            startDate: "today",
+            multidate: true,
+            multidateSeparator: ";",
+            calendarWeeks: true
+        });
     }
 });
