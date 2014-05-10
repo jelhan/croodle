@@ -109,7 +109,17 @@ App.Poll = DS.Model.extend({
     options : Ember.computed.encrypted('encryptedOptions', 'array'),
     users : DS.hasMany('user', {async: true}),
     encryptedCreationDate : DS.attr('string'),
-    creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date')
+    creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date'),
+    
+    isFreeText: function() {
+        var answerType = this.get('answerType');
+        if (answerType === 'FreeText') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }.property('answerType')
 });
 
 // user model
@@ -379,16 +389,6 @@ App.PollController = Ember.ObjectController.extend({
             });
         }
     },
-    
-    isFreeText: function() {
-        var answerType = this.get('answerType');
-        if (answerType === 'FreeText') {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }.property('answerType'),
     
     updateEncryptionKey: function() {
         // update encryption key
