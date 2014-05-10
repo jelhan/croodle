@@ -489,3 +489,10 @@ App.Datepicker = Em.View.extend({
         });
     }
 });
+
+/*
+ * Handlebars helper
+ */
+Ember.Handlebars.registerBoundHelper('formattedDate', function(date, format) {
+  return moment(date).format(format);
+});

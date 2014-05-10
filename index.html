@@ -48,7 +48,15 @@
                 <tr>
                     <td>user</td>
                     {{#each option in options}}
-                        <td>{{option.title}}</td>
+                        <td>
+                            {{#if isFindADate}}
+                                {{formattedDate option.title 'll'}}
+                            {{/if}}
+                            
+                            {{#if isMakeAPoll}}
+                                {{option.title}}
+                            {{/if}}
+                        </td>
                     {{/each}}
                     <td>&nbsp;</td>
                 </tr>
@@ -192,6 +200,7 @@
     <script src="js/lib/ember_forms.js"></script>
     <script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/bootstrap-datepicker.js"></script>
+    <script src="js/lib/moment.min.js"></script>
     <script src="js/croodle.js"></script>
   </body>
 </html>
