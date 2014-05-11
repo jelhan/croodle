@@ -17,7 +17,7 @@
     
     <!-- application template -->
     <script type="text/x-handlebars">
-        <div class="container">
+        <div class="container-fluid">
             <h1>Croodle</h1>
             {{outlet}}
         </div>
@@ -25,12 +25,12 @@
     
     <!-- loading template -->
     <script type="text/x-handlebars" id="loading">
-        <div id="loading">loading...</div>
+        <div class="box">loading...</div>
     </script>
     
     <!-- error template -->
     <script type="text/x-handlebars" id="error">
-        <div id="loading">
+        <div class="box">
             <h2>error</h2>
             <p>{{status}}<br/>{{statusText}}</p>
         </div>
@@ -38,70 +38,87 @@
     
     <!-- poll template -->
     <script type="text/x-handlebars" id="poll">
-        <h2 class="title">{{title}}</h2>
-        <p class="description">{{description}}</p>
-        <p class="creationDate">created on {{creationDate}}</p>
+        <div class="row">
+            <div class="col-sm-6 col-lg-5">
+                <div class="box meta-data">
+                    <h2 class="title">{{title}}</h2>
+                    <p class="description">{{description}}</p>
+                    <p class="creationDate">created on {{creationDate}}</p>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-5 col-lg-offset-2">
+                <div class="box share-link">
+                    <p>Share the link and invite other people to participate in your poll.</p>
+                    <p class="link">{{pollUrl}}</p>
+                    <p class="notice">Everyone who knows the link could read the data.
+                        If your poll consists of private data you may only share the
+                        link via encrypted channels like PGP encrypted email or instant
+                        messaging with OTR.</p>
+                </div>
+            </div>
+        </div>
         
-        <h2>options and user</h2>
-        <div class="table-responsive">
-            <table class="user-selections-table table table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <td>user</td>
-                        {{#each option in options}}
-                            <td>
-                                {{#if isFindADate}}
-                                    {{formattedDate option.title 'll'}}
-                                {{/if}}
-
-                                {{#if isMakeAPoll}}
-                                    {{option.title}}
-                                {{/if}}
-                            </td>
-                        {{/each}}
-                        <td>&nbsp;</td>
-                    </tr>
-                </thead>
-
-                <tfoot>
-                    <tr class='newUser'>
-                        <td>{{input value=view.newUserName placeholder="Enter your name..."}}</td>
-                        {{#each newUserSelection in view.newUserSelections}}
-                            <td>
-                                {{#if isFreeText}}
-                                    {{input value=newUserSelection.value}}
-                                {{else}}
-                                    {{view Ember.Select
-                                        contentBinding="answers"
-                                        optionValuePath="content.label"
-                                        optionLabelPath="content.label"
-                                        prompt="choose an answer"
-                                        valueBinding="newUserSelection.value"}}
-                                {{/if}}
-                            </td>
-                        {{/each}}
-                        <td><button {{action "addNewUser" target="view" class="btn btn-default"}}> ok </button></td>
-                    </tr>
-                </tfoot>
-
-                <tbody>
-                    {{#each user in users}}
+        <div class="box">
+            <div class="table-scroll">
+                <table class="user-selections-table table table-striped table-condensed">
+                    <thead>
                         <tr>
-                            <td>{{user.name}}</td>
-                            {{#each selection in user.selections}}
+                            <td>user</td>
+                            {{#each option in options}}
                                 <td>
-                                {{#if isFreeText}}
-                                    {{selection.value}}
-                                {{else}}
-                                    <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
-                                {{/if}}
+                                    {{#if isFindADate}}
+                                        {{formattedDate option.title 'll'}}
+                                    {{/if}}
+
+                                    {{#if isMakeAPoll}}
+                                        {{option.title}}
+                                    {{/if}}
                                 </td>
                             {{/each}}
                             <td>&nbsp;</td>
                         </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tfoot>
+                        <tr class='newUser'>
+                            <td>{{input value=view.newUserName placeholder="Enter your name..."}}</td>
+                            {{#each newUserSelection in view.newUserSelections}}
+                                <td>
+                                    {{#if isFreeText}}
+                                        {{input value=newUserSelection.value}}
+                                    {{else}}
+                                        {{view Ember.Select
+                                            contentBinding="answers"
+                                            optionValuePath="content.label"
+                                            optionLabelPath="content.label"
+                                            prompt="choose an answer"
+                                            valueBinding="newUserSelection.value"}}
+                                    {{/if}}
+                                </td>
+                            {{/each}}
+                            <td><button {{action "addNewUser" target="view" class="btn btn-default"}}> ok </button></td>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                        {{#each user in users}}
+                            <tr>
+                                <td>{{user.name}}</td>
+                                {{#each selection in user.selections}}
+                                    <td>
+                                    {{#if isFreeText}}
+                                        {{selection.value}}
+                                    {{else}}
+                                        <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
+                                    {{/if}}
+                                    </td>
+                                {{/each}}
+                                <td>&nbsp;</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </script>
     
@@ -111,76 +128,86 @@
     </script>
     
     <script type="text/x-handlebars" id="create/index">
-        <h2>poll type</h2>
+        <div class="box">
+            <h2>poll type</h2>
 
-        {{#em-form model=model submit_button=false}}
-            {{em-select
-                property="pollType"
-                label="poll type"
-                prompt="-select-"
-                contentBinding="App.PollTypes"
-                optionValuePath="content.id"
-                optionLabelPath="content.label"
-                prompt="Please select a poll type"}}
-            {{em-form-submit text="next"}}
-        {{/em-form}}
+            {{#em-form model=model submit_button=false}}
+                {{em-select
+                    property="pollType"
+                    label="poll type"
+                    prompt="-select-"
+                    contentBinding="App.PollTypes"
+                    optionValuePath="content.id"
+                    optionLabelPath="content.label"
+                    prompt="Please select a poll type"}}
+                {{em-form-submit text="next"}}
+            {{/em-form}}
+        </div>
     </script>
     
     <script type="text/x-handlebars" id="create/meta">
-        <h2>meta data</h2>
-        {{#em-form model=model submit_button=false}}
-            {{em-input
-                property="title"
-                label="Title"
-                placeholder="Enter a title..."}}
-            {{em-text
-                property="description"
-                label="Description"
-                placeholder="Enter a description if you like..."
-                rows=4}}
-            {{em-form-submit text="next"}}
-        {{/em-form}}
+        <div class="box">
+            <h2>meta data</h2>
+            {{#em-form model=model submit_button=false}}
+                {{em-input
+                    property="title"
+                    label="Title"
+                    placeholder="Enter a title..."}}
+                {{em-text
+                    property="description"
+                    label="Description"
+                    placeholder="Enter a description if you like..."
+                    rows=4}}
+                {{em-form-submit text="next"}}
+            {{/em-form}}
+        </div>
     </script>
     
     <script type="text/x-handlebars" id="create/options">
-        <h2>options</h2>
-        
-        {{#if isMakeAPoll}}
-            <form role="form">
-                <div class="form-group">
-                    <label class="control-label">options</label>
-                    <fieldset>
-                        {{#each option in options}}
-                            {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
-                        {{/each}}
-                    </fieldset>
+        <div class="box">
+            <h2>options</h2>
+
+            {{#if isMakeAPoll}}
+                <form role="form">
+                    <div class="form-group">
+                        <label class="control-label">options</label>
+                        <fieldset>
+                            {{#each option in options}}
+                                {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
+                            {{/each}}
+                        </fieldset>
+                    </div>
+                    <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
+                    <button {{action "submitMakeAPoll"}} class="btn btn-default"> next </button>
+                </form>
+            {{/if}}
+
+            {{#if isFindADate}}
+                <div id="datepicker">
+                    {{view App.Datepicker}}
+                    <div class="form-group">
+                        <button {{action "submitFindADate"}} class="btn btn-default"> next </button>
+                    </div>
                 </div>
-                <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
-                <button {{action "submitMakeAPoll"}} class="btn btn-default"> next </button>
-            </form>
-        {{/if}}
-        
-        {{#if isFindADate}}
-            <div id="datepicker">
-                {{view App.Datepicker}}
-                <button {{action "submitFindADate"}} class="btn btn-default"> next </button>
-            </div>
-        {{/if}}
+            {{/if}}
+        </div>
     </script>
     
     <script type="text/x-handlebars" id="create/settings">
-        <h2>settings</h2>
-        {{#em-form model=model submit_button=false}}
-            {{em-select
-                property="answerType"
-                label="answer type"
-                prompt="-select-"
-                contentBinding="App.AnswerTypes"
-                optionValuePath="content.id"
-                optionLabelPath="content.label"
-                prompt="Please define available answers"}}
-            {{em-form-submit text="save"}}
-        {{/em-form}}
+        <div class="box">
+            <h2>settings</h2>
+            {{#em-form model=model submit_button=false}}
+                {{em-select
+                    property="answerType"
+                    label="answer type"
+                    prompt="-select-"
+                    contentBinding="App.AnswerTypes"
+                    optionValuePath="content.id"
+                    optionLabelPath="content.label"
+                    prompt="Please define available answers"}}
+                {{em-form-submit text="save"}}
+            {{/em-form}}
+        </div>
     </script>
     
     <!-- configuration -->

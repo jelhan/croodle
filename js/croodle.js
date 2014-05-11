@@ -411,6 +411,10 @@ App.PollController = Ember.ObjectController.extend({
         }
     },
     
+    pollUrl: function() {
+        return window.location.href;
+    }.property('currentPath', 'encryptionKey'),
+    
     updateEncryptionKey: function() {
         // update encryption key
         this.set('encryption.key', this.get('encryptionKey'));

@@ -1,9 +1,47 @@
-p.description {
+body {
+    background-color: #D3D3D3;
+}
+
+.box {
+    padding: 10px 10px 0 10px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    border: #556B2F 1px solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.box h2:first-child {
+    margin-top: 0;
+}
+
+.meta-data .description {
     white-space: pre;
 }
 
-p.creationDate {
+.meta-data .creationDate {
     color: grey;
+}
+
+.share-link .link {
+    color: #556B2F;
+}
+
+.share-link .notice {
+    font-size: 90%;
+    color: grey;
+}
+
+.table-scroll {
+    /* übernommen von .table-responsive von bootstrap, aber grundsätzlich */
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+    -webkit-overflow-scrolling: touch;
 }
 
 tbody td .yes,
