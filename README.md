@@ -8,10 +8,10 @@ Croodle is inspired by ZeroBin: https://github.com/sebsauvage/ZeroBin and of cou
 
 Security notice
 -------
-As any other web application based end-to-end encryption Croodle could be attacked by an injection of maluse code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser and send it to a server under his controll.
+As any other web application based end-to-end encryption Croodle could be attacked by an injection of maluse code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser ot the encryption key used and send it to a server under his controll.
 
 Therefore you have to
 * use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection to Croodle.
 * trust the server.
 
-You could check for an attack like this by using an development tool for your browser and check if unencrypted data of your poll is send over network or is stored in a cookie or the localStorage of your browser for later send.
+You could check for an attack like this by using an development tool for your browser and check if unencrypted data of your poll or the encryption key is send over network or is stored in a cookie or the localStorage of your browser for later send.
