@@ -81,7 +81,9 @@
 
                     <tfoot>
                         <tr class='newUser'>
-                            <td>{{input value=view.newUserName placeholder="Enter your name..."}}</td>
+                            <td>
+                                {{input value=view.newUserName placeholder="Enter your name..."}}
+                            </td>
                             {{#each newUserSelection in view.newUserSelections}}
                                 <td>
                                     {{#if isFreeText}}
@@ -177,8 +179,10 @@
                             {{/each}}
                         </fieldset>
                     </div>
-                    <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
-                    <button {{action "submitMakeAPoll"}} class="btn btn-default"> next </button>
+                    <div class="form-group">
+                        <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
+                        <button {{action "submitMakeAPoll"}} class="btn btn-default"> next </button>
+                    </div>
                 </form>
             {{/if}}
 
