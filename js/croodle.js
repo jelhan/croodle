@@ -411,6 +411,62 @@ App.PollController = Ember.ObjectController.extend({
         }
     },
     
+    colspan: function(){
+        var colspan = this.get('options.length') + 2;
+        console.log(colspan);
+        return colspan;
+    }.property('options.@each'),
+    
+    evaluation: function() {
+        var evaluation = [],
+            lookup = [];
+    
+        // init evalutation object
+        // create object for every possible answer
+        this.get('answers').forEach(function(answer){
+            evaluation.push({
+                id: answer.label,
+                label: answer.label,
+                options: []
+            });
+        });
+        // create object for no answer
+        evaluation.push({
+            id: null,
+            label: 'no answer',
+            options: []
+        });
+        
+        // create lookup array
+        evaluation.forEach(function(value, index){
+            lookup[value.id] = index;
+        });
+    
+        // loop over all users
+        this.get('users').forEach(function(user){
+            
+            // loop over all selections of the user
+            user.get('selections').forEach(function(selection, optionindex){
+                
+                // get answer index by lookup array
+                answerindex = lookup[selection.value];
+                
+                // set value for this index to one if it's not set yet
+                // or increment value if it's allreay set
+                if (typeof evaluation[answerindex]['options'][optionindex] === 'undefined') {
+                    evaluation[answerindex]['options'][optionindex] = 1;
+                }
+                else {
+                    evaluation[answerindex]['options'][optionindex] = evaluation[answerindex]['options'][optionindex] + 1;
+                }
+            });
+        });
+        
+        console.log(evaluation);
+        
+        return evaluation;
+    }.property('users.@each'),
+    
     pollUrl: function() {
         return window.location.href;
     }.property('currentPath', 'encryptionKey'),

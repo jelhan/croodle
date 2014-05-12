@@ -63,9 +63,9 @@
                 <table class="user-selections-table table table-striped table-condensed">
                     <thead>
                         <tr>
-                            <td>&nbsp;</td>
+                            <th>&nbsp;</th>
                             {{#each option in options}}
-                                <td>
+                                <th>
                                     {{#if isFindADate}}
                                         {{formattedDate option.title 'll'}}
                                     {{/if}}
@@ -73,13 +73,29 @@
                                     {{#if isMakeAPoll}}
                                         {{option.title}}
                                     {{/if}}
-                                </td>
+                                </th>
                             {{/each}}
-                            <td>&nbsp;</td>
+                            <th>&nbsp;</th>
                         </tr>
                     </thead>
 
-                    <tfoot>
+                    <tbody>
+                        {{#each user in users}}
+                            <tr>
+                                <td>{{user.name}}</td>
+                                {{#each selection in user.selections}}
+                                    <td>
+                                    {{#if isFreeText}}
+                                        {{selection.value}}
+                                    {{else}}
+                                        <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
+                                    {{/if}}
+                                    </td>
+                                {{/each}}
+                                <td>&nbsp;</td>
+                            </tr>
+                        {{/each}}
+                        
                         <tr class='newUser'>
                             <td>
                                 {{input value=view.newUserName placeholder="Enter your name..."}}
@@ -98,23 +114,27 @@
                                     {{/if}}
                                 </td>
                             {{/each}}
-                            <td><button {{action "addNewUser" target="view" class="btn btn-default"}}> ok </button></td>
+                            <td>
+                                <button {{action "addNewUser" target="view" class="btn btn-default"}}> ok </button>
+                            </td>
                         </tr>
-                    </tfoot>
+                        
+                        <tr class='evaluation evaluation-header'>
+                            <td {{bind-attr colspan=colspan}}>Evaluation</td>
+                        </tr>
+                        
+                        {{#each answer in evaluation}}
+                            <tr class='evaluation'>
+                                <td>
+                                    {{answer.label}}
+                                </td>
 
-                    <tbody>
-                        {{#each user in users}}
-                            <tr>
-                                <td>{{user.name}}</td>
-                                {{#each selection in user.selections}}
+                                {{#each option in answer.options}}
                                     <td>
-                                    {{#if isFreeText}}
-                                        {{selection.value}}
-                                    {{else}}
-                                        <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
-                                    {{/if}}
+                                        {{option}}
                                     </td>
                                 {{/each}}
+                                
                                 <td>&nbsp;</td>
                             </tr>
                         {{/each}}

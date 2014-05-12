@@ -44,6 +44,10 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
+.evaluation-header {
+    font-weight: bold;
+}
+
 tbody td .yes,
 tfoot td option[value="yes"] {
     color: green;
