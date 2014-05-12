@@ -12,8 +12,14 @@ body {
     border-radius: 10px;
 }
 
-.box h2:first-child {
+.box h2:first-child,
+.box h3:first-child {
     margin-top: 0;
+}
+
+.index .start,
+.index .have-a-try {
+    font-size: 150%;
 }
 
 .meta-data .description {
