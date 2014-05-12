@@ -413,7 +413,6 @@ App.PollController = Ember.ObjectController.extend({
     
     colspan: function(){
         var colspan = this.get('options.length') + 2;
-        console.log(colspan);
         return colspan;
     }.property('options.@each'),
     
@@ -449,7 +448,12 @@ App.PollController = Ember.ObjectController.extend({
             user.get('selections').forEach(function(selection, optionindex){
                 
                 // get answer index by lookup array
-                answerindex = lookup[selection.value];
+                if (typeof selection.value === 'undefined') {
+                    answerindex = lookup[null];
+                }
+                else {
+                    answerindex = lookup[selection.value];
+                }
                 
                 // set value for this index to one if it's not set yet
                 // or increment value if it's allreay set
@@ -461,8 +465,6 @@ App.PollController = Ember.ObjectController.extend({
                 }
             });
         });
-        
-        console.log(evaluation);
         
         return evaluation;
     }.property('users.@each'),
