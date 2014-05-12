@@ -13,7 +13,7 @@ window.App = Ember.Application.create({
 });
 
 // adapter initialization
-App.ApplicationAdapter = DS.EmbeddedAdapter.extend({
+App.ApplicationAdapter = DS.RESTAdapter.extend({
     // set namespace to api.php in same subdirectory
     namespace: window.location.pathname
             // remove index.html if it's there
@@ -119,7 +119,7 @@ App.Poll = DS.Model.extend({
     }.property('answerType'),
     isMakeAPoll: function() {
         return this.get('pollType') === 'MakeAPoll';
-    }.property('pollType'),
+    }.property('pollType')
 });
 
 // user model
