@@ -216,8 +216,6 @@
     
     <script type="text/x-handlebars" id="create/index">
         <div class="box">
-            <h2>poll type</h2>
-
             {{#em-form model=model submit_button=false}}
                 {{em-select
                     property="pollType"
@@ -234,7 +232,6 @@
     
     <script type="text/x-handlebars" id="create/meta">
         <div class="box">
-            <h2>meta data</h2>
             {{#em-form model=model submit_button=false}}
                 {{em-input
                     property="title"
@@ -252,8 +249,6 @@
     
     <script type="text/x-handlebars" id="create/options">
         <div class="box">
-            <h2>options</h2>
-
             {{#if isMakeAPoll}}
                 <form role="form">
                     <div class="form-group">
@@ -284,7 +279,6 @@
     
     <script type="text/x-handlebars" id="create/settings">
         <div class="box">
-            <h2>settings</h2>
             {{#em-form model=model submit_button=false}}
                 {{em-select
                     property="answerType"
