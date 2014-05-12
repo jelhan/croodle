@@ -17,7 +17,7 @@ body {
 }
 
 .meta-data .description {
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .meta-data .creationDate {
