@@ -114,7 +114,7 @@
             <div class="col-sm-6 col-lg-5 col-lg-offset-2">
                 <div class="box share-link">
                     <p>Share the link and invite other people to participate in your poll.</p>
-                    <p class="link">{{pollUrl}}</p>
+                    <p class="link"><a {{bind-attr href=pollUrl}}>{{pollUrl}}</a></p>
                     <p class="notice">Everyone who knows the link could read the data.
                         If your poll consists of private data you may only share the
                         link via encrypted channels like PGP encrypted email or instant
