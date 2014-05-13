@@ -544,10 +544,10 @@ App.Datepicker = Em.View.extend({
         
         $('.datepicker').datepicker({
             format: "yyyy-mm-dd hh:mm:ss",
-            startDate: "today",
             multidate: true,
             multidateSeparator: ";",
-            calendarWeeks: true
+            calendarWeeks: true,
+            todayHighlight: true
         });
     }
 });
