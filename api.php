@@ -38,13 +38,22 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
             // set http header
             header("HTTP/1.0 404 Not Found");
+            
+            // forbid browser to load javascript from an external location
+            header("Content-Security-Policy: script-src 'self'");
+            
+            // strict transport security header
+            header("Strict-Transport-Security: max-age=31536000");
         }
         else {
             // set http header
             header("HTTP/1.0 200 OK");
             
-            // forbidde browser to lead javascript from an external location
+            // forbid browser to load javascript from an external location
             header("Content-Security-Policy: script-src 'self'");
+            
+            // strict transport security header
+            header("Strict-Transport-Security: max-age=31536000");
             
             // set content-type and charset
             header('Content-Type: application/x-json-encrypted; charset=utf-8');
@@ -87,8 +96,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
             // set http header
             header("HTTP/1.0 200 OK");
             
-            // forbidde browser to lead javascript from an external location
+            // forbid browser to load javascript from an external location
             header("Content-Security-Policy: script-src 'self'");
+            
+            // strict transport security header
+            header("Strict-Transport-Security: max-age=31536000");
             
             // set content-type and charset
             header('Content-Type: application/x-json-encrypted; charset=utf-8');
@@ -119,6 +131,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
     default:
         // set http header
         header("HTTP/1.0 400 Bad Request");
+        
+        // forbid browser to load javascript from an external location
+        header("Content-Security-Policy: script-src 'self'");
+        
+        // strict transport security header
+        header("Strict-Transport-Security: max-age=31536000");
         
         break;
 }
