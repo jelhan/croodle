@@ -184,25 +184,27 @@
                             </tr>
                         {{/each}}
                         
-                        <tr class='evaluation evaluation-header'>
-                            <td {{bind-attr colspan=colspan}}>Evaluation</td>
-                        </tr>
-                        
-                        {{#each answer in evaluation}}
-                            <tr class='evaluation'>
-                                <td>
-                                    {{answer.label}}
-                                </td>
-
-                                {{#each option in answer.options}}
-                                    <td>
-                                        {{option}}
-                                    </td>
-                                {{/each}}
-                                
-                                <td>&nbsp;</td>
+                        {{#unless isFreeText}}
+                            <tr class='evaluation evaluation-header'>
+                                <td {{bind-attr colspan=colspan}}>Evaluation</td>
                             </tr>
-                        {{/each}}
+
+                            {{#each answer in evaluation}}
+                                <tr class='evaluation'>
+                                    <td>
+                                        {{answer.label}}
+                                    </td>
+
+                                    {{#each option in answer.options}}
+                                        <td>
+                                            {{option}}
+                                        </td>
+                                    {{/each}}
+
+                                    <td>&nbsp;</td>
+                                </tr>
+                            {{/each}}
+                        {{/unless}}
                     </tbody>
                 </table>
             </div>

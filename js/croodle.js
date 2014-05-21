@@ -428,6 +428,11 @@ App.PollController = Ember.ObjectController.extend({
     }.property('options.@each'),
     
     evaluation: function() {
+        // disable evaluation if answer type is free text
+        if (this.get('answerType') === 'FreeText') {
+            return [];
+        }
+
         var evaluation = [],
             options = [],
             lookup = [];
