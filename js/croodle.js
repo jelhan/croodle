@@ -418,22 +418,28 @@ App.PollController = Ember.ObjectController.extend({
     
     evaluation: function() {
         var evaluation = [],
+            options = [],
             lookup = [];
     
-        // init evalutation object
+        // init options array
+        this.get('options').forEach(function(option, index){
+            options[index] = 0;
+        });
+    
+        // init array of evalutation objects
         // create object for every possible answer
         this.get('answers').forEach(function(answer){
             evaluation.push({
                 id: answer.label,
                 label: answer.label,
-                options: []
+                options: jQuery.extend([], options)
             });
         });
         // create object for no answer
         evaluation.push({
             id: null,
             label: 'no answer',
-            options: []
+            options: jQuery.extend([], options)
         });
         
         // create lookup array
@@ -455,14 +461,8 @@ App.PollController = Ember.ObjectController.extend({
                     answerindex = lookup[selection.value];
                 }
                 
-                // set value for this index to one if it's not set yet
-                // or increment value if it's allreay set
-                if (typeof evaluation[answerindex]['options'][optionindex] === 'undefined') {
-                    evaluation[answerindex]['options'][optionindex] = 1;
-                }
-                else {
-                    evaluation[answerindex]['options'][optionindex] = evaluation[answerindex]['options'][optionindex] + 1;
-                }
+                // increment counter
+                evaluation[answerindex]['options'][optionindex] = evaluation[answerindex]['options'][optionindex] + 1;
             });
         });
         
