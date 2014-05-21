@@ -372,6 +372,11 @@ App.CreateOptionsController = Ember.ObjectController.extend({
 App.CreateSettingsController = Ember.ObjectController.extend({
     actions: {
         submit: function(){
+            // check if answer type is selected
+            if (this.get('answerType') === null) {
+                return;
+            }
+            
             // save poll
             var self = this;
             this.get('model').save().then(function(model){
