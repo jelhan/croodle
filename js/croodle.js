@@ -85,6 +85,10 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
             case 'string':
                 return Ember.isNone(decryptedValue) ? null : String(decryptedValue);
                 break;
+                
+            case 'boolean':
+                return Ember.isNone(decryptedValue) ? null : Boolean(decryptedValue);
+                break;
         }
     });
 };
@@ -110,6 +114,8 @@ App.Poll = DS.Model.extend({
     users : DS.hasMany('user', {async: true}),
     encryptedCreationDate : DS.attr('string'),
     creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date'),
+    encryptedForceAnswer : DS.attr('string'),
+    forceAnswer : Ember.computed.encrypted('encryptedForceAnswer', 'boolean'),
     
     isFindADate: function() {
         return this.get('pollType') === 'FindADate';
@@ -451,12 +457,14 @@ App.PollController = Ember.ObjectController.extend({
                 options: jQuery.extend([], options)
             });
         });
-        // create object for no answer
-        evaluation.push({
-            id: null,
-            label: 'no answer',
-            options: jQuery.extend([], options)
-        });
+        // create object for no answer if answers are not forced
+        if (!this.get('forceAnswer')){
+            evaluation.push({
+                id: null,
+                label: 'no answer',
+                options: jQuery.extend([], options)
+            });
+        }
         
         // create lookup array
         evaluation.forEach(function(value, index){
@@ -528,13 +536,29 @@ App.PollView = Ember.View.extend({
                 selections: this.get('newUserSelections')
             };
             
-            this.get('controller').send('saveNewUser', newUser);
+            // check if answers are forced
+            var answersAreCorrect = true;
+            if(this.get('controller.forceAnswer')) {
+                // check if a selection is null
+                newUser.selections.forEach(function(selection){
+                    if (typeof selection.value === 'undefined' || selection.value === null) {
+                        answersAreCorrect = false;
+                    }
+                });
+            }
             
-            // clear input fields
-            this.set('newUserName', '');
-            this.get('newUserSelections').forEach(function(selection){
-                selection.set('value', '');
-            });
+            if (answersAreCorrect) {
+                this.get('controller').send('saveNewUser', newUser);
+
+                // clear input fields
+                this.set('newUserName', '');
+                this.get('newUserSelections').forEach(function(selection){
+                    selection.set('value', '');
+                });
+            }
+            else {
+                alert('You have to select answers for all options.');
+            }
         }
     },
     
