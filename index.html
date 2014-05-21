@@ -235,11 +235,11 @@
             {{#em-form model=model submit_button=false}}
                 {{em-input
                     property="title"
-                    label="Title"
+                    label="title"
                     placeholder="Enter a title..."}}
                 {{em-text
                     property="description"
-                    label="Description"
+                    label="description"
                     placeholder="Enter a description if you like..."
                     rows=4}}
                 {{em-form-submit text="next"}}
@@ -282,7 +282,7 @@
             {{#em-form model=model submit_button=false}}
                 {{em-select
                     property="answerType"
-                    label="answer type"
+                    label="available answers"
                     prompt="-select-"
                     contentBinding="App.AnswerTypes"
                     optionValuePath="content.id"
