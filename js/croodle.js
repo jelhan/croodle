@@ -478,12 +478,14 @@ App.PollController = Ember.ObjectController.extend({
     
         // loop over all users
         this.get('users').forEach(function(user){
+            console.log(user.get('selections'));
             
             // loop over all selections of the user
             user.get('selections').forEach(function(selection, optionindex){
+                var answerindex;
                 
                 // get answer index by lookup array
-                if (typeof selection.value === 'undefined') {
+                if (typeof selection.value === 'undefined' || selection.value === null || selection.value === '') {
                     answerindex = lookup[null];
                 }
                 else {
