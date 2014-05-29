@@ -115,110 +115,123 @@
     
     <!-- poll template -->
     <script type="text/x-handlebars" id="poll">
-        <div class="row">
-            <div class="col-sm-6 col-lg-5">
-                <div class="box meta-data">
-                    <h2 class="title">{{title}}</h2>
-                    <p class="description">{{description}}</p>
-                    <p class="creationDate">created on {{creationDate}}</p>
+        <div id="poll">
+            <div class="row">
+                <div class="col-sm-6 col-lg-5">
+                    <div class="box meta-data">
+                        <h2 class="title">{{title}}</h2>
+                        <p class="description">{{description}}</p>
+                        <p class="creationDate">created on {{creationDate}}</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-5 col-lg-offset-2">
+                    <div class="box share-link">
+                        <p>Share the link and invite other people to participate in your poll.</p>
+                        <p class="link"><a {{bind-attr href=pollUrl}}>{{pollUrl}}</a></p>
+                        <p class="notice">Everyone who knows the link could read the data.
+                            If your poll consists of private data you may only share the
+                            link via encrypted channels like PGP encrypted email or instant
+                            messaging with OTR.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-5 col-lg-offset-2">
-                <div class="box share-link">
-                    <p>Share the link and invite other people to participate in your poll.</p>
-                    <p class="link"><a {{bind-attr href=pollUrl}}>{{pollUrl}}</a></p>
-                    <p class="notice">Everyone who knows the link could read the data.
-                        If your poll consists of private data you may only share the
-                        link via encrypted channels like PGP encrypted email or instant
-                        messaging with OTR.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="box">
-            <div class="table-scroll">
-                <table class="user-selections-table table table-striped table-condensed">
-                    <thead>
-                        <tr>
-                            <th>&nbsp;</th>
-                            {{#each option in options}}
-                                <th>
-                                    {{#if isFindADate}}
-                                        {{formattedDate option.title 'll'}}
-                                    {{/if}}
 
-                                    {{#if isMakeAPoll}}
-                                        {{option.title}}
-                                    {{/if}}
-                                </th>
-                            {{/each}}
-                            <th>&nbsp;</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr class='newUser'>
-                            <td>
-                                {{input value=view.newUserName placeholder="Enter your name..."}}
-                            </td>
-                            {{#each newUserSelection in view.newUserSelections}}
-                                <td>
-                                    {{#if isFreeText}}
-                                        {{input value=newUserSelection.value}}
-                                    {{else}}
-                                        {{view Ember.Select
-                                            contentBinding="answers"
-                                            optionValuePath="content.label"
-                                            optionLabelPath="content.label"
-                                            prompt="choose an answer"
-                                            valueBinding="newUserSelection.value"}}
-                                    {{/if}}
-                                </td>
-                            {{/each}}
-                            <td>
-                                <button {{action "addNewUser" target="view" class="btn btn-default"}}> save </button>
-                            </td>
-                        </tr>
-                    
-                        {{#each user in users}}
+            <div class="box">
+                <div class="table-scroll">
+                    <table class="user-selections-table table table-striped table-condensed">
+                        <thead>
                             <tr>
-                                <td>{{user.name}}</td>
-                                {{#each selection in user.selections}}
-                                    <td>
-                                    {{#if isFreeText}}
-                                        {{selection.value}}
-                                    {{else}}
-                                        <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
-                                    {{/if}}
-                                    </td>
+                                <th>&nbsp;</th>
+                                {{#each option in options}}
+                                    <th>
+                                        {{#if isFindADate}}
+                                            {{formattedDate option.title 'll'}}
+                                        {{/if}}
+
+                                        {{#if isMakeAPoll}}
+                                            {{option.title}}
+                                        {{/if}}
+                                    </th>
                                 {{/each}}
-                                <td>&nbsp;</td>
+                                <th>&nbsp;</th>
                             </tr>
-                        {{/each}}
-                        
-                        {{#unless isFreeText}}
-                            <tr class='evaluation evaluation-header'>
-                                <td {{bind-attr colspan=colspan}}>Evaluation</td>
-                            </tr>
+                        </thead>
 
-                            {{#each answer in evaluation}}
-                                <tr class='evaluation'>
+                        <tbody>
+                            <tr class='newUser'>
+                                <form role="form">
                                     <td>
-                                        {{answer.label}}
+                                        <div class="form-group">
+                                            {{input value=view.newUserName placeholder="Enter your name..." class="form-control"}}
+                                        </div>
                                     </td>
-
-                                    {{#each option in answer.options}}
+                                    {{#each newUserSelection in view.newUserSelections}}
                                         <td>
-                                            {{option}}
+                                            {{#if isFreeText}}
+                                                <div class="form-group">
+                                                    {{input value=newUserSelection.value class="form-control"}}
+                                                </div>
+                                            {{else}}
+                                                <div >
+                                                    {{view Ember.Select
+                                                        contentBinding="answers"
+                                                        optionValuePath="content.label"
+                                                        optionLabelPath="content.label"
+                                                        prompt="choose an answer"
+                                                        valueBinding="newUserSelection.value"
+                                                        class="form-control"}}
+                                                </div>
+                                            {{/if}}
                                         </td>
                                     {{/each}}
+                                    <td>
+                                        <div class="form-group">
+                                            <button {{action "addNewUser" target="view"}} class="btn btn-default"> save </button>
+                                        </div>
+                                    </td>
+                                </form>
+                            </tr>
 
+                            {{#each user in users}}
+                                <tr>
+                                    <td>{{user.name}}</td>
+                                    {{#each selection in user.selections}}
+                                        <td>
+                                        {{#if isFreeText}}
+                                            {{selection.value}}
+                                        {{else}}
+                                            <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
+                                        {{/if}}
+                                        </td>
+                                    {{/each}}
                                     <td>&nbsp;</td>
                                 </tr>
                             {{/each}}
-                        {{/unless}}
-                    </tbody>
-                </table>
+
+                            {{#unless isFreeText}}
+                                <tr class='evaluation evaluation-header'>
+                                    <td {{bind-attr colspan=colspan}}>Evaluation</td>
+                                </tr>
+
+                                {{#each answer in evaluation}}
+                                    <tr class='evaluation'>
+                                        <td>
+                                            {{answer.label}}
+                                        </td>
+
+                                        {{#each option in answer.options}}
+                                            <td>
+                                                {{option}}
+                                            </td>
+                                        {{/each}}
+
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                {{/each}}
+                            {{/unless}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </script>

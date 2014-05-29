@@ -1,3 +1,10 @@
+/* bootstrap overwrites */
+table tr td .form-group {
+    /* remove bootstrap default margin-bottom for form elements in table */
+    margin-bottom: 0;
+}
+
+/* elements */
 body {
     background-color: #D3D3D3;
 }
@@ -17,29 +24,30 @@ body {
     margin-top: 0;
 }
 
-.index .start,
-.index .have-a-try {
+/* page: poll */
+#poll .index .start,
+#poll .index .have-a-try {
     font-size: 150%;
 }
 
-.meta-data .description {
+#poll .meta-data .description {
     white-space: pre-wrap;
 }
 
-.meta-data .creationDate {
+#poll .meta-data .creationDate {
     color: grey;
 }
 
-.share-link .link {
+#poll .share-link .link {
     color: #556B2F;
 }
 
-.share-link .notice {
+#poll .share-link .notice {
     font-size: 90%;
     color: grey;
 }
 
-.table-scroll {
+#poll .table-scroll {
     /* übernommen von .table-responsive von bootstrap, aber grundsätzlich */
     width: 100%;
     margin-bottom: 15px;
@@ -50,26 +58,26 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-.evaluation-header {
+#poll .evaluation-header {
     font-weight: bold;
 }
 
-tbody td .yes,
-tfoot td option[value="yes"] {
+#poll tbody td .yes,
+#poll tfoot td option[value="yes"] {
     color: green;
 }
 
-tbody td .no,
-tfoot td option[value="no"]{
+#poll tbody td .no,
+#poll tfoot td option[value="no"]{
     color: red;
 }
 
-tbody td .maybe,
-tfoot td option[value="maybe"] {
+#poll tbody td .maybe,
+#poll tfoot td option[value="maybe"] {
     color: orange;
 }
 
-/* loading page */
+/* page: loading */
 #loading {
     letter-spacing: 5px;
 }
