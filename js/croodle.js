@@ -227,7 +227,8 @@ App.CreateRoute = Ember.Route.extend({
         // create empty poll
         return this.store.createRecord('poll', {
             creationDate : new Date(),
-            options : [{title: ''}, {title: ''}]
+            options : [{title: ''}, {title: ''}],
+            forceAnswer: true
         });
     }
 });
