@@ -68,3 +68,91 @@ tbody td .maybe,
 tfoot td option[value="maybe"] {
     color: orange;
 }
+
+/* loading page */
+#loading {
+    letter-spacing: 5px;
+}
+
+/* loading animation */
+.loading-animation-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.loading-animation-container:before {
+    content: '';
+    display: block;
+    margin-top: 12%;
+}
+
+.loading-animation-circle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 12%;
+    animation-name: bounce-loading-animation-circle;
+    animation-duration: 1.3s;
+    animation-iteration-count: infinite;
+    animation-direction: linear;
+    transform: scale(.3);
+    border-radius: 100%;
+}
+
+#loading-animation-circle-1 {
+    left: 0;
+    animation-delay: 0.52s;
+}
+
+#loading-animation-circle-2 {
+    left: 12.5%;
+    animation-delay: 0.65s;
+}
+
+#loading-animation-circle-3 {
+    left: 25%;
+    animation-delay: 0.78s;
+}
+
+#loading-animation-circle-4 {
+    left: 37.5%;
+    animation-delay: 0.91s;
+}
+
+#loading-animation-circle-5 {
+    left: 50%;
+    animation-delay: 1.04s;
+}
+
+#loading-animation-circle-6 {
+    left: 62.5%;
+    animation-delay: 1.17s;
+}
+
+#loading-animation-circle-7 {
+    left: 75%;
+    animation-delay: 1.3s;
+}
+
+#loading-animation-circle-8 {
+    left: 87.5%;
+    animation-delay: 1.43s;
+}
+
+#loading-animation-circle-9 {
+    left: 100%;
+    animation-delay: 1.43s;
+}
+
+@keyframes bounce-loading-animation-circle {
+    0%{
+        transform: scale(1);
+        background-color: #333333;
+    }
+
+    100%{
+        transform: scale(.3);
+        background-color: #FFFFFF;
+    }
+}
