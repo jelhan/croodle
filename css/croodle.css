@@ -4,6 +4,10 @@ table tr td .form-group {
     margin-bottom: 0;
 }
 
+table tr td .form-control {
+    min-width: 6em;
+}
+
 /* elements */
 body {
     background-color: #D3D3D3;
