@@ -44,6 +44,7 @@ body {
 
 #poll .share-link .link {
     color: #556B2F;
+    word-break: break-all;
 }
 
 #poll .share-link .notice {
