@@ -479,14 +479,12 @@ App.PollController = Ember.ObjectController.extend({
     
         // loop over all users
         this.get('users').forEach(function(user){
-            console.log(user.get('selections'));
-            
             // loop over all selections of the user
             user.get('selections').forEach(function(selection, optionindex){
                 var answerindex;
                 
                 // get answer index by lookup array
-                if (typeof selection.value === 'undefined' || selection.value === null || selection.value === '') {
+                if (typeof lookup[selection.value] === 'undefined') {
                     answerindex = lookup[null];
                 }
                 else {
@@ -494,7 +492,11 @@ App.PollController = Ember.ObjectController.extend({
                 }
                 
                 // increment counter
-                evaluation[answerindex]['options'][optionindex] = evaluation[answerindex]['options'][optionindex] + 1;
+                try {
+                    evaluation[answerindex]['options'][optionindex] = evaluation[answerindex]['options'][optionindex] + 1;
+                } catch (e) {
+                    console.log(e);
+                }
             });
         });
         
