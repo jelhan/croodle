@@ -116,6 +116,8 @@ App.Poll = DS.Model.extend({
     creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date'),
     encryptedForceAnswer : DS.attr('string'),
     forceAnswer : Ember.computed.encrypted('encryptedForceAnswer', 'boolean'),
+    encryptedAnonymousUser : DS.attr('string'),
+    anonymousUser : Ember.computed.encrypted('encryptedAnonymousUser', 'boolean'),
     
     isFindADate: function() {
         return this.get('pollType') === 'FindADate';
@@ -228,7 +230,8 @@ App.CreateRoute = Ember.Route.extend({
         return this.store.createRecord('poll', {
             creationDate : new Date(),
             options : [{title: ''}, {title: ''}],
-            forceAnswer: true
+            forceAnswer: true,
+            anonymousUser: false
         });
     }
 });
@@ -546,6 +549,16 @@ App.PollView = Ember.View.extend({
                 selections: this.get('newUserSelections')
             };
             
+            // check if anonymous user are allowed
+            if(!this.get('controller.anonymousUser')) {
+                // anonymous user are prohibited
+                // check for a username
+                if (this.get('newUserName') === '') {
+                    alert('You have to enter a name.');
+                    return;
+                }
+            }
+            
             // check if answers are forced
             var answersAreCorrect = true;
             if(this.get('controller.forceAnswer')) {
@@ -556,19 +569,19 @@ App.PollView = Ember.View.extend({
                     }
                 });
             }
-            
-            if (answersAreCorrect) {
-                this.get('controller').send('saveNewUser', newUser);
-
-                // clear input fields
-                this.set('newUserName', '');
-                this.get('newUserSelections').forEach(function(selection){
-                    selection.set('value', '');
-                });
-            }
-            else {
+            if (!answersAreCorrect) {
                 alert('You have to select answers for all options.');
+                return;
             }
+            
+            // send new user to controller for saving
+            this.get('controller').send('saveNewUser', newUser);
+
+            // clear input fields
+            this.set('newUserName', '');
+            this.get('newUserSelections').forEach(function(selection){
+                selection.set('value', '');
+            });
         }
     },
     
