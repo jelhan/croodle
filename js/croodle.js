@@ -2,8 +2,6 @@
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
 window.App = Ember.Application.create({
-    LOG_TRANSITIONS: true,
-    
     ready: function(){
         this.register('encryption:current', App.Encryption, {singleton: true});
         this.inject('controller:poll', 'encryption', 'encryption:current');
