@@ -301,22 +301,42 @@ App.PollRoute = Ember.Route.extend({
 /*
  * controller
  */
-App.CreateIndexController = Ember.ObjectController.extend({
-   actions: {
-       submit: function(){
-           // redirect to CreateMeta
-           this.transitionToRoute('create.meta');
-       }
-   }
+App.CreateIndexController = Ember.ObjectController.extend(Ember.Validations.Mixin);
+App.CreateIndexController.reopen({
+    actions: {
+        submit: function(){
+            // redirect to CreateMeta
+            this.transitionToRoute('create.meta');
+        }
+    },
+           
+    validations: {
+        pollType: {
+            presence: true,
+            inclusion: {
+                in: ['FindADate', 'MakeAPoll']
+            }
+        }
+    }
 });
 
-App.CreateMetaController = Ember.ObjectController.extend({
-   actions: {
-       submit: function(){
-           // redirect to CreateOptions
-           this.transitionToRoute('create.options');
-       }
-   }
+App.CreateMetaController = Ember.ObjectController.extend(Ember.Validations.Mixin);
+App.CreateMetaController.reopen({
+    actions: {
+        submit: function(){
+            // redirect to CreateOptions
+            this.transitionToRoute('create.options');
+        }
+    },
+           
+    validations: {
+        title: {
+            presence: true,
+            length: {
+                minimum: 2
+            }
+        }
+    }
 });
 
 App.CreateOptionsController = Ember.ObjectController.extend({
@@ -371,7 +391,8 @@ App.CreateOptionsController = Ember.ObjectController.extend({
     }
 });
 
-App.CreateSettingsController = Ember.ObjectController.extend({
+App.CreateSettingsController = Ember.ObjectController.extend(Ember.Validations.Mixin);
+App.CreateSettingsController.reopen({
     actions: {
         submit: function(){
             // check if answer type is selected
@@ -404,7 +425,22 @@ App.CreateSettingsController = Ember.ObjectController.extend({
 
             this.set('answers', answers);
         }
-    }.observes('answerType')
+    }.observes('answerType'),
+            
+    validations: {
+        answerType: {
+            presence: true,
+            inclusion: {
+                in: ["YesNo", "YesNoMaybe", "FreeText"]
+            }
+        },
+        anonymousUser: {
+            presence: true
+        },
+        forceAnswer: {
+            presence: true
+        }
+    }
 });
 
 App.PollController = Ember.ObjectController.extend({

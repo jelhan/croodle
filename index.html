@@ -245,7 +245,7 @@
     
     <script type="text/x-handlebars" id="create/index">
         <div class="box">
-            {{#em-form model=model submit_button=false}}
+            {{#em-form model=controller submit_button=false}}
                 {{em-select
                     property="pollType"
                     label="poll type"
@@ -261,7 +261,7 @@
     
     <script type="text/x-handlebars" id="create/meta">
         <div class="box">
-            {{#em-form model=model submit_button=false}}
+            {{#em-form model=controller submit_button=false}}
                 {{em-input
                     property="title"
                     label="title"
@@ -308,7 +308,7 @@
     
     <script type="text/x-handlebars" id="create/settings">
         <div class="box">
-            {{#em-form model=model submit_button=false}}
+            {{#em-form model=controller submit_button=false}}
                 {{em-select
                     property="answerType"
                     label="available answers"
@@ -342,6 +342,7 @@
     <script src="js/lib/ember-data.js"></script>
     <script src="js/lib/embedded-adapter.js"></script>
     <script src="js/lib/ember_forms.js"></script>
+    <script src="js/lib/ember-validations.js"></script>
     <script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/bootstrap-datepicker.js"></script>
     <script src="js/lib/moment.min.js"></script>
