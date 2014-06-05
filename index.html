@@ -160,38 +160,40 @@
 
                         <tbody>
                             <tr class='newUser'>
-                                <form role="form">
+                                {{! ToDo:
+                                    should be all together in just one form;
+                                    not in several forms for each input.
+                                    This work-around is due to a problem of
+                                    ember-forms in dealing with propertys of
+                                    handlebar each helper
+                                }}
+                                <td>
+                                    {{#em-form model=view submit_button=false}}
+                                        {{em-form-label text="name" extraClass="sr-only"}}
+                                        {{em-input property="newUserName" placeholder="Enter your name..."}}
+                                    {{/em-form}}
+                                </td>
+                                {{#each newUserSelection in view.newUserSelections}}
                                     <td>
-                                        <div class="form-group">
-                                            <label class="sr-only">name</label>
-                                            {{input value=view.newUserName placeholder="Enter your name..." class="form-control"}}
-                                        </div>
-                                    </td>
-                                    {{#each newUserSelection in view.newUserSelections}}
-                                        <td>
+                                        {{#em-form model=newUserSelection submit_button=false}}
                                             {{#if isFreeText}}
-                                                <div class="form-group">
-                                                    {{input value=newUserSelection.value class="form-control"}}
-                                                </div>
+                                                {{em-input property="value"}}
                                             {{else}}
-                                                <div >
-                                                    {{view Ember.Select
-                                                        contentBinding="answers"
-                                                        optionValuePath="content.label"
-                                                        optionLabelPath="content.label"
-                                                        prompt="choose an answer"
-                                                        valueBinding="newUserSelection.value"
-                                                        class="form-control"}}
-                                                </div>
+                                                {{em-select
+                                                    property="value"
+                                                    contentBinding="answers"
+                                                    optionValuePath="content.label"
+                                                    optionLabelPath="content.label"
+                                                    prompt="choose an answer"}}
                                             {{/if}}
-                                        </td>
-                                    {{/each}}
-                                    <td>
-                                        <div class="form-group">
-                                            <button {{action "addNewUser" target="view"}} class="btn btn-default"> save </button>
-                                        </div>
+                                        {{/em-form}}
                                     </td>
-                                </form>
+                                {{/each}}
+                                <td>
+                                    <div class="form-group">
+                                        <button {{action "addNewUser" target="view"}} class="btn btn-default"> save </button>
+                                    </div>
+                                </td>
                             </tr>
 
                             {{#each user in users}}

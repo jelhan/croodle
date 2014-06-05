@@ -1,6 +1,18 @@
 /* bootstrap overwrites */
 table tr td .form-group {
-    /* remove bootstrap default margin-bottom for form elements in table */
+    /* 
+     * remove bootstrap default margin-bottom for form element form-group
+     * if it is inside a table
+     */
+    margin-bottom: 0;
+}
+
+table tr td .help-block {
+    /* 
+     * remove bootstrap default margin-bottom for form element help-block
+     * if it is inside a table
+     */
+    margin-top: 0;
     margin-bottom: 0;
 }
 
