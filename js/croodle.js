@@ -471,7 +471,11 @@ App.PollController = Ember.ObjectController.extend({
         }
     },
     
-    colspan: function(){
+    /*
+     * calculate colspan for a row which should use all columns in table
+     * used by evaluation row
+     */
+    fullRowColspan: function(){
         var colspan = this.get('options.length') + 2;
         return colspan;
     }.property('options.@each'),
