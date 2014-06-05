@@ -191,7 +191,7 @@
                                 {{/each}}
                                 <td>
                                     <div class="form-group">
-                                        <button {{action "addNewUser" target="view"}} class="btn btn-default"> save </button>
+                                        <button {{action "addNewUser" target="view"}} class="btn btn-default" {{bind-attr disabled=view.isNotValid}}> save </button>
                                     </div>
                                 </td>
                             </tr>

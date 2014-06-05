@@ -617,6 +617,10 @@ App.PollView.reopen({
         }
     },
     
+    isNotValid: function(){
+        return !this.get('isValid');
+    }.property('isValid'),
+    
     validations: {
         newUserName: {
             presence: {
