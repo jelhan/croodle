@@ -339,7 +339,8 @@ App.CreateMetaController.reopen({
     }
 });
 
-App.CreateOptionsController = Ember.ObjectController.extend({
+App.CreateOptionsController = Ember.ObjectController.extend(Ember.Validations.Mixin);
+App.CreateOptionsController.reopen({
     actions: {
         /*
          * handles submit of option input for poll of type MakeAPoll
@@ -370,22 +371,6 @@ App.CreateOptionsController = Ember.ObjectController.extend({
          * handles submit of selected dates for poll of type MakeAPoll
          */
         submitFindADate: function() {
-            var options = $('.datepicker').datepicker('getDates'),
-                newOptions = [];
-            
-            // sort dates
-            options.sort(function(a,b){
-                return new Date(a) - new Date(b);
-            });
-            
-            // get array in correct form
-            options.forEach(function(option) {
-                newOptions.pushObject({title: option});
-            });
-            
-            // set options
-            this.set('model.options', newOptions);
-            
             // tricker save action
             this.send('save');
         },
@@ -393,6 +378,37 @@ App.CreateOptionsController = Ember.ObjectController.extend({
         save: function(){
             // redirect to CreateSettings
             this.transitionToRoute('create.settings');
+        }
+    },
+    
+    /*
+     * returns true if required number of options is reached
+     */
+    enoughOptions: function(){
+        var requiredOptionsLength = 2,
+            givenOptions,
+            filtedOptions;
+        
+        givenOptions = this.get('options');
+        
+        // check if options are defined
+        if (typeof givenOptions === 'undefined') {
+            return false;
+        }
+        
+        // reduce array to options which have a title
+        filtedOptions = givenOptions.filterBy('title', '');
+        
+        return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
+    }.property('options.@each.title'),
+            
+    isNotValid: function(){
+        return !this.get('isValid');
+    }.property('isValid'),
+            
+    validations: {
+        enoughOptions: {
+            acceptance: true
         }
     }
 });
@@ -435,7 +451,7 @@ App.CreateSettingsController.reopen({
             this.set('answers', answers);
         }
     }.observes('answerType'),
-            
+    
     validations: {
         answerType: {
             presence: true,
@@ -677,6 +693,8 @@ App.Datepicker = Em.View.extend({
     classNames: ['datepicker'],
     
     didInsertElement: function() {
+        var self = this;
+        
         this._super();
         
         $('.datepicker').datepicker({
@@ -684,8 +702,26 @@ App.Datepicker = Em.View.extend({
             multidate: true,
             multidateSeparator: ";",
             calendarWeeks: true,
-            todayHighlight: true
-        });
+            todayHighlight: true,
+        })
+        // bind date changes to option array in model
+        .on('changeDate', function(e){
+            var dates = e.dates,
+                newOptions = [];
+            
+            // sort dates
+            dates.sort(function(a,b){
+                return new Date(a) - new Date(b);
+            });
+            
+            // get array in correct form
+            dates.forEach(function(option) {
+                newOptions.pushObject({title: option});
+            });
+            
+            // set options
+            self.set('_parentView.controller.options', newOptions);
+        });;
     }
 });
 

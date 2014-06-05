@@ -110,7 +110,7 @@
     <script type="text/x-handlebars" id="error">
         <div class="box">
             <h2>error</h2>
-            <p>{{status}}<br/>{{statusText}}</p>
+            <p>{{model}}</p>
         </div>
     </script>
     
@@ -292,7 +292,7 @@
                     </div>
                     <div class="form-group">
                         <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
-                        <button {{action "submitMakeAPoll"}} class="btn btn-default"> next </button>
+                        <button {{action "submitMakeAPoll"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
                     </div>
                 </form>
             {{/if}}
@@ -301,7 +301,7 @@
                 <div id="datepicker">
                     {{view App.Datepicker}}
                     <div class="form-group">
-                        <button {{action "submitFindADate"}} class="btn btn-default"> next </button>
+                        <button {{action "submitFindADate"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
                     </div>
                 </div>
             {{/if}}
