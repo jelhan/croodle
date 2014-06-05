@@ -340,7 +340,10 @@ App.CreateMetaController.reopen({
 });
 
 App.CreateOptionsController = Ember.ObjectController.extend({
-    actions: {           
+    actions: {
+        /*
+         * handles submit of option input for poll of type MakeAPoll
+         */
         submitMakeAPoll: function() {
             var options = this.get('model.options'),
                 newOptions = [];
@@ -362,7 +365,10 @@ App.CreateOptionsController = Ember.ObjectController.extend({
             // tricker save action
             this.send('save');
         },
-                
+        
+        /*
+         * handles submit of selected dates for poll of type MakeAPoll
+         */
         submitFindADate: function() {
             var options = $('.datepicker').datepicker('getDates'),
                 newOptions = [];
@@ -412,6 +418,9 @@ App.CreateSettingsController.reopen({
         }
     },
     
+    /*
+     * set answers depending on selected answer type
+     */
     updateAnswers: function(){
         var selectedAnswer = this.get('model.answerType'),
             answers = [];
@@ -448,6 +457,9 @@ App.PollController = Ember.ObjectController.extend({
     encryptionKey: '',
 
     actions: {
+        /*
+         * save a new user
+         */
         saveNewUser: function(user){
             var self = this;
             
@@ -480,6 +492,10 @@ App.PollController = Ember.ObjectController.extend({
         return colspan;
     }.property('options.@each'),
     
+    /*
+     * evaluates poll data
+     * if free text answers are allowed evaluation is disabled
+     */
     evaluation: function() {
         // disable evaluation if answer type is free text
         if (this.get('answerType') === 'FreeText') {
