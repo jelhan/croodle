@@ -288,6 +288,7 @@
                             {{#each option in options}}
                                 {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
                             {{/each}}
+                            {{em-form-control-help text="You have to enter at least two options."}}
                         </fieldset>
                     </div>
                     <div class="form-group">
@@ -300,6 +301,7 @@
             {{#if isFindADate}}
                 <div id="datepicker">
                     {{view App.Datepicker}}
+                    {{em-form-control-help text="You have to select at least two dates."}}
                     <div class="form-group">
                         <button {{action "submitFindADate"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
                     </div>
