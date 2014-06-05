@@ -611,6 +611,9 @@ App.PollView.reopen({
             this.get('newUserSelections').forEach(function(selection){
                 selection.set('value', '');
             });
+            
+            // reset validation erros
+            this.set('errors.newUserName', '');
         }
     },
     
