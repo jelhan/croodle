@@ -595,18 +595,12 @@ App.PollView.reopen({
             }
             
             // check if answers are forced
-            var answersAreCorrect = true;
             if(this.get('controller.forceAnswer')) {
                 // check if a selection is null
-                newUser.selections.forEach(function(selection){
-                    if (typeof selection.value === 'undefined' || selection.value === null) {
-                        answersAreCorrect = false;
-                    }
-                });
-            }
-            if (!answersAreCorrect) {
-                alert('You have to select answers for all options.');
-                return;
+                if (newUser.selections.isAny("value", null)) {
+                    alert('You have to select answers for all options.');
+                    return;
+                }
             }
             
             // send new user to controller for saving
