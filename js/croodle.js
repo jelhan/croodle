@@ -572,7 +572,8 @@ App.CreateOptionsView = Ember.View.extend({
     }
 });
 
-App.PollView = Ember.View.extend({
+App.PollView = Ember.View.extend(Ember.Validations.Mixin);
+App.PollView.reopen({
     newUserName: '',
     newUserSelections: [],
             
@@ -616,6 +617,16 @@ App.PollView = Ember.View.extend({
             this.get('newUserSelections').forEach(function(selection){
                 selection.set('value', '');
             });
+        }
+    },
+    
+    validations: {
+        newUserName: {
+            presence: {
+                unless: function(object, validator){
+                    return object.get('controller.anonymousUser');
+                }.observes('controller.anonymousUser')
+            }
         }
     },
     
