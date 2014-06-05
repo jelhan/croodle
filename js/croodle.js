@@ -584,25 +584,6 @@ App.PollView.reopen({
                 selections: this.get('newUserSelections')
             };
             
-            // check if anonymous user are allowed
-            if(!this.get('controller.anonymousUser')) {
-                // anonymous user are prohibited
-                // check for a username
-                if (this.get('newUserName') === '') {
-                    alert('You have to enter a name.');
-                    return;
-                }
-            }
-            
-            // check if answers are forced
-            if(this.get('controller.forceAnswer')) {
-                // check if a selection is null
-                if (newUser.selections.isAny("value", null)) {
-                    alert('You have to select answers for all options.');
-                    return;
-                }
-            }
-            
             // send new user to controller for saving
             this.get('controller').send('saveNewUser', newUser);
 
@@ -617,6 +598,17 @@ App.PollView.reopen({
         }
     },
     
+    /*
+     * returns true if user has selected an answer for every option provided
+     */
+    everyOptionIsAnswered: function(){
+        return !this.get('newUserSelections').isAny('value', null);
+    }.property('newUserSelections.@each.value'),
+    
+    /*
+     * switch isValid state for view;
+     * is needed for disable submit button
+     */
     isNotValid: function(){
         return !this.get('isValid');
     }.property('isValid'),
@@ -624,9 +616,25 @@ App.PollView.reopen({
     validations: {
         newUserName: {
             presence: {
+                /*
+                 * validate if a user name is given
+                 * if it's forced by poll settings
+                 */
                 unless: function(object, validator){
                     return object.get('controller.anonymousUser');
                 }.observes('controller.anonymousUser')
+            }
+        },
+                
+        everyOptionIsAnswered: {
+            acceptance: {
+                /*
+                 * validate if every option is answered
+                 * if it's forced by poll settings
+                 */
+                if: function(object, validator){
+                    return object.get('controller.forceAnswer');
+                }.observes('controller.forceAnswer')
             }
         }
     },
