@@ -665,17 +665,18 @@ App.PollController.reopen({
         everyOptionIsAnswered: {
             /*
              * validate if every option is answered
+             * if it's forced by poll settings (forceAnswer === true)
              * 
              * using a computed property therefore which returns true / false
              * in combinatoin with acceptance validator
              * 
-             * ToDo:
-             * Has to be conditional depending on forceAnswer poll setting.
-             * Problem is that there seems to be a bug affecting this in
-             * ember-validations. For details have a look here:
-             * https://github.com/dockyard/ember-validations/issues/138
+             * ToDo: Show validation errors
              */
-            acceptance: true
+            acceptance: {
+                if: function(object, validator){
+                    return object.get('forceAnswer');
+                }
+            }
         },
 
         newUserName: {
@@ -684,9 +685,9 @@ App.PollController.reopen({
                  * validate if a user name is given
                  * if it's forced by poll settings (anonymousUser === false)
                  */
-                if: function(object, validator){
+                unless: function(object, validator){
                     /* have in mind that anonymousUser is undefined on init */
-                    return object.get('anonymousUser') === false;
+                    return object.get('anonymousUser');
                 }
             }
         }
