@@ -675,18 +675,18 @@ App.PollView.reopen({
         }
     },
     
-    // generate selection array for new user
-    willInsertElement: function(){
+    // array to store selections of new user
+    newUserSelections: function(){
         var newUserSelections = Ember.A(),
-            self = this,
             options = this.get('controller.model.options');
     
         options.forEach(function(){
-            newSelection = Ember.Object.create({value: ''});
+            var newSelection = Ember.Object.create({value: ''});
             newUserSelections.pushObject(newSelection);
         });
-        self.set('newUserSelections', newUserSelections);
-    }
+        
+        return newUserSelections;
+    }.property('controller.model.options')
 });
 
 App.Datepicker = Em.View.extend({
