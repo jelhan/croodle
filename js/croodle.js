@@ -68,6 +68,7 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
             console.log('Error on decrypting ' + encryptedField);
             console.log(e);
             console.log('Perhaps a wrong encryption key?');
+            console.log('Encryption key used: ' + encryptKey);
             decryptedValue = '';
         }
         
@@ -683,12 +684,24 @@ App.PollController.reopen({
                  * validate if a user name is given
                  * if it's forced by poll settings (anonymousUser === false)
                  */
-                unless: function(object, validator){
-                    return object.get('anonymousUser');
+                if: function(object, validator){
+                    /* have in mind that anonymousUser is undefined on init */
+                    return object.get('anonymousUser') === false;
                 }
             }
         }
-    }
+    },
+            
+    /*
+     * have to manually rerun validation when encryption key is present in model
+     * otherwise ember-validation is not using correct values for properties in
+     * conditional validators
+     */
+    validationsFixBug: function() {
+        if(!Ember.isEmpty(this.get('model.encryption.key'))) {
+            this.validate();
+        }
+    }.observes('model.encryption.key'),
 });
 
 /*
