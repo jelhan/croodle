@@ -168,12 +168,12 @@
                                     handlebar each helper
                                 }}
                                 <td>
-                                    {{#em-form model=view submit_button=false}}
+                                    {{#em-form model=controller submit_button=false}}
                                         {{em-form-label text="name" extraClass="sr-only"}}
                                         {{em-input property="newUserName" placeholder="Enter your name..."}}
                                     {{/em-form}}
                                 </td>
-                                {{#each newUserSelection in view.newUserSelections}}
+                                {{#each newUserSelection in controller.newUserSelections}}
                                     <td>
                                         {{#em-form model=newUserSelection submit_button=false}}
                                             {{#if isFreeText}}
@@ -191,7 +191,7 @@
                                 {{/each}}
                                 <td>
                                     <div class="form-group">
-                                        <button {{action "addNewUser" target="view"}} class="btn btn-default" {{bind-attr disabled=view.isNotValid}}> save </button>
+                                        <button {{action "addNewUser"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> save </button>
                                     </div>
                                 </td>
                             </tr>

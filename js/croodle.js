@@ -468,11 +468,32 @@ App.CreateSettingsController.reopen({
     }
 });
 
-App.PollController = Ember.ObjectController.extend({
-    queryParams: ['encryptionKey'],
+App.PollController = Ember.ObjectController.extend(Ember.Validations.Mixin);
+App.PollController.reopen({
     encryptionKey: '',
+    newUserName: '',
+    queryParams: ['encryptionKey'],
 
     actions: {
+        addNewUser: function(){
+            var newUser = {
+                name: this.get('newUserName'),
+                selections: this.get('newUserSelections')
+            };
+            
+            // send new user to controller for saving
+            this.send('saveNewUser', newUser);
+
+            // clear input fields
+            this.set('newUserName', '');
+            this.get('newUserSelections').forEach(function(selection){
+                selection.set('value', '');
+            });
+            
+            // reset validation erros
+            this.set('errors.newUserName', '');
+        },
+        
         /*
          * save a new user
          */
@@ -498,15 +519,6 @@ App.PollController = Ember.ObjectController.extend({
             });
         }
     },
-    
-    /*
-     * calculate colspan for a row which should use all columns in table
-     * used by evaluation row
-     */
-    fullRowColspan: function(){
-        var colspan = this.get('options.length') + 2;
-        return colspan;
-    }.property('options.@each'),
     
     /*
      * evaluates poll data
@@ -576,6 +588,36 @@ App.PollController = Ember.ObjectController.extend({
         return evaluation;
     }.property('users.@each'),
     
+    /*
+     * switch isValid state
+     * is needed for disable submit button
+     */
+    isNotValid: function(){
+        return !this.get('isValid');
+    }.property('isValid'),
+    
+    /*
+     * calculate colspan for a row which should use all columns in table
+     * used by evaluation row
+     */
+    fullRowColspan: function(){
+        var colspan = this.get('options.length') + 2;
+        return colspan;
+    }.property('options.@each'),
+    
+    // array to store selections of new user
+    newUserSelections: function(){
+        var newUserSelections = Ember.A(),
+            options = this.get('options');
+    
+        options.forEach(function(){
+            var newSelection = Ember.Object.create({value: ''});
+            newUserSelections.pushObject(newSelection);
+        });
+        
+        return newUserSelections;
+    }.property('options'),
+    
     pollUrl: function() {
         return window.location.href;
     }.property('currentPath', 'encryptionKey'),
@@ -591,7 +633,21 @@ App.PollController = Ember.ObjectController.extend({
         }
         
         this.set('encryption.isSet', true);
-    }.observes('encryptionKey')
+    }.observes('encryptionKey'),
+    
+    validations: {
+        newUserName: {
+            presence: {
+                /*
+                 * validate if a user name is given
+                 * if it's forced by poll settings
+                 */
+                unless: function(object, validator){
+                    return object.get('anonymousUser');
+                }.observes('anonymousUser')
+            }
+        }
+    }
 });
 
 /*
@@ -606,86 +662,6 @@ App.CreateOptionsView = Ember.View.extend({
             this.get('controller.model.options').pushObject({title: ''});
        }
     }
-});
-
-App.PollView = Ember.View.extend(Ember.Validations.Mixin);
-App.PollView.reopen({
-    newUserName: '',
-            
-    actions: {
-        addNewUser: function(){
-            var newUser = {
-                name: this.get('newUserName'),
-                selections: this.get('newUserSelections')
-            };
-            
-            // send new user to controller for saving
-            this.get('controller').send('saveNewUser', newUser);
-
-            // clear input fields
-            this.set('newUserName', '');
-            this.get('newUserSelections').forEach(function(selection){
-                selection.set('value', '');
-            });
-            
-            // reset validation erros
-            this.set('errors.newUserName', '');
-        }
-    },
-    
-    /*
-     * returns true if user has selected an answer for every option provided
-     */
-    everyOptionIsAnswered: function(){
-        return !this.get('newUserSelections').isAny('value', null);
-    }.property('newUserSelections.@each.value'),
-    
-    /*
-     * switch isValid state for view;
-     * is needed for disable submit button
-     */
-    isNotValid: function(){
-        return !this.get('isValid');
-    }.property('isValid'),
-    
-    validations: {
-        newUserName: {
-            presence: {
-                /*
-                 * validate if a user name is given
-                 * if it's forced by poll settings
-                 */
-                unless: function(object, validator){
-                    return object.get('controller.anonymousUser');
-                }.observes('controller.anonymousUser')
-            }
-        },
-                
-        everyOptionIsAnswered: {
-            acceptance: {
-                /*
-                 * validate if every option is answered
-                 * if it's forced by poll settings
-                 */
-                if: function(object, validator){
-                    return object.get('controller.forceAnswer');
-                }.observes('controller.forceAnswer')
-            }
-        }
-    },
-    
-    // array to store selections of new user
-    newUserSelections: function(){
-        var newUserSelections = Ember.A(),
-            options = this.get('controller.model.options');
-    
-        options.forEach(function(){
-            var newSelection = Ember.Object.create({value: ''});
-            newUserSelections.pushObject(newSelection);
-        });
-        
-        return newUserSelections;
-    }.property('controller.model.options')
 });
 
 App.Datepicker = Em.View.extend({
