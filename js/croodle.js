@@ -611,7 +611,6 @@ App.CreateOptionsView = Ember.View.extend({
 App.PollView = Ember.View.extend(Ember.Validations.Mixin);
 App.PollView.reopen({
     newUserName: '',
-    newUserSelections: [],
             
     actions: {
         addNewUser: function(){
