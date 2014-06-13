@@ -589,14 +589,6 @@ App.PollController.reopen({
     }.property('users.@each'),
     
     /*
-     * switch isValid state
-     * is needed for disable submit button
-     */
-    isNotValid: function(){
-        return !this.get('isValid');
-    }.property('isValid'),
-    
-    /*
      * calculate colspan for a row which should use all columns in table
      * used by evaluation row
      */
@@ -604,6 +596,15 @@ App.PollController.reopen({
         var colspan = this.get('options.length') + 2;
         return colspan;
     }.property('options.@each'),
+    
+    
+    /*
+     * switch isValid state
+     * is needed for disable submit button
+     */
+    isNotValid: function(){
+        return !this.get('isValid');
+    }.property('isValid'),
     
     // array to store selections of new user
     newUserSelections: function(){
@@ -644,7 +645,7 @@ App.PollController.reopen({
                  */
                 unless: function(object, validator){
                     return object.get('anonymousUser');
-                }.observes('anonymousUser')
+                }
             }
         }
     }
