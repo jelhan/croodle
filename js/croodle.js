@@ -589,6 +589,31 @@ App.PollController.reopen({
     }.property('users.@each'),
     
     /*
+     * returns true if user has selected an answer for every option provided
+     */
+    everyOptionIsAnswered: function(){
+        try {
+            var newUserSelections = this.get('newUserSelections'),
+                allAnswered = true;
+            
+            if (typeof newUserSelections === 'undefined') {
+                return false;
+            }
+            
+            newUserSelections.forEach(function(item, index, enumerable){
+                if (Ember.isEmpty(item.value)) {
+                    allAnswered = false;
+                } 
+            });
+            
+            return allAnswered;
+        }
+        catch (e) {
+            return false;
+        }
+    }.property('newUserSelections.@each.value'),
+    
+    /*
      * calculate colspan for a row which should use all columns in table
      * used by evaluation row
      */
@@ -596,7 +621,6 @@ App.PollController.reopen({
         var colspan = this.get('options.length') + 2;
         return colspan;
     }.property('options.@each'),
-    
     
     /*
      * switch isValid state
@@ -622,7 +646,7 @@ App.PollController.reopen({
     pollUrl: function() {
         return window.location.href;
     }.property('currentPath', 'encryptionKey'),
-    
+            
     updateEncryptionKey: function() {
         // update encryption key
         this.set('encryption.key', this.get('encryptionKey'));
@@ -637,11 +661,27 @@ App.PollController.reopen({
     }.observes('encryptionKey'),
     
     validations: {
+        everyOptionIsAnswered: {
+            /*
+             * validate if every option is answered
+             * 
+             * using a computed property therefore which returns true / false
+             * in combinatoin with acceptance validator
+             * 
+             * ToDo:
+             * Has to be conditional depending on forceAnswer poll setting.
+             * Problem is that there seems to be a bug affecting this in
+             * ember-validations. For details have a look here:
+             * https://github.com/dockyard/ember-validations/issues/138
+             */
+            acceptance: true
+        },
+
         newUserName: {
             presence: {
                 /*
                  * validate if a user name is given
-                 * if it's forced by poll settings
+                 * if it's forced by poll settings (anonymousUser === false)
                  */
                 unless: function(object, validator){
                     return object.get('anonymousUser');
