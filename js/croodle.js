@@ -39,8 +39,8 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
             encryptedValue;
 
         // check if encryptKey is set
-        if (typeof encryptKey === 'undefined') {
-            return;
+        if (Ember.isEmpty(encryptKey)) {
+            return null;
         }
 
         // setter
@@ -467,6 +467,13 @@ App.CreateSettingsController.reopen({
             presence: true
         }
     }
+});
+
+App.ErrorController = Ember.ObjectController.extend({
+	is404: function(){
+		console.log(this);
+		return this.get('status') === 404;
+	}.property('status')
 });
 
 App.PollController = Ember.ObjectController.extend(Ember.Validations.Mixin);
