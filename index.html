@@ -110,7 +110,14 @@
     <script type="text/x-handlebars" id="error">
         <div class="box">
             <h2>error</h2>
-            <p>{{model}}</p>
+				<p>
+					{{#if is404}}
+						Could not find the poll you tried to open. Perhaps it was
+						deleted?
+					{{else}}
+						We are sorry. An unexpected error occurred.
+					{{/if}}
+				</p>
         </div>
     </script>
     

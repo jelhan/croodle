@@ -471,7 +471,6 @@ App.CreateSettingsController.reopen({
 
 App.ErrorController = Ember.ObjectController.extend({
 	is404: function(){
-		console.log(this);
 		return this.get('status') === 404;
 	}.property('status')
 });
