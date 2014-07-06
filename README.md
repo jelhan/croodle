@@ -30,11 +30,11 @@ Installation
 
 You have to install node.js package management tool npm and bower before.
 
-```
-$ git clone git@github.com:jelhan/croodle.git
-$ cd croodle
-$ npm install
-$ grunt dist
+```shell
+git clone git@github.com:jelhan/croodle.git
+cd croodle
+npm install
+grunt dist
 ```
 
 Make sure that data/ folder is writeable by the web server.
