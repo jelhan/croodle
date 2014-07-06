@@ -5,7 +5,7 @@
     "jquery": "~1.10.2",
     "qunit": "~1.12.0",
     "ember-qunit": "https://github.com/rpflorence/ember-qunit.git#master",
-    "ember": "~1.6.0-beta.5",
+    "ember": "http://builds.emberjs.com/canary/ember.js",
     "ember-data": "~1.0.0-beta.7",
     "ember-resolver": "~0.1.1",
     "ic-ajax": "~1.0.4",

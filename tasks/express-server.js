@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       grunt.log.writeln('Proxying API requests matching ' + proxyPath + '/* to: ' + proxyURL);
 
       // Use API proxy
-      app.all(proxyPath + '/*', passThrough(proxyURL));
+      app.all(proxyPath + '*', passThrough(proxyURL));
     }
 
     if (target === 'debug') {
