@@ -1,122 +1,42 @@
-# Deprecated
+croodle
+=======
 
-this project has been deprecated in-favour of the ember-cli project: 
+Croodle is a web application to schedule a date or to do a poll on a general topics. Stored content data like title and description, number and labels of options and available answers and names of users and there selections is encrypted/decrypted in the browser using 256 bits AES.
 
-* https://github.com/stefanpenner/ember-cli
-* http://iamstef.net/ember-cli
+This is an alpha version. Changes could brake backward compatibility. Also it is not well tested and some features are missing. It is not ment for productive use yet.
 
+Croodle is inspired by [ZeroBin](https://github.com/sebsauvage/ZeroBin) and of course by Doodle.
 
+Security notice
+-------
 
+As any other web application based end-to-end encryption Croodle could be attacked by an injection of maluse code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser ot the encryption key used and send it to a server under his controll.
 
+Therefore you have to
+* use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection to Croodle.
+* trust the server.
 
+You could check for an attack like this by using an development tool for your browser and check if unencrypted data of your poll or the encryption key is send over network or is stored in a cookie or the localStorage of your browser for later send.
 
-# Ember App Kit [![Build Status](https://travis-ci.org/stefanpenner/ember-app-kit.png?branch=master)](https://travis-ci.org/stefanpenner/ember-app-kit)
+Requirements
+-------
 
-Ember App Kit aims to be the foundation for ambitious web applications built with Ember. It will soon be replaced by an executable [ember-cli](https://github.com/stefanpenner/ember-cli) which dramatically improves buildtimes (via broccoli) and provides sane-upgrade paths, feel free to check that project out. We intend to provide a sensible upgrade path.
+Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP. Croodle stores the data in textfiles, so there is no need for a database server like mySQL.
 
-This project has been extracted out of several real world applications and is actively used. Currently it covers the basics fairly well, but much still needs to be done. As we learn and as more contributors join in it continues to evolve. If you encounter any bugs, clunky features or missing documentation, just submit an issue and we'll respond ASAP.
+Due to security reasons you should have SSL encryption enabled and provide a valid certificate.
 
-At the very least, it helps setup your Ember.js applications directory structure.
+Installation
+-------
 
-We welcome ideas and experiments.
+You have to install node.js package management tool npm and bower before.
 
-## Getting Started
+```
+$ git clone git@github.com:jelhan/croodle.git
+$ cd croodle
+$ npm install
+$ grunt dist
+```
 
-* [Project Documentation Site](http://stefanpenner.github.io/ember-app-kit/)
-* [Getting Started Guide](http://stefanpenner.github.io/ember-app-kit/guides/getting-started.html)
-* [ember-app-kit-todos](https://github.com/stefanpenner/ember-app-kit-todos) - the Emberjs [todos](http://emberjs.com/guides/getting-started/) using Ember App Kit 
-* [ember-app-kit-bloggr](https://github.com/pixelhandler/ember-app-kit-example-with-bloggr-client) - bloggr demo
-* *Safari Books Online Blog* - [Introduction to Ember App Kit](http://blog.safaribooksonline.com/2013/09/18/ember-app-kit/) for more experienced Ember developers by @mixonic
-* *Ember Sherpa* - [Introduction to Ember App Kit](http://embersherpa.com/articles/introduction-to-ember-app-kit/) for those who are new to the Grunt workflow by @taras 
+Make sure that data/ folder is writeable by the web server.
 
-
-## Features
-
-- Sane project structure
-- ES6 module transpiler support (easy, future-proof modules)
-- Module system-aware resolver (see [Referencing views](https://github.com/stefanpenner/ember-app-kit/wiki/Referencing-Views) and [Using Ember loaders](https://github.com/stefanpenner/ember-app-kit/wiki/Using-Ember-loaders))
-- Transparent project compilation & minification for easy deploys via [Grunt](http://gruntjs.com/)
-- Package management via [Bower](https://github.com/bower/bower)
-- Optional support for CoffeeScript, SASS, LESS or Stylus
-- Testing via QUnit, Ember Testing and Testem (with examples)
-- Linting via JSHint (including module syntax)
-- Catch-all `index.html` for easy reloading of pushState router apps
-- Generators via [Loom](https://github.com/cavneb/loom-generators-ember-appkit) (to generate routes, controllers, etc.)
-
-## Migrating to Ember CLI
-
-First, run `npm install -g ember-cli` to install Ember CLI.
-Now, on top of your existing EAK project, run `ember init`. Ember CLI
-will begin to migrate your project, showing you a diff of its overrides as it
-goes along.
-
-### Ember Init Overrides
-
-* tests/.jshintrc
-  * Let ember-cli overwrite this.
-* app/index.html
-    * Managing vendor assets is now handled via the Brocfile. Let
-      ember-cli overwrite this file.
-* app/app.js
-  * Ember Configuration is now handled in `config/`
-* app/router.js
-  * Router's location is now handled via environment configuration.
-    Change this to ENV.locationType.
-* app/routes/index.js
-  * This will attempt to replace your Index Route with a stub. Usually,
-    you wont't want Ember CLI to override this file.
-* Brocfile.js
-  * Move your dependencies from app/index.html into this file by calling
-    app.import().
-    * Example: app.import('vendor/ember-data/ember-data.js')
-* app/templates/application.hbs
-  * This will attempt to replace your application template with a stub.
-* app/styles/app.css
-  * Another stub.
-* tests/index.html
-  * Let ember-cli add this file. This is where the test dependencies
-    from `app/index.html` now live.
-* bower.json
-* package.json
-* server
-  * The express server has been exposed and now lives under this
-    directory.
-  * This essentially replaces the API Stub in favor of a real
-    Express App, so you can now enhance and customize the static server
-    or develop the API and turn it into a full MEAN-like solution.
-
-## Cleanup
-
-You can remove the Gruntfile, tasks, and the api-stub directory, since we
-won't be needing them anymore.
-
-### Troubleshooting
-
-* Ember CLI now picks up your app namespace. Change the import to
-  reference the name of your project.
-  * If you never changed your application namespace from the default
-    `appkit` then running `ember init` will break any import statements
-     you already have
-
-* Index Route doesn't exist
-  * You may need to refresh your dependencies. Run `rm -rf npm_modules && npm install && npm
-    cache clean && bower install`
-
-* Tests
-  * Import `tests/helpers/start-app` into each acceptance test file.
-    * `import startApp from 'your-app/tests/helpers/start-app`
-  * `resolver` and `startApp` still live in `test/helpers/` but
-    `module-for` is now its own package.
-  * If you were using ember-testing-httpRespond
-    * This is now patched for 1.4+
-    * Import it and its dependencies in your Brocfile by using
-      `app.import()`
-
-## Special Thanks
-
-Some ideas in ember-app-kit originated in work by Yapp Labs (@yapplabs) with McGraw-Hill Education Labs (@mhelabs) on [yapplabs/glazier](https://github.com/yapplabs/glazier). Thanks to Yapp and MHE for supporting the Ember ecosystem!
-
-## License
-
-Copyright 2013 by Stefan Penner and Ember App Kit Contributors, and licensed under the MIT License. See included
-[LICENSE](/stefanpenner/ember-app-kit/blob/master/LICENSE) file for details.
+You should consider to force an SSL encrypted connection.
