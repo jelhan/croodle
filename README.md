@@ -37,6 +37,8 @@ npm install
 grunt dist
 ```
 
+Afterwards copy all files in /dist folder to your werbserver.
+
 Make sure that data/ folder is writeable by the web server.
 
 You should consider to force an SSL encrypted connection.
