@@ -1,3 +1,6 @@
+@import "/vendor/bootstrap/dist/css/bootstrap.css";
+@import "/vendor/bootstrap-datepicker/css/datepicker3.css";
+
 /* bootstrap overwrites */
 table tr td .form-group {
     /* 

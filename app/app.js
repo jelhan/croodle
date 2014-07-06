@@ -61,42 +61,6 @@ var App = Ember.Application.extend({
   Resolver: Resolver
 });
 
-App.PollTypes = [
-   Ember.Object.create({
-        id : "FindADate",
-        label : "Find a date"
-   }),
-   Ember.Object.create({
-        id : "MakeAPoll",
-        label : "Make a poll"
-   })
-];
-
-App.AnswerTypes = [
-    Ember.Object.create({
-        id : "YesNo",
-        label : "yes, no",
-        answers : [
-                {label: "yes"},
-                {label: "no"}
-            ]
-    }),
-    Ember.Object.create({
-        id : "YesNoMaybe",
-        label : "yes, no, maybe",
-        answers : [
-                {label: "yes"},
-                {label: "no"},
-                {label: "maybe"}
-            ]
-    }),
-    Ember.Object.create({
-        id : "FreeText",
-        label : "free text",
-        answers : []
-    })
-];
-
 import extendTextField from 'croodle/ext/text-field';
 extendTextField();
 

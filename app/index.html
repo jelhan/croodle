@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- build:css(tmp/result) /assets/app.min.css -->
-  <link rel="stylesheet" href="/assets/app.css">
+    <link rel="stylesheet" href="/assets/app.css">
   <!-- endbuild -->
 
   <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
@@ -38,22 +38,27 @@
     <!-- @if dist=false -->
       <script src="/vendor/handlebars/handlebars.js"></script>
       <script src="/vendor/ember/ember.js"></script>
+      <script src="/vendor/ember-data/ember-data.js"></script>
+      <script src="/vendor/ember-data-extensions/dist/embedded-adapter.js"></script>
+      <script src="/vendor/moment/moment.js"></script>
     <!-- @endif -->
     <!-- @if dist=true -->
       <script src="/vendor/handlebars/handlebars.runtime.js"></script>
       <script src="/vendor/ember/ember.prod.js"></script>
+      <script src="/vendor/ember-data/ember-data.prod.js"></script>
+      <script src="/vendor/ember-data-extensions/dist/embedded-adapter.min.js"></script>
+      <script src="/vendor/moment/moment.min.js"></script>
     <!-- @endif -->
 
-    <script src="/vendor/ember-data/ember-data.js"></script>
     <script src="/vendor/loader.js/loader.js"></script>
     <script src="/vendor/ember-resolver/dist/ember-resolver.js"></script>
     <script src="/vendor/ember-shim.js"></script>
     <script src="/vendor/ic-ajax/dist/named-amd/main.js"></script>
     <script src="/vendor/ember-load-initializers/ember-load-initializers.js"></script>
     <script src="/vendor/ember-validations/index.js"></script>
-    <script src="/vendor/ember-forms/dist/ember_forms.js"></script> 
-    <script src="/vendor/ember-data-extensions/dist/embedded-adapter.js"></script>
-    <script src="/vendor/moment/moment.js"></script>
+    <script src="/vendor/ember-forms/dist/ember_forms.js"></script>
+    <script src="/vendor/sjcl/sjcl.js"></script>
+    <script src="/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
   <!-- endbuild -->
 
