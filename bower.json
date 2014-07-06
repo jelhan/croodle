@@ -1,11 +1,11 @@
 {
   "name": "croodle",
   "dependencies": {
-    "handlebars": "~1.1.2",
-    "jquery": "~1.9.1",
+    "handlebars": "~1.3.0",
+    "jquery": "~1.10.2",
     "qunit": "~1.12.0",
     "ember-qunit": "https://github.com/rpflorence/ember-qunit.git#master",
-    "ember": "~1.5.0",
+    "ember": "~1.6.0-beta.5",
     "ember-data": "~1.0.0-beta.7",
     "ember-resolver": "~0.1.1",
     "ic-ajax": "~1.0.4",
@@ -14,7 +14,7 @@
     "ember-load-initializers": "git://github.com/stefanpenner/ember-load-initializers.git#0.0.1",
     "moment": "~2.7.0",
     "sjcl": "~1.0.0",
-    "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/1-0-beta-2/ember-validations.min.js",
+    "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/1-0-beta-2/ember-validations.js",
     "bootstrap": "~3.2.0",
     "bootstrap-datepicker": "~1.3.0",
     "ember-forms": "*",
