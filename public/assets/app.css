@@ -1,0 +1,186 @@
+@import "/vendor/bootstrap/dist/css/bootstrap.css";
+@import "/vendor/bootstrap-datepicker/css/datepicker3.css";
+
+/* bootstrap overwrites */
+table tr td .form-group {
+    /* 
+     * remove bootstrap default margin-bottom for form element form-group
+     * if it is inside a table
+     */
+    margin-bottom: 0;
+}
+
+table tr td .help-block {
+    /* 
+     * remove bootstrap default margin-bottom for form element help-block
+     * if it is inside a table
+     */
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+table tr td .form-control {
+    min-width: 6em;
+}
+
+/* elements */
+body {
+    background-color: #D3D3D3;
+}
+
+.box {
+    padding: 10px 10px 0 10px;
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+    border: #556B2F 1px solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.box h2:first-child,
+.box h3:first-child {
+    margin-top: 0;
+}
+
+/* page: poll */
+#poll .index .start,
+#poll .index .have-a-try {
+    font-size: 150%;
+}
+
+#poll .meta-data .description {
+    white-space: pre-wrap;
+}
+
+#poll .meta-data .creationDate {
+    color: grey;
+}
+
+#poll .share-link .link {
+    color: #556B2F;
+    word-break: break-all;
+}
+
+#poll .share-link .notice {
+    font-size: 90%;
+    color: grey;
+}
+
+#poll .table-scroll {
+    /* übernommen von .table-responsive von bootstrap, aber grundsätzlich */
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+    -webkit-overflow-scrolling: touch;
+}
+
+#poll .evaluation-header {
+    font-weight: bold;
+}
+
+#poll tbody td .yes,
+#poll tfoot td option[value="yes"] {
+    color: green;
+}
+
+#poll tbody td .no,
+#poll tfoot td option[value="no"]{
+    color: red;
+}
+
+#poll tbody td .maybe,
+#poll tfoot td option[value="maybe"] {
+    color: orange;
+}
+
+/* page: loading */
+#loading {
+    letter-spacing: 5px;
+}
+
+/* loading animation */
+.loading-animation-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.loading-animation-container:before {
+    content: '';
+    display: block;
+    margin-top: 12%;
+}
+
+.loading-animation-circle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 12%;
+    animation-name: bounce-loading-animation-circle;
+    animation-duration: 1.3s;
+    animation-iteration-count: infinite;
+    animation-direction: linear;
+    transform: scale(.3);
+    border-radius: 100%;
+}
+
+#loading-animation-circle-1 {
+    left: 0;
+    animation-delay: 0.52s;
+}
+
+#loading-animation-circle-2 {
+    left: 12.5%;
+    animation-delay: 0.65s;
+}
+
+#loading-animation-circle-3 {
+    left: 25%;
+    animation-delay: 0.78s;
+}
+
+#loading-animation-circle-4 {
+    left: 37.5%;
+    animation-delay: 0.91s;
+}
+
+#loading-animation-circle-5 {
+    left: 50%;
+    animation-delay: 1.04s;
+}
+
+#loading-animation-circle-6 {
+    left: 62.5%;
+    animation-delay: 1.17s;
+}
+
+#loading-animation-circle-7 {
+    left: 75%;
+    animation-delay: 1.3s;
+}
+
+#loading-animation-circle-8 {
+    left: 87.5%;
+    animation-delay: 1.43s;
+}
+
+#loading-animation-circle-9 {
+    left: 100%;
+    animation-delay: 1.43s;
+}
+
+@keyframes bounce-loading-animation-circle {
+    0%{
+        transform: scale(1);
+        background-color: #333333;
+    }
+
+    100%{
+        transform: scale(.3);
+        background-color: #FFFFFF;
+    }
+}

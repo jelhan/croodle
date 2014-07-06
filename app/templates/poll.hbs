@@ -1,0 +1,122 @@
+<div id="poll">
+    <div class="row">
+        <div class="col-sm-6 col-lg-5">
+            <div class="box meta-data">
+                <h2 class="title">{{title}}</h2>
+                <p class="description">{{description}}</p>
+                <p class="creationDate">created on {{creationDate}}</p>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-5 col-lg-offset-2">
+            <div class="box share-link">
+                <p>Share the link and invite other people to participate in your poll.</p>
+                <p class="link"><a {{bind-attr href=pollUrl}}>{{pollUrl}}</a></p>
+                <p class="notice">Everyone who knows the link could read the data.
+                    If your poll consists of private data you may only share the
+                    link via encrypted channels like PGP encrypted email or instant
+                    messaging with OTR.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="table-scroll">
+            <table class="user-selections-table table table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        {{#each option in options}}
+                            <th>
+                                {{#if isFindADate}}
+                                    {{formattedDate option.title 'll'}}
+                                {{/if}}
+
+                                {{#if isMakeAPoll}}
+                                    {{option.title}}
+                                {{/if}}
+                            </th>
+                        {{/each}}
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr class='newUser'>
+                        {{! ToDo:
+                            should be all together in just one form;
+                            not in several forms for each input.
+                            This work-around is due to a problem of
+                            ember-forms in dealing with propertys of
+                            handlebar each helper
+                        }}
+                        <td>
+                            {{#em-form model=controller submit_button=false}}
+                                {{em-form-label text="name" extraClass="sr-only"}}
+                                {{em-input property="newUserName" placeholder="Enter your name..."}}
+                            {{/em-form}}
+                        </td>
+                        {{#each newUserSelection in controller.newUserSelections}}
+                            <td>
+                                {{#em-form model=newUserSelection submit_button=false}}
+                                    {{#if isFreeText}}
+                                        {{em-input property="value"}}
+                                    {{else}}
+                                        {{em-select
+                                            property="value"
+                                            contentBinding="answers"
+                                            optionValuePath="content.label"
+                                            optionLabelPath="content.label"
+                                            prompt="choose an answer"}}
+                                    {{/if}}
+                                {{/em-form}}
+                            </td>
+                        {{/each}}
+                        <td>
+                            <div class="form-group">
+                                <button {{action "addNewUser"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> save </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {{#each user in users}}
+                        <tr>
+                            <td>{{user.name}}</td>
+                            {{#each selection in user.selections}}
+                                <td>
+                                {{#if isFreeText}}
+                                    {{selection.value}}
+                                {{else}}
+                                    <span {{bind-attr class="selection.value"}}>{{selection.value}}</span>
+                                {{/if}}
+                                </td>
+                            {{/each}}
+                            <td>&nbsp;</td>
+                        </tr>
+                    {{/each}}
+
+                    {{#unless isFreeText}}
+                        <tr class='evaluation evaluation-header'>
+                            <td {{bind-attr colspan=fullRowColspan}}>Evaluation</td>
+                        </tr>
+
+                        {{#each answer in evaluation}}
+                            <tr class='evaluation'>
+                                <td>
+                                    {{answer.label}}
+                                </td>
+
+                                {{#each option in answer.options}}
+                                    <td>
+                                        {{option}}
+                                    </td>
+                                {{/each}}
+
+                                <td>&nbsp;</td>
+                            </tr>
+                        {{/each}}
+                    {{/unless}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

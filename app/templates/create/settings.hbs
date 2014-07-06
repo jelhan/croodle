@@ -1,0 +1,15 @@
+<div class="box">
+    {{#em-form model=controller submit_button=false}}
+        {{em-select
+            property="answerType"
+            label="available answers"
+            prompt="-select-"
+            contentBinding="answerTypes"
+            optionValuePath="content.id"
+            optionLabelPath="content.label"
+            prompt="Please define available answers"}}
+        {{em-checkbox label="Allow anonym participation?" property="anonymousUser"}}
+        {{em-checkbox label="Force an answer?" property="forceAnswer"}}
+        {{em-form-submit text="save"}}
+    {{/em-form}}
+</div>

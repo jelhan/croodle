@@ -1,0 +1,13 @@
+<div class="box">
+  {{#em-form model=controller submit_button=false}}
+    {{em-select
+      property="pollType"
+      label="poll type"
+      prompt="-select-"
+      contentBinding="pollTypes"
+      optionValuePath="content.id"
+      optionLabelPath="content.label"
+      prompt="Please select a poll type"}}
+    {{em-form-submit text="next"}}
+  {{/em-form}}
+</div>

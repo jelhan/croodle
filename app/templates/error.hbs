@@ -1,0 +1,11 @@
+<div class="box">
+  <h2>error</h2>
+<p>
+  {{#if is404}}
+    Could not find the poll you tried to open. Perhaps it was
+    deleted?
+  {{else}}
+    We are sorry. An unexpected error occurred:<br/>
+    <b>{{model}}</b>
+  {{/if}}
+</p>

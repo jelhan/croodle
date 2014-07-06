@@ -28,7 +28,16 @@ Due to security reasons you should have SSL encryption enabled and provide a val
 Installation
 -------
 
-Download latest version and extract the files into your webfolder.
+You have to install node.js package management tool npm and bower before.
+
+```shell
+git clone git@github.com:jelhan/croodle.git
+cd croodle
+npm install
+grunt dist
+```
+
+Afterwards copy all files in /dist folder to your werbserver.
 
 Make sure that data/ folder is writeable by the web server.
 
