@@ -42,9 +42,9 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
           label : "free text",
           answers : []
       })
-    ]
+    ];
   }.property(),
-
+  
   /*
    * set answers depending on selected answer type
    */

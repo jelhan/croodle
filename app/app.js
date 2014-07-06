@@ -64,6 +64,9 @@ var App = Ember.Application.extend({
 import extendTextField from 'croodle/ext/text-field';
 extendTextField();
 
+import formattedDateHelper from 'croodle/helpers/formatted-date';
+Ember.Handlebars.registerBoundHelper('formattedDate', formattedDateHelper);
+
 loadInitializers(App, 'croodle');
 
 export default App;
