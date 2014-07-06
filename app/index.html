@@ -43,9 +43,11 @@
     <!-- @endif -->
     <!-- @if dist=true -->
       <script src="/vendor/handlebars/handlebars.runtime.js"></script>
+      <!-- should be prod version of ember -->
       <script src="/vendor/ember/index.js"></script>
       <script src="/vendor/ember-data/ember-data.prod.js"></script>
-      <script src="/vendor/ember-data-extensions/dist/embedded-adapter.min.js"></script>
+      <!-- embedded adapter should use prod version but only works if ember is only prod version -->
+      <script src="/vendor/ember-data-extensions/dist/embedded-adapter.js"></script>
     <!-- @endif -->
     
     <script src="/vendor/loader.js/loader.js"></script>
