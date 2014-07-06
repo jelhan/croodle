@@ -1,0 +1,22 @@
+<div class="box">
+  <table>
+    <tbody>
+      {{#each datetime in datetimes}}
+        <tr>
+          <td>
+            {{formattedDate datetime.title 'll'}}
+          </td>
+          {{#each time in datetime.times}}
+            <td>
+              {{view Ember.TextField valueBinding="time.value" class="form-control"}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  
+  <div class="form-group">
+    <button {{action "submitDatetimes"}} class="btn btn-default"> next </button>
+  </div>
+</div>
