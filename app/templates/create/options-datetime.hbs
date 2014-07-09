@@ -1,22 +1,30 @@
 <div class="box">
-  <table>
-    <tbody>
-      {{#each datetime in datetimes}}
-        <tr>
-          <td>
-            {{formattedDate datetime.title 'll'}}
-          </td>
-          {{#each time in datetime.times}}
+  <form role="form">
+    <table class="table">
+      <tbody>
+        {{#each datetime in datetimes}}
+          <tr>
             <td>
-              {{view Ember.TextField valueBinding="time.value" class="form-control"}}
+              {{formattedDate datetime.title 'll'}}
             </td>
-          {{/each}}
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  
-  <div class="form-group">
-    <button {{action "submitDatetimes"}} class="btn btn-default"> next </button>
-  </div>
+            {{#each time in datetime.times}}
+              <td>
+                <div class="form-group">
+                  {{input value=time.value type="time" class="form-control"}}
+                </div>
+              </td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <button {{action "moreTimes"}} class="btn btn-default"> more inputs for time </button>
+    </div>
+
+    <div class="form-group">
+      <button {{action "submitDatetimes"}} class="btn btn-default"> next </button>
+    </div>
+  </form>
 </div>

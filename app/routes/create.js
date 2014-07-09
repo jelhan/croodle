@@ -24,7 +24,8 @@ export default Ember.Route.extend({
       options : [{title: ''}, {title: ''}],
       forceAnswer: true,
       anonymousUser: false,
-      datetime: false
+      datetime: false,
+      datetimesInputFields: 2
     });
   }
 });

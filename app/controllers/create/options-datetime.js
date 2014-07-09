@@ -1,5 +1,21 @@
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
+    /*
+     * increase number of inputs fields for time
+     */
+    moreTimes: function(){
+      this.set('datetimesInputFields', this.get('datetimesInputFields') + 1);
+      
+      this.get('datetimes').forEach(function(datetime){
+        datetime.times.pushObject({
+          value: ''
+        });
+      });
+    },
+    
+    /*
+     * set new options depending on selected times
+     */
     submitDatetimes: function(){
       var datetimes = this.get('datetimes'),
           newOptions = [];
@@ -18,12 +34,14 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
           var t;
           if (time.value.indexOf(':') !== -1) {
             t = time.value.split(':');
-          }
-          else if (time.value.indexOf('.') !== -1) {
-            t = time.value.split('.');
+            
+            if (t.length !== 2) {
+              // time is not in a correct format
+              return;
+            }
           }
           else {
-            // could not determine the delimiter
+            // time is not in a correct format
             return;
           }
           
@@ -47,7 +65,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       
       // check if we have at least 2 options now
       if (newOptions.length < 2) {
-        // ToDo: Should throw error
+        return;
       }
       
       this.set('options', newOptions);
@@ -62,22 +80,27 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     }
   },
   
+  /*
+   * only used on init, not on increasing number of input fields!
+   */
   datetimes: function(){
     var datetimes = [],
-        dates = this.get('options');
-
+        dates = this.get('options'),
+        datetimesCount = this.get('datetimesInputFields');
+        
     dates.forEach(function(date){
-      datetimes.pushObject({
+      var o = {
         title: date.title,
-        times: [
-          {
-            value: ''
-          },
-          {
-            value: ''
-          }
-        ]
-      });
+        times: []
+      };
+      
+      for(var i = 1; i<=datetimesCount; i++) {
+        o.times.pushObject({
+          value: ''
+        });
+      }
+      
+      datetimes.pushObject(o);
     });
 
     return datetimes;
