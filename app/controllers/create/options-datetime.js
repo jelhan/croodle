@@ -18,43 +18,27 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
      */
     submitDatetimes: function(){
       var datetimes = this.get('datetimes'),
-          newOptions = [];
+          newOptions = [],
+          self = this;
       
       datetimes.forEach(function(datetime){
-        datetime.times.forEach(function(time){
+        datetime.times.forEach(function(t){
           var date = new Date(datetime.title),
               delimiter = '';
                     
           // check if there is a value for time
-          if (Ember.isEmpty(time.value)) {
+          if (Ember.isEmpty(t.value)) {
             return;
           }
           
           // try to split time in minutes and hours
-          var t;
-          if (time.value.indexOf(':') !== -1) {
-            t = time.value.split(':');
-            
-            if (t.length !== 2) {
-              // time is not in a correct format
-              return;
-            }
-          }
-          else {
-            // time is not in a correct format
-            return;
-          }
-          
-          // get hours and minutes
-          var h = parseInt(t[0]),
-              m = parseInt(t[1]);
+          var time = self.getHoursAndMinutesFromInput(t.value);
                     
           // check time for valid format
-          if (h >= 0 && h <= 23 &&
-              m >= 0 && m <= 59) {
+          if (time !== false) {
             // hours and minutes seems valid, so update the date
-            date.setHours(h);
-            date.setMinutes(m);
+            date.setHours(time.hours);
+            date.setMinutes(time.minutes);
             
             newOptions.pushObject({
               title: date
@@ -104,5 +88,38 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     });
 
     return datetimes;
-  }.property('options')
+  }.property('options'),
+  
+  getHoursAndMinutesFromInput: function(time){
+    // try to split time in minutes and hours
+    var t;
+    if (time.indexOf(':') !== -1) {
+      t = time.split(':');
+    }
+    else {
+      // time is not in a correct format
+      return false;
+    }
+    
+    if (t.length !== 2) {
+      // time is not in a correct format
+      return false;
+    }
+
+    // get hours and minutes
+    var h = parseInt(t[0]),
+        m = parseInt(t[1]);
+
+    // check time for valid format
+    if (h >= 0 && h <= 23 &&
+        m >= 0 && m <= 59) {
+      return {
+        hours: h,
+        minutes: m
+      }
+    }
+    else {
+      return false;
+    }
+  }
 });
