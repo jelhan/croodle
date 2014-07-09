@@ -22,8 +22,8 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
           self = this;
       
       datetimes.forEach(function(datetime){
-        datetime.times.forEach(function(t){
-          var date = new Date(datetime.title),
+        datetime.contents.times.forEach(function(t){
+          var date = new Date(datetime.contents.title),
               delimiter = '';
                     
           // check if there is a value for time
@@ -68,14 +68,15 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
    * only used on init, not on increasing number of input fields!
    */
   datetimes: function(){
-    var datetimes = [],
+    var datetimes = Ember.A(),
         dates = this.get('options'),
-        datetimesCount = this.get('datetimesInputFields');
+        datetimesCount = this.get('datetimesInputFields'),
+        self = this;
         
     dates.forEach(function(date){
       var o = {
         title: date.title,
-        times: []
+        times: Ember.A()
       };
       
       for(var i = 1; i<=datetimesCount; i++) {
@@ -84,11 +85,51 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         });
       }
       
-      datetimes.pushObject(o);
+      datetimes.pushObject(self.get('datetimesTimesArray').create({'contents':o}));
     });
 
     return datetimes;
   }.property('options'),
+  
+  /*
+   * helper Object as work-a-round to observe a nested array
+   */
+  datetimesTimesArray: Ember.Object.extend({
+    '@eachTimesValue': function(){
+      var times = [];
+      this.get('contents.times').forEach(function(value){
+        times.push(value.value);
+      });
+      return times;
+    }.property('contents.times.@each.value')
+  }),
+  
+  /*
+   * Checks if input is valid
+   * runs after each changed input time
+   */
+  isValid: function(){
+    var datetimes = this.get('datetimes'),
+        self = this,
+        isValid = true;
+        
+    datetimes.forEach(function(value, key){
+      var times = self.get('datetimes.' + key + '.@eachTimesValue'),
+          valid = false;
+      
+      times.forEach(function(time){
+        if(self.getHoursAndMinutesFromInput(time) !== false){
+          valid = true;
+        }
+      });
+      
+      if (valid === false) {
+        isValid = false;
+      }
+    });
+    
+    return isValid;
+  }.property('datetimes.@each.@eachTimesValue'),
   
   getHoursAndMinutesFromInput: function(time){
     // try to split time in minutes and hours
@@ -116,7 +157,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       return {
         hours: h,
         minutes: m
-      }
+      };
     }
     else {
       return false;

@@ -7,7 +7,7 @@
             <td>
               {{formattedDate datetime.title 'll'}}
             </td>
-            {{#each time in datetime.times}}
+            {{#each time in datetime.contents.times}}
               <td>
                 <div class="form-group">
                   {{input value=time.value type="time" class="form-control"}}
