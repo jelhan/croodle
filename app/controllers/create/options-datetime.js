@@ -7,7 +7,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       this.set('datetimesInputFields', this.get('datetimesInputFields') + 1);
       
       this.get('datetimes').forEach(function(datetime){
-        datetime.times.pushObject({
+        datetime.contents.times.pushObject({
           value: ''
         });
       });
