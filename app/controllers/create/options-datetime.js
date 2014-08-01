@@ -1,6 +1,28 @@
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
     /*
+     * copy first line
+     */
+    copyFirstLine: function(){
+      var datetimes = this.get('datetimes'),
+          firstLine = datetimes[0];
+      
+      var newTimes = [];
+      firstLine.contents.times.forEach(function(time){
+        newTimes.pushObject({
+          value: time.value
+        })
+      });
+      
+      datetimes.forEach(function(datetime, key) {
+        // skip first element
+        if (key > 0) {
+          datetime.set('contents.times', newTimes);
+        }
+      });
+    },
+    
+    /*
      * increase number of inputs fields for time
      */
     moreTimes: function(){
@@ -67,12 +89,12 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   /*
    * only used on init, not on increasing number of input fields!
    */
-  datetimes: function(){
+  datetimes: function(key, value, previousValue){
     var datetimes = Ember.A(),
         dates = this.get('options'),
         datetimesCount = this.get('datetimesInputFields'),
         self = this;
-        
+    
     dates.forEach(function(date){
       var o = {
         title: date.title,
