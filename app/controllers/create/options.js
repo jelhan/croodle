@@ -66,6 +66,10 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
   }.property('options.@each.title'),
 
+  /*
+   * invokes isValid state
+   * used to enable / disabled submit button
+   */
   isNotValid: function(){
     return !this.get('isValid');
   }.property('isValid'),

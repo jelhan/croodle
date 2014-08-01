@@ -11,7 +11,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       firstLine.contents.times.forEach(function(time){
         newTimes.pushObject({
           value: time.value
-        })
+        });
       });
       
       datetimes.forEach(function(datetime, key) {
@@ -152,6 +152,14 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     
     return isValid;
   }.property('datetimes.@each.@eachTimesValue'),
+  
+  /*
+   * invokes isValid state
+   * used to enable / disabled submit button
+   */
+  isNotValid: function(){
+    return !this.get('isValid');
+  }
   
   getHoursAndMinutesFromInput: function(time){
     // try to split time in minutes and hours
