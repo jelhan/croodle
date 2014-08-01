@@ -68,7 +68,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
 
   /*
    * invokes isValid state
-   * used to enable / disabled submit button
+   * used to enable / disabled next button
    */
   isNotValid: function(){
     return !this.get('isValid');
