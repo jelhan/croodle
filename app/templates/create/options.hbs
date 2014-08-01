@@ -4,10 +4,10 @@
       <div class="form-group">
         <label class="control-label">options</label>
         <fieldset>
-            {{#each option in options}}
-                {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
-            {{/each}}
-            {{em-form-control-help text="You have to enter at least two options."}}
+          {{#each option in options}}
+            {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
+          {{/each}}
+          {{em-form-control-help text="You have to enter at least two options."}}
         </fieldset>
       </div>
       <div class="form-group">
@@ -21,6 +21,11 @@
     <div id="datepicker">
       {{view 'datepicker'}}
       {{em-form-control-help text="You have to select at least two dates."}}
+      
+      {{#em-form model=controller submit_button=false}}
+        {{em-checkbox label="Define times?" property="isDateTime"}}
+      {{/em-form}}
+
       <div class="form-group">
         <button {{action "submitFindADate"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
       </div>

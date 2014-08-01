@@ -1,0 +1,37 @@
+<div class="box">
+  <form role="form">
+    <table class="table">
+      <tbody>
+        {{#each datetime in datetimes}}
+          <tr>
+            <td>
+              {{formattedDate datetime.title 'll'}}
+            </td>
+            {{#each time in datetime.contents.times}}
+              <td>
+                <div class="form-group">
+                  {{input value=time.value type="time" class="form-control"}}
+                </div>
+              </td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    {{em-form-control-help text="Hours and minutes have to be seperated by a color (e.g. 8:05).
+                                 You have to enter atleast one valid time for each date."}}
+
+    <div class="form-group">
+      <button {{action "moreTimes"}} class="btn btn-default"> more inputs for time </button>
+    </div>
+
+    <div class="form-group">
+      <button {{action "copyFirstLine"}} class="btn btn-default"> copy first line </button>
+    </div>
+    
+    <div class="form-group">
+      <button {{action "submitDatetimes"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
+    </div>
+  </form>
+</div>

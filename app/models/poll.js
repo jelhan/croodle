@@ -18,6 +18,8 @@ export default DS.Model.extend({
     forceAnswer : Ember.computed.encrypted('encryptedForceAnswer', 'boolean'),
     encryptedAnonymousUser : DS.attr('string'),
     anonymousUser : Ember.computed.encrypted('encryptedAnonymousUser', 'boolean'),
+    encryptedIsDateTime : DS.attr('string'),
+    isDateTime : Ember.computed.encrypted('encryptedIsDateTime', 'boolean'),
     
     isFindADate: function() {
         return this.get('pollType') === 'FindADate';
