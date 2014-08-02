@@ -7,16 +7,16 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       var datetimes = this.get('datetimes'),
           firstLine = datetimes[0];
       
-      var newTimes = [];
-      firstLine.contents.times.forEach(function(time){
-        newTimes.pushObject({
-          value: time.value
-        });
-      });
-      
       datetimes.forEach(function(datetime, key) {
         // skip first element
         if (key > 0) {
+          var newTimes = [];
+          firstLine.contents.times.forEach(function(time){
+            newTimes.pushObject({
+              value: time.value
+            });
+          });
+          
           datetime.set('contents.times', newTimes);
         }
       });
