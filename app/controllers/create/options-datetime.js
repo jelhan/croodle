@@ -159,7 +159,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
    */
   isNotValid: function(){
     return !this.get('isValid');
-  },
+  }.property('isValid'),
   
   getHoursAndMinutesFromInput: function(time){
     // try to split time in minutes and hours
