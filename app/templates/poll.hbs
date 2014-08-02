@@ -67,12 +67,13 @@
                 {{#if isFreeText}}
                   {{em-input property="value"}}
                 {{else}}
-                  {{em-select
-                    property="value"
-                    contentBinding="answers"
-                    optionValuePath="content.label"
-                    optionLabelPath="content.label"
-                    prompt="choose an answer"}}
+                  {{#each answer in answers}}
+                    <div class="radio">
+                      <label>
+                        {{radio-button checked=newUserSelection.value value=answer.label}} {{answer.label}}
+                      </label>
+                    </div>
+                  {{/each}}
                 {{/if}}
               {{/em-form}}
             </td>
