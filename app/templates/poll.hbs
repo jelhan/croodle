@@ -70,7 +70,7 @@
                   {{#each answer in answers}}
                     <div class="radio">
                       <label>
-                        {{radio-button checked=newUserSelection.value value=answer}} <span {{bind-attr class="answer.icon"}}"></span> <span {{bind-attr class="answer.label"}}>{{answer.label}}</span>
+                        {{radio-button checked=newUserSelection.value value=answer}} <span {{bind-attr class="answer.label"}}><span {{bind-attr class="answer.icon"}}"></span> {{answer.label}}</span>
                       </label>
                     </div>
                   {{/each}}
@@ -93,7 +93,7 @@
               {{#if isFreeText}}
                 {{selection.value}}
               {{else}}
-                <span {{bind-attr class="selection.value.icon"}}"></span> <span {{bind-attr class="selection.value.label"}}>{{selection.value.label}}</span>
+                <span {{bind-attr class="selection.value.label"}}><span {{bind-attr class="selection.value.icon"}}"></span> {{selection.value.label}}</span>
               {{/if}}
               </td>
             {{/each}}
