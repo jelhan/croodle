@@ -70,7 +70,7 @@
                   {{#each answer in answers}}
                     <div class="radio">
                       <label>
-                        {{radio-button checked=newUserSelection.value value=answer}} <span {{bind-attr class="answer.icon"}}"></span> {{answer.label}}
+                        {{radio-button checked=newUserSelection.value value=answer}} <span {{bind-attr class="answer.icon"}}"></span> <span {{bind-attr class="answer.label"}}>{{answer.label}}</span>
                       </label>
                     </div>
                   {{/each}}
