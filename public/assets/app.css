@@ -184,3 +184,13 @@ body {
         background-color: #FFFFFF;
     }
 }
+
+/*
+ * using floatThead with Bootstrap 3 fix
+ * https://mkoryak.github.io/floatThead/examples/bootstrap3/
+ */
+table.floatThead-table {
+    border-top: none;
+    border-bottom: none;
+    background-color: #FFF;
+}
