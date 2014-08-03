@@ -26,11 +26,11 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
           answers : [
                   {
                     label: "yes",
-                    glyphicon: "glyphicon glyphicon-thumbs-up"
+                    icon: "glyphicon glyphicon-thumbs-up"
                   },
                   {
                     label: "no",
-                    glyphicon: "glyphicon glyphicon-thumbs-down"
+                    icon: "glyphicon glyphicon-thumbs-down"
                   }
               ]
       }),
@@ -40,15 +40,15 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
           answers : [
                   {
                     label: "yes",
-                    glyphicon: "glyphicon glyphicon-thumbs-up"
+                    icon: "glyphicon glyphicon-thumbs-up"
                   },
                   {
                     label: "maybe",
-                    glyphicon: "glyphicon glyphicon-hand-right"
+                    icon: "glyphicon glyphicon-hand-right"
                   },
                   {
                     label: "no",
-                    glyphicon: "glyphicon glyphicon-thumbs-down"
+                    icon: "glyphicon glyphicon-thumbs-down"
                   }
               ]
       }),
