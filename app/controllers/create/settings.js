@@ -24,17 +24,32 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
           id : "YesNo",
           label : "yes, no",
           answers : [
-                  {label: "yes"},
-                  {label: "no"}
+                  {
+                    label: "yes",
+                    icon: "glyphicon glyphicon-thumbs-up"
+                  },
+                  {
+                    label: "no",
+                    icon: "glyphicon glyphicon-thumbs-down"
+                  }
               ]
       }),
       Ember.Object.create({
           id : "YesNoMaybe",
           label : "yes, no, maybe",
           answers : [
-                  {label: "yes"},
-                  {label: "no"},
-                  {label: "maybe"}
+                  {
+                    label: "yes",
+                    icon: "glyphicon glyphicon-thumbs-up"
+                  },
+                  {
+                    label: "maybe",
+                    icon: "glyphicon glyphicon-hand-right"
+                  },
+                  {
+                    label: "no",
+                    icon: "glyphicon glyphicon-thumbs-down"
+                  }
               ]
       }),
       Ember.Object.create({

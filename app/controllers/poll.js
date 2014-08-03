@@ -98,11 +98,11 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
                 var answerindex;
                 
                 // get answer index by lookup array
-                if (typeof lookup[selection.value] === 'undefined') {
+                if (typeof lookup[selection.value.label] === 'undefined') {
                     answerindex = lookup[null];
                 }
                 else {
-                    answerindex = lookup[selection.value];
+                    answerindex = lookup[selection.value.label];
                 }
                 
                 // increment counter
