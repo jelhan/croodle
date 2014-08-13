@@ -1,0 +1,139 @@
+@import "vendor/bootstrap/less/bootstrap.less";
+@import "vendor/bootstrap-datepicker/less/datepicker3.less";
+table tr td .form-group {
+  margin-bottom:0;
+}
+table tr td .help-block {
+  margin-top:0;
+  margin-bottom:0;
+}
+table tr td .form-control {
+  min-width:6em;
+}
+body {
+  background-color:#d3d3d3;
+}
+.box {
+  padding:10px 10px 0 10px;
+  margin-bottom:10px;
+  background-color:#ffffff;
+  border:#556b2f 1px solid;
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+  h2:first-child, h3:first-child {
+    margin-top:0;
+  }
+}
+#poll {
+  tbody td .yes, tfoot td option[value="yes"] {
+    color:green;
+  }
+  tbody td .no, tfoot td option[value="no"] {
+    color:red;
+  }
+  tbody td .maybe, tfoot td option[value="maybe"] {
+    color:orange;
+  }
+  .index {
+    .start, .have-a-try {
+      font-size:150%;
+    }
+  }
+  .meta-data .description {
+    white-space:pre-wrap;
+  }
+  .meta-data .creationDate {
+    color:grey;
+  }
+  .share-link .link {
+    color:#556b2f;
+    word-break:break-all;
+  }
+  .share-link .notice {
+    font-size:90%;
+    color:grey;
+  }
+  .table-scroll {
+    width:100%;
+    margin-bottom:15px;
+    overflow-y:hidden;
+    overflow-x:scroll;
+    -ms-overflow-style:-ms-autohiding-scrollbar;
+    border:1px solid #dddddd;
+    -webkit-overflow-scrolling:touch;
+  }
+  .evaluation-header {
+    font-weight:bold;
+  }
+}
+#loading {
+  letter-spacing:5px;
+}
+.loading-animation-container {
+  position:relative;
+  display:inline-block;
+  width:100%;
+}
+.loading-animation-container:before {
+  content:'';
+  display:block;
+  margin-top:12%;
+}
+.loading-animation-circle {
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:12%;
+  animation-name:bounce-loading-animation-circle;
+  animation-duration:1.3s;
+  animation-iteration-count:infinite;
+  animation-direction:linear;
+  transform:scale(.3);
+  border-radius:100%;
+}
+#loading-animation-circle-1 {
+  left:0;
+  animation-delay:0.52s;
+}
+#loading-animation-circle-2 {
+  left:12.5%;
+  animation-delay:0.65s;
+}
+#loading-animation-circle-3 {
+  left:25%;
+  animation-delay:0.78s;
+}
+#loading-animation-circle-4 {
+  left:37.5%;
+  animation-delay:0.91s;
+}
+#loading-animation-circle-5 {
+  left:50%;
+  animation-delay:1.04s;
+}
+#loading-animation-circle-6 {
+  left:62.5%;
+  animation-delay:1.17s;
+}
+#loading-animation-circle-7 {
+  left:75%;
+  animation-delay:1.3s;
+}
+#loading-animation-circle-8 {
+  left:87.5%;
+  animation-delay:1.43s;
+}
+#loading-animation-circle-9 {
+  left:100%;
+  animation-delay:1.43s;
+}
+/*
+ * using floatThead with Bootstrap 3 fix
+ * https://mkoryak.github.io/floatThead/examples/bootstrap3/
+ */
+table.floatThead-table {
+  border-top:none;
+  border-bottom:none;
+  background-color:#ffffff;
+}
