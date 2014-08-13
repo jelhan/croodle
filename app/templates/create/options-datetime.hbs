@@ -5,7 +5,7 @@
         {{#each datetime in datetimes}}
           <tr>
             <td>
-              {{formattedDate datetime.title 'll'}}
+              {{formattedDate datetime.contents.title 'll'}}
             </td>
             {{#each time in datetime.contents.times}}
               <td>
