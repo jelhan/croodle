@@ -4,18 +4,15 @@
       <div class="box meta-data">
         <h2 class="title">{{title}}</h2>
         <p class="description">{{description}}</p>
-        <p class="creationDate">created on {{creationDate}}</p>
+        <p class="creationDate">{{t "poll.created-time" creationDateBinding="creationDate"}}</p>
       </div>
     </div>
     <div class="col-sm-6 col-lg-5 col-lg-offset-2">
       <div class="box share-link">
-        <p>Share the link and invite other people to participate in your poll.</p>
+        <p>{{t "poll.share"}}</p>
         <p class="link"><a {{bind-attr href=pollUrl}}>{{pollUrl}}</a></p>
         <p class="notice">
-          Everyone who knows the link could read the data.
-          If your poll consists private data you may only share the
-          link via encrypted channels like PGP encrypted email or instant
-          messaging with OTR.
+            {{t "poll.share.notice"}}
         </p>
       </div>
     </div>
@@ -70,7 +67,11 @@
                   {{#each answer in answers}}
                     <div class="radio">
                       <label>
-                        {{radio-button checked=newUserSelection.value value=answer}} <span {{bind-attr class="answer.label"}}><span {{bind-attr class="answer.icon"}}"></span> {{answer.label}}</span>
+                        {{radio-button checked=newUserSelection.value value=answer}}
+                        <span {{bind-attr class="answer.label"}}>
+                          <span {{bind-attr class="answer.icon"}}></span>
+                          {{answer.label}}
+                        </span>
                       </label>
                     </div>
                   {{/each}}
@@ -80,7 +81,9 @@
           {{/each}}
           <td>
             <div class="form-group">
-              <button {{action "addNewUser"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> save </button>
+              <button {{action "addNewUser"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}>
+                {{t "poll.save"}}
+              </button>
             </div>
           </td>
         </tr>
@@ -90,11 +93,14 @@
             <td>{{user.name}}</td>
             {{#each selection in user.selections}}
               <td>
-              {{#if isFreeText}}
-                {{selection.value}}
-              {{else}}
-                <span {{bind-attr class="selection.value.label"}}><span {{bind-attr class="selection.value.icon"}}"></span> {{selection.value.label}}</span>
-              {{/if}}
+                {{#if isFreeText}}
+                  {{selection.value}}
+                {{else}}
+                  <span {{bind-attr class="selection.value.label"}}>
+                      <span {{bind-attr class="selection.value.icon"}}></span>
+                      {{selection.value.label}}
+                  </span>
+                {{/if}}
               </td>
             {{/each}}
             <td>&nbsp;</td>
@@ -103,7 +109,9 @@
 
         {{#unless isFreeText}}
           <tr class='evaluation evaluation-header'>
-            <td {{bind-attr colspan=fullRowColspan}}>Evaluation</td>
+            <td {{bind-attr colspan=fullRowColspan}}>
+                {{t "poll.evaluation.label"}}
+            </td>
           </tr>
 
           {{#each answer in evaluation}}

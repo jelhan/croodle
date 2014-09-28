@@ -20,7 +20,9 @@
     "ember-forms": "f6456c334a07950365ecfebd087596dedc1bdec5",
     "floatThead": "~1.2.8",
     "webshim": "~1.15.3",
-    "modernizr": "~2.8.3"
+    "modernizr": "~2.8.3",
+    "ember-i18n": "~2.2.2",
+    "cldr": "~1.0.2"
   },
   "resolutions": {
     "ember": "~1.7.0",

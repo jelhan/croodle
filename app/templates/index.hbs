@@ -2,8 +2,7 @@
 
     <div class="box teaser">
         <h2>
-            Croodle simplifies scheduling and decision-making ...<br/>
-            ... while keeping your data private
+            {{t "index.title"}}
         </h2>
     </div>
 
@@ -11,49 +10,37 @@
         <div class="col-md-6">
 
             <div class="box features">
-                <h3>Features</h3>
+                <h3>{{t "index.features.title"}}</h3>
                 <ul>
                     <li>
-                        Easily schedule a date or make a poll with as many
-                        people as you like.
+                        {{t "index.features.list.overview"}}
                     </li>
                     <li>
-                        All your private data is encrypted inside your
-                        browser.
-                        So even the server doesn't know what your schedule
-                        or poll is about.
+                        {{t "index.features.list.privacy"}}
                     </li>
                     <li>
-                        Define as much options as you like. Select dates
-                        via calendar or define your options as free text.
+                        {{t "index.features.list.options"}}
                     </li>
                     <li>
-                        Use pre defined answer options like <i>yes</i>,
-                        <i>no</i>, <i>maybe</i> or allow your user to enter
-                        free text.
+                        {{t "index.features.list.answers"}}
                     </li>
                     <li>
-                        An automatically updated evaluation allways gives you
-                        an overview which options are preferred.
+                        {{t "index.features.list.evaluation"}}
                     </li>
                 </ul>
 
                 <p class="have-a-try">
                     <span class="glyphicon glyphicon-share-alt"></span>
-                    {{#link-to 'create'}}have a try right now{{/link-to}}
+                    {{#link-to 'create'}}{{t "index.link.have-a-try"}}{{/link-to}}
                 </p>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="box features">
-                <h3>Become your own hoster</h3>
+                <h3>{{t "index.hoster.title"}}</h3>
                 <p>
-                    You don't have to trust our server. You could easily
-                    host croodle yourself. All you need is a web space
-                    with PHP and SSL encryption enabled. You find the
-                    source code and installation instructions on
-                    <a href="https://github.com/jelhan/croodle">GitHub</a>.
+                    {{t "index.hoster.text"}}
                 </p>
             </div>
         </div>

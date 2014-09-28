@@ -23,15 +23,15 @@
                                  You have to enter atleast one valid time for each date."}}
 
     <div class="form-group">
-      <button {{action "moreTimes"}} class="btn btn-default"> more inputs for time </button>
+      <button {{action "moreTimes"}} class="btn btn-default">{{t "create.options-datetime.more-inputs"}}</button>
     </div>
 
     <div class="form-group">
-      <button {{action "copyFirstLine"}} class="btn btn-default"> copy first line </button>
+      <button {{action "copyFirstLine"}} class="btn btn-default">{{t "create.options-datetime.copy-first-line"}}</button>
     </div>
     
     <div class="form-group">
-      <button {{action "submitDatetimes"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
+      <button {{action "submitDatetimes"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}>{{t "create.next"}}</button>
     </div>
   </form>
 </div>

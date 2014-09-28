@@ -2,7 +2,7 @@
   {{#if isMakeAPoll}}
     <form role="form">
       <div class="form-group">
-        <label class="control-label">options</label>
+        <label class="control-label">{{t "create.options.label"}}</label>
         <fieldset>
           {{#each option in options}}
             {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
@@ -11,7 +11,7 @@
         </fieldset>
       </div>
       <div class="form-group">
-        <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
+        <button {{action "moreOptions" target="view"}} class="btn btn-default">{{t "create.options.add-another-option"}}</button>
         <button {{action "submitMakeAPoll"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
       </div>
     </form>
@@ -27,7 +27,7 @@
       {{/em-form}}
 
       <div class="form-group">
-        <button {{action "submitFindADate"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
+        <button {{action "submitFindADate"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}>{{t "create.next"}}</button>
       </div>
     </div>
   {{/if}}
