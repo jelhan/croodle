@@ -39,7 +39,7 @@ class datahandler {
                 }
             }
             else {
-                throw new Exception("data folder allready exists but is not writeable");
+                throw new Exception("data folder already exists but is not writeable");
             }
         }
     }
@@ -64,12 +64,7 @@ class datahandler {
         
         // set id to poll
         $poll_data->poll->id = $poll_id;
-        
-        // set id to option
-        foreach ($poll_data->poll->options as $k => $v) {
-            $poll_data->poll->options[$k]->id = $poll_id + $k;
-        }
-        
+
         $poll_data->poll->users = array();
         
         // check for existing user
@@ -92,11 +87,6 @@ class datahandler {
                     
                     // extend id to user object
                     $user_data->user->id = $file;
-                    
-                    // extend id to all selection objects
-                    foreach ($user_data->user->selections as $k => $v) {
-                        $user_data->user->selections[$k]->id = $poll_id . $user_data->user->id . $k;
-                    }
                     
                     // embedd user into poll
                     $poll_data->poll->users[] = $user_data->user;
