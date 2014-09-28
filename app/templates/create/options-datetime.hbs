@@ -10,7 +10,7 @@
             {{#each time in datetime.contents.times}}
               <td>
                 <div class="form-group">
-                  {{input value=time.value type="time" class="form-control"}}
+                  {{input value=time.value type="time" class="form-control" step="900"}}
                 </div>
               </td>
             {{/each}}
@@ -19,7 +19,7 @@
       </tbody>
     </table>
 
-    {{em-form-control-help text="Hours and minutes have to be seperated by a color (e.g. 8:05).
+    {{em-form-control-help text="Hours and minutes have to be seperated by a color (e.g. 12:30).
                                  You have to enter atleast one valid time for each date."}}
 
     <div class="form-group">

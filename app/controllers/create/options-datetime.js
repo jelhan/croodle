@@ -33,6 +33,10 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
           value: ''
         });
       });
+
+      // update polyfill used for legacy support of html5 input time after new form elements have been insert
+      // has to wait after dom is updated
+      Ember.run.next(this, function() { $('input[type=time]').updatePolyfill(); });
     },
     
     /*

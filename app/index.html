@@ -59,6 +59,9 @@
     <script src="/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="/vendor/moment/moment.js"></script>
 
+    <script src="/vendor/modernizr/modernizr.js"></script>
+    <script src="/vendor/webshim/js-webshim/dev/polyfiller.js"></script>
+
   <!-- endbuild -->
 
   <!-- build:js(tmp/result) assets/app.min.js -->
@@ -122,6 +125,8 @@
   <!-- @if tests=false -->
   <script>
     window.App = require('croodle/app')['default'].create(ENV.APP);
+
+    webshim.polyfill('forms-ext');
   </script>
   <!-- @endif -->
 
