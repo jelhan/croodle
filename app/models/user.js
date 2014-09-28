@@ -1,5 +1,5 @@
 export default DS.Model.extend({
-    poll : DS.belongsTo('poll', {async: true}),
+    poll : DS.belongsTo('poll'),
     encryptedName : DS.attr('string'),
     name : Ember.computed.encrypted('encryptedName', 'string'),
     encryptedSelections : DS.attr('string'),
