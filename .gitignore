@@ -18,6 +18,3 @@
 .DS_Store
 Thumbs.db
 /coverage/*
-
-# IDE
-/nbproject

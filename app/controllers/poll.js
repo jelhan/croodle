@@ -39,12 +39,8 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             
             // save new user
             newUser.save().then(function(){
-                self.get('model.users').then(function(users){
-                    // assign new user to poll
-                    users.pushObject(newUser);
-                });
-                // reload as workaround for bug: duplicated records after save
-                self.get('model').reload();
+                // assign new user to poll
+                self.get('model.users').pushObject(newUser);
             });
         }
     },

@@ -1,1 +1,1 @@
-export default DS.EmbeddedSerializer.extend();
+export default DS.RESTSerializer.extend();

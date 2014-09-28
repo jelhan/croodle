@@ -79,7 +79,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             case "users":
                 // get poll id from user data
                 $data_decoded = json_decode($data);
-                $poll_id = $data_decoded->user->poll_id;
+                $poll_id = $data_decoded->user->poll;
                 
                 $newId = $datahandler->writeUser($poll_id, $data);
                 break;
