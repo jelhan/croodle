@@ -226,5 +226,5 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         if(!Ember.isEmpty(this.get('model.encryption.key'))) {
             this.validate();
         }
-    }.observes('model.encryption.key'),
+    }.observes('model.encryption.key')
 });
