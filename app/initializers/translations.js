@@ -1,6 +1,6 @@
 import translations from "croodle/lang/translations";
 
-var i18nInitializer = {
+export default {
     name: 'i18n',
     initialize: function(container, application) {
         // detect browser language
@@ -12,7 +12,7 @@ var i18nInitializer = {
           var x = t.split("=");
           if (x[0] === "language") {
             language = x[1];
-          };
+          }
         });
       
         // if not we do it by browser language
@@ -37,5 +37,3 @@ var i18nInitializer = {
         application.inject('controller', 'language', 'language:current');
     }
 };
-
-export default i18nInitializer;
