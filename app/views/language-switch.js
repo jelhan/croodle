@@ -17,7 +17,7 @@ export default Ember.View.extend({
     Ember.I18n.translations = translations[language];
     
     // rerender page
-    this.get('parentView').rerender();
+    App.reset();
     
     // set cookie when language is changed manualy
     document.cookie="language=" + language + ";" +
