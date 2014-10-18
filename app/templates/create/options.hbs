@@ -5,14 +5,16 @@
         <label class="control-label">options</label>
         <fieldset>
           {{#each option in options}}
-            {{view Ember.TextField valueBinding="option.title" class="form-control"}}<br/>
+            {{#form-for option}}
+              {{input option.title label=" "}}<br/>
+            {{/form-for}}
           {{/each}}
-          {{em-form-control-help text="You have to enter at least two options."}}
+          <p class="help-text">You have to enter at least two options.</p>
         </fieldset>
       </div>
       <div class="form-group">
         <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
-        <button {{action "submitMakeAPoll"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
+        <button {{action "submit"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
       </div>
     </form>
   {{/if}}
@@ -20,15 +22,14 @@
   {{#if isFindADate}}
     <div id="datepicker">
       {{view 'datepicker'}}
-      {{em-form-control-help text="You have to select at least two dates."}}
+      <p class="help-text">You have to select at least two dates."</p>
       
-      {{#em-form model=controller submit_button=false}}
-        {{em-checkbox label="Define times?" property="isDateTime"}}
-      {{/em-form}}
-
-      <div class="form-group">
-        <button {{action "submitFindADate"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
-      </div>
+      {{#form-for controller}}
+        {{input isDateTime as='checkbox'
+            label="Define times?"
+        }}
+        {{submit 'next'}}
+      {{/form-for}}
     </div>
   {{/if}}
 </div>
