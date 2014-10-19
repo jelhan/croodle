@@ -35,5 +35,8 @@ export default {
         });
         container.register('language:current', languageStorage, {singleton: true});
         application.inject('controller', 'language', 'language:current');
+        
+        // set moment locale
+        moment.locale( language );
     }
 };
