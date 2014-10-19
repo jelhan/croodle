@@ -17,7 +17,7 @@
     "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/v1.0.0/ember-validations.js",
     "bootstrap": "~3.2.0",
     "bootstrap-datepicker": "~1.3.0",
-    "ember-forms": "f6456c334a07950365ecfebd087596dedc1bdec5",
+    "ember-easyForm": "http://builds.dockyard.com/ember-easyForm/latest/ember-easyForm.js",
     "floatThead": "~1.2.8",
     "webshim": "~1.15.3",
     "modernizr": "~2.8.3",

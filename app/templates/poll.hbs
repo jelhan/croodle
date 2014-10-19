@@ -53,16 +53,18 @@
               handlebar each helper
           }}
           <td>
-            {{#em-form model=controller submit_button=false}}
-                {{em-form-label text="name" extraClass="sr-only"}}
-                {{em-input property="newUserName" placeholder="Enter your name..."}}
-            {{/em-form}}
+            {{#form-for controller}}
+              {{input newUserName
+                  label=" "
+                  placeholder="Enter your name..."
+              }}
+            {{/form-for}}
           </td>
           {{#each newUserSelection in controller.newUserSelections}}
             <td>
-              {{#em-form model=newUserSelection submit_button=false}}
+              {{#form-for newUserSelection}}
                 {{#if isFreeText}}
-                  {{em-input property="value"}}
+                  {{input value label=" "}}
                 {{else}}
                   {{#each answer in answers}}
                     <div class="radio">
@@ -76,7 +78,7 @@
                     </div>
                   {{/each}}
                 {{/if}}
-              {{/em-form}}
+              {{/form-for}}
             </td>
           {{/each}}
           <td>

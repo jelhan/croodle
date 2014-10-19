@@ -1,14 +1,14 @@
 <div class="box">
-  {{#em-form model=controller submit_button=false}}
-    {{em-input
-      property="title"
-      label="title"
-      placeholder="Enter a title..."}}
-    {{em-text
-      property="description"
-      label="description"
-      placeholder="Enter a description if you like..."
-      rows=4}}
-    {{em-form-submit text="next"}}
-  {{/em-form}}
+  {{#form-for controller}}
+    {{input title
+        label="title"
+        placeholder="Enter a title..."
+    }}
+    {{input description as='text'
+        label="description"
+        placeholder="Enter a description if you like..."
+        rows=4
+    }}
+    {{submit 'next'}}
+  {{/form-for}}
 </div>

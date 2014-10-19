@@ -18,7 +18,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       })
     ];
   }.property(),
-
+  
   validations: {
     pollType: {
       presence: true,
