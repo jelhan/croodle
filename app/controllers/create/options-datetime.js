@@ -99,20 +99,22 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         datetimesCount = this.get('datetimesInputFields'),
         self = this;
     
-    dates.forEach(function(date){
-      var o = {
-        title: date.title,
-        times: Ember.A()
-      };
-      
-      for(var i = 1; i<=datetimesCount; i++) {
-        o.times.pushObject({
-          value: ''
-        });
-      }
-      
-      datetimes.pushObject(self.get('datetimesTimesArray').create({'contents':o}));
-    });
+    if (typeof dates !== 'undefined') {
+      dates.forEach(function(date){
+        var o = {
+          title: date.title,
+          times: Ember.A()
+        };
+
+        for(var i = 1; i<=datetimesCount; i++) {
+          o.times.pushObject({
+            value: ''
+          });
+        }
+
+        datetimes.pushObject(self.get('datetimesTimesArray').create({'contents':o}));
+      });
+    }
 
     return datetimes;
   }.property('options'),
@@ -130,11 +132,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     }.property('contents.times.@each.value')
   }),
   
-  /*
-   * Checks if input is valid
-   * runs after each changed input time
-   */
-  isValid: function(){
+  enoughTimes: function(){
     var datetimes = this.get('datetimes'),
         self = this,
         isValid = true;
@@ -156,14 +154,6 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     
     return isValid;
   }.property('datetimes.@each.@eachTimesValue'),
-  
-  /*
-   * invokes isValid state
-   * used to enable / disabled next button
-   */
-  isNotValid: function(){
-    return !this.get('isValid');
-  }.property('isValid'),
   
   getHoursAndMinutesFromInput: function(time){
     // try to split time in minutes and hours
@@ -195,6 +185,14 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     }
     else {
       return false;
+    }
+  },
+  
+  validations: {
+    enoughTimes: {
+      acceptance: {
+        message: Ember.I18n.t('create.options-datetime.error.notEnoughTimes')
+      }
     }
   }
 });

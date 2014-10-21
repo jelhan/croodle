@@ -1,28 +1,34 @@
 <div class="box">
-  <form role="form">
-    <table class="table">
-      <tbody>
-        {{#each datetime in datetimes}}
-          <tr>
-            <td>
-              {{formattedDate datetime.contents.title 'll'}}
-            </td>
-            {{#each time in datetime.contents.times}}
+  {{#form-for controller}}
+    {{#input enoughTimes}}
+      {{label-field enoughTimes
+          textTranslation="create.options-datetime.datetimes.label"
+      }}
+      <table class="table">
+        <tbody>
+          {{#each datetime in datetimes}}
+            <tr>
               <td>
-                <div class="form-group">
-                  {{input value=time.value type="time" class="form-control" step="900"}}
-                </div>
+                {{formattedDate datetime.contents.title 'll'}}
               </td>
-            {{/each}}
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-
-    <p class="help-text">
-      Hours and minutes have to be seperated by a color (e.g. 12:30).
-      You have to enter atleast one valid time for each date.
-    </p>
+              {{#each time in datetime.contents.times}}
+                <td>
+                  {{#input time.value}}
+                    {{input-field time.value as='time'
+                        step='900'
+                    }}
+                  {{/input}}
+                </td>
+              {{/each}}
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{hint-field enoughTimes
+          text="Hours and minutes have to be seperated by a color (e.g. 12:30). You have to enter atleast one valid time for each date."
+      }}
+      {{error-field enoughTimes}}
+    {{/input}}
 
     <div class="form-group">
       <button {{action "moreTimes"}} class="btn btn-default">{{t "create.options-datetime.more-inputs"}}</button>
@@ -32,8 +38,6 @@
       <button {{action "copyFirstLine"}} class="btn btn-default">{{t "create.options-datetime.copy-first-line"}}</button>
     </div>
     
-    <div class="form-group">
-      <button {{action "submitDatetimes"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}>{{t "create.next"}}</button>
-    </div>
-  </form>
+    {{submit 'next'}}
+  {{/form-for}}
 </div>

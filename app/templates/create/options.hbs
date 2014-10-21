@@ -1,8 +1,12 @@
 <div class="box">
   {{#if isMakeAPoll}}
+
     {{#form-for controller}}
+      
       {{#input enoughOptions}}
-        {{label-field enoughOptions}}
+        {{label-field enoughOptions
+            textTranslation="create.options.options.label"
+        }}
         {{#each option in options}}
           {{#input option.title}}
             {{input-field option.title}}
@@ -12,14 +16,19 @@
           {{error-field enoughOptions}}
         {{/if}}
       {{/input}}
+      
       <div class="form-group">
         <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
       </div>
+      
       {{submit 'next'}}
+      
     {{/form-for}}
+
   {{/if}}
 
   {{#if isFindADate}}
+    
     <div id="datepicker">
       {{view 'datepicker'}}
     </div>
@@ -35,5 +44,6 @@
       }}
       {{submit 'next'}}
     {{/form-for}}
+    
   {{/if}}
 </div>
