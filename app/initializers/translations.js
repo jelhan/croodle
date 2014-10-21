@@ -28,6 +28,7 @@ export default {
         Ember.FEATURES.I18N_TRANSLATE_HELPER_SPAN = false;
         Ember.ENV.I18N_COMPILE_WITHOUT_HANDLEBARS = true;
         Ember.I18n.translations = translations[language];
+        Ember.I18n.locale = language;
         
         // inject into controller
         var languageStorage = Ember.Object.extend({
