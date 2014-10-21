@@ -1,35 +1,39 @@
 <div class="box">
   {{#if isMakeAPoll}}
-    <form role="form">
-      <div class="form-group">
-        <label class="control-label">{{t "create.options.label"}}</label>
-        <fieldset>
-          {{#each option in options}}
-            {{#form-for option}}
-              {{input option.title label=" "}}<br/>
-            {{/form-for}}
-          {{/each}}
-          <p class="help-text">You have to enter at least two options.</p>
-        </fieldset>
-      </div>
+    {{#form-for controller}}
+      {{#input enoughOptions}}
+        {{label-field enoughOptions}}
+        {{#each option in options}}
+          {{#input option.title}}
+            {{input-field option.title}}
+          {{/input}}
+        {{/each}}
+        {{#if view.showError}}
+          {{error-field enoughOptions}}
+        {{/if}}
+      {{/input}}
       <div class="form-group">
         <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
-        <button {{action "submit"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}> next </button>
       </div>
-    </form>
+      {{submit 'next'}}
+    {{/form-for}}
   {{/if}}
 
   {{#if isFindADate}}
     <div id="datepicker">
       {{view 'datepicker'}}
-      <p class="help-text">You have to select at least two dates."</p>
-      
-      {{#form-for controller}}
-        {{input isDateTime as='checkbox'
-            label="Define times?"
-        }}
-        {{submit 'next'}}
-      {{/form-for}}
     </div>
+      
+    {{#form-for controller}}
+      {{#input enoughOptions}}
+        {{#if view.showError}}
+          {{error-field enoughOptions}}
+        {{/if}}
+      {{/input}}
+      {{input isDateTime as='checkbox'
+          label="Define times?"
+      }}
+      {{submit 'next'}}
+    {{/form-for}}
   {{/if}}
 </div>
