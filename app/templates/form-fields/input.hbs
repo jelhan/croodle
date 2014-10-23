@@ -2,9 +2,14 @@
   {{label-field propertyBinding="view.property" textBinding="view.label"}}
 {{/unless}}
 <div {{bind-attr class=view.divWrapperClass}}>
-  {{input-field propertyBinding='view.property' inputOptionsBinding='view.inputOptionsValues'}}
+  {{#unless view.isCheckbox}}
+    {{input-field propertyBinding='view.property' inputOptionsBinding='view.inputOptionsValues'}}
+  {{/unless}}
   {{#if view.isCheckbox}}
-    {{label-field propertyBinding="view.property" textBinding="view.label"}}
+    <label>
+      {{input-field propertyBinding='view.property' inputOptionsBinding='view.inputOptionsValues'}}
+      {{view.label}}
+    </label>
   {{/if}}
   {{#if view.hint}}
     {{hint-field propertyBinding="view.property" textBinding="view.hint"}}
