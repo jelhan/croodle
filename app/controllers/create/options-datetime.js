@@ -42,7 +42,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     /*
      * set new options depending on selected times
      */
-    submitDatetimes: function(){
+    submit: function(){
       var datetimes = this.get('datetimes'),
           newOptions = [],
           self = this;
