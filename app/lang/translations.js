@@ -1,5 +1,11 @@
 export default {
   "en": {
+    "answerTypes.yes.label": "yes",
+    "answerTypes.no.label": "no",
+    "answerTypes.maybe.label": "maybe",
+    "answerTypes.freeText.label": "free text",
+    "answerTypes.yesNo.label": "yes, no",
+    "answerTypes.yesNoMaybe.label": "yes, no, maybe",
     "create.index.input.pollType.label": "poll type",
     "create.index.input.pollType.prompt": "Please select a poll type",
     "create.meta.input.title.label": "title",
@@ -11,6 +17,7 @@ export default {
     "create.options.add-another-option": "add another option",
     "create.options.error.notEnoughOptions": "you must enter atleast two options",
     "create.options.defineTimes.label": "define times?",
+    "create.options.input.moreOptions.label": "add another option",
     "create.options-datetime.datetimes.label": "datetimes",
     "create.options-datetime.datetimes.hint": "Hours and minutes have to be seperated by a color (e.g. 12:30). You have to enter atleast one valid time for each date.",
     "create.options-datetime.more-inputs": "more inputs for time",
@@ -57,9 +64,17 @@ export default {
     "poll.input.newUserName.placeholder": "Enter your name...",
     "poll.save": "save",
     "poll.share": "Share the link and invite other people to participate in your poll.",
-    "poll.share.notice": "Everyone who knows the link could read the data. If your poll consists private data you may only share the link via encrypted channels like PGP encrypted email or instant messaging with OTR."
+    "poll.share.notice": "Everyone who knows the link could read the data. If your poll consists private data you may only share the link via encrypted channels like PGP encrypted email or instant messaging with OTR.",
+    "pollTypes.findADate.label": "Find a date",
+    "pollTypes.makeAPoll.label": "Make a poll",
   },
   "de": {
+    "answerTypes.yes.label": "ja",
+    "answerTypes.no.label": "nein",
+    "answerTypes.maybe.label": "vielleicht",
+    "answerTypes.freeText.label": "Freitext",
+    "answerTypes.yesNo.label": "ja, nein",
+    "answerTypes.yesNoMaybe.label": "ja, nein, vielleicht",
     "create.index.input.pollType.label": "Umfragetyp",
     "create.index.input.pollType.prompt": "Bitte wähle den Typ deiner Umfrage",
     "create.meta.input.title.label": "de: title",
@@ -71,6 +86,7 @@ export default {
     "create.options.add-another-option": "Mehr Optionen",
     "create.options.error.notEnoughOptions": "mindestens zwei Optionen",
     "create.options.defineTimes.label": "de: define times?",
+    "create.options.input.moreOptions.label": "de: add another option",
     "create.options-datetime.datetimes.label": "de: datetimes",
     "create.options-datetime.datetimes.hint": "de: Hours and minutes have to be seperated by a color (e.g. 12:30). You have to enter atleast one valid time for each date.",
     "create.options-datetime.more-inputs": "Mehr Zeiten eingeben",
@@ -117,6 +133,8 @@ export default {
     "poll.input.newUserName.placeholder": "de: Enter your name...",
     "poll.save": "speichern",
     "poll.share": "Gib den Link weiter und lade so Andere zu deiner Umfrage ein.",
-    "poll.share.notice": "Jeder, der den Link kennt, kann die Daten deiner Umfrage lesen. Falls deine Umfrage private Daten enthält, überlege dir, ob du ihn nur per verschlüsselter Mail oder Chat mit End-to-End-Verschlüsselung weitergeben möchtest."
+    "poll.share.notice": "Jeder, der den Link kennt, kann die Daten deiner Umfrage lesen. Falls deine Umfrage private Daten enthält, überlege dir, ob du ihn nur per verschlüsselter Mail oder Chat mit End-to-End-Verschlüsselung weitergeben möchtest.",
+    "pollTypes.findADate.label": "Einen Termin finden",
+    "pollTypes.makeAPoll.label": "Eine Umfrage erstellen",
   }
 };

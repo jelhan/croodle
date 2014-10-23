@@ -16,13 +16,14 @@
           {{error-field enoughOptions}}
         {{/if}}
       {{/input}}
-      
-      <div class="form-group">
-        <button {{action "moreOptions" target="view"}} class="btn btn-default"> add another option </button>
-      </div>
-      
+    {{/form-for}}
+ 
+    <div class="form-group">
+      <button {{action "moreOptions" target="view"}} class="btn btn-default"> {{t 'create.options.input.moreOptions.label'}} </button>
+    </div>
+    
+    {{#form-for controller}}
       {{submit 'next'}}
-      
     {{/form-for}}
 
   {{/if}}
