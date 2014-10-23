@@ -79,11 +79,9 @@
             </td>
           {{/each}}
           <td>
-            <div class="form-group">
-              <button {{action "addNewUser"}} class="btn btn-default" {{bind-attr disabled=isNotValid}}>
-                {{t "poll.save"}}
-              </button>
-            </div>
+            <button {{action "addNewUser"}} class="btn btn-default btn-primary" {{bind-attr disabled=isNotValid}}>
+              {{t "poll.save"}}
+            </button>
           </td>
         </tr>
 
@@ -109,7 +107,10 @@
         {{#unless isFreeText}}
           <tr class='evaluation evaluation-header'>
             <td {{bind-attr colspan=fullRowColspan}}>
-                {{t "poll.evaluation.label"}} <button {{action "switchEvaluationVisibility" target="view"}} class="btn btn-default"> {{view.showEvaluationLabel}} </button>
+                {{t "poll.evaluation.label"}}
+                <button {{action "switchEvaluationVisibility" target="view"}} class="btn btn-default">
+                  {{view.showEvaluationLabel}}
+                </button>
             </td>
           </tr>
 

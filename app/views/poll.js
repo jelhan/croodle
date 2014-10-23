@@ -1,4 +1,4 @@
-export default Ember.View.extend({
+export default Ember.View.extend(Em.I18n.TranslateableProperties, {
   showEvaluation: false,
   
   actions: {
@@ -21,10 +21,13 @@ export default Ember.View.extend({
   
   showEvaluationLabel: function() {
     if (this.get('showEvaluation')) {
-      return "hide";
+      return this.get('showEvaluationLabelHide');
     }
     else {
-      return "show";
+      return this.get('showEvaluationLabelShow');
     }
-  }.property('showEvaluation')
+  }.property('showEvaluation'),
+  
+  showEvaluationLabelHideTranslation: "poll.input.showEvaluation.hide",
+  showEvaluationLabelShowTranslation: "poll.input.showEvaluation.show"
 });
