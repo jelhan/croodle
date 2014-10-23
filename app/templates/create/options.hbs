@@ -18,13 +18,9 @@
       {{/input}}
     {{/form-for}}
  
-    <div class="form-group">
-      <button {{action "moreOptions" target="view"}} class="btn btn-default"> {{t 'create.options.input.moreOptions.label'}} </button>
-    </div>
-    
-    {{#form-for controller}}
-      {{submit 'next'}}
-    {{/form-for}}
+    <button {{action "moreOptions" target="view"}} class="btn btn-default"> {{t 'create.options.input.moreOptions.label'}} </button>
+
+    <button {{action "submit"}} class="btn btn-default btn-primary"> {{t 'create.next'}} </button>
 
   {{/if}}
 
@@ -43,8 +39,9 @@
       {{input isDateTime as='checkbox'
           labelTranslation="create.options.defineTimes.label"
       }}
-      {{submit 'next'}}
     {{/form-for}}
     
+    <button {{action "submit"}} class="btn btn-default btn-primary"> {{t 'create.next'}} </button>
+
   {{/if}}
 </div>

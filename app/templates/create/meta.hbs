@@ -9,6 +9,8 @@
         placeholderTranslation="create.meta.input.description.placeholder"
         rows=4
     }}
-    {{submit 'next'}}
   {{/form-for}}
+
+  <button {{action "submit"}} class="btn btn-default btn-primary"> {{t 'create.next'}} </button>
+
 </div>
