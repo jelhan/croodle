@@ -216,7 +216,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             }
         }
     },
-            
+    
     /*
      * have to manually rerun validation when encryption key is present in model
      * otherwise ember-validation is not using correct values for properties in

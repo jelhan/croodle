@@ -54,6 +54,7 @@ export default {
     "index.hoster.text": "You don't have to trust our server. You could easily host croodle yourself. All you need is a web space with PHP and SSL encryption enabled. You find the source code and installation instructions on <a href=\"https://github.com/jelhan/croodle\">GitHub</a>.",
     "poll.created-time": "created on {{creationDate}}",
     "poll.evaluation.label": "Evaluation",
+    "poll.input.newUserName.placeholder": "Enter your name...",
     "poll.save": "save",
     "poll.share": "Share the link and invite other people to participate in your poll.",
     "poll.share.notice": "Everyone who knows the link could read the data. If your poll consists private data you may only share the link via encrypted channels like PGP encrypted email or instant messaging with OTR."
@@ -113,6 +114,7 @@ export default {
     "index.hoster.text": "Du musst uns nicht vertrauen. Du kannst Croodle einfach auf deinem eigenen Server installieren. Ein Server mit einigen Megabyte Speicherplatz, PHP und SSL-Verschlüsselung ist ausreichend. Den Programmcode und Installationsanweisungen findest du auf <a href=\"https://github.com/jelhan/croodle\">GitHub</a>.",
     "poll.created-time": "Erstellt am {{creationDate}}.",
     "poll.evaluation.label": "Auswertung",
+    "poll.input.newUserName.placeholder": "de: Enter your name...",
     "poll.save": "speichern",
     "poll.share": "Gib den Link weiter und lade so Andere zu deiner Umfrage ein.",
     "poll.share.notice": "Jeder, der den Link kennt, kann die Daten deiner Umfrage lesen. Falls deine Umfrage private Daten enthält, überlege dir, ob du ihn nur per verschlüsselter Mail oder Chat mit End-to-End-Verschlüsselung weitergeben möchtest."

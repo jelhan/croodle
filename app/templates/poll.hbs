@@ -45,19 +45,16 @@
 
       <tbody>
         <tr class='newUser'>
-          {{! ToDo:
-              should be all together in just one form;
-              not in several forms for each input.
-              This work-around is due to a problem of
-              ember-forms in dealing with propertys of
-              handlebar each helper
-          }}
           <td>
             {{#form-for controller}}
-              {{input newUserName
-                  label=" "
-                  placeholder="Enter your name..."
-              }}
+              {{#input newUserName}}
+                {{input-field newUserName
+                    placeholderTranslation="poll.input.newUserName.placeholder"
+                }}
+                {{#if view.showError}}
+                  {{error-field newUserName}}
+                {{/if}}
+              {{/input}}
             {{/form-for}}
           </td>
           {{#each newUserSelection in controller.newUserSelections}}
@@ -112,25 +109,27 @@
         {{#unless isFreeText}}
           <tr class='evaluation evaluation-header'>
             <td {{bind-attr colspan=fullRowColspan}}>
-                {{t "poll.evaluation.label"}}
+                {{t "poll.evaluation.label"}} <button {{action "switchEvaluationVisibility" target="view"}} class="btn btn-default"> {{view.showEvaluationLabel}} </button>
             </td>
           </tr>
 
-          {{#each answer in evaluation}}
-            <tr class='evaluation'>
-              <td>
-                {{answer.label}}
-              </td>
-
-              {{#each option in answer.options}}
+          {{#if view.showEvaluation}}
+            {{#each answer in evaluation}}
+              <tr class='evaluation'>
                 <td>
-                  {{option}}
+                  {{answer.label}}
                 </td>
-              {{/each}}
 
-              <td>&nbsp;</td>
-            </tr>
-          {{/each}}
+                {{#each option in answer.options}}
+                  <td>
+                    {{option}}
+                  </td>
+                {{/each}}
+
+                <td>&nbsp;</td>
+              </tr>
+            {{/each}}
+          {{/if}}
         {{/unless}}
       </tbody>
     </table>
