@@ -4,5 +4,14 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       // redirect to CreateOptions
       this.transitionToRoute('create.options');
     }
+  },
+           
+  validations: {
+    title: {
+      presence: true,
+      length: {
+        minimum: 2
+      }
+    }
   }
 });

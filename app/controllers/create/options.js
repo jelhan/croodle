@@ -55,17 +55,11 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
   }.property('options.@each.title'),
 
-  /*
-   * invokes isValid state
-   * used to enable / disabled next button
-   */
-  isNotValid: function(){
-    return !this.get('isValid');
-  }.property('isValid'),
-
   validations: {
     enoughOptions: {
-      acceptance: true
+      acceptance: {
+        message: Ember.I18n.t('create.options.error.notEnoughOptions')
+      }
     }
   }
 });

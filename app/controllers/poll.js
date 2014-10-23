@@ -216,7 +216,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             }
         }
     },
-            
+    
     /*
      * have to manually rerun validation when encryption key is present in model
      * otherwise ember-validation is not using correct values for properties in
@@ -226,5 +226,5 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         if(!Ember.isEmpty(this.get('model.encryption.key'))) {
             this.validate();
         }
-    }.observes('model.encryption.key'),
+    }.observes('model.encryption.key')
 });

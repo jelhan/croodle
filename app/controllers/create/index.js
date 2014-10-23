@@ -8,13 +8,13 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
 
   pollTypes: function(){
     return [
-      Ember.Object.create({
+      Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
         id : "FindADate",
-        label : "Find a date"
+        labelTranslation : "pollTypes.findADate.label"
       }),
-      Ember.Object.create({
+      Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
         id : "MakeAPoll",
-        label : "Make a poll"
+        labelTranslation : "pollTypes.makeAPoll.label"
       })
     ];
   }.property(),

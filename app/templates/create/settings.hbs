@@ -5,15 +5,16 @@
       value="answerType"
       optionValuePath="content.id"
       optionLabelPath="content.label"
-      label="available answers"
-      prompt="Please define available answers"
+      labelTranslation="create.settings.answerType.label"
+      promptTranslation="create.settings.anserType.prompt"
     }}
     {{input anonymousUser as='checkbox'
-      label="Allow anonym participation?"
+      labelTranslation="create.settings.anonymousUser.label"
     }}
     {{input forceAnswer as='checkbox'
-      label="Force an answer?"
+      labelTranslation="create.settings.forceAnswer.label"
     }}
-    {{submit 'save'}}
   {{/form-for}}
+
+  <button {{action "submit"}} class="btn btn-default btn-primary"> {{t 'create.next'}} </button>
 </div>

@@ -12,7 +12,7 @@
     "ember-testing-httpRespond": "~0.1.1",
     "loader.js": "git://github.com/stefanpenner/loader.js",
     "ember-load-initializers": "git://github.com/stefanpenner/ember-load-initializers.git#0.0.1",
-    "moment": "~2.7.0",
+    "moment": "~2.8.3",
     "sjcl": "~1.0.0",
     "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/v1.0.0/ember-validations.js",
     "bootstrap": "~3.2.0",
@@ -20,6 +20,8 @@
     "ember-easyForm": "http://builds.dockyard.com/ember-easyForm/latest/ember-easyForm.js",
     "floatThead": "~1.2.8",
     "webshim": "~1.15.3",
-    "modernizr": "~2.8.3"
+    "modernizr": "~2.8.3",
+    "ember-i18n": "~2.9.0",
+    "cldr": "~1.0.2"
   }
 }

@@ -1,14 +1,16 @@
 <div class="box">
   {{#form-for controller}}
     {{input title
-        label="title"
-        placeholder="Enter a title..."
+        labelTranslation='create.meta.input.title.label'
+        placeholderTranslation="create.meta.input.title.placeholder"
     }}
     {{input description as='text'
-        label="description"
-        placeholder="Enter a description if you like..."
+        labelTranslation="create.meta.input.description.label"
+        placeholderTranslation="create.meta.input.description.placeholder"
         rows=4
     }}
-    {{submit 'next'}}
   {{/form-for}}
+
+  <button {{action "submit"}} class="btn btn-default btn-primary"> {{t 'create.next'}} </button>
+
 </div>

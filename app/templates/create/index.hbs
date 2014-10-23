@@ -5,8 +5,10 @@
         value="pollType"
         optionValuePath="content.id"
         optionLabelPath="content.label"
-        prompt="Please select a poll type"
+        labelTranslation='create.index.input.pollType.label'
+        promptTranslation='create.index.input.pollType.prompt'
     }}
-    {{submit 'next'}}
   {{/form-for}}
+
+  <button {{action "submit"}} class="btn btn-default btn-primary"> {{t 'create.next'}} </button>
 </div>
