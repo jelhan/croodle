@@ -27,11 +27,7 @@
           {{#each option in options}}
             <th>
               {{#if isFindADate}}
-                {{#if isDateTime}}
-                  {{formattedDate option.title 'llll'}}
-                {{else}}
-                  {{formattedDate option.title 'll'}}
-                {{/if}}
+                {{formattedDate option.title times=isDateTime}}
               {{/if}}
 
               {{#if isMakeAPoll}}
