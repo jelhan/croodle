@@ -29,6 +29,8 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
         'scrollingTop': getScrollBarHeight()
       });
       
+      console.log($('.user-selections-table').width());
+      
       /*
        * scrollbar on top of table
        */
@@ -37,21 +39,46 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
               .css('height', '1px');
       var topScrollbarOuter = $('<div></div>')
               .addClass('top-scrollbar')
-              .css('width', $('.table-scroll').width() )
+              .css('width', "100%" )
+              .css('overflow-x', 'scroll')
+              .css('overflow-y', 'hidden')
+              .css('position', 'relative')
+              .css('z-index', '1002');
+      $('.table-scroll').before(
+        topScrollbarOuter.append(topScrollbarInner)
+      );
+      
+      /*
+       * scrollbar on top of table for thead
+       */
+      var topScrollbarInner = $('<div></div>')
+              .css('width', $('.user-selections-table').width() )
+              .css('height', '1px');
+      var topScrollbarOuter = $('<div></div>')
+              .addClass('top-scrollbar-floatThead')
+              .css('width', $('.table-scroll').outerWidth() )
               .css('overflow-x', 'scroll')
               .css('overflow-y', 'hidden')
               .css('position', 'fixed')
               .css('top', '-1px')
-              .css('z-index', '1002');
+              .css('z-index', '1002')
+              .css('margin-left', ( $('.table-scroll').outerWidth() - $('.table-scroll').width() ) / 2 * (-1) + 'px' )
+              .css('margin-right', ( $('.table-scroll').outerWidth() - $('.table-scroll').width() ) / 2 * (-1) + 'px' );
       $('.table-scroll').prepend(
         topScrollbarOuter.append(topScrollbarInner).hide()
       );
       
       $('.table-scroll').scroll(function(){
         $('.top-scrollbar').scrollLeft( $('.table-scroll').scrollLeft() );
+        $('.top-scrollbar-floatThead').scrollLeft( $('.table-scroll').scrollLeft() );
       });
       $('.top-scrollbar').scroll(function(){
         $('.table-scroll').scrollLeft( $('.top-scrollbar').scrollLeft() );
+        $('.top-scrollbar-floatThead').scrollLeft( $('.top-scrollbar').scrollLeft() );
+      });
+      $('.top-scrollbar-floatThead').scroll(function(){
+        $('.table-scroll').scrollLeft( $('.top-scrollbar-floatThead').scrollLeft() );
+        $('.top-scrollbar').scrollLeft( $('.top-scrollbar-floatThead').scrollLeft() );
       });
       /*
        * show scrollbar only, if header is fixed
@@ -60,10 +87,10 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
         var windowTop = $(window).scrollTop(),
             tableTop = $('.table-scroll table').offset().top;
         if( windowTop >= tableTop - getScrollBarHeight() ) {
-          $('.top-scrollbar').show();
+          $('.top-scrollbar-floatThead').show();
         }
         else {
-          $('.top-scrollbar').hide();
+          $('.top-scrollbar-floatThead').hide();
         }
       });
     });
