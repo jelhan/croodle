@@ -29,7 +29,10 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
         'scrollingTop': getScrollBarHeight()
       });
       
-      console.log($('.user-selections-table').width());
+      /*
+       * fix width calculation error caused by bootstrap glyphicon on webkit
+       */
+      $('.glyphicon').css('width', '14px');
       
       /*
        * scrollbar on top of table
