@@ -22,12 +22,28 @@
   <div class="table-scroll">
     <table class="user-selections-table table table-striped table-condensed">
       <thead>
+        {{#if isDateTime}}
+          <tr>
+            <th>&nbsp;</th>
+            {{#each dateGroup in dateGroups}}
+              <th {{bind-attr colspan="dateGroup.colspan"}}>
+                {{formattedDate dateGroup.value}}
+              </th>
+            {{/each}}
+            <th>&nbsp;</th>
+          </tr>
+        {{/if}}
         <tr>
           <th>&nbsp;</th>
           {{#each option in options}}
             <th>
               {{#if isFindADate}}
-                {{formattedDate option.title times=isDateTime}}
+                {{#if isDateTime}}
+                  {{formattedDate option.title format="LT"}}
+                {{/if}}
+                {{#unless isDateTime}}
+                  {{formattedDate option.title}}
+                {{/unless}}
               {{/if}}
 
               {{#if isMakeAPoll}}

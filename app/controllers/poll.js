@@ -45,6 +45,56 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         }
     },
     
+    dateGroups: function() {
+      // group dates only for find a date with times
+      if ( this.get('isFindADate') !== true ||
+           this.get('isDateTime') !== true ) {
+        return [];
+      }
+      
+      var datetimes = this.get('options'),
+          dates = [],
+          datesCount = {},
+          dateGroups = [];
+      
+      var lastDate = null,
+          count = 0;
+      datetimes.forEach(function(el){
+        var date;
+        date = new Date( el.title );
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        
+        if (lastDate === null) {
+          lastDate = date;
+        }
+        
+        if (date.getTime() === lastDate.getTime()) {
+          count++;
+        }
+        else {
+          // push last values;
+          dateGroups.pushObject({
+            "value": lastDate,
+            "colspan": count
+          });
+          
+          // set lastDate to current date and reset count
+          lastDate = date;
+          count = 1;
+        }
+      });
+      dateGroups.pushObject({
+        "value": lastDate,
+        "colspan": count
+      });
+      
+      console.log('dateGroups', dateGroups);
+
+      return dateGroups;
+    }.property('options.@each'),
+    
     /*
      * evaluates poll data
      * if free text answers are allowed evaluation is disabled
