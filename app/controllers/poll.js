@@ -90,8 +90,6 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         "colspan": count
       });
       
-      console.log('dateGroups', dateGroups);
-
       return dateGroups;
     }.property('options.@each'),
     
