@@ -41,7 +41,8 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
               .css('overflow-x', 'scroll')
               .css('overflow-y', 'hidden')
               .css('position', 'fixed')
-              .css('top', 0);
+              .css('top', '-1px')
+              .css('z-index', '1002');
       $('.table-scroll').prepend(
         topScrollbarOuter.append(topScrollbarInner).hide()
       );
