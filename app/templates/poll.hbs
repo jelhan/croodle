@@ -23,7 +23,7 @@
     <table class="user-selections-table table table-striped table-condensed">
       <thead>
         {{#if isDateTime}}
-          <tr>
+          <tr class="dateGroups">
             <th>&nbsp;</th>
             {{#each dateGroup in dateGroups}}
               <th {{bind-attr colspan="dateGroup.colspan"}}>
