@@ -21,6 +21,9 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             
             // reset validation erros
             this.set('errors.newUserName', '');
+            
+            // recalculate fixedHeaders
+            $('.user-selections-table').floatThead('reflow');
         },
         
         /*
