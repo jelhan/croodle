@@ -7,14 +7,7 @@ export default {
   initialize: function() {
 
     Ember.EasyForm.Input.reopen({
-      errorsChanged: function() {
-        this.set('hasFocusedOut', true);
-        this.showValidationError();
-      },
       classNameBindings: ['wrapperConfig.inputClass', 'wrapperErrorClass'],
-      didInsertElement: function() {
-        this.addObserver('context.errors.' + this.property + '.@each', this, 'errorsChanged');
-      },
       isCheckbox: function() {
         if (this.get('inputOptionsValues.as') === 'checkbox') {
           return true;
@@ -30,7 +23,9 @@ export default {
         else {
           return '';
         }
-      }.property('inputOptionsValues')
+      }.property('inputOptionsValues'),
+      
+      isEasyForm: true
     });
 
     Ember.EasyForm.Error.reopen({

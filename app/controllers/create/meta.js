@@ -8,6 +8,12 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     submit: function(){
       this.validate();
       
+      $.each(Ember.View.views, function(id, view) {
+        if(view.isEasyForm) {
+          view.focusOut();
+        }
+      });
+      
       if (this.get('isValid')) {
         this.send('save');
       }
