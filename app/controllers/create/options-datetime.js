@@ -39,10 +39,11 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       Ember.run.next(this, function() { $('input[type=time]').updatePolyfill(); });
     },
     
-    /*
-     * set new options depending on selected times
-     */
-    submit: function(){
+    save: function(){
+      /*
+       * set new options depending on selected times
+       */
+      
       var datetimes = this.get('datetimes'),
           newOptions = [],
           self = this;
@@ -80,13 +81,17 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       
       this.set('options', newOptions);
       
-      // tricker save action
-      this.send('save');
-    },
-    
-    save: function(){
       // redirect to create/settings route
       this.transitionToRoute('create.settings');
+    },
+    
+    submit: function(){
+      this.validate();
+      
+      if (this.get('isValid')) {
+        // tricker save action
+        this.send('save');
+      }
     }
   },
   

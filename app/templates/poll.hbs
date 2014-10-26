@@ -73,7 +73,9 @@
             <td>
               {{#form-for newUserSelection}}
                 {{#if isFreeText}}
-                  {{input value label=" "}}
+                  {{#input value}}
+                    {{input-field value}}
+                  {{/input}}
                 {{else}}
                   {{#each answer in answers}}
                     <div class="radio">
@@ -91,9 +93,16 @@
             </td>
           {{/each}}
           <td>
-            <button {{action "addNewUser"}} class="btn btn-default btn-primary" {{bind-attr disabled=isNotValid}}>
+            <button {{action "submitNewUser"}} class="btn btn-default btn-primary">
               {{t "poll.save"}}
             </button>
+            <span style="white-space: normal;">
+              {{#input everyOptionIsAnswered}}
+                {{#if view.showError}}
+                  {{error-field everyOptionIsAnswered}}
+                {{/if}}
+              {{/input}}
+            </span>
           </td>
         </tr>
 

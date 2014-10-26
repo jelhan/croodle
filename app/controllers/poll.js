@@ -21,6 +21,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             
             // reset validation erros
             this.set('errors.newUserName', '');
+            this.set('errors.everyOptionIsAnswered', '');
             
             // recalculate fixedHeaders
             $('.user-selections-table').floatThead('reflow');
@@ -45,6 +46,15 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
                 // assign new user to poll
                 self.get('model.users').pushObject(newUser);
             });
+        },
+        
+        submitNewUser: function() {
+          this.validate();
+
+          if (this.get('isValid')) {
+            // tricker save action
+            this.send('addNewUser');
+          }
         }
     },
     
@@ -219,6 +229,10 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         return newUserSelections;
     }.property('options'),
     
+    optionCount: function() {
+      return this.get('options.length');
+    }.property('options'),
+    
     pollUrl: function() {
         return window.location.href;
     }.property('currentPath', 'encryptionKey'),
@@ -250,7 +264,8 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             acceptance: {
                 if: function(object, validator){
                     return object.get('forceAnswer');
-                }
+                },
+                message: Ember.I18n.t('poll.error.newUser.everyOptionIsAnswered')
             }
         },
 

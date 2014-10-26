@@ -1,6 +1,6 @@
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
-    submit: function() {
+    save: function(){
       var pollType = this.get('pollType');
       
       if (pollType === 'MakeAPoll') {
@@ -30,6 +30,15 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         else {
           this.transitionToRoute('create.settings'); 
         }
+      }
+    },
+    
+    submit: function() {
+      this.validate();
+      
+      if (this.get('isValid')) {
+        // tricker save action
+        this.send('save');
       }
     }
   },

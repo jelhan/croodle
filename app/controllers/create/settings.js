@@ -1,6 +1,6 @@
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
-    submit: function(){
+    save: function(){
       // check if answer type is selected
       if (this.get('answerType') === null) {
         return;
@@ -15,6 +15,15 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
            self.transitionToRoute('poll', model, {queryParams: {encryptionKey: self.get('encryption.key')}}); 
         });
       });
+    },
+    
+    submit: function() {
+      this.validate();
+      
+      if (this.get('isValid')) {
+        // tricker save action
+        this.send('save');
+      }
     }
   },
   

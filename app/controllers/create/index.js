@@ -1,8 +1,16 @@
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
-    submit: function(){
+    save: function() {
       // redirect to CreateMeta
       this.transitionToRoute('create.meta');
+    },
+    
+    submit: function(){
+      this.validate();
+      
+      if (this.get('isValid')) {
+        this.send('save');
+      }
     }
   },
 
