@@ -40,6 +40,7 @@
       <script src="/vendor/ember-data/ember-data.js"></script>
       <script src="/vendor/floatThead/dist/jquery.floatThead.js"></script>
       <script src="/vendor/moment/min/moment-with-locales.js"></script>
+      <script src="/vendor/webshim/js-webshim/dev/polyfiller.js"></script>
     <!-- @endif -->
     <!-- @if dist=true -->
       <script src="/vendor/jquery/dist/jquery.min.js"></script>
@@ -48,6 +49,7 @@
       <script src="/vendor/ember-data/ember-data.prod.js"></script>
       <script src="/vendor/floatThead/dist/jquery.floatThead.min.js"></script>
       <script src="/vendor/moment/min/moment-with-locales.min.js"></script>
+      <script src="/vendor/webshim/js-webshim/minified/polyfiller.js"></script>
     <!-- @endif -->
     
     <script src="/vendor/loader.js/loader.js"></script>
@@ -64,8 +66,6 @@
     <script src="/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
     <script src="/vendor/modernizr/modernizr.js"></script>
-    <script src="/vendor/webshim/js-webshim/dev/polyfiller.js"></script>
-
   <!-- endbuild -->
 
   <!-- build:js(tmp/result) assets/app.min.js -->
@@ -129,8 +129,8 @@
   <!-- @if tests=false -->
   <script>
     window.App = require('croodle/app')['default'].create(ENV.APP);
-
-    webshim.polyfill('forms-ext');
+    
+    webshim.polyfill('forms forms-ext');
   </script>
   <!-- @endif -->
 
