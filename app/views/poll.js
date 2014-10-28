@@ -9,6 +9,10 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
       else {
         this.set('showEvaluation', true);
       }
+    },
+    
+    useLocalTimezone: function() {
+      this.set('controller.useLocalTimezone', true);
     }
   },
   
@@ -96,6 +100,13 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
           $('.top-scrollbar-floatThead').hide();
         }
       });
+      
+      /*
+       * show timezone modal if local timezone differs to timezone poll got created with
+       */
+      if( this.get('controller.timezoneDiffers') ) {
+        $('#timezoneDiffers').modal();
+      }
     });
   },
   

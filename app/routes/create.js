@@ -25,7 +25,8 @@ export default Ember.Route.extend({
       forceAnswer: true,
       anonymousUser: false,
       datetime: false,
-      datetimesInputFields: 2
+      datetimesInputFields: 2,
+      timezoneOffset: new Date().getTimezoneOffset()
     });
   }
 });

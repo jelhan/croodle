@@ -35,22 +35,29 @@
         {{/if}}
         <tr>
           <th>&nbsp;</th>
-          {{#each option in options}}
-            <th>
-              {{#if isFindADate}}
+          {{#if isFindADate}}
+            {{#each date in dates}}
+              <th>
                 {{#if isDateTime}}
-                  {{formattedDate option.title format="LT"}}
+                  {{formattedDate date.title format="LT"}}
                 {{/if}}
                 {{#unless isDateTime}}
-                  {{formattedDate option.title}}
+                  {{formattedDate date.title}}
                 {{/unless}}
-              {{/if}}
+              </th>
+            {{/each}}
+          {{/if}}
 
-              {{#if isMakeAPoll}}
-                {{option.title}}
-              {{/if}}
-            </th>
-          {{/each}}
+          {{#if isMakeAPoll}}
+            {{#each option in options}}
+              <th>
+                {{#if isMakeAPoll}}
+                  {{option.title}}
+                {{/if}}
+              </th>
+            {{/each}}
+          {{/if}}
+
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -155,5 +162,31 @@
         {{/unless}}
       </tbody>
     </table>
+  </div>
+</div>
+
+<div class="modal fade" id="timezoneDiffers">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">
+          {{t "poll.modal.timezoneDiffers.title"}}
+        </h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          {{t "poll.modal.timezoneDiffers.body"}}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" {{action "useLocalTimezone" target="view"}}>
+          {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">
+          {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}
+        </button>
+      </div>
+    </div>
   </div>
 </div>

@@ -71,7 +71,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         return [];
       }
       
-      var datetimes = this.get('options'),
+      var datetimes = this.get('dates'),
           dates = [],
           datesCount = {},
           dateGroups = [];
@@ -110,7 +110,42 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       });
       
       return dateGroups;
-    }.property('options.@each'),
+    }.property('dates.@each'),
+    
+    /*
+     * handles options if they are dates
+     */
+    dates: function() {
+      // if poll type is find a date
+      // we return an empty array
+      if( !this.get('isFindADate') ) {
+        return [];
+      }
+      
+      // if current timezone doesn't differ to timezone poll got created with or
+      // if local timezone should be used
+      // we return original options array
+      if (
+           !this.get('timezoneDiffers') ||
+           this.get('useLocalTimezone')
+         ) {
+        console.log('use original timezone', !this.get('timezoneDiffers'), this.get('useLocalTimezone'));
+        return Ember.copy( this.get('options') );
+      }
+      else {
+        var timezoneDifference = new Date().getTimezoneOffset() - this.get('timezoneOffset'),
+            dates = [],
+            self = this;
+        this.get('options').forEach(function(option){
+          dates.pushObject({
+            title: new Date( option.title ).setMinutes(
+                     new Date( option.title ).getMinutes() - self.get('timezoneOffset')
+                   )
+          });
+        });
+        return dates;
+      }
+    }.property('options.@each', 'useLocalTimezone'),
     
     /*
      * evaluates poll data
@@ -242,7 +277,14 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     pollUrl: function() {
         return window.location.href;
     }.property('currentPath', 'encryptionKey'),
-            
+    
+    /*
+     * return true if current timezone differs from timezone poll got created with
+     */
+    timezoneDiffers: function() {
+        return new Date().getTimezoneOffset() !== this.get('timezoneOffset');
+    }.property('timezoneOffset'),
+    
     updateEncryptionKey: function() {
         // update encryption key
         this.set('encryption.key', this.get('encryptionKey'));
@@ -255,6 +297,10 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         
         this.set('encryption.isSet', true);
     }.observes('encryptionKey'),
+    
+    useLocalTimezone: function() {
+      return false;
+    }.property(),
     
     validations: {
         everyOptionIsAnswered: {

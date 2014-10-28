@@ -46,7 +46,10 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
             
             case 'date':
                 return Ember.isNone(decryptedValue) ? null : Date(decryptedValue);
-                
+            
+            case 'number':
+                return Ember.isNone(decryptedValue) ? null : Number(decryptedValue);
+            
             case 'string':
                 return Ember.isNone(decryptedValue) ? null : String(decryptedValue);
                 

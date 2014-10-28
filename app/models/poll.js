@@ -33,6 +33,9 @@ export default DS.Model.extend({
     encryptedIsDateTime : DS.attr('string'),
     isDateTime : Ember.computed.encrypted('encryptedIsDateTime', 'boolean'),
     
+    encryptedTimezoneOffset : DS.attr('string'),
+    timezoneOffset : Ember.computed.encrypted('encryptedTimezoneOffset', 'number'),
+    
     // computed properties
     isFindADate: function() {
         return this.get('pollType') === 'FindADate';
