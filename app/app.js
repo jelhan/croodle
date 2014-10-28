@@ -26,8 +26,9 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
         encryptedJSON = this.get(encryptedField);
         
         // check if encryptedField is defined and not null
-        if (typeof encryptedJSON === 'undefined' ||
-                encryptedJSON === null) {
+        if ( typeof encryptedJSON === 'undefined' ||
+             encryptedJSON === null
+           ) {
             return null;
         }
 
@@ -36,8 +37,7 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
             decryptedJSON = sjcl.decrypt(encryptKey, encryptedJSON);
             decryptedValue = JSON.parse(decryptedJSON);
         } catch (e) {
-            // TODO: should throw an error
-            decryptedValue = '';
+            throw new Ember.Error("Decryption failed. Please double check the url.");
         }
         
         switch (dataType) {
