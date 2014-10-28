@@ -129,7 +129,6 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
            !this.get('timezoneDiffers') ||
            this.get('useLocalTimezone')
          ) {
-        console.log('use original timezone', !this.get('timezoneDiffers'), this.get('useLocalTimezone'));
         return Ember.copy( this.get('options') );
       }
       else {

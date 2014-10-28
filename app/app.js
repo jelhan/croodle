@@ -45,16 +45,40 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
                 return Ember.isNone(decryptedValue) ? null : decryptedValue;
             
             case 'date':
-                return Ember.isNone(decryptedValue) ? null : Date(decryptedValue);
+                // https://github.com/emberjs/data/blob/master/packages/ember-data/lib/transforms/date.js
+                var type = typeof decryptedValue;
+                if (type === "string") {
+                  return new Date(Ember.Date.parse(decryptedValue));
+                } else if (type === "number") {
+                  return new Date(decryptedValue);
+                } else if (decryptedValue === null || decryptedValue === undefined) {
+                  // if the value is not present in the data,
+                  // return undefined, not null.
+                  return decryptedValue;
+                } else {
+                  return null;
+                }
             
             case 'number':
+                // https://github.com/emberjs/data/blob/master/packages/ember-data/lib/transforms/number.js
                 return Ember.isNone(decryptedValue) ? null : Number(decryptedValue);
             
             case 'string':
+                // https://github.com/emberjs/data/blob/master/packages/ember-data/lib/transforms/string.js
                 return Ember.isNone(decryptedValue) ? null : String(decryptedValue);
                 
             case 'boolean':
-                return Ember.isNone(decryptedValue) ? null : Boolean(decryptedValue);
+                // https://github.com/emberjs/data/blob/master/packages/ember-data/lib/transforms/boolean.js
+                var type = typeof decryptedValue;
+                if (type === "boolean") {
+                  return decryptedValue;
+                } else if (type === "string") {
+                  return decryptedValue.match(/^true$|^t$|^1$/i) !== null;
+                } else if (type === "number") {
+                  return decryptedValue === 1;
+                } else {
+                  return false;
+                }
         }
     });
 };

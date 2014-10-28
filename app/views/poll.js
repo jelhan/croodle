@@ -110,6 +110,11 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
     });
   },
   
+  creationDateFormatted: function() {
+    console.log('creationDate', this.get('controller.creationDate'));
+    return moment( this.get('controller.creationDate') ).format('LLLL')
+  }.property('controller.creationDate'),
+  
   showEvaluationLabel: function() {
     if (this.get('showEvaluation')) {
       return this.get('showEvaluationLabelHide');
