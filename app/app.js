@@ -55,9 +55,8 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
                   // if the value is not present in the data,
                   // return undefined, not null.
                   return decryptedValue;
-                } else {
-                  return null;
                 }
+                return null;
             
             case 'number':
                 // https://github.com/emberjs/data/blob/master/packages/ember-data/lib/transforms/number.js

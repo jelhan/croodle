@@ -58,10 +58,10 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
       /*
        * scrollbar on top of table for thead
        */
-      var topScrollbarInner = $('<div></div>')
+      var topScrollbarInnerThead = $('<div></div>')
               .css('width', $('.user-selections-table').width() )
               .css('height', '1px');
-      var topScrollbarOuter = $('<div></div>')
+      var topScrollbarOuterThead = $('<div></div>')
               .addClass('top-scrollbar-floatThead')
               .css('width', $('.table-scroll').outerWidth() )
               .css('overflow-x', 'scroll')
@@ -72,7 +72,7 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
               .css('margin-left', ( $('.table-scroll').outerWidth() - $('.table-scroll').width() ) / 2 * (-1) + 'px' )
               .css('margin-right', ( $('.table-scroll').outerWidth() - $('.table-scroll').width() ) / 2 * (-1) + 'px' );
       $('.table-scroll').prepend(
-        topScrollbarOuter.append(topScrollbarInner).hide()
+        topScrollbarOuterThead.append(topScrollbarInnerThead).hide()
       );
       
       $('.table-scroll').scroll(function(){
@@ -111,8 +111,7 @@ export default Ember.View.extend(Em.I18n.TranslateableProperties, {
   },
   
   creationDateFormatted: function() {
-    console.log('creationDate', this.get('controller.creationDate'));
-    return moment( this.get('controller.creationDate') ).format('LLLL')
+    return moment( this.get('controller.creationDate') ).format('LLLL');
   }.property('controller.creationDate'),
   
   showEvaluationLabel: function() {
