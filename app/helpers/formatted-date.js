@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default function(date, options) {
   var times = options.hash.times ? options.hash.times : false,
       format = options.hash.format ? options.hash.format : 'LLLL';

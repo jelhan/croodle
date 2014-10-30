@@ -1,3 +1,6 @@
+import Ember from "ember";
+import $ from "jquery";
+
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     encryptionKey: '',
     newUserName: '',
@@ -72,12 +75,10 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       }
       
       var datetimes = this.get('dates'),
-          dates = [],
-          datesCount = {},
           dateGroups = [];
       
-      var lastDate = null,
-          count = 0;
+      var count = 0,
+          lastDate = null;
       datetimes.forEach(function(el){
         var date;
         date = new Date( el.title );
@@ -133,12 +134,11 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       }
       else {
         var timezoneDifference = new Date().getTimezoneOffset() - this.get('timezoneOffset'),
-            dates = [],
-            self = this;
+            dates = [];
         this.get('options').forEach(function(option){
           dates.pushObject({
             title: new Date( option.title ).setMinutes(
-                     new Date( option.title ).getMinutes() - self.get('timezoneOffset')
+                     timezoneDifference
                    )
           });
         });
@@ -226,7 +226,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
                 return false;
             }
             
-            newUserSelections.forEach(function(item, index, enumerable){
+            newUserSelections.forEach(function(item){
                 if (Ember.isEmpty(item.value)) {
                     allAnswered = false;
                 } 
@@ -313,7 +313,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
              * ToDo: Show validation errors
              */
             acceptance: {
-                if: function(object, validator){
+                if: function(object){
                     return object.get('forceAnswer');
                 },
                 message: Ember.I18n.t('poll.error.newUser.everyOptionIsAnswered')
@@ -326,7 +326,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
                  * validate if a user name is given
                  * if it's forced by poll settings (anonymousUser === false)
                  */
-                unless: function(object, validator){
+                unless: function(object){
                     /* have in mind that anonymousUser is undefined on init */
                     return object.get('anonymousUser');
                 }

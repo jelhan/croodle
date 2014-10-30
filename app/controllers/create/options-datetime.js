@@ -1,3 +1,6 @@
+import Ember from "ember";
+import $ from "jquery";
+
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
     /*
@@ -50,8 +53,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       
       datetimes.forEach(function(datetime){
         datetime.contents.times.forEach(function(t){
-          var date = new Date(datetime.contents.title),
-              delimiter = '';
+          var date = new Date(datetime.contents.title);
                     
           // check if there is a value for time
           if (Ember.isEmpty(t.value)) {
@@ -104,7 +106,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   /*
    * only used on init, not on increasing number of input fields!
    */
-  datetimes: function(key, value, previousValue){
+  datetimes: function(){
     var datetimes = Ember.A(),
         dates = this.get('options'),
         datetimesCount = this.get('datetimesInputFields'),

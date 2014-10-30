@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 /*
  * make ember-easyForm support Bootstrap 3
  * https://github.com/dockyard/ember-easyForm/wiki/Bootstrap-3-and-Ember-Data-With-Server-Side-Validations

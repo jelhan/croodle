@@ -1,3 +1,6 @@
+import Ember from "ember";
+import $ from "jquery";
+
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
     save: function(){
@@ -35,44 +38,44 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   
   answerTypes: function() {
     return [
-      Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
           id : "YesNo",
           labelTranslation : "answerTypes.yesNo.label",
           answers : [
-                  Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
                     id: "yes",
                     labelTranslation: "answerTypes.yes.label",
                     icon: "glyphicon glyphicon-thumbs-up"
                   }),
-                  Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
                     id: "no",
                     labelTranslation: "answerTypes.no.label",
                     icon: "glyphicon glyphicon-thumbs-down"
                   })
               ]
       }),
-      Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
           id : "YesNoMaybe",
           labelTranslation : "answerTypes.yesNoMaybe.label",
           answers : [
-                  Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
                     id: "yes",
                     labelTranslation: "answerTypes.yes.label",
                     icon: "glyphicon glyphicon-thumbs-up"
                   }),
-                  Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
                     id: "maybe",
                     labelTranslation: "answerTypes.maybe.label",
                     icon: "glyphicon glyphicon-hand-right"
                   }),
-                  Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
                     id: "no",
                     labelTranslation: "answerTypes.no.label",
                     icon: "glyphicon glyphicon-thumbs-down"
                   })
               ]
       }),
-      Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
           id : "FreeText",
           labelTranslation : "answerTypes.freeText.label",
           answers : []

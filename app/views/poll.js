@@ -1,4 +1,8 @@
-export default Ember.View.extend(Em.I18n.TranslateableProperties, {
+import Ember from "ember";
+import moment from "moment";
+import $ from "jquery";
+
+export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
   showEvaluation: false,
   
   actions: {

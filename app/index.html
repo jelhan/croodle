@@ -1,140 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Croodle</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Croodle</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- build:css(tmp/result) assets/app.min.css -->
-    <link rel="stylesheet" href="/assets/app.css">
-  <!-- endbuild -->
+    {{content-for 'head'}}
 
-  <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
+    <link rel="stylesheet" href="assets/vendor.css">
+    <link rel="stylesheet" href="assets/croodle.css">
+  </head>
+  <body>
+    {{content-for 'body'}}
 
-  <!-- build:js(tmp/result) assets/config.min.js -->
-
-    <script src="/config/environment.js"></script>
-    <!-- @if tests=false -->
-
-      <!-- @if dist=false -->
-        <script src="/config/environments/development.js"></script>
-      <!-- @endif -->
-      <!-- @if dist=true -->
-        <script src="/config/environments/production.js"></script>
-      <!-- @endif -->
-
-    <!-- @endif --><!-- @if tests=true -->
-      <script src="/config/environments/test.js"></script>
-    <!-- @endif -->
-
-  <!-- endbuild -->
-
-  <!-- build:js(tmp/result) assets/vendor.min.js -->
-
-    <!-- @if dist=false -->
-      <script src="/vendor/jquery/dist/jquery.js"></script>
-      <script src="/vendor/handlebars/handlebars.js"></script>
-      <script src="/vendor/ember/ember.js"></script>
-      <script src="/vendor/ember-data/ember-data.js"></script>
-      <script src="/vendor/floatThead/dist/jquery.floatThead.js"></script>
-      <script src="/vendor/moment/min/moment-with-locales.js"></script>
-      <script src="/vendor/webshim/js-webshim/dev/polyfiller.js"></script>
-      <script src="/vendor/bootstrap/dist/js/bootstrap.js"></script>
-    <!-- @endif -->
-    <!-- @if dist=true -->
-      <script src="/vendor/jquery/dist/jquery.min.js"></script>
-      <script src="/vendor/handlebars/handlebars.runtime.js"></script>
-      <script src="/vendor/ember/ember.prod.js"></script>
-      <script src="/vendor/ember-data/ember-data.prod.js"></script>
-      <script src="/vendor/floatThead/dist/jquery.floatThead.min.js"></script>
-      <script src="/vendor/moment/min/moment-with-locales.min.js"></script>
-      <script src="/vendor/webshim/js-webshim/minified/polyfiller.js"></script>
-      <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- @endif -->
-    
-    <script src="/vendor/loader.js/loader.js"></script>
-    <script src="/vendor/ember-resolver/dist/ember-resolver.js"></script>
-    <script src="/vendor/ember-shim.js"></script>
-    <script src="/vendor/ic-ajax/dist/named-amd/main.js"></script>
-    <script src="/vendor/ember-load-initializers/ember-load-initializers.js"></script>
-    <script src="/vendor/ember-validations/index.js"></script>
-    <script src="/vendor/ember-easyForm/index.js"></script>
-    <script src="/vendor/cldr/plurals.js"></script>
-    <script src="/vendor/ember-i18n/lib/i18n.js"></script>
-    <script src="/vendor/ember-i18n/lib/i18n-plurals.js"></script>
-    <script src="/vendor/sjcl/sjcl.js"></script>
-    <script src="/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-
-    <script src="/vendor/modernizr/modernizr.js"></script>
-  <!-- endbuild -->
-
-  <!-- build:js(tmp/result) assets/app.min.js -->
-
-    <script src="/assets/app.js"></script>
-    <script src="/assets/templates.js"></script>
-
-  <!-- endbuild -->
-
-  <!-- @if dist=false -->
-  <style>
-    @keyframes domChanged { from { background: yellow; } }
-    @-webkit-keyframes domChanged { from { background: yellow; } }
-    .ember-view { animation: domChanged 1s; -webkit-animation: domChanged 1s; }
-  </style>
-  <!-- @endif -->
-  <!-- @if tests=true -->
-  <script src="/vendor/ember-shim.js"></script>
-  <link rel="stylesheet" href="/vendor/qunit/qunit/qunit.css">
-  <script src="/vendor/qunit/qunit/qunit.js"></script>
-  <script src="/vendor/qunit-shim.js"></script>
-  <script src="/vendor/ember-qunit/dist/named-amd/main.js"></script>
-
-  <style>
-    #ember-testing-container {
-      position: absolute;
-      background: white;
-      bottom: 0;
-      right: 0;
-      width: 640px;
-      height: 384px;
-      overflow: auto;
-      z-index: 9999;
-      border: 1px solid #ccc;
-    }
-    #ember-testing {
-      zoom: 50%;
-    }
-  </style>
-  <!-- @endif -->
-
-</head>
-<body>
-  <!--[if lt IE 8]>
-    <p class="browsehappy">
-      You are using an <strong>outdated</strong> browser. Please
-      <a href="http://browsehappy.com/">upgrade your browser</a>
-      to improve your experience.
-    </p>
-  <![endif]-->
-
-  <!-- @if tests=true -->
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
-  <script src="/tests/tests.js"></script>
-  <script src="/tests/test-helper.js"></script>
-  <script src="/tests/test-loader.js"></script>
-  <script src="/testem.js"></script>
-  <!-- @endif -->
-
-  <!-- @if tests=false -->
-  <script>
-    window.App = require('croodle/app')['default'].create(ENV.APP);
-    
-    webshim.polyfill('forms forms-ext');
-  </script>
-  <!-- @endif -->
-
-</body>
+    <script>
+      webshim.polyfill('forms forms-ext');
+    </script>
+    <script src="assets/vendor.js"></script>
+    <script src="assets/croodle.js"></script>
+  </body>
 </html>

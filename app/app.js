@@ -1,5 +1,10 @@
+import Ember from 'ember';
 import Resolver from 'ember/resolver';
 import loadInitializers from 'ember/load-initializers';
+import config from './config/environment';
+import sjcl from 'sjcl';
+
+Ember.MODEL_FACTORY_INJECTIONS = true;
 
 // decrypt / encrypt computed property helper
 Ember.computed.encrypted = function(encryptedField, dataType) {
@@ -46,10 +51,9 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
             
             case 'date':
                 // https://github.com/emberjs/data/blob/master/packages/ember-data/lib/transforms/date.js
-                var type = typeof decryptedValue;
-                if (type === "string") {
+                if (typeof decryptedValue === "string") {
                   return new Date(Ember.Date.parse(decryptedValue));
-                } else if (type === "number") {
+                } else if (typeof decryptedValue === "number") {
                   return new Date(decryptedValue);
                 } else if (decryptedValue === null || decryptedValue === undefined) {
                   // if the value is not present in the data,
@@ -68,12 +72,11 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
                 
             case 'boolean':
                 // https://github.com/emberjs/data/blob/master/packages/ember-data/lib/transforms/boolean.js
-                var type = typeof decryptedValue;
-                if (type === "boolean") {
+                if (typeof decryptedValue === "boolean") {
                   return decryptedValue;
-                } else if (type === "string") {
+                } else if (typeof decryptedValue === "string") {
                   return decryptedValue.match(/^true$|^t$|^1$/i) !== null;
-                } else if (type === "number") {
+                } else if (typeof decryptedValue === "number") {
                   return decryptedValue === 1;
                 } else {
                   return false;
@@ -83,16 +86,14 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
 };
 
 var App = Ember.Application.extend({
-  modulePrefix: 'croodle', // TODO: loaded via config
+  modulePrefix: config.modulePrefix,
+  podModulePrefix: config.podModulePrefix,
   Resolver: Resolver
 });
-
-import extendTextField from 'croodle/ext/text-field';
-extendTextField();
 
 import formattedDateHelper from 'croodle/helpers/formatted-date';
 Ember.Handlebars.registerBoundHelper('formattedDate', formattedDateHelper);
 
-loadInitializers(App, 'croodle');
+loadInitializers(App, config.modulePrefix);
 
 export default App;

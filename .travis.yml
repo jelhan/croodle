@@ -1,7 +1,16 @@
+---
 language: node_js
-node_js:
-  - 0.10
-before_script:
-  - npm install -g grunt-cli
+
+sudo: false
+
+cache:
+  directories:
+    - node_modules
+
+install:
   - npm install -g bower
+  - npm install
   - bower install
+
+script:
+  - npm test

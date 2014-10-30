@@ -1,3 +1,4 @@
+import Ember from "ember";
 import translations from "croodle/lang/translations";
 
 export default Ember.View.extend({

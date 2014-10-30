@@ -1,3 +1,5 @@
+import DS from "ember-data";
+
 export default DS.RESTAdapter.extend({
   // set namespace to api.php in same subdirectory
   namespace:

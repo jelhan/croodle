@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 export default Ember.ObjectController.extend({
 	is404: function(){
 		return this.get('status') === 404;

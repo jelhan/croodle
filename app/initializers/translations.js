@@ -1,4 +1,6 @@
+import Ember from "ember";
 import translations from "croodle/lang/translations";
+import moment from "moment";
 
 export default {
     name: 'i18n',

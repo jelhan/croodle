@@ -1,3 +1,6 @@
+import Ember from "ember";
+import $ from "jquery";
+
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
     save: function() {
@@ -22,11 +25,11 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
 
   pollTypes: function(){
     return [
-      Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
         id : "FindADate",
         labelTranslation : "pollTypes.findADate.label"
       }),
-      Em.Object.extend(Em.I18n.TranslateableProperties, {}).create({
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
         id : "MakeAPoll",
         labelTranslation : "pollTypes.makeAPoll.label"
       })

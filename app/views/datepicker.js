@@ -1,4 +1,7 @@
-export default Em.View.extend({
+import Ember from "ember";
+import $ from "jquery";
+
+export default Ember.View.extend({
   classNames: ['datepicker'],
 
   didInsertElement: function() {

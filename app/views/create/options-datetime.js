@@ -1,4 +1,7 @@
-export default Em.View.extend({
+import Ember from "ember";
+import webshim from "webshim";
+
+export default Ember.View.extend({
     didInsertElement: function(){
         this._super();
 

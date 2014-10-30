@@ -1,3 +1,6 @@
+import Ember from "ember";
+import $ from "jquery";
+
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
     save: function(){

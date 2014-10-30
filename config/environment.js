@@ -1,16 +1,46 @@
-// Put general configuration here. This file is included
-// in both production and development BEFORE Ember is
-// loaded.
-//
-// For example to enable a feature on a canary build you
-// might do:
-//
-// window.ENV = {FEATURES: {'with-controller': true}};
+/* jshint node: true */
 
-window.ENV = {
-    FEATURES: {
+module.exports = function(environment) {
+  var ENV = {
+    modulePrefix: 'croodle',
+    environment: environment,
+    baseURL: '/',
+    locationType: 'auto',
+    EmberENV: {
+      FEATURES: {
         'query-params-new': true
-    }
-};
+      }
+    },
 
-window.ENV.MODEL_FACTORY_INJECTIONS = true;
+    APP: {
+      // Here you can pass flags/options to your application instance
+      // when it is created
+    }
+  };
+
+  if (environment === 'development') {
+    // ENV.APP.LOG_RESOLVER = true;
+    ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
+
+  if (environment === 'test') {
+    // Testem prefers this...
+    ENV.baseURL = '/';
+    ENV.locationType = 'auto';
+
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = '#ember-testing';
+  }
+
+  if (environment === 'production') {
+
+  }
+
+  return ENV;
+};

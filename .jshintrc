@@ -1,22 +1,14 @@
 {
-  "predef": {
-    "document": true,
-    "window": true,
-    "location": true,
-    "setTimeout": true,
-    "Ember": true,
-    "Em": true,
-    "DS": true,
-    "$": true,
-    "moment": true,
-    "sjcl": true
-  },
-  "node" : false,
-  "browser" : false,
+  "predef": [
+    "document",
+    "window",
+    "-Promise"
+  ],
+  "browser" : true,
   "boss" : true,
-  "curly": false,
+  "curly": true,
   "debug": false,
-  "devel": false,
+  "devel": true,
   "eqeqeq": true,
   "evil": true,
   "forin": false,
@@ -35,5 +27,6 @@
   "strict": false,
   "white": false,
   "eqnull": true,
-  "esnext": true
+  "esnext": true,
+  "unused": true
 }
