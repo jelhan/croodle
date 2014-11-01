@@ -73,7 +73,13 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   validations: {
     enoughOptions: {
       acceptance: {
-        message: Ember.I18n.t('create.options.error.notEnoughOptions')
+        message: Ember.I18n.t('create.options.error.notEnoughDates'),
+        if: 'isFindADate'
+      },
+      inclusion: {
+        in: ['1', 1, true],
+        message: Ember.I18n.t('create.options.error.notEnoughOptions'),
+        unless: 'isFindADate'
       }
     }
   }

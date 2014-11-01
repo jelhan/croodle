@@ -24,10 +24,10 @@
           {{/each}}
         </tbody>
       </table>
-      {{hint-field enoughTimes
-          textTranslation="create.options-datetime.datetimes.hint"
-      }}
       {{error-field enoughTimes}}
+    {{/input}}
+    {{#input correctTimeFormat}}
+      {{error-field correctTimeFormat}}
     {{/input}}
   {{/form-for}}
 

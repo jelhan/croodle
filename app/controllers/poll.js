@@ -322,6 +322,8 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
 
         newUserName: {
             presence: {
+                message: Ember.I18n.t('poll.error.newUserName'),
+              
                 /*
                  * validate if a user name is given
                  * if it's forced by poll settings (anonymousUser === false)
