@@ -18,9 +18,9 @@ $datahandler = new datahandler();
 
 // get query parameter
 $query_paramter = split("/",$_SERVER["QUERY_STRING"]);
-$type = $query_paramter[1];
-if (isset($query_paramter[2])) {
-    $requested_id = $query_paramter[2];
+$type = $query_paramter[0];
+if (isset($query_paramter[1])) {
+    $requested_id = $query_paramter[1];
 }
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -66,8 +66,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         
     // write data
     case 'POST':
-        $type = $query_paramter[1];
-        
         // get data send with request
         $data = file_get_contents('php://input');
         
