@@ -15,14 +15,13 @@ export default Ember.View.extend({
   languageChanged: function() {
     // change language
     var language = this.get('controller.language.selected');
-    Ember.I18n.translations = translations[language];
     
-    // rerender page
-    App.reset();
-    
-    // set cookie when language is changed manualy
+    // save language in cookie
     document.cookie="language=" + language + ";" +
             // give it an lifetime of one year
             "max-age=" + 60*60*24*356 + ";";
+    
+    // rerender page
+    App.reset();
   }.observes('controller.language.selected')
 });

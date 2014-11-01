@@ -41,5 +41,8 @@ export default {
         
         // set moment locale
         moment.locale( language );
+        
+        // set webshim locale
+        webshim.activeLang(language);
     }
 };

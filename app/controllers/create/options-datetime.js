@@ -145,6 +145,27 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     }.property('contents.times.@each.value')
   }),
   
+  /*
+   * check if all times are in correct format
+   */
+  correctTimeFormat: function(){
+    var datetimes = this.get('datetimes'),
+        self = this,
+        isValid = true;
+
+    return datetimes.every(function(value, key){
+      var times = self.get('datetimes.' + key + '.@eachTimesValue');
+      
+      return times.every(function(time){
+        return Ember.isEmpty(time) ||
+               self.getHoursAndMinutesFromInput(time) !== false;
+      });
+    });
+  }.property('datetimes.@each.@eachTimesValue'),
+  
+  /*
+   * check if there is atleast one time per date
+   */
   enoughTimes: function(){
     var datetimes = this.get('datetimes'),
         self = this,
@@ -205,6 +226,12 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     enoughTimes: {
       acceptance: {
         message: Ember.I18n.t('create.options-datetime.error.notEnoughTimes')
+      }
+    },
+    
+    correctTimeFormat: {
+      acceptance: {
+        message: Ember.I18n.t('create.options-datetime.error.correctTimeFormat')
       }
     }
   }
