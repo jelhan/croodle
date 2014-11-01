@@ -1,5 +1,4 @@
 import Ember from "ember";
-import $ from "jquery";
 
 export default Ember.View.extend({
   classNames: ['datepicker'],
@@ -9,7 +8,7 @@ export default Ember.View.extend({
 
     this._super();
 
-    $('.datepicker').datepicker({
+    Ember.$('.datepicker').datepicker({
       format: "yyyy-mm-dd hh:mm:ss",
       multidate: true,
       multidateSeparator: ";",

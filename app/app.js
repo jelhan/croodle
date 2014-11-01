@@ -2,7 +2,8 @@ import Ember from 'ember';
 import Resolver from 'ember/resolver';
 import loadInitializers from 'ember/load-initializers';
 import config from './config/environment';
-import sjcl from 'sjcl';
+/* global sjcl */
+/* global webshim */
 
 Ember.MODEL_FACTORY_INJECTIONS = true;
 
@@ -95,5 +96,7 @@ import formattedDateHelper from 'croodle/helpers/formatted-date';
 Ember.Handlebars.registerBoundHelper('formattedDate', formattedDateHelper);
 
 loadInitializers(App, config.modulePrefix);
+
+webshim.polyfill('forms forms-ext');
 
 export default App;

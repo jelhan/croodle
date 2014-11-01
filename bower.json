@@ -15,7 +15,6 @@
     "qunit": "~1.15.0",
     "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/tags/v1.0.0/ember-validations.js",
     "ember-easyForm": "http://builds.dockyard.com/ember-easyForm/latest/ember-easyForm.js",
-    "cldr": "~1.0.2",
     "ember-i18n": "~2.9.0",
     "sjcl": "~1.0.0",
     "bootstrap": "~3.2.0",

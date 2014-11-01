@@ -1,5 +1,4 @@
 import Ember from "ember";
-import $ from "jquery";
 
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
@@ -39,7 +38,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
 
       // update polyfill used for legacy support of html5 input time after new form elements have been insert
       // has to wait after dom is updated
-      Ember.run.next(this, function() { $('input[type=time]').updatePolyfill(); });
+      Ember.run.next(this, function() { Ember.$('input[type=time]').updatePolyfill(); });
     },
     
     save: function(){
@@ -90,7 +89,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     submit: function(){
       this.validate();
       
-      $.each(Ember.View.views, function(id, view) {
+      Ember.$.each(Ember.View.views, function(id, view) {
         if(view.isEasyForm) {
           view.focusOut();
         }
@@ -150,8 +149,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
    */
   correctTimeFormat: function(){
     var datetimes = this.get('datetimes'),
-        self = this,
-        isValid = true;
+        self = this;
 
     return datetimes.every(function(value, key){
       var times = self.get('datetimes.' + key + '.@eachTimesValue');

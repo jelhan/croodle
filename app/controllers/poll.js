@@ -1,5 +1,4 @@
 import Ember from "ember";
-import $ from "jquery";
 
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     encryptionKey: '',
@@ -27,7 +26,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             this.set('errors.everyOptionIsAnswered', '');
             
             // recalculate fixedHeaders
-            $('.user-selections-table').floatThead('reflow');
+            Ember.$('.user-selections-table').floatThead('reflow');
         },
         
         /*
@@ -54,7 +53,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         submitNewUser: function() {
           this.validate();
           
-          $.each(Ember.View.views, function(id, view) {
+          Ember.$.each(Ember.View.views, function(id, view) {
             if(view.isEasyForm) {
               view.focusOut();
             }
@@ -171,7 +170,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             evaluation.push({
                 id: answer.label,
                 label: answer.label,
-                options: $.extend([], options)
+                options: Ember.$.extend([], options)
             });
         });
         // create object for no answer if answers are not forced
@@ -179,7 +178,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
             evaluation.push({
                 id: null,
                 label: 'no answer',
-                options: $.extend([], options)
+                options: Ember.$.extend([], options)
             });
         }
         

@@ -1,5 +1,6 @@
 import Ember from "ember";
 import translations from "croodle/lang/translations";
+/* global App */
 
 export default Ember.View.extend({
   templateName: 'language-switch',

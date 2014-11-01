@@ -1,5 +1,5 @@
 import Ember from "ember";
-import webshim from "webshim";
+/* global webshim */
 
 export default Ember.View.extend({
     didInsertElement: function(){

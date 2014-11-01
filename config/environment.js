@@ -4,8 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'croodle',
     environment: environment,
-    baseURL: '/',
-    locationType: 'auto',
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         'query-params-new': true
@@ -39,7 +38,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    
   }
 
   return ENV;

@@ -2,7 +2,12 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-var app = new EmberApp();
+var app = new EmberApp({
+  // do not fingerprint webshim
+  fingerprint: {
+    exclude: ['assets/shims']
+  }
+});
 
 // Use `app.import` to add additional libraries to the generated
 // output files.
@@ -19,19 +24,26 @@ var app = new EmberApp();
 
 app.import({
   development: 'bower_components/moment/min/moment-with-locales.js',
-  production: 'bower_components/momemt/min/moment-with-locales.min.js'
+  production: 'bower_components/moment/min/moment-with-locales.min.js'
 });
 
 app.import({
   development: 'bower_components/bootstrap/dist/js/bootstrap.js',
   production: 'bower_components/bootstrap/dist/js/bootstrap.min.js'
 });
+app.import({
+  development: 'bower_components/bootstrap/dist/css/bootstrap.css',
+  production: 'bower_components/bootstrap/dist/css/bootstrap.min.css'
+});
+if (app.env === 'development') {
+  app.import('bower_components/bootstrap/dist/css/bootstrap.css.map', {
+    destDir: 'assets'
+  });
+}
 
 app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
 
 app.import('bower_components/ember-easyForm/index.js');
-
-app.import('bower_components/cldr/plurals.js');
 
 app.import('bower_components/ember-i18n/lib/i18n.js');
 app.import('bower_components/ember-i18n/lib/i18n-plurals.js');
@@ -52,5 +64,10 @@ app.import('bower_components/sjcl/sjcl.js');
 
 app.import('bower_components/modernizr/modernizr.js');
 
+var pickFiles = require('broccoli-static-compiler');
+var webshim = pickFiles('bower_components/webshim/js-webshim/minified/shims', {
+  srcDir: '/',
+  destDir: '/assets/shims'
+});
 
-module.exports = app.toTree();
+module.exports = app.toTree(webshim);

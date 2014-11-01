@@ -1,4 +1,4 @@
-import moment from "moment";
+/* global moment */
 
 export default function(date, options) {
   var times = options.hash.times ? options.hash.times : false,

@@ -1,7 +1,7 @@
 import Ember from "ember";
 
 /*
-* ember-radio by FellowMD
+ * ember-radio by FellowMD
  * https://github.com/FellowMD/ember-radio/blob/master/app/views/radio.js
  */
 export default Ember.View.extend({

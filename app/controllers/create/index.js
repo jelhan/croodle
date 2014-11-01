@@ -1,5 +1,4 @@
 import Ember from "ember";
-import $ from "jquery";
 
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   actions: {
@@ -11,7 +10,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
     submit: function(){
       this.validate();
       
-      $.each(Ember.View.views, function(id, view) {
+      Ember.$.each(Ember.View.views, function(id, view) {
         if(view.isEasyForm) {
           view.focusOut();
         }
