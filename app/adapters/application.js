@@ -9,7 +9,7 @@ export default DS.RESTAdapter.extend({
     // remove leading and trailing slash
     .replace(/\/$/, '')
     // add api.php
-    .concat('/api')
+    .concat('/api.php?')
     // remove leading slash
     .replace(/^\//g, '')
 });
