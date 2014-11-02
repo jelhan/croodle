@@ -58,8 +58,6 @@ app.import({
   production: 'bower_components/webshim/js-webshim/minified/polyfiller.js'
 });
 
-app.import('bower_components/ember-validations/index.js');
-
 app.import('bower_components/sjcl/sjcl.js');
 
 app.import('bower_components/modernizr/modernizr.js');

@@ -34,6 +34,7 @@
     "express": "^4.8.5",
     "glob": "^4.0.5",
     "broccoli-static-compiler": "~0.2.1",
-    "ember-cli-less": "~1.0.4"
+    "ember-cli-less": "~1.0.4",
+    "ember-validations": "~2.0.0"
   }
 }

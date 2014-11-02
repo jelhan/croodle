@@ -1,6 +1,7 @@
 import Ember from "ember";
+import EmberValidations from 'ember-validations';
 
-export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
+export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     encryptionKey: '',
     newUserName: '',
     queryParams: ['encryptionKey'],
