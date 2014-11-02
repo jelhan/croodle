@@ -1,6 +1,5 @@
 import Ember from "ember";
 import translations from "croodle/lang/translations";
-/* global App */
 
 export default Ember.View.extend({
   templateName: 'language-switch',
@@ -23,6 +22,6 @@ export default Ember.View.extend({
             "max-age=" + 60*60*24*356 + ";";
     
     // rerender page
-    App.reset();
+    Croodle.reset();
   }.observes('controller.language.selected')
 });
