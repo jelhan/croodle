@@ -1,8 +1,5 @@
 {
   "name": "croodle",
-  "APIMethod": "proxy",
-  "proxyURL": "http://localhost:80/croodle",
-  "proxyPath": "/api.php",
   "version": "0.2.0",
   "private": true,
   "directories": {
