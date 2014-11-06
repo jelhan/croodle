@@ -12,6 +12,7 @@ export default Em.View.extend({
       multidateSeparator: ";",
       calendarWeeks: true,
       todayHighlight: true,
+      language: this.get('controller.language.selected')
     })
     // bind date changes to option array in model
     .on('changeDate', function(e){
