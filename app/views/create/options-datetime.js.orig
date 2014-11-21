@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 import Ember from "ember";
 /* global webshim */
 
 export default Ember.View.extend({
+    didInsertElement: function(){
+        this._super();
+=======
+export default Em.View.extend({
   didInsertElement: function(){
     this._super();
+>>>>>>> feat/backbutton-on-create
 
     webshim.setOptions("forms-ext", {
       "time": {

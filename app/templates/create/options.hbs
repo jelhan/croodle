@@ -7,9 +7,9 @@
         {{label-field enoughOptions
             textTranslation="create.options.options.label"
         }}
-        {{#each option in options}}
-          {{#input option.title}}
-            {{input-field option.title}}
+        {{#each optionText in optionsTexts}}
+          {{#input optionText.value}}
+            {{input-field optionText.value}}
           {{/input}}
         {{/each}}
         {{#if view.showError}}
@@ -36,8 +36,9 @@
           {{error-field enoughOptions}}
         {{/if}}
       {{/input}}
+      
       {{input isDateTime as='checkbox'
-          labelTranslation="create.options.defineTimes.label"
+         labelTranslation="create.options.defineTimes.label"
       }}
     {{/form-for}}
     

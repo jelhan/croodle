@@ -1,12 +1,16 @@
+<<<<<<< HEAD
 import Ember from "ember";
-import EmberValidations from "ember-validations";
+import EmberValidations from 'ember-validations';
 
 export default Ember.ObjectController.extend(EmberValidations.Mixin, {
+=======
+export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   needs: 'create',
   
   optionsDates: Ember.computed.alias("controllers.create.optionsDates"),
   optionsTexts: Ember.computed.alias("controllers.create.optionsTexts"),
     
+>>>>>>> feat/backbutton-on-create
   actions: {
     save: function(){
       if (this.get('isDateTime')) {

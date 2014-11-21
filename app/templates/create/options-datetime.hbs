@@ -6,12 +6,12 @@
       }}
       <table class="table">
         <tbody>
-          {{#each datetime in datetimes}}
+          {{#each datetime in optionsDateTimes}}
             <tr>
               <td>
-                {{formattedDate datetime.contents.title}}
+                {{formattedDate datetime.title}}
               </td>
-              {{#each time in datetime.contents.times}}
+              {{#each time in datetime.times}}
                 <td>
                   {{#input time.value}}
                     {{input-field time.value as='time'
@@ -26,6 +26,7 @@
       </table>
       {{error-field enoughTimes}}
     {{/input}}
+    
     {{#input correctTimeFormat}}
       {{error-field correctTimeFormat}}
     {{/input}}
