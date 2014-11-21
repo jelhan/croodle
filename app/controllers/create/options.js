@@ -1,35 +1,16 @@
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
+  needs: 'create',
+  
+  optionsDates: Ember.computed.alias("controllers.create.optionsDates"),
+  optionsTexts: Ember.computed.alias("controllers.create.optionsTexts"),
+    
   actions: {
     save: function(){
-      var pollType = this.get('pollType');
-      
-      if (pollType === 'MakeAPoll') {
-        var options = this.get('model.options'),
-          newOptions = [];
-
-        // remove options without value
-        options.forEach(function(option) {
-          if (option.title !== '') {
-            newOptions.pushObject(option);
-          }
-        });
-
-        // set updated options
-        // 
-        // we have to hardly set new options even if they wasn't changed to
-        // trigger computed property; push on array doesn't trigger computed
-        // property to recalculate
-        this.set('model.options', newOptions);
-        
-        this.transitionToRoute('create.settings');
+      if (this.get('isDateTime')) {
+        this.transitionToRoute('create.options-datetime');
       }
       else {
-        if (this.get('isDateTime')) {
-          this.transitionToRoute('create.options-datetime');
-        }
-        else {
-          this.transitionToRoute('create.settings'); 
-        }
+        this.transitionToRoute('create.settings'); 
       }
     },
     
@@ -53,22 +34,38 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
    * returns true if required number of options is reached
    */
   enoughOptions: function(){
-    var requiredOptionsLength = 2,
+    var requiredOptionsLength,
         givenOptions,
         filtedOptions;
 
-    givenOptions = this.get('options');
+    if (this.get('isFindADate')) {
+      givenOptions = this.get('optionsDates');
+    }
+    else {
+      givenOptions = this.get('optionsTexts');
+    }
 
     // check if options are defined
     if (typeof givenOptions === 'undefined') {
       return false;
     }
-
-    // reduce array to options which have a title
+    
+    // set requiredOptions
+    if (this.get('isDateTime')) {
+      // only one date is required if times will be set
+      requiredOptionsLength = 1;
+    }
+    else {
+      // if it's a poll or if dates without times are inserted we require atleast
+      // two options
+      requiredOptionsLength = 2;
+    }
+    
+    // array of options which have no title
     filtedOptions = givenOptions.filterBy('title', '');
-
+    
     return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
-  }.property('options.@each.title'),
+  }.property('options.@each.title', 'isDateTime'),
 
   validations: {
     enoughOptions: {

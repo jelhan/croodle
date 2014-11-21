@@ -1,4 +1,8 @@
 export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
+  needs: 'create',
+  
+  optionsDateTimes: Ember.computed.alias("controllers.create.optionsDateTimes"),
+    
   actions: {
     /*
      * copy first line
@@ -11,13 +15,13 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
         // skip first element
         if (key > 0) {
           var newTimes = [];
-          firstLine.contents.times.forEach(function(time){
+          firstLine.times.forEach(function(time){
             newTimes.pushObject({
               value: time.value
             });
           });
           
-          datetime.set('contents.times', newTimes);
+          datetime.set('times', newTimes);
         }
       });
     },
@@ -26,10 +30,8 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
      * increase number of inputs fields for time
      */
     moreTimes: function(){
-      this.set('datetimesInputFields', this.get('datetimesInputFields') + 1);
-      
-      this.get('datetimes').forEach(function(datetime){
-        datetime.contents.times.pushObject({
+      this.get('optionsDateTimes').forEach(function(datetime){
+        datetime.times.pushObject({
           value: ''
         });
       });
@@ -39,48 +41,7 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
       Ember.run.next(this, function() { $('input[type=time]').updatePolyfill(); });
     },
     
-    save: function(){
-      /*
-       * set new options depending on selected times
-       */
-      
-      var datetimes = this.get('datetimes'),
-          newOptions = [],
-          self = this;
-      
-      datetimes.forEach(function(datetime){
-        datetime.contents.times.forEach(function(t){
-          var date = new Date(datetime.contents.title),
-              delimiter = '';
-                    
-          // check if there is a value for time
-          if (Ember.isEmpty(t.value)) {
-            return;
-          }
-          
-          // try to split time in minutes and hours
-          var time = self.getHoursAndMinutesFromInput(t.value);
-                    
-          // check time for valid format
-          if (time !== false) {
-            // hours and minutes seems valid, so update the date
-            date.setHours(time.hours);
-            date.setMinutes(time.minutes);
-            
-            newOptions.pushObject({
-              title: date
-            });
-          }
-        });
-      });
-      
-      // check if we have at least 2 options now
-      if (newOptions.length < 2) {
-        return;
-      }
-      
-      this.set('options', newOptions);
-      
+    save: function(){      
       // redirect to create/settings route
       this.transitionToRoute('create.settings');
     },
@@ -102,90 +63,59 @@ export default Ember.ObjectController.extend(Ember.Validations.Mixin, {
   },
   
   /*
-   * only used on init, not on increasing number of input fields!
-   */
-  datetimes: function(key, value, previousValue){
-    var datetimes = Ember.A(),
-        dates = this.get('options'),
-        datetimesCount = this.get('datetimesInputFields'),
-        self = this;
-    
-    if (typeof dates !== 'undefined') {
-      dates.forEach(function(date){
-        var o = {
-          title: date.title,
-          times: Ember.A()
-        };
-
-        for(var i = 1; i<=datetimesCount; i++) {
-          o.times.pushObject({
-            value: ''
-          });
-        }
-
-        datetimes.pushObject(self.get('datetimesTimesArray').create({'contents':o}));
-      });
-    }
-
-    return datetimes;
-  }.property('options'),
-  
-  /*
-   * helper Object as work-a-round to observe a nested array
-   */
-  datetimesTimesArray: Ember.Object.extend({
-    '@eachTimesValue': function(){
-      var times = [];
-      this.get('contents.times').forEach(function(value){
-        times.push(value.value);
-      });
-      return times;
-    }.property('contents.times.@each.value')
-  }),
-  
-  /*
    * check if all times are in correct format
    */
   correctTimeFormat: function(){
-    var datetimes = this.get('datetimes'),
+    var datetimes = this.get('optionsDateTimes'),
         self = this,
         isValid = true;
 
-    return datetimes.every(function(value, key){
-      var times = self.get('datetimes.' + key + '.@eachTimesValue');
+    return datetimes.every(function(datetime){
+      var times = datetime.times;
       
       return times.every(function(time){
-        return Ember.isEmpty(time) ||
-               self.getHoursAndMinutesFromInput(time) !== false;
+        return Ember.isEmpty(time.value) ||
+               self.getHoursAndMinutesFromInput(time.value) !== false;
       });
     });
-  }.property('datetimes.@each.@eachTimesValue'),
+  }.property('optionsDateTimes.@each.@eachTimesValue'),
   
   /*
-   * check if there is atleast one time per date
+   * check if enough times are inserted
    */
   enoughTimes: function(){
-    var datetimes = this.get('datetimes'),
+    var datetimes = this.get('optionsDateTimes'),
         self = this,
-        isValid = true;
-        
-    datetimes.forEach(function(value, key){
-      var times = self.get('datetimes.' + key + '.@eachTimesValue'),
-          valid = false;
-      
+        isValid = true,
+        requiredTimesPerDate;
+
+    // set requiredTimesPerDate
+    if (datetimes.length === 1) {
+      // if there is only one date, we require atleast two times
+      requiredTimesPerDate = 2;
+    }
+    else {
+      // if there are atleast two dates we require one time per date
+      requiredTimesPerDate = 1;
+    }
+    
+    datetimes.forEach(function(datetime){
+      var times = datetime.times,
+          validTimes = 0;
+
       times.forEach(function(time){
-        if(self.getHoursAndMinutesFromInput(time) !== false){
-          valid = true;
+        if(self.getHoursAndMinutesFromInput(time.value) !== false){
+          validTimes ++;
         }
       });
-      
-      if (valid === false) {
+
+      if (validTimes < requiredTimesPerDate) {
         isValid = false;
       }
     });
-    
+
     return isValid;
-  }.property('datetimes.@each.@eachTimesValue'),
+  }.property('optionsDateTimes.@each.@eachTimesValue'),
   
   getHoursAndMinutesFromInput: function(time){
     // try to split time in minutes and hours
