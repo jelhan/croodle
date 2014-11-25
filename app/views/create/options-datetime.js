@@ -12,6 +12,6 @@ export default Ember.View.extend({
       }
     });
 
-    this.$().updatePolyfill();
+    this.$('input[type="time"]').updatePolyfill();
   }
 });
