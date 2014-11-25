@@ -11,7 +11,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
      * copy first line
      */
     copyFirstLine: function(){
-      var datetimes = this.get('datetimes'),
+      var datetimes = this.get('optionsDateTimes'),
           firstLine = datetimes[0];
       
       datetimes.forEach(function(datetime, key) {
