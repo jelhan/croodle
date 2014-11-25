@@ -23,7 +23,7 @@ export default {
     "create.options-datetime.error.notEnoughTimes": "You must enter atleast one time per day. If only one day is selected you have to enter two times.",
     "create.options-datetime.error.correctTimeFormat": "Atleast one time is not in a valid format. Hours and minutes have to be seperated by a colon (e.g. 12:30).",
     "create.settings.answerType.label": "Please define available answers",
-    "create.settings.anonymousUser.label": "Allow anonym participation?",
+    "create.settings.anonymousUser.label": "Allow anonymous participation?",
     "create.settings.forceAnswer.label": "Force an answer?",
     "create.save": "save",
     "errors.inclusion": "is not included in the list",
