@@ -13,7 +13,7 @@ module('Integration - create poll', {
   }
 });
 
-test("default poll", function() {
+test("create a default poll", function() {
   expect(8);
   
   visit('/create').then(function() {
@@ -51,8 +51,8 @@ test("default poll", function() {
             equal(find('.user-selections-table thead tr th').length, 4);
             
             // check that current day is first option
-            equal(find(
-              Ember.$('.user-selections-table thead tr th')[1]).text().trim(),
+            equal(
+              find(find('.user-selections-table thead tr th')[1]).text().trim(),
               moment().format(moment.localeData().longDateFormat( 'LLLL' ).replace('LT' , '')).trim()
             );
           });
