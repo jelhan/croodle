@@ -3,7 +3,7 @@ export default {
     "answerTypes.yes.label": "Yes",
     "answerTypes.no.label": "No",
     "answerTypes.maybe.label": "Maybe",
-    "answerTypes.freeText.label": "Create own answer options“,
+    "answerTypes.freeText.label": "Create own answer options",
     "answerTypes.yesNo.label": "Yes, No",
     "answerTypes.yesNoMaybe.label": "Yes, No, Maybe",
     "create.index.input.pollType.label": "What is the purpose of your poll?",
