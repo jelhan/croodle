@@ -22,7 +22,10 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
   didInsertElement : function(){
     this._super();
     Ember.run.scheduleOnce('afterRender', this, function(){
-      var getScrollBarHeight = function(){
+      /*
+       * calculates horizontal scrollbar height depending on current browser
+       */
+      var getScrollbarHeight = function(){
         var wide_scroll_html = '<div id="wide_scroll_div_one" style="width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;"><div id="wide_scroll_div_two" style="height:100%;width:100px"></div></div>'; 
         Ember.$("body").append(wide_scroll_html); // Append our div and add the hmtl to your document for calculations
         var scroll_w1 = Ember.$("#wide_scroll_div_one").height(); // Getting the width of the surrounding(parent) div - we already know it is 50px since we styled it but just to make sure.
@@ -32,8 +35,19 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
         return scroll_bar_width;
       };
       
+      /*
+       * adding floatThead jQuery plugin to poll table
+       * https://mkoryak.github.io/floatThead/
+       * 
+       * scrollingTop:
+       *   Offset from the top of the window where the floating header will
+       *   'stick' when scrolling down
+       * Since we are adding a browser horizontal scrollbar on top, scrollingTop
+       * has to be set to height of horizontal scrollbar which depends on
+       * used browser
+       */
       Ember.$('.user-selections-table').floatThead({
-        'scrollingTop': getScrollBarHeight()
+        'scrollingTop': getScrollbarHeight()
       });
       
       /*
@@ -78,6 +92,18 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
         topScrollbarOuterThead.append(topScrollbarInnerThead).hide()
       );
       
+      /*
+       * resize scrollbars if window get resized
+       */
+      Ember.$( window ).resize(function(){
+        Ember.$('.top-scrollbar div').css('width', Ember.$('.user-selections-table').width() );
+        Ember.$('.top-scrollbar-floatThead').css('width', Ember.$('.table-scroll').outerWidth() );
+        Ember.$('.top-scrollbar-floatThead div').css('width', Ember.$('.user-selections-table').width() );
+      });
+      
+      /*
+       * bind scroll event on all scrollbars
+       */
       Ember.$('.table-scroll').scroll(function(){
         Ember.$('.top-scrollbar').scrollLeft( Ember.$('.table-scroll').scrollLeft() );
         Ember.$('.top-scrollbar-floatThead').scrollLeft( Ember.$('.table-scroll').scrollLeft() );
@@ -90,14 +116,18 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
         Ember.$('.table-scroll').scrollLeft( Ember.$('.top-scrollbar-floatThead').scrollLeft() );
         Ember.$('.top-scrollbar').scrollLeft( Ember.$('.top-scrollbar-floatThead').scrollLeft() );
       });
+      
       /*
-       * show scrollbar only, if header is fixed
+       * show inner scrollbar only, if header is fixed
        */
       Ember.$(window).scroll(function(){
         var windowTop = Ember.$(window).scrollTop(),
             tableTop = Ember.$('.table-scroll table').offset().top;
-        if( windowTop >= tableTop - getScrollBarHeight() ) {
+        if( windowTop >= tableTop - getScrollbarHeight() ) {
           Ember.$('.top-scrollbar-floatThead').show();
+          
+          // update scroll position
+          Ember.$('.top-scrollbar-floatThead').scrollLeft( Ember.$('.table-scroll').scrollLeft() );
         }
         else {
           Ember.$('.top-scrollbar-floatThead').hide();

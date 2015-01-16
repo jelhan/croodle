@@ -26,8 +26,17 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
             this.set('errors.newUserName', '');
             this.set('errors.everyOptionIsAnswered', '');
             
-            // recalculate fixedHeaders
-            Ember.$('.user-selections-table').floatThead('reflow');
+            Ember.run.scheduleOnce('afterRender', this, function(){
+              // recalculate fixedHeaders
+              Ember.$('.user-selections-table').floatThead('reflow');
+            });
+            
+            Ember.run.scheduleOnce('afterRender', this, function(){
+              // resize top scrollbars
+              Ember.$('.top-scrollbar div').css('width', Ember.$('.user-selections-table').width() );
+              Ember.$('.top-scrollbar-floatThead').css('width', Ember.$('.table-scroll').outerWidth() );
+              Ember.$('.top-scrollbar-floatThead div').css('width', Ember.$('.user-selections-table').width() );
+            });
         },
         
         /*
