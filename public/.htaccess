@@ -1,5 +1,5 @@
 # Content Security Policy-Headers
 # you have to enable apache module headers to get them working
-#Header set Content-Security-Policy "default-src 'self'"
-#Header set X-Content-Security-Policy "default-src 'self'"
-#Header set X-Webkit-CSP "default-src 'self'"
+#Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+#Header set X-Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+#Header set X-Webkit-CSP "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
