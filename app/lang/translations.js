@@ -73,7 +73,7 @@ export default {
     "poll.input.showEvaluation.hide": "Hide",
     "poll.input.showEvaluation.show": "Show",
     "pollTypes.findADate.label": "I would like to make a date. (e.g. date or time for appointment)",
-    "pollTypes.makeAPoll.label": "I would like to answer a question. (e.g. what goes best with coffee?",
+    "pollTypes.makeAPoll.label": "I would like to answer a question. (e.g. what goes best with coffee?)",
   },
   "de": {
     "answerTypes.yes.label": "Ja",
@@ -149,6 +149,6 @@ export default {
     "poll.input.showEvaluation.hide": "Verbergen",
     "poll.input.showEvaluation.show": "Anzeigen",
     "pollTypes.findADate.label": "Ich möchte einen Termin finden. (z.B. Datum oder Uhrzeit für eine Verabredung)",
-    "pollTypes.makeAPoll.label": "Ich möchte eine Frage beantworten. (z.B. Wozu schmeckt Kaffe am Besten?",
+    "pollTypes.makeAPoll.label": "Ich möchte eine Frage beantworten. (z.B. Wozu schmeckt Kaffe am Besten?)",
   }
 };
