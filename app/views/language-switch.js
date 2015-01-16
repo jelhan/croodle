@@ -23,6 +23,6 @@ export default Ember.View.extend({
             "max-age=" + 60*60*24*356 + ";";
     
     // rerender page
-    Croodle.reset();
+    window.location.reload();
   }.observes('controller.language.selected')
 });
