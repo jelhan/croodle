@@ -11,12 +11,17 @@
 
     <link rel="stylesheet" href="assets/vendor.css">
     <link rel="stylesheet" href="assets/croodle.css">
+    
+    {{content-for 'head-footer'}}
+    
   </head>
   <body>
     {{content-for 'body'}}
 
     <script src="assets/vendor.js"></script>
     <script src="assets/croodle.js"></script>
+    
+    {{content-for 'body-footer'}}
     
     <noscript>
       <div class="container-fluid">
