@@ -86,13 +86,12 @@
                 {{else}}
                   {{#each answer in answers}}
                     <div class="radio">
-                      <label>
-                        {{radio-button checked=newUserSelection.value value=answer}}
+                      {{#radio-button value=answer groupValue=newUserSelection.value}}
                         <span {{bind-attr class="answer.id"}}>
                           <span {{bind-attr class="answer.icon"}}></span>
                           {{answer.label}}
                         </span>
-                      </label>
+                      {{/radio-button}}
                     </div>
                   {{/each}}
                 {{/if}}
