@@ -10,18 +10,5 @@ export default Ember.View.extend({
       languages.push(lang);
     }
     return languages;
-  }.property(),
-  
-  languageChanged: function() {
-    // change language
-    var language = this.get('controller.language.selected');
-    
-    // save language in cookie
-    document.cookie="language=" + language + ";" +
-            // give it an lifetime of one year
-            "max-age=" + 60*60*24*356 + ";";
-    
-    // rerender page
-    window.location.reload();
-  }.observes('controller.language.selected')
+  }.property()
 });
