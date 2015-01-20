@@ -1,7 +1,7 @@
 croodle
 =======
 
-[![Build Status](https://travis-ci.org/jelhan/croodle?branch=master&style=flat)](https://travis-ci.org/jelhan/croodle)
+[![Build Status](https://travis-ci.org/jelhan/croodle.svg?branch=master)](https://travis-ci.org/jelhan/croodle)
 
 Croodle is a web application to schedule a date or to do a poll on a general topics. Stored content data like title and description, number and labels of options and available answers and names of users and there selections is encrypted/decrypted in the browser using 256 bits AES.
 
