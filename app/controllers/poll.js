@@ -43,21 +43,26 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
          * save a new user
          */
         saveNewUser: function(user){
-            var self = this;
-            
-            // create new user record in store
-            var newUser = this.store.createRecord('user', {
-                name: user.name,
-                creationDate: new Date(),
-                poll: this.get('model'),
-                selections: user.selections
+          var self = this;
+
+          // create new user record in store
+          var newUser = this.store.createRecord('user', {
+            name: user.name,
+            creationDate: new Date(),
+            poll: this.get('model'),
+            selections: user.selections
+          });
+
+          // save new user
+          newUser.save().catch(function(){
+            // error: new user is not saved
+            self.send('openModal', {
+              template: 'save-retry',
+              model: {
+                record: newUser
+              }
             });
-            
-            // save new user
-            newUser.save().then(function(){
-                // assign new user to poll
-                self.get('model.users').pushObject(newUser);
-            });
+          });
         },
         
         submitNewUser: function() {
