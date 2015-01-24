@@ -17,7 +17,7 @@ require_once 'classes/datahandler.php';
 $datahandler = new datahandler();
 
 // get query parameter
-$query_paramter = split("/",$_SERVER["QUERY_STRING"]);
+$query_paramter = explode("/",$_SERVER["QUERY_STRING"]);
 $type = $query_paramter[1];
 if (isset($query_paramter[2])) {
     $requested_id = $query_paramter[2];
