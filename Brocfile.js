@@ -69,9 +69,23 @@ app.import('bower_components/sjcl/sjcl.js');
 app.import('bower_components/modernizr/modernizr.js');
 
 var pickFiles = require('broccoli-static-compiler');
+// include webshim files into dist
 var webshim = pickFiles('bower_components/webshim/js-webshim/minified/shims', {
   srcDir: '/',
   destDir: '/assets/shims'
 });
 
-module.exports = app.toTree(webshim);
+// include dummy data into dist if environment is development or test
+if (app.env === 'development' || app.env === 'test') {
+  var dummyData = pickFiles('server/dummy', {
+    srcDir: '/',
+    destDir: '/data'
+  });
+}
+
+var mergeTrees = require('broccoli-merge-trees');
+module.exports = mergeTrees([
+  app.toTree(),
+  webshim,
+  dummyData
+]);
