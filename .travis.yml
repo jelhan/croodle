@@ -16,5 +16,9 @@ install:
   - npm install
   - bower install
 
+before_script:
+  - ember server --live-reload=false & # Start a server so we can hit the fake API from integration tests
+  - sleep 10 # wait for the server to be started
+
 script:
   - npm test
