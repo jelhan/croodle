@@ -10,7 +10,7 @@
 export default function(length){
     var text = "";
     var possible =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var random_array = new Uint32Array(length);
 
     // Make some attempt at preferring a strong CSPRNG first
