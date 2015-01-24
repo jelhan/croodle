@@ -38,7 +38,7 @@ module.exports = function(environment) {
   if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
-    ENV.locationType = 'auto';
+    ENV.locationType = 'hash';
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
