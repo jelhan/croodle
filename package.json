@@ -24,6 +24,7 @@
     "broccoli-merge-trees": "^0.2.1",
     "broccoli-static-compiler": "~0.2.1",
     "connect-restreamer": "^1.0.1",
+    "cors": "^2.5.3",
     "ember-cli": "0.1.7",
     "ember-cli-6to5": "0.2.1",
     "ember-cli-build-info": "0.0.4",

@@ -13,6 +13,10 @@ module.exports = function(app) {
   var mocks      = globSync('./mocks/**/*.js', { cwd: __dirname }).map(require);
   var proxies    = globSync('./proxies/**/*.js', { cwd: __dirname }).map(require);
 
+  /* use cors for testem requests */
+  var cors = require('cors');
+  app.use(cors());
+
   /* use node-phpcgi to handle api */
   var phpcgi = require('node-phpcgi')({
     documentRoot: __dirname.substring(0, __dirname.length - 6) + '/dist',
