@@ -1,22 +1,11 @@
 import Ember from "ember";
+import generatePassphrase from "../utils/generate-passphrase";
 
 export default Ember.Route.extend({
   beforeModel: function(){
-    // generate encryptionKey
-    var encryptionKeyLength = 40;
-    var encryptionKeyChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-    var encryptionKey = '';
-    var list = encryptionKeyChars.split('');
-    var len = list.length, i = 0;
-    do {
-      i++;
-      var index = Math.floor(Math.random() * len);
-      encryptionKey += list[index];
-    } while(i < encryptionKeyLength);
-    
     // set encryption key
-    this.set('encryption.key', encryptionKey);
+    var passphraseLength = 40;
+    this.set('encryption.key', generatePassphrase( passphraseLength ));
   },
 
   model: function(){
