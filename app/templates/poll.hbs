@@ -77,7 +77,7 @@
             {{/form-for}}
           </td>
           {{#each newUserSelection in controller.newUserSelections}}
-            <td>
+            <td class="newUserSelection">
               {{#form-for newUserSelection}}
                 {{#if isFreeText}}
                   {{#input value}}
@@ -113,7 +113,7 @@
         </tr>
 
         {{#each user in users}}
-          <tr>
+          <tr class="user">
             <td>{{user.name}}</td>
             {{#each selection in user.selections}}
               <td>

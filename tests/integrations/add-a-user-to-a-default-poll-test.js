@@ -14,26 +14,29 @@ module('Integration - create poll', {
 });
 
 test("add a user to a default poll", function() {
-  expect(1);
+  expect(2);
 
   visit('/poll/defaultpoll?encryptionKey=0123456789abcdefghijklmnopqrstuvwxyzABC').then(function() {
     fillIn('.newUserName input', 'Max Meier');
     
     Ember.$('.newUser td').each(function(i, e) {
-      console.log($('input[type=radio]'), $(e));
-      if(i % 2 === 0) {
-        $('input[type=radio]', $(e))[0].attr("checked","checked");
-      }
-      else {
-        $('input[type=radio]', $(e))[1].attr("checked","checked");
-      }
+      $('.newUserSelection').each(function(i, e){
+        if(i % 2 === 0) {
+          click( $('input[type=radio]', e)[0] );
+        }
+        else {
+          click( $('input[type=radio]', e)[1] );
+        }
+      });
     });
-    
-    var userSelecectionsTableLengthBefore = Ember.$('.user-selections-table').length;
+
+    var userSelecectionsTableLengthBefore = Ember.$('.user').length;
     click('.newUser button');
-    
+   
+    equal(Ember.$('.has-error').length, 0, "there is no validation error");
+ 
     andThen(function(){
-      equal(Ember.$('.user-selections-table').length, userSelecectionsTableLengthBefore + 1);
+      equal( find('.user').length, userSelecectionsTableLengthBefore + 1, "user is added to user selections table");
     });
   });
 });
