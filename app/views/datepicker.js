@@ -22,11 +22,6 @@ export default Ember.View.extend({
       var dates = e.dates,
           newDates = [];
 
-      // sort dates
-      dates.sort(function(a,b){
-        return new Date(a) - new Date(b);
-      });
-
       // get array in correct form
       dates.forEach(function(option) {
         newDates.pushObject({title: option});

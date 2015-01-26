@@ -35,6 +35,11 @@ export default Ember.ObjectController.extend({
           });
         });
         
+        // days should be sorted to get them in correct order
+        options.sort(function(a, b){
+          return a.title - b.title;
+        });
+        
         this.set('options', options);
       }
       else {
