@@ -135,9 +135,11 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
       });
       
       /*
-       * show timezone modal if local timezone differs to timezone poll got created with
+       * show timezone modal if
+       * - local timezone differs to timezone poll got created with and
+       * - poll is datetime 
        */
-      if( this.get('controller.timezoneDiffers') ) {
+      if( this.get('controller.timezoneDiffers') && this.get('controller.model.isDateTime') ) {
         Ember.$('#timezoneDiffers').modal();
       }
     });
