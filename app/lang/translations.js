@@ -156,7 +156,7 @@ export default {
     "poll.input.showEvaluation.show": "Anzeigen",
     "pollTypes.findADate.label": "Ich möchte einen Termin finden. (z.B. Datum oder Uhrzeit für eine Verabredung)",
     "pollTypes.makeAPoll.label": "Ich möchte eine Frage beantworten. (z.B. Wozu schmeckt Kaffe am Besten?)",
-  }
+  },
   "es": {
     "answerTypes.yes.label": "Si",
     "answerTypes.no.label": "No",
@@ -191,7 +191,7 @@ export default {
     "errors.accepted": "tiene que ser aceptado",
     "errors.empty": "no puede dejarse vacío",
     "errors.blank": "Debe rellenarse.",
-    "errors.present": "Debe dejarse vacío",.
+    "errors.present": "Debe dejarse vacío",
     "errors.tooLong": "Es demasiado largo (el máximo son {{count}} caractéres)",
     "errors.tooShort": "Por favor, escribir un mínimo de {{count}} caractéres.",
     "errors.wrongLength": "tiene una longitud incorrecta (Un minimo de {{count}} caractéres)",
