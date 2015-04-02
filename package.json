@@ -40,6 +40,6 @@
     "ember-radio-button": "^0.1.2",
     "ember-validations": "~2.0.0-",
     "express": "^4.8.5",
-    "node-phpcgi": "0.1.8"
+    "node-phpcgi": "0.3.1"
   }
 }
