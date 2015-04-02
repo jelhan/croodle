@@ -66,7 +66,7 @@
       <tbody>
         <tr class='newUser'>
           <td>
-            {{#form-for controller}}
+            {{#form-wrapper}}
               {{#input newUserName}}
                 {{input-field newUserName
                     placeholderTranslation="poll.input.newUserName.placeholder"
@@ -75,14 +75,14 @@
                   {{error-field newUserName}}
                 {{/if}}
               {{/input}}
-            {{/form-for}}
+            {{/form-wrapper}}
           </td>
           {{#each newUserSelection in controller.newUserSelections}}
             <td class="newUserSelection">
-              {{#form-for newUserSelection}}
+              {{#form-wrapper}}
                 {{#if isFreeText}}
-                  {{#input value}}
-                    {{input-field value}}
+                  {{#input newUserName.value}}
+                    {{input-field newUserName.value}}
                   {{/input}}
                 {{else}}
                   {{#each answer in answers}}
@@ -96,7 +96,7 @@
                     </div>
                   {{/each}}
                 {{/if}}
-              {{/form-for}}
+              {{/form-wrapper}}
             </td>
           {{/each}}
           <td>

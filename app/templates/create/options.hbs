@@ -1,7 +1,7 @@
 <div class="box">
   {{#if isMakeAPoll}}
 
-    {{#form-for controller}}
+    {{#form-wrapper}}
       
       {{#input enoughOptions}}
         {{label-field enoughOptions
@@ -16,7 +16,7 @@
           {{error-field enoughOptions}}
         {{/if}}
       {{/input}}
-    {{/form-for}}
+    {{/form-wrapper}}
  
     <button {{action "moreOptions" target="view"}} class="btn btn-default button-more-options"> {{t 'create.options.input.moreOptions.label'}} </button>
 
@@ -30,7 +30,7 @@
       {{view 'datepicker'}}
     </div>
       
-    {{#form-for controller}}
+    {{#form-wrapper}}
       {{#input enoughOptions}}
         {{#if view.showError}}
           {{error-field enoughOptions}}
@@ -40,7 +40,7 @@
       {{input isDateTime as='checkbox'
          labelTranslation="create.options.defineTimes.label"
       }}
-    {{/form-for}}
+    {{/form-wrapper}}
     
     <button {{action "submit"}} class="btn btn-default btn-primary button-next"> {{t 'create.next'}} </button>
 

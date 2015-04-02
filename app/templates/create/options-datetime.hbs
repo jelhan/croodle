@@ -1,5 +1,5 @@
 <div class="box">
-  {{#form-for controller}}
+  {{#form-wrapper controller}}
     {{#input enoughTimes}}
       {{label-field enoughTimes
           textTranslation="create.options-datetime.datetimes.label"
@@ -30,7 +30,7 @@
     {{#input correctTimeFormat}}
       {{error-field correctTimeFormat}}
     {{/input}}
-  {{/form-for}}
+  {{/form-wrapper}}
 
   <button {{action "moreTimes"}} class="btn btn-default button-more-times">{{t "create.options-datetime.more-inputs"}}</button>
 

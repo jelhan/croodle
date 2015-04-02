@@ -36,9 +36,9 @@
     "ember-cli-qunit": "0.3.9",
     "ember-cli-uglify": "1.0.1",
     "ember-data": "1.0.0-beta.16.1",
+    "ember-easy-form-extensions": "0.2.8",
     "ember-export-application-global": "^1.0.2",
     "ember-radio-button": "^0.1.2",
-    "ember-validations": "~2.0.0-",
     "express": "^4.8.5",
     "node-phpcgi": "0.3.1"
   }

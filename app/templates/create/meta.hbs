@@ -1,5 +1,5 @@
 <div class="box">
-  {{#form-for controller}}
+  {{#form-wrapper}}
     {{input title
         labelTranslation='create.meta.input.title.label'
         placeholderTranslation="create.meta.input.title.placeholder"
@@ -9,7 +9,7 @@
         placeholderTranslation="create.meta.input.description.placeholder"
         rows=4
     }}
-  {{/form-for}}
+  {{/form-wrapper}}
 
   <button {{action "submit"}} class="btn btn-default btn-primary button-next"> {{t 'create.next'}} </button>
 

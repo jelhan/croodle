@@ -12,7 +12,6 @@
     "ember-qunit": "0.3.0",
     "ember-qunit-notifications": "0.0.7",
     "qunit": "~1.17.1",
-    "ember-easyForm": "http://builds.dockyard.com/ember-easyForm/latest/ember-easyForm.js",
     "ember-i18n": "~3.0.1",
     "sjcl": "~1.0.0",
     "bootstrap": "~3.3.4",
