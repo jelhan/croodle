@@ -3,11 +3,6 @@
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp({
-  // add version information to build as meta tag
-  buildInfoOptions: {
-    metaTemplate: 'version={DESC}'
-  },
-  
   // do not fingerprint webshim
   fingerprint: {
     exclude: ['assets/shims']
