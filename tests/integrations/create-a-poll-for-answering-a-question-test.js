@@ -1,20 +1,20 @@
 import Ember from "ember";
-import { test } from 'ember-qunit';
+import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 /* global moment */
 var App;
 
 module('Integration - create poll', {
-  setup: function() {
+  beforeEach: function() {
     App = startApp();
   },
-  teardown: function() {
+  afterEach: function() {
     Ember.run(App, App.destroy);
   }
 });
 
-test("create a poll for answering a question", function() {
-  expect(12);
+test("create a poll for answering a question", function(assert) {
+  assert.expect(12);
   
   visit('/create').then(function() {
     // select poll type answer a question
@@ -22,46 +22,46 @@ test("create a poll for answering a question", function() {
     click('.button-next');
     
     andThen(function(){
-      equal(currentPath(), 'create.meta');
+      assert.equal(currentPath(), 'create.meta');
       
       fillIn('input[name="title"]', 'default poll');
       click('.button-next');
       
       andThen(function(){
-        equal(currentPath(), 'create.options');
+        assert.equal(currentPath(), 'create.options');
         
         // fill in default two option input fields
         fillIn(find('input')[0], 'option a');
         fillIn(find('input')[1], 'option b');
         
         // add another option input field
-        equal(find('input').length, 2);
+        assert.equal(find('input').length, 2);
         click('.button-more-options');
         andThen(function(){
-          equal(find('input').length, 3);
+          assert.equal(find('input').length, 3);
           fillIn(find('input')[2], 'option c');
 
           click('.button-next');
 
           andThen(function(){
-            equal(currentPath(), 'create.settings');
+            assert.equal(currentPath(), 'create.settings');
 
             click('.button-next');
 
             andThen(function(){
-              equal(currentPath(), 'poll');
+              assert.equal(currentPath(), 'poll');
 
-              equal(find('.meta-data .title').text(), 'default poll');
-              equal(find('.meta-data .description').text(), '');
+              assert.equal(find('.meta-data .title').text(), 'default poll');
+              assert.equal(find('.meta-data .description').text(), '');
 
               // check that all 3 options are there
               // head of user selections table is options + leading column (user names) + last column (buttons)
-              equal(find('.user-selections-table thead tr th').length, 5);
+              assert.equal(find('.user-selections-table thead tr th').length, 5);
 
               // check options are correct
-              equal(find(find('.user-selections-table thead tr th')[1]).text().trim(), 'option a');
-              equal(find(find('.user-selections-table thead tr th')[2]).text().trim(), 'option b');
-              equal(find(find('.user-selections-table thead tr th')[3]).text().trim(), 'option c');
+              assert.equal(find(find('.user-selections-table thead tr th')[1]).text().trim(), 'option a');
+              assert.equal(find(find('.user-selections-table thead tr th')[2]).text().trim(), 'option b');
+              assert.equal(find(find('.user-selections-table thead tr th')[3]).text().trim(), 'option c');
             });
           });
         });
