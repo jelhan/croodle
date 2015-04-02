@@ -50,8 +50,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
             name: user.name,
             creationDate: new Date(),
             poll: this.get('model'),
-            selections: user.selections,
-            version: this.buildInfo.desc
+            selections: user.selections
           });
 
           // save new user
