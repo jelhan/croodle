@@ -37,7 +37,7 @@ app.import({
   development: 'bower_components/bootstrap/dist/css/bootstrap.css',
   production: 'bower_components/bootstrap/dist/css/bootstrap.min.css'
 });
-if (app.env === 'development') {
+if (app.env === 'development' || app.env === 'test') {
   app.import('bower_components/bootstrap/dist/css/bootstrap.css.map', {
     destDir: 'assets'
   });
