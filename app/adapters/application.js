@@ -1,8 +1,6 @@
 import DS from "ember-data";
 
 export default DS.RESTAdapter.extend({
-  host: 'http://localhost:4200',
-
   // set namespace to api.php in same subdirectory
   namespace:
     window.location.pathname
