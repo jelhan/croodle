@@ -2,6 +2,7 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var pickFiles = require('broccoli-static-compiler');
+var trees = [];
 
 var app = new EmberApp({
   // do not fingerprint webshim
@@ -42,11 +43,12 @@ if (app.env === 'development') {
   });
 }
 // include bootstrap fonts in dist
-var bootstrapFonts = pickFiles('bower_components/bootstrap/dist/fonts', {
-  srcDir: '/',
-  destDir: '/fonts'
-});
-
+trees.push(
+  pickFiles('bower_components/bootstrap/dist/fonts', {
+    srcDir: '/',
+    destDir: '/fonts'
+  })
+);
 
 app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
 app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js');
@@ -69,23 +71,23 @@ app.import('bower_components/sjcl/sjcl.js');
 app.import('bower_components/modernizr/modernizr.js');
 
 // include webshim files into dist
-var webshim = pickFiles('bower_components/webshim/js-webshim/minified/shims', {
-  srcDir: '/',
-  destDir: '/assets/shims'
-});
+trees.push(
+  pickFiles('bower_components/webshim/js-webshim/minified/shims', {
+    srcDir: '/',
+    destDir: '/assets/shims'
+  })
+);
 
 // include dummy data into dist if environment is development or test
 if (app.env === 'development' || app.env === 'test') {
-  var dummyData = pickFiles('server/dummy', {
-    srcDir: '/',
-    destDir: '/data'
-  });
+  trees.push(
+    pickFiles('server/dummy', {
+      srcDir: '/',
+      destDir: '/data'
+    })
+  );
 }
 
+trees.push(app.toTree());
 var mergeTrees = require('broccoli-merge-trees');
-module.exports = mergeTrees([
-  app.toTree(),
-  bootstrapFonts,
-  webshim,
-  dummyData
-]);
+module.exports = mergeTrees(trees);
