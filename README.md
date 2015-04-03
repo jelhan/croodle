@@ -30,14 +30,16 @@ Due to security reasons you should have SSL encryption enabled and provide a val
 Build process and installation
 ------------------------------
 
-You have to install node.js package management tool [npm](https://www.npmjs.org/), [bower](http://bower.io/) and [ember-cli](http://www.ember-cli.com/) before.
+Production builds are provided [here](https://github.com/jelhan/croodle/releases).
+
+If you like to build yourself you have to install node.js package management tool [npm](https://www.npmjs.org/), [bower](http://bower.io/) and [ember-cli](http://www.ember-cli.com/) before.
 
 ```shell
 git clone git@github.com:jelhan/croodle.git
 cd croodle
 npm install
 bower install
-ember build --environment=production
+ember build --prod
 ```
 
 Afterwards copy all files in /dist folder to your werbserver.
@@ -45,3 +47,17 @@ Afterwards copy all files in /dist folder to your werbserver.
 Make sure that data/ folder is writeable by the web server.
 
 You should consider to force an SSL encrypted connection.
+
+Running tests
+-------------
+
+Prefered way is to run tests against PhantomJS, Chrome and Firefox
+by `ember test --server`. Results are reported in command-line and 
+browser.
+Files are watched for changes.
+
+If you only like to run tests ones against PhantomJS in command-line
+you could use `ember test`. This is also used in CI.
+
+Development server has to be started before and listen on `localhost:4200`.
+Run development server by `localhost:4200`.
