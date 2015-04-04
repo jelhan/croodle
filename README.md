@@ -60,4 +60,4 @@ If you only like to run tests ones against PhantomJS in command-line
 you could use `ember test`. This is also used in CI.
 
 Development server has to be started before and listen on `localhost:4200`.
-Run development server by `localhost:4200`.
+Run development server by `ember server`. `php-cgi` has to be installed.
