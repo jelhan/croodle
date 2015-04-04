@@ -27,7 +27,12 @@
   {{#if isFindADate}}
     
     <div id="datepicker">
-      {{view 'datepicker'}}
+      {{bootstrap-datepicker-inline
+          value=optionsBootstrapDatepicker
+          multidate=true
+          calendarWeeks=true
+          todayHighlight=true
+          language=language.selected}}
     </div>
       
     {{#form-wrapper}}

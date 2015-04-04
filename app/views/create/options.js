@@ -7,6 +7,6 @@ export default Ember.View.extend({
       this.get('controller.optionsTexts').pushObject({
         'value': ''
       });
-   }
+    }
   }
 });

@@ -70,6 +70,27 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
   }.property('options.@each.title', 'isDateTime'),
 
+  /*
+   * maps optionsDates for bootstrap datepicker as a simple array of date objects
+   */
+  optionsBootstrapDatepicker: function(key, value, previousValue) {
+    // setter
+    if (arguments.length > 1) {
+      this.set('optionsDates',
+        value.map(function(item){
+          return {
+            title: item
+          };
+        })
+      );
+    }
+
+    // getter
+    return this.get('optionsDates').map(function(item){
+      return item.title;
+    });
+  }.property('optionsDates'),
+
   validations: {
     enoughOptions: {
       acceptance: {
