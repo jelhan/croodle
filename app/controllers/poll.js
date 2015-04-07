@@ -65,19 +65,17 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
           });
         },
         
-        submitNewUser: function() {
-          this.validate();
-          
-          Ember.$.each(Ember.View.views, function(id, view) {
-            if(view.isEasyForm) {
-              view.focusOut();
-            }
+        submitNewUser: function(){
+          var self = this;
+          this.validate().then(function() {
+            self.send('addNewUser');
+          }).catch(function(){
+            Ember.$.each(Ember.View.views, function(id, view) {
+              if(view.isEasyForm) {
+                view.focusOut();
+              }
+            });
           });
-
-          if (this.get('isValid')) {
-            // tricker save action
-            this.send('addNewUser');
-          }
         }
     },
     
