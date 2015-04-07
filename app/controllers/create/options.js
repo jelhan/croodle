@@ -76,13 +76,13 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
   optionsBootstrapDatepicker: function(key, value) {
     // setter
     if (arguments.length > 1) {
-      this.set('optionsDates',
-        value.map(function(item){
-          return {
-            title: item
-          };
-        })
-      );
+      var newOptionsDates = [];
+      if(Ember.isArray(value) && value.length > 0) {
+        newOptionsDates = value.map(function(item) {
+          return { title: item };
+        });
+      }
+      this.set('optionsDates', newOptionsDates);
     }
 
     // getter
