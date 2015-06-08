@@ -44,6 +44,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
             // strict transport security header
             header("Strict-Transport-Security: max-age=31536000");
+
+            // prevent caching explicitly
+            header("Expires: -1");
         }
         else {
             // set http header
@@ -57,6 +60,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
             // set content-type and charset
             header('Content-Type: application/x-json-encrypted; charset=utf-8');
+
+            // prevent caching explicitly
+            header("Expires: -1");
             
             // send data back
             echo $data;
@@ -102,6 +108,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
             // set content-type and charset
             header('Content-Type: application/x-json-encrypted; charset=utf-8');
+
+            // prevent caching explicitly
+            header("Expires: -1");
             
             switch ($type) {
                 case "polls":
@@ -135,7 +144,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         
         // strict transport security header
         header("Strict-Transport-Security: max-age=31536000");
+
+        // prevent caching explicitly
+        header("Expires: -1");
         
         break;
 }
-?>
