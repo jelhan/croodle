@@ -3,7 +3,7 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 var App;
 
-module('Integration - create poll', {
+module('Integration - participate in a poll', {
   beforeEach: function() {
     App = startApp();
   },
