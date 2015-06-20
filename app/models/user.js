@@ -13,5 +13,7 @@ export default DS.Model.extend({
     selections : Ember.computed.encrypted('encryptedSelections', 'array'),
     
     encryptedCreationDate : DS.attr('string'),
-    creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date')
+    creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date'),
+
+    version : DS.attr('string')
 });

@@ -5,6 +5,10 @@ var pickFiles = require('broccoli-static-compiler');
 var trees = [];
 
 var app = new EmberApp({
+  buildInfoOptions: {
+    metaTemplate: 'version={VERSION}-{COMMIT}'
+  },
+
   // do not fingerprint webshim
   fingerprint: {
     exclude: ['assets/shims']

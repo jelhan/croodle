@@ -17,7 +17,8 @@ export default Ember.Route.extend({
       anonymousUser: false,
       datetime: false,
       datetimesInputFields: 2,
-      timezoneOffset: new Date().getTimezoneOffset()
+      timezoneOffset: new Date().getTimezoneOffset(),
+      version: this.buildInfo.version + '-' + this.buildInfo.commit
     });
   }
 });

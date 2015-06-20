@@ -38,6 +38,8 @@ export default DS.Model.extend({
     
     encryptedTimezoneOffset : DS.attr('string'),
     timezoneOffset : Ember.computed.encrypted('encryptedTimezoneOffset', 'number'),
+
+    version : DS.attr('string'),
     
     // computed properties
     isFindADate: function() {
