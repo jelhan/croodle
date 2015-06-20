@@ -57,10 +57,10 @@ test("participate in a poll using freetext", function(assert) {
  
     andThen(function(){
       assert.equal( find('.user').length, userSelecectionsTableLengthBefore + 1, "user is added to user selections table");
-      assert.equal( find('.user td:nth-child(1)').text(), 'Karl Käfer', "user name is correct");
-      assert.equal( find('.user td:nth-child(2)').text().trim(), 'answer 1', "answer 1 is correct");
-      assert.equal( find('.user td:nth-child(3)').text().trim(), 'answer 2', "answer 2 is correct");
-      assert.equal( find('.user td:nth-child(4)').text().trim(), 'answer 3', "answer 3 is correct");
+      assert.equal( find('.user:last td:nth-child(1)').text(), 'Karl Käfer', "user name is correct");
+      assert.equal( find('.user:last td:nth-child(2)').text().trim(), 'answer 1', "answer 1 is correct");
+      assert.equal( find('.user:last td:nth-child(3)').text().trim(), 'answer 2', "answer 2 is correct");
+      assert.equal( find('.user:last td:nth-child(4)').text().trim(), 'answer 3', "answer 3 is correct");
     });
   });
 });
