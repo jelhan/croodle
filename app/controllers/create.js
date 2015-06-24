@@ -13,11 +13,13 @@ export default Ember.ObjectController.extend({
      * options are dates or datetimes
      */
     if (this.get('isFindADate')) {
+      var options = [];
+      
       if (this.get('isDateTime')) {
         // merge days and times
-        var options = [],
-            optionsDateTimes = this.get('optionsDateTimes');
-        optionsDateTimes.forEach(function(day) {
+        this.get('optionsDateTimes').forEach(function(day) {
+          // map dates and times
+          var validTimeFound = false;
           day.get('times').forEach(function(timeObject) {
             var date = new Date( day.title ),
                 timeString = timeObject.value;
@@ -31,21 +33,29 @@ export default Ember.ObjectController.extend({
               options.pushObject({
                 title: date
               });
+
+              validTimeFound = true;
             }
           });
+
+          // there was no valid time for this day
+          // use this day directly
+          if (validTimeFound === false) {
+            options.pushObject(day);
+          }
         });
-        
-        // days should be sorted to get them in correct order
-        options.sort(function(a, b){
-          return a.title - b.title;
-        });
-        
-        this.set('options', options);
       }
       else {
         // set options to days
-        this.set('options', this.get('optionsDates'));
+        options = this.get('optionsDates');
       }
+
+      // days should be sorted to get them in correct order
+      options.sort(function(a, b){
+        return a.title - b.title;
+      });
+
+      this.set('options', options);
     }
     /*
      * make a poll
@@ -67,7 +77,7 @@ export default Ember.ObjectController.extend({
       
       this.set('options', texts);
     }
-  }.observes('optionsDates.@each.title', 'optionsDateTimes.@each.title', 'optionsDateTimes.@each.@eachTimesValue', 'optionsTexts.@each.value'),
+  }.observes('optionsDates.@each.title', 'optionsDateTimes.@each.title', 'optionsDateTimes.@each.@eachTimesValue', 'optionsTexts.@each.value', 'isDateTime'),
   
   updateDateTimesAfterDateChange: function() {
     var optionsDates = this.get('optionsDates'),
