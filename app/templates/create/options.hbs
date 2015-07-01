@@ -1,5 +1,5 @@
 <div class="box">
-  {{#if isMakeAPoll}}
+  {{#if model.isMakeAPoll}}
 
     {{#form-wrapper}}
       
@@ -22,9 +22,7 @@
 
     <button {{action "submit"}} class="btn btn-default btn-primary button-next"> {{t 'create.next'}} </button>
 
-  {{/if}}
-
-  {{#if isFindADate}}
+  {{else}}
     
     <div id="datepicker">
       {{bootstrap-datepicker-inline
@@ -42,7 +40,7 @@
         {{/if}}
       {{/input}}
       
-      {{input isDateTime as='checkbox'
+      {{input model.isDateTime as='checkbox'
          labelTranslation="create.options.defineTimes.label"
       }}
     {{/form-wrapper}}

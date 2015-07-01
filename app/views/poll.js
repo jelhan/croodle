@@ -115,8 +115,8 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
   },
   
   creationDateFormatted: function() {
-    return moment( this.get('controller.creationDate') ).format('LLLL');
-  }.property('controller.creationDate'),
+    return moment( this.get('controller.model.creationDate') ).format('LLLL');
+  }.property('controller.model.creationDate'),
 
   /*
    * calculates horizontal scrollbar height depending on current browser

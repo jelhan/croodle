@@ -1,16 +1,16 @@
 <div class="box">
   {{#form-wrapper}}
-    {{input answerType as='select'
+    {{input model.answerType as='select'
       collection="answerTypes"
-      value="answerType"
+      value="model.answerType"
       optionValuePath="content.id"
       optionLabelPath="content.label"
       labelTranslation="create.settings.answerType.label"
     }}
-    {{input anonymousUser as='checkbox'
+    {{input model.anonymousUser as='checkbox'
       labelTranslation="create.settings.anonymousUser.label"
     }}
-    {{input forceAnswer as='checkbox'
+    {{input model.forceAnswer as='checkbox'
       labelTranslation="create.settings.forceAnswer.label"
     }}
   {{/form-wrapper}}

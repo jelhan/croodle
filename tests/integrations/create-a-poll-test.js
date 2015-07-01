@@ -22,7 +22,7 @@ test("create a default poll", function(assert) {
     andThen(function(){
       assert.equal(currentPath(), 'create.meta');
       
-      fillIn('input[name="title"]', 'default poll');
+      fillIn('input[name="model.title"]', 'default poll');
       click('.button-next');
       
       andThen(function(){
@@ -73,7 +73,7 @@ test("create a poll for answering a question", function(assert) {
     andThen(function(){
       assert.equal(currentPath(), 'create.meta');
       
-      fillIn('input[name="title"]', 'default poll');
+      fillIn('input[name="model.title"]', 'default poll');
       click('.button-next');
       
       andThen(function(){
@@ -128,7 +128,7 @@ test("create a poll with description", function(assert) {
     andThen(function(){
       assert.equal(currentPath(), 'create.meta');
       
-      fillIn('input[name="title"]', 'default poll');
+      fillIn('input[name="model.title"]', 'default poll');
       fillIn('textarea', 'a sample description');
       click('.button-next');
       

@@ -8,6 +8,12 @@ export default Ember.Route.extend({
     this.set('encryption.key', generatePassphrase( passphraseLength ));
   },
 
+  events: {
+    transitionToPoll: function(poll){
+      this.transitionTo('poll', poll, {queryParams: {encryptionKey: this.get('encryption.key')}});
+    }
+  },
+  
   model: function(){
     // create empty poll
     return this.store.createRecord('poll', {
@@ -17,6 +23,7 @@ export default Ember.Route.extend({
       anonymousUser: false,
       datetime: false,
       datetimesInputFields: 2,
+      isDateTime: false,
       timezoneOffset: new Date().getTimezoneOffset(),
       version: this.buildInfo.version + '-' + this.buildInfo.commit
     });

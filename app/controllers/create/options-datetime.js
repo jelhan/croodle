@@ -1,7 +1,7 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
 
-export default Ember.ObjectController.extend(EmberValidations.Mixin, {
+export default Ember.Controller.extend(EmberValidations.Mixin, {
   needs: 'create',
   
   optionsDateTimes: Ember.computed.alias("controllers.create.optionsDateTimes"),

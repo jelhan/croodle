@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-sm-6 col-lg-5">
       <div class="box meta-data">
-        <h2 class="title">{{title}}</h2>
-        <p class="description">{{description}}</p>
+        <h2 class="title">{{model.title}}</h2>
+        <p class="description">{{model.description}}</p>
         <p class="creationDate">{{t "poll.created-time" creationDateBinding="view.creationDateFormatted"}}</p>
       </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="table-scroll">
       <table class="user-selections-table table table-striped table-condensed">
         <thead>
-          {{#if isDateTime}}
+          {{#if model.isDateTime}}
             <tr class="dateGroups">
               <th>&nbsp;</th>
               {{#each dateGroup in dateGroups}}
@@ -35,25 +35,20 @@
           {{/if}}
           <tr>
             <th>&nbsp;</th>
-            {{#if isFindADate}}
+            {{#if model.isFindADate}}
               {{#each date in dates}}
                 <th>
-                  {{#if isDateTime}}
+                  {{#if model.isDateTime}}
                     {{formattedDate date.title format="LT"}}
-                  {{/if}}
-                  {{#unless isDateTime}}
+                  {{else}}
                     {{formattedDate date.title}}
-                  {{/unless}}
+                  {{/if}}
                 </th>
               {{/each}}
-            {{/if}}
-
-            {{#if isMakeAPoll}}
-              {{#each option in options}}
+            {{else}}
+              {{#each option in model.options}}
                 <th>
-                  {{#if isMakeAPoll}}
-                    {{option.title}}
-                  {{/if}}
+                  {{option.title}}
                 </th>
               {{/each}}
             {{/if}}
@@ -76,15 +71,15 @@
                 {{/input}}
               {{/form-wrapper}}
             </td>
-            {{#each newUserSelection in controller.newUserSelections}}
+            {{#each newUserSelection in newUserSelections}}
               <td class="newUserSelection">
                 {{#form-wrapper}}
-                  {{#if isFreeText}}
+                  {{#if model.isFreeText}}
                     {{#input newUserSelection.value}}
                       {{input-field newUserSelection.value}}
                     {{/input}}
                   {{else}}
-                    {{#each answer in answers}}
+                    {{#each answer in model.answers}}
                       <div class="radio">
                         {{#radio-button value=answer groupValue=newUserSelection.value}}
                           <span {{bind-attr class="answer.id"}}>
@@ -112,12 +107,12 @@
             </td>
           </tr>
 
-          {{#each user in users}}
+          {{#each user in model.users}}
             <tr class="user">
               <td>{{user.name}}</td>
               {{#each selection in user.selections}}
                 <td>
-                  {{#if isFreeText}}
+                  {{#if model.isFreeText}}
                     {{selection.value}}
                   {{else}}
                     <span {{bind-attr class="selection.value.id"}}>
@@ -131,7 +126,7 @@
             </tr>
           {{/each}}
 
-          {{#unless isFreeText}}
+          {{#unless model.isFreeText}}
             <tr class='evaluation evaluation-header'>
               <td {{bind-attr colspan=fullRowColspan}}>
                   {{t "poll.evaluation.label"}}

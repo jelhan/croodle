@@ -1,11 +1,11 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
 
-export default Ember.ObjectController.extend(EmberValidations.Mixin, {
+export default Ember.Controller.extend(EmberValidations.Mixin, {
   actions: {
     save: function(){
       // check if answer type is selected
-      if (this.get('answerType') === null) {
+      if (this.get('model.answerType') === null) {
         return;
       }
 
@@ -15,7 +15,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
         // reload as workaround for bug: duplicated records after save
         model.reload().then(function(model){
            // redirect to new poll
-           self.transitionToRoute('poll', model, {queryParams: {encryptionKey: self.get('encryption.key')}}); 
+           self.get('target').send('transitionToPoll', model);
         });
       });
     },
@@ -33,6 +33,16 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
       });
     }
   },
+
+  // proxy needed for validation
+  anonymousUser: function() {
+    return this.get('model.anonymousUser');
+  }.property('model.anonymousUser'),
+
+  // proxy needed for validation
+  answerType: function() {
+    return this.get('model.answerType');
+  }.property('model.answerType'),
   
   answerTypes: function() {
     return [
@@ -80,6 +90,10 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
       })
     ];
   }.property(),
+
+  forceAnswer: function() {
+    return this.get('model.forceAnswer');
+  }.property('model.forceAnswer'),
   
   /*
    * set answers depending on selected answer type
@@ -96,19 +110,19 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
         }
       }
 
-      this.set('answers', answers);
+      this.set('model.answers', answers);
     }
-  }.observes('answerType'),
+  }.observes('model.answerType'),
 
   validations: {
+    anonymousUser: {
+      presence: true
+    },
     answerType: {
       presence: true,
       inclusion: {
           in: ["YesNo", "YesNoMaybe", "FreeText"]
       }
-    },
-    anonymousUser: {
-      presence: true
     },
     forceAnswer: {
       presence: true

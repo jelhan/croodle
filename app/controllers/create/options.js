@@ -1,7 +1,7 @@
 import Ember from "ember";
 import EmberValidations from "ember-validations";
 
-export default Ember.ObjectController.extend(EmberValidations.Mixin, {
+export default Ember.Controller.extend(EmberValidations.Mixin, {
   needs: 'create',
   
   optionsDates: Ember.computed.alias("controllers.create.optionsDates"),
@@ -9,7 +9,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     
   actions: {
     save: function(){
-      if (this.get('isDateTime')) {
+      if (this.get('model.isDateTime')) {
         this.transitionToRoute('create.options-datetime');
       }
       else {
@@ -39,7 +39,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
         givenOptions,
         filtedOptions;
 
-    if (this.get('isFindADate')) {
+    if (this.get('model.isFindADate')) {
       givenOptions = this.get('optionsDates');
     }
     else {
@@ -52,7 +52,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     }
     
     // set requiredOptions
-    if (this.get('isDateTime')) {
+    if (this.get('model.isDateTime')) {
       // only one date is required if times will be set
       requiredOptionsLength = 1;
     }
@@ -66,7 +66,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     filtedOptions = givenOptions.filterBy('title', '');
     
     return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
-  }.property('options.@each.title', 'isDateTime'),
+  }.property('model.options.@each.title', 'model.isDateTime'),
 
   /*
    * maps optionsDates for bootstrap datepicker as a simple array of date objects
@@ -93,12 +93,12 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     enoughOptions: {
       acceptance: {
         message: Ember.I18n.t('create.options.error.notEnoughDates'),
-        if: 'isFindADate'
+        if: 'model.isFindADate'
       },
       inclusion: {
         in: ['1', 1, true],
         message: Ember.I18n.t('create.options.error.notEnoughOptions'),
-        unless: 'isFindADate'
+        unless: 'model.isFindADate'
       }
     }
   }

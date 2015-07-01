@@ -1,21 +1,21 @@
 import Ember from "ember";
 
-export default Ember.ObjectController.extend({
+export default Ember.Controller.extend({
   optionsDates: [],
   optionsDateTimes: [],
   optionsTexts: [{value: ''}, {value: ''}],
   
   updateOptions: function() {
-    var self = this;
+    var self = this,
+        options = [];
     
     /*
      * find a date
      * options are dates or datetimes
      */
-    if (this.get('isFindADate')) {
-      var options = [];
+    if (this.get('model.isFindADate')) {
       
-      if (this.get('isDateTime')) {
+      if (this.get('model.isDateTime')) {
         // merge days and times
         this.get('optionsDateTimes').forEach(function(day) {
           // map dates and times
@@ -54,8 +54,6 @@ export default Ember.ObjectController.extend({
       options.sort(function(a, b){
         return a.title - b.title;
       });
-
-      this.set('options', options);
     }
     /*
      * make a poll
@@ -63,21 +61,20 @@ export default Ember.ObjectController.extend({
      */
     else {
       // remove all empty strings
-      var texts = [];
       
       this.get('optionsTexts').forEach(function(optionText){
         var textString = optionText.value.trim();
         
         if (textString !== '') {
-          texts.pushObject({
+          options.pushObject({
             title: textString
           });
         }
       });
-      
-      this.set('options', texts);
     }
-  }.observes('optionsDates.@each.title', 'optionsDateTimes.@each.title', 'optionsDateTimes.@each.@eachTimesValue', 'optionsTexts.@each.value', 'isDateTime'),
+
+    this.set('model.options', options);
+  }.observes('optionsDates.@each.title', 'optionsDateTimes.@each.title', 'optionsDateTimes.@each.@eachTimesValue', 'optionsTexts.@each.value', 'model.isDateTime'),
   
   updateDateTimesAfterDateChange: function() {
     var optionsDates = this.get('optionsDates'),

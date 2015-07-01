@@ -1,7 +1,7 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
 
-export default Ember.ObjectController.extend(EmberValidations.Mixin, {
+export default Ember.Controller.extend(EmberValidations.Mixin, {
   actions: {
     save: function() {
       // redirect to CreateMeta
@@ -21,6 +21,11 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
       });
     }
   },
+
+  // proxy needed for validation
+  pollType: function(){
+    return this.get('model.pollType');
+  }.property('model.pollType'),
 
   pollTypes: function(){
     return [

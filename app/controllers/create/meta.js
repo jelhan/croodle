@@ -1,7 +1,7 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
 
-export default Ember.ObjectController.extend(EmberValidations.Mixin, {
+export default Ember.Controller.extend(EmberValidations.Mixin, {
   actions: {
     save: function() {
       // redirect to CreateOptions
@@ -21,7 +21,12 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
       });
     }
   },
-           
+
+  // proxy needed for validation
+  title: function(){
+    return this.get('model.title');
+  }.property('model.title'),
+  
   validations: {
     title: {
       presence: true,

@@ -1,7 +1,7 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
 
-export default Ember.ObjectController.extend(EmberValidations.Mixin, {
+export default Ember.Controller.extend(EmberValidations.Mixin, {
     encryptionKey: '',
     newUserName: '',
     queryParams: ['encryptionKey'],
@@ -82,8 +82,8 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     
     dateGroups: function() {
       // group dates only for find a date with times
-      if ( this.get('isFindADate') !== true ||
-           this.get('isDateTime') !== true ) {
+      if ( this.get('model.isFindADate') !== true ||
+           this.get('model.isDateTime') !== true ) {
         return [];
       }
       
@@ -132,7 +132,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     dates: function() {
       // if poll type is find a date
       // we return an empty array
-      if( !this.get('isFindADate') ) {
+      if( !this.get('model.isFindADate') ) {
         return [];
       }
       
@@ -143,12 +143,12 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
            !this.get('timezoneDiffers') ||
            this.get('useLocalTimezone')
          ) {
-        return Ember.copy( this.get('options') );
+        return Ember.copy( this.get('model.options') );
       }
       else {
-        var timezoneDifference = new Date().getTimezoneOffset() - this.get('timezoneOffset'),
+        var timezoneDifference = new Date().getTimezoneOffset() - this.get('model.timezoneOffset'),
             dates = [];
-        this.get('options').forEach(function(option){
+        this.get('model.options').forEach(function(option){
           dates.pushObject({
             title: new Date( option.title ).setMinutes(
                      timezoneDifference
@@ -157,7 +157,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
         });
         return dates;
       }
-    }.property('options.@each', 'useLocalTimezone'),
+    }.property('model.options.@each', 'useLocalTimezone'),
     
     /*
      * evaluates poll data
@@ -165,7 +165,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
      */
     evaluation: function() {
         // disable evaluation if answer type is free text
-        if (this.get('answerType') === 'FreeText') {
+        if (this.get('model.answerType') === 'FreeText') {
             return [];
         }
 
@@ -174,13 +174,13 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
             lookup = [];
     
         // init options array
-        this.get('options').forEach(function(option, index){
+        this.get('model.options').forEach(function(option, index){
             options[index] = 0;
         });
     
         // init array of evalutation objects
         // create object for every possible answer
-        this.get('answers').forEach(function(answer){
+        this.get('model.answers').forEach(function(answer){
             evaluation.push({
                 id: answer.label,
                 label: answer.label,
@@ -188,7 +188,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
             });
         });
         // create object for no answer if answers are not forced
-        if (!this.get('forceAnswer')){
+        if (!this.get('model.forceAnswer')){
             evaluation.push({
                 id: null,
                 label: 'no answer',
@@ -202,7 +202,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
         });
     
         // loop over all users
-        this.get('users').forEach(function(user){
+        this.get('model.users').forEach(function(user){
             // loop over all selections of the user
             user.get('selections').forEach(function(selection, optionindex){
                 var answerindex;
@@ -225,7 +225,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
         });
         
         return evaluation;
-    }.property('users.@each'),
+    }.property('model.users.@each'),
     
     /*
      * returns true if user has selected an answer for every option provided
@@ -257,9 +257,9 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
      * used by evaluation row
      */
     fullRowColspan: function(){
-        var colspan = this.get('options.length') + 2;
+        var colspan = this.get('model.options.length') + 2;
         return colspan;
-    }.property('options.@each'),
+    }.property('model.options.@each'),
     
     /*
      * switch isValid state
@@ -272,7 +272,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
     // array to store selections of new user
     newUserSelections: function(){
         var newUserSelections = Ember.A(),
-            options = this.get('options');
+            options = this.get('model.options');
     
         options.forEach(function(){
             var newSelection = Ember.Object.create({value: ''});
@@ -280,11 +280,11 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
         });
         
         return newUserSelections;
-    }.property('options'),
+    }.property('model.options'),
     
     optionCount: function() {
-      return this.get('options.length');
-    }.property('options'),
+      return this.get('model.options.length');
+    }.property('model.options'),
     
     pollUrl: function() {
         return window.location.href;
@@ -294,8 +294,8 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
      * return true if current timezone differs from timezone poll got created with
      */
     timezoneDiffers: function() {
-        return new Date().getTimezoneOffset() !== this.get('timezoneOffset');
-    }.property('timezoneOffset'),
+        return new Date().getTimezoneOffset() !== this.get('model.timezoneOffset');
+    }.property('model.timezoneOffset'),
     
     updateEncryptionKey: function() {
         // update encryption key
@@ -327,7 +327,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
              */
             acceptance: {
                 if: function(object){
-                    return object.get('forceAnswer');
+                    return object.get('model.forceAnswer');
                 },
                 message: Ember.I18n.t('poll.error.newUser.everyOptionIsAnswered')
             }
@@ -343,7 +343,7 @@ export default Ember.ObjectController.extend(EmberValidations.Mixin, {
                  */
                 unless: function(object){
                     /* have in mind that anonymousUser is undefined on init */
-                    return object.get('anonymousUser');
+                    return object.get('model.anonymousUser');
                 }
             }
         }
