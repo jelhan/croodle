@@ -1,6 +1,5 @@
 {
   "name": "croodle",
-  "version": "0.2.3",
   "private": true,
   "directories": {
     "doc": "doc",
