@@ -5,8 +5,6 @@ import config from './config/environment';
 /* global sjcl */
 /* global webshim */
 
-Ember.MODEL_FACTORY_INJECTIONS = true;
-
 // decrypt / encrypt computed property helper
 Ember.computed.encrypted = function(encryptedField, dataType) {
     return Ember.computed(encryptedField, function(key, decryptedValue) {
@@ -86,7 +84,11 @@ Ember.computed.encrypted = function(encryptedField, dataType) {
     });
 };
 
-var App = Ember.Application.extend({
+var App;
+
+Ember.MODEL_FACTORY_INJECTIONS = true;
+
+App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
   podModulePrefix: config.podModulePrefix,
   Resolver: Resolver
