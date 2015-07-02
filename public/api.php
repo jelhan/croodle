@@ -41,9 +41,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
             // forbid browser to load javascript from an external location
             header("Content-Security-Policy: script-src 'self'");
-            
-            // strict transport security header
-            header("Strict-Transport-Security: max-age=31536000");
 
             // prevent caching explicitly
             header("Expires: -1");
@@ -54,9 +51,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
             // forbid browser to load javascript from an external location
             header("Content-Security-Policy: script-src 'self'");
-            
-            // strict transport security header
-            header("Strict-Transport-Security: max-age=31536000");
             
             // set content-type and charset
             header('Content-Type: application/x-json-encrypted; charset=utf-8');
@@ -100,9 +94,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             // set http header
             header("HTTP/1.0 200 OK");
             
-            // forbid browser to load javascript from an external location
-            header("Content-Security-Policy: script-src 'self'");
-            
             // strict transport security header
             header("Strict-Transport-Security: max-age=31536000");
             
@@ -141,9 +132,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         
         // forbid browser to load javascript from an external location
         header("Content-Security-Policy: script-src 'self'");
-        
-        // strict transport security header
-        header("Strict-Transport-Security: max-age=31536000");
 
         // prevent caching explicitly
         header("Expires: -1");
