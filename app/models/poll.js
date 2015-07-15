@@ -36,8 +36,8 @@ export default DS.Model.extend({
   encryptedIsDateTime : DS.attr('string'),
   isDateTime : Ember.computed.encrypted('encryptedIsDateTime', 'boolean'),
   
-  encryptedTimezoneOffset : DS.attr('string'),
-  timezoneOffset : Ember.computed.encrypted('encryptedTimezoneOffset', 'number'),
+  encryptedTimezone : DS.attr('string'),
+  timezone : Ember.computed.encrypted('encryptedTimezone', 'string'),
 
   version : DS.attr('string'),
   

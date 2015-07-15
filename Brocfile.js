@@ -5,13 +5,17 @@ var pickFiles = require('broccoli-static-compiler');
 var trees = [];
 
 var app = new EmberApp({
-  buildInfoOptions: {
-    metaTemplate: 'version={VERSION}-{COMMIT}'
+  'buildInfoOptions': {
+    'metaTemplate': 'version={VERSION}-{COMMIT}'
   },
 
   // do not fingerprint webshim
-  fingerprint: {
-    exclude: ['assets/shims']
+  'fingerprint': {
+    'exclude': ['assets/shims']
+  },
+
+  'ember-moment': {
+    'includeTimezone': 'all'
   }
 });
 
@@ -27,11 +31,6 @@ var app = new EmberApp({
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
-
-app.import({
-  development: 'bower_components/moment/min/moment-with-locales.js',
-  production: 'bower_components/moment/min/moment-with-locales.min.js'
-});
 
 app.import({
   development: 'bower_components/bootstrap/dist/js/bootstrap.js',
@@ -73,6 +72,11 @@ app.import({
 app.import('bower_components/sjcl/sjcl.js');
 
 app.import('bower_components/modernizr/modernizr.js');
+
+app.import('bower_components/jstimezonedetect/jstz.js');
+
+// moment locales aren't imported by ember-moment
+app.import('bower_components/moment/min/locales.min.js');
 
 // include webshim files into dist
 trees.push(

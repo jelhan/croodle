@@ -40,6 +40,7 @@
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-easy-form-extensions": "0.2.8",
     "ember-export-application-global": "^1.0.2",
+    "ember-moment": "1.2.1",
     "ember-radio-button": "^0.1.2",
     "express": "^4.8.5",
     "glob": "^5.0.3",

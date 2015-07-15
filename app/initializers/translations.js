@@ -1,6 +1,6 @@
 import Ember from "ember";
 import translations from "croodle/lang/translations";
-/* global moment */
+import moment from "moment";
 /* global webshim */
 
 export default {
