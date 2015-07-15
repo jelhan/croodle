@@ -149,10 +149,12 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
       var timezoneDifference = new Date().getTimezoneOffset() - this.get('model.timezoneOffset'),
           dates = [];
       this.get('model.options').forEach(function(option){
+        var newDate = new Date( option.title );
+        newDate.setMinutes(
+          newDate.getMinutes() + timezoneDifference
+        );
         dates.pushObject({
-          title: new Date( option.title ).setMinutes(
-                   timezoneDifference
-                 )
+          title: newDate.toISOString()
         });
       });
       return dates;
@@ -226,6 +228,78 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     
     return evaluation;
   }.property('model.users.@each'),
+
+  evaluationBestOptions: function() {
+    var options = [],
+        bestOptions = [],
+        self = this;
+    // can not evaluate answer type free text
+    if(this.get('model.isFreeText')) {
+      return [];
+    }
+
+    this.get('model.users').forEach(function(user){
+      user.get('selections').forEach(function(selection, i){
+        if(options.length - 1 < i) {
+          options.push({
+            answers: [],
+            key: i,
+            score: 0
+          });
+        }
+
+        if(typeof options[i].answers[selection.value.id] === 'undefined') {
+          options[i].answers[selection.value.id] = 0;
+        }
+        options[i].answers[selection.value.id]++;
+        
+        switch (selection.value.id) {
+          case 'yes':
+            options[i].score += 2;
+            break;
+
+          case 'maybe':
+            options[i].score += 1;
+            break;
+        }
+      });
+    });
+
+    options.sort(function(a, b) {
+      return a.score < b.score;
+    });
+
+    bestOptions.push(
+      options[0]
+    );
+    var i = 1;
+    while(true) {
+      if (
+        typeof options[i] !== 'undefined' &&
+        bestOptions[0].score === options[i].score
+      ) {
+        bestOptions.push(
+          options[i]
+        );
+      }
+      else {
+        break;
+      }
+      
+      i++;
+    }
+
+    bestOptions.forEach(function(bestOption, i){
+      if (self.get('model.isFindADate')) {
+        bestOptions[i].title = self.get('dates')[bestOption.key].title;
+      }
+      else {
+        bestOptions[i].title = self.get('model.options')[bestOption.key].title;
+      }
+    });
+    
+    return bestOptions;
+  }.property('model.users.@each'),
   
   /*
    * returns true if user has selected an answer for every option provided
@@ -259,6 +333,18 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   fullRowColspan: function(){
     return this.get('model.options.length') + 2;
   }.property('model.options.@each'),
+
+  isEvaluable: function() {
+    if(
+      !this.get('model.isFreeText') &&
+      this.get('model.users.length') > 0
+    ) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }.property('model.users.@each', 'model.isFreeText'),
   
   /*
    * switch isValid state

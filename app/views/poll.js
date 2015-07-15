@@ -5,15 +5,6 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
   showEvaluation: false,
   
   actions: {
-    switchEvaluationVisibility: function() {
-      if (this.get('showEvaluation') === true) {
-        this.set('showEvaluation', false);
-      }
-      else {
-        this.set('showEvaluation', true);
-      }
-    },
-    
     useLocalTimezone: function() {
       this.set('controller.useLocalTimezone', true);
     }
@@ -158,18 +149,6 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
     Ember.$('.top-scrollbar-floatThead').css('width', Ember.$('.table-scroll').outerWidth() );
     Ember.$('.top-scrollbar-floatThead div').css('width', Ember.$('.user-selections-table').width() );
   },
-  
-  showEvaluationLabel: function() {
-    if (this.get('showEvaluation')) {
-      return this.get('showEvaluationLabelHide');
-    }
-    else {
-      return this.get('showEvaluationLabelShow');
-    }
-  }.property('showEvaluation'),
-  
-  showEvaluationLabelHideTranslation: "poll.input.showEvaluation.hide",
-  showEvaluationLabelShowTranslation: "poll.input.showEvaluation.show",
 
   /*
    * clean up
