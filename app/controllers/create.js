@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
               date.setMinutes(time[1]);
 
               options.pushObject({
-                title: date
+                title: date.toISOString()
               });
 
               validTimeFound = true;
@@ -41,13 +41,19 @@ export default Ember.Controller.extend({
           // there was no valid time for this day
           // use this day directly
           if (validTimeFound === false) {
-            options.pushObject(day);
+            options.pushObject({
+              title: day.title.toISOString()
+            });
           }
         });
       }
       else {
         // set options to days
-        options = this.get('optionsDates');
+        options = this.get('optionsDates').map(function(days) {
+          return {
+            title: days.title.toISOString()
+          };
+        });
       }
 
       // days should be sorted to get them in correct order
