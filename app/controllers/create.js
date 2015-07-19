@@ -53,7 +53,12 @@ export default Ember.Controller.extend({
 
       // days should be sorted to get them in correct order
       options.sort(function(a, b){
-        return a.title > b.title;
+        if (a.title === b.title) {
+          return 0;
+        }
+        else {
+          return a.title > b.title ? 1 : -1;
+        }
       });
     }
     /*
