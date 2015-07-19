@@ -40,19 +40,20 @@ export default Ember.Controller.extend({
           });
 
           // there was no valid time for this day
-          // use this day directly
           if (validTimeFound === false) {
             options.pushObject({
-              title: day.title.toISOString()
+              // ISO 8601 date format
+              title: moment( day.title ).format('YYYY-MM-DD')
             });
           }
         });
       }
       else {
         // set options to days
-        options = this.get('optionsDates').map(function(days) {
+        options = this.get('optionsDates').map(function(day) {
           return {
-            title: days.title.toISOString()
+            // ISO 8601 date format
+            title: moment( day.title ).format('YYYY-MM-DD')
           };
         });
       }
