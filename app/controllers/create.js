@@ -1,4 +1,5 @@
 import Ember from "ember";
+import moment from "moment";
 
 export default Ember.Controller.extend({
   optionsDates: [],
@@ -31,7 +32,7 @@ export default Ember.Controller.extend({
               date.setMinutes(time[1]);
 
               options.pushObject({
-                title: date.toISOString()
+                title: moment(date).toISOString()
               });
 
               validTimeFound = true;
