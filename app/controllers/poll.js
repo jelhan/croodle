@@ -132,7 +132,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
    * handles options if they are dates
    */
   dates: function() {
-    var timezone,
+    var timezone = false,
         dates = [];
     
     // if poll type is find a date
@@ -140,17 +140,24 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     if( !this.get('model.isFindADate') ) {
       return [];
     }
-    
-    if (this.get('useLocalTimezone')) {
-      timezone = jstz.determine().name();
-    }
-    else {
+
+    // if poll has dates with times we have to care about timezone
+    // but since user timezone is default we only have to set timezone
+    // if timezone poll got created in should be used
+    if (
+      this.get('model.isDateTime') &&
+      !this.get('useLocalTimezone')
+    ) {
       timezone = this.get('model.timezone');
     }
     
     this.get('model.options').forEach(function(option){
+      var date = moment(option.title);
+      if (timezone) {
+        date.tz(timezone);
+      }
       dates.pushObject({
-        title: moment.tz(option.title, timezone)
+        title: date
       });
     });
 
