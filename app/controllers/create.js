@@ -1,5 +1,6 @@
 import Ember from "ember";
 import moment from "moment";
+/* global jstz */
 
 export default Ember.Controller.extend({
   optionsDates: [],
@@ -121,6 +122,23 @@ export default Ember.Controller.extend({
       dateTime.get('@eachTimesValue');
     });
   }.observes('optionsDateTimes.@each.@eachTimesValue').on('init'),
+
+  /*
+   * sets timezone property of model to users timezone if dates with
+   * times are specified
+   * otherwise we don't need to store timezone of user created the poll
+   */
+  setTimezone: function() {
+    if(
+      this.get('model.isFindADate') &&
+      this.get('model.isDateTime')
+    ) {
+      this.set('model.timezone', jstz.determine().name());
+    }
+    else {
+      this.set('model.timezone', '');
+    }
+  }.observes('model.isDateTime', 'model.isFindADate'),
   
   /*
    * validate if a given time string is in valid format
