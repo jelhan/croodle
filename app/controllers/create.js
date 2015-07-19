@@ -38,14 +38,6 @@ export default Ember.Controller.extend({
               validTimeFound = true;
             }
           });
-
-          // there was no valid time for this day
-          if (validTimeFound === false) {
-            options.pushObject({
-              // ISO 8601 date format
-              title: moment( day.title ).format('YYYY-MM-DD')
-            });
-          }
         });
       }
       else {
