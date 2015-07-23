@@ -5,6 +5,8 @@ export default Ember.View.extend({
   didInsertElement: function(){
     this._super();
 
+    this.$('input.time').attr('type', 'time');
+
     webshim.setOptions("forms-ext", {
       "time": {
         "nopicker": true,
