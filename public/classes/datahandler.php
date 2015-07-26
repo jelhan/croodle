@@ -43,6 +43,27 @@ class datahandler {
             }
         }
     }
+
+    private function deletePoll($poll_id) {
+        $folder = self::DATA_FOLDER . "/" . $poll_id;
+        $user_folder = $folder . "/user";
+        
+        // delete user folder
+        if (is_dir($user_folder)) {
+            $dir = opendir($user_folder);
+            while(false !== ($file = readdir($dir))) {
+                if($file === '.' || $file === '..') {
+                  continue;
+                }
+                unlink($user_folder . '/' . $file);
+            }
+            rmdir($user_folder);
+        }
+
+        unlink($folder . '/poll_data');
+        
+        rmdir($folder);
+    }
     
     /*
      * read poll data
@@ -61,6 +82,15 @@ class datahandler {
         $poll_data_json = file_get_contents($poll_file);
         
         $poll_data = json_decode($poll_data_json);
+
+        // check expiration date
+        if (
+          !empty($poll_data->poll->expirationDate) &&
+          DateTime::createFromFormat('Y-m-d\TH:i:s.uO', $poll_data->poll->expirationDate) < new DateTime()
+        ) {
+            $this->deletePoll($poll_id);
+            return false;
+        }
         
         // set id to poll
         $poll_data->poll->id = $poll_id;
