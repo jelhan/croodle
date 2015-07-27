@@ -4,7 +4,6 @@ import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
 import getPolls from 'croodle/tests/helpers/get-polls';
 import postUsers from 'croodle/tests/helpers/post-users';
-/* global Croodle */
 /* jshint proto: true */
 
 var application, server;
@@ -12,9 +11,9 @@ var application, server;
 module('Acceptance | participate in a poll', {
   beforeEach: function() {
     application = startApp();
-
+    application.__container__.lookup('adapter:application').__proto__.namespace = '';
+    
     server = new Pretender();
-    Croodle.__container__.lookup('adapter:application').__proto__.namespace = '';
   },
   afterEach: function() {
     server.shutdown();
