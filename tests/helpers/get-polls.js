@@ -50,22 +50,26 @@ export default function (attr, key) {
   
   var data = Ember.merge(defaultAttr, attr);
 
-  return JSON.stringify({
-    poll: {
-      id: data.id,
-      encryptedTitle: encrypt(data.title),
-      encryptedDescription: encrypt(data.description),
-      encryptedPollType: encrypt(data.pollType),
-      encryptedAnswerType: encrypt(data.answerType),
-      encryptedAnswers: encrypt(data.answers),
-      encryptedOptions: encrypt(data.options),
-      encryptedCreationDate: encrypt(data.creationDate),
-      encryptedForceAnswer: encrypt(data.forceAnswer),
-      encryptedAnonymousUser: encrypt(data.anonymousUser),
-      encryptedIsDateTime: encrypt(data.isDateTime),
-      encryptedTimezone: encrypt(data.timezone),
-      users: data.users,
-      version: data.version
-    }
-  });
+  return [
+    200,
+    { "Content-Type": "application/json" },
+    JSON.stringify({
+      poll: {
+        id: data.id,
+        encryptedTitle: encrypt(data.title),
+        encryptedDescription: encrypt(data.description),
+        encryptedPollType: encrypt(data.pollType),
+        encryptedAnswerType: encrypt(data.answerType),
+        encryptedAnswers: encrypt(data.answers),
+        encryptedOptions: encrypt(data.options),
+        encryptedCreationDate: encrypt(data.creationDate),
+        encryptedForceAnswer: encrypt(data.forceAnswer),
+        encryptedAnonymousUser: encrypt(data.anonymousUser),
+        encryptedIsDateTime: encrypt(data.isDateTime),
+        encryptedTimezone: encrypt(data.timezone),
+        users: data.users,
+        version: data.version
+      }
+    })
+  ];
 }

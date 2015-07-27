@@ -86,16 +86,6 @@ trees.push(
   })
 );
 
-// include dummy data into dist if environment is development or test
-if (app.env === 'development' || app.env === 'test') {
-  trees.push(
-    pickFiles('server/dummy', {
-      srcDir: '/',
-      destDir: '/data'
-    })
-  );
-}
-
 trees.push(app.toTree());
 var mergeTrees = require('broccoli-merge-trees');
 module.exports = mergeTrees(trees);
