@@ -7,9 +7,19 @@
       optionLabelPath="content.label"
       labelTranslation="create.settings.answerType.label"
     }}
+
+    {{input expirationDuration as='select'
+      collection="expirationDurations"
+      value="expirationDuration"
+      optionValuePath="content.id"
+      optionLabelPath="content.label"
+      labelTranslation="create.settings.expirationDate.label"
+    }}
+    
     {{input model.anonymousUser as='checkbox'
       labelTranslation="create.settings.anonymousUser.label"
     }}
+    
     {{input model.forceAnswer as='checkbox'
       labelTranslation="create.settings.forceAnswer.label"
     }}

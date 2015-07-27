@@ -22,6 +22,11 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
           });
         }
       });
+
+      // trigger update of webshim input
+      Ember.run.next(this, function(){
+        Ember.$('input[type="time"]').trigger('change');
+      });
     },
     
     /*

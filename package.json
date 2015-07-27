@@ -1,5 +1,6 @@
 {
   "name": "croodle",
+  "version": "v0.3.0",
   "private": true,
   "directories": {
     "doc": "doc",
@@ -26,7 +27,7 @@
     "ember-cli": "0.2.7",
     "ember-cli-app-version": "0.3.3",
     "ember-cli-babel": "^5.0.0",
-    "ember-cli-bootstrap-datepicker": "git://github.com/soulim/ember-cli-bootstrap-datepicker.git#5cc3fdf114cece954cbb4af60c5584e362c1cdc3",
+    "ember-cli-bootstrap-datepicker": "0.5.3",
     "ember-cli-build-info": "^0.1.0",
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "^1.0.0",

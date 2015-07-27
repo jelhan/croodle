@@ -21,6 +21,11 @@ $query_paramter = explode("/",$_SERVER["QUERY_STRING"]);
 $type = $query_paramter[1];
 if (isset($query_paramter[2])) {
     $requested_id = $query_paramter[2];
+
+    // check requested id if it only contains letters and numbers
+    if(preg_match('/[^A-Za-z0-9]/', $requested_id) !== 0) {
+        throw new Exception('requested id must only contain letters and numbers');
+    }
 }
 
 switch ($_SERVER['REQUEST_METHOD']) {
