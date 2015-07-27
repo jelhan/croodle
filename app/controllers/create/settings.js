@@ -1,5 +1,6 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
+/* global moment */
 
 export default Ember.Controller.extend(EmberValidations.Mixin, {
   actions: {

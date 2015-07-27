@@ -1,5 +1,6 @@
 import Ember from "ember";
 import generatePassphrase from "../utils/generate-passphrase";
+/* global moment */
 
 export default Ember.Route.extend({
   beforeModel: function(){
