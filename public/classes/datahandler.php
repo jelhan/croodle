@@ -57,6 +57,7 @@ class datahandler {
                 }
                 unlink($user_folder . '/' . $file);
             }
+            closedir($dir);
             rmdir($user_folder);
         }
 
