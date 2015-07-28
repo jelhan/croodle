@@ -53,7 +53,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
         creationDate: new Date(),
         poll: this.get('model'),
         selections: user.selections,
-        version: this.buildInfo.version + '-' + this.buildInfo.commit
+        version: this.buildInfo.desc
       });
 
       // save new user

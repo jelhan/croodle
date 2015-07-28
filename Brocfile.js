@@ -6,7 +6,7 @@ var trees = [];
 
 var app = new EmberApp({
   'buildInfoOptions': {
-    'metaTemplate': 'version={VERSION}-{COMMIT}'
+    'metaTemplate': 'version={DESC}'
   },
 
   // do not fingerprint webshim
