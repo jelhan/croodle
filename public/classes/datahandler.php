@@ -44,7 +44,7 @@ class datahandler {
         }
     }
 
-    private function deletePoll($poll_id) {
+    public function deletePoll($poll_id) {
         $folder = self::DATA_FOLDER . "/" . $poll_id;
         $user_folder = $folder . "/user";
         
@@ -87,8 +87,7 @@ class datahandler {
         // check expiration date
         if (
             !empty($poll_data->poll->expirationDate) &&
-            ( $expirationDate = DateTime::createFromFormat('Y-m-d\TH:i:s.uO', $poll_data->poll->expirationDate) ) &&
-            $expirationDate < new DateTime()
+            self::isExpired($poll_data->poll->expirationDate)
         ) {
             $this->deletePoll($poll_id);
             return false;
@@ -173,6 +172,12 @@ class datahandler {
         }
         
         return $highest_id + 1;
+    }
+
+    static function isExpired ($expirationDateString) {
+        return
+          ( $expirationDate = DateTime::createFromFormat('Y-m-d\TH:i:s.uO', $expirationDateString) ) &&
+          $expirationDate < new DateTime();
     }
     
     /*
