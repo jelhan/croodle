@@ -86,8 +86,9 @@ class datahandler {
 
         // check expiration date
         if (
-          !empty($poll_data->poll->expirationDate) &&
-          DateTime::createFromFormat('Y-m-d\TH:i:s.uO', $poll_data->poll->expirationDate) < new DateTime()
+            !empty($poll_data->poll->expirationDate) &&
+            ( $expirationDate = DateTime::createFromFormat('Y-m-d\TH:i:s.uO', $poll_data->poll->expirationDate) ) &&
+            $expirationDate < new DateTime()
         ) {
             $this->deletePoll($poll_id);
             return false;
