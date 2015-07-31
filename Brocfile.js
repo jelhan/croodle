@@ -16,7 +16,7 @@ var app = new EmberApp({
 
   'ember-moment': {
     'includeLocales': ['de', 'en', 'es'],
-    'includeTimezone': 'all'
+    'includeTimezone': '2010-2020'
   }
 });
 
