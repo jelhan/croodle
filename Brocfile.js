@@ -15,6 +15,7 @@ var app = new EmberApp({
   },
 
   'ember-moment': {
+    'includeLocales': ['de', 'en', 'es'],
     'includeTimezone': 'all'
   }
 });
@@ -74,9 +75,6 @@ app.import('bower_components/sjcl/sjcl.js');
 app.import('bower_components/modernizr/modernizr.js');
 
 app.import('bower_components/jstimezonedetect/jstz.js');
-
-// moment locales aren't imported by ember-moment
-app.import('bower_components/moment/min/locales.min.js');
 
 // include webshim files into dist
 trees.push(
