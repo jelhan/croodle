@@ -84,6 +84,14 @@ trees.push(
   })
 );
 
+// include api files into dist
+trees.push(
+  pickFiles('api', {
+    srcDir: '/',
+    destDir: '/'
+  })
+);
+
 trees.push(app.toTree());
 var mergeTrees = require('broccoli-merge-trees');
 module.exports = mergeTrees(trees);
