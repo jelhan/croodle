@@ -1,5 +1,7 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
+import moment from "moment";
+/* global jstz */
 
 export default Ember.Controller.extend(EmberValidations.Mixin, {
   encryptionKey: '',
@@ -51,7 +53,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
         creationDate: new Date(),
         poll: this.get('model'),
         selections: user.selections,
-        version: this.buildInfo.version + '-' + this.buildInfo.commit
+        version: this.buildInfo.desc
       });
 
       // save new user
@@ -130,35 +132,36 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
    * handles options if they are dates
    */
   dates: function() {
+    var timezone = false,
+        dates = [];
+    
     // if poll type is find a date
     // we return an empty array
     if( !this.get('model.isFindADate') ) {
       return [];
     }
-    
-    // if current timezone doesn't differ to timezone poll got created with or
-    // if local timezone should be used
-    // we return original options array
+
+    // if poll has dates with times we have to care about timezone
+    // but since user timezone is default we only have to set timezone
+    // if timezone poll got created in should be used
     if (
-         !this.get('timezoneDiffers') ||
-         this.get('useLocalTimezone')
-       ) {
-      return Ember.copy( this.get('model.options') );
+      this.get('model.isDateTime') &&
+      !this.get('useLocalTimezone')
+    ) {
+      timezone = this.get('model.timezone');
     }
-    else {
-      var timezoneDifference = new Date().getTimezoneOffset() - this.get('model.timezoneOffset'),
-          dates = [];
-      this.get('model.options').forEach(function(option){
-        var newDate = new Date( option.title );
-        newDate.setMinutes(
-          newDate.getMinutes() + timezoneDifference
-        );
-        dates.pushObject({
-          title: newDate.toISOString()
-        });
+    
+    this.get('model.options').forEach(function(option){
+      var date = moment(option.title);
+      if (timezone) {
+        date.tz(timezone);
+      }
+      dates.pushObject({
+        title: date
       });
-      return dates;
-    }
+    });
+
+    return dates;
   }.property('model.options.@each', 'useLocalTimezone'),
   
   /*
@@ -316,7 +319,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
       newUserSelections.forEach(function(item){
         if (Ember.isEmpty(item.value)) {
           allAnswered = false;
-        } 
+        }
       });
       
       return allAnswered;
@@ -379,8 +382,8 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
    * return true if current timezone differs from timezone poll got created with
    */
   timezoneDiffers: function() {
-    return new Date().getTimezoneOffset() !== this.get('model.timezoneOffset');
-  }.property('model.timezoneOffset'),
+    return jstz.determine().name() !== this.get('model.timezone');
+  }.property('model.timezone'),
   
   updateEncryptionKey: function() {
     // update encryption key

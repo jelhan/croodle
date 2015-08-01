@@ -3,12 +3,10 @@
 /*
  * handles the data for api.php
  */
-class datahandler {
+class Datahandler {
     // (string) folder to store data in relative to position of api.php
     // webserver has to have write access to this folder
     // must end with a slash
-    const DATA_FOLDER = 'data/';
-    
     // (int) length of ids used to identify data
     const ID_LENGTH = 10;
     
@@ -18,19 +16,19 @@ class datahandler {
     public function __construct() {
         // check if data folder exists and is writeable
         // if data folder does not exist, try to create it
-        if (!is_writeable(self::DATA_FOLDER)) {
+        if (!is_writeable(DATA_FOLDER)) {
             
             // check if data folder exists
-            if (!file_exists(self::DATA_FOLDER)) {
+            if (!file_exists(DATA_FOLDER)) {
                 
                 // try to create data folder
-                if(mkdir(self::DATA_FOLDER)) {
+                if(mkdir(DATA_FOLDER)) {
                     
                     // put empty index.html in data folder to prevent directory listing
-                    file_put_contents(self::DATA_FOLDER . "index.html", '');
+                    file_put_contents(DATA_FOLDER . "index.html", '');
                     
                     // check if newly created data folder is writeable
-                    if (!is_writeable(self::DATA_FOLDER)) {
+                    if (!is_writeable(DATA_FOLDER)) {
                         throw new Exception("data folder created but is not writeable");
                     }
                 }
@@ -43,6 +41,28 @@ class datahandler {
             }
         }
     }
+
+    public function deletePoll($poll_id) {
+        $folder = DATA_FOLDER . "/" . $poll_id;
+        $user_folder = $folder . "/user";
+        
+        // delete user folder
+        if (is_dir($user_folder)) {
+            $dir = opendir($user_folder);
+            while(false !== ($file = readdir($dir))) {
+                if($file === '.' || $file === '..') {
+                  continue;
+                }
+                unlink($user_folder . '/' . $file);
+            }
+            closedir($dir);
+            rmdir($user_folder);
+        }
+
+        unlink($folder . '/poll_data');
+        
+        rmdir($folder);
+    }
     
     /*
      * read poll data
@@ -50,7 +70,7 @@ class datahandler {
      */
     public function get($poll_id) {
         // file with absolut path
-        $folder = self::DATA_FOLDER . "/" . $poll_id;
+        $folder = DATA_FOLDER . "/" . $poll_id;
         $poll_file = $folder . "/poll_data";
         
         // check if file exists and is readable
@@ -61,6 +81,15 @@ class datahandler {
         $poll_data_json = file_get_contents($poll_file);
         
         $poll_data = json_decode($poll_data_json);
+
+        // check expiration date
+        if (
+            !empty($poll_data->poll->expirationDate) &&
+            self::isExpired($poll_data->poll->expirationDate)
+        ) {
+            $this->deletePoll($poll_id);
+            return false;
+        }
         
         // set id to poll
         $poll_data->poll->id = $poll_id;
@@ -110,7 +139,7 @@ class datahandler {
         }
         
         // check if id is already used, generate new one if necessary
-        if (file_exists(self::DATA_FOLDER."/".$randomString)) {
+        if (file_exists(DATA_FOLDER."/".$randomString)) {
             $randomString = $this->generateNewId();
         }
         
@@ -122,7 +151,7 @@ class datahandler {
      */
     protected function getNextUserId($poll_id)
     {
-        $user_folder = self::DATA_FOLDER . "/" . $poll_id . "/user";
+        $user_folder = DATA_FOLDER . "/" . $poll_id . "/user";
         
         // check if user folder exists
         if (!file_exists($user_folder)) {
@@ -142,6 +171,12 @@ class datahandler {
         
         return $highest_id + 1;
     }
+
+    static function isExpired ($expirationDateString) {
+        return
+          ( $expirationDate = DateTime::createFromFormat('Y-m-d\TH:i:s.uO', $expirationDateString) ) &&
+          $expirationDate < new DateTime();
+    }
     
     /*
      * store poll data
@@ -151,7 +186,7 @@ class datahandler {
         // get a new id
         $new_id = $this->generateNewId();
         
-        $folder = self::DATA_FOLDER."/".$new_id;
+        $folder = DATA_FOLDER."/".$new_id;
         $file = $folder . "/poll_data";
         
         // create folder for new poll
@@ -176,12 +211,12 @@ class datahandler {
         $new_id = $this->getNextUserId($poll_id);
         
         // check if poll exists
-        if (!is_dir(self::DATA_FOLDER."/".$poll_id)) {
+        if (!is_dir(DATA_FOLDER."/".$poll_id)) {
             throw new Exception("poll does not exists");
             return false;
         }
         
-        $folder = self::DATA_FOLDER."/".$poll_id."/user";
+        $folder = DATA_FOLDER."/".$poll_id."/user";
         $file = $folder . "/" . $new_id;
         
         // check if user folder allready exists

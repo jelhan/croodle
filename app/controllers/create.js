@@ -1,4 +1,6 @@
 import Ember from "ember";
+import moment from "moment";
+/* global jstz */
 
 export default Ember.Controller.extend({
   optionsDates: [],
@@ -31,28 +33,32 @@ export default Ember.Controller.extend({
               date.setMinutes(time[1]);
 
               options.pushObject({
-                title: date
+                title: moment(date).toISOString()
               });
 
               validTimeFound = true;
             }
           });
-
-          // there was no valid time for this day
-          // use this day directly
-          if (validTimeFound === false) {
-            options.pushObject(day);
-          }
         });
       }
       else {
         // set options to days
-        options = this.get('optionsDates');
+        options = this.get('optionsDates').map(function(day) {
+          return {
+            // ISO 8601 date format
+            title: moment( day.title ).format('YYYY-MM-DD')
+          };
+        });
       }
 
       // days should be sorted to get them in correct order
       options.sort(function(a, b){
-        return a.title - b.title;
+        if (a.title === b.title) {
+          return 0;
+        }
+        else {
+          return a.title > b.title ? 1 : -1;
+        }
       });
     }
     /*
@@ -121,6 +127,23 @@ export default Ember.Controller.extend({
       dateTime.get('@eachTimesValue');
     });
   }.observes('optionsDateTimes.@each.@eachTimesValue').on('init'),
+
+  /*
+   * sets timezone property of model to users timezone if dates with
+   * times are specified
+   * otherwise we don't need to store timezone of user created the poll
+   */
+  setTimezone: function() {
+    if(
+      this.get('model.isFindADate') &&
+      this.get('model.isDateTime')
+    ) {
+      this.set('model.timezone', jstz.determine().name());
+    }
+    else {
+      this.set('model.timezone', '');
+    }
+  }.observes('model.isDateTime', 'model.isFindADate'),
   
   /*
    * validate if a given time string is in valid format

@@ -3,10 +3,13 @@
 # compiled output
 /dist
 /tmp
+/api/tests/_output
+/api/tests/_tmp
 
 # dependencies
 /node_modules
 /bower_components
+/api/vendor
 
 # misc
 /.sass-cache

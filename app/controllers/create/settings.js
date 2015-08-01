@@ -1,5 +1,6 @@
 import Ember from "ember";
 import EmberValidations from 'ember-validations';
+/* global moment */
 
 export default Ember.Controller.extend(EmberValidations.Mixin, {
   actions: {
@@ -91,6 +92,37 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     ];
   }.property(),
 
+  expirationDuration: 'P3M',
+
+  expirationDurations: function() {
+    return [
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+        id: 'P7D',
+        labelTranslation: 'create.settings.expirationDurations.P7D'
+      }),
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+        id: 'P1M',
+        labelTranslation: 'create.settings.expirationDurations.P1M'
+      }),
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+        id: 'P3M',
+        labelTranslation: 'create.settings.expirationDurations.P3M'
+      }),
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+        id: 'P6M',
+        labelTranslation: 'create.settings.expirationDurations.P6M'
+      }),
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+        id: 'P1Y',
+        labelTranslation: 'create.settings.expirationDurations.P1Y'
+      }),
+      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+        id: '',
+        labelTranslation: 'create.settings.expirationDurations.never'
+      })
+    ];
+  }.property(),
+
   forceAnswer: function() {
     return this.get('model.forceAnswer');
   }.property('model.forceAnswer'),
@@ -113,6 +145,21 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
       this.set('model.answers', answers);
     }
   }.observes('model.answerType'),
+
+  updateExpirationDate: function() {
+    var expirationDuration = this.get('expirationDuration');
+    
+    if(Ember.isEmpty(expirationDuration)) {
+      this.set('model.expirationDate', '');
+    }
+    else {
+      this.set('model.expirationDate',
+        moment().add(
+          moment.duration(expirationDuration)
+        ).toISOString()
+      );
+    }
+  }.observes('expirationDuration'),
 
   validations: {
     anonymousUser: {

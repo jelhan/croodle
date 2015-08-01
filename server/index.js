@@ -20,6 +20,8 @@ module.exports = function(app) {
   /* use node-phpcgi to handle api */
   var phpcgi = require('node-phpcgi')({
     documentRoot: __dirname.substring(0, __dirname.length - 6) + '/dist',
+    includePath: '/api/index.php',
+    entryPoint: '/api/index.php'
   });
   app.use(phpcgi);
 

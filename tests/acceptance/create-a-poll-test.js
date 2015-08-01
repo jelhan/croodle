@@ -1,21 +1,49 @@
 import Ember from "ember";
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
+import Pretender from 'pretender';
+import postPolls from '../helpers/post-polls';
+import formattedDateHelper from 'croodle/helpers/formatted-date';
 /* global moment */
-var App;
+/* jshint proto: true */
 
-module('Integration - create poll', {
+var application, server;
+
+module('Acceptance | create a poll', {
   beforeEach: function() {
-    App = startApp();
+    application = startApp();
+    application.__container__.lookup('adapter:application').__proto__.namespace = '';
+    
+    server = new Pretender();
+
+    var lastCreatedPoll = {};
+  
+    server.post('/polls',
+      function (request) {
+        var ret = postPolls(request.requestBody, 'test');
+        lastCreatedPoll = ret[2];
+        return ret;
+      }
+    );
+
+    server.get('/polls/test',
+      function () {
+        return [
+          200,
+          {"Content-Type": "application/json"},
+          lastCreatedPoll
+        ];
+      }
+    );
   },
   afterEach: function() {
-    Ember.run(App, App.destroy);
+    server.shutdown();
+    
+    Ember.run(application, 'destroy');
   }
 });
 
-test("create a default poll", function(assert) {
-  assert.expect(8);
-  
+test("create a default poll", function(assert) { 
   visit('/create').then(function() {
     click('.button-next');
     
@@ -45,15 +73,17 @@ test("create a default poll", function(assert) {
             
             assert.equal(find('.meta-data .title').text(), 'default poll');
             assert.equal(find('.meta-data .description').text(), '');
+                      
+            assert.equal(
+              find('.user-selections-table thead tr th').length,
+              4, // head of user selections table is options + leading column (user names) + last column (buttons)
+              'there are two options provided'
+            );
             
-            // check that there are two options
-            // head of user selections table is options + leading column (user names) + last column (buttons)
-            assert.equal(find('.user-selections-table thead tr th').length, 4);
-            
-            // check that current day is first option
             assert.equal(
               find(find('.user-selections-table thead tr th')[1]).text().trim(),
-              moment().format(moment.localeData().longDateFormat( 'LLLL' ).replace('LT' , '')).trim()
+              formattedDateHelper(new Date()),
+              'today is the first selected option'
             );
           });
         });
@@ -63,8 +93,6 @@ test("create a default poll", function(assert) {
 });
 
 test("create a poll for answering a question", function(assert) {
-  assert.expect(12);
-  
   visit('/create').then(function() {
     // select poll type answer a question
     fillIn('select[name="pollType"]', 'MakeAPoll');
@@ -120,8 +148,6 @@ test("create a poll for answering a question", function(assert) {
 });
 
 test("create a poll with description", function(assert) {
-  assert.expect(8);
-  
   visit('/create').then(function() {
     click('.button-next');
     
@@ -157,10 +183,10 @@ test("create a poll with description", function(assert) {
             // head of user selections table is options + leading column (user names) + last column (buttons)
             assert.equal(find('.user-selections-table thead tr th').length, 4);
             
-            // check that current day is first option
             assert.equal(find(
               Ember.$('.user-selections-table thead tr th')[1]).text().trim(),
-              moment().format(moment.localeData().longDateFormat( 'LLLL' ).replace('LT' , '')).trim()
+              formattedDateHelper(new Date()),
+              'current date should be first option'
             );
           });
         });

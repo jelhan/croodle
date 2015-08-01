@@ -2,16 +2,17 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var pickFiles = require('broccoli-static-compiler');
+var unwatchedTree    = require('broccoli-unwatched-tree');
 var trees = [];
 
 var app = new EmberApp({
-  buildInfoOptions: {
-    metaTemplate: 'version={VERSION}-{COMMIT}'
+  'buildInfoOptions': {
+    'metaTemplate': 'version={DESC}'
   },
 
   // do not fingerprint webshim
-  fingerprint: {
-    exclude: ['assets/shims']
+  'fingerprint': {
+    'exclude': ['assets/shims']
   }
 });
 
@@ -27,11 +28,6 @@ var app = new EmberApp({
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
-
-app.import({
-  development: 'bower_components/moment/min/moment-with-locales.js',
-  production: 'bower_components/moment/min/moment-with-locales.min.js'
-});
 
 app.import({
   development: 'bower_components/bootstrap/dist/js/bootstrap.js',
@@ -74,6 +70,8 @@ app.import('bower_components/sjcl/sjcl.js');
 
 app.import('bower_components/modernizr/modernizr.js');
 
+app.import('bower_components/jstimezonedetect/jstz.js');
+
 // include webshim files into dist
 trees.push(
   pickFiles('bower_components/webshim/js-webshim/minified/shims', {
@@ -82,15 +80,14 @@ trees.push(
   })
 );
 
-// include dummy data into dist if environment is development or test
-if (app.env === 'development' || app.env === 'test') {
-  trees.push(
-    pickFiles('server/dummy', {
-      srcDir: '/',
-      destDir: '/data'
-    })
-  );
-}
+// include api files into dist
+trees.push(
+  pickFiles(unwatchedTree('api'), {
+    srcDir: '/',
+    destDir: '/api',
+    files: ['index.php', 'cron.php', 'classes/*', 'vendor/*']
+  })
+);
 
 trees.push(app.toTree());
 var mergeTrees = require('broccoli-merge-trees');

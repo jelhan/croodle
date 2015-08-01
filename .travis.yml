@@ -16,6 +16,7 @@ install:
   - npm install -g bower
   - npm install
   - bower install
+  - cd api/ && composer install && cd ..
 
 before_script:
   - ember server --live-reload=false & # Start a server so we can hit the fake API from integration tests
@@ -23,3 +24,4 @@ before_script:
 
 script:
   - npm test
+  - cd api/ && ./vendor/bin/codecept run && cd ..

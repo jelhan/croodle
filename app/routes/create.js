@@ -1,5 +1,6 @@
 import Ember from "ember";
 import generatePassphrase from "../utils/generate-passphrase";
+/* global moment */
 
 export default Ember.Route.extend({
   beforeModel: function(){
@@ -24,8 +25,9 @@ export default Ember.Route.extend({
       datetime: false,
       datetimesInputFields: 2,
       isDateTime: false,
-      timezoneOffset: new Date().getTimezoneOffset(),
-      version: this.buildInfo.version + '-' + this.buildInfo.commit
+      timezone: '',
+      expirationDate: moment().add(3, 'month').toISOString(),
+      version: this.buildInfo.desc
     });
   }
 });
