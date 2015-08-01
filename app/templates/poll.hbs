@@ -39,7 +39,7 @@
               {{#each date in dates}}
                 <th>
                   {{#if model.isDateTime}}
-                    {{formattedDate date.title format="LT"}}
+                    {{formattedDate date.title format="LT" times=true}}
                   {{else}}
                     {{formattedDate date.title}}
                   {{/if}}
