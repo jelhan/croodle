@@ -32,13 +32,14 @@ Build process and installation
 
 Production builds are provided [here](https://github.com/jelhan/croodle/releases).
 
-If you like to build yourself you have to install node.js package management tool [npm](https://www.npmjs.org/), [bower](http://bower.io/) and [ember-cli](http://www.ember-cli.com/) before.
+If you like to build yourself you have to install node.js package management tool [npm](https://www.npmjs.org/), [bower](http://bower.io/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before.
 
 ```shell
 git clone git@github.com:jelhan/croodle.git
 cd croodle
 npm install
 bower install
+cd api/ && composer install && cd ..
 ember build --prod
 ```
 
@@ -51,6 +52,8 @@ You should consider to force an SSL encrypted connection.
 Running tests
 -------------
 
+Ember
+====
 Prefered way is to run tests against PhantomJS, Chrome and Firefox
 by `ember test --server`. Results are reported in command-line and 
 browser.
@@ -59,5 +62,9 @@ Files are watched for changes.
 If you only like to run tests ones against PhantomJS in command-line
 you could use `ember test`. This is also used in CI.
 
-Development server has to be started before and listen on `localhost:4200`.
-Run development server by `ember server`. `php-cgi` has to be installed.
+Api
+===
+Api tests are provided by Codeception. To run them change current
+directory to `/api` and execute `./vendor/bin/codecept run`.
+
+To run tests you need PHP >= 5.4.
