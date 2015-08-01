@@ -1,21 +1,48 @@
 import Ember from "ember";
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
+import Pretender from 'pretender';
+import postPolls from '../helpers/post-polls';
 /* global moment */
-var App;
+/* jshint proto: true */
 
-module('Integration - create poll', {
+var application, server;
+
+module('Acceptance | create a poll', {
   beforeEach: function() {
-    App = startApp();
+    application = startApp();
+    application.__container__.lookup('adapter:application').__proto__.namespace = '';
+    
+    server = new Pretender();
+
+    var lastCreatedPoll = {};
+  
+    server.post('/polls',
+      function (request) {
+        var ret = postPolls(request.requestBody, 'test');
+        lastCreatedPoll = ret[2];
+        return ret;
+      }
+    );
+
+    server.get('/polls/test',
+      function () {
+        return [
+          200,
+          {"Content-Type": "application/json"},
+          lastCreatedPoll
+        ];
+      }
+    );
   },
   afterEach: function() {
-    Ember.run(App, App.destroy);
+    server.shutdown();
+    
+    Ember.run(application, 'destroy');
   }
 });
 
-test("create a default poll", function(assert) {
-  assert.expect(8);
-  
+test("create a default poll", function(assert) { 
   visit('/create').then(function() {
     click('.button-next');
     
@@ -63,8 +90,6 @@ test("create a default poll", function(assert) {
 });
 
 test("create a poll for answering a question", function(assert) {
-  assert.expect(12);
-  
   visit('/create').then(function() {
     // select poll type answer a question
     fillIn('select[name="pollType"]', 'MakeAPoll');
@@ -120,8 +145,6 @@ test("create a poll for answering a question", function(assert) {
 });
 
 test("create a poll with description", function(assert) {
-  assert.expect(8);
-  
   visit('/create').then(function() {
     click('.button-next');
     
