@@ -3,6 +3,14 @@
  * RESTful API used by ember data for data storage
  */
 
+if (php_sapi_name() == 'cli-server') {
+  // assume that cli-server is only used for testing
+  define('DATA_FOLDER', 'tests/_tmp/data/');
+}
+else {
+  define('DATA_FOLDER', '../data/');
+}
+
 require 'vendor/autoload.php';
 require 'classes/datahandler.php';
 

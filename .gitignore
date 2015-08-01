@@ -3,6 +3,8 @@
 # compiled output
 /dist
 /tmp
+/api/_*
+/api/**/_*
 
 # dependencies
 /node_modules

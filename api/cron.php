@@ -17,7 +17,7 @@ $polls_deleted = 0;
 
 $path = substr($argv[0], 0, -8);
 
-$data_folder = $path . datahandler::DATA_FOLDER;
+$data_folder = $path . '../data';
 $data_folder_handler = opendir($data_folder);
 if(!$data_folder_handler) {
   throw new Exception('could not open data folder');
