@@ -2,6 +2,7 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var pickFiles = require('broccoli-static-compiler');
+var unwatchedTree    = require('broccoli-unwatched-tree');
 var trees = [];
 
 var app = new EmberApp({
@@ -81,7 +82,7 @@ trees.push(
 
 // include api files into dist
 trees.push(
-  pickFiles('api', {
+  pickFiles(unwatchedTree('api'), {
     srcDir: '/',
     destDir: '/api',
     files: ['index.php', 'cron.php', 'classes/*', 'vendor/*']

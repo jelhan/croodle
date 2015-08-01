@@ -22,6 +22,7 @@
     "broccoli-asset-rev": "^2.0.2",
     "broccoli-merge-trees": "^0.2.1",
     "broccoli-static-compiler": "~0.2.1",
+    "broccoli-unwatched-tree": "^0.1.1",
     "connect-restreamer": "^1.0.1",
     "cors": "^2.5.3",
     "ember-cli": "0.2.7",
