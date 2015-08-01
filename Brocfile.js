@@ -12,11 +12,6 @@ var app = new EmberApp({
   // do not fingerprint webshim
   'fingerprint': {
     'exclude': ['assets/shims']
-  },
-
-  'ember-moment': {
-    'includeLocales': ['de', 'en', 'es'],
-    'includeTimezone': '2010-2020'
   }
 });
 

@@ -72,15 +72,17 @@ test("create a default poll", function(assert) {
             
             assert.equal(find('.meta-data .title').text(), 'default poll');
             assert.equal(find('.meta-data .description').text(), '');
+                      
+            assert.equal(
+              find('.user-selections-table thead tr th').length,
+              4, // head of user selections table is options + leading column (user names) + last column (buttons)
+              'there are two options provided'
+            );
             
-            // check that there are two options
-            // head of user selections table is options + leading column (user names) + last column (buttons)
-            assert.equal(find('.user-selections-table thead tr th').length, 4);
-            
-            // check that current day is first option
             assert.equal(
               find(find('.user-selections-table thead tr th')[1]).text().trim(),
-              moment().format(moment.localeData().longDateFormat( 'LLLL' ).replace('LT' , '')).trim()
+              moment().format(moment.localeData().longDateFormat( 'LLLL' ).replace('LT' , '')).trim(),
+              'today is the first selected option'
             );
           });
         });
