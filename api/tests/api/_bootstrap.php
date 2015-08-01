@@ -20,4 +20,12 @@ function deleteDirRecursively($dir) {
   rmdir($dir);
 }
 
+if(!is_dir('tests/_tmp')) {
+  mkdir('tests/_tmp');
+}
+
+if(!is_dir($tmpDataDir)) {
+  mkdir($tmpDataDir);
+}
+
 deleteDirRecursively($tmpDataDir);
