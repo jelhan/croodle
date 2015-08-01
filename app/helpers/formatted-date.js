@@ -15,7 +15,7 @@ export default function(date, options) {
   }
   else {
     return moment(date).format(
-      moment.localeData().longDateFormat('LLLL')
+      moment.localeData().longDateFormat(format)
       .replace(
         moment.localeData().longDateFormat('LT'), '')
       .trim()
