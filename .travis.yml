@@ -24,4 +24,4 @@ before_script:
 
 script:
   - npm test
-  - cd api/ && ./vendor/bin/codeception run && cd ..
+  - cd api/ && ./vendor/bin/codecept run && cd ..
