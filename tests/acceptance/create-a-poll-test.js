@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
 import postPolls from '../helpers/post-polls';
+import formattedDateHelper from 'croodle/helpers/formatted-date';
 /* global moment */
 /* jshint proto: true */
 
@@ -81,7 +82,7 @@ test("create a default poll", function(assert) {
             
             assert.equal(
               find(find('.user-selections-table thead tr th')[1]).text().trim(),
-              moment().format(moment.localeData().longDateFormat( 'LLLL' ).replace('LT' , '')).trim(),
+              formattedDateHelper(new Date()),
               'today is the first selected option'
             );
           });
@@ -182,10 +183,10 @@ test("create a poll with description", function(assert) {
             // head of user selections table is options + leading column (user names) + last column (buttons)
             assert.equal(find('.user-selections-table thead tr th').length, 4);
             
-            // check that current day is first option
             assert.equal(find(
               Ember.$('.user-selections-table thead tr th')[1]).text().trim(),
-              moment().format(moment.localeData().longDateFormat( 'LLLL' ).replace('LT' , '')).trim()
+              formattedDateHelper(new Date()),
+              'current date should be first option'
             );
           });
         });

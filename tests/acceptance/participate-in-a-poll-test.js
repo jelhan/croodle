@@ -2,8 +2,8 @@ import Ember from "ember";
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
-import getPolls from 'croodle/tests/helpers/get-polls';
-import postUsers from 'croodle/tests/helpers/post-users';
+import getPolls from '../helpers/get-polls';
+import postUsers from '../helpers/post-users';
 /* jshint proto: true */
 
 var application, server;
