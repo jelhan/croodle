@@ -83,7 +83,8 @@ trees.push(
 trees.push(
   pickFiles('api', {
     srcDir: '/',
-    destDir: '/api'
+    destDir: '/api',
+    files: ['index.php', 'cron.php', 'classes/*', 'vendor/*']
   })
 );
 
