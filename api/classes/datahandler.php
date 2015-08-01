@@ -3,11 +3,11 @@
 /*
  * handles the data for api.php
  */
-class datahandler {
+class Datahandler {
     // (string) folder to store data in relative to position of api.php
     // webserver has to have write access to this folder
     // must end with a slash
-    const DATA_FOLDER = 'data/';
+    const DATA_FOLDER = '../data/';
     
     // (int) length of ids used to identify data
     const ID_LENGTH = 10;

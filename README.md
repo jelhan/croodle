@@ -23,7 +23,7 @@ You could check for an attack like this by using an development tool for your br
 Requirements
 ------------
 
-Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP. Croodle stores the data in textfiles, so there is no need for a database server like mySQL.
+Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP >= 5.3. Croodle stores the data in textfiles, so there is no need for a database server like mySQL.
 
 Due to security reasons you should have SSL encryption enabled and provide a valid certificate.
 

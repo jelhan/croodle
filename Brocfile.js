@@ -83,7 +83,7 @@ trees.push(
 trees.push(
   pickFiles('api', {
     srcDir: '/',
-    destDir: '/'
+    destDir: '/api'
   })
 );
 
