@@ -52,8 +52,7 @@ You should consider to force an SSL encrypted connection.
 Running tests
 -------------
 
-Ember
-====
+### Ember
 Prefered way is to run tests against PhantomJS, Chrome and Firefox
 by `ember test --server`. Results are reported in command-line and 
 browser.
@@ -62,8 +61,7 @@ Files are watched for changes.
 If you only like to run tests ones against PhantomJS in command-line
 you could use `ember test`. This is also used in CI.
 
-Api
-===
+### Api
 Api tests are provided by Codeception. To run them change current
 directory to `/api` and execute `./vendor/bin/codecept run`.
 
