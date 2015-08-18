@@ -144,6 +144,10 @@ export default Ember.Controller.extend({
       this.set('model.timezone', '');
     }
   }.observes('model.isDateTime', 'model.isFindADate'),
+
+  syncExpirationDate: function() {
+    this.set('model.serverExpirationDate', this.get('model.expirationDate'));
+  }.observes('model.expirationDate'),
   
   /*
    * validate if a given time string is in valid format

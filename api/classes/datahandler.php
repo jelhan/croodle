@@ -84,8 +84,8 @@ class Datahandler {
 
         // check expiration date
         if (
-            !empty($poll_data->poll->expirationDate) &&
-            self::isExpired($poll_data->poll->expirationDate)
+            !empty($poll_data->poll->serverExpirationDate) &&
+            self::isExpired($poll_data->poll->serverExpirationDate)
         ) {
             $this->deletePoll($poll_id);
             return false;
@@ -121,6 +121,13 @@ class Datahandler {
                     $poll_data->poll->users[] = $user_data->user;
                 }
             }
+        }
+
+        // do not include properties prefixed by server in response
+        foreach ($poll_data->poll as $key => $value) {
+          if(strpos($key, "server") === 0) {
+            unset($poll_data->poll->$key);
+          }
         }
         
         return json_encode($poll_data);

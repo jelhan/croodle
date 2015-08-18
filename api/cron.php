@@ -44,7 +44,7 @@ while(false !== ($poll_dir = readdir($data_folder_handler))) {
 
   $polls_processed ++;
   
-  if(datahandler::isExpired($poll_data->poll->expirationDate)) {
+  if(datahandler::isExpired($poll_data->poll->serverExpirationDate)) {
     $datahandler = new datahandler();
     $datahandler->deletePoll($poll_dir);
 
