@@ -1,51 +1,29 @@
 import DS from "ember-data";
-import Ember from "ember";
 
 export default DS.Model.extend({
   // relationship
   users : DS.hasMany('user'),
   
   // properties
-  encryptedTitle : DS.attr('string'),
-  title : Ember.computed.encrypted('encryptedTitle', 'string'),
+  title : DS.attr('string'),
+  description : DS.attr('string'),
+  pollType : DS.attr('string'),
+  answerType: DS.attr('string'),
+  answers : DS.attr('array'),
+  options : DS.attr('array'),
+  creationDate : DS.attr('date'),
+  forceAnswer : DS.attr('boolean'),
+  anonymousUser : DS.attr('boolean'),
+  isDateTime : DS.attr('boolean'),
+  timezone : DS.attr('string'),
   
-  encryptedDescription : DS.attr('string'),
-  description: Ember.computed.encrypted('encryptedDescription', 'string'),
+  // expiration date is stored twice:
+  // * encrypted to retrieve by clients
+  // * unencrypted to use by server only
+  expirationDate : DS.attr('string'),
+  serverExpirationDate : DS.attr('string', {'encrypted': false}),
   
-  encryptedPollType : DS.attr('string'),
-  pollType : Ember.computed.encrypted('encryptedPollType', 'string'),
-  
-  encryptedAnswerType: DS.attr('string'),
-  answerType : Ember.computed.encrypted('encryptedAnswerType', 'string'),
-  
-  encryptedAnswers : DS.attr('string'),
-  answers : Ember.computed.encrypted('encryptedAnswers', 'array'),
-  
-  encryptedOptions : DS.attr('string'),
-  options : Ember.computed.encrypted('encryptedOptions', 'array'),
-  
-  encryptedCreationDate : DS.attr('string'),
-  creationDate : Ember.computed.encrypted('encryptedCreationDate', 'date'),
-  
-  encryptedForceAnswer : DS.attr('string'),
-  forceAnswer : Ember.computed.encrypted('encryptedForceAnswer', 'boolean'),
-  
-  encryptedAnonymousUser : DS.attr('string'),
-  anonymousUser : Ember.computed.encrypted('encryptedAnonymousUser', 'boolean'),
-  
-  encryptedIsDateTime : DS.attr('string'),
-  isDateTime : Ember.computed.encrypted('encryptedIsDateTime', 'boolean'),
-  
-  encryptedTimezone : DS.attr('string'),
-  timezone : Ember.computed.encrypted('encryptedTimezone', 'string'),
-
-  encryptedExpirationDate : DS.attr('string'),
-  expirationDate : Ember.computed.encrypted('encryptedExpirationDate', 'string'),
-
-  // store expiration date unencrypted on create
-  serverExpirationDate : DS.attr('string'),
-
-  version : DS.attr('string'),
+  version : DS.attr('string', {'encrypted': false}),
   
   // computed properties
   isFindADate: function() {
@@ -58,5 +36,9 @@ export default DS.Model.extend({
   
   isMakeAPoll: function() {
     return this.get('pollType') === 'MakeAPoll';
-  }.property('pollType')
+  }.property('pollType'),
+
+  encryptionKey: function() {
+    return this.get('encryption.key');
+  }.property('encryption.key')
 });

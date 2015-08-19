@@ -12,8 +12,15 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     addNewUser: function(){
       var newUser = {
         name: this.get('newUserName'),
-        selections: this.get('newUserSelections')
+        selections: []
       };
+
+      // work-a-round cause value is not retrived otherwise
+      this.get('newUserSelections').forEach(function(selection) {
+        newUser.selections.push({
+          value: selection.get('value')
+        });
+      });
       
       // send new user to controller for saving
       this.send('saveNewUser', newUser);
@@ -398,6 +405,22 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   pollUrl: function() {
     return window.location.href;
   }.property('currentPath', 'encryptionKey'),
+
+  preventEncryptionKeyChanges: function() {
+    if (
+      this.get('encryption.isSet') === true &&
+      this.get('encryptionKey') !== this.get('encryption.key')
+    ) {
+      // work-a-round for url not being updated
+      window.location.hash = window.location.hash.replace(this.get('encryptionKey'), this.get('encryption.key'));
+
+      this.set('encryptionKey', this.get('encryption.key'));
+    }
+    else {
+      this.set('encryption.key', this.get('encryptionKey'));
+      this.set('encryption.isSet', true);
+    }
+  }.observes('encryptionKey'),
   
   /*
    * return true if current timezone differs from timezone poll got created with
@@ -405,19 +428,6 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   timezoneDiffers: function() {
     return jstz.determine().name() !== this.get('model.timezone');
   }.property('model.timezone'),
-  
-  updateEncryptionKey: function() {
-    // update encryption key
-    this.set('encryption.key', this.get('encryptionKey'));
-    
-    // reload content to recalculate computed properties
-    // if encryption key was set before
-    if (this.get('encryption.isSet') === true) {
-        this.get('content').reload();
-    }
-    
-    this.set('encryption.isSet', true);
-  }.observes('encryptionKey'),
   
   useLocalTimezone: function() {
     return false;

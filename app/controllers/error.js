@@ -1,7 +1,7 @@
 import Ember from "ember";
 
-export default Ember.Controller.extend({
-	is404: function(){
-		return this.get('status') === 404;
-	}.property('status')
+export default Ember.Controller.extend({  
+  isDecryptionError: function(){
+    return this.get('model.type') === 'decryption-failed';
+  }.property('model.type')
 });

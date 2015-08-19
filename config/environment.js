@@ -11,6 +11,9 @@ module.exports = function(environment) {
       }
     },
 
+    // needed for hack in serializer to access encryption key via global
+    exportApplicationGlobal: true,
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created

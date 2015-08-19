@@ -1,6 +1,11 @@
 <div class="box">
   <h2>error</h2>
   <p>
-    We are sorry. An unexpected error occurred.
+    {{#if isDecryptionError}}
+      Decryption failed. Please double check the URL. Make sure that no
+      character is missing.
+    {{else}}
+      We are sorry. An unexpected error occurred.
+    {{/if}}
   </p>
 </div>

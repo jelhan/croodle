@@ -35,17 +35,16 @@ export default function (attr, key) {
     anonymousUser: false,
     isDateTime: false,
     users: [],
+    expirationDate: '',
     timezone: '',
     version: 'v0.3'
   };
   
   var encrypt = function(prop) {
-    return String(
-      sjcl.encrypt(
-        key,
-        JSON.stringify(prop)
-      )
-    );
+    return sjcl.encrypt(
+             key,
+             JSON.stringify(prop)
+           );
   };
   
   var data = Ember.merge(defaultAttr, attr);
@@ -56,17 +55,18 @@ export default function (attr, key) {
     JSON.stringify({
       poll: {
         id: data.id,
-        encryptedTitle: encrypt(data.title),
-        encryptedDescription: encrypt(data.description),
-        encryptedPollType: encrypt(data.pollType),
-        encryptedAnswerType: encrypt(data.answerType),
-        encryptedAnswers: encrypt(data.answers),
-        encryptedOptions: encrypt(data.options),
-        encryptedCreationDate: encrypt(data.creationDate),
-        encryptedForceAnswer: encrypt(data.forceAnswer),
-        encryptedAnonymousUser: encrypt(data.anonymousUser),
-        encryptedIsDateTime: encrypt(data.isDateTime),
-        encryptedTimezone: encrypt(data.timezone),
+        title: encrypt(data.title),
+        description: encrypt(data.description),
+        pollType: encrypt(data.pollType),
+        answerType: encrypt(data.answerType),
+        answers: encrypt(data.answers),
+        options: encrypt(data.options),
+        creationDate: encrypt(data.creationDate),
+        forceAnswer: encrypt(data.forceAnswer),
+        anonymousUser: encrypt(data.anonymousUser),
+        isDateTime: encrypt(data.isDateTime),
+        timezone: encrypt(data.timezone),
+        expirationDate: encrypt(data.expirationDate),
         users: data.users,
         version: data.version
       }

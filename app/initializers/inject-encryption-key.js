@@ -8,6 +8,7 @@ export default {
     container.register('encryption:current', EncryptionStorage, {singleton: true});
     application.inject('controller:poll', 'encryption', 'encryption:current');
     application.inject('route:create', 'encryption', 'encryption:current');
-    application.inject('model', 'encryption', 'encryption:current');
+    application.inject('route:poll', 'encryption', 'encryption:current');
+    application.inject('model:poll', 'encryption', 'encryption:current');
   }
 };
