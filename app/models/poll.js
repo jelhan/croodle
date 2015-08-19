@@ -39,7 +39,11 @@ export default DS.Model.extend({
   encryptedTimezone : DS.attr('string'),
   timezone : Ember.computed.encrypted('encryptedTimezone', 'string'),
 
-  expirationDate : DS.attr('string'),
+  encryptedExpirationDate : DS.attr('string'),
+  expirationDate : Ember.computed.encrypted('encryptedExpirationDate', 'string'),
+
+  // store expiration date unencrypted on create
+  serverExpirationDate : DS.attr('string'),
 
   version : DS.attr('string'),
   

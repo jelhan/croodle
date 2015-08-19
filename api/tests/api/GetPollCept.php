@@ -13,7 +13,8 @@ $pollData = [
     "encryptedAnonymousUser" => "{\"iv\":\"Rv75z29GDIbZ/RGRs+uq0Q==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"/7sj+sLWPYOWJgvslg==\"}",
     "encryptedIsDateTime" => "{\"iv\":\"noz0JF1Uzv74e27gMu55Kw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"Igefluift7+Wedo1Cw==\"}",
     "encryptedTimezone" => "{\"iv\":\"/sBs7oP15FsJ7qSUSHvewA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"TqJBGIjSGIcVsQ==\"}",
-    "expirationDate" => "2015-11-01T17:57:03.713Z",
+    "encryptedExpirationDate" => "{\"iv\":\"Jmclqi7ZDjKZ1O9t6HgkyQ==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"CnrCEy2AX1c=\",\"ct\":\"jg0bpNknoJcB4CAumtSEjyRNy845vzbfM6QQeNx0M60ZAw==\"}",
+    "serverExpirationDate" => "2015-11-01T17:57:03.713Z",
     "version" => "v0.3.0+d26cd827"
   ]
 ];
@@ -25,5 +26,10 @@ $I->wantTo('get an existing poll');
 $I->sendGET('/polls/' . $pollId);
 $I->seeResponseCodeIs(200);
 $I->seeResponseIsJson();
+
+unset($pollData["poll"]["serverExpirationDate"]);
 $I->seeResponseContainsJson($pollData);
+
 $I->seeResponseContainsJson(["poll" => ["id" => $pollId]]);
+
+$I->dontSeeResponseJsonMatchesJsonPath('poll.serverExpirationDate');
