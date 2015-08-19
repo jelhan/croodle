@@ -1,5 +1,4 @@
-croodle
-=======
+# croodle
 
 [![Build Status](https://travis-ci.org/jelhan/croodle.svg?branch=master)](https://travis-ci.org/jelhan/croodle)
 
@@ -9,26 +8,23 @@ This is an alpha version. Changes could brake backward compatibility. Also it is
 
 Croodle is inspired by [ZeroBin](https://github.com/sebsauvage/ZeroBin) and of course by Doodle.
 
-Security notice
----------------
+## Security notice
 
 As any other web application based end-to-end encryption Croodle could be attacked by an injection of maluse code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser ot the encryption key used and send it to a server under his controll.
 
 Therefore you have to
-* use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection to Croodle.
+* use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection.
 * trust the server.
 
-You could check for an attack like this by using an development tool for your browser and check if unencrypted data of your poll or the encryption key is send over network or is stored in a cookie or the localStorage of your browser for later send.
+You could check for an attack like this by analysing the source code retrieved from server and/or using an development tool for your browser and check what data is send over the network or stored in cookies, localStorage or similar browser techniques.
 
-Requirements
-------------
+## Requirements
 
 Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP >= 5.3. Croodle stores the data in textfiles, so there is no need for a database server like mySQL.
 
 Due to security reasons you should have SSL encryption enabled and provide a valid certificate.
 
-Build process and installation
-------------------------------
+## Build process and installation
 
 Production builds are provided [here](https://github.com/jelhan/croodle/releases).
 
@@ -45,12 +41,13 @@ ember build --prod
 
 Afterwards copy all files in /dist folder to your werbserver.
 
-Make sure that data/ folder is writeable by the web server.
+### After installation
 
-You should consider to force an SSL encrypted connection.
+* `data/` folder has to be writeable by web server.
+* HTTPS connection should be forced. You should consider using [HTTP Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security) (HSTS).
+* [Content-Security-Policy](http://content-security-policy.com/) (CSP) should be used. Default CSP headers are provided in `.htaccess` file but commented out.
 
-Running tests
--------------
+## Running tests
 
 ### Ember
 Prefered way is to run tests against PhantomJS, Chrome and Firefox
@@ -66,3 +63,7 @@ Api tests are provided by Codeception. To run them change current
 directory to `/api` and execute `./vendor/bin/codecept run`.
 
 To run tests you need PHP >= 5.4.
+
+## License
+
+croodle is [MIT Licensed](https://github.com/jelhan/croodle/blob/master/LICENSE).
