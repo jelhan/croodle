@@ -115,7 +115,7 @@ class Datahandler {
                     $user_data = json_decode($user_data_json);
                     
                     // extend id to user object
-                    $user_data->user->id = $file;
+                    $user_data->user->id = $poll_id . '_' . $file;
                     
                     // embedd user into poll
                     $poll_data->poll->users[] = $user_data->user;

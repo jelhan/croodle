@@ -79,7 +79,7 @@ $app->post('/users', function() use ($app) {
   }
 
   // add user id to user object
-  $dataObject->user->id = $userCreatedId;
+  $dataObject->user->id = $pollId . '_' . $userCreatedId;
   
   $app->response->setBody(
     json_encode($dataObject)
