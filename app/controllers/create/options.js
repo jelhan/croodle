@@ -71,9 +71,13 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   /*
    * maps optionsDates for bootstrap datepicker as a simple array of date objects
    */
-  optionsBootstrapDatepicker: function(key, value) {
-    // setter
-    if (arguments.length > 1) {
+  optionsBootstrapDatepicker: Ember.computed('optionsDates', {
+    get: function() {
+      return this.get('optionsDates').map(function(item){
+        return item.title;
+      });
+    },    
+    set: function(key, value) {
       var newOptionsDates = [];
       if(Ember.isArray(value) && value.length > 0) {
         newOptionsDates = value.map(function(item) {
@@ -81,13 +85,10 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
         });
       }
       this.set('optionsDates', newOptionsDates);
-    }
 
-    // getter
-    return this.get('optionsDates').map(function(item){
-      return item.title;
-    });
-  }.property('optionsDates'),
+      return value;
+    },
+  }),
 
   validations: {
     enoughOptions: {
