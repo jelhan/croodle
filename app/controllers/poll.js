@@ -264,6 +264,10 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
           case 'maybe':
             options[i].score += 1;
             break;
+
+          case 'no':
+            options[i].score -= 2;
+            break;
         }
       });
     });
@@ -302,6 +306,23 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     });
     
     return bestOptions;
+  }.property('model.users.@each'),
+
+  evaluationBestOptionsMultiple: function(){
+    if (this.get('evaluationBestOptions.length') > 1) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }.property('evaluationBestOptions'),
+
+  evaluationLastParticipation: function(){
+    return this.get('model.users.lastObject.creationDate');
+  }.property('model.users.@each'),
+
+  evaluationParticipants: function(){
+    return this.get('model.users.length');
   }.property('model.users.@each'),
   
   /*

@@ -136,48 +136,91 @@
         {{t "poll.evaluation.label"}}
       </h2>
 
-      <h3>
+      <p>
+        {{t "poll.evaluation.participants" count=evaluationParticipants}}
+      </p>
+
+      <p>
         {{#if model.isFindADate}}
           {{t "poll.evaluation.bestOption.label.findADate" count=evaluationBestOptions.length}}
         {{else}}
           {{t "poll.evaluation.bestOption.label.makeAPoll" count=evaluationBestOptions.length}}
         {{/if}}
-      </h3>
-      <ul>
-        {{#each evaluationBestOption in evaluationBestOptions}}
-          <li>
-            {{#if model.isFindADate}}
-              {{formattedDate evaluationBestOption.title times=model.isDateTime}}
-            {{else}}
-              {{evaluationBestOption.title}}
-            {{/if}}
 
-            <small>
-              {{#if model.isFindADate}}
-                {{#if evaluationBestOption.answers.yes}}
-                  {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOption.answers.yes}}
+        {{#if evaluationBestOptionsMultiple}}
+          <ul>
+            {{#each evaluationBestOption in evaluationBestOptions}}
+              <li>
+                <strong>
+                  {{#if model.isFindADate}}
+                    {{formattedDate evaluationBestOption.title times=model.isDateTime}}.
+                  {{else}}
+                    {{evaluationBestOption.title}}.
+                  {{/if}}
+                </strong>
+
+                <br/>
+
+                {{#if model.isFindADate}}
+                  {{#if evaluationBestOption.answers.yes}}
+                    {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOption.answers.yes}}
+                  {{/if}}
+                  {{#if evaluationBestOption.answers.maybe}}
+                    {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOption.answers.maybe}}
+                  {{/if}}
+                  {{#if evaluationBestOption.answers.no}}
+                    {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOption.answers.no}}
+                  {{/if}}
+                {{else}}
+                  {{#if evaluationBestOption.answers.yes}}
+                    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOption.answers.yes}}
+                  {{/if}}
+                  {{#if evaluationBestOption.answers.maybe}}
+                    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOption.answers.maybe}}
+                  {{/if}}
+                  {{#if evaluationBestOption.answers.no}}
+                    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOption.answers.no}}
+                  {{/if}}
                 {{/if}}
-                {{#if evaluationBestOption.answers.maybe}}
-                  {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOption.answers.maybe}}
-                {{/if}}
-                {{#if evaluationBestOption.answers.no}}
-                  {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOption.answers.no}}
-                {{/if}}
-              {{else}}
-                {{#if evaluationBestOption.answers.yes}}
-                  {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOption.answers.yes}}
-                {{/if}}
-                {{#if evaluationBestOption.answers.maybe}}
-                  {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOption.answers.maybe}}
-                {{/if}}
-                {{#if evaluationBestOption.answers.no}}
-                  {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOption.answers.no}}
-                {{/if}}
-              {{/if}}
-            </small>
-          </li>
-        {{/each}}
-      </ul>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <strong>
+            {{#if model.isFindADate}}
+              {{formattedDate evaluationBestOptions.[0].title times=model.isDateTime}}.
+            {{else}}
+              {{evaluationBestOptions.[0].title}}.
+            {{/if}}
+          </strong>
+
+          {{#if model.isFindADate}}
+            {{#if evaluationBestOptions.[0].answers.yes}}
+              {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOptions.[0].answers.yes}}
+            {{/if}}
+            {{#if evaluationBestOptions.[0].answers.maybe}}
+              {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOptions.[0].answers.maybe}}
+            {{/if}}
+            {{#if evaluationBestOptions.[0].answers.no}}
+              {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOptions.[0].answers.no}}
+            {{/if}}
+          {{else}}
+            {{#if evaluationBestOptions.[0].answers.yes}}
+              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOptions.[0].answers.yes}}
+            {{/if}}
+            {{#if evaluationBestOptions.[0].answers.maybe}}
+              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOptions.[0].answers.maybe}}
+            {{/if}}
+            {{#if evaluationBestOptions.[0].answers.no}}
+              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOptions.[0].answers.no}}
+            {{/if}}
+          {{/if}}
+        {{/if}}
+      </p>
+
+      <p>
+        {{t "poll.evaluation.lastParticipation" ago=(moment-from-now evaluationLastParticipation)}}
+      </p>
     </div>
   {{/if}}
 </div>
