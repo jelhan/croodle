@@ -27,7 +27,7 @@ export default Ember.Route.extend({
       isDateTime: false,
       timezone: '',
       expirationDate: moment().add(3, 'month').toISOString(),
-      version: this.buildInfo.desc
+      version: this.buildInfo.semver
     });
   }
 });
