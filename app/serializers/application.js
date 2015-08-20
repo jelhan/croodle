@@ -1,10 +1,12 @@
 import DS from "ember-data";
-/* global sjcl, Croodle */
+/* global sjcl */
 
 export default DS.RESTSerializer.extend({
   normalize: function(modelClass, resourceHash, prop) {
     // decrypt before unserialize
-    var decryptionKey = Croodle.registry['lookup']('controller:poll').get('encryption.key');
+    var dummyRecord = this.store.createRecord('poll');
+    var decryptionKey = dummyRecord.get('encryption.key');
+    dummyRecord.destroyRecord();
     modelClass.eachAttribute(function(key, attributes) {
       if (
         attributes.options.encrypted !== false
@@ -31,7 +33,7 @@ export default DS.RESTSerializer.extend({
     this._super(snapshot, json, key, attributes);
 
     // encrypt after serialize
-    var encryptionKey = Croodle.registry['lookup']('controller:poll').get('encryption.key');
+    var encryptionKey = snapshot.record.get('encryption.key');
     if (
       attributes.options.encrypted !== false
     ) {
@@ -39,7 +41,11 @@ export default DS.RESTSerializer.extend({
         json[key] = sjcl.encrypt(encryptionKey, JSON.stringify(json[key]));
       }
       catch(err) {
-        throw "encryption failed with key: " + encryptionKey;
+        throw {
+          type: 'encryption-failed',
+          message: "encryption failed with key: " + encryptionKey,
+          original: err
+        };
       }
     }
   }

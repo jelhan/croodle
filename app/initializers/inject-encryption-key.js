@@ -9,6 +9,6 @@ export default {
     application.inject('controller:poll', 'encryption', 'encryption:current');
     application.inject('route:create', 'encryption', 'encryption:current');
     application.inject('route:poll', 'encryption', 'encryption:current');
-    application.inject('model:poll', 'encryption', 'encryption:current');
+    application.inject('model', 'encryption', 'encryption:current');
   }
 };

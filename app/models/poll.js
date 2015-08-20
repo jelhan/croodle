@@ -37,8 +37,4 @@ export default DS.Model.extend({
   isMakeAPoll: function() {
     return this.get('pollType') === 'MakeAPoll';
   }.property('pollType'),
-
-  encryptionKey: function() {
-    return this.get('encryption.key');
-  }.property('encryption.key')
 });
