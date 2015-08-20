@@ -151,6 +151,17 @@ export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
   },
 
   /*
+   * resize scrollbars if document height might be changed
+   * and therefore scrollbars might be added
+   */
+  triggerResizeScrollbars: function(){
+    var self = this;
+    Ember.run.next(function() {
+      self.resizeScrollbars();
+    });
+  }.observes('controller.isEvaluable', 'controller.model.users.@each'),
+
+  /*
    * clean up
    * especially remove event listeners
    */
