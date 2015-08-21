@@ -131,16 +131,16 @@
   </div>
   
   {{#if isEvaluable}}
-    <div class="box">
+    <div class="box evaluation">
       <h2>
         {{t "poll.evaluation.label"}}
       </h2>
 
-      <p>
+      <p class="participants">
         {{t "poll.evaluation.participants" count=evaluationParticipants}}
       </p>
 
-      <p>
+      <p class="best-options">
         {{#if model.isFindADate}}
           {{t "poll.evaluation.bestOption.label.findADate" count=evaluationBestOptions.length}}
         {{else}}
@@ -151,13 +151,11 @@
           <ul>
             {{#each evaluationBestOption in evaluationBestOptions}}
               <li>
-                <strong>
-                  {{#if model.isFindADate}}
-                    {{formattedDate evaluationBestOption.title times=model.isDateTime}}.
-                  {{else}}
-                    {{evaluationBestOption.title}}.
-                  {{/if}}
-                </strong>
+                {{#if model.isFindADate}}
+                  <strong>{{formattedDate evaluationBestOption.title times=model.isDateTime}}</strong>.
+                {{else}}
+                  <strong>{{evaluationBestOption.title}}</strong>.
+                {{/if}}
 
                 <br/>
 
@@ -186,13 +184,11 @@
             {{/each}}
           </ul>
         {{else}}
-          <strong>
-            {{#if model.isFindADate}}
-              {{formattedDate evaluationBestOptions.[0].title times=model.isDateTime}}.
-            {{else}}
-              {{evaluationBestOptions.[0].title}}.
-            {{/if}}
-          </strong>
+          {{#if model.isFindADate}}
+            <strong>{{formattedDate evaluationBestOptions.[0].title times=model.isDateTime}}</strong>.
+          {{else}}
+            <strong>{{evaluationBestOptions.[0].title}}</strong>.
+          {{/if}}
 
           {{#if model.isFindADate}}
             {{#if evaluationBestOptions.[0].answers.yes}}
@@ -218,7 +214,7 @@
         {{/if}}
       </p>
 
-      <p>
+      <p class="last-participation">
         {{t "poll.evaluation.lastParticipation" ago=(moment-from-now evaluationLastParticipation)}}
       </p>
     </div>

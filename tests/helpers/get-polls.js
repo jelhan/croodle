@@ -49,6 +49,17 @@ export default function (attr, key) {
   
   var data = Ember.merge(defaultAttr, attr);
 
+  var users = data.users.map(function(user, index) {
+    return {
+      id: data.id + '_' + index,
+      creationDate: encrypt(user.creationDate),
+      name: encrypt(user.name),
+      poll: data.id,
+      selections: encrypt(user.selections),
+      version: data.version
+    };
+  });
+
   return [
     200,
     { "Content-Type": "application/json" },
@@ -67,7 +78,7 @@ export default function (attr, key) {
         isDateTime: encrypt(data.isDateTime),
         timezone: encrypt(data.timezone),
         expirationDate: encrypt(data.expirationDate),
-        users: data.users,
+        users: users,
         version: data.version
       }
     })
