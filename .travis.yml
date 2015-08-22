@@ -24,6 +24,7 @@ install:
 before_script:
   - ember server --live-reload=false & # Start a server so we can hit the fake API from integration tests
   - sleep 10 # wait for the server to be started
+  - echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini # http://php.net/manual/de/ini.core.php#ini.always-populate-raw-post-data
 
 script:
   - npm test
