@@ -20,7 +20,7 @@ You could check for an attack like this by analysing the source code retrieved f
 
 ## Requirements
 
-Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP >= 5.3. Croodle stores the data in textfiles, so there is no need for a database server like mySQL.
+Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP >= 5.6. Croodle stores the data in textfiles, so there is no need for a database server like mySQL.
 
 Due to security reasons you should have SSL encryption enabled and provide a valid certificate.
 
@@ -61,8 +61,6 @@ you could use `ember test`. This is also used in CI.
 ### Api
 Api tests are provided by Codeception. To run them change current
 directory to `/api` and execute `./vendor/bin/codecept run`.
-
-To run tests you need PHP >= 5.4.
 
 ## License
 
