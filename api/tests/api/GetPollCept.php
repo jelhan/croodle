@@ -1,25 +1,8 @@
 <?php
 $pollId = "abcDEF0123";
-$pollData = [
-  "poll" => [
-    "encryptedTitle" => "{\"iv\":\"FUekCOJ/UOf91y9etFuh9w==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"q8Iy+2AOwjcWjob1uLw=\"}",
-    "encryptedDescription" => null,
-    "encryptedPollType" => "{\"iv\":\"3iCPGIdKeMFbebcuJlmuMA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"0HDBwqya/9M7Ya/Y60R34uGGlw==\"}",
-    "encryptedAnswerType" => "{\"iv\":\"re8c+PWzoZndx8IxQ+JZfA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"qKY/EzZQbGqvkpABchEy\"}",
-    "encryptedAnswers" => "{\"iv\":\"Ln9SCj+dvBzTR8hOgoPP0g==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"lVu2owiRla6/R/lZB4SeJT3iNWcb8DqsBehaSxuROdpp6t1MIJX+TuMdiOae2jp36tsCTG2BWeEnoclbPA7ddDuWpxDA6zyM4OM+svJdYt6A3FkKPSUq8uWCJXmomkPmu9t9Cx4gWxDaluYGLGjU2BNIhm2ICTnxq94WkZsEjmM6qtUW3xmRPV+xkszOby5S4dxGZuK49TEfepWqBH6VLt4sDX3NoaU3Pyo6cyQQTLjlQ6nIIvKMrdx4Uk5/03oVTupFq+XsSNCI3fJ35YmPlc8v7qRhflXzDTr2pTOXmuP5w4I=\"}",
-    "encryptedOptions" => "{\"iv\":\"GDp5DyeuXMj2nLIiPXRa7w==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"yxHxXBvZ9DDMVY+9fNIr6qM6gaMNHXkffxkk87a1Q9rWh0E8O0AVJpl9RYdv3/QkfYRqwjyQqA==\"}",
-    "encryptedCreationDate" => "{\"iv\":\"grXGp40HmdMlYd8mpRJb2A==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"y9gx6YaU9f6UA/RMD+2ptWXeNQ9HdPt+nkH1bwrM1J85WA==\"}",
-    "encryptedForceAnswer" => "{\"iv\":\"cPQxZDytHCCBzyyGB7Zhew==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"U+Xd8Wua3XPDvbPe\"}",
-    "encryptedAnonymousUser" => "{\"iv\":\"Rv75z29GDIbZ/RGRs+uq0Q==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"/7sj+sLWPYOWJgvslg==\"}",
-    "encryptedIsDateTime" => "{\"iv\":\"noz0JF1Uzv74e27gMu55Kw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"Igefluift7+Wedo1Cw==\"}",
-    "encryptedTimezone" => "{\"iv\":\"/sBs7oP15FsJ7qSUSHvewA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3GQYS4Ils60=\",\"ct\":\"TqJBGIjSGIcVsQ==\"}",
-    "encryptedExpirationDate" => "{\"iv\":\"Jmclqi7ZDjKZ1O9t6HgkyQ==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"CnrCEy2AX1c=\",\"ct\":\"jg0bpNknoJcB4CAumtSEjyRNy845vzbfM6QQeNx0M60ZAw==\"}",
-    "serverExpirationDate" => "2015-11-01T17:57:03.713Z",
-    "version" => "v0.3.0+d26cd827"
-  ]
-];
+$pollJson = '{"anonymousUser":"{\"iv\":\"SOqei2Y7QZt1PFR6IXR4qg==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"WAg0oSjCiMAO+JqzIg==\"}","answers":"{\"iv\":\"WRdAwEa0DF+E83ginLYtPw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"Oaer31ct2PXkmXkzJ1EXRPM3LMf6vGfzMZqjODwey4f7EhqSCUhYov+N7AZKCAAXYVS4WR84kKizxXBK2PQBSFrlB3Bll74ED9ZzRJSJD00otMG9BbgUR90aFws+1jMBP5vpti9+POsii85zLbDPkNg\/Th\/C4Ufv5YWwg\/4ZV0bFMyOgfdjtOWaG5YAMTGUIkz9U9+VCesYJQaTb497qTD\/Wmtz8J\/2pUxdL5\/b5xkdh2DJ4\/N5q0Kz\/CEbaoKwbexnQDlSr3ldlIhs7UmBjC9gkpgG2l9fu6a0VZFBE8hvzYrw=\"}","answerType":"{\"iv\":\"z1V+GmSWJxSng0bXxnYNRA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"ZDf5sBxR6rO+DdO\/yFmk\"}","creationDate":"{\"iv\":\"DBKid4Yiyr61GVLigJj20w==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"ORRPzySTa6vt7GQrJOGBvNZXXq4p\/ANinfanE\/51DbcDNw==\"}","description":"{\"iv\":\"aohDHKaO7c7Fl5vIueBkcA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"+ygmsnYAsEBLZRUV\"}","expirationDate":"{\"iv\":\"Y0O4n9+Tj+4LSmLoFTaNow==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"jCz8DFIS5eLI4tsjfpr+F4lG+F27BItHPdj85o5+gaDayA==\"}","forceAnswer":"{\"iv\":\"P5Dg5Y9fS7EFxvqzP8u20A==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"90G4jQ1PbalZyyzz\"}","isDateTime":"{\"iv\":\"3y9OmTJDG0mLqU5zLoZwgQ==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"yyGaGitGrunDSpsRpw==\"}","options":"{\"iv\":\"79HYzanMnjtgvBMowUWHaA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"HuFz0AFCpupdmXYdCcAX4OiwpMs\/Jm5XK\/thQW0phxKd0OxKt9NZ3FE\/rMAiYVqRKBqFp+KLhBnbs9ewTFW0Xrvw6paTnvpY9Ftcz1MB\"}","pollType":"{\"iv\":\"suOomfYe6kKBxjln091tCw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"7iDQ2y571OBiJNxdaUY0PjqlgQ==\"}","timezone":"{\"iv\":\"l0VeY3CPUvMtoDPrw7+iCw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"qBlHlZ0nLd3mqA==\"}","title":"{\"iv\":\"szAOrvhM+bODnldJJP0pGw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"KwMkE7bneP0MX6hQEnM=\"}","version":"v0.3.0+0ae62f31","serverExpirationDate":"2015-11-22T22:05:15.065Z"}';
 mkdir('tests/_tmp/data/' . $pollId);
-file_put_contents('tests/_tmp/data/' . $pollId . '/poll_data', json_encode($pollData));
+file_put_contents('tests/_tmp/data/' . $pollId . '/poll_data', $pollJson);
 
 $I = new ApiTester($scenario);
 $I->wantTo('get an existing poll');
@@ -27,9 +10,24 @@ $I->sendGET('/polls/' . $pollId);
 $I->seeResponseCodeIs(200);
 $I->seeResponseIsJson();
 
-unset($pollData["poll"]["serverExpirationDate"]);
-$I->seeResponseContainsJson($pollData);
+$pollData = json_decode($pollJson, true);
+unset($pollData["serverExpirationDate"]);
+$I->seeResponseContainsJson(
+  array(
+    'poll' => $pollData
+  )
+);
 
 $I->seeResponseContainsJson(["poll" => ["id" => $pollId]]);
-
 $I->dontSeeResponseJsonMatchesJsonPath('poll.serverExpirationDate');
+$I->seeResponseJsonMatchesJsonPath('poll.users');
+$users = $I->grabDataFromResponseByJsonPath('poll.users')[0];
+\PHPUnit_Framework_Assert::assertTrue(
+  is_array($users),
+  'user should be an array'
+);
+\PHPUnit_Framework_Assert::assertEquals(
+  count($users),
+  0,
+  'user array should be empty'
+);

@@ -6,7 +6,9 @@ export default DS.Model.extend({
   
   // properties
   title : DS.attr('string'),
-  description : DS.attr('string'),
+  description : DS.attr('string', {
+    defaultValue: ''
+  }),
   pollType : DS.attr('string'),
   answerType: DS.attr('string'),
   answers : DS.attr('array'),
