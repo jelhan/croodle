@@ -26,9 +26,10 @@ export default DS.Model.extend({
     defaultValue: ''
   }),
 
-  // encrypted date when poll expires
-  // must be same as the unencrypted serverExipirationDate
-  expirationDate : DS.attr('string'),
+  // ISO 8601 date + time string in UTC
+  expirationDate : DS.attr('string', {
+    includePlainOnCreate: 'serverExpirationDate'
+  }),
 
   // Must all options been answered?
   forceAnswer : DS.attr('boolean'),
@@ -41,12 +42,6 @@ export default DS.Model.extend({
 
   // FindADate or MakeAPoll
   pollType : DS.attr('string'),
-
-  // unencrypted expiration date
-  // is set by client on create but never retrieved back from server
-  serverExpirationDate : DS.attr('string', {
-    encrypted: false
-  }),
 
   // timezone poll got created in (like "Europe/Berlin")
   timezone : DS.attr('string'),

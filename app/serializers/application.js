@@ -1,12 +1,31 @@
 import DS from "ember-data";
+import Ember from "ember";
 /* global sjcl */
 
+/*
+ * extends DS.RESTSerializer to implement encryption
+ * 
+ * By default every attribute hash is encrypted using SJCL.
+ * This is configurable by options parameter of DS.attr().
+ *
+ * Options:
+ * - encrypted (boolean)
+ *   If false the attribute won't be encrypted.
+ * - includePlainOnCreate (string)
+ *   If set the attribute will be included plain (not encrypted) when
+ *   recorde is created. Value is the attributes name used.
+ */
 export default DS.RESTSerializer.extend({
+  /*
+   * implement decryption
+   */
   normalize: function(modelClass, resourceHash, prop) {
-    // decrypt before unserialize
+    // work-a-round: get encryption key from dummy record
     var dummyRecord = this.store.createRecord('poll');
     var decryptionKey = dummyRecord.get('encryption.key');
     dummyRecord.destroyRecord();
+
+    // run before serialization of attribute hash
     modelClass.eachAttribute(function(key, attributes) {
       if (
         attributes.options.encrypted !== false
@@ -28,14 +47,28 @@ export default DS.RESTSerializer.extend({
     
     return this._super(modelClass, resourceHash, prop);
   },
-  
-  serializeAttribute: function(snapshot, json, key, attributes) {
-    this._super(snapshot, json, key, attributes);
 
-    // encrypt after serialize
+  /*
+   * implement encryption
+   */
+  serializeAttribute: function(snapshot, json, key, attribute) {
+    this._super(snapshot, json, key, attribute);
+
+    // get encryption key from snapshot which is model representation
     var encryptionKey = snapshot.record.get('encryption.key');
+
+    // map includePlainOnCreate after serialization of attribute hash
+    // but before encryption so we can just use the serialized hash
     if (
-      attributes.options.encrypted !== false
+      !Ember.isEmpty(attribute.options.includePlainOnCreate) &&
+      typeof attribute.options.includePlainOnCreate === 'string'
+    ) {
+      json[attribute.options.includePlainOnCreate] = json[key];
+    }
+
+    // encrypt after serialization of attribute hash
+    if (
+      attribute.options.encrypted !== false
     ) {
       try {
         json[key] = sjcl.encrypt(encryptionKey, JSON.stringify(json[key]));
