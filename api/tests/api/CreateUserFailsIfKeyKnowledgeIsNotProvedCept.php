@@ -16,7 +16,7 @@ $I->wantTo('see that create a new user fails if key knowledge is wrong');
 $I->haveHTTPHeader('X-Croodle-Proof-Key-Knowledge', $wrongKeyKnowledge);
 $I->sendPOST('/users', $userJson);
 $I->seeResponseCodeIs(500);
-$I->seeResponseIsJson();
+$I->seeResponseEquals('');
 
 try {
   $result = file_get_contents($usersDir . '0');

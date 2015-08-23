@@ -15,7 +15,7 @@ $I = new ApiTester($scenario);
 $I->wantTo('see that create a new user fails if key knowledge header is not set');
 $I->sendPOST('/users', $userJson);
 $I->seeResponseCodeIs(500);
-$I->seeResponseIsJson();
+$I->seeResponseEquals('');
 
 try {
   $result = file_get_contents($usersDir . '0');
