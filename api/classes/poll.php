@@ -26,6 +26,8 @@ class Poll extends model {
     'version'
   ];
 
+  const PROOF_KEY_KNOWLEDGE = 'save';
+
   const SERVER_PROPERTIES = [
     'serverExpirationDate'
   ];
@@ -72,7 +74,14 @@ class Poll extends model {
   }
   
   protected function getDir() {
+    if (($this->get('id') === null)) {
+      throw new Exception('id must be set before calling getDir');
+    }
     return DATA_FOLDER . $this->get('id') . '/';
+  }
+
+  protected function getPollDir() {
+    return $this->getDir();
   }
   
   protected function getPath() {
@@ -110,7 +119,8 @@ class Poll extends model {
 
   public static function isValidId($id) {
     $idCharacters = str_split($id);
-    return count(array_diff($idCharacters, str_split(self::ID_CHARACTERS))) === 0;
+    return strlen($id) === 10 &&
+           count(array_diff($idCharacters, str_split(self::ID_CHARACTERS))) === 0;
   }
 
   protected function restoreHook() {

@@ -38,16 +38,28 @@ class User extends Model {
   }
 
   protected function getDir() {
+    return $this->getPollDir() . 'users/';
+  }
+
+  protected function getPollDir() {
     if ($this->get('poll') !== null) {
       $pollId = $this->get('poll');
     }
     else {
       $pollId = explode('_', $this->get('id'))[0];
     }
-    return DATA_FOLDER . $pollId . '/users/';
+
+    if (!Poll::isValidId($pollId)) {
+      throw new Exception('cound not get a valid id when getPollDir was called');
+    }
+    
+    return DATA_FOLDER . $pollId . '/';
   }
 
-  protected function getPath() {    
+  protected function getPath() {
+    if (!self::isValidId($this->get('id'))) {
+      throw new Exception('no valid user id when getPath was called');
+    }
     return $this->getDir() . explode('_', $this->get('id'))[1];
   }
 
