@@ -34,9 +34,7 @@ class User extends Model {
       }
     }
 
-    return $this->get('poll') .
-           '_' .
-           (string) $highestId + 1;
+    return $this->get('poll') . '_' . (string) ($highestId + 1);
   }
 
   protected function getDir() {

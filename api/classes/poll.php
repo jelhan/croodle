@@ -30,6 +30,38 @@ class Poll extends model {
     'serverExpirationDate'
   ];
 
+  private function delete() {
+    $this->deleteDirRecursively(
+      $this->getDir()
+    );
+  }
+  
+  private function deleteDirRecursively($dir) {
+    if (substr($dir, -1) !== '/') {
+      throw new Exception('dir has to end on /');
+    }
+    
+    $dirHandle = opendir($dir);
+    while (false !== ($filename = readdir($dirHandle))) {
+      if ($filename === '.' || $filename === '..') {
+        continue;
+      }
+
+      if (is_dir($dir . $filename)) {
+        $this->deleteDirRecursively($dir . $filename . '/');
+      }
+      elseif (is_file($dir . $filename)) {
+        unlink($dir . $filename);
+      }
+      else {
+        throw new Exception($filename . " in " . $dir . " is not a dir neither a file - what is it?");
+      }
+    }
+    closedir($dirHandle);
+    
+    rmdir($dir);
+  }
+
   protected function generateNewId() {
     $characters = self::ID_CHARACTERS;
     $randomString = '';
@@ -60,6 +92,7 @@ class Poll extends model {
 
         $users[] = User::restore($this->get('id') . '_' . $file)->export();
       }
+      closedir($dir);
     }
     
     return $users;
@@ -69,8 +102,21 @@ class Poll extends model {
     $data->users = $this->getUsers();
   }
 
+  private function isExpired() {
+    return
+          ( $expirationDate = DateTime::createFromFormat('Y-m-d\TH:i:s.uO', $this->get('serverExpirationDate')) ) &&
+          $expirationDate < new DateTime();
+  }
+
   public static function isValidId($id) {
     $idCharacters = str_split($id);
     return count(array_diff($idCharacters, str_split(self::ID_CHARACTERS))) === 0;
+  }
+
+  protected function restoreHook() {
+    if ($this->isExpired()) {
+      $this->delete();
+      return false;
+    }
   }
 }

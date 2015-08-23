@@ -181,6 +181,12 @@ class Model {
       $model->set($property, $data->$property);
     }
 
+    if (method_exists($model, 'restoreHook')) {
+      if ($model->restoreHook() === false) {
+        return false;
+      }
+    }
+
     return $model;
   }
 
@@ -218,7 +224,11 @@ class Model {
       }
       catch (Exception $e) {
         if ($counter > 5) {
-          throw new Exception('write failed more than five times', 0, $e);
+          throw new Exception(
+            'write failed more than five times; last path was ' . $this->getPath(),
+            0,
+            $e
+          );
         }
 
         $counter++;
