@@ -1,33 +1,67 @@
 import DS from "ember-data";
 
 export default DS.Model.extend({
-  // relationship
+  /*
+   * relationships
+   */
   users : DS.hasMany('user'),
   
-  // properties
-  title : DS.attr('string'),
+  /*
+   * properties
+   */
+  // Is participation without user name possibile?
+  anonymousUser : DS.attr('boolean'),
+  
+  // array of possible answers
+  answers : DS.attr('array'),
+
+  // YesNo, YesNoMaybe or Freetext
+  answerType: DS.attr('string'),
+
+  // ISO-8601 combined date and time string in UTC
+  creationDate : DS.attr('date'),
+
+  // polls description
   description : DS.attr('string', {
     defaultValue: ''
   }),
-  pollType : DS.attr('string'),
-  answerType: DS.attr('string'),
-  answers : DS.attr('array'),
-  options : DS.attr('array'),
-  creationDate : DS.attr('date'),
-  forceAnswer : DS.attr('boolean'),
-  anonymousUser : DS.attr('boolean'),
-  isDateTime : DS.attr('boolean'),
-  timezone : DS.attr('string'),
-  
-  // expiration date is stored twice:
-  // * encrypted to retrieve by clients
-  // * unencrypted to use by server only
+
+  // encrypted date when poll expires
+  // must be same as the unencrypted serverExipirationDate
   expirationDate : DS.attr('string'),
-  serverExpirationDate : DS.attr('string', {'encrypted': false}),
+
+  // Must all options been answered?
+  forceAnswer : DS.attr('boolean'),
+
+  // If poll type is FindADate: are options only dates or dates + times?
+  isDateTime : DS.attr('boolean'),
+
+  // array of polls options
+  options : DS.attr('array'),
+
+  // FindADate or MakeAPoll
+  pollType : DS.attr('string'),
+
+  // unencrypted expiration date
+  // is set by client on create but never retrieved back from server
+  serverExpirationDate : DS.attr('string', {
+    encrypted: false
+  }),
+
+  // timezone poll got created in (like "Europe/Berlin")
+  timezone : DS.attr('string'),
+
+  // polls title
+  title : DS.attr('string'),
+
+  // Croodle version poll got created with
+  version : DS.attr('string', {
+    encrypted: false
+  }),
   
-  version : DS.attr('string', {'encrypted': false}),
-  
-  // computed properties
+  /*
+   * computed properties
+   */
   isFindADate: function() {
     return this.get('pollType') === 'FindADate';
   }.property('pollType'),
