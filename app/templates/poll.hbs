@@ -82,9 +82,9 @@
                     {{#each answer in model.answers}}
                       <div class="radio">
                         {{#radio-button value=answer groupValue=newUserSelection.value}}
-                          <span {{bind-attr class="answer.id"}}>
+                          <span {{bind-attr class="answer.type"}}>
                             <span {{bind-attr class="answer.icon"}}></span>
-                            {{answer.label}}
+                            {{t answer.labelTranslation}}
                           </span>
                         {{/radio-button}}
                       </div>
@@ -112,13 +112,15 @@
               <td>{{user.name}}</td>
               {{#each selection in user.selections}}
                 <td>
-                  {{#if model.isFreeText}}
-                    {{selection.value}}
-                  {{else}}
-                    <span {{bind-attr class="selection.value.id"}}>
+                  {{#if selection.value}}
+                    {{#if model.isFreeText}}
+                      {{selection.value}}
+                    {{else}}
+                      <span {{bind-attr class="selection.value.type"}}>
                         <span {{bind-attr class="selection.value.icon"}}></span>
-                        {{selection.value.label}}
-                    </span>
+                        {{t selection.value.labelTranslation}}
+                      </span>
+                    {{/if}}
                   {{/if}}
                 </td>
               {{/each}}

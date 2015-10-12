@@ -13,7 +13,7 @@ export default DS.Model.extend({
   anonymousUser : DS.attr('boolean'),
   
   // array of possible answers
-  answers : DS.attr('array'),
+  answers : DS.hasManyFragments('answer', { defaultValue: [] }),
 
   // YesNo, YesNoMaybe or Freetext
   answerType: DS.attr('string'),
