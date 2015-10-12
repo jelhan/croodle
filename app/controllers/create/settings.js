@@ -41,13 +41,13 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
           id : "YesNo",
           labelTranslation : "answerTypes.yesNo.label",
           answers : [
-                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
-                    id: "yes",
+                  this.store.createFragment('answer', {
+                    type: "yes",
                     labelTranslation: "answerTypes.yes.label",
                     icon: "glyphicon glyphicon-thumbs-up"
                   }),
-                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
-                    id: "no",
+                  this.store.createFragment('answer', {
+                    type: "no",
                     labelTranslation: "answerTypes.no.label",
                     icon: "glyphicon glyphicon-thumbs-down"
                   })
@@ -57,18 +57,18 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
           id : "YesNoMaybe",
           labelTranslation : "answerTypes.yesNoMaybe.label",
           answers : [
-                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
-                    id: "yes",
+                  this.store.createFragment('answer', {
+                    type: "yes",
                     labelTranslation: "answerTypes.yes.label",
                     icon: "glyphicon glyphicon-thumbs-up"
                   }),
-                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
-                    id: "maybe",
+                  this.store.createFragment('answer', {
+                    type: "maybe",
                     labelTranslation: "answerTypes.maybe.label",
                     icon: "glyphicon glyphicon-hand-right"
                   }),
-                  Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
-                    id: "no",
+                  this.store.createFragment('answer', {
+                    type: "no",
                     labelTranslation: "answerTypes.no.label",
                     icon: "glyphicon glyphicon-thumbs-down"
                   })
@@ -124,7 +124,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     if (selectedAnswer !== null) {
       for (var i=0; i < answerTypes.length; i++) {
         if (answerTypes[i].id === selectedAnswer) {
-            answers = answerTypes[i].answers;
+            answers = answerTypes[i].answers.map(answer => Ember.copy(answer));
         }
       }
 

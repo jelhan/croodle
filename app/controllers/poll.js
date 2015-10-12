@@ -17,9 +17,21 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 
       // work-a-round cause value is not retrived otherwise
       this.get('newUserSelections').forEach(function(selection) {
-        newUser.selections.push({
-          value: selection.get('value')
-        });
+        if(typeof selection.get('value') === 'string') {
+          newUser.selections.push({
+            value: selection.get('value')
+          });
+        }
+        else {
+          newUser.selections.push({
+            value: {
+              type: selection.get('value.type'),
+              label: selection.get('value.label'),
+              labelTranslation: selection.get('value.labelTranslation'),
+              icon: selection.get('value.icon')
+            }
+          });
+        }
       });
       
       // send new user to controller for saving

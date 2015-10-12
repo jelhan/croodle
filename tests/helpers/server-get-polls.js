@@ -10,13 +10,13 @@ export default function (attr, key) {
     answerType: 'YesNo',
     answers: [
       {
-        id: "yes",
+        type: "yes",
         labelTranslation: "answerTypes.yes.label",
         icon: "glyphicon glyphicon-thumbs-up",
         label: "Ja"
       },
       {
-        id: "no",
+        type: "no",
         labelTranslation: "answerTypes.no.label",
         icon: "glyphicon glyphicon-thumbs-down",
         label: "Nein"

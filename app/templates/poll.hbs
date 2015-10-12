@@ -82,7 +82,7 @@
                     {{#each answer in model.answers}}
                       <div class="radio">
                         {{#radio-button value=answer groupValue=newUserSelection.value}}
-                          <span {{bind-attr class="answer.id"}}>
+                          <span {{bind-attr class="answer.type"}}>
                             <span {{bind-attr class="answer.icon"}}></span>
                             {{#if answer.labelTranslation}}
                               {{t answer.labelTranslation}}
@@ -121,11 +121,7 @@
                   {{else}}
                     <span {{bind-attr class="selection.value.id"}}>
                         <span {{bind-attr class="selection.value.icon"}}></span>
-                        {{#if selection.value.labelTranslation}}
-                          {{t selection.value.labelTranslation}}
-                        {{else}}
-                          {{selection.value.label}}
-                        {{/if}}
+                        {{selection.value.label}}
                     </span>
                   {{/if}}
                 </td>
