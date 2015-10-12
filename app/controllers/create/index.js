@@ -22,11 +22,6 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     }
   },
 
-  // proxy needed for validation
-  pollType: function(){
-    return this.get('model.pollType');
-  }.property('model.pollType'),
-
   pollTypes: function(){
     return [
       Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
@@ -41,7 +36,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   }.property(),
   
   validations: {
-    pollType: {
+    'model.pollType': {
       presence: true,
       inclusion: {
         in: ['FindADate', 'MakeAPoll']

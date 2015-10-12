@@ -35,16 +35,6 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     }
   },
 
-  // proxy needed for validation
-  anonymousUser: function() {
-    return this.get('model.anonymousUser');
-  }.property('model.anonymousUser'),
-
-  // proxy needed for validation
-  answerType: function() {
-    return this.get('model.answerType');
-  }.property('model.answerType'),
-  
   answerTypes: function() {
     return [
       Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
@@ -123,10 +113,6 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     ];
   }.property(),
 
-  forceAnswer: function() {
-    return this.get('model.forceAnswer');
-  }.property('model.forceAnswer'),
-  
   /*
    * set answers depending on selected answer type
    */
@@ -162,16 +148,16 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   }.observes('expirationDuration'),
 
   validations: {
-    anonymousUser: {
+    'model.anonymousUser': {
       presence: true
     },
-    answerType: {
+    'model.answerType': {
       presence: true,
       inclusion: {
           in: ["YesNo", "YesNoMaybe", "FreeText"]
       }
     },
-    forceAnswer: {
+    'model.forceAnswer': {
       presence: true
     }
   }

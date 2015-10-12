@@ -7,7 +7,7 @@ export default Ember.Route.extend({
 
   // redirect to create/meta if title is not set
   afterModel: function(create){
-    if (create.get('title') === null) {
+    if (Ember.isEmpty(create.get('title'))) {
       this.transitionTo('create.meta');
     }
   }

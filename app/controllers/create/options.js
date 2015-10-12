@@ -63,7 +63,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     }
     
     // array of options which have no title
-    filtedOptions = givenOptions.filterBy('title', '');
+    filtedOptions = givenOptions.filterBy('value', '');
     
     return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
   }.property('model.options.@each.title', 'model.isDateTime'),

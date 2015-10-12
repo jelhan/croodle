@@ -22,13 +22,8 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     }
   },
 
-  // proxy needed for validation
-  title: function(){
-    return this.get('model.title');
-  }.property('model.title'),
-  
   validations: {
-    title: {
+    'model.title': {
       presence: true,
       length: {
         minimum: 2
