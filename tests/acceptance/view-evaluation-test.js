@@ -31,7 +31,7 @@ test('evaluation is not present for poll without participants', function(assert)
     return getPolls(
       {
         id: id,
-        user: []
+        users: []
       }, encryptionKey
     );
   });
@@ -53,13 +53,13 @@ test('evaluation is correct', function(assert) {
         id: id,
         answers: [
           {
-            id: "yes",
+            type: "yes",
             labelTranslation: "answerTypes.yes.label",
             icon: "glyphicon glyphicon-thumbs-up",
             label: "Yes"
           },
           {
-            id: "no",
+            type: "no",
             labelTranslation: "answerTypes.no.label",
             icon: "glyphicon glyphicon-thumbs-down",
             label: "No"
@@ -75,20 +75,16 @@ test('evaluation is correct', function(assert) {
             name: 'Maximilian',
             selections: [
               {
-                value: {
-                  id: "yes",
-                  labelTranslation: "answerTypes.yes.label",
-                  icon: "glyphicon glyphicon-thumbs-up",
-                  label: "Yes"
-                }
+                type: "yes",
+                labelTranslation: "answerTypes.yes.label",
+                icon: "glyphicon glyphicon-thumbs-up",
+                label: "Yes"
               },
               {
-                value: {
-                  id: "yes",
-                  labelTranslation: "answerTypes.yes.label",
-                  icon: "glyphicon glyphicon-thumbs-up",
-                  label: "Yes"
-                }
+                type: "yes",
+                labelTranslation: "answerTypes.yes.label",
+                icon: "glyphicon glyphicon-thumbs-up",
+                label: "Yes"
               }
             ],
             creationDate: "2015-01-01T00:00:00.000Z"
@@ -98,20 +94,16 @@ test('evaluation is correct', function(assert) {
             name: 'Peter',
             selections: [
               {
-                value: {
-                  id: "yes",
-                  labelTranslation: "answerTypes.yes.label",
-                  icon: "glyphicon glyphicon-thumbs-up",
-                  label: "Yes"
-                }
+                type: "yes",
+                labelTranslation: "answerTypes.yes.label",
+                icon: "glyphicon glyphicon-thumbs-up",
+                label: "Yes"
               },
               {
-                value: {
-                  id: "no",
-                  labelTranslation: "answerTypes.yes.label",
-                  icon: "glyphicon glyphicon-thumbs-up",
-                  label: "Yes"
-                }
+                id: "no",
+                labelTranslation: "answerTypes.yes.label",
+                icon: "glyphicon glyphicon-thumbs-up",
+                label: "Yes"
               }
             ],
             creationDate: "2015-08-01T00:00:00.000Z"

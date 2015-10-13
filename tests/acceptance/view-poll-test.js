@@ -47,7 +47,7 @@ test('view a poll with dates', function(assert) {
           moment.localeData().longDateFormat('LT'), '')
         .trim()
       ),
-      ""
+      "date is shown correctly (1)"
     );
     assert.equal(
       find('thead tr th:nth-child(3)').text().trim(),
@@ -57,7 +57,7 @@ test('view a poll with dates', function(assert) {
           moment.localeData().longDateFormat('LT'), '')
         .trim()
       ),
-      ""
+      "date is shown correctly (2)"
     );
   });
 });
