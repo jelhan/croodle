@@ -14,23 +14,26 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
         name: this.get('newUserName'),
         selections: []
       };
+      var self = this;
 
       // work-a-round cause value is not retrived otherwise
       this.get('newUserSelections').forEach(function(selection) {
         if(typeof selection.get('value') === 'string') {
-          newUser.selections.push({
-            value: selection.get('value')
-          });
+          newUser.selections.pushObject(
+            self.store.createFragment('selection', {
+              label: selection.get('value')
+            })
+          );
         }
         else {
-          newUser.selections.push({
-            value: {
+          newUser.selections.pushObject(
+            self.store.createFragment('selection', {
               type: selection.get('value.type'),
               label: selection.get('value.label'),
               labelTranslation: selection.get('value.labelTranslation'),
               icon: selection.get('value.icon')
-            }
-          });
+            })
+          );
         }
       });
       
@@ -270,12 +273,12 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
           });
         }
 
-        if(typeof options[i].answers[selection.value.id] === 'undefined') {
-          options[i].answers[selection.value.id] = 0;
+        if(typeof options[i].answers[selection.get('type')] === 'undefined') {
+          options[i].answers[selection.get('type')] = 0;
         }
-        options[i].answers[selection.value.id]++;
+        options[i].answers[selection.get('type')]++;
         
-        switch (selection.value.id) {
+        switch (selection.get('type')) {
           case 'yes':
             options[i].score += 2;
             break;

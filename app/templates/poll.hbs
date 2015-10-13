@@ -116,13 +116,18 @@
               <td>{{user.name}}</td>
               {{#each selection in user.selections}}
                 <td>
-                  {{#if model.isFreeText}}
-                    {{selection.value}}
-                  {{else}}
-                    <span {{bind-attr class="selection.value.id"}}>
-                        <span {{bind-attr class="selection.value.icon"}}></span>
-                        {{selection.value.label}}
-                    </span>
+                  {{#if selection.label}}
+                    {{#if model.isFreeText}}
+                      {{selection.label}}
+                    {{/if}}
+                  {{/if}}
+                  {{#if selection.labelTranslation}}
+                    {{#unless model.isFreeText}}
+                      <span {{bind-attr class="selection.type"}}>
+                        <span {{bind-attr class="selection.icon"}}></span>
+                        {{t selection.labelTranslation}}
+                      </span>
+                    {{/unless}}
                   {{/if}}
                 </td>
               {{/each}}
