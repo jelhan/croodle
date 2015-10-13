@@ -32,9 +32,11 @@ export default Ember.Controller.extend({
               date.setHours(time[0]);
               date.setMinutes(time[1]);
 
-              options.pushObject({
-                title: moment(date).toISOString()
-              });
+              options.pushObject(
+                self.store.createFragment('option', {
+                  title: moment(date).toISOString()
+                })
+              );
 
               validTimeFound = true;
             }
@@ -43,21 +45,21 @@ export default Ember.Controller.extend({
       }
       else {
         // set options to days
-        options = this.get('optionsDates').map(function(day) {
-          return {
+        options = this.get('optionsDates').map(
+          day => this.store.createFragment('option', {
             // ISO 8601 date format
             title: moment( day.title ).format('YYYY-MM-DD')
-          };
-        });
+          })
+        );
       }
 
       // days should be sorted to get them in correct order
       options.sort(function(a, b){
-        if (a.title === b.title) {
+        if (a.get('title') === b.get('title')) {
           return 0;
         }
         else {
-          return a.title > b.title ? 1 : -1;
+          return a.get('title') > b.get('title') ? 1 : -1;
         }
       });
     }
@@ -72,9 +74,11 @@ export default Ember.Controller.extend({
         var textString = optionText.value.trim();
         
         if (textString !== '') {
-          options.pushObject({
-            title: textString
-          });
+          options.pushObject(
+            self.store.createFragment('option', {
+              title: textString
+            })
+          );
         }
       });
     }

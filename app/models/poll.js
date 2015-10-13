@@ -38,7 +38,7 @@ export default DS.Model.extend({
   isDateTime : DS.attr('boolean'),
 
   // array of polls options
-  options : DS.attr('array'),
+  options : DS.hasManyFragments('option', { defaultValue: [] }),
 
   // FindADate or MakeAPoll
   pollType : DS.attr('string'),
