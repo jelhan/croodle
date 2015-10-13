@@ -170,14 +170,14 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
       timezone = this.get('model.timezone');
     }
     
-    this.get('model.options').forEach(function(option){
-      var date = moment(option.title);
+    dates = this.get('model.options').map(function(option){
+      var date = moment(option.get('title'));
       if (timezone) {
         date.tz(timezone);
       }
-      dates.pushObject({
+      return {
         title: date
-      });
+      };
     });
 
     return dates;

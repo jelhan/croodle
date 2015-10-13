@@ -19,7 +19,6 @@ export default Ember.Route.extend({
     // create empty poll
     return this.store.createRecord('poll', {
       creationDate : new Date(),
-      options : [{title: ''}, {title: ''}],
       forceAnswer: true,
       anonymousUser: false,
       datetime: false,
