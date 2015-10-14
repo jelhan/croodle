@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from 'croodle/tests/helpers/start-app';
 import Pretender from 'pretender';
-import getPolls from '../helpers/get-polls';
+import serverGetPolls from '../helpers/server-get-polls';
 /* jshint proto: true */
 /* global jstz, moment, start, stop */
 
@@ -27,7 +27,7 @@ test('view a poll with dates', function(assert) {
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
   
   server.get('/polls/' + id, function() {
-    return getPolls(
+    return serverGetPolls(
       {
         id: id,
         options: [
@@ -68,7 +68,7 @@ test('view a poll with dates and times', function(assert) {
       timezone = jstz.determine().name();
   
   server.get('/polls/' + id, function() {
-    return getPolls(
+    return serverGetPolls(
       {
         id: id,
         isDateTime: true,
@@ -130,7 +130,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
   }
   
   server.get('/polls/' + id, function() {
-    return getPolls(
+    return serverGetPolls(
       {
         id: id,
         isDateTime: true,
@@ -218,7 +218,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
   }
   
   server.get('/polls/' + id, function() {
-    return getPolls(
+    return serverGetPolls(
       {
         id: id,
         isDateTime: true,

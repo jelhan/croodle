@@ -44,9 +44,9 @@ test("create a default poll", function(assert) {
           andThen(function(){
             assert.equal(currentPath(), 'poll');
             
-            assert.equal(find('.meta-data .title').text(), 'default poll');
-            assert.equal(find('.meta-data .description').text(), '');
-                      
+            pollTitleEqual(assert, 'default poll');
+            pollDescriptionEqual(assert, '');
+             
             assert.equal(
               find('.user-selections-table thead tr th').length,
               4, // head of user selections table is options + leading column (user names) + last column (buttons)

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from 'croodle/tests/helpers/start-app';
 import Pretender from 'pretender';
-import getPolls from '../helpers/get-polls';
+import serverGetPolls from '../helpers/server-get-polls';
 import formattedDateHelper from 'croodle/helpers/formatted-date';
 /* jshint proto: true */
 /* global moment */
@@ -28,7 +28,7 @@ test('evaluation is not present for poll without participants', function(assert)
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
   
   server.get('/polls/' + id, function() {
-    return getPolls(
+    return serverGetPolls(
       {
         id: id,
         user: []
@@ -48,7 +48,7 @@ test('evaluation is correct', function(assert) {
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
   
   server.get('/polls/' + id, function() {
-    return getPolls(
+    return serverGetPolls(
       {
         id: id,
         answers: [

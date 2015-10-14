@@ -2,8 +2,8 @@ import Ember from "ember";
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
-import getPolls from '../helpers/get-polls';
-import postUsers from '../helpers/post-users';
+import serverGetPolls from '../helpers/server-get-polls';
+import serverPostUsers from '../helpers/server-post-users';
 /* jshint proto: true */
 
 var application, server;
@@ -27,7 +27,7 @@ test("participate in a default poll", function(assert) {
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
   
   server.get('/polls/' + id, function() {
-    return getPolls(
+    return serverGetPolls(
       {
         id: id
       }, encryptionKey
@@ -35,7 +35,7 @@ test("participate in a default poll", function(assert) {
   });
   server.post('/users',
     function (request) {
-      return postUsers(request.requestBody, 1);
+      return serverPostUsers(request.requestBody, 1);
     }
   );
 
@@ -70,7 +70,7 @@ test("participate in a poll using freetext", function(assert) {
   
   server.get('/polls/' + id,
     function () {
-      return getPolls(
+      return serverGetPolls(
         {
           id: id,
           answerType: 'FreeText',
@@ -81,7 +81,7 @@ test("participate in a poll using freetext", function(assert) {
   );
   server.post('/users',
     function (request) {
-      return postUsers(request.requestBody, 1);
+      return serverPostUsers(request.requestBody, 1);
     }
   );
 
@@ -111,7 +111,7 @@ test("participate in a poll which doesn't force an answer to all options", funct
   
   server.get('/polls/' + id,
     function () {
-      return getPolls(
+      return serverGetPolls(
         {
           id: id,
           forceAnswer: false
@@ -121,7 +121,7 @@ test("participate in a poll which doesn't force an answer to all options", funct
   );
   server.post('/users',
     function (request) {
-      return postUsers(request.requestBody, 1);
+      return serverPostUsers(request.requestBody, 1);
     }
   );
 
@@ -150,7 +150,7 @@ test("participate in a poll which allows anonymous participation", function(asse
   
   server.get('/polls/' + id,
     function () {
-      return getPolls(
+      return serverGetPolls(
         {
           id: id,
           anonymousUser: true
@@ -160,7 +160,7 @@ test("participate in a poll which allows anonymous participation", function(asse
   );
   server.post('/users',
     function (request) {
-      return postUsers(request.requestBody, 1);
+      return serverPostUsers(request.requestBody, 1);
     }
   );
 

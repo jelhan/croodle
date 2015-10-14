@@ -2,7 +2,7 @@ import Ember from "ember";
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
-import postPolls from '../helpers/post-polls';
+import serverPostPolls from '../helpers/server-post-polls';
 import formattedDateHelper from 'croodle/helpers/formatted-date';
 /* global moment */
 /* jshint proto: true */
@@ -20,7 +20,7 @@ module('Acceptance | create a poll', {
   
     server.post('/polls',
       function (request) {
-        var ret = postPolls(request.requestBody, 'test');
+        var ret = serverPostPolls(request.requestBody, 'test');
         lastCreatedPoll = ret[2];
         return ret;
       }
@@ -71,9 +71,9 @@ test("create a default poll", function(assert) {
           andThen(function(){
             assert.equal(currentPath(), 'poll');
             
-            assert.equal(find('.meta-data .title').text(), 'default poll');
-            assert.equal(find('.meta-data .description').text(), '');
-                      
+            pollTitleEqual(assert, 'default poll');
+            pollDescriptionEqual(assert, '');
+             
             assert.equal(
               find('.user-selections-table thead tr th').length,
               4, // head of user selections table is options + leading column (user names) + last column (buttons)
@@ -128,8 +128,8 @@ test("create a poll for answering a question", function(assert) {
             andThen(function(){
               assert.equal(currentPath(), 'poll');
 
-              assert.equal(find('.meta-data .title').text(), 'default poll');
-              assert.equal(find('.meta-data .description').text(), '');
+              pollTitleEqual(assert, 'default poll');
+              pollDescriptionEqual(assert, '');
 
               // check that all 3 options are there
               // head of user selections table is options + leading column (user names) + last column (buttons)
@@ -176,8 +176,8 @@ test("create a poll with description", function(assert) {
           andThen(function(){
             assert.equal(currentPath(), 'poll');
             
-            assert.equal(find('.meta-data .title').text(), 'default poll');
-            assert.equal(find('.meta-data .description').text(), 'a sample description');
+            pollTitleEqual(assert, 'default poll');
+            pollDescriptionEqual(assert, 'a sample description');
             
             // check that there are two options
             // head of user selections table is options + leading column (user names) + last column (buttons)
