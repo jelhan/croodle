@@ -23,7 +23,13 @@
     "currentPath",
     "currentRouteName",
     "pollTitleEqual",
-    "pollDescriptionEqual"
+    "pollDescriptionEqual",
+    "pollHasUser",
+    "pollHasUsersCount",
+    "pollHasOptions",
+    "pollHasOptionsDates",
+    "pollHasOptionsTimes",
+    "pollHasAnswers"
   ],
   "node": false,
   "browser": false,

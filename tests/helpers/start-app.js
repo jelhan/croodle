@@ -4,6 +4,9 @@ import Router from '../../router';
 import config from '../../config/environment';
 import './poll-title-equal';
 import './poll-description-equal';
+import './poll-has-users';
+import './poll-has-options';
+import './poll-has-answers';
 
 export default function startApp(attrs) {
   var application;

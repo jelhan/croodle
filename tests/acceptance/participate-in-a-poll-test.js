@@ -59,7 +59,7 @@ test("participate in a default poll", function(assert) {
     assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
  
     andThen(function(){
-      assert.equal( find('.user').length, userSelecectionsTableLengthBefore + 1, "user is added to user selections table");
+      pollHasUsersCount(assert, 1, "user is added to user selections table");
     });
   });
 });
@@ -97,10 +97,8 @@ test("participate in a poll using freetext", function(assert) {
     assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
  
     andThen(function(){
-      assert.equal( find('.user').length, userSelecectionsTableLengthBefore + 1, "user is added to user selections table");
-      assert.equal( find('.user:last td:nth-child(1)').text(), 'Max Manus', "user name is correct");
-      assert.equal( find('.user:last td:nth-child(2)').text().trim(), 'answer 1', "answer 1 is correct");
-      assert.equal( find('.user:last td:nth-child(3)').text().trim(), 'answer 2', "answer 2 is correct");
+      pollHasUsersCount(assert, 1, "user is added to user selections table");
+      pollHasUser(assert, 'Max Manus', ['answer 1', 'answer 2']);
     });
   });
 });
@@ -136,10 +134,8 @@ test("participate in a poll which doesn't force an answer to all options", funct
     assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
  
     andThen(function(){
-      assert.equal( find('.user').length, userSelecectionsTableLengthBefore + 1, "user is added to user selections table");
-      assert.equal( find('.user:last td:nth-child(1)').text(), 'Karl Käfer', "user name is correct");
-      assert.notEqual( find('.user:last td:nth-child(2)').text().trim(), '', "option 1 is answered");
-      assert.equal( find('.user:last td:nth-child(3)').text().trim(), '', "option 2 is not answered");
+      pollHasUsersCount(assert, 1, "user is added to user selections table");
+      pollHasUser(assert, "Karl Käfer", [Ember.I18n.t("answerTypes.yes.label"), ""]);
     });
   });
 });
@@ -183,8 +179,8 @@ test("participate in a poll which allows anonymous participation", function(asse
     assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
  
     andThen(function(){
-      assert.equal( find('.user').length, userSelecectionsTableLengthBefore + 1, "user is added to user selections table");
-      assert.equal( find('.user:last td:nth-child(1)').text(), '', "user name is empty");
+      pollHasUsersCount(assert, 1, "user is added to user selections table");
+      pollHasUser(assert, "", [Ember.I18n.t("answerTypes.yes.label"), Ember.I18n.t("answerTypes.no.label")]);
     });
   });
 });

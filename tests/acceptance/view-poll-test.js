@@ -39,26 +39,20 @@ test('view a poll with dates', function(assert) {
   });
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
-    assert.equal(
-      find('thead tr th:nth-child(2)').text().trim(),
+    pollHasOptions(assert, [
       moment('2015-12-12').format(
         moment.localeData().longDateFormat('LLLL')
         .replace(
           moment.localeData().longDateFormat('LT'), '')
         .trim()
       ),
-      ""
-    );
-    assert.equal(
-      find('thead tr th:nth-child(3)').text().trim(),
       moment('2016-01-01').format(
         moment.localeData().longDateFormat('LLLL')
         .replace(
           moment.localeData().longDateFormat('LT'), '')
         .trim()
-      ),
-      ""
-    );
+      )
+    ]);
   });
 });
 
@@ -82,37 +76,25 @@ test('view a poll with dates and times', function(assert) {
   });
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
-    assert.equal(
-      find('thead tr.dateGroups th:nth-child(2)').text().trim(),
+    pollHasOptionsDates(assert, [
       moment.tz('2015-12-12T11:11:00.000Z', timezone).format(
         moment.localeData().longDateFormat('LLLL')
         .replace(
           moment.localeData().longDateFormat('LT'), '')
         .trim()
       ),
-      "date is shown in correct format (1)"
-    );
-    assert.equal(
-      find('thead tr.dateGroups th:nth-child(3)').text().trim(),
       moment.tz('2016-01-01T11:11:00.000Z', timezone).format(
         moment.localeData().longDateFormat('LLLL')
         .replace(
           moment.localeData().longDateFormat('LT'), '')
         .trim()
-      ),
-      "date is shown in correct format (2)"
-    );
+      )
+    ]);
 
-    assert.equal(
-      find('thead tr:nth-child(2) th:nth-child(2)').text().trim(),
+    pollHasOptionsTimes(assert, [
       moment.tz('2015-12-12T11:11:00.000Z', timezone).format('LT'),
-      "time is shown in correct format (1)"
-    );
-    assert.equal(
-      find('thead tr:nth-child(2) th:nth-child(3)').text().trim(),
       moment.tz('2016-01-01T11:11:00.000Z', timezone).format('LT'),
-      "time is shown in correct format (2)"
-    );
+    ]);
   });
 });
 
@@ -157,37 +139,25 @@ test('view a poll while timezone differs from the one poll got created in and ch
       click('.modal button.use-local-timezone');
 
       andThen(function() {       
-        assert.equal(
-          find('thead tr.dateGroups th:nth-child(2)').text().trim(),
+        pollHasOptionsDates(assert, [
           moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format(
             moment.localeData().longDateFormat('LLLL')
             .replace(
               moment.localeData().longDateFormat('LT'), '')
             .trim()
           ),
-          "date is shown in correct format (1)"
-        );
-        assert.equal(
-          find('thead tr.dateGroups th:nth-child(3)').text().trim(),
           moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format(
             moment.localeData().longDateFormat('LLLL')
             .replace(
               moment.localeData().longDateFormat('LT'), '')
             .trim()
-          ),
-          "date is shown in correct format (2)"
-        );
+          )
+        ]);
 
-        assert.equal(
-          find('thead tr:nth-child(2) th:nth-child(2)').text().trim(),
+        pollHasOptionsTimes(assert, [
           moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format('LT'),
-          "time is shown in correct format (1)"
-        );
-        assert.equal(
-          find('thead tr:nth-child(2) th:nth-child(3)').text().trim(),
           moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format('LT'),
-          "time is shown in correct format (2)"
-        );
+        ]);
 
         stop();
         Ember.run.later(function(){
@@ -244,38 +214,26 @@ test('view a poll while timezone differs from the one poll got created in and ch
 
       click('.modal button.use-poll-timezone');
 
-      andThen(function() {       
-        assert.equal(
-          find('thead tr.dateGroups th:nth-child(2)').text().trim(),
+      andThen(function() {
+        pollHasOptionsDates(assert, [
           moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format(
             moment.localeData().longDateFormat('LLLL')
             .replace(
               moment.localeData().longDateFormat('LT'), '')
             .trim()
           ),
-          "date is shown in correct format (1)"
-        );
-        assert.equal(
-          find('thead tr.dateGroups th:nth-child(3)').text().trim(),
           moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format(
             moment.localeData().longDateFormat('LLLL')
             .replace(
               moment.localeData().longDateFormat('LT'), '')
             .trim()
-          ),
-          "date is shown in correct format (2)"
-        );
+          )
+        ]);
 
-        assert.equal(
-          find('thead tr:nth-child(2) th:nth-child(2)').text().trim(),
+        pollHasOptionsTimes(assert, [
           moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format('LT'),
-          "time is shown in correct format (1)"
-        );
-        assert.equal(
-          find('thead tr:nth-child(2) th:nth-child(3)').text().trim(),
-          moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format('LT'),
-          "time is shown in correct format (2)"
-        );
+          moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format('LT')
+        ]);
 
         stop();
         Ember.run.later(function(){

@@ -85,6 +85,13 @@ test("create a default poll", function(assert) {
               formattedDateHelper(new Date()),
               'today is the first selected option'
             );
+            
+            pollHasAnswers(assert, [
+              Ember.I18n.t('answerTypes.yes.label'),
+              Ember.I18n.t('answerTypes.no.label')
+            ]);
+
+            pollHasUsersCount(assert, 0);
           });
         });
       });
@@ -130,15 +137,8 @@ test("create a poll for answering a question", function(assert) {
 
               pollTitleEqual(assert, 'default poll');
               pollDescriptionEqual(assert, '');
-
-              // check that all 3 options are there
-              // head of user selections table is options + leading column (user names) + last column (buttons)
-              assert.equal(find('.user-selections-table thead tr th').length, 5);
-
-              // check options are correct
-              assert.equal(find(find('.user-selections-table thead tr th')[1]).text().trim(), 'option a');
-              assert.equal(find(find('.user-selections-table thead tr th')[2]).text().trim(), 'option b');
-              assert.equal(find(find('.user-selections-table thead tr th')[3]).text().trim(), 'option c');
+              pollHasOptions(assert, ['option a', 'option b', 'option c']);
+              pollHasUsersCount(assert, 0);
             });
           });
         });
@@ -188,6 +188,8 @@ test("create a poll with description", function(assert) {
               formattedDateHelper(new Date()),
               'current date should be first option'
             );
+
+            pollHasUsersCount(assert, 0);
           });
         });
       });
