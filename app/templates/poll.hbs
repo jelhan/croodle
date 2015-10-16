@@ -84,7 +84,11 @@
                         {{#radio-button value=answer groupValue=newUserSelection.value}}
                           <span {{bind-attr class="answer.id"}}>
                             <span {{bind-attr class="answer.icon"}}></span>
-                            {{answer.label}}
+                            {{#if answer.labelTranslation}}
+                              {{t answer.labelTranslation}}
+                            {{else}}
+                              {{answer.label}}
+                            {{/if}}
                           </span>
                         {{/radio-button}}
                       </div>
@@ -117,7 +121,11 @@
                   {{else}}
                     <span {{bind-attr class="selection.value.id"}}>
                         <span {{bind-attr class="selection.value.icon"}}></span>
-                        {{selection.value.label}}
+                        {{#if selection.value.labelTranslation}}
+                          {{t selection.value.labelTranslation}}
+                        {{else}}
+                          {{selection.value.label}}
+                        {{/if}}
                     </span>
                   {{/if}}
                 </td>
