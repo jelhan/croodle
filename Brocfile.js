@@ -89,6 +89,15 @@ trees.push(
   })
 );
 
+if (app.env === 'development' || app.env === 'test') {
+  trees.push(
+    pickFiles('tests/dummyData', {
+      srcDir: '/',
+      destDir: '/data'
+    })
+  );
+}
+
 trees.push(app.toTree());
 var mergeTrees = require('broccoli-merge-trees');
 module.exports = mergeTrees(trees);

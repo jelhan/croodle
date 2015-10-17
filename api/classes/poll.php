@@ -91,7 +91,7 @@ class Poll extends model {
   protected function getUsers() {
     $users = [];
 
-    $userDir = DATA_FOLDER . $this->get('id') . '/users/';
+    $userDir = DATA_FOLDER . $this->get('id') . '/user/';
     if (is_dir($userDir)) {
       $dir = opendir($userDir);
       while(false !== ($file = readdir($dir))) {
@@ -127,6 +127,22 @@ class Poll extends model {
     if ($this->isExpired()) {
       $this->delete();
       return false;
+    }
+  }
+
+  protected function restoreLegacySupportHook(&$data) {
+    if (!isset($data->version) || $data->version === 'v0.3-0') {
+      if (isset($data->poll) && is_object($data->poll)) {
+        $data = $data->poll;
+      }
+      
+      foreach($data as $key => $value) {
+        if (strpos($key, 'encrypted') === 0) {
+          $newKey = lcfirst(substr($key, 9));
+          $data->$newKey = $data->$key;
+          unset($data->$key);
+        }
+      }
     }
   }
 }

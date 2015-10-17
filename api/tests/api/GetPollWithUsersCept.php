@@ -6,7 +6,7 @@ $user1Json = '{"name":"{\"iv\":\"GJXPSYYmTVfEsst31BD92w==\",\"v\":1,\"iter\":100
 $user2Json = '{"name":"{\"iv\":\"DVNTCOFfACEOrgtVNVMyww==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"eug7bstOm7T\/CCFs32o=\"}","selections":"{\"iv\":\"ubEuXoXzw4QFuzjAyvXC6w==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"PfQ4v4hkBf+S0GX7JmnIp2LO5sh\/jg9nEIPn8NeU2Gn9Rb7cqsjCLgKOQ2xkiIzCyimVBOYg0fjGCyzM\/b6ZPQnY+86teNGogEteD4fjqGHhO832FNOy7Oci0YC8VAM1x9SlQNBI9V+vFc706JbZgwA8JY46UMiGK3HU49pgbYMpdnWEmt4dGzGrLMnNbh4J1Or5JydKmrp4dXaMiiggSXhmUTgBJSRhF7dxQm16oaA1lJpCWoQBvu+WTJv34LnBXHbgg6JcAEEONaQRw1jmMeqo36tQJxSdjiVfcDWzMifWiz\/nhQMqDHkc19iOAmDBo2Rf+yrGWA==\"}","creationDate":"{\"iv\":\"Sj4pVW\/maHa8DUNFHhyUrw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"HaY9MtEzVmEg3dxtI\/pfaIrsivBJSNeC5l5iJHQrvyYQGA==\"}","version":"v0.3.0+0ae62f31","poll":"l3zyFJUWcQ"}';
 
 $pollDir = 'tests/_tmp/data/' . $pollId . '/';
-$userDir = $pollDir . 'users/';
+$userDir = $pollDir . 'user/';
 mkdir($pollDir);
 file_put_contents($pollDir . 'poll_data', $pollJson);
 mkdir($userDir);

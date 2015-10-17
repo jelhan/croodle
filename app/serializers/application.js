@@ -25,31 +25,12 @@ export default DS.RESTSerializer.extend({
     var decryptionKey = dummyRecord.get('encryption.key');
     dummyRecord.destroyRecord();
 
-    // legacy support for versions before v0.4.0
-    if (!resourceHash.version || resourceHash.version === 'v0.3-0')
-    {
-      for(var key in resourceHash) {
-        // attributes got renamed in v0.4.0
-        // encrypted prefix was removed
-        if(key.indexOf('encrypted') === 0) {
-          let newKey;
-          // remove prefix 'encrypted'
-          newKey = key.substring(9);
-          // first char to lower case
-          newKey = newKey[0].toLowerCase() + newKey.slice(1);
-          // set correct attribute name in hash and delete wrong one
-          resourceHash[newKey] = resourceHash[key];
-          delete resourceHash[key];
-        }
-      }
-    }
-
     // run before serialization of attribute hash
     modelClass.eachAttribute(function(key, attributes) {
       if (
         attributes.options.encrypted !== false
       ) {
-        if (typeof resourceHash[key] !== "undefined") {
+        if (typeof resourceHash[key] !== "undefined" && resourceHash[key] !== null) {
           try {
             resourceHash[key] = JSON.parse(
               sjcl.decrypt(decryptionKey, resourceHash[key])

@@ -38,7 +38,7 @@ class User extends Model {
   }
 
   protected function getDir() {
-    return $this->getPollDir() . 'users/';
+    return $this->getPollDir() . 'user/';
   }
 
   protected function getPollDir() {
@@ -73,5 +73,21 @@ class User extends Model {
     return count($parts) === 2 &&
            Poll::isValidId($parts[0]) &&
            intval($parts[1]) == $parts[1];
+  }
+
+  protected function restoreLegacySupportHook(&$data) {
+    if (!isset($data->version) || $data->version === 'v0.3-0') {
+      if (isset($data->user) && is_object($data->user)) {
+        $data = $data->user;
+      }
+
+      foreach($data as $key => $value) {
+        if (strpos($key, 'encrypted') === 0) {
+          $newKey = lcfirst(substr($key, 9));
+          $data->$newKey = $data->$key;
+          unset($data->$key);
+        }
+      }
+    }
   }
 }

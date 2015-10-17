@@ -185,13 +185,19 @@ class Model {
     
     $data = self::convertFromStorage($storageObject);
 
+    if(method_exists($model, 'restoreLegacySupportHook')) {
+      $model->restoreLegacySupportHook($data);
+    }
+
     $properties = array_merge(
       static::ENCRYPTED_PROPERTIES,
       static::PLAIN_PROPERTIES,
       static::SERVER_PROPERTIES
     );
     foreach ($properties as $property) {
-      $model->set($property, $data->$property);
+      if (isset($data->$property)) {
+        $model->set($property, $data->$property);
+      }
     }
 
     if (static::PROOF_KEY_KNOWLEDGE === 'save') {
