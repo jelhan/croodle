@@ -29,7 +29,8 @@
     "pollHasOptions",
     "pollHasOptionsDates",
     "pollHasOptionsTimes",
-    "pollHasAnswers"
+    "pollHasAnswers",
+    "pollParticipate"
   ],
   "node": false,
   "browser": false,

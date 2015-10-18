@@ -16,7 +16,7 @@ module('Integration', {
   }
 });
 
-test("create a default poll", function(assert) { 
+test("create a default poll and participate", function(assert) { 
   visit('/create').then(function() {
     click('.button-next');
     
@@ -58,6 +58,13 @@ test("create a default poll", function(assert) {
               formattedDateHelper(new Date()),
               'today is the first selected option'
             );
+
+            pollHasUsersCount(assert, 0);
+            pollParticipate('Max Hoelz', ['no', 'no']);
+            andThen(function(){
+              pollHasUsersCount(assert, 1);
+              pollHasUser(assert, 'Max Hoelz', [Ember.I18n.t('answerTypes.no.label'), Ember.I18n.t('answerTypes.no.label')]);
+            });
           });
         });
       });

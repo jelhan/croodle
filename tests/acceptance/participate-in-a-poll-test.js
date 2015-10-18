@@ -40,26 +40,13 @@ test("participate in a default poll", function(assert) {
   );
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
-    fillIn('.newUserName input', 'Max Meier');
-    
-    Ember.$('.newUser td').each(function(i, e) {
-      $('.newUserSelection').each(function(i, e){
-        if(i % 2 === 0) {
-          click( $('input[type=radio]', e)[0] );
-        }
-        else {
-          click( $('input[type=radio]', e)[1] );
-        }
-      });
-    });
-
-    var userSelecectionsTableLengthBefore = Ember.$('.user').length;
-    click('.newUser button');
+    pollParticipate('Max Meiner', ['yes', 'no']);
    
     assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
  
     andThen(function(){
       pollHasUsersCount(assert, 1, "user is added to user selections table");
+      pollHasUser(assert, 'Max Meiner', [Ember.I18n.t('answerTypes.yes.label'), Ember.I18n.t('answerTypes.no.label')]);
     });
   });
 });
@@ -86,15 +73,9 @@ test("participate in a poll using freetext", function(assert) {
   );
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
-    fillIn('.newUserName input', 'Max Manus');
+    pollParticipate('Max Manus', ['answer 1', 'answer 2']);
     
-    fillIn('.newUserSelection input:eq(0)', 'answer 1');
-    fillIn('.newUserSelection input:eq(1)', 'answer 2');
-    
-    var userSelecectionsTableLengthBefore = Ember.$('.user').length;
-    click('.newUser button');
-   
-    assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
+    assert.equal(find('.has-error').length, 0, "there is no validation error");
  
     andThen(function(){
       pollHasUsersCount(assert, 1, "user is added to user selections table");
@@ -124,12 +105,7 @@ test("participate in a poll which doesn't force an answer to all options", funct
   );
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
-    fillIn('.newUserName input', 'Karl Käfer');
-    
-    click('.newUserSelection:eq(0) input[type=radio]:eq(0)');
-    
-    var userSelecectionsTableLengthBefore = Ember.$('.user').length;
-    click('.newUser button');
+    pollParticipate('Karl Käfer', ['yes', null]);
    
     assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
  
@@ -161,20 +137,7 @@ test("participate in a poll which allows anonymous participation", function(asse
   );
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
-    
-    Ember.$('.newUser td').each(function(i, e) {
-      $('.newUserSelection').each(function(i, e){
-        if(i % 2 === 0) {
-          click( $('input[type=radio]', e)[0] );
-        }
-        else {
-          click( $('input[type=radio]', e)[1] );
-        }
-      });
-    });
-
-    var userSelecectionsTableLengthBefore = Ember.$('.user').length;
-    click('.newUser button');
+    pollParticipate(null, ['yes', 'no']);
    
     assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
  

@@ -70,5 +70,18 @@ test('show a default poll created with v0.3.0', function(assert) {
         Ember.I18n.t('answerTypes.no.label')
       ]
     );
+
+    pollParticipate('Hermann Langbein', ['yes', 'maybe', 'yes']);
+    andThen(function() {
+      pollHasUsersCount(assert, 3);
+      pollHasUser(assert,
+        'Hermann Langbein',
+        [
+          Ember.I18n.t('answerTypes.yes.label'),
+          Ember.I18n.t('answerTypes.maybe.label'),
+          Ember.I18n.t('answerTypes.yes.label')
+        ]
+      );
+    });
   });
 });
