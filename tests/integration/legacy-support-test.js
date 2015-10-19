@@ -85,3 +85,44 @@ test('show a default poll created with v0.3.0', function(assert) {
     });
   });
 });
+
+test('find a poll using free text created with v0.3.0', function(assert) {
+  var id = 'PjW3XwbuRc',
+      encryptionKey = 'Rre6dAGOYLW9gYKOP4LhX7Qwfhe5Th3je0uKDtyy';
+  
+  visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
+
+  andThen(function() {
+    pollTitleEqual(assert, 'Which cake for birthday?');
+    pollDescriptionEqual(assert, '');
+   
+    pollHasOptions(assert, [
+      'apple pie',
+      'pecan pie',
+      'plum pie'
+    ]);
+
+    pollHasUsersCount(assert, 1);
+    pollHasUser(assert,
+      'Paul Levi',
+      [
+        'would be great!',
+        'no way',
+        'if I had to'
+      ]
+    );
+
+    pollParticipate('Hermann Langbein', ["I don't care", 'would be awesome', "can't imagine anything better"]);
+    andThen(function() {
+      pollHasUsersCount(assert, 2);
+      pollHasUser(assert,
+        'Hermann Langbein',
+        [
+          "I don't care",
+          'would be awesome',
+          "can't imagine anything better"
+        ]
+      );
+    });
+  });
+});

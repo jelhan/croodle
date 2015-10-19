@@ -9,13 +9,16 @@ export default function() {
       }
     });
     assert.ok(elBase, 'user ' + name + ' exists');
-    selections.forEach((selection, index) => {
-      assert.equal(
-        find('td:nth-child(' + (index + 2) + ')', elBase).text().trim(),
-        selection,
-        'selection ' + index + ' is as expected'
-      );
-    });
+
+    if (elBase) {
+      selections.forEach((selection, index) => {
+        assert.equal(
+          find('td:nth-child(' + (index + 2) + ')', elBase).text().trim(),
+          selection,
+          'selection ' + index + ' is as expected'
+        );
+      });
+    }
   });
   
   Ember.Test.registerHelper('pollHasUsersCount', function(app, assert, count, message) {
