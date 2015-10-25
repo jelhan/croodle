@@ -53,7 +53,6 @@ test('show a default poll created with v0.3.0', function(assert) {
       Ember.I18n.t('answerTypes.no.label')
     ]);
 
-    pollHasUsersCount(assert, 2);
     pollHasUser(assert,
       'Fritz Bauer',
       [
@@ -73,7 +72,6 @@ test('show a default poll created with v0.3.0', function(assert) {
 
     pollParticipate('Hermann Langbein', ['yes', 'maybe', 'yes']);
     andThen(function() {
-      pollHasUsersCount(assert, 3);
       pollHasUser(assert,
         'Hermann Langbein',
         [
@@ -102,7 +100,6 @@ test('find a poll using free text created with v0.3.0', function(assert) {
       'plum pie'
     ]);
 
-    pollHasUsersCount(assert, 1);
     pollHasUser(assert,
       'Paul Levi',
       [
@@ -114,7 +111,6 @@ test('find a poll using free text created with v0.3.0', function(assert) {
 
     pollParticipate('Hermann Langbein', ["I don't care", 'would be awesome', "can't imagine anything better"]);
     andThen(function() {
-      pollHasUsersCount(assert, 2);
       pollHasUser(assert,
         'Hermann Langbein',
         [
