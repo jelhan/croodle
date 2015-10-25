@@ -7,6 +7,8 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   encryptionKey: '',
   newUserName: '',
   queryParams: ['encryptionKey'],
+  usersSorting: ['creationDate'],
+  sortedUsers: Ember.computed.sort('model.users', 'usersSorting'),
 
   actions: {
     addNewUser: function(){
@@ -340,8 +342,8 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   }.property('evaluationBestOptions'),
 
   evaluationLastParticipation: function(){
-    return this.get('model.users.lastObject.creationDate');
-  }.property('model.users.@each'),
+    return this.get('sortedUsers.lastObject.creationDate');
+  }.property('sortedUsers.@each'),
 
   evaluationParticipants: function(){
     return this.get('model.users.length');

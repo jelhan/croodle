@@ -111,7 +111,7 @@
             </td>
           </tr>
 
-          {{#each user in model.users}}
+          {{#each user in sortedUsers}}
             <tr class="user">
               <td>{{user.name}}</td>
               {{#each selection in user.selections}}
