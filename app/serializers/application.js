@@ -46,6 +46,11 @@ export default DS.RESTSerializer.extend({
         }
       }
     }, this);
+
+    // run legacy support transformation specified in model serializer
+    if (typeof this.legacySupport === 'function') {
+      resourceHash = this.legacySupport(resourceHash);
+    }
     
     return this._super(modelClass, resourceHash, prop);
   },
