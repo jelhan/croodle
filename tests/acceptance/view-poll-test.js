@@ -46,10 +46,6 @@ test('view a poll with dates', function(assert) {
           moment.localeData().longDateFormat('LT'), '')
         .trim()
       ),
-      ""
-    );
-    assert.equal(
-      find('thead tr th:nth-child(3)').text().trim(),
       moment('2016-01-01').format(
         moment.localeData().longDateFormat('LLLL')
         .replace(
