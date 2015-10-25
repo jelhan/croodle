@@ -4,6 +4,7 @@ import moment from "moment";
 /* global jstz */
 
 export default Ember.Controller.extend(EmberValidations.Mixin, {
+  encryption: Ember.inject.service(),
   encryptionKey: '',
   newUserName: '',
   queryParams: ['encryptionKey'],
@@ -423,19 +424,16 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     return window.location.href;
   }.property('currentPath', 'encryptionKey'),
 
+  
   preventEncryptionKeyChanges: function() {
     if (
-      this.get('encryption.isSet') === true &&
+      !Ember.isEmpty(this.get('encryption.key')) &&
       this.get('encryptionKey') !== this.get('encryption.key')
     ) {
       // work-a-round for url not being updated
       window.location.hash = window.location.hash.replace(this.get('encryptionKey'), this.get('encryption.key'));
 
       this.set('encryptionKey', this.get('encryption.key'));
-    }
-    else {
-      this.set('encryption.key', this.get('encryptionKey'));
-      this.set('encryption.isSet', true);
     }
   }.observes('encryptionKey'),
   

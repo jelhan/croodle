@@ -11,6 +11,8 @@ export default Ember.Route.extend({
     }
   },
 
+  encryption: Ember.inject.service(),
+
   model: function(params) {
     // get encryption key from query parameter in singleton
     // before it's used by serializer to decrypt payload

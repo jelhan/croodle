@@ -16,14 +16,14 @@ import Ember from "ember";
  *   recorde is created. Value is the attributes name used.
  */
 export default DS.RESTSerializer.extend({
+  encryption: Ember.inject.service(),
+  encryptionKey: Ember.computed.alias('encryption.key'),
+  
   /*
    * implement decryption
    */
   normalize: function(modelClass, resourceHash, prop) {
-    // work-a-round: get encryption key from dummy record
-    var dummyRecord = this.store.createRecord('poll');
-    var decryptionKey = dummyRecord.get('encryption.key');
-    dummyRecord.destroyRecord();
+    var decryptionKey = this.get('encryptionKey');
 
     // run before serialization of attribute hash
     modelClass.eachAttribute(function(key, attributes) {
@@ -62,7 +62,7 @@ export default DS.RESTSerializer.extend({
     this._super(snapshot, json, key, attribute);
 
     // get encryption key from snapshot which is model representation
-    var encryptionKey = snapshot.record.get('encryption.key');
+    var encryptionKey = this.get('encryptionKey');
 
     // map includePlainOnCreate after serialization of attribute hash
     // but before encryption so we can just use the serialized hash

@@ -1,17 +1,22 @@
 import Ember from "ember";
-import generatePassphrase from "../utils/generate-passphrase";
 /* global moment */
 
 export default Ember.Route.extend({
   beforeModel: function(){
     // set encryption key
-    var passphraseLength = 40;
-    this.set('encryption.key', generatePassphrase( passphraseLength ));
+    this.get('encryption').generateKey();
   },
+
+  encryption: Ember.inject.service(),
+  encryptionKey: Ember.computed.alias('encryption.key'),
 
   events: {
     transitionToPoll: function(poll){
-      this.transitionTo('poll', poll, {queryParams: {encryptionKey: this.get('encryption.key')}});
+      this.transitionTo('poll', poll, {
+        queryParams: {
+          encryptionKey: this.get('encryptionKey')
+        }
+      });
     }
   },
   
