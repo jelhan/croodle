@@ -29,5 +29,5 @@ before_script:
 
 script:
   - npm test # run frontend and integration tests
-  - cd api/ && composer install --dev && cd .. # install development requirements for api to run api tests
+  - cd api/ && composer install && cd .. # install development requirements for api to run api tests
   - cd api/ && ./vendor/bin/codecept run && cd .. # run api tests with codeception
