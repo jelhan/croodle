@@ -10,13 +10,13 @@ Croodle is inspired by [ZeroBin](https://github.com/sebsauvage/ZeroBin) and of c
 
 ## Security notice
 
-As any other web application based end-to-end encryption Croodle could be attacked by an injection of maluse code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser ot the encryption key used and send it to a server under his controll.
+As any other web application based end-to-end encryption Croodle could be attacked by an injection of malicious code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser or the encryption key used and send it to a server under his controll.
 
 Therefore you have to
 * use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection.
 * trust the server.
 
-You could check for an attack like this by analysing the source code retrieved from server and/or using an development tool for your browser and check what data is send over the network or stored in cookies, localStorage or similar browser techniques.
+You could check for an attack like this by analysing the source code retrieved from server and/or using developer tools of your browser and check what data is send over the network or stored in cookies, localStorage or similar browser techniques.
 
 ## Requirements
 
@@ -35,7 +35,7 @@ git clone git@github.com:jelhan/croodle.git
 cd croodle
 npm install
 bower install
-cd api/ && composer install && cd ..
+cd api/ && composer install --no-dev && cd ..
 ember build --prod
 ```
 
@@ -60,7 +60,9 @@ you could use `ember test`. This is also used in CI.
 
 ### Api
 Api tests are provided by Codeception. To run them change current
-directory to `/api` and execute `./vendor/bin/codecept run`.
+directory to `/api` and execute `./vendor/bin/codecept run`. You have
+to install composer development requirements before (`composer install`
+without `--no-dev` option).
 
 ## License
 
