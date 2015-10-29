@@ -1,6 +1,5 @@
 import DS from "ember-data";
 import Ember from "ember";
-/* global sjcl */
 
 /*
  * extends DS.RESTSerializer to implement encryption
@@ -17,13 +16,11 @@ import Ember from "ember";
  */
 export default DS.RESTSerializer.extend({
   encryption: Ember.inject.service(),
-  encryptionKey: Ember.computed.alias('encryption.key'),
-  
+
   /*
    * implement decryption
    */
   normalize: function(modelClass, resourceHash, prop) {
-    var decryptionKey = this.get('encryptionKey');
 
     // run before serialization of attribute hash
     modelClass.eachAttribute(function(key, attributes) {
@@ -31,18 +28,7 @@ export default DS.RESTSerializer.extend({
         attributes.options.encrypted !== false
       ) {
         if (typeof resourceHash[key] !== "undefined" && resourceHash[key] !== null) {
-          try {
-            resourceHash[key] = JSON.parse(
-              sjcl.decrypt(decryptionKey, resourceHash[key])
-            );
-          }
-          catch (err) {
-            throw {
-              type: "decryption-failed",
-              message: "decryption failed for " + key + " using key " + decryptionKey,
-              original: err
-            };
-          }
+          resourceHash[key] = this.get('encryption').decrypt(resourceHash[key]);
         }
       }
     }, this);
@@ -61,9 +47,6 @@ export default DS.RESTSerializer.extend({
   serializeAttribute: function(snapshot, json, key, attribute) {
     this._super(snapshot, json, key, attribute);
 
-    // get encryption key from snapshot which is model representation
-    var encryptionKey = this.get('encryptionKey');
-
     // map includePlainOnCreate after serialization of attribute hash
     // but before encryption so we can just use the serialized hash
     if (
@@ -77,16 +60,7 @@ export default DS.RESTSerializer.extend({
     if (
       attribute.options.encrypted !== false
     ) {
-      try {
-        json[key] = sjcl.encrypt(encryptionKey, JSON.stringify(json[key]));
-      }
-      catch(err) {
-        throw {
-          type: 'encryption-failed',
-          message: "encryption failed with key: " + encryptionKey,
-          original: err
-        };
-      }
+      json[key] = this.get('encryption').encrypt(json[key]);
     }
   }
 });
