@@ -19,7 +19,7 @@ install:
   - npm install -g bower
   - npm install
   - bower install
-  - cd api/ && composer install && cd ..
+  - cd api/ && composer install --no-dev && cd .. # install non development composer requirements for api
 
 before_script:
   - ember server --live-reload=false & # Start a server so we can hit the fake API from integration tests
@@ -28,5 +28,6 @@ before_script:
   - npm list # list all installed npm packages
 
 script:
-  - npm test
-  - cd api/ && ./vendor/bin/codecept run && cd ..
+  - npm test # run frontend and integration tests
+  - cd api/ && composer install --dev && cd .. # install development requirements for api to run api tests
+  - cd api/ && ./vendor/bin/codecept run && cd .. # run api tests with codeception

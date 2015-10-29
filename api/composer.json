@@ -1,8 +1,10 @@
 {
     "require": {
         "slim/slim": "~2.0",
-        "codeception/codeception": "*",
-        "codeception/phpbuiltinserver": "*",
         "flow/jsonpath": "*"
+    },
+    "require-dev": {
+        "codeception/codeception": "*",
+        "codeception/phpbuiltinserver": "*"
     }
 }
