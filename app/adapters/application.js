@@ -4,13 +4,6 @@ import Ember from "ember";
 export default DS.RESTAdapter.extend({
   encryption: Ember.inject.service(),
 
-  // set PROOF_KEY_KNOWLEDGE header
-  headers: Ember.computed('encryption.hash', function() {
-    return {
-      "X-Croodle-Proof-Key-Knowledge": this.get('encryption.hash')
-    };
-  }),
-  
   // set namespace to api.php in same subdirectory
   namespace:
     window.location.pathname

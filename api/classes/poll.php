@@ -26,8 +26,6 @@ class Poll extends model {
     'version'
   ];
 
-  const PROOF_KEY_KNOWLEDGE = 'save';
-
   const SERVER_PROPERTIES = [
     'serverExpirationDate'
   ];

@@ -3,7 +3,6 @@
 class Model {
   const ENCRYPTED_PROPERTIES = [];
   const PLAIN_PROPERTIES = [];
-  const PROOF_KEY_KNOWLEDGE = 'validate';
   const SERVER_PROPERTIES = [];
   
   protected $data;
@@ -16,13 +15,6 @@ class Model {
 
     if (!is_writable(DATA_FOLDER)) {
       throw new Exception('DATA_FOLDER (' . DATA_FOLDER . ') is not writeable');
-    }
-
-    if (
-      static::PROOF_KEY_KNOWLEDGE !== 'save' &&
-      static::PROOF_KEY_KNOWLEDGE !== 'validate'
-    ) {
-      throw new Exception('PROOF_KEY_KNOWLEDGE must be "save" or "validate" but is ' . static::PROOF_KEY_KNOWLEDGE);
     }
 
     $this->data = new stdClass();
@@ -111,10 +103,6 @@ class Model {
     throw new Exception ('getPath must be implemented by model');
   }
 
-  private function getPathToKeyKnowledgeFile() {
-    return $this->getPollDir() . 'key_knowledge';
-  }
-  
   /*
    * Checks if a json string is a proper SJCL encrypted message.
    * False if format is incorrect.
@@ -200,10 +188,6 @@ class Model {
       }
     }
 
-    if (static::PROOF_KEY_KNOWLEDGE === 'save') {
-      $model->restoreKeyKnowledge($data);
-    }
-
     if (method_exists($model, 'restoreHook')) {
       if ($model->restoreHook() === false) {
         return false;
@@ -213,34 +197,11 @@ class Model {
     return $model;
   }
 
-  private function restoreKeyKnowledge() {
-    try {
-      $data = file_get_contents(
-        $this->getPathToKeyKnowledgeFile()
-      );
-
-      if ($data) {
-        return $data;
-      }
-      else {
-        throw new Exception('key knowledge file could not be read');
-      }
-    }
-    catch (Exception $e) {
-      return false;
-    }
-  }
-
   /*
    * save object to storage
    * gives back new id
    */
   public function save() {
-    // proof key knowledge before save
-    if (static::PROOF_KEY_KNOWLEDGE === 'validate') {
-      $this->validateKeyKnowledge();
-    }
-    
     // create dir for data if it does not exists
     $counter = 0;
     while (true) {
@@ -284,47 +245,9 @@ class Model {
       // successfully run
       break;
     }
-    
-    // save key knowledge after poll is saved
-    if (static::PROOF_KEY_KNOWLEDGE === 'save') {
-      $this->saveKeyKnowledge();
-    }
-  }
-
-  private function saveKeyKnowledge() {
-    if (
-      file_put_contents(
-        $this->getPathToKeyKnowledgeFile(),
-        $this->proofKeyKnowledge,
-        LOCK_EX
-      ) === false
-    ) {
-      throw new Exception('failed to save key knowledge');
-    }
   }
 
   private function set($key, $value) {
     $this->data->$key = $value;
-  }
-
-  public function setProofKeyKnowledge($value) {
-    $this->proofKeyKnowledge = $value;
-  }
-
-   private function validateKeyKnowledge() {
-    if (empty($this->proofKeyKnowledge)) {
-      throw new Exception('proof key knowledge is not set');
-    }
-
-    $keyKnowledge = $this->restoreKeyKnowledge();
-    
-    if (
-      $keyKnowledge !== false &&
-      $keyKnowledge !== $this->proofKeyKnowledge
-    ) {
-      throw new Exception(
-        'key knowledge not proofed: ' . $this->proofKeyKnowledge . ' does not equal ' . var_export($keyKnowledge, true)
-      );
-    }
   }
 }

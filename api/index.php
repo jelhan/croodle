@@ -55,9 +55,6 @@ $app->post('/polls', function() use ($app) {
       $app->request->getBody()
     )->poll
   );
-  $poll->setProofKeyKnowledge(
-    $app->request->headers->get('X-Croodle-Proof-Key-Knowledge')
-  );
   $poll->save();
   
   $app->response->setBody(
@@ -74,9 +71,6 @@ $app->post('/users', function() use ($app) {
     json_decode(
       $app->request->getBody()
     )->user
-  );
-  $user->setProofKeyKnowledge(
-    $app->request->headers->get('X-Croodle-Proof-Key-Knowledge')
   );
   $user->save();
 
