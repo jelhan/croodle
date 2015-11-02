@@ -12,20 +12,38 @@ module('Acceptance | view poll', {
   beforeEach: function() {
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
-    
+
     server = new Pretender();
   },
   afterEach: function() {
     server.shutdown();
-    
+
     Ember.run(application, 'destroy');
   }
+});
+
+test('view poll url', function(assert) {
+  var id = 'test',
+      encryptionKey = 'abcdefghijklmnopqrstuvwxyz012345789';
+
+  server.get('/polls/' + id, function() {
+    return serverGetPolls({ id: id }, encryptionKey);
+  });
+
+  visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
+  andThen(function() {
+    assert.equal(
+      find('.share-link .link a').text(),
+      window.location.href,
+      'share link is shown'
+    );
+  });
 });
 
 test('view a poll with dates', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  
+
   server.get('/polls/' + id, function() {
     return serverGetPolls(
       {
@@ -60,7 +78,7 @@ test('view a poll with dates and times', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789',
       timezone = jstz.determine().name();
-  
+
   server.get('/polls/' + id, function() {
     return serverGetPolls(
       {
@@ -110,7 +128,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
   else {
     timezonePoll = 'Europe/Moscow';
   }
-  
+
   server.get('/polls/' + id, function() {
     return serverGetPolls(
       {
@@ -129,7 +147,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
     stop();
     Ember.run.later(function(){
       start();
-      
+
       assert.equal(
         find('.modal').css('display'),
         'block',
@@ -138,7 +156,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
 
       click('.modal button.use-local-timezone');
 
-      andThen(function() {       
+      andThen(function() {
         pollHasOptionsDates(assert, [
           moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format(
             moment.localeData().longDateFormat('LLLL')
@@ -162,7 +180,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
         stop();
         Ember.run.later(function(){
           start();
-          
+
           assert.equal(
             find('.modal').css('display'),
             'none',
@@ -186,7 +204,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
   else {
     timezonePoll = 'Europe/Moscow';
   }
-  
+
   server.get('/polls/' + id, function() {
     return serverGetPolls(
       {
@@ -205,7 +223,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
     stop();
     Ember.run.later(function(){
       start();
-      
+
       assert.equal(
         find('.modal').css('display'),
         'block',
@@ -238,7 +256,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
         stop();
         Ember.run.later(function(){
           start();
-          
+
           assert.equal(
             find('.modal').css('display'),
             'none',

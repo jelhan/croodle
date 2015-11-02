@@ -8,6 +8,7 @@ import './poll-has-users';
 import './poll-has-options';
 import './poll-has-answers';
 import './poll-participate';
+import './switch-tab';
 
 export default function startApp(attrs) {
   var application;

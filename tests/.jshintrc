@@ -30,7 +30,8 @@
     "pollHasOptionsDates",
     "pollHasOptionsTimes",
     "pollHasAnswers",
-    "pollParticipate"
+    "pollParticipate",
+    "switchTab"
   ],
   "node": false,
   "browser": false,

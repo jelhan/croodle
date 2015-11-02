@@ -18,216 +18,26 @@
     </div>
   </div>
 
-  <div class="box">
-    <div class="table-scroll">
-      <table class="user-selections-table table table-striped table-condensed">
-        <thead>
-          {{#if model.isDateTime}}
-            <tr class="dateGroups">
-              <th>&nbsp;</th>
-              {{#each dateGroup in dateGroups}}
-                <th {{bind-attr colspan="dateGroup.colspan"}}>
-                  {{formattedDate dateGroup.value}}
-                </th>
-              {{/each}}
-              <th>&nbsp;</th>
-            </tr>
-          {{/if}}
-          <tr>
-            <th>&nbsp;</th>
-            {{#if model.isFindADate}}
-              {{#each date in dates}}
-                <th>
-                  {{#if model.isDateTime}}
-                    {{formattedDate date.title format="LT" times=true}}
-                  {{else}}
-                    {{formattedDate date.title}}
-                  {{/if}}
-                </th>
-              {{/each}}
-            {{else}}
-              {{#each option in model.options}}
-                <th>
-                  {{option.title}}
-                </th>
-              {{/each}}
-            {{/if}}
+  <div class="box container-fluid">
+    <ul class="nav nav-tabs" role="tablist">
+      {{#link-to "poll.participation" model tagName='li' activeClass='active' class='participation'}}
+        {{#link-to "poll.participation" model}}
+          participation
+        {{/link-to}}
+      {{/link-to}}
+      {{#link-to "poll.evaluation" model tagName='li' activeClass='active' class='evaluation'}}
+        {{#link-to "poll.evaluation" model}}
+          evaluation
+        {{/link-to}}
+      {{/link-to}}
+    </ul>
 
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr class='newUser'>
-            <td>
-              {{#form-wrapper}}
-                {{#input newUserName}}
-                  {{input-field newUserName
-                      placeholderTranslation="poll.input.newUserName.placeholder"
-                  }}
-                  {{#if view.showError}}
-                    {{error-field newUserName}}
-                  {{/if}}
-                {{/input}}
-              {{/form-wrapper}}
-            </td>
-            {{#each newUserSelection in newUserSelections}}
-              <td class="newUserSelection">
-                {{#form-wrapper}}
-                  {{#if model.isFreeText}}
-                    {{#input newUserSelection.value}}
-                      {{input-field newUserSelection.value}}
-                    {{/input}}
-                  {{else}}
-                    {{#each answer in model.answers}}
-                      <div class="radio">
-                        {{#radio-button value=answer groupValue=newUserSelection.value}}
-                          <span {{bind-attr class="answer.type"}}>
-                            <span {{bind-attr class="answer.icon"}}></span>
-                            {{#if answer.labelTranslation}}
-                              {{t answer.labelTranslation}}
-                            {{else}}
-                              {{answer.label}}
-                            {{/if}}
-                          </span>
-                        {{/radio-button}}
-                      </div>
-                    {{/each}}
-                  {{/if}}
-                {{/form-wrapper}}
-              </td>
-            {{/each}}
-            <td>
-              <button {{action "submitNewUser"}} class="btn btn-default btn-primary">
-                {{t "poll.save"}}
-              </button>
-              <span style="white-space: normal;">
-                {{#input everyOptionIsAnswered}}
-                  {{#if view.showError}}
-                    {{error-field everyOptionIsAnswered}}
-                  {{/if}}
-                {{/input}}
-              </span>
-            </td>
-          </tr>
-
-          {{#each user in sortedUsers}}
-            <tr class="user">
-              <td>{{user.name}}</td>
-              {{#each selection in user.selections}}
-                <td>
-                  {{#if selection.label}}
-                    {{#if model.isFreeText}}
-                      {{selection.label}}
-                    {{/if}}
-                  {{/if}}
-                  {{#if selection.labelTranslation}}
-                    {{#unless model.isFreeText}}
-                      <span {{bind-attr class="selection.type"}}>
-                        <span {{bind-attr class="selection.icon"}}></span>
-                        {{t selection.labelTranslation}}
-                      </span>
-                    {{/unless}}
-                  {{/if}}
-                </td>
-              {{/each}}
-              <td>&nbsp;</td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active">
+        {{outlet}}
+      </div>
     </div>
   </div>
-  
-  {{#if isEvaluable}}
-    <div class="box evaluation">
-      <h2>
-        {{t "poll.evaluation.label"}}
-      </h2>
-
-      <p class="participants">
-        {{t "poll.evaluation.participants" count=evaluationParticipants}}
-      </p>
-
-      <p class="best-options">
-        {{#if model.isFindADate}}
-          {{t "poll.evaluation.bestOption.label.findADate" count=evaluationBestOptions.length}}
-        {{else}}
-          {{t "poll.evaluation.bestOption.label.makeAPoll" count=evaluationBestOptions.length}}
-        {{/if}}
-
-        {{#if evaluationBestOptionsMultiple}}
-          <ul>
-            {{#each evaluationBestOption in evaluationBestOptions}}
-              <li>
-                {{#if model.isFindADate}}
-                  <strong>{{formattedDate evaluationBestOption.title times=model.isDateTime}}</strong>.
-                {{else}}
-                  <strong>{{evaluationBestOption.title}}</strong>.
-                {{/if}}
-
-                <br/>
-
-                {{#if model.isFindADate}}
-                  {{#if evaluationBestOption.answers.yes}}
-                    {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOption.answers.yes}}
-                  {{/if}}
-                  {{#if evaluationBestOption.answers.maybe}}
-                    {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOption.answers.maybe}}
-                  {{/if}}
-                  {{#if evaluationBestOption.answers.no}}
-                    {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOption.answers.no}}
-                  {{/if}}
-                {{else}}
-                  {{#if evaluationBestOption.answers.yes}}
-                    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOption.answers.yes}}
-                  {{/if}}
-                  {{#if evaluationBestOption.answers.maybe}}
-                    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOption.answers.maybe}}
-                  {{/if}}
-                  {{#if evaluationBestOption.answers.no}}
-                    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOption.answers.no}}
-                  {{/if}}
-                {{/if}}
-              </li>
-            {{/each}}
-          </ul>
-        {{else}}
-          {{#if model.isFindADate}}
-            <strong>{{formattedDate evaluationBestOptions.[0].title times=model.isDateTime}}</strong>.
-          {{else}}
-            <strong>{{evaluationBestOptions.[0].title}}</strong>.
-          {{/if}}
-
-          {{#if model.isFindADate}}
-            {{#if evaluationBestOptions.[0].answers.yes}}
-              {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOptions.[0].answers.yes}}
-            {{/if}}
-            {{#if evaluationBestOptions.[0].answers.maybe}}
-              {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOptions.[0].answers.maybe}}
-            {{/if}}
-            {{#if evaluationBestOptions.[0].answers.no}}
-              {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOptions.[0].answers.no}}
-            {{/if}}
-          {{else}}
-            {{#if evaluationBestOptions.[0].answers.yes}}
-              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOptions.[0].answers.yes}}
-            {{/if}}
-            {{#if evaluationBestOptions.[0].answers.maybe}}
-              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOptions.[0].answers.maybe}}
-            {{/if}}
-            {{#if evaluationBestOptions.[0].answers.no}}
-              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOptions.[0].answers.no}}
-            {{/if}}
-          {{/if}}
-        {{/if}}
-      </p>
-
-      <p class="last-participation">
-        {{t "poll.evaluation.lastParticipation" ago=(moment-from-now evaluationLastParticipation)}}
-      </p>
-    </div>
-  {{/if}}
 </div>
 
 <div class="modal fade" id="timezoneDiffers">

@@ -13,12 +13,12 @@ module('Acceptance | view evaluation', {
   beforeEach: function() {
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
-    
+
     server = new Pretender();
   },
   afterEach: function() {
     server.shutdown();
-    
+
     Ember.run(application, 'destroy');
   }
 });
@@ -26,7 +26,7 @@ module('Acceptance | view evaluation', {
 test('evaluation is not present for poll without participants', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  
+
   server.get('/polls/' + id, function() {
     return serverGetPolls(
       {
@@ -39,14 +39,19 @@ test('evaluation is not present for poll without participants', function(assert)
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
 
   andThen(function() {
-    assert.equal(find('.evaluation').length, 0);
+    assert.equal(currentPath(), 'poll.participation');
+    switchTab('evaluation');
+
+    andThen(function() {
+      assert.equal(find('.tab-content .evaluation').length, 0);
+    });
   });
 });
 
 test('evaluation is correct', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  
+
   server.get('/polls/' + id, function() {
     return serverGetPolls(
       {
@@ -116,19 +121,25 @@ test('evaluation is correct', function(assert) {
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
 
   andThen(function() {
-    assert.equal(find('.evaluation').length, 1, 'evaluation is present');
-    assert.notEqual(
-      find('.participants').text().indexOf(' 2 '),
-      -1,
-      'participants are counted correctly'
-    );
-    assert.equal(find('.best-options strong').text().trim(), formattedDateHelper('2015-12-12'), 'options are evaluated correctly');
-    assert.notEqual(
-      find('.last-participation').text().indexOf(
-        moment('2015-08-01T00:00:00.000Z').from()
-      ),
-      -1,
-      'last participation is evaluated correctly'
-    );
+    assert.equal(currentPath(), 'poll.participation');
+    switchTab('evaluation');
+
+    andThen(function() {
+      assert.equal(currentPath(), 'poll.evaluation');
+      assert.equal(find('.tab-content .evaluation').length, 1, 'evaluation is present');
+      assert.notEqual(
+        find('.participants').text().indexOf(' 2 '),
+        -1,
+        'participants are counted correctly'
+      );
+      assert.equal(find('.best-options strong').text().trim(), formattedDateHelper('2015-12-12'), 'options are evaluated correctly');
+      assert.notEqual(
+        find('.last-participation').text().indexOf(
+          moment('2015-08-01T00:00:00.000Z').from()
+        ),
+        -1,
+        'last participation is evaluated correctly'
+      );
+    });
   });
 });
