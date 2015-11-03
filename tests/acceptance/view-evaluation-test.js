@@ -23,7 +23,7 @@ module('Acceptance | view evaluation', {
   }
 });
 
-test('evaluation is not present for poll without participants', function(assert) {
+test('evaluation summary is not present for poll without participants', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -43,7 +43,7 @@ test('evaluation is not present for poll without participants', function(assert)
     switchTab('evaluation');
 
     andThen(function() {
-      assert.equal(find('.tab-content .evaluation').length, 0);
+      assert.equal(find('.tab-content .tab-pane .evaluation-summary').length, 0, 'evaluation summary is not present');
     });
   });
 });
@@ -126,7 +126,7 @@ test('evaluation is correct', function(assert) {
 
     andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
-      assert.equal(find('.tab-content .evaluation').length, 1, 'evaluation is present');
+      assert.equal(find('.tab-content .tab-pane .evaluation-summary').length, 1, 'evaluation summary is present');
       assert.notEqual(
         find('.participants').text().indexOf(' 2 '),
         -1,

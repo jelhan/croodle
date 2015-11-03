@@ -15,7 +15,7 @@ test('translations are correct', function(assert) {
       );
     }
   });
-  
+
   Object.keys(languages.en).map(function(translationKey) {
     Object.keys(languages).map(function(language) {
       if (language !== 'en') {
