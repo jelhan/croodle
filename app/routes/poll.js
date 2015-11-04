@@ -11,10 +11,6 @@ export default Ember.Route.extend({
     }
   },
 
-  afterModel(poll) {
-    this.transitionTo('poll.participation', poll, {queryParams: {encryptionKey: this.get('encryption.key')}});
-  },
-
   encryption: Ember.inject.service(),
 
   model: function(params) {
@@ -23,5 +19,9 @@ export default Ember.Route.extend({
     this.set('encryption.key', params.encryptionKey);
 
     return this.store.find('poll', params.poll_id);
+  },
+
+  redirect(poll) {
+    this.transitionTo('poll.participation', poll, {queryParams: {encryptionKey: this.get('encryption.key')}});
   }
 });
