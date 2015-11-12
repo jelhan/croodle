@@ -86,6 +86,7 @@ test('view a poll with dates and times', function(assert) {
         isDateTime: true,
         options: [
           {title: '2015-12-12T11:11:00.000Z'},
+          {title: '2015-12-12T13:13:00.000Z'},
           {title: '2016-01-01T11:11:00.000Z'}
         ],
         timezone: timezone
@@ -94,24 +95,13 @@ test('view a poll with dates and times', function(assert) {
   });
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
-    pollHasOptionsDates(assert, [
-      moment.tz('2015-12-12T11:11:00.000Z', timezone).format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      ),
-      moment.tz('2016-01-01T11:11:00.000Z', timezone).format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      )
-    ]);
-
-    pollHasOptionsTimes(assert, [
-      moment.tz('2015-12-12T11:11:00.000Z', timezone).format('LT'),
-      moment.tz('2016-01-01T11:11:00.000Z', timezone).format('LT'),
+    pollHasOptions(assert, [
+      // full date
+      moment.tz('2015-12-12T11:11:00.000Z', timezone).format('LLLL'),
+      // only time cause day is repeated
+      moment.tz('2015-12-12T13:13:00.000Z', timezone).format('LT'),
+      // full date cause day changed
+      moment.tz('2016-01-01T11:11:00.000Z', timezone).format('LLLL')
     ]);
   });
 });
@@ -157,24 +147,9 @@ test('view a poll while timezone differs from the one poll got created in and ch
       click('.modal button.use-local-timezone');
 
       andThen(function() {
-        pollHasOptionsDates(assert, [
-          moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format(
-            moment.localeData().longDateFormat('LLLL')
-            .replace(
-              moment.localeData().longDateFormat('LT'), '')
-            .trim()
-          ),
-          moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format(
-            moment.localeData().longDateFormat('LLLL')
-            .replace(
-              moment.localeData().longDateFormat('LT'), '')
-            .trim()
-          )
-        ]);
-
-        pollHasOptionsTimes(assert, [
-          moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format('LT'),
-          moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format('LT'),
+        pollHasOptions(assert, [
+          moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format('LLLL'),
+          moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format('LLLL')
         ]);
 
         stop();
@@ -233,24 +208,9 @@ test('view a poll while timezone differs from the one poll got created in and ch
       click('.modal button.use-poll-timezone');
 
       andThen(function() {
-        pollHasOptionsDates(assert, [
-          moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format(
-            moment.localeData().longDateFormat('LLLL')
-            .replace(
-              moment.localeData().longDateFormat('LT'), '')
-            .trim()
-          ),
-          moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format(
-            moment.localeData().longDateFormat('LLLL')
-            .replace(
-              moment.localeData().longDateFormat('LT'), '')
-            .trim()
-          )
-        ]);
-
-        pollHasOptionsTimes(assert, [
-          moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format('LT'),
-          moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format('LT')
+        pollHasOptions(assert, [
+          moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format('LLLL'),
+          moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format('LLLL')
         ]);
 
         stop();

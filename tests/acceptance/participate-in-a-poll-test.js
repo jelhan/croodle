@@ -42,10 +42,14 @@ test("participate in a default poll", function(assert) {
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Max Meiner', ['yes', 'no']);
-    assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
 
     andThen(function(){
       assert.equal(currentPath(), 'poll.evaluation');
+      assert.equal(
+        currentURL().split("?")[1],
+        'encryptionKey=' + encryptionKey,
+        'encryption key is part of query params'
+      );
       pollHasUsersCount(assert, 1, "user is added to user selections table");
       pollHasUser(assert, 'Max Meiner', [Ember.I18n.t('answerTypes.yes.label'), Ember.I18n.t('answerTypes.no.label')]);
     });
@@ -76,7 +80,6 @@ test("participate in a poll using freetext", function(assert) {
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Max Manus', ['answer 1', 'answer 2']);
-    assert.equal(find('.has-error').length, 0, "there is no validation error");
 
     andThen(function(){
       assert.equal(currentPath(), 'poll.evaluation');
@@ -109,7 +112,6 @@ test("participate in a poll which doesn't force an answer to all options", funct
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Karl Käfer', ['yes', null]);
-    assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
 
     andThen(function(){
       assert.equal(currentPath(), 'poll.evaluation');
@@ -142,7 +144,6 @@ test("participate in a poll which allows anonymous participation", function(asse
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate(null, ['yes', 'no']);
-    assert.equal(Ember.$('.has-error').length, 0, "there is no validation error");
 
     andThen(function(){
       assert.equal(currentPath(), 'poll.evaluation');

@@ -44,6 +44,22 @@ module('Acceptance | create a poll', {
 });
 
 test("create a default poll", function(assert) {
+  var dates =
+    [
+      moment().add(1, 'day'),
+      moment().add(1, 'week')
+    ];
+
+  var formattedDates =
+    dates.map((date) => {
+      return date.format(
+        moment.localeData().longDateFormat('LLLL')
+        .replace(
+          moment.localeData().longDateFormat('LT'), '')
+        .trim()
+      );
+    });
+
   visit('/create').then(function() {
     click('.button-next');
 
@@ -56,10 +72,10 @@ test("create a default poll", function(assert) {
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
 
-        // select days in calendar
-        // today and last day on current calendar page
-        click('.datepicker tbody td.today');
-        click('.datepicker tbody tr:last-child td:last-child');
+        selectDates(
+          '#datepicker .ember-view',
+          dates
+        );
 
         click('.button-next');
 
@@ -73,24 +89,11 @@ test("create a default poll", function(assert) {
 
             pollTitleEqual(assert, 'default poll');
             pollDescriptionEqual(assert, '');
-
-            assert.equal(
-              find('.user-selections-table thead tr th').length,
-              4, // head of user selections table is options + leading column (user names) + last column (buttons)
-              'there are two options provided'
-            );
-
-            assert.equal(
-              find(find('.user-selections-table thead tr th')[1]).text().trim(),
-              formattedDateHelper(new Date()),
-              'today is the first selected option'
-            );
-
+            pollHasOptions(assert, formattedDates);
             pollHasAnswers(assert, [
               Ember.I18n.t('answerTypes.yes.label'),
               Ember.I18n.t('answerTypes.no.label')
             ]);
-
             pollHasUsersCount(assert, 0);
           });
         });
@@ -148,6 +151,22 @@ test("create a poll for answering a question", function(assert) {
 });
 
 test("create a poll with description", function(assert) {
+  var dates =
+    [
+      moment().add(1, 'day'),
+      moment().add(1, 'week')
+    ];
+
+  var formattedDates =
+    dates.map((date) => {
+      return date.format(
+        moment.localeData().longDateFormat('LLLL')
+        .replace(
+          moment.localeData().longDateFormat('LT'), '')
+        .trim()
+      );
+    });
+
   visit('/create').then(function() {
     click('.button-next');
 
@@ -161,10 +180,7 @@ test("create a poll with description", function(assert) {
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
 
-        // select days in calendar
-        // today and last day on current calendar page
-        click('.datepicker tbody td.today');
-        click('.datepicker tbody tr:last-child td:last-child');
+        selectDates('#datepicker .ember-view', dates);
 
         click('.button-next');
 
@@ -178,17 +194,7 @@ test("create a poll with description", function(assert) {
 
             pollTitleEqual(assert, 'default poll');
             pollDescriptionEqual(assert, 'a sample description');
-
-            // check that there are two options
-            // head of user selections table is options + leading column (user names) + last column (buttons)
-            assert.equal(find('.user-selections-table thead tr th').length, 4);
-
-            assert.equal(find(
-              Ember.$('.user-selections-table thead tr th')[1]).text().trim(),
-              formattedDateHelper(new Date()),
-              'current date should be first option'
-            );
-
+            pollHasOptions(assert, formattedDates);
             pollHasUsersCount(assert, 0);
           });
         });

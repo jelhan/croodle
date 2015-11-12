@@ -1,94 +1,42 @@
-    <div class="table-scroll">
-      <table class="user-selections-table table table-striped table-condensed">
-        <thead>
-          {{#if model.isDateTime}}
-            <tr class="dateGroups">
-              <th>&nbsp;</th>
-              {{#each dateGroup in dateGroups}}
-                <th {{bind-attr colspan="dateGroup.colspan"}}>
-                  {{formattedDate dateGroup.value}}
-                </th>
-              {{/each}}
-              <th>&nbsp;</th>
-            </tr>
-          {{/if}}
-          <tr>
-            <th>&nbsp;</th>
-            {{#if model.isFindADate}}
-              {{#each date in dates}}
-                <th>
-                  {{#if model.isDateTime}}
-                    {{formattedDate date.title format="LT" times=true}}
-                  {{else}}
-                    {{formattedDate date.title}}
-                  {{/if}}
-                </th>
-              {{/each}}
-            {{else}}
-              {{#each option in model.options}}
-                <th>
-                  {{option.title}}
-                </th>
-              {{/each}}
-            {{/if}}
+<div class="participation">
+  {{#fm-form
+    action='submit'
+    class='form-horizontal'
+  }}
+    {{fm-field
+      value=name
+      type='text'
+      label=(t "poll.input.newUserName.label")
+      placeholder=(t "poll.input.newUserName.placeholder")
+      errors=validations.attrs.name.messages
+    }}
 
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr class='newUser'>
-            <td>
-              {{#form-wrapper}}
-                {{#input newUserName}}
-                  {{input-field newUserName
-                      placeholderTranslation="poll.input.newUserName.placeholder"
-                  }}
-                  {{#if view.showError}}
-                    {{error-field newUserName}}
-                  {{/if}}
-                {{/input}}
-              {{/form-wrapper}}
-            </td>
-            {{#each newUserSelection in newUserSelections}}
-              <td class="newUserSelection">
-                {{#form-wrapper}}
-                  {{#if model.isFreeText}}
-                    {{#input newUserSelection.value}}
-                      {{input-field newUserSelection.value}}
-                    {{/input}}
-                  {{else}}
-                    {{#each answer in model.answers}}
-                      <div class="radio">
-                        {{#radio-button value=answer groupValue=newUserSelection.value}}
-                          <span {{bind-attr class="answer.type"}}>
-                            <span {{bind-attr class="answer.icon"}}></span>
-                            {{#if answer.labelTranslation}}
-                              {{t answer.labelTranslation}}
-                            {{else}}
-                              {{answer.label}}
-                            {{/if}}
-                          </span>
-                        {{/radio-button}}
-                      </div>
-                    {{/each}}
-                  {{/if}}
-                {{/form-wrapper}}
-              </td>
-            {{/each}}
-            <td>
-              <button {{action "submitNewUser"}} class="btn btn-default btn-primary">
-                {{t "poll.save"}}
-              </button>
-              <span style="white-space: normal;">
-                {{#input everyOptionIsAnswered}}
-                  {{#if view.showError}}
-                    {{error-field everyOptionIsAnswered}}
-                  {{/if}}
-                {{/input}}
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="selections">
+      {{#each selection in selections}}
+        {{#if isFreeText}}
+          {{fm-field
+            value=selection.value
+            label=selection.label
+            errors=selection.validations.attrs.value.messages
+          }}
+        {{else}}
+          {{fm-radio-group
+            value=selection.value
+            label=selection.label
+            content=possibleAnswers
+            optionIconPath='content.icon'
+            optionLabelPath='content.label'
+            optionValuePath='content.type'
+            errors=selection.validations.attrs.value.messages
+          }}
+        {{/if}}
+      {{/each}}
     </div>
+
+    <div class="col-sm-offset-4 col-sm-8">
+      {{fm-submit
+        value=(t "poll.save")
+      }}
+    </div>
+  {{/fm-form}}
+</div>

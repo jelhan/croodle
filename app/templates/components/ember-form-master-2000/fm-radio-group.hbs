@@ -1,0 +1,17 @@
+{{#if label}}
+  <label class={{labelClass}}>{{label}}</label>
+{{/if}}
+
+<div class={{fieldWrapperClass}}>
+  {{#each content as |option|}}
+
+    {{fm-radio content=option onUserInteraction='userInteraction'}}
+
+  {{/each}}
+
+  {{#if errors}}
+    {{#if shouldShowErrors}}
+      {{fm-errortext errors=errors}}
+    {{/if}}
+  {{/if}}
+</div>

@@ -26,25 +26,10 @@ test('show a default poll created with v0.3.0', function(assert) {
     pollTitleEqual(assert, 'default poll created with v0.3.0');
     pollDescriptionEqual(assert, 'used for integration tests');
 
-    pollHasOptionsDates(assert, [
-      moment('2015-12-24').format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      ),
-      moment('2015-12-31').format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      ),
-    ]);
-
-    pollHasOptionsTimes(assert, [
-      moment.tz('2015-12-24T17:00:00.000Z', timezone).format('LT'),
+    pollHasOptions(assert, [
+      moment.tz('2015-12-24T17:00:00.000Z', timezone).format('LLLL'),
       moment.tz('2015-12-24T19:00:00.000Z', timezone).format('LT'),
-      moment.tz('2015-12-31T22:59:00.000Z', timezone).format('LT')
+      moment.tz('2015-12-31T22:59:00.000Z', timezone).format('LLLL')
     ]);
 
     pollHasAnswers(assert, [

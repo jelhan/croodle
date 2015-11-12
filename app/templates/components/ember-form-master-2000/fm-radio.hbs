@@ -1,0 +1,11 @@
+<label>
+  <input type='radio'
+    name={{parentView.name}}
+    value={{value}}
+    checked={{checked}}>
+  <span class={{value}}>
+    <span {{bind-attr class="icon"}}></span>
+    {{labelText}}
+    {{isSelected}}
+  </span>
+</label>

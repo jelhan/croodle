@@ -60,7 +60,7 @@ test("create a default poll and participate", function(assert) {
 
             pollTitleEqual(assert, 'default poll');
             pollDescriptionEqual(assert, '');
-            pollHasOptions(assert, formattedDates);
+            pollHasOptions(formattedDates);
             pollHasUsersCount(assert, 0);
             pollParticipate('Max Hoelz', ['no', 'no', 'yes']);
             andThen(function(){

@@ -1,197 +1,200 @@
 import Ember from "ember";
-import EmberValidations from 'ember-validations';
+import {
+    validator, buildValidations
+}
+from 'ember-cp-validations';
+/* global moment */
 
-export default Ember.Controller.extend(EmberValidations.Mixin, {
-  dates: Ember.computed.reads('pollController.dates'),
-  dateGroups: Ember.computed.reads('pollController.dateGroups'),
-  encryption: Ember.inject.service(),
-  newUserName: '',
-  pollController: Ember.inject.controller('poll'),
-
-  actions: {
-    addNewUser: function(){
-      var newUser = {
-        name: this.get('newUserName'),
-        selections: []
-      };
-      var self = this;
-
-      // work-a-round cause value is not retrived otherwise
-      this.get('newUserSelections').forEach(function(selection) {
-        if(typeof selection.get('value') === 'string') {
-          newUser.selections.pushObject(
-            self.store.createFragment('selection', {
-              label: selection.get('value')
-            })
-          );
-        }
-        else {
-          newUser.selections.pushObject(
-            self.store.createFragment('selection', {
-              type: selection.get('value.type'),
-              label: selection.get('value.label'),
-              labelTranslation: selection.get('value.labelTranslation'),
-              icon: selection.get('value.icon')
-            })
-          );
-        }
-      });
-
-      // send new user to controller for saving
-      this.send('saveNewUser', newUser);
-
-      // clear input fields
-      this.set('newUserName', '');
-      this.get('newUserSelections').forEach(function(selection){
-        selection.set('value', '');
-      });
-
-      // reset validation erros
-      this.set('errors.newUserName', '');
-      this.set('errors.everyOptionIsAnswered', '');
-
-      Ember.run.scheduleOnce('afterRender', this, function(){
-        // recalculate fixedHeaders
-        Ember.$('.user-selections-table').floatThead('reflow');
-      });
-
-      Ember.run.scheduleOnce('afterRender', this, function(){
-        // resize top scrollbars
-        Ember.$('.top-scrollbar div').css('width', Ember.$('.user-selections-table').width() );
-        Ember.$('.top-scrollbar-floatThead').css('width', Ember.$('.table-scroll').outerWidth() );
-        Ember.$('.top-scrollbar-floatThead div').css('width', Ember.$('.user-selections-table').width() );
-      });
+var validCollection = function(collection) {
+  // return false if any object in collection is inValid
+  return !collection.any((object) => {
+    return object.get('validations.isInvalid');
+  });
+};
+var Validations = buildValidations({
+  name: validator('presence', {
+    presence() {
+      // only force presence if anonymousUser poll setting is false
+      if (!this.get('model.anonymousUser')) {
+        return true;
+      }
+      else {
+        // disable presence validation
+        return null;
+      }
     },
+    dependentKeys: ['anonymousUser']
+  }),
 
-    /*
-     * save a new user
-     */
-    saveNewUser: function(user){
-      var self = this;
+  selections: [
+    validator('collection', true),
 
-      // create new user record in store
-      var newUser = this.store.createRecord('user', {
-        name: user.name,
-        creationDate: new Date(),
-        poll: this.get('model'),
-        selections: user.selections,
-        version: this.buildInfo.semver
-      });
+    // all selection objects must be valid
+    // if forceAnswer is true in poll settings
+    validator(validCollection, {
+      dependentKeys: ['forceAnswer', 'selections.[]', 'selections.@each.value']
+    })
+  ]
+});
 
-      // save new user
-      newUser.save()
-        .then(() => {
-          this.transitionTo('poll.evaluation', this.get('model'), {
-            queryParams: { encryptionKey: this.get('encryption.key') }
+var SelectionValidations = buildValidations({
+  value: validator('presence', {
+    presence() {
+      // only force present value if forceAnswer is true in poll settings
+      if (this.get('model.forceAnswer')) {
+        return true;
+      }
+    },
+    dependentKeys: ['forceAnswer']
+  })
+});
+
+export default Ember.Controller.extend(Validations, {
+  actions: {
+    submit() {
+      if (this.get('validations.isValid')) {
+        var user = this.store.createRecord('user', {
+          creationDate: new Date(),
+          name: this.get('name'),
+          poll: this.get('pollController.model'),
+          version: this.buildInfo.semver
+        });
+
+        var selections = user.get('selections'),
+            possibleAnswers = this.get('pollController.model.answers');
+
+        this.get('selections').forEach((selection) => {
+          if (selection.get('value') !== null) {
+            if (this.get('isFreeText')) {
+              selections.createFragment({
+                label: selection.get('value')
+              });
+            }
+            else {
+              var answer = possibleAnswers.findBy('type', selection.get('value'));
+              selections.createFragment({
+                icon: answer.get('icon'),
+                label: answer.get('label'),
+                labelTranslation: answer.get('labelTranslation'),
+                type: answer.get('type')
+              });
+            }
+          }
+          else {
+            selections.createFragment();
+          }
+        });
+
+        user.save()
+        .catch(() => {
+          // error: new user is not saved
+          this.send('openModal', {
+            template: 'save-retry',
+            model: {
+              record: user
+            }
           });
         })
-        .catch(function(){
-        // error: new user is not saved
-        self.send('openModal', {
-          template: 'save-retry',
-          model: {
-            record: newUser
-          }
-        });
-      });
-    },
+        .then(() => {
+          // reset form
+          this.set('name', '');
+          this.get('selections').forEach((selection) => {
+            selection.set('value', null);
+          });
 
-    submitNewUser: function(){
-      var self = this;
-      this.validate().then(function() {
-        self.send('addNewUser');
-      }).catch(function(){
-        Ember.$.each(Ember.View.views, function(id, view) {
-          if(view.isEasyForm) {
-            view.focusOut();
-          }
+          this.transitionToRoute('poll.evaluation', this.get('model'), {
+            queryParams: { encryptionKey: this.get('encryption.key') }
+          });
         });
-      });
+      }
     }
   },
 
-  /*
-   * returns true if user has selected an answer for every option provided
-   */
-  everyOptionIsAnswered: function(){
-    try {
-      var newUserSelections = this.get('newUserSelections'),
-          allAnswered = true;
+  anonymousUser: Ember.computed.readOnly('pollController.model.anonymousUser'),
+  encryption: Ember.inject.service(),
+  forceAnswer: Ember.computed.readOnly('pollController.model.forceAnswer'),
+  isDateTime: Ember.computed.readOnly('pollController.model.isDateTime'),
+  isFreeText: Ember.computed.readOnly('pollController.model.isFreeText'),
+  isFindADate: Ember.computed.readOnly('pollController.model.isFindADate'),
 
-      if (typeof newUserSelections === 'undefined') {
-        return false;
+  name: '',
+
+  pollController: Ember.inject.controller('poll'),
+
+  possibleAnswers: Ember.computed('pollController.model.answers', function() {
+    return this.get('pollController.model.answers').map((answer) => {
+      var label;
+
+      if (!Ember.isEmpty(answer.get('labelTranslation'))) {
+        label = Ember.I18n.t(answer.get('labelTranslation'));
+      } else {
+        label = answer.get('label');
       }
 
-      newUserSelections.forEach(function(item){
-        if (Ember.isEmpty(item.value)) {
-          allAnswered = false;
-        }
-      });
-
-      return allAnswered;
-    }
-    catch (e) {
-      return false;
-    }
-  }.property('newUserSelections.@each.value'),
-
-  /*
-   * switch isValid state
-   * is needed for disable submit button
-   */
-  isNotValid: function(){
-    return !this.get('isValid');
-  }.property('isValid'),
-
-  // array to store selections of new user
-  newUserSelections: function(){
-    var newUserSelections = Ember.A(),
-        options = this.get('model.options');
-
-    options.forEach(function(){
-      var newSelection = Ember.Object.create({value: ''});
-      newUserSelections.pushObject(newSelection);
+      return Ember.Object.extend({
+        icon: answer.get('icon'),
+        label: label,
+        type: answer.get('type')
+      }).create();
     });
+  }),
 
-    return newUserSelections;
-  }.property('model.options'),
+  selections: Ember.computed('pollController.model.options', 'pollController.dates', function() {
+    var options,
+        isFindADate = this.get('isFindADate'),
+        isDateTime = this.get('isDateTime'),
+        dateFormat,
+        lastDate;
 
-  optionCount: function() {
-    return this.get('model.options.length');
-  }.property('model.options'),
+    if (this.get('isFindADate')) {
+      options = this.get('pollController.dates');
+    }
+    else {
+      options = this.get('pollController.model.options');
+    }
 
-  validations: {
-    everyOptionIsAnswered: {
-      /*
-       * validate if every option is answered
-       * if it's forced by poll settings (forceAnswer === true)
-       *
-       * using a computed property therefore which returns true / false
-       * in combinatoin with acceptance validator
-       *
-       * ToDo: Show validation errors
-       */
-      acceptance: {
-        if: function(object){
-            return object.get('model.forceAnswer');
-        },
-        message: Ember.I18n.t('poll.error.newUser.everyOptionIsAnswered')
-      }
-    },
+    if (isDateTime) {
+      dateFormat = 'LLLL';
+    } else {
+      // local specific long date format without times
+      dateFormat =
+        moment.localeData().longDateFormat('LLLL')
+        .replace(
+          moment.localeData().longDateFormat('LT'), '')
+        .trim();
+    }
 
-    newUserName: {
-      presence: {
-        message: Ember.I18n.t('poll.error.newUserName'),
+    return options.map((option) => {
+      var label;
 
-        /*
-         * validate if a user name is given
-         * if it's forced by poll settings (anonymousUser === false)
-         */
-        unless: function(object){
-            /* have in mind that anonymousUser is undefined on init */
-            return object.get('model.anonymousUser');
+      // format label
+      if (isFindADate) {
+        if (isDateTime && lastDate && option.title.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
+          // do not repeat dates for different times
+          label = option.title.format('LT');
+        } else {
+          label = option.title.format(dateFormat);
+          lastDate = option.title;
         }
       }
-    }
-  }
+      else {
+        label = option.get('title');
+      }
+
+      // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
+      // To lookup validators, container access is required which can cause an issue with Ember.Object creation
+      // if the object is statically imported. The current fix for this is as follows.
+      var container = this.get('container');
+      return Ember.Object.extend(SelectionValidations, {
+        container,
+
+        // force Answer must be included in model
+        // cause otherwise validations can't depend on it
+        forceAnswer: this.get('forceAnswer'),
+
+        label: label,
+        value: null
+      }).create();
+    });
+  })
 });
