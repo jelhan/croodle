@@ -32,10 +32,8 @@
       {{/each}}
     </div>
 
-    <div class="col-sm-offset-4 col-sm-8">
-      {{fm-submit
-        value=(t "poll.save")
-      }}
-    </div>
+    {{#fm-submit fieldWrapperClass='col-sm-8 col-sm-offset-4'}}
+      {{t "poll.save"}}
+    {{/fm-submit}}
   {{/fm-form}}
 </div>
