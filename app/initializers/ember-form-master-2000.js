@@ -9,9 +9,9 @@ export default {
   name: 'ember-form-master-2000',
   initialize: function(container, application) {
     var overrides = {
-      fieldWrapperClass: 'col-sm-8',
+      fieldWrapperClass: 'col-sm-10',
       formClass: 'form-horizontal',
-      labelClass: 'control-label col-sm-4'
+      labelClass: 'control-label col-sm-2'
     };
     initialize(container, application, overrides);
   }

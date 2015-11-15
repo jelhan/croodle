@@ -8,6 +8,8 @@
       label=(t "poll.input.newUserName.label")
       placeholder=(t "poll.input.newUserName.placeholder")
       errors=validations.attrs.name.messages
+      fieldWrapperClass='col-sm-8'
+      labelClass='col-sm-4 control-label'
     }}
 
     <div class="selections">
@@ -17,6 +19,8 @@
             value=selection.value
             label=selection.label
             errors=selection.validations.attrs.value.messages
+            fieldWrapperClass='col-sm-8'
+            labelClass='col-sm-4 control-label'
           }}
         {{else}}
           {{fm-radio-group
@@ -27,6 +31,8 @@
             optionLabelPath='content.label'
             optionValuePath='content.type'
             errors=selection.validations.attrs.value.messages
+            fieldWrapperClass='col-sm-8'
+            labelClass='col-sm-4 control-label'
           }}
         {{/if}}
       {{/each}}

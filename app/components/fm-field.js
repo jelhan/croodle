@@ -25,6 +25,15 @@ export default FmFieldComponent.reopen({
     return this.fmconfig.fieldWrapperClass;
   }),
 
+  // make labelClass overrideable
+  init() {
+    var labelClass = this.get('labelClass');
+    this._super();
+    if (!Ember.isEmpty(labelClass)) {
+      this.set('labelClass', labelClass);
+    }
+  },
+
   // backport feature: do not show errors before user interaction
   shouldShowErrors: false
 });
