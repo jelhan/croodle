@@ -34,21 +34,3 @@ test('sends action `userInteraction` on focusOut', function(assert) {
 
   this.$().trigger('focusout');
 });
-
-
-test('sends action `userInteraction` on input', function(assert) {
-  assert.expect(1);
-
-  var component = this.subject();
-  var targetObject = {
-    userInteraction: function() {
-      assert.ok(true, 'action got called');
-    }
-  };
-
-  // bind target object and action to component
-  component.set('targetObject', targetObject);
-  component.set('onUserInteraction', 'userInteraction');
-
-  this.$().trigger('input');
-});
