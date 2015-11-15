@@ -10,6 +10,7 @@ export default {
   initialize: function(container, application) {
     var overrides = {
       fieldWrapperClass: 'col-sm-8',
+      formClass: 'form-horizontal',
       labelClass: 'control-label col-sm-4'
     };
     initialize(container, application, overrides);
