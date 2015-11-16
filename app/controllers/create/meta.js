@@ -1,33 +1,24 @@
 import Ember from "ember";
-import EmberValidations from 'ember-validations';
+import {
+  validator, buildValidations
+}
+from 'ember-cp-validations';
 
-export default Ember.Controller.extend(EmberValidations.Mixin, {
+var Validations = buildValidations({
+  title: [
+    validator('presence', true),
+    validator('length', {
+      min: 2
+    })
+  ]
+});
+
+export default Ember.Controller.extend(Validations, {
   actions: {
-    save: function() {
-      // redirect to CreateOptions
-      this.transitionToRoute('create.options');
-    },
-    
     submit: function(){
-      var self = this;
-      this.validate().then(function() {
-        self.send('save');
-      }).catch(function(){
-        Ember.$.each(Ember.View.views, function(id, view) {
-          if(view.isEasyForm) {
-            view.focusOut();
-          }
-        });
-      });
+      this.transitionToRoute('create.options');
     }
   },
 
-  validations: {
-    'model.title': {
-      presence: true,
-      length: {
-        minimum: 2
-      }
-    }
-  }
+  title: Ember.computed.alias('model.title')
 });

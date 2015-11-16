@@ -1,26 +1,26 @@
 import Ember from "ember";
-import EmberValidations from 'ember-validations';
+import {
+  validator, buildValidations
+}
+from 'ember-cp-validations';
 
-export default Ember.Controller.extend(EmberValidations.Mixin, {
+var Validations = buildValidations({
+  pollType: [
+    validator('presence', true),
+    validator('inclusion', {
+      in: ['FindADate', 'MakeAPoll']
+    })
+  ]
+});
+
+export default Ember.Controller.extend(Validations, {
   actions: {
-    save: function() {
-      // redirect to CreateMeta
+    submit: function() {
       this.transitionToRoute('create.meta');
-    },
-    
-    submit: function(){
-      var self = this;
-      this.validate().then(function() {
-        self.send('save');
-      }).catch(function(){
-        Ember.$.each(Ember.View.views, function(id, view) {
-          if(view.isEasyForm) {
-            view.focusOut();
-          }
-        });
-      });
     }
   },
+
+  pollType: Ember.computed.alias('model.pollType'),
 
   pollTypes: function(){
     return [
@@ -33,14 +33,5 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
         labelTranslation : "pollTypes.makeAPoll.label"
       })
     ];
-  }.property(),
-  
-  validations: {
-    'model.pollType': {
-      presence: true,
-      inclusion: {
-        in: ['FindADate', 'MakeAPoll']
-      }
-    }
-  }
+  }.property()
 });

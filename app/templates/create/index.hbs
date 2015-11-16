@@ -1,13 +1,19 @@
 <div class="box">
-  {{#form-wrapper}}
-    {{input pollType as='select'
-        collection="pollTypes"
-        value="model.pollType"
-        optionValuePath="content.id"
-        optionLabelPath="content.label"
-        labelTranslation='create.index.input.pollType.label'
+  {{#fm-form action='submit'}}
+    {{fm-field
+      type='select'
+      value=pollType
+      content=pollTypes
+      optionValuePath='content.id'
+      optionLabelPath='content.label'
+      label=(t 'create.index.input.pollType.label')
+      errors=validations.attrs.pollType.messages
+      class='poll-type'
     }}
-  {{/form-wrapper}}
-
-  <button {{action "submit"}} class="btn btn-default btn-primary button-next"> {{t 'create.next'}} </button>
+    {{#fm-submit
+      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+    }}
+      {{t 'create.next'}}
+    {{/fm-submit}}
+  {{/fm-form}}
 </div>

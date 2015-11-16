@@ -61,13 +61,13 @@ test("create a default poll", function(assert) {
     });
 
   visit('/create').then(function() {
-    click('.button-next');
+    click('button[type="submit"]');
 
     andThen(function(){
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('input[name="model.title"]', 'default poll');
-      click('.button-next');
+      fillIn('.title input', 'default poll');
+      click('button[type="submit"]');
 
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
@@ -105,14 +105,14 @@ test("create a default poll", function(assert) {
 test("create a poll for answering a question", function(assert) {
   visit('/create').then(function() {
     // select poll type answer a question
-    fillIn('select[name="pollType"]', 'MakeAPoll');
-    click('.button-next');
+    fillIn('.poll-type select', 'MakeAPoll');
+    click('button[type="submit"]');
 
     andThen(function(){
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('input[name="model.title"]', 'default poll');
-      click('.button-next');
+      fillIn('.title input', 'default poll');
+      click('button[type="submit"]');
 
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
@@ -195,14 +195,14 @@ test("create a poll with description", function(assert) {
     });
 
   visit('/create').then(function() {
-    click('.button-next');
+    click('button[type="submit"]');
 
     andThen(function(){
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('input[name="model.title"]', 'default poll');
-      fillIn('textarea', 'a sample description');
-      click('.button-next');
+      fillIn('.title input', 'default poll');
+      fillIn('.description textarea', 'a sample description');
+      click('button[type="submit"]');
 
       andThen(function(){
         assert.equal(currentPath(), 'create.options');

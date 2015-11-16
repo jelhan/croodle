@@ -33,15 +33,15 @@ test("create a default poll and participate", function(assert) {
         .trim()
       );
     });
-  
+
   visit('/create').then(function() {
-    click('.button-next');
+    click('button[type="submit"]');
 
     andThen(function(){
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('input[name="model.title"]', 'default poll');
-      click('.button-next');
+      fillIn('.title input', 'default poll');
+      click('button[type="submit"]');
 
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
