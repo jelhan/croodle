@@ -1,22 +1,76 @@
 import Ember from "ember";
-import EmberValidations from "ember-validations";
+import {
+  validator, buildValidations
+}
+from 'ember-cp-validations';
 
-export default Ember.Controller.extend(EmberValidations.Mixin, {
+var Validations = buildValidations({
+  optionsTexts: [
+    validator('collection', {
+      collection() {
+        if (this.get('model.isMakeAPoll')) {
+          return true;
+        }
+      }
+    }),
+    validator('length', {
+      dependentKeys: ['optionsTexts.[]'],
+      min() {
+        if (!this.get('model.isMakeAPoll')) {
+          return 0;
+        }
+        else {
+          return 2;
+        }
+      },
+      message: Ember.I18n.t('create.options.error.notEnoughOptions')
+    })
+  ],
+  optionsDates: [
+    validator('collection', {
+      collection() {
+        if (this.get('isFindADate')) {
+          return true;
+        }
+      }
+    }),
+    validator('length', {
+      min() {
+        if (!this.get('isFindADate')) {
+          return 0;
+        }
+
+        if (this.get('isDateTime')) {
+          return 1;
+        } else {
+          return 2;
+        }
+      },
+      message: Ember.I18n.t('create.options.error.notEnoughDates')
+    })
+  ]
+});
+
+export default Ember.Controller.extend(Validations, {
   needs: 'create',
-  
+
+  isFindADate: Ember.computed.readOnly('model.isFindADate'),
+  isMakeAPoll: Ember.computed.readOnly('model.isMakeAPoll'),
+
   optionsDates: Ember.computed.alias("controllers.create.optionsDates"),
   optionsTexts: Ember.computed.alias("controllers.create.optionsTexts"),
-    
+  optionsTextsObject: Ember.computed.readOnly('controllers.create.optionsTextsObject'),
+
   actions: {
     save: function(){
       if (this.get('model.isDateTime')) {
         this.transitionToRoute('create.options-datetime');
       }
       else {
-        this.transitionToRoute('create.settings'); 
+        this.transitionToRoute('create.settings');
       }
     },
-    
+
     submit: function(){
       var self = this;
       this.validate().then(function() {
@@ -32,43 +86,6 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
   },
 
   /*
-   * returns true if required number of options is reached
-   */
-  enoughOptions: function(){
-    var requiredOptionsLength,
-        givenOptions,
-        filtedOptions;
-
-    if (this.get('model.isFindADate')) {
-      givenOptions = this.get('optionsDates');
-    }
-    else {
-      givenOptions = this.get('optionsTexts');
-    }
-
-    // check if options are defined
-    if (typeof givenOptions === 'undefined') {
-      return false;
-    }
-    
-    // set requiredOptions
-    if (this.get('model.isDateTime')) {
-      // only one date is required if times will be set
-      requiredOptionsLength = 1;
-    }
-    else {
-      // if it's a poll or if dates without times are inserted we require atleast
-      // two options
-      requiredOptionsLength = 2;
-    }
-    
-    // array of options which have no title
-    filtedOptions = givenOptions.filterBy('value', '');
-    
-    return (givenOptions.length - filtedOptions.length) >= requiredOptionsLength;
-  }.property('model.options.@each.title', 'model.isDateTime'),
-
-  /*
    * maps optionsDates for bootstrap datepicker as a simple array of date objects
    */
   optionsBootstrapDatepicker: Ember.computed('optionsDates', {
@@ -76,7 +93,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
       return this.get('optionsDates').map(function(item){
         return item.title;
       });
-    },    
+    },
     set: function(key, value) {
       var newOptionsDates = [];
       if(Ember.isArray(value) && value.length > 0) {
@@ -88,19 +105,5 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 
       return value;
     },
-  }),
-
-  validations: {
-    enoughOptions: {
-      acceptance: {
-        message: Ember.I18n.t('create.options.error.notEnoughDates'),
-        if: 'model.isFindADate'
-      },
-      inclusion: {
-        in: ['1', 1, true],
-        message: Ember.I18n.t('create.options.error.notEnoughOptions'),
-        unless: 'model.isFindADate'
-      }
-    }
-  }
+  })
 });

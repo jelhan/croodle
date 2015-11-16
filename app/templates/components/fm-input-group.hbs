@@ -1,0 +1,37 @@
+{{#each content as |element index|}}
+  <div class='form-group'>
+    {{!--
+      index should be false for first element
+      so we could use an if helper to determine
+      if label should be passed in or not
+    --}}
+    {{#unless index}}
+      <label class='col-sm-2 col-md-2 control-label'>{{label}}</label>
+    {{/unless}}
+
+    <div class='col-sm-8 col-md-9 col-xs-10 {{if index 'col-sm-offset-2 col-md-offset-2'}}'>
+      {{fm-input
+        value=element.value
+      }}
+    </div>
+
+    <div class='col-sm-2 col-md-1 col-xs-2'>
+      <button {{action 'del' element}} class="delete" disabled={{canNotDeleteInputFields}}>
+        <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+        <span class='sr-only'>{{t 'create.options.button.delete.label'}}</span>
+      </button>
+      <button {{action 'add' element}} class="add">
+        <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
+        <span class='sr-only'>{{t 'create.options.button.add.label'}}</span>
+      </button>
+    </div>
+
+    {{#if errors}}
+      {{#if shouldShowErrors}}
+        <div class='col-sm-10 col-sm-offset-2'>
+          {{fm-errortext errors=errors}}
+        </div>
+      {{/if}}
+    {{/if}}
+  </div>
+{{/each}}

@@ -5,18 +5,26 @@ import moment from "moment";
 export default Ember.Controller.extend({
   optionsDates: [],
   optionsDateTimes: [],
-  optionsTexts: [{value: ''}, {value: ''}],
-  
+  optionsTexts: Ember.computed(function() {
+    return [
+      this.get('optionsTextsObject').create(),
+      this.get('optionsTextsObject').create()
+    ];
+  }),
+  optionsTextsObject: Ember.Object.extend({
+    value: ''
+  }),
+
   updateOptions: function() {
     var self = this,
         options = [];
-    
+
     /*
      * find a date
      * options are dates or datetimes
      */
     if (this.get('model.isFindADate')) {
-      
+
       if (this.get('model.isDateTime')) {
         // merge days and times
         this.get('optionsDateTimes').forEach(function(day) {
@@ -25,10 +33,10 @@ export default Ember.Controller.extend({
           day.get('times').forEach(function(timeObject) {
             var date = new Date( day.title ),
                 timeString = timeObject.value;
-            
+
             if (self.validateTimeString(timeString)) {
               var time = timeString.split(':');
-              
+
               date.setHours(time[0]);
               date.setMinutes(time[1]);
 
@@ -69,10 +77,10 @@ export default Ember.Controller.extend({
      */
     else {
       // remove all empty strings
-      
+
       this.get('optionsTexts').forEach(function(optionText){
         var textString = optionText.value.trim();
-        
+
         if (textString !== '') {
           options.pushObject(
             self.store.createFragment('option', {
@@ -85,12 +93,12 @@ export default Ember.Controller.extend({
 
     this.set('model.options', options);
   }.observes('optionsDates.@each.title', 'optionsDateTimes.@each.title', 'optionsDateTimes.@each.@eachTimesValue', 'optionsTexts.@each.value', 'model.isDateTime'),
-  
+
   updateDateTimesAfterDateChange: function() {
     var optionsDates = this.get('optionsDates'),
         newOptionsDateTimes = [],
         self = this;
-    
+
     optionsDates.forEach(function(optionDate){
       var dateTime = self.get('optionsDateTimesObject').create({
         title: optionDate.title,
@@ -99,11 +107,11 @@ export default Ember.Controller.extend({
 
       newOptionsDateTimes.pushObject( dateTime );
     });
-    
+
     this.set('optionsDateTimes', newOptionsDateTimes);
-    
+
   }.observes('optionsDates.@each.value'),
-  
+
   /*
    * helper Object as work-a-round to observe a nested array
    */
@@ -116,12 +124,12 @@ export default Ember.Controller.extend({
       return times;
     }.property('times.@each.value')
   }),
-  
+
   /*
    * uncomsumed computed property does not trigger observers
    * therefore we have to retrieve computed property helper to observer
    * nested array
-   * 
+   *
    * More Information in Ember 1.0 RC8 Release Changelog:
    * Unconsumed Computed Properties Do Not Trigger Observers
    * http://emberjs.com/blog/2013/08/29/ember-1-0-rc8.html
@@ -154,7 +162,7 @@ export default Ember.Controller.extend({
    */
   validateTimeString: function(timeString) {
     var time = timeString.split(':');
-    
+
     if (time.length === 2) {
       var hours = time[0],
           minutes = time[1];
@@ -164,7 +172,7 @@ export default Ember.Controller.extend({
         return true;
       }
     }
-    
+
     return false;
   }
 });

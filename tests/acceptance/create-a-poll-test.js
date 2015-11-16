@@ -116,32 +116,59 @@ test("create a poll for answering a question", function(assert) {
 
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
+        assert.equal(
+          find('input').length,
+          2,
+          'there are two input fields as default'
+        );
 
         // fill in default two option input fields
         fillIn(find('input')[0], 'option a');
-        fillIn(find('input')[1], 'option b');
+        fillIn(find('input')[1], 'option c');
 
         // add another option input field
-        assert.equal(find('input').length, 2);
-        click('.button-more-options');
+        click('button.add', find('.form-group')[0]);
         andThen(function(){
-          assert.equal(find('input').length, 3);
-          fillIn(find('input')[2], 'option c');
+          assert.equal(
+            find('input').length,
+            3,
+            'option was added'
+          );
+          fillIn(find('input')[1], 'option b');
 
-          click('.button-next');
+          click('button.add', find('.form-group')[2]);
+          andThen(function() {
+            assert.equal(
+              find('input').length,
+              4,
+              'option was added'
+            );
+            fillIn(find('input')[3], 'to be deleted');
+            click('button.delete', find('.form-group')[3]);
 
-          andThen(function(){
-            assert.equal(currentPath(), 'create.settings');
+            andThen(function() {
+              assert.equal(
+                find('input').length,
+                3,
+                'option got deleted'
+              );
 
-            click('.button-next');
+              click('button[type="submit"]');
 
-            andThen(function(){
-              assert.equal(currentPath(), 'poll.participation');
+              andThen(function(){
+                assert.equal(currentPath(), 'create.settings');
 
-              pollTitleEqual(assert, 'default poll');
-              pollDescriptionEqual(assert, '');
-              pollHasOptions(assert, ['option a', 'option b', 'option c']);
-              pollHasUsersCount(assert, 0);
+                click('.button-next');
+
+                andThen(function(){
+                  assert.equal(currentPath(), 'poll.participation');
+
+                  pollTitleEqual(assert, 'default poll');
+                  pollDescriptionEqual(assert, '');
+                  pollHasOptions(assert, ['option a', 'option b', 'option c']);
+                  pollHasUsersCount(assert, 0);
+                });
+              });
             });
           });
         });
