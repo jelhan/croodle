@@ -1,19 +1,32 @@
 import Ember from "ember";
 import moment from "moment";
+import {
+  validator, buildValidations
+} from 'ember-cp-validations';
 /* global jstz */
+
+var OptionsTextsObject = Ember.Object.extend(
+  buildValidations({
+    value: validator('presence', true)
+  }), {
+    value: ''
+  }
+);
 
 export default Ember.Controller.extend({
   optionsDates: [],
   optionsDateTimes: [],
   optionsTexts: Ember.computed(function() {
+    // To lookup validators, container access is required which can cause an issue with Ember.Object
+    // creation if the object is statically imported. The current fix for this is as follows.
+    // https://github.com/offirgolan/ember-cp-validations/blob/master/README.md#basic-usage---objects
+    var container = this.get('container');
     return [
-      this.get('optionsTextsObject').create(),
-      this.get('optionsTextsObject').create()
+      this.get('optionsTextsObject').create({container}),
+      this.get('optionsTextsObject').create({container})
     ];
   }),
-  optionsTextsObject: Ember.Object.extend({
-    value: ''
-  }),
+  optionsTextsObject: OptionsTextsObject,
 
   updateOptions: function() {
     var self = this,

@@ -2,7 +2,6 @@ import FmFormComponent from 'ember-form-master-2000/components/fm-form';
 export default FmFormComponent.reopen({
   submit(e) {
     e.preventDefault();
-    this.sendAction('action', this.get('for'));
 
     // backport feature: do not show errors before user interaction
     this.get('childViews').forEach((childView) => {
@@ -10,5 +9,11 @@ export default FmFormComponent.reopen({
         childView.send('userInteraction');
       }
     });
+
+    if (this.get('isValid') === false) {
+      return false;
+    }
+
+    this.sendAction('action', this.get('for'));
   }
 });

@@ -4,6 +4,11 @@ import {
 }
 from 'ember-cp-validations';
 
+var validatorCollectionIsValid = function(value, options, model, attribute) {
+  return model.get(attribute).every((element) => {
+    return element.get('validations.isValid');
+  });
+};
 var Validations = buildValidations({
   optionsTexts: [
     validator('collection', {
@@ -24,6 +29,9 @@ var Validations = buildValidations({
         }
       },
       message: Ember.I18n.t('create.options.error.notEnoughOptions')
+    }),
+    validator(validatorCollectionIsValid, {
+      dependentKeys: ['optionsTexts.@each.value']
     })
   ],
   optionsDates: [
@@ -62,26 +70,13 @@ export default Ember.Controller.extend(Validations, {
   optionsTextsObject: Ember.computed.readOnly('controllers.create.optionsTextsObject'),
 
   actions: {
-    save: function(){
+    submit: function(){
       if (this.get('model.isDateTime')) {
         this.transitionToRoute('create.options-datetime');
       }
       else {
         this.transitionToRoute('create.settings');
       }
-    },
-
-    submit: function(){
-      var self = this;
-      this.validate().then(function() {
-        self.send('save');
-      }).catch(function(){
-        Ember.$.each(Ember.View.views, function(id, view) {
-          if(view.isEasyForm) {
-            view.focusOut();
-          }
-        });
-      });
     }
   },
 

@@ -6,10 +6,16 @@ export default Ember.Component.extend({
       var content = this.get('content'),
           index = content.indexOf(element);
 
+      // To lookup validators, container access is required which can cause an issue with Ember.Object
+      // creation if the object is statically imported. The current fix for this is as follows.
+      // https://github.com/offirgolan/ember-cp-validations/blob/master/README.md#basic-usage---objects
+      var container = this.get('container'),
+          newObject = this.get('elementObject').create({container});
+
       content
         .insertAt(
           index + 1,
-          this.get('elementObject').create()
+          newObject
         );
     },
 

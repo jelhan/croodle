@@ -26,12 +26,20 @@
       </button>
     </div>
 
-    {{#if errors}}
+    {{#if element.validations.attrs.value.messages}}
       {{#if shouldShowErrors}}
-        <div class='col-sm-10 col-sm-offset-2'>
-          {{fm-errortext errors=errors}}
+        <div class='col-sm-10 col-sm-offset-2 has-error'>
+          {{fm-errortext errors=element.validations.attrs.value.messages}}
         </div>
       {{/if}}
     {{/if}}
   </div>
 {{/each}}
+
+{{#if errors}}
+  {{#if shouldShowErrors}}
+     <div class='col-sm-10 col-sm-offset-2'>
+       {{fm-errortext errors=errors}}
+     </div>
+  {{/if}}
+{{/if}}
