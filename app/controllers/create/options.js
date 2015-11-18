@@ -4,11 +4,6 @@ import {
 }
 from 'ember-cp-validations';
 
-var validatorCollectionIsValid = function(value, options, model, attribute) {
-  return model.get(attribute).every((element) => {
-    return element.get('validations.isValid');
-  });
-};
 var Validations = buildValidations({
   optionsTexts: [
     validator('collection', {
@@ -30,7 +25,7 @@ var Validations = buildValidations({
       },
       message: Ember.I18n.t('create.options.error.notEnoughOptions')
     }),
-    validator(validatorCollectionIsValid, {
+    validator('valid-collection', {
       dependentKeys: ['optionsTexts.@each.value']
     })
   ],
