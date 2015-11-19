@@ -46,7 +46,6 @@
     "ember-data": "1.0.0-beta.18",
     "ember-data-model-fragments": "0.3.3",
     "ember-disable-proxy-controllers": "^1.0.0",
-    "ember-easy-form-extensions": "0.2.8",
     "ember-export-application-global": "^1.0.2",
     "ember-form-master-2000": "0.2.0",
     "ember-get-helper": "1.0.4",

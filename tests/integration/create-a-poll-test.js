@@ -48,12 +48,12 @@ test("create a default poll and participate", function(assert) {
 
         selectDates('#datepicker .ember-view', dates);
 
-        click('.button-next');
+        click('button[type="submit"]');
 
         andThen(function(){
           assert.equal(currentPath(), 'create.settings');
 
-          click('.button-next');
+          click('button[type="submit"]');
 
           andThen(function(){
             assert.equal(currentPath(), 'poll.participation');

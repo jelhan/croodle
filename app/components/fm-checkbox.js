@@ -9,4 +9,8 @@ export default FmCheckboxComponent.reopen({
       return this.fmconfig.errorClass;
     }
   }),
+
+  fieldWrapperClass: Ember.computed(function() {
+    return this.fmconfig.fieldWrapperClass;
+  })
 });

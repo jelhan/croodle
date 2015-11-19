@@ -1,39 +1,37 @@
 import Ember from "ember";
-import EmberValidations from 'ember-validations';
+import {
+  validator, buildValidations
+}
+from 'ember-cp-validations';
 /* global moment */
 
-export default Ember.Controller.extend(EmberValidations.Mixin, {
-  actions: {
-    save: function(){
-      // check if answer type is selected
-      if (this.get('model.answerType') === null) {
-        return;
-      }
+var Validations = buildValidations({
+  anonymousUser: validator('presence', true),
+  answerType: [
+    validator('presence', true),
+    validator('inclusion', {
+      in: ['YesNo', 'YesNoMaybe', 'FreeText']
+    })
+  ],
+  forceAnswer: validator('presence', true)
+});
 
-      // save poll
-      var self = this;
-      this.get('model').save().then(function(model){
-        // reload as workaround for bug: duplicated records after save
-        model.reload().then(function(model){
-           // redirect to new poll
-           self.get('target').send('transitionToPoll', model);
-        });
-      });
-    },
-    
+export default Ember.Controller.extend(Validations, {
+  actions: {
     submit: function(){
-      var self = this;
-      this.validate().then(function() {
-        self.send('save');
-      }).catch(function(){
-        Ember.$.each(Ember.View.views, function(id, view) {
-          if(view.isEasyForm) {
-            view.focusOut();
-          }
+      // save poll
+      this.get('model').save().then((model) => {
+        // reload as workaround for bug: duplicated records after save
+        model.reload().then((model) => {
+           // redirect to new poll
+           this.get('target').send('transitionToPoll', model);
         });
       });
     }
   },
+
+  anonymousUser: Ember.computed.alias('model.anonymousUser'),
+  answerType: Ember.computed.alias('model.answerType'),
 
   answerTypes: function() {
     return [
@@ -113,6 +111,8 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     ];
   }.property(),
 
+  forceAnswer: Ember.computed.alias('model.forceAnswer'),
+
   /*
    * set answers depending on selected answer type
    */
@@ -134,7 +134,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 
   updateExpirationDate: function() {
     var expirationDuration = this.get('expirationDuration');
-    
+
     if(Ember.isEmpty(expirationDuration)) {
       this.set('model.expirationDate', '');
     }
@@ -145,20 +145,5 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
         ).toISOString()
       );
     }
-  }.observes('expirationDuration'),
-
-  validations: {
-    'model.anonymousUser': {
-      presence: true
-    },
-    'model.answerType': {
-      presence: true,
-      inclusion: {
-          in: ["YesNo", "YesNoMaybe", "FreeText"]
-      }
-    },
-    'model.forceAnswer': {
-      presence: true
-    }
-  }
+  }.observes('expirationDuration')
 });

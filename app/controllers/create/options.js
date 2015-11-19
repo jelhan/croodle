@@ -26,6 +26,9 @@ var Validations = buildValidations({
       message: Ember.I18n.t('create.options.error.notEnoughOptions')
     }),
     validator('valid-collection', {
+      active() {
+        return this.get('model.isMakeAPoll');
+      },
       dependentKeys: ['optionsTexts.@each.value']
     })
   ],

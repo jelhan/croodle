@@ -1,29 +1,43 @@
 <div class="box">
-  {{#form-wrapper}}
-    {{input model.answerType as='select'
-      collection="answerTypes"
-      value="model.answerType"
-      optionValuePath="content.id"
-      optionLabelPath="content.label"
-      labelTranslation="create.settings.answerType.label"
+  {{#fm-form action='submit'}}
+    {{fm-field
+      type='select'
+      content=answerTypes
+      value=answerType
+      optionValuePath='content.id'
+      optionLabelPath='content.label'
+      label=(t 'create.settings.answerType.label')
+      errors=validations.attrs.answerType.messages
+      class='answer-type'
     }}
-
-    {{input expirationDuration as='select'
-      collection="expirationDurations"
-      value="expirationDuration"
-      optionValuePath="content.id"
-      optionLabelPath="content.label"
-      labelTranslation="create.settings.expirationDate.label"
+    {{fm-field
+      type='select'
+      content=expirationDurations
+      value=expirationDuration
+      optionValuePath='content.id'
+      optionLabelPath='content.label'
+      label=(t 'create.settings.expirationDate.label')
+      errors=validations.attrs.expirationDuration.messages
+      class='expiration-duration'
     }}
-    
-    {{input model.anonymousUser as='checkbox'
-      labelTranslation="create.settings.anonymousUser.label"
+    {{fm-checkbox
+      checked=anonymousUser
+      label=(t 'create.settings.anonymousUser.label')
+      errors=validations.attrs.anonymousUser.messages
+      class='anonymous-user'
+      fieldWrapperClass='col-sm-10 col-sm-offset-2'
     }}
-    
-    {{input model.forceAnswer as='checkbox'
-      labelTranslation="create.settings.forceAnswer.label"
+    {{fm-checkbox
+      checked=forceAnswer
+      label=(t 'create.settings.forceAnswer.label')
+      errors=validations.attrs.forceAnswer.messages
+      class='force-answer'
+      fieldWrapperClass='col-sm-10 col-sm-offset-2'
     }}
-  {{/form-wrapper}}
-
-  <button {{action "submit"}} class="btn btn-default btn-primary button-next"> {{t 'create.next'}} </button>
+    {{#fm-submit
+      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+    }}
+      {{t 'create.next'}}
+    {{/fm-submit}}
+  {{/fm-form}}
 </div>

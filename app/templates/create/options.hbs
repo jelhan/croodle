@@ -21,28 +21,45 @@
 
   {{else}}
 
-    <div id="datepicker">
-      {{bootstrap-datepicker-inline
-          value=optionsBootstrapDatepicker
-          multidate=true
-          calendarWeeks=true
-          todayHighlight=true
-          language=language.selected}}
-    </div>
+    {{#fm-form
+      action='submit'
+      isValid=validations.isValid
+    }}
+      <div class="form-group">
+        <label class="col-sm-2 control-label">
+          Tage
+        </label>
 
-    {{#form-wrapper}}
-      {{#input enoughOptions}}
-        {{#if view.showError}}
-          {{error-field enoughOptions}}
-        {{/if}}
-      {{/input}}
+        <div class="col-sm-10">
+          <div id="datepicker">
+            {{bootstrap-datepicker-inline
+              value=optionsBootstrapDatepicker
+              multidate=true
+              calendarWeeks=true
+              todayHighlight=true
+              language=language.selected
+            }}
+          </div>
 
-      {{input model.isDateTime as='checkbox'
-         labelTranslation="create.options.defineTimes.label"
+          {{#if showDatepickerErrors}}
+            {{#if validations.attrs.optionsBootstrapDatepicker.message}}
+              {{validations.attrs.optionsBootstrapDatepicker.message}}
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+
+      {{fm-checkbox
+        checked=model.isDateTime
+        label=(t 'create.options.defineTimes.label')
+        fieldWrapperClass='col-sm-10 col-sm-offset-2'
       }}
-    {{/form-wrapper}}
 
-    <button {{action "submit"}} class="btn btn-default btn-primary button-next"> {{t 'create.next'}} </button>
-
+      {{#fm-submit
+        fieldWrapperClass='col-sm-10 col-sm-offset-2'
+      }}
+        {{t 'create.next'}}
+      {{/fm-submit}}
+    {{/fm-form}}
   {{/if}}
 </div>

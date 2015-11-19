@@ -77,12 +77,12 @@ test("create a default poll", function(assert) {
           dates
         );
 
-        click('.button-next');
+        click('button[type="submit"]');
 
         andThen(function(){
           assert.equal(currentPath(), 'create.settings');
 
-          click('.button-next');
+          click('button[type="submit"]');
 
           andThen(function(){
             assert.equal(currentPath(), 'poll.participation');
@@ -158,7 +158,7 @@ test("create a poll for answering a question", function(assert) {
               andThen(function(){
                 assert.equal(currentPath(), 'create.settings');
 
-                click('.button-next');
+                click('button[type="submit"]');
 
                 andThen(function(){
                   assert.equal(currentPath(), 'poll.participation');
@@ -209,12 +209,12 @@ test("create a poll with description", function(assert) {
 
         selectDates('#datepicker .ember-view', dates);
 
-        click('.button-next');
+        click('button[type="submit"]');
 
         andThen(function(){
           assert.equal(currentPath(), 'create.settings');
 
-          click('.button-next');
+          click('button[type="submit"]');
 
           andThen(function(){
             assert.equal(currentPath(), 'poll.participation');

@@ -1,0 +1,20 @@
+<div class='checkbox'>
+
+  <div class={{fieldWrapperClass}}>
+    <label>
+      {{input
+        type='checkbox'
+        checked=checked
+        disabled=disabled
+        name=name
+        tabindex=tabindex}}
+      {{label}}
+    </label>
+
+    {{#if errors}}
+      {{#if shouldShowErrors}}
+        {{fm-errortext errors=errors}}
+      {{/if}}
+    {{/if}}
+  </div>
+</div>
