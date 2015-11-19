@@ -17,9 +17,7 @@ export default DS.Model.extend({
 
   // array of users selections
   // must be in same order as options property of poll
-  selections : DS.hasManyFragments('selection', {
-    defaultValue: []
-  }),
+  selections : MF.fragmentArray('selection'),
 
   // Croodle version user got created with
   version : DS.attr('string', {

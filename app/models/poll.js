@@ -5,15 +5,15 @@ export default DS.Model.extend({
    * relationships
    */
   users : DS.hasMany('user'),
-  
+
   /*
    * properties
    */
   // Is participation without user name possibile?
   anonymousUser : DS.attr('boolean'),
-  
+
   // array of possible answers
-  answers : DS.hasManyFragments('answer', { defaultValue: [] }),
+  answers : MF.fragmentArray('answer'),
 
   // YesNo, YesNoMaybe or Freetext
   answerType: DS.attr('string'),
@@ -38,7 +38,7 @@ export default DS.Model.extend({
   isDateTime : DS.attr('boolean'),
 
   // array of polls options
-  options : DS.hasManyFragments('option', { defaultValue: [] }),
+  options : MF.fragmentArray('option'),
 
   // FindADate or MakeAPoll
   pollType : DS.attr('string'),
@@ -53,18 +53,18 @@ export default DS.Model.extend({
   version : DS.attr('string', {
     encrypted: false
   }),
-  
+
   /*
    * computed properties
    */
   isFindADate: function() {
     return this.get('pollType') === 'FindADate';
   }.property('pollType'),
-  
+
   isFreeText: function() {
     return this.get('answerType') === 'FreeText';
   }.property('answerType'),
-  
+
   isMakeAPoll: function() {
     return this.get('pollType') === 'MakeAPoll';
   }.property('pollType'),

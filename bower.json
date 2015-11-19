@@ -12,7 +12,6 @@
     "jquery": "^1.11.3",
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
-    "ember-i18n": "~3.0.1",
     "sjcl": "~1.0.0",
     "bootstrap": "~3.3.4",
     "bootstrap-datepicker": "~1.4.0",
@@ -22,7 +21,9 @@
     "ember-cli-moment-shim": "~0.2.0",
     "moment-timezone": ">= 0.1.0",
     "pretender": "^0.6.0",
-    "moment": ">= 2.8.0",
-    "ember-data.model-fragments": "0.3.3"
+    "moment": ">= 2.8.0"
+  },
+  "devDependencies": {
+    "ember-data-model-fragments": "1.13.1"
   }
 }
