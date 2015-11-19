@@ -18,6 +18,7 @@ before_install:
 install:
   - npm install -g bower
   - npm install
+  - npm prune
   - bower install
   - cd api/ && composer install --no-dev && cd .. # install non development composer requirements for api
 
