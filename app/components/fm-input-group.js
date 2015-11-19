@@ -53,6 +53,8 @@ export default Ember.Component.extend({
 
   classNameBindings: ['errorClass'],
 
+  errors: [],
+
   errorClass: Ember.computed('errors', 'shouldShowErrors', function() {
     if(!Ember.isEmpty(this.get('errors')) && this.get('shouldShowErrors')) {
       return this.fmconfig.errorClass;
@@ -61,5 +63,9 @@ export default Ember.Component.extend({
 
   minimumInputFields: 1,
 
-  shouldShowErrors: false
+  shouldShowErrors: false,
+
+  step: undefined,
+
+  type: undefined
 });

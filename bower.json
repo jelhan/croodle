@@ -17,7 +17,6 @@
     "bootstrap": "~3.3.4",
     "bootstrap-datepicker": "~1.4.0",
     "floatThead": "1.2.12",
-    "webshim": "~1.15.3",
     "modernizr": "~2.8.3",
     "jstimezonedetect": "~1.0.5",
     "ember-cli-moment-shim": "~0.2.0",

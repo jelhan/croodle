@@ -1,9 +1,15 @@
 import BaseValidator from 'ember-cp-validations/validators/base';
 
 export default BaseValidator.extend({
-  validate(value, options, model, attribute) {
-    return model.get(attribute).every((element) => {
+  validate(value) {
+    var valid = value.every((element) => {
       return element.get('validations.isValid');
     });
+
+    if (valid) {
+      return true;
+    } else {
+      return 'all elements must be valid';
+    }
   }
 });

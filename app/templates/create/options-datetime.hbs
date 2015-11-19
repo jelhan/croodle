@@ -1,41 +1,29 @@
 <div class="box">
-  {{#form-wrapper}}
-    {{#input enoughTimes}}
-      {{label-field enoughTimes
-          textTranslation="create.options-datetime.datetimes.label"
+  {{#fm-form
+    action='submit'
+    isValid=validations.isValid
+  }}
+    {{#each optionsDateTimes as |optionDateTime|}}
+      {{fm-input-group
+        type='time'
+        step=900
+        label=optionDateTime.label
+        content=optionDateTime.times
+        elementObject=optionsDateTimesTimeObject
       }}
-      <table class="table">
-        <tbody>
-          {{#each datetime in optionsDateTimes}}
-            <tr>
-              <td>
-                {{formattedDate datetime.title}}
-              </td>
-              {{#each time in datetime.times}}
-                <td>
-                  {{#input time.value}}
-                    {{input-field time.value as='time'
-                        step='900'
-                        class='time'
-                    }}
-                  {{/input}}
-                </td>
-              {{/each}}
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-      {{error-field enoughTimes}}
-    {{/input}}
-    
-    {{#input correctTimeFormat}}
-      {{error-field correctTimeFormat}}
-    {{/input}}
-  {{/form-wrapper}}
+    {{/each}}
 
-  <button {{action "moreTimes"}} class="btn btn-default button-more-times">{{t "create.options-datetime.more-inputs"}}</button>
+    <div class='form-group'>
+      <div class='col-sm-10 col-sm-offset-2'>
+        <button {{action "copyFirstLine"}} class="btn btn-default button-copy-first-line">{{t "create.options-datetime.copy-first-line"}}</button>
+      </div>
+    </div>
 
-  <button {{action "copyFirstLine"}} class="btn btn-default button-copy-first-line">{{t "create.options-datetime.copy-first-line"}}</button>
+    {{#fm-submit
+      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+    }}
+      {{t 'create.next'}}
+    {{/fm-submit}}
+  {{/fm-form}}
 
-  <button {{action "submit"}} class="btn btn-default btn-primary button-next"> {{t 'create.next'}} </button>
 </div>

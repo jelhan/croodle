@@ -8,11 +8,6 @@ var trees = [];
 var app = new EmberApp({
   'buildInfoOptions': {
     'metaTemplate': 'version={SEMVER}'
-  },
-
-  // do not fingerprint webshim
-  'fingerprint': {
-    'exclude': ['assets/shims']
   }
 });
 
@@ -61,24 +56,11 @@ app.import({
   production: 'bower_components/floatThead/dist/jquery.floatThead.min.js'
 });
 
-app.import({
-  development: 'bower_components/webshim/js-webshim/dev/polyfiller.js',
-  production: 'bower_components/webshim/js-webshim/minified/polyfiller.js'
-});
-
 app.import('bower_components/sjcl/sjcl.js');
 
 app.import('bower_components/modernizr/modernizr.js');
 
 app.import('bower_components/jstimezonedetect/jstz.js');
-
-// include webshim files into dist
-trees.push(
-  pickFiles('bower_components/webshim/js-webshim/minified/shims', {
-    srcDir: '/',
-    destDir: '/assets/shims'
-  })
-);
 
 // include api files into dist
 trees.push(

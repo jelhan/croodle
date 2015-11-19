@@ -1,7 +1,6 @@
 import Ember from "ember";
 import translations from "croodle/lang/translations";
 import moment from "moment";
-/* global webshim */
 
 export default {
   name: 'i18n',
@@ -42,8 +41,5 @@ export default {
 
     // set moment locale
     moment.locale( language );
-
-    // set webshim locale
-    webshim.activeLang(language);
   }
 };

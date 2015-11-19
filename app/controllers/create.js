@@ -13,9 +13,85 @@ var OptionsTextsObject = Ember.Object.extend(
   }
 );
 
+var OptionsDateTimesObjectValidations = buildValidations({
+  times: [
+    validator('collection', true),
+    validator('valid-collection', {
+      dependentKeys: ['times.@each.isValid']
+    }),
+    // atleast one time per day
+    validator(function(value) {
+      return value.get('length') >= 1;
+    }, {
+      dependentKeys: ['times.[]'],
+      message: Ember.I18n.t('create.options-datetime.error.notEnoughTimes')
+    })
+  ]
+});
+
+var OptionsDateTimesObject = Ember.Object.extend(OptionsDateTimesObjectValidations, {
+  label: Ember.computed('title', function() {
+    return moment(this.get('title')).format(
+      moment.localeData().longDateFormat('LLLL')
+        .replace(
+          moment.localeData().longDateFormat('LT'), '')
+        .trim()
+    );
+  }),
+  title: null,
+  times: [],
+  isValid: Ember.computed.alias('validations.isValid'),
+
+  // helper Object as work-a-round to observe a nested array
+  // if times.@each.value has to be observed, @eachTimesValue could be observed instead
+  '@eachTimesValue': Ember.computed('times.@each.value', function(){
+    return JSON.stringify(this.get('times').map(function(time){
+      return time.value;
+    }));
+  })
+});
+
+var OptionsDateTimesTimeObjectValidations = buildValidations({
+  // time is vali
+  value: validator(function(value, options) {
+      var valid = moment(value, 'H:mm', true).isValid();
+
+      if(valid) {
+        return true;
+      } else {
+        return options.message;
+      }
+    }, {
+      message: Ember.I18n.t('create.options-datetime.error.correctTimeFormat')
+    }
+  )
+});
+
+var OptionsDateTimesTimeObject = Ember.Object.extend(
+  // implement copyable for "copy first line"-action of create/options-datetime
+  Ember.Copyable,
+  OptionsDateTimesTimeObjectValidations,
+  {
+    copy() {
+      // To lookup validators, container access is required which can cause an issue with Ember.Object
+      // creation if the object is statically imported. The current fix for this is as follows.
+      // https://github.com/offirgolan/ember-cp-validations/blob/master/README.md#basic-usage---objects
+      var container = this.get('container');
+      return OptionsDateTimesTimeObject.create({
+       value: this.get('value'),
+        container
+      });
+    },
+    isValid: Ember.computed.alias('validations.isValid'),
+    value: ''
+  }
+);
+
 export default Ember.Controller.extend({
   optionsDates: [],
   optionsDateTimes: [],
+  optionsDateTimesObject: OptionsDateTimesObject,
+  optionsDateTimesTimeObject: OptionsDateTimesTimeObject,
   optionsTexts: Ember.computed(function() {
     // To lookup validators, container access is required which can cause an issue with Ember.Object
     // creation if the object is statically imported. The current fix for this is as follows.
@@ -108,35 +184,24 @@ export default Ember.Controller.extend({
   }.observes('optionsDates.@each.title', 'optionsDateTimes.@each.title', 'optionsDateTimes.@each.@eachTimesValue', 'optionsTexts.@each.value', 'model.isDateTime'),
 
   updateDateTimesAfterDateChange: function() {
-    var optionsDates = this.get('optionsDates'),
-        newOptionsDateTimes = [],
-        self = this;
+    // To lookup validators, container access is required which can cause an issue with Ember.Object
+    // creation if the object is statically imported. The current fix for this is as follows.
+    // https://github.com/offirgolan/ember-cp-validations/blob/master/README.md#basic-usage---objects
+    var container = this.get('container');
 
-    optionsDates.forEach(function(optionDate){
-      var dateTime = self.get('optionsDateTimesObject').create({
-        title: optionDate.title,
-        times: [{value: ''}, {value: ''}]
-      });
-
-      newOptionsDateTimes.pushObject( dateTime );
-    });
-
-    this.set('optionsDateTimes', newOptionsDateTimes);
-
+    this.set('optionsDateTimes',
+      this.get('optionsDates').map((optionDate) => {
+        return OptionsDateTimesObject.create({
+          title: optionDate.title,
+          times: [
+            OptionsDateTimesTimeObject.create({container}),
+            OptionsDateTimesTimeObject.create({container})
+          ],
+          container
+        });
+      })
+    );
   }.observes('optionsDates.@each.value'),
-
-  /*
-   * helper Object as work-a-round to observe a nested array
-   */
-  optionsDateTimesObject: Ember.Object.extend({
-    '@eachTimesValue': function(){
-      var times = [];
-      this.get('times').forEach(function(value){
-        times.push(value.value);
-      });
-      return times;
-    }.property('times.@each.value')
-  }),
 
   /*
    * uncomsumed computed property does not trigger observers
@@ -148,8 +213,8 @@ export default Ember.Controller.extend({
    * http://emberjs.com/blog/2013/08/29/ember-1-0-rc8.html
    */
   fixObserverOnOptionsDateTimesObject: function() {
-    this.get('optionsDateTimes').forEach(function(dateTime) {
-      dateTime.get('@eachTimesValue');
+    this.get('optionsDateTimes').map((dateTime) => {
+      return dateTime.get('@eachTimesValue');
     });
   }.observes('optionsDateTimes.@each.@eachTimesValue').on('init'),
 
@@ -174,6 +239,10 @@ export default Ember.Controller.extend({
    * validate if a given time string is in valid format
    */
   validateTimeString: function(timeString) {
+    if (typeof timeString === "undefined") {
+      return false;
+    }
+
     var time = timeString.split(':');
 
     if (time.length === 2) {

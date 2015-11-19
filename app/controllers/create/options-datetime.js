@@ -1,68 +1,39 @@
 import Ember from "ember";
-import EmberValidations from 'ember-validations';
+import {
+  validator, buildValidations
+} from 'ember-cp-validations';
 
-export default Ember.Controller.extend(EmberValidations.Mixin, {
+var Validations = buildValidations({
+  optionsDateTimes: validator('valid-collection', {
+    dependentKeys: ['optionsDateTimes.@each.isValid']
+  })
+});
+
+export default Ember.Controller.extend(Validations, {
   needs: 'create',
-  
+
   optionsDateTimes: Ember.computed.alias("controllers.create.optionsDateTimes"),
-    
+  optionsDateTimesTimeObject: Ember.computed.alias("controllers.create.optionsDateTimesTimeObject"),
+
   actions: {
     /*
      * copy first line
      */
     copyFirstLine: function(){
-      var datetimes = this.get('optionsDateTimes'),
-          firstLine = datetimes[0];
-      
-      datetimes.forEach(function(datetime, key) {
-        // skip first element
-        if (key > 0) {
-          firstLine.times.forEach(function(time, key){
-            datetime.set('times.' + key + '.value', time.value);
-          });
-        }
-      });
+      var dateTimes = this.get('optionsDateTimes'),
+          firstLine = dateTimes[0];
 
-      // trigger update of webshim input
-      Ember.run.next(this, function(){
-        Ember.$('input[type="time"]').trigger('change');
+      dateTimes.slice(1).forEach((dateTime) => {
+        dateTime.set('times', Ember.copy(firstLine.get('times'), true));
       });
     },
-    
-    /*
-     * increase number of inputs fields for time
-     */
-    moreTimes: function(){
-      this.get('optionsDateTimes').forEach(function(datetime){
-        datetime.times.pushObject({
-          value: ''
-        });
-      });
 
-      // update polyfill used for legacy support of html5 input time after new form elements have been insert
-      // has to wait after dom is updated
-      Ember.run.next(this, function() { Ember.$('input[type=time]').updatePolyfill(); });
-    },
-    
-    save: function(){      
+    submit: function(){
       // redirect to create/settings route
       this.transitionToRoute('create.settings');
-    },
-    
-    submit: function(){
-      var self = this;
-      this.validate().then(function() {
-        self.send('save');
-      }).catch(function(){
-        Ember.$.each(Ember.View.views, function(id, view) {
-          if(view.isEasyForm) {
-            view.focusOut();
-          }
-        });
-      });
     }
   },
-  
+
   /*
    * check if all times are in correct format
    */
@@ -72,52 +43,19 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
 
     return datetimes.every(function(datetime){
       var times = datetime.times;
-      
+
       return times.every(function(time){
         return Ember.isEmpty(time.value) ||
                self.getHoursAndMinutesFromInput(time.value) !== false;
       });
     });
   }.property('optionsDateTimes.@each.@eachTimesValue'),
-  
-  /*
-   * check if enough times are inserted
-   */
-  enoughTimes: function(){
-    var datetimes = this.get('optionsDateTimes'),
-        self = this,
-        isValid = true,
-        requiredTimesPerDate;
 
-    // set requiredTimesPerDate
-    if (datetimes.length === 1) {
-      // if there is only one date, we require atleast two times
-      requiredTimesPerDate = 2;
-    }
-    else {
-      // if there are atleast two dates we require one time per date
-      requiredTimesPerDate = 1;
-    }
-    
-    datetimes.forEach(function(datetime){
-      var times = datetime.times,
-          validTimes = 0;
-
-      times.forEach(function(time){
-        if(self.getHoursAndMinutesFromInput(time.value) !== false){
-          validTimes ++;
-        }
-      });
-
-      if (validTimes < requiredTimesPerDate) {
-        isValid = false;
-      }
-    });
-
-    return isValid;
-  }.property('optionsDateTimes.@each.@eachTimesValue'),
-  
   getHoursAndMinutesFromInput: function(time){
+    if (typeof time === 'undefined' || time === null) {
+      return false;
+    }
+
     // try to split time in minutes and hours
     var t;
     if (time.indexOf(':') !== -1) {
@@ -127,7 +65,7 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
       // time is not in a correct format
       return false;
     }
-    
+
     if (t.length !== 2) {
       // time is not in a correct format
       return false;
@@ -147,20 +85,6 @@ export default Ember.Controller.extend(EmberValidations.Mixin, {
     }
     else {
       return false;
-    }
-  },
-  
-  validations: {
-    enoughTimes: {
-      acceptance: {
-        message: Ember.I18n.t('create.options-datetime.error.notEnoughTimes')
-      }
-    },
-    
-    correctTimeFormat: {
-      acceptance: {
-        message: Ember.I18n.t('create.options-datetime.error.correctTimeFormat')
-      }
     }
   }
 });
