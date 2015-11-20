@@ -1,5 +1,5 @@
 import DS from 'ember-data';
 
-export default DS.ModelFragment.extend({
+export default MF.Fragment.extend({
   title: DS.attr('string')
 });

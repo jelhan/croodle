@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 
-export default DS.ModelFragment.extend({
+export default MF.Fragment.extend({
   type: DS.attr('string'),
   label: DS.attr('string'),
   labelTranslation: DS.attr('string'),
