@@ -19,7 +19,7 @@ export default Ember.Route.extend({
       });
     }
   },
-  
+
   model: function(){
     // create empty poll
     return this.store.createRecord('poll', {
@@ -29,6 +29,7 @@ export default Ember.Route.extend({
       datetime: false,
       datetimesInputFields: 2,
       isDateTime: false,
+      pollType: 'FindADate',
       timezone: '',
       expirationDate: moment().add(3, 'month').toISOString(),
       version: this.buildInfo.semver
