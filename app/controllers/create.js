@@ -24,7 +24,7 @@ var OptionsDateTimesObjectValidations = buildValidations({
       return value.get('length') >= 1;
     }, {
       dependentKeys: ['times.[]'],
-      message: Ember.I18n.t('create.options-datetime.error.notEnoughTimes')
+      // message: Ember.I18n.t('create.options-datetime.error.notEnoughTimes')
     })
   ]
 });
@@ -62,7 +62,7 @@ var OptionsDateTimesTimeObjectValidations = buildValidations({
         return options.message;
       }
     }, {
-      message: Ember.I18n.t('create.options-datetime.error.correctTimeFormat')
+      // message: Ember.I18n.t('create.options-datetime.error.correctTimeFormat')
     }
   )
 });

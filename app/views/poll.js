@@ -1,7 +1,7 @@
 import Ember from "ember";
 /* global moment */
 
-export default Ember.View.extend(Ember.I18n.TranslateableProperties, {
+export default Ember.View.extend({
   showEvaluation: false,
 
   actions: {

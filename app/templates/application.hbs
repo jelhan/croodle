@@ -1,7 +1,9 @@
 <div class="container-fluid">
   <div id="header">
     <h1 class="logo">{{#link-to 'index'}}Croodle{{/link-to}}</h1>
-    {{view "language-switch"}}
+    <form class="form-inline">
+      {{language-select class="form-control"}}
+    </form>
   </div>
   <div id="content">
     {{outlet}}

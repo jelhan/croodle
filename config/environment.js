@@ -15,7 +15,7 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    
+
     contentSecurityPolicy: {
       'default-src': "'none'",
       'script-src': "'self' 'unsafe-eval'",
@@ -29,6 +29,10 @@ module.exports = function(environment) {
     moment: {
       includeLocales: ['de', 'es'],
       includeTimezone: '2010-2020'
+    },
+
+    i18n: {
+      defaultLocale: 'en'
     }
   };
 

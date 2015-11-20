@@ -13,6 +13,14 @@ var Validations = buildValidations({
   ]
 });
 
+var TranslateableObject = Ember.Object.extend({
+  i18n: Ember.inject.service(),
+  label: Ember.computed('labelTranslation', function() {
+    return this.get('i18n').t(this.get('labelTranslation'));
+  }),
+  labelTranslation: undefined
+});
+
 export default Ember.Controller.extend(Validations, {
   actions: {
     submit: function() {
@@ -20,17 +28,23 @@ export default Ember.Controller.extend(Validations, {
     }
   },
 
+  i18n: Ember.inject.service(),
+
   pollType: Ember.computed.alias('model.pollType'),
 
   pollTypes: function(){
+    var container = this.get('container');
+
     return [
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id : "FindADate",
-        labelTranslation : "pollTypes.findADate.label"
+        labelTranslation : "pollTypes.findADate.label",
+        container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id : "MakeAPoll",
-        labelTranslation : "pollTypes.makeAPoll.label"
+        labelTranslation : "pollTypes.makeAPoll.label",
+        container
       })
     ];
   }.property()

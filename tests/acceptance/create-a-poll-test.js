@@ -3,7 +3,6 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
 import serverPostPolls from '../helpers/server-post-polls';
-import formattedDateHelper from 'croodle/helpers/formatted-date';
 /* global moment */
 /* jshint proto: true */
 
@@ -91,8 +90,8 @@ test("create a default poll", function(assert) {
             pollDescriptionEqual(assert, '');
             pollHasOptions(assert, formattedDates);
             pollHasAnswers(assert, [
-              Ember.I18n.t('answerTypes.yes.label'),
-              Ember.I18n.t('answerTypes.no.label')
+              t('answerTypes.yes.label'),
+              t('answerTypes.no.label')
             ]);
             pollHasUsersCount(assert, 0);
           });

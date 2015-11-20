@@ -70,9 +70,9 @@ test("create a default poll and participate", function(assert) {
                 assert,
                 'Max Hoelz',
                 [
-                  Ember.I18n.t('answerTypes.no.label'),
-                  Ember.I18n.t('answerTypes.no.label'),
-                  Ember.I18n.t('answerTypes.yes.label')
+                  t('answerTypes.no.label'),
+                  t('answerTypes.no.label'),
+                  t('answerTypes.yes.label')
                 ]
               );
             });

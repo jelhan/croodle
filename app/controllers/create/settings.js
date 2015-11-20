@@ -16,6 +16,14 @@ var Validations = buildValidations({
   forceAnswer: validator('presence', true)
 });
 
+var TranslateableObject = Ember.Object.extend({
+  i18n: Ember.inject.service(),
+  label: Ember.computed('labelTranslation', function() {
+    return this.get('i18n').t(this.get('labelTranslation'));
+  }),
+  labelTranslation: undefined
+});
+
 export default Ember.Controller.extend(Validations, {
   actions: {
     submit: function(){
@@ -34,8 +42,10 @@ export default Ember.Controller.extend(Validations, {
   answerType: Ember.computed.alias('model.answerType'),
 
   answerTypes: function() {
+    var container = this.get('container');
+
     return [
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
           id : "YesNo",
           labelTranslation : "answerTypes.yesNo.label",
           answers : [
@@ -49,9 +59,10 @@ export default Ember.Controller.extend(Validations, {
                     labelTranslation: "answerTypes.no.label",
                     icon: "glyphicon glyphicon-thumbs-down"
                   })
-              ]
+              ],
+          container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
           id : "YesNoMaybe",
           labelTranslation : "answerTypes.yesNoMaybe.label",
           answers : [
@@ -70,12 +81,14 @@ export default Ember.Controller.extend(Validations, {
                     labelTranslation: "answerTypes.no.label",
                     icon: "glyphicon glyphicon-thumbs-down"
                   })
-              ]
+              ],
+          container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
           id : "FreeText",
           labelTranslation : "answerTypes.freeText.label",
-          answers : []
+          answers : [],
+          container
       })
     ];
   }.property(),
@@ -83,30 +96,38 @@ export default Ember.Controller.extend(Validations, {
   expirationDuration: 'P3M',
 
   expirationDurations: function() {
+    var container = this.get('container');
+
     return [
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id: 'P7D',
-        labelTranslation: 'create.settings.expirationDurations.P7D'
+        labelTranslation: 'create.settings.expirationDurations.P7D',
+        container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id: 'P1M',
-        labelTranslation: 'create.settings.expirationDurations.P1M'
+        labelTranslation: 'create.settings.expirationDurations.P1M',
+        container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id: 'P3M',
-        labelTranslation: 'create.settings.expirationDurations.P3M'
+        labelTranslation: 'create.settings.expirationDurations.P3M',
+        container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id: 'P6M',
-        labelTranslation: 'create.settings.expirationDurations.P6M'
+        labelTranslation: 'create.settings.expirationDurations.P6M',
+        container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id: 'P1Y',
-        labelTranslation: 'create.settings.expirationDurations.P1Y'
+        labelTranslation: 'create.settings.expirationDurations.P1Y',
+        container
       }),
-      Ember.Object.extend(Ember.I18n.TranslateableProperties, {}).create({
+      TranslateableObject.create({
         id: '',
-        labelTranslation: 'create.settings.expirationDurations.never'
+        labelTranslation: 'create.settings.expirationDurations.never',
+        container
       })
     ];
   }.property(),

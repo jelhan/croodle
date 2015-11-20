@@ -15,6 +15,7 @@ module('Acceptance | participate in a poll', {
 
     server = new Pretender();
   },
+
   afterEach: function() {
     server.shutdown();
 
@@ -51,7 +52,7 @@ test("participate in a default poll", function(assert) {
         'encryption key is part of query params'
       );
       pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, 'Max Meiner', [Ember.I18n.t('answerTypes.yes.label'), Ember.I18n.t('answerTypes.no.label')]);
+      pollHasUser(assert, 'Max Meiner', [t('answerTypes.yes.label'), t('answerTypes.no.label')]);
     });
   });
 });
@@ -116,7 +117,7 @@ test("participate in a poll which doesn't force an answer to all options", funct
     andThen(function(){
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, "Karl Käfer", [Ember.I18n.t("answerTypes.yes.label"), ""]);
+      pollHasUser(assert, "Karl Käfer", [t("answerTypes.yes.label"), ""]);
     });
   });
 });
@@ -148,7 +149,7 @@ test("participate in a poll which allows anonymous participation", function(asse
     andThen(function(){
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, "", [Ember.I18n.t("answerTypes.yes.label"), Ember.I18n.t("answerTypes.no.label")]);
+      pollHasUser(assert, "", [("answerTypes.yes.label"), ("answerTypes.no.label")]);
     });
   });
 });

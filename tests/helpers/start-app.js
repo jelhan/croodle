@@ -9,6 +9,7 @@ import './poll-has-answers';
 import './poll-participate';
 import './select-dates';
 import './switch-tab';
+import './t';
 
 export default function startApp(attrs) {
   var application;

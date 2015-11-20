@@ -113,6 +113,7 @@ export default Ember.Controller.extend(Validations, {
   anonymousUser: Ember.computed.readOnly('pollController.model.anonymousUser'),
   encryption: Ember.inject.service(),
   forceAnswer: Ember.computed.readOnly('pollController.model.forceAnswer'),
+  i18n: Ember.inject.service(),
   isDateTime: Ember.computed.readOnly('pollController.model.isDateTime'),
   isFreeText: Ember.computed.readOnly('pollController.model.isFreeText'),
   isFindADate: Ember.computed.readOnly('pollController.model.isFindADate'),
@@ -126,7 +127,7 @@ export default Ember.Controller.extend(Validations, {
       var label;
 
       if (!Ember.isEmpty(answer.get('labelTranslation'))) {
-        label = Ember.I18n.t(answer.get('labelTranslation'));
+        label = this.get('i18n').t(answer.get('labelTranslation'));
       } else {
         label = answer.get('label');
       }

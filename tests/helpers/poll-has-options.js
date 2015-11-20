@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.Test.registerHelper('pollHasOptions', function(app, assert, expectedOptions, dateGroups) {
+export default Ember.Test.registerHelper('pollHasOptions', function(app, assert, expectedOptions) {
   var elBase = find('.participation .selections');
 
   assert.equal(

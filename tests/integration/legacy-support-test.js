@@ -33,9 +33,9 @@ test('show a default poll created with v0.3.0', function(assert) {
     ]);
 
     pollHasAnswers(assert, [
-      Ember.I18n.t('answerTypes.yes.label'),
-      Ember.I18n.t('answerTypes.maybe.label'),
-      Ember.I18n.t('answerTypes.no.label')
+      t('answerTypes.yes.label'),
+      t('answerTypes.maybe.label'),
+      t('answerTypes.no.label')
     ]);
 
     switchTab('evaluation');
@@ -46,17 +46,17 @@ test('show a default poll created with v0.3.0', function(assert) {
       pollHasUser(assert,
         'Fritz Bauer',
         [
-          Ember.I18n.t('answerTypes.yes.label'),
-          Ember.I18n.t('answerTypes.no.label'),
-          Ember.I18n.t('answerTypes.no.label')
+          t('answerTypes.yes.label'),
+          t('answerTypes.no.label'),
+          t('answerTypes.no.label')
         ]
       );
       pollHasUser(assert,
         'Lothar Hermann',
         [
-          Ember.I18n.t('answerTypes.maybe.label'),
-          Ember.I18n.t('answerTypes.yes.label'),
-          Ember.I18n.t('answerTypes.no.label')
+          t('answerTypes.maybe.label'),
+          t('answerTypes.yes.label'),
+          t('answerTypes.no.label')
         ]
       );
 
@@ -72,9 +72,9 @@ test('show a default poll created with v0.3.0', function(assert) {
           pollHasUser(assert,
             'Hermann Langbein',
             [
-              Ember.I18n.t('answerTypes.yes.label'),
-              Ember.I18n.t('answerTypes.maybe.label'),
-              Ember.I18n.t('answerTypes.yes.label')
+              t('answerTypes.yes.label'),
+              t('answerTypes.maybe.label'),
+              t('answerTypes.yes.label')
             ]
           );
         });

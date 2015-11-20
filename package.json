@@ -50,6 +50,7 @@
     "ember-export-application-global": "^1.0.3",
     "ember-form-master-2000": "0.2.0",
     "ember-get-helper": "1.0.4",
+    "ember-i18n": "4.1.4",
     "ember-moment": "3.6.4",
     "ember-radio-button": "^0.1.2",
     "express": "^4.8.5",

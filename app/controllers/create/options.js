@@ -23,7 +23,7 @@ var Validations = buildValidations({
           return 2;
         }
       },
-      message: Ember.I18n.t('create.options.error.notEnoughOptions')
+      // message: Ember.I18n.t('create.options.error.notEnoughOptions')
     }),
     validator('valid-collection', {
       active() {
@@ -52,13 +52,14 @@ var Validations = buildValidations({
           return 2;
         }
       },
-      message: Ember.I18n.t('create.options.error.notEnoughDates')
+      // message: Ember.I18n.t('create.options.error.notEnoughDates')
     })
   ]
 });
 
 export default Ember.Controller.extend(Validations, {
   needs: 'create',
+  i18n: Ember.inject.service(),
 
   isFindADate: Ember.computed.readOnly('model.isFindADate'),
   isMakeAPoll: Ember.computed.readOnly('model.isMakeAPoll'),

@@ -11,7 +11,7 @@ export default Ember.Route.extend({
         controller: modalController
       });
     },
-    
+
     removeModal: function(){
       this.disconnectOutlet({
         outlet: 'modal',
