@@ -1,7 +1,6 @@
 <div class="box">
   {{#fm-form
     action='submit'
-    isValid=validations.isValid
   }}
     {{#each optionsDateTimes as |optionDateTime|}}
       {{fm-input-group
@@ -20,7 +19,7 @@
     </div>
 
     {{#fm-submit
-      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+      inputWrapperClass='col-sm-10 col-sm-offset-2'
     }}
       {{t 'create.next'}}
     {{/fm-submit}}

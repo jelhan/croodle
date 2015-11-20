@@ -3,7 +3,6 @@
 
     {{#fm-form
       action='submit'
-      isValid=validations.isValid
     }}
       {{fm-input-group
         content=optionsTexts
@@ -13,7 +12,7 @@
         elementObject=optionsTextsObject
       }}
       {{#fm-submit
-        fieldWrapperClass='col-sm-10 col-sm-offset-2'
+        inputWrapperClass='col-sm-10 col-sm-offset-2'
       }}
         {{t 'create.next'}}
       {{/fm-submit}}
@@ -23,7 +22,6 @@
 
     {{#fm-form
       action='submit'
-      isValid=validations.isValid
     }}
       <div class="form-group">
         <label class="col-sm-2 control-label">
@@ -52,11 +50,11 @@
       {{fm-checkbox
         checked=model.isDateTime
         label=(t 'create.options.defineTimes.label')
-        fieldWrapperClass='col-sm-10 col-sm-offset-2'
+        inputWrapperClass='col-sm-10 col-sm-offset-2'
       }}
 
       {{#fm-submit
-        fieldWrapperClass='col-sm-10 col-sm-offset-2'
+        inputWrapperClass='col-sm-10 col-sm-offset-2'
       }}
         {{t 'create.next'}}
       {{/fm-submit}}

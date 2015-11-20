@@ -27,14 +27,16 @@ var TranslateableObject = Ember.Object.extend({
 export default Ember.Controller.extend(Validations, {
   actions: {
     submit: function(){
-      // save poll
-      this.get('model').save().then((model) => {
-        // reload as workaround for bug: duplicated records after save
-        model.reload().then((model) => {
-           // redirect to new poll
-           this.get('target').send('transitionToPoll', model);
+      if (this.get('validations.isValid')) {
+        // save poll
+        this.get('model').save().then((model) => {
+          // reload as workaround for bug: duplicated records after save
+          model.reload().then((model) => {
+             // redirect to new poll
+             this.get('target').send('transitionToPoll', model);
+          });
         });
-      });
+      }
     }
   },
 

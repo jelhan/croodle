@@ -29,8 +29,10 @@ export default Ember.Controller.extend(Validations, {
     },
 
     submit: function(){
-      // redirect to create/settings route
-      this.transitionToRoute('create.settings');
+      if (this.get('validations.isValid')) {
+        // redirect to create/settings route
+        this.transitionToRoute('create.settings');
+      }
     }
   },
 

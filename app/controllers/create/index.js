@@ -24,7 +24,9 @@ var TranslateableObject = Ember.Object.extend({
 export default Ember.Controller.extend(Validations, {
   actions: {
     submit: function() {
-      this.transitionToRoute('create.meta');
+      if (this.get('validations.isValid')) {
+        this.transitionToRoute('create.meta');
+      }
     }
   },
 

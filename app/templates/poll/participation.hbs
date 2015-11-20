@@ -8,7 +8,7 @@
       label=(t "poll.input.newUserName.label")
       placeholder=(t "poll.input.newUserName.placeholder")
       errors=validations.attrs.name.messages
-      fieldWrapperClass='col-sm-8'
+      inputWrapperClass='col-sm-8'
       labelClass='col-sm-4 control-label'
     }}
 
@@ -19,7 +19,7 @@
             value=selection.value
             label=selection.label
             errors=selection.validations.attrs.value.messages
-            fieldWrapperClass='col-sm-8'
+            inputWrapperClass='col-sm-8'
             labelClass='col-sm-4 control-label'
           }}
         {{else}}
@@ -31,14 +31,14 @@
             optionLabelPath='content.label'
             optionValuePath='content.type'
             errors=selection.validations.attrs.value.messages
-            fieldWrapperClass='col-sm-8'
+            inputWrapperClass='col-sm-8'
             labelClass='col-sm-4 control-label'
           }}
         {{/if}}
       {{/each}}
     </div>
 
-    {{#fm-submit fieldWrapperClass='col-sm-8 col-sm-offset-4'}}
+    {{#fm-submit inputWrapperClass='col-sm-8 col-sm-offset-4'}}
       {{t "poll.save"}}
     {{/fm-submit}}
   {{/fm-form}}

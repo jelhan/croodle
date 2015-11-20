@@ -16,7 +16,9 @@ var Validations = buildValidations({
 export default Ember.Controller.extend(Validations, {
   actions: {
     submit: function(){
-      this.transitionToRoute('create.options');
+      if (this.get('validations.isValid')) {
+        this.transitionToRoute('create.options');
+      }
     }
   },
 

@@ -4,8 +4,8 @@
       type='select'
       content=answerTypes
       value=answerType
-      optionValuePath='content.id'
-      optionLabelPath='content.label'
+      optionValuePath='id'
+      optionLabelPath='label'
       label=(t 'create.settings.answerType.label')
       errors=validations.attrs.answerType.messages
       class='answer-type'
@@ -14,8 +14,8 @@
       type='select'
       content=expirationDurations
       value=expirationDuration
-      optionValuePath='content.id'
-      optionLabelPath='content.label'
+      optionValuePath='id'
+      optionLabelPath='label'
       label=(t 'create.settings.expirationDate.label')
       errors=validations.attrs.expirationDuration.messages
       class='expiration-duration'
@@ -25,17 +25,17 @@
       label=(t 'create.settings.anonymousUser.label')
       errors=validations.attrs.anonymousUser.messages
       class='anonymous-user'
-      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+      inputWrapperClass='col-sm-10 col-sm-offset-2'
     }}
     {{fm-checkbox
       checked=forceAnswer
       label=(t 'create.settings.forceAnswer.label')
       errors=validations.attrs.forceAnswer.messages
       class='force-answer'
-      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+      inputWrapperClass='col-sm-10 col-sm-offset-2'
     }}
     {{#fm-submit
-      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+      inputWrapperClass='col-sm-10 col-sm-offset-2'
     }}
       {{t 'create.next'}}
     {{/fm-submit}}

@@ -70,11 +70,13 @@ export default Ember.Controller.extend(Validations, {
 
   actions: {
     submit: function(){
-      if (this.get('model.isDateTime')) {
-        this.transitionToRoute('create.options-datetime');
-      }
-      else {
-        this.transitionToRoute('create.settings');
+      if (this.get('validations.isValid')) {
+        if (this.get('model.isDateTime')) {
+          this.transitionToRoute('create.options-datetime');
+        }
+        else {
+          this.transitionToRoute('create.settings');
+        }
       }
     }
   },

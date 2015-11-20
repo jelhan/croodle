@@ -4,14 +4,14 @@
       type='select'
       value=pollType
       content=pollTypes
-      optionValuePath='content.id'
-      optionLabelPath='content.label'
+      optionValuePath='id'
+      optionLabelPath='label'
       label=(t 'create.index.input.pollType.label')
       errors=validations.attrs.pollType.messages
       class='poll-type'
     }}
     {{#fm-submit
-      fieldWrapperClass='col-sm-10 col-sm-offset-2'
+      inputWrapperClass='col-sm-10 col-sm-offset-2'
     }}
       {{t 'create.next'}}
     {{/fm-submit}}
