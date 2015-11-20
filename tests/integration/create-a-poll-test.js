@@ -1,11 +1,10 @@
 import Ember from "ember";
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
-import formattedDateHelper from 'croodle/helpers/formatted-date';
 /* global moment */
 /* jshint proto: true */
 
-var application, server;
+var application;
 
 module('Integration', {
   beforeEach: function() {

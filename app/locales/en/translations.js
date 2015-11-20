@@ -105,4 +105,4 @@ export default {
   "poll.input.showEvaluation.show": "Show",
   "pollTypes.findADate.label": "I would like to make a date. (e.g. date or time for appointment)",
   "pollTypes.makeAPoll.label": "I would like to answer a question. (e.g. what goes best with coffee?)"
-}
+};

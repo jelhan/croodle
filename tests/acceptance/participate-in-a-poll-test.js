@@ -149,7 +149,7 @@ test("participate in a poll which allows anonymous participation", function(asse
     andThen(function(){
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, "", [("answerTypes.yes.label"), ("answerTypes.no.label")]);
+      pollHasUser(assert, "", [t("answerTypes.yes.label"), t("answerTypes.no.label")]);
     });
   });
 });

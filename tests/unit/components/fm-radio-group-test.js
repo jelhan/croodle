@@ -7,7 +7,7 @@ moduleForComponent('fm-radio-group', 'Unit | Component | fm radio group', {
           'component:fm-errortext',
           'template:components/ember-form-master-2000/fm-radio-group',
           'template:components/ember-form-master-2000/fm-errortext'],
-  setup: function(container) {
+  setup: function() {
     this.container.inject = this.container.injection;
     initializer.initialize(null, this.container);
   }

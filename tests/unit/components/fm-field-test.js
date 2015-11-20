@@ -9,7 +9,7 @@ moduleForComponent('fm-field', 'Unit | Component | fm field', {
           'component:fm-errortext',
           'template:components/ember-form-master-2000/fm-field',
           'template:components/ember-form-master-2000/fm-errortext'],
-  setup: function(container) {
+  setup: function() {
     this.container.inject = this.container.injection;
     initializer.initialize(null, this.container);
   }

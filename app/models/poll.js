@@ -1,4 +1,5 @@
 import DS from "ember-data";
+/* global MF */
 
 export default DS.Model.extend({
   /*
