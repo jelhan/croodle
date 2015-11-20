@@ -43,22 +43,6 @@ module('Acceptance | create a poll', {
 });
 
 test("create a default poll", function(assert) {
-  var dates =
-    [
-      moment().add(1, 'day'),
-      moment().add(1, 'week')
-    ];
-
-  var formattedDates =
-    dates.map((date) => {
-      return date.format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      );
-    });
-
   visit('/create').then(function() {
     click('button[type="submit"]');
 
@@ -70,6 +54,12 @@ test("create a default poll", function(assert) {
 
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
+
+        var dates =
+          [
+            moment().add(1, 'day'),
+            moment().add(1, 'week')
+          ];
 
         selectDates(
           '#datepicker .ember-view',
@@ -88,7 +78,17 @@ test("create a default poll", function(assert) {
 
             pollTitleEqual(assert, 'default poll');
             pollDescriptionEqual(assert, '');
-            pollHasOptions(assert, formattedDates);
+            pollHasOptions(
+              assert,
+              dates.map((date) => {
+                return date.format(
+                  moment.localeData().longDateFormat('LLLL')
+                    .replace(
+                      moment.localeData().longDateFormat('LT'), '')
+                    .trim()
+                  );
+              })
+            );
             pollHasAnswers(assert, [
               t('answerTypes.yes.label'),
               t('answerTypes.no.label')
