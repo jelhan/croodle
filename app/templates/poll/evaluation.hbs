@@ -5,7 +5,7 @@
             <tr class="dateGroups">
               <th>&nbsp;</th>
               {{#each dateGroups as |dateGroup|}}
-                <th {{bind-attr colspan="dateGroup.colspan"}}>
+                <th colspan="{{dateGroup.colspan}}">
                   {{formattedDate dateGroup.value}}
                 </th>
               {{/each}}
@@ -49,8 +49,8 @@
                   {{/if}}
                   {{#if selection.labelTranslation}}
                     {{#unless model.isFreeText}}
-                      <span {{bind-attr class="selection.type"}}>
-                        <span {{bind-attr class="selection.icon"}}></span>
+                      <span class="{{selection.type}}">
+                        <span class="{{selection.icon}}"></span>
                         {{t selection.labelTranslation}}
                       </span>
                     {{/unless}}
