@@ -51,6 +51,7 @@
     "ember-form-master-2000": "jelhan/ember-form-master-2000#merged",
     "ember-get-helper": "1.0.4",
     "ember-i18n": "4.1.4",
+    "ember-i18n-cp-validations": "0.1.0",
     "ember-moment": "3.6.4",
     "ember-radio-button": "^0.1.2",
     "express": "^4.8.5",
