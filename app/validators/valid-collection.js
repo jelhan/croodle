@@ -12,8 +12,9 @@ export default BaseValidator.extend({
 
     if (valid) {
       return true;
-    } else {
-      return 'all elements must be valid';
+    }
+    else {
+      return this.createErrorMessage('validCollection', options, value);
     }
   }
 });

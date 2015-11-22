@@ -53,18 +53,12 @@ var OptionsDateTimesObject = Ember.Object.extend(OptionsDateTimesObjectValidatio
 
 var OptionsDateTimesTimeObjectValidations = buildValidations({
   // time is vali
-  value: validator(function(value, options) {
-      var valid = moment(value, 'H:mm', true).isValid();
-
-      if(valid) {
-        return true;
-      } else {
-        return options.message;
-      }
-    }, {
+  value: [
+    validator('presence'),
+    validator('time', {
       // message: Ember.I18n.t('create.options-datetime.error.correctTimeFormat')
-    }
-  )
+    })
+  ]
 });
 
 var OptionsDateTimesTimeObject = Ember.Object.extend(
