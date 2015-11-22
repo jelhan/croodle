@@ -10,10 +10,10 @@ var Validations = buildValidations({
 });
 
 export default Ember.Controller.extend(Validations, {
-  needs: 'create',
+  createController: Ember.inject.controller('create'),
 
-  optionsDateTimes: Ember.computed.alias("controllers.create.optionsDateTimes"),
-  optionsDateTimesTimeObject: Ember.computed.alias("controllers.create.optionsDateTimesTimeObject"),
+  optionsDateTimes: Ember.computed.alias("createController.optionsDateTimes"),
+  optionsDateTimesTimeObject: Ember.computed.alias("createController.optionsDateTimesTimeObject"),
 
   actions: {
     /*

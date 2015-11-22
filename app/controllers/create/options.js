@@ -58,15 +58,15 @@ var Validations = buildValidations({
 });
 
 export default Ember.Controller.extend(Validations, {
-  needs: 'create',
+  createController: Ember.inject.controller('create'),
   i18n: Ember.inject.service(),
 
   isFindADate: Ember.computed.readOnly('model.isFindADate'),
   isMakeAPoll: Ember.computed.readOnly('model.isMakeAPoll'),
 
-  optionsDates: Ember.computed.alias("controllers.create.optionsDates"),
-  optionsTexts: Ember.computed.alias("controllers.create.optionsTexts"),
-  optionsTextsObject: Ember.computed.readOnly('controllers.create.optionsTextsObject'),
+  optionsDates: Ember.computed.alias("createController.optionsDates"),
+  optionsTexts: Ember.computed.alias("createController.optionsTexts"),
+  optionsTextsObject: Ember.computed.readOnly('createController.optionsTextsObject'),
 
   actions: {
     submit: function(){
