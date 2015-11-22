@@ -39,10 +39,8 @@
   </div>
 {{/each}}
 
-{{#if errors}}
-  {{#if shouldShowErrors}}
-     <div class='col-sm-10 col-sm-offset-2'>
-       {{fm-errortext errors=errors}}
-     </div>
-  {{/if}}
+{{#if showErrors}}
+  <div class='col-sm-10 col-sm-offset-2'>
+    {{fm-errortext errors=errors}}
+  </div>
 {{/if}}

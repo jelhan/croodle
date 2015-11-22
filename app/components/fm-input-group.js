@@ -55,15 +55,20 @@ export default Ember.Component.extend({
 
   errors: [],
 
-  errorClass: Ember.computed('errors', 'shouldShowErrors', function() {
-    if(!Ember.isEmpty(this.get('errors')) && this.get('shouldShowErrors')) {
-      return this.fmconfig.errorClass;
+  errorClass: Ember.computed('showErrors', 'errors', function() {
+    if(this.get('showErrors')) {
+      return this.get('fmConfig').errorClass;
     }
   }),
+
+  fmConfig: Ember.inject.service('fm-config'),
 
   minimumInputFields: 1,
 
   shouldShowErrors: false,
+  showErrors: Ember.computed('shouldShowErrors', 'errors', function() {
+    return this.get('shouldShowErrors') && !Ember.isEmpty(this.get('errors'));
+  }),
 
   step: undefined,
 
