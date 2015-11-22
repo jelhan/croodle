@@ -15,7 +15,7 @@
 
   {{#if evaluationBestOptionsMultiple}}
     <ul>
-      {{#each evaluationBestOption in evaluationBestOptions}}
+      {{#each evaluationBestOptions as evaluationBestOption}}
         <li>
           {{#if poll.isFindADate}}
             <strong>{{formattedDate evaluationBestOption.title times=poll.isDateTime}}</strong>.

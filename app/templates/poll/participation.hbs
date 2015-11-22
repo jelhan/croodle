@@ -13,7 +13,7 @@
     }}
 
     <div class="selections">
-      {{#each selection in selections}}
+      {{#each selections as |selection|}}
         {{#if isFreeText}}
           {{fm-field
             value=selection.value

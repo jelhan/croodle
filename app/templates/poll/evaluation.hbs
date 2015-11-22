@@ -4,7 +4,7 @@
           {{#if model.isDateTime}}
             <tr class="dateGroups">
               <th>&nbsp;</th>
-              {{#each dateGroup in dateGroups}}
+              {{#each dateGroups as |dateGroup|}}
                 <th {{bind-attr colspan="dateGroup.colspan"}}>
                   {{formattedDate dateGroup.value}}
                 </th>
@@ -15,7 +15,7 @@
           <tr>
             <th>&nbsp;</th>
             {{#if model.isFindADate}}
-              {{#each date in dates}}
+              {{#each dates as |date|}}
                 <th>
                   {{#if model.isDateTime}}
                     {{formattedDate date.title format="LT" times=true}}
@@ -25,7 +25,7 @@
                 </th>
               {{/each}}
             {{else}}
-              {{#each option in model.options}}
+              {{#each model.options as |option|}}
                 <th>
                   {{option.title}}
                 </th>
@@ -37,10 +37,10 @@
         </thead>
 
         <tbody>
-          {{#each user in sortedUsers}}
+          {{#each sortedUsers as |user|}}
             <tr class="user">
               <td>{{user.name}}</td>
-              {{#each selection in user.selections}}
+              {{#each user.selections as |selection|}}
                 <td>
                   {{#if selection.label}}
                     {{#if model.isFreeText}}
