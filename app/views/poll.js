@@ -1,5 +1,4 @@
 import Ember from "ember";
-/* global moment */
 
 export default Ember.View.extend({
   showEvaluation: false,
