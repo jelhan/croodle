@@ -30,8 +30,9 @@ var OptionsDateTimesObjectValidations = buildValidations({
 });
 
 var OptionsDateTimesObject = Ember.Object.extend(OptionsDateTimesObjectValidations, {
-  label: Ember.computed('title', function() {
-    return moment(this.get('title')).format(
+  i18n: Ember.inject.service(),
+  label: Ember.computed('title', 'i18n.locale', function() {
+    return moment(this.get('title')).locale(this.get('i18n.locale')).format(
       moment.localeData().longDateFormat('LLLL')
         .replace(
           moment.localeData().longDateFormat('LT'), '')

@@ -18,7 +18,7 @@ var Validations = buildValidations({
 
 var TranslateableObject = Ember.Object.extend({
   i18n: Ember.inject.service(),
-  label: Ember.computed('labelTranslation', function() {
+  label: Ember.computed('labelTranslation', 'i18n.locale', function() {
     return this.get('i18n').t(this.get('labelTranslation'));
   }),
   labelTranslation: undefined

@@ -1,11 +1,11 @@
 <label>
   <input type='radio'
     name={{parentView.name}}
-    value={{value}}
+    value={{get content optionValuePath}}
     checked={{checked}}>
-  <span class={{value}}>
+  <span class={{get content optionValuePath}}>
     <span class={{content.icon}}></span>
-    {{labelText}}
+    {{get content optionLabelPath}}
     {{isSelected}}
   </span>
 </label>

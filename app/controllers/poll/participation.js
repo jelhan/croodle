@@ -124,19 +124,27 @@ export default Ember.Controller.extend(Validations, {
 
   possibleAnswers: Ember.computed('pollController.model.answers', function() {
     return this.get('pollController.model.answers').map((answer) => {
-      var label;
+      var container = this.get('container');
+
+      const AnswerObject = Ember.Object.extend({
+        icon: answer.get('icon'),
+        type: answer.get('type')
+      });
 
       if (!Ember.isEmpty(answer.get('labelTranslation'))) {
-        label = this.get('i18n').t(answer.get('labelTranslation'));
+        return AnswerObject.extend({
+          container,
+          i18n: Ember.inject.service(),
+          label: Ember.computed('i18n.locale', function() {
+            return this.get('i18n').t(this.get('labelTranslation'));
+          }),
+          labelTranslation: answer.get('labelTranslation'),
+        }).create();
       } else {
-        label = answer.get('label');
+        return AnswerObject.extend({
+          label: answer.get('label')
+        });
       }
-
-      return Ember.Object.extend({
-        icon: answer.get('icon'),
-        label: label,
-        type: answer.get('type')
-      }).create();
     });
   }),
 
