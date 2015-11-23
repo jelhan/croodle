@@ -3,7 +3,7 @@ import {
     validator, buildValidations
 }
 from 'ember-cp-validations';
-/* global moment */
+import moment from 'moment';
 
 var validCollection = function(collection) {
   // return false if any object in collection is inValid
@@ -166,20 +166,24 @@ export default Ember.Controller.extend(Validations, {
     }
 
     return options.map((option) => {
-      var label;
+      var labelFormat,
+          labelValue;
 
       // format label
       if (isFindADate) {
         if (isDateTime && lastDate && option.title.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
           // do not repeat dates for different times
-          label = option.title.format('LT');
+          labelValue = option.title;
+          labelFormat = 'LT';
         } else {
-          label = option.title.format(dateFormat);
+          labelValue = option.title;
+          labelFormat = dateFormat;
           lastDate = option.title;
         }
       }
       else {
-        label = option.get('title');
+        labelValue = option.get('title');
+        labelFormat = false;
       }
 
       // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
@@ -193,7 +197,24 @@ export default Ember.Controller.extend(Validations, {
         // cause otherwise validations can't depend on it
         forceAnswer: this.get('forceAnswer'),
 
-        label: label,
+        // a little bit hacky
+        // wasn't able to observe moment.locale since it should be in sync
+        // with i18n.locale we observe this one
+        // moment object stores it locale once it was created, therefore has
+        // to update the locale
+        // momentFormat from ember-moment does not currently observes locale
+        // changes https://github.com/stefanpenner/ember-moment/issues/108
+        // but that should be the way to go
+        label: Ember.computed('i18n.locale', function() {
+          if (this.get('labelFormat') === false) {
+            return this.get('labelValue');
+          } else {
+            return this.get('labelValue').locale(this.get('i18n.locale')).format(this.get('labelFormat'));
+          }
+        }),
+        labelFormat: labelFormat,
+        labelValue: labelValue,
+        i18n: Ember.inject.service(),
         value: null
       }).create();
     });

@@ -20,9 +20,5 @@ export default Ember.View.extend({
     if( this.get('controller.timezoneDiffers') && this.get('controller.model.isDateTime') ) {
       Ember.$('#timezoneDiffers').modal();
     }
-  },
-
-  creationDateFormatted: function() {
-    return moment( this.get('controller.model.creationDate') ).format('LLLL');
-  }.property('controller.model.creationDate')
+  }
 });

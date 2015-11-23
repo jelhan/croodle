@@ -1,14 +1,13 @@
-import moment from "moment";
-
 export default {
   name: 'i18n',
   initialize: function({ container }) {
     var i18n = container.lookup('service:i18n'),
         availableLocales = i18n.get('locales'),
+        moment = container.lookup('service:moment'),
         locale = getLocale(availableLocales);
 
     i18n.set('locale', locale);
-    moment.locale( locale );
+    moment.changeLocale(locale);
   }
 };
 

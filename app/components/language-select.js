@@ -4,6 +4,7 @@ export default Ember.Component.extend({
   tagName: 'select',
   classNames: [ 'language-select' ],
   i18n: Ember.inject.service(),
+  moment: Ember.inject.service(),
   current: Ember.computed.readOnly('i18n.locale'),
 
   locales: Ember.computed('i18n.locales', function() {
@@ -13,6 +14,8 @@ export default Ember.Component.extend({
   }),
 
   change() {
-    this.get('i18n').set('locale', this.$().val());
+    var locale = this.$().val();
+    this.get('i18n').set('locale', locale);
+    this.get('moment').changeLocale(locale);
   }
 });
