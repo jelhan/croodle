@@ -1,7 +1,7 @@
 import Ember from "ember";
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
-/* global moment */
+import moment from 'moment';
 /* jshint proto: true */
 
 var application;
@@ -9,6 +9,9 @@ var application;
 module('Integration', {
   beforeEach: function() {
     application = startApp();
+    moment.locale(
+      application.__container__.lookup('service:i18n').get('locale')
+    );
   },
   afterEach: function() {
     Ember.run(application, 'destroy');

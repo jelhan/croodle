@@ -3,19 +3,19 @@ import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
 import serverPostPolls from '../helpers/server-post-polls';
-/* global moment */
+import moment from 'moment';
 /* jshint proto: true */
 
 var application, server;
 
 module('Acceptance | create a poll', {
   beforeEach: function() {
+    var lastCreatedPoll = {};
+
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
-
-    var lastCreatedPoll = {};
 
     server.post('/polls',
       function (request) {
@@ -33,6 +33,10 @@ module('Acceptance | create a poll', {
           lastCreatedPoll
         ];
       }
+    );
+
+    moment.locale(
+      application.__container__.lookup('service:i18n').get('locale')
     );
   },
   afterEach: function() {
