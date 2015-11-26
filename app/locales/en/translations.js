@@ -14,6 +14,7 @@ export default {
   "create.options.button.add.label": "add another option after this one",
   "create.options.button.delete.label": "delete this option",
   "create.options.options.label": "Answer options",
+  "create.options.dates.label": "Days",
   "create.options.error.notEnoughDates": "You have to choose either two days or one day plus the option 'set times'.",
   "create.options.error.notEnoughOptions": "Enter at least two answer options.",
   "create.options.defineTimes.label": "Set times?",
@@ -83,7 +84,7 @@ export default {
   "poll.input.showEvaluation.show": "Show",
   "pollTypes.findADate.label": "I would like to make a date. (e.g. date or time for appointment)",
   "pollTypes.makeAPoll.label": "I would like to answer a question. (e.g. what goes best with coffee?)",
-  
+
   errors: {
     description: "This field",
     inclusion: "{{description}} is not included in the list",

@@ -14,6 +14,7 @@ export default {
   "create.options.button.add.label": "Weitere Option nach dieser hinzufügen",
   "create.options.button.delete.label": "Diese Option löschen",
   "create.options.options.label": "Antwort-Optionen",
+  "create.options.dates.label": "Tage",
   "create.options.error.notEnoughDates": "Es müssen entweder zwei Tage ausgewählt, oder ein Tag und die Option 'Uhrzeiten festlegen' gewählt werden.",
   "create.options.error.notEnoughOptions": "Es müssen mindestens zwei Antwort-Optionen eingetragen werden.",
   "create.options.defineTimes.label": "Uhrzeiten festlegen?",
@@ -83,7 +84,7 @@ export default {
   "poll.input.showEvaluation.show": "Anzeigen",
   "pollTypes.findADate.label": "Ich möchte einen Termin finden. (z.B. Datum oder Uhrzeit für eine Verabredung)",
   "pollTypes.makeAPoll.label": "Ich möchte eine Frage beantworten. (z.B. Wozu schmeckt Kaffe am Besten?)",
-  
+
   errors: {
     description: "Dieses Feld",
     inclusion: "{{description}} ist nicht Teil der Liste",

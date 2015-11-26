@@ -14,6 +14,7 @@ export default {
   "create.options.button.add.label": "add another option after this one",
   "create.options.button.delete.label": "delete this option",
   "create.options.options.label": "Opciones de respuesta",
+  "create.options.dates.label": "Days",
   "create.options.error.notEnoughDates": "Tienes que elegir almenos dos días o un único día con la opción 'establecer horarios'.",
   "create.options.error.notEnoughOptions": "Introduce almenos dos opciones para la respuesta.",
   "create.options.defineTimes.label": "¿Establecer horarios?",
@@ -83,7 +84,7 @@ export default {
   "poll.input.showEvaluation.show": "Mostrar",
   "pollTypes.findADate.label": "Querría crear una fecha (p. ej. fecha para una reunión).",
   "pollTypes.makeAPoll.label": "Querría responder a una pregunta (p. ej. ¿con que tomas el café?).",
-  
+
   errors: {
     description: "This field",
     inclusion: "{{description}} is not included in the list",
