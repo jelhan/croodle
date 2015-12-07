@@ -1,3 +1,5 @@
+/* global webshim */
+
 export default {
   name: 'i18n',
   initialize: function({ container }) {

@@ -1,13 +1,10 @@
-import Ember from 'ember';
 /* global webshim */
 
 /*
  * load webshim polyfill
  * used for input[type="time"]
  */
-export function initialize(application) {
-  let i18n = application.lookup('service:i18n');
-
+export function initialize() {
   webshim.setOptions({
     waitReady: false,
   });

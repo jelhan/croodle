@@ -1,4 +1,5 @@
 import Ember from 'ember';
+/* global webshim */
 
 export default Ember.Component.extend({
   tagName: 'select',
