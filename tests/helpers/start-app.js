@@ -12,12 +12,12 @@ import './switch-tab';
 import './t';
 
 export default function startApp(attrs) {
-  var application;
+  let application;
 
-  var attributes = Ember.merge({}, config.APP);
+  let attributes = Ember.merge({}, config.APP);
   attributes = Ember.merge(attributes, attrs); // use defaults, but you can override;
 
-  Ember.run(function() {
+  Ember.run(() => {
     application = Application.create(attributes);
     application.setupForTesting();
     application.injectTestHelpers();

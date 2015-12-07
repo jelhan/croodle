@@ -1,11 +1,11 @@
 import Ember from 'ember';
 import config from './config/environment';
 
-var Router = Ember.Router.extend({
+const Router = Ember.Router.extend({
   location: config.locationType
 });
 
-Router.map(function(){
+Router.map(function() {
   this.resource('poll', { path: '/poll/:poll_id' }, function(){
     this.route('participation');
     this.route('evaluation');
