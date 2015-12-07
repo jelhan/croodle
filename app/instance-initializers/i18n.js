@@ -11,13 +11,24 @@ export default {
     i18n.set('locale', locale);
     moment.changeLocale(locale);
     webshim.activeLang(locale);
+
+    i18n.addObserver('locale', i18n, function() {
+      var locale = this.get('locale');
+      moment.changeLocale(locale);
+      webshim.activeLang(locale);
+
+      // save selected locale in cookie
+      document.cookie="language=" + locale + ";" +
+                      // give cookie a lifetime of one year
+                      "max-age=" + 60*60*24*356 + ";";
+    });
   }
 };
 
 function getLocale(availableLocales) {
   var methods = [
-    getLocaleByBrowser,
-    getLocaleFromCookie
+    getLocaleFromCookie,
+    getLocaleByBrowser
   ];
   var locale;
 
