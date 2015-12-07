@@ -17,5 +17,6 @@ export default Ember.Component.extend({
     var locale = this.$().val();
     this.get('i18n').set('locale', locale);
     this.get('moment').changeLocale(locale);
+    webshim.activeLang(locale);
   }
 });

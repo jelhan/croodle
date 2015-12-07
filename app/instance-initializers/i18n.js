@@ -8,6 +8,7 @@ export default {
 
     i18n.set('locale', locale);
     moment.changeLocale(locale);
+    webshim.activeLang(locale);
   }
 };
 

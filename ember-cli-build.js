@@ -59,6 +59,18 @@ module.exports = function(defaults) {
 
   app.import('bower_components/modernizr/modernizr.js');
 
+  // webshim
+  app.import({
+    development: 'bower_components/webshim/js-webshim/dev/polyfiller.js',
+    production: 'bower_components/webshim/js-webshim/minified/polyfiller.js'
+  });
+  trees.push(
+    pickFiles('bower_components/webshim/js-webshim/minified/shims', {
+      srcDir: '/',
+      destDir: '/assets/shims'
+    })
+  );
+
   app.import('bower_components/jstimezonedetect/jstz.js');
 
   // include api files into dist
