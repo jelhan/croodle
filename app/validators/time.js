@@ -1,6 +1,6 @@
 import BaseValidator from 'ember-cp-validations/validators/base';
 import Ember from 'ember';
-/* global moment */
+import moment from 'moment';
 
 export default BaseValidator.extend({
   validate(value, options) {
