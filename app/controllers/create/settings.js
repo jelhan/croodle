@@ -147,7 +147,7 @@ export default Ember.Controller.extend(Validations, {
     if (selectedAnswer !== null) {
       for (var i=0; i < answerTypes.length; i++) {
         if (answerTypes[i].id === selectedAnswer) {
-            answers = answerTypes[i].answers.map(answer => Ember.copy(answer));
+            answers = answerTypes[i].answers.map(Ember.copy);
         }
       }
 
