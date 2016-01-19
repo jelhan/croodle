@@ -1,41 +1,36 @@
 import { moduleFor, test } from 'ember-qunit';
 import Ember from 'ember';
+import moment from 'moment';
 
 moduleFor('controller:create', {
   needs: ['model:option']
 });
 
-test('dates get mapped to options correctly', function(assert) {
-  var controller = this.subject();
-  Ember.run.next(() => {
-    controller.set('model', Ember.Object.create({
-      isFindADate: true,
-      isDateTime: false,
-      options: []
-    }));
-    controller.set('optionsDates', [
-      { 'title': new Date(2015, 0, 1) },
-      { 'title': new Date(2015, 1, 1) },
-      { 'title': new Date(2014, 11, 1) }
-    ]);
-    assert.equal(
-      controller.get('model.options.0.title'),
-      "2014-12-01",
-      "Date objects are converted to ISO 8601 date strings and sorted (1)"
-    );
-    assert.equal(
-      controller.get('model.options.1.title'),
-      "2015-01-01",
-      "Date objects are converted to ISO 8601 date strings and sorted (2)"
-    );
-    assert.equal(
-      controller.get('model.options.2.title'),
-      "2015-02-01",
-      "Date objects are converted to ISO 8601 date strings and sorted (3)"
-    );
-  });
+test('optionsDateTimes is created correctly according model.options', function(assert) {
+  let controller = this.subject();
+  controller.set('model', Ember.Object.create({
+    options: [
+      Ember.Object.create({ title: '1973-11-14' }),
+      Ember.Object.create({ title: '1974-04-25' })
+    ]
+  }));
+  assert.ok(
+    Ember.isArray(controller.get('optionsDateTimes')),
+    "it's an array"
+  );
+  assert.equal(
+    controller.get('optionsDateTimes.length'),
+    2,
+    'length is correct'
+  );
+  assert.equal(
+    controller.get('optionsDateTimes.firstObject.title').toISOString(),
+    moment('1973-11-14').toISOString(),
+    'date is correct'
+  );
 });
 
+/*
 test('dates with times get mapped to options correctly', function(assert) {
   var controller = this.subject();
   Ember.run.next(() => {
@@ -86,3 +81,4 @@ test('dates with times get mapped to options correctly', function(assert) {
     );
   });
 });
+*/

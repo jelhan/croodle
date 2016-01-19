@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import registerAcceptanceTestHelpers from './201-created/register-acceptance-test-helpers';
 import Application from '../../app';
 import config from '../../config/environment';
 import './poll-title-equal';
@@ -10,6 +11,8 @@ import './poll-participate';
 import './select-dates';
 import './switch-tab';
 import './t';
+
+registerAcceptanceTestHelpers();
 
 export default function startApp(attrs) {
   let application;

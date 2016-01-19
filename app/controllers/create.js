@@ -83,8 +83,33 @@ var OptionsDateTimesTimeObject = Ember.Object.extend(
 );
 
 export default Ember.Controller.extend({
-  optionsDates: [],
-  optionsDateTimes: [],
+  optionsDateTimes: Ember.computed('model.options.[]', 'model.options.@each.title', {
+    get() {
+      if (!Ember.isArray(this.get('model.options'))) {
+        return [];
+      }
+
+      var dates = this.get('model.options').filter((option) => {
+        return moment(option.get('title'), 'YYYY-MM-DD', true).isValid();
+      });
+
+      // To lookup validators, container access is required which can cause an issue with Ember.Object
+      // creation if the object is statically imported. The current fix for this is as follows.
+      // https://github.com/offirgolan/ember-cp-validations/blob/master/README.md#basic-usage---objects
+      var container = this.get('container');
+
+      return dates.map((option) => {
+        return OptionsDateTimesObject.create({
+          title: moment(option.get('title')),
+          times: [
+            OptionsDateTimesTimeObject.create({container}),
+            OptionsDateTimesTimeObject.create({container})
+          ],
+          container
+        });
+      });
+    }
+  }),
   optionsDateTimesObject: OptionsDateTimesObject,
   optionsDateTimesTimeObject: OptionsDateTimesTimeObject,
   optionsTexts: Ember.computed(function() {
@@ -98,120 +123,6 @@ export default Ember.Controller.extend({
     ];
   }),
   optionsTextsObject: OptionsTextsObject,
-
-  updateOptions: function() {
-    var self = this,
-        options = [];
-
-    /*
-     * find a date
-     * options are dates or datetimes
-     */
-    if (this.get('model.isFindADate')) {
-
-      if (this.get('model.isDateTime')) {
-        // merge days and times
-        this.get('optionsDateTimes').forEach(function(day) {
-          // map dates and times
-          var validTimeFound = false;
-          day.get('times').forEach(function(timeObject) {
-            var date = new Date( day.title ),
-                timeString = timeObject.value;
-
-            if (self.validateTimeString(timeString)) {
-              var time = timeString.split(':');
-
-              date.setHours(time[0]);
-              date.setMinutes(time[1]);
-
-              options.pushObject(
-                self.store.createFragment('option', {
-                  title: moment(date).toISOString()
-                })
-              );
-
-              validTimeFound = true;
-            }
-          });
-        });
-      }
-      else {
-        // set options to days
-        options = this.get('optionsDates').map(
-          day => this.store.createFragment('option', {
-            // ISO 8601 date format
-            title: moment( day.title ).format('YYYY-MM-DD')
-          })
-        );
-      }
-
-      // days should be sorted to get them in correct order
-      options.sort(function(a, b){
-        if (a.get('title') === b.get('title')) {
-          return 0;
-        }
-        else {
-          return a.get('title') > b.get('title') ? 1 : -1;
-        }
-      });
-    }
-    /*
-     * make a poll
-     * options are text strings
-     */
-    else {
-      // remove all empty strings
-
-      this.get('optionsTexts').forEach(function(optionText){
-        var textString = optionText.value.trim();
-
-        if (textString !== '') {
-          options.pushObject(
-            self.store.createFragment('option', {
-              title: textString
-            })
-          );
-        }
-      });
-    }
-
-    this.set('model.options', options);
-  }.observes('optionsDates.@each.title', 'optionsDateTimes.@each.title', 'optionsDateTimes.@each.@eachTimesValue', 'optionsTexts.@each.value', 'model.isDateTime'),
-
-  updateDateTimesAfterDateChange: function() {
-    // To lookup validators, container access is required which can cause an issue with Ember.Object
-    // creation if the object is statically imported. The current fix for this is as follows.
-    // https://github.com/offirgolan/ember-cp-validations/blob/master/README.md#basic-usage---objects
-    var container = this.get('container');
-
-    this.set('optionsDateTimes',
-      this.get('optionsDates').map((optionDate) => {
-        return OptionsDateTimesObject.create({
-          title: optionDate.title,
-          times: [
-            OptionsDateTimesTimeObject.create({container}),
-            OptionsDateTimesTimeObject.create({container})
-          ],
-          container
-        });
-      })
-    );
-  }.observes('optionsDates.@each.value'),
-
-  /*
-   * uncomsumed computed property does not trigger observers
-   * therefore we have to retrieve computed property helper to observer
-   * nested array
-   *
-   * More Information in Ember 1.0 RC8 Release Changelog:
-   * Unconsumed Computed Properties Do Not Trigger Observers
-   * http://emberjs.com/blog/2013/08/29/ember-1-0-rc8.html
-   */
-  fixObserverOnOptionsDateTimesObject: function() {
-    this.get('optionsDateTimes').map((dateTime) => {
-      return dateTime.get('@eachTimesValue');
-    });
-  }.observes('optionsDateTimes.@each.@eachTimesValue').on('init'),
 
   /*
    * sets timezone property of model to users timezone if dates with

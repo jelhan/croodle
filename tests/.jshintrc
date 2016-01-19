@@ -1,5 +1,9 @@
 {
   "predef": [
+    "expectComponent",
+    "clickComponent",
+    "expectElement",
+    "expectNoElement",
     "document",
     "window",
     "location",

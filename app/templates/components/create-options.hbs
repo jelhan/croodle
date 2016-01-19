@@ -1,0 +1,26 @@
+<div class="box">
+  {{#fm-form
+    action='submit'
+  }}
+    {{#if isMakeAPoll}}
+      {{create-options-text
+        options=options
+        addOption='addOption'
+        deleteOption='deleteOption'
+        submit='submit'
+      }}
+    {{else}}
+      {{create-options-dates
+        isDateTime=isDateTime
+        options=options
+        submit='submit'
+      }}
+    {{/if}}
+
+    {{#fm-submit
+      inputWrapperClass='col-sm-10 col-sm-offset-2'
+    }}
+      {{t 'create.next'}}
+    {{/fm-submit}}
+  {{/fm-form}}
+</div>

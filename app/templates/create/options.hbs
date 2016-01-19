@@ -1,63 +1,7 @@
-<div class="box">
-  {{#if model.isMakeAPoll}}
-
-    {{#fm-form
-      action='submit'
-    }}
-      {{fm-input-group
-        content=optionsTexts
-        label=(t 'create.options.options.label')
-        errors=validations.attrs.optionsTexts.messages
-        minimumInputFields=2
-        elementObject=optionsTextsObject
-      }}
-      {{#fm-submit
-        inputWrapperClass='col-sm-10 col-sm-offset-2'
-      }}
-        {{t 'create.next'}}
-      {{/fm-submit}}
-    {{/fm-form}}
-
-  {{else}}
-
-    {{#fm-form
-      action='submit'
-    }}
-      <div class="form-group">
-        <label class="col-sm-2 control-label">
-          {{t 'create.options.dates.label'}}
-        </label>
-
-        <div class="col-sm-10">
-          <div id="datepicker">
-            {{bootstrap-datepicker-inline
-              value=optionsBootstrapDatepicker
-              multidate=true
-              calendarWeeks=true
-              todayHighlight=true
-              language=i18n.locale
-            }}
-          </div>
-
-          {{#if showDatepickerErrors}}
-            {{#if validations.attrs.optionsBootstrapDatepicker.message}}
-              {{validations.attrs.optionsBootstrapDatepicker.message}}
-            {{/if}}
-          {{/if}}
-        </div>
-      </div>
-
-      {{fm-checkbox
-        checked=model.isDateTime
-        label=(t 'create.options.defineTimes.label')
-        inputWrapperClass='col-sm-10 col-sm-offset-2'
-      }}
-
-      {{#fm-submit
-        inputWrapperClass='col-sm-10 col-sm-offset-2'
-      }}
-        {{t 'create.next'}}
-      {{/fm-submit}}
-    {{/fm-form}}
-  {{/if}}
-</div>
+{{create-options
+  isDateTime=model.isDateTime
+  isFindADate=model.isFindADate
+  isMakeAPoll=model.isMakeAPoll
+  options=model.options
+  nextPage='nextPage'
+}}

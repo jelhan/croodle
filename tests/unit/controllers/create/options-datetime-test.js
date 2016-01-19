@@ -6,8 +6,9 @@ moduleFor('controller:create/options-datetime', {
 
 test('validations', function(assert) {
   var controller = this.subject();
-  controller.set('createController.model', {});
-  controller.set('createController.optionsDates', [{title: '2015-01-01'}, {title: '2015-01-02'}]);
+  controller.set('model', {
+    options: [{title: '2015-01-01'}, {title: '2015-01-02'}]
+  });
   assert.notOk(
     controller.get('validations.isValid'),
     'controller is invalid'

@@ -59,6 +59,8 @@ test("create a default poll", function(assert) {
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
 
+        expectComponent('create-options-dates');
+
         var dates =
           [
             moment().add(1, 'day'),
@@ -119,6 +121,8 @@ test("create a poll for answering a question", function(assert) {
 
       andThen(function(){
         assert.equal(currentPath(), 'create.options');
+        expectComponent('create-options-text');
+
         assert.equal(
           find('input').length,
           2,
