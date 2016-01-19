@@ -4,22 +4,21 @@ export default Ember.Component.extend({
   classNames: ['evaluation-summary'],
 
   evaluationBestOptions: function() {
-    var options = [],
-        bestOptions = [],
-        self = this;
+    let options = [];
+    let bestOptions = [];
     // can not evaluate answer type free text
-    if(this.get('poll.isFreeText')) {
+    if (this.get('poll.isFreeText')) {
       return [];
     }
 
     // can not evaluate a poll without users
-    if(Ember.isEmpty(this.get('poll.users'))) {
+    if (Ember.isEmpty(this.get('poll.users'))) {
       return [];
     }
 
-    this.get('poll.users').forEach(function(user){
-      user.get('selections').forEach(function(selection, i){
-        if(options.length - 1 < i) {
+    this.get('poll.users').forEach(function(user) {
+      user.get('selections').forEach(function(selection, i) {
+        if (options.length - 1 < i) {
           options.push({
             answers: [],
             key: i,
@@ -27,7 +26,7 @@ export default Ember.Component.extend({
           });
         }
 
-        if(typeof options[i].answers[selection.get('type')] === 'undefined') {
+        if (typeof options[i].answers[selection.get('type')] === 'undefined') {
           options[i].answers[selection.get('type')] = 0;
         }
         options[i].answers[selection.get('type')]++;
@@ -55,7 +54,7 @@ export default Ember.Component.extend({
     bestOptions.push(
       options[0]
     );
-    var i = 1;
+    let i = 1;
     while(true) {
       if (
         typeof options[i] !== 'undefined' &&
@@ -72,12 +71,12 @@ export default Ember.Component.extend({
       i++;
     }
 
-    bestOptions.forEach(function(bestOption, i){
-      if (self.get('poll.isFindADate')) {
-        bestOptions[i].title = self.get('dates')[bestOption.key].title;
+    bestOptions.forEach((bestOption, i) => {
+      if (this.get('poll.isFindADate')) {
+        bestOptions[i].title = this.get('dates')[bestOption.key].title;
       }
       else {
-        bestOptions[i].title = self.get('poll.options')[bestOption.key].title;
+        bestOptions[i].title = this.get('poll.options')[bestOption.key].title;
       }
     });
 

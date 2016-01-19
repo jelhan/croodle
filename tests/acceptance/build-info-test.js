@@ -10,7 +10,7 @@ test('version is included as html meta tag', function(assert) {
     assert.ok($('head meta[name="build-info"]').length === 1, 'tag exists');
     assert.ok(
       $('head meta[name="build-info"]').attr('content').match(/^version=v\d[\d\.]+\d(\+[\da-z]{8})?$/) !== null,
-      'format ' + $('head meta[name="build-info"]').attr('content') + ' is correct'
+      'format '.concat($('head meta[name="build-info"]').attr('content'), ' is correct')
     );
   });
 });

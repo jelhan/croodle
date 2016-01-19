@@ -1,5 +1,5 @@
-import DS from "ember-data";
-import Ember from "ember";
+import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.RESTAdapter.extend({
   encryption: Ember.inject.service(),

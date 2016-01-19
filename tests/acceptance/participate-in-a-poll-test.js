@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
@@ -6,31 +6,31 @@ import serverGetPolls from '../helpers/server-get-polls';
 import serverPostUsers from '../helpers/server-post-users';
 /* jshint proto: true */
 
-var application, server;
+let application, server;
 
 module('Acceptance | participate in a poll', {
-  beforeEach: function() {
+  beforeEach() {
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
   },
 
-  afterEach: function() {
+  afterEach() {
     server.shutdown();
 
     Ember.run(application, 'destroy');
   }
 });
 
-test("participate in a default poll", function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+test('participate in a default poll', function(assert) {
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   server.get('/polls/' + id, function() {
     return serverGetPolls(
       {
-        id: id
+        id
       }, encryptionKey
     );
   });
@@ -58,11 +58,11 @@ test("participate in a default poll", function(assert) {
 });
 
 test("participate in a poll using freetext", function(assert) {
-  var id = 'test2',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let id = 'test2';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   server.get('/polls/' + id,
-    function () {
+    function() {
       return serverGetPolls(
         {
           id: id,
@@ -73,7 +73,7 @@ test("participate in a poll using freetext", function(assert) {
     }
   );
   server.post('/users',
-    function (request) {
+    function(request) {
       return serverPostUsers(request.requestBody, 1);
     }
   );
@@ -82,7 +82,7 @@ test("participate in a poll using freetext", function(assert) {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Max Manus', ['answer 1', 'answer 2']);
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, "user is added to user selections table");
       pollHasUser(assert, 'Max Manus', ['answer 1', 'answer 2']);
@@ -90,54 +90,54 @@ test("participate in a poll using freetext", function(assert) {
   });
 });
 
-test("participate in a poll which doesn't force an answer to all options", function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+test('participate in a poll which does not force an answer to all options', function(assert) {
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   server.get('/polls/' + id,
-    function () {
+    function() {
       return serverGetPolls(
         {
-          id: id,
+          id,
           forceAnswer: false
         }, encryptionKey
       );
     }
   );
   server.post('/users',
-    function (request) {
+    function(request) {
       return serverPostUsers(request.requestBody, 1);
     }
   );
 
   visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
     assert.equal(currentPath(), 'poll.participation');
-    pollParticipate('Karl Käfer', ['yes', null]);
+    pollParticipate('Karl KÃ¤fer', ['yes', null]);
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, "Karl Käfer", [t("answerTypes.yes.label"), ""]);
+      pollHasUser(assert, "Karl KÃ¤fer", [t("answerTypes.yes.label"), ""]);
     });
   });
 });
 
-test("participate in a poll which allows anonymous participation", function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+test('participate in a poll which allows anonymous participation', function(assert) {
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   server.get('/polls/' + id,
-    function () {
+    function() {
       return serverGetPolls(
         {
-          id: id,
+          id,
           anonymousUser: true
         }, encryptionKey
       );
     }
   );
   server.post('/users',
-    function (request) {
+    function(request) {
       return serverPostUsers(request.requestBody, 1);
     }
   );
@@ -146,7 +146,7 @@ test("participate in a poll which allows anonymous participation", function(asse
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate(null, ['yes', 'no']);
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, "user is added to user selections table");
       pollHasUser(assert, "", [t("answerTypes.yes.label"), t("answerTypes.no.label")]);
