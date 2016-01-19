@@ -3,16 +3,16 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   actions: {
     add(element) {
-      var content = this.get('content'),
-          index = content.indexOf(element);
+      let content = this.get('content');
+      let index = content.indexOf(element);
+
       this.sendAction('addElement', index + 1);
     },
 
     del(element) {
       if (this.get('canDeleteInputFields')) {
-        var content = this.get('content'),
-            index = content.indexOf(element);
-
+        let content = this.get('content');
+        let index = content.indexOf(element);
         this.sendAction('deleteElement', index);
       }
     },
@@ -41,7 +41,7 @@ export default Ember.Component.extend({
   errors: [],
 
   errorClass: Ember.computed('showErrors', 'errors', function() {
-    if(this.get('showErrors')) {
+    if (this.get('showErrors')) {
       return this.get('fmConfig').errorClass;
     }
   }),

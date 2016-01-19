@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
@@ -6,11 +6,11 @@ import serverPostPolls from '../helpers/server-post-polls';
 import moment from 'moment';
 /* jshint proto: true */
 
-var application, server;
+let application, server;
 
 module('Acceptance | create a poll', {
-  beforeEach: function() {
-    var lastCreatedPoll = {};
+  beforeEach() {
+    let lastCreatedPoll = {};
 
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
@@ -18,18 +18,18 @@ module('Acceptance | create a poll', {
     server = new Pretender();
 
     server.post('/polls',
-      function (request) {
-        var ret = serverPostPolls(request.requestBody, 'test');
+      function(request) {
+        let ret = serverPostPolls(request.requestBody, 'test');
         lastCreatedPoll = ret[2];
         return ret;
       }
     );
 
     server.get('/polls/test',
-      function () {
+      function() {
         return [
           200,
-          {"Content-Type": "application/json"},
+          { 'Content-Type': 'application/json' },
           lastCreatedPoll
         ];
       }
@@ -39,29 +39,27 @@ module('Acceptance | create a poll', {
       application.__container__.lookup('service:i18n').get('locale')
     );
   },
-  afterEach: function() {
+  afterEach() {
     server.shutdown();
 
     Ember.run(application, 'destroy');
   }
 });
 
-test("create a default poll", function(assert) {
+test('create a default poll', function(assert) {
   visit('/create').then(function() {
     click('button[type="submit"]');
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
       fillIn('.title input', 'default poll');
       click('button[type="submit"]');
 
-      andThen(function(){
+      andThen(function() {
         assert.equal(currentPath(), 'create.options');
 
-        expectComponent('create-options-dates');
-
-        var dates =
+        let dates =
           [
             moment().add(1, 'day'),
             moment().add(1, 'week')
@@ -74,12 +72,12 @@ test("create a default poll", function(assert) {
 
         click('button[type="submit"]');
 
-        andThen(function(){
+        andThen(function() {
           assert.equal(currentPath(), 'create.settings');
 
           click('button[type="submit"]');
 
-          andThen(function(){
+          andThen(function() {
             assert.equal(currentPath(), 'poll.participation');
 
             pollTitleEqual(assert, 'default poll');
@@ -107,19 +105,19 @@ test("create a default poll", function(assert) {
   });
 });
 
-test("create a poll for answering a question", function(assert) {
+test('create a poll for answering a question', function(assert) {
   visit('/create').then(function() {
     // select poll type answer a question
     fillIn('.poll-type select', 'MakeAPoll');
     click('button[type="submit"]');
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
       fillIn('.title input', 'default poll');
       click('button[type="submit"]');
 
-      andThen(function(){
+      andThen(function() {
         assert.equal(currentPath(), 'create.options');
         expectComponent('create-options-text');
 
@@ -135,7 +133,7 @@ test("create a poll for answering a question", function(assert) {
 
         // add another option input field
         click('button.add', find('.form-group')[0]);
-        andThen(function(){
+        andThen(function() {
           assert.equal(
             find('input').length,
             3,
@@ -162,12 +160,12 @@ test("create a poll for answering a question", function(assert) {
 
               click('button[type="submit"]');
 
-              andThen(function(){
+              andThen(function() {
                 assert.equal(currentPath(), 'create.settings');
 
                 click('button[type="submit"]');
 
-                andThen(function(){
+                andThen(function() {
                   assert.equal(currentPath(), 'poll.participation');
 
                   pollTitleEqual(assert, 'default poll');
@@ -184,14 +182,14 @@ test("create a poll for answering a question", function(assert) {
   });
 });
 
-test("create a poll with description", function(assert) {
-  var dates =
+test('create a poll with description', function(assert) {
+  let dates =
     [
       moment().add(1, 'day'),
       moment().add(1, 'week')
     ];
 
-  var formattedDates =
+  let formattedDates =
     dates.map((date) => {
       return date.format(
         moment.localeData().longDateFormat('LLLL')
@@ -204,26 +202,26 @@ test("create a poll with description", function(assert) {
   visit('/create').then(function() {
     click('button[type="submit"]');
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
       fillIn('.title input', 'default poll');
       fillIn('.description textarea', 'a sample description');
       click('button[type="submit"]');
 
-      andThen(function(){
+      andThen(function() {
         assert.equal(currentPath(), 'create.options');
 
         selectDates('#datepicker .ember-view', dates);
 
         click('button[type="submit"]');
 
-        andThen(function(){
+        andThen(function() {
           assert.equal(currentPath(), 'create.settings');
 
           click('button[type="submit"]');
 
-          andThen(function(){
+          andThen(function() {
             assert.equal(currentPath(), 'poll.participation');
 
             pollTitleEqual(assert, 'default poll');

@@ -6,11 +6,11 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.resource('poll', { path: '/poll/:poll_id' }, function(){
+  this.resource('poll', { path: '/poll/:poll_id' }, function() {
     this.route('participation');
     this.route('evaluation');
   });
-  this.resource('create', function(){
+  this.resource('create', function() {
     this.route('meta');
     this.route('options');
     this.route('options-datetime');
