@@ -10,13 +10,13 @@ import formattedDateHelper from 'croodle/helpers/formatted-date';
 let application, server;
 
 module('Acceptance | view evaluation', {
-  beforeEach: function() {
+  beforeEach() {
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
   },
-  afterEach: function() {
+  afterEach() {
     server.shutdown();
 
     Ember.run(application, 'destroy');
@@ -24,8 +24,8 @@ module('Acceptance | view evaluation', {
 });
 
 test('evaluation summary is not present for poll without participants', function(assert) {
-  let id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   server.get(`/polls/${id}`, function() {
     return serverGetPolls(
@@ -49,8 +49,8 @@ test('evaluation summary is not present for poll without participants', function
 });
 
 test('evaluation is correct', function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   server.get(`/polls/${id}`, function() {
     return serverGetPolls(
@@ -58,21 +58,21 @@ test('evaluation is correct', function(assert) {
         id,
         answers: [
           {
-            type: "yes",
-            labelTranslation: "answerTypes.yes.label",
-            icon: "glyphicon glyphicon-thumbs-up",
-            label: "Yes"
+            type: 'yes',
+            labelTranslation: 'answerTypes.yes.label',
+            icon: 'glyphicon glyphicon-thumbs-up',
+            label: 'Yes'
           },
           {
-            type: "no",
-            labelTranslation: "answerTypes.no.label",
-            icon: "glyphicon glyphicon-thumbs-down",
-            label: "No"
+            type: 'no',
+            labelTranslation: 'answerTypes.no.label',
+            icon: 'glyphicon glyphicon-thumbs-down',
+            label: 'No'
           }
         ],
         options: [
-          {title: '2015-12-12'},
-          {title: '2016-01-01'}
+          { title: '2015-12-12' },
+          { title: '2016-01-01' }
         ],
         users: [
           {
@@ -80,38 +80,38 @@ test('evaluation is correct', function(assert) {
             name: 'Maximilian',
             selections: [
               {
-                type: "yes",
-                labelTranslation: "answerTypes.yes.label",
-                icon: "glyphicon glyphicon-thumbs-up",
-                label: "Yes"
+                type: 'yes',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
               },
               {
-                type: "yes",
-                labelTranslation: "answerTypes.yes.label",
-                icon: "glyphicon glyphicon-thumbs-up",
-                label: "Yes"
+                type: 'yes',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
               }
             ],
-            creationDate: "2015-01-01T00:00:00.000Z"
+            creationDate: '2015-01-01T00:00:00.000Z'
           },
           {
             id: `${id}_1`,
             name: 'Peter',
             selections: [
               {
-                type: "yes",
-                labelTranslation: "answerTypes.yes.label",
-                icon: "glyphicon glyphicon-thumbs-up",
-                label: "Yes"
+                type: 'yes',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
               },
               {
-                id: "no",
-                labelTranslation: "answerTypes.yes.label",
-                icon: "glyphicon glyphicon-thumbs-up",
-                label: "Yes"
+                id: 'no',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
               }
             ],
-            creationDate: "2015-08-01T00:00:00.000Z"
+            creationDate: '2015-08-01T00:00:00.000Z'
           }
         ]
       }, encryptionKey

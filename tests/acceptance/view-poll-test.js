@@ -9,13 +9,13 @@ import serverGetPolls from '../helpers/server-get-polls';
 let application, server;
 
 module('Acceptance | view poll', {
-  beforeEach: function() {
+  beforeEach() {
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
   },
-  afterEach: function() {
+  afterEach() {
     server.shutdown();
 
     Ember.run(application, 'destroy');
@@ -23,8 +23,8 @@ module('Acceptance | view poll', {
 });
 
 test('view poll url', function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz012345789';
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz012345789';
 
   server.get(`/polls/${id}`, function() {
     return serverGetPolls({ id }, encryptionKey);
@@ -41,16 +41,16 @@ test('view poll url', function(assert) {
 });
 
 test('view a poll with dates', function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
         id,
         options: [
-          {title: '2015-12-12'},
-          {title: '2016-01-01'}
+          { title: '2015-12-12' },
+          { title: '2016-01-01' }
         ]
       }, encryptionKey
     );
@@ -85,9 +85,9 @@ test('view a poll with dates and times', function(assert) {
         id,
         isDateTime: true,
         options: [
-          {title: '2015-12-12T11:11:00.000Z'},
-          {title: '2015-12-12T13:13:00.000Z'},
-          {title: '2016-01-01T11:11:00.000Z'}
+          { title: '2015-12-12T11:11:00.000Z' },
+          { title: '2015-12-12T13:13:00.000Z' },
+          { title: '2016-01-01T11:11:00.000Z' }
         ],
         timezone: timezone
       }, encryptionKey
@@ -125,8 +125,8 @@ test('view a poll while timezone differs from the one poll got created in and ch
         id,
         isDateTime: true,
         options: [
-          {title: '2015-12-12T11:11:00.000Z'},
-          {title: '2016-01-01T11:11:00.000Z'}
+          { title: '2015-12-12T11:11:00.000Z' },
+          { title: '2016-01-01T11:11:00.000Z' }
         ],
         timezone: timezonePoll
       }, encryptionKey
@@ -186,8 +186,8 @@ test('view a poll while timezone differs from the one poll got created in and ch
         id,
         isDateTime: true,
         options: [
-          {title: '2015-12-12T11:11:00.000Z'},
-          {title: '2016-01-01T11:11:00.000Z'}
+          { title: '2015-12-12T11:11:00.000Z' },
+          { title: '2016-01-01T11:11:00.000Z' }
         ],
         timezone: timezonePoll
       }, encryptionKey
