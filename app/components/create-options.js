@@ -4,7 +4,7 @@ import {
 }
 from 'ember-cp-validations';
 
-var Validations = buildValidations({
+let Validations = buildValidations({
   options: [
     validator('collection', true),
     validator('length', {

@@ -14,6 +14,14 @@ test('validation is correct', function(assert) {
     validator.validate('1945-05-08T23:01Z'),
     'iso 8601 datetime string in UTC is valid'
   );
+  assert.ok(
+    validator.validate('1945-05-08T23:01:00Z'),
+    'iso 8601 datetime string with seconds in UTC is valid'
+  );
+  assert.ok(
+    validator.validate('1945-05-08T23:01:00.000Z'),
+    'iso 8601 datetime string with milliseconds in UTC is valid'
+  );
   assert.notOk(
     validator.validate('1945-05-08') === true,
     'iso 8601 date string is invalid'

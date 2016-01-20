@@ -10,6 +10,12 @@
     {{/unless}}
 
     <div class='col-sm-8 col-md-9 col-xs-10 {{if index 'col-sm-offset-2 col-md-offset-2'}}'>
+      {{!-- ToDo:
+            property of element used as value should be configurable
+            (mut (get element 'title')) does not work
+            perhaps it's only working since Ember 2.2 ?
+            https://guides.emberjs.com/v2.2.0/templates/input-helpers/#toc_binding-dynamic-attribute
+        --}}
       {{fm-input
         class='form-control'
         step=step

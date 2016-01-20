@@ -18,7 +18,7 @@ export default Ember.Component.extend({
     set(key, value) {
       // ember-cli-bootstrap-datepicker returns an array of Date objects
       let newOptions = [];
-      if(Ember.isArray(value) && value.length > 0) {
+      if (Ember.isArray(value) && value.length > 0) {
         value.sort(function(a, b) {
           return a.getTime() - b.getTime();
         });

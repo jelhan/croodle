@@ -13,7 +13,6 @@ Router.map(function() {
   this.resource('create', function() {
     this.route('meta');
     this.route('options');
-    this.route('options-datetime');
     this.route('settings');
   });
   this.route('404');

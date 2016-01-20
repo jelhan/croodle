@@ -15,6 +15,11 @@
         options=options
         submit='submit'
       }}
+      {{#if isDateTime}}
+        {{create-options-datetime
+          options=options
+        }}
+      {{/if}}
     {{/if}}
 
     {{#fm-submit
