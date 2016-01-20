@@ -3,7 +3,7 @@ import { module, test } from 'qunit';
 import startApp from 'croodle/tests/helpers/start-app';
 /* global moment */
 
-var application;
+let application;
 
 module('Integration | legacy support', {
   beforeEach: function() {
@@ -20,7 +20,7 @@ test('show a default poll created with v0.3.0', function(assert) {
       encryptionKey = '5MKFuNTKILUXw6RuqkAw6ooZw4k3mWWx98ZQw8vH',
       timezone = 'Europe/Berlin';
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
     pollTitleEqual(assert, 'default poll created with v0.3.0');
@@ -87,7 +87,7 @@ test('find a poll using free text created with v0.3.0', function(assert) {
   var id = 'PjW3XwbuRc',
       encryptionKey = 'Rre6dAGOYLW9gYKOP4LhX7Qwfhe5Th3je0uKDtyy';
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
     pollTitleEqual(assert, 'Which cake for birthday?');

@@ -7,7 +7,7 @@ import formattedDateHelper from 'croodle/helpers/formatted-date';
 /* jshint proto: true */
 /* global moment */
 
-var application, server;
+let application, server;
 
 module('Acceptance | view evaluation', {
   beforeEach: function() {
@@ -24,19 +24,19 @@ module('Acceptance | view evaluation', {
 });
 
 test('evaluation summary is not present for poll without participants', function(assert) {
-  var id = 'test',
+  let id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  server.get('/polls/' + id, function() {
+  server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
-        id: id,
+        id,
         users: []
       }, encryptionKey
     );
   });
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
     assert.equal(currentPath(), 'poll.participation');
@@ -52,10 +52,10 @@ test('evaluation is correct', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  server.get('/polls/' + id, function() {
+  server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
-        id: id,
+        id,
         answers: [
           {
             type: "yes",
@@ -76,7 +76,7 @@ test('evaluation is correct', function(assert) {
         ],
         users: [
           {
-            id: id + '_0',
+            id: `${id}_0`,
             name: 'Maximilian',
             selections: [
               {
@@ -95,7 +95,7 @@ test('evaluation is correct', function(assert) {
             creationDate: "2015-01-01T00:00:00.000Z"
           },
           {
-            id: id + '_1',
+            id: `${id}_1`,
             name: 'Peter',
             selections: [
               {
@@ -118,7 +118,7 @@ test('evaluation is correct', function(assert) {
     );
   });
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
     assert.equal(currentPath(), 'poll.participation');
