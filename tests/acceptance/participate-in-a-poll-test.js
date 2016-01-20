@@ -27,7 +27,7 @@ test('participate in a default poll', function(assert) {
   let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  server.get('/polls/' + id, function() {
+  server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
         id
@@ -35,20 +35,20 @@ test('participate in a default poll', function(assert) {
     );
   });
   server.post('/users',
-    function (request) {
+    function(request) {
       return serverPostUsers(request.requestBody, 1);
     }
   );
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Max Meiner', ['yes', 'no']);
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
       assert.equal(
         currentURL().split("?")[1],
-        'encryptionKey=' + encryptionKey,
+        `encryptionKey=${encryptionKey}`,
         'encryption key is part of query params'
       );
       pollHasUsersCount(assert, 1, "user is added to user selections table");
@@ -57,15 +57,15 @@ test('participate in a default poll', function(assert) {
   });
 });
 
-test("participate in a poll using freetext", function(assert) {
+test('participate in a poll using freetext', function(assert) {
   let id = 'test2';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  server.get('/polls/' + id,
+  server.get(`/polls/${id}`,
     function() {
       return serverGetPolls(
         {
-          id: id,
+          id,
           answerType: 'FreeText',
           answers: []
         }, encryptionKey
@@ -78,7 +78,7 @@ test("participate in a poll using freetext", function(assert) {
     }
   );
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Max Manus', ['answer 1', 'answer 2']);
 
@@ -94,7 +94,7 @@ test('participate in a poll which does not force an answer to all options', func
   let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  server.get('/polls/' + id,
+  server.get(`/polls/${id}`,
     function() {
       return serverGetPolls(
         {
@@ -110,14 +110,14 @@ test('participate in a poll which does not force an answer to all options', func
     }
   );
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
-    pollParticipate('Karl KÃ¤fer', ['yes', null]);
+    pollParticipate('Karl Käfer', ['yes', null]);
 
     andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, "Karl KÃ¤fer", [t("answerTypes.yes.label"), ""]);
+      pollHasUser(assert, "Karl Käfer", [t("answerTypes.yes.label"), ""]);
     });
   });
 });
@@ -126,7 +126,7 @@ test('participate in a poll which allows anonymous participation', function(asse
   let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  server.get('/polls/' + id,
+  server.get(`/polls/${id}`,
     function() {
       return serverGetPolls(
         {
@@ -142,7 +142,7 @@ test('participate in a poll which allows anonymous participation', function(asse
     }
   );
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate(null, ['yes', 'no']);
 

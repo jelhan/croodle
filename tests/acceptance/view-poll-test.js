@@ -6,7 +6,7 @@ import serverGetPolls from '../helpers/server-get-polls';
 /* jshint proto: true */
 /* global jstz, moment, start, stop */
 
-var application, server;
+let application, server;
 
 module('Acceptance | view poll', {
   beforeEach: function() {
@@ -26,11 +26,11 @@ test('view poll url', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz012345789';
 
-  server.get('/polls/' + id, function() {
-    return serverGetPolls({ id: id }, encryptionKey);
+  server.get(`/polls/${id}`, function() {
+    return serverGetPolls({ id }, encryptionKey);
   });
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey);
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
   andThen(function() {
     assert.equal(
       find('.share-link .link a').text(),
@@ -44,10 +44,10 @@ test('view a poll with dates', function(assert) {
   var id = 'test',
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  server.get('/polls/' + id, function() {
+  server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
-        id: id,
+        id,
         options: [
           {title: '2015-12-12'},
           {title: '2016-01-01'}
@@ -56,7 +56,7 @@ test('view a poll with dates', function(assert) {
     );
   });
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     pollHasOptions(assert, [
       moment('2015-12-12').format(
         moment.localeData().longDateFormat('LLLL')
@@ -79,10 +79,10 @@ test('view a poll with dates and times', function(assert) {
       encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789',
       timezone = jstz.determine().name();
 
-  server.get('/polls/' + id, function() {
+  server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
-        id: id,
+        id,
         isDateTime: true,
         options: [
           {title: '2015-12-12T11:11:00.000Z'},
@@ -94,7 +94,7 @@ test('view a poll with dates and times', function(assert) {
     );
   });
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     pollHasOptions(assert, [
       // full date
       moment.tz('2015-12-12T11:11:00.000Z', timezone).format('LLLL'),
@@ -119,10 +119,10 @@ test('view a poll while timezone differs from the one poll got created in and ch
     timezonePoll = 'Europe/Moscow';
   }
 
-  server.get('/polls/' + id, function() {
+  server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
-        id: id,
+        id,
         isDateTime: true,
         options: [
           {title: '2015-12-12T11:11:00.000Z'},
@@ -133,7 +133,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
     );
   });
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     stop();
     Ember.run.later(function(){
       start();
@@ -180,10 +180,10 @@ test('view a poll while timezone differs from the one poll got created in and ch
     timezonePoll = 'Europe/Moscow';
   }
 
-  server.get('/polls/' + id, function() {
+  server.get(`/polls/${id}`, function() {
     return serverGetPolls(
       {
-        id: id,
+        id,
         isDateTime: true,
         options: [
           {title: '2015-12-12T11:11:00.000Z'},
@@ -194,7 +194,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
     );
   });
 
-  visit('/poll/' + id + '?encryptionKey=' + encryptionKey).then(function() {
+  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     stop();
     Ember.run.later(function(){
       start();

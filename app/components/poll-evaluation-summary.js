@@ -55,7 +55,7 @@ export default Ember.Component.extend({
       options[0]
     );
     let i = 1;
-    while(true) {
+    while (true) {
       if (
         typeof options[i] !== 'undefined' &&
         bestOptions[0].score === options[i].score
@@ -63,8 +63,7 @@ export default Ember.Component.extend({
         bestOptions.push(
           options[i]
         );
-      }
-      else {
+      } else {
         break;
       }
 
@@ -74,8 +73,7 @@ export default Ember.Component.extend({
     bestOptions.forEach((bestOption, i) => {
       if (this.get('poll.isFindADate')) {
         bestOptions[i].title = this.get('dates')[bestOption.key].title;
-      }
-      else {
+      } else {
         bestOptions[i].title = this.get('poll.options')[bestOption.key].title;
       }
     });
@@ -83,20 +81,19 @@ export default Ember.Component.extend({
     return bestOptions;
   }.property('poll.users.@each'),
 
-  evaluationBestOptionsMultiple: function(){
+  evaluationBestOptionsMultiple: function() {
     if (this.get('evaluationBestOptions.length') > 1) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }.property('evaluationBestOptions'),
 
-  evaluationLastParticipation: function(){
+  evaluationLastParticipation: function() {
     return this.get('sortedUsers.lastObject.creationDate');
   }.property('sortedUsers.@each'),
 
-  evaluationParticipants: function(){
+  evaluationParticipants: function() {
     return this.get('poll.users.length');
   }.property('poll.users.@each')
 });
