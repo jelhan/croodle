@@ -78,3 +78,73 @@ test('changes to value updates option', function(assert) {
     'option was updated'
   );
 });
+
+test('allows to add another option', function(assert) {
+  this.set('options', [
+    Ember.Object.create({ title: 'foo' }),
+    Ember.Object.create({ title: 'bar' })
+  ]);
+  this.render(hbs`{{create-options-text options=options}}`);
+
+  assert.equal(
+    this.$('.form-group input').length,
+    2,
+    'there are two input fields before'
+  );
+  this.$('.form-group .add').eq(0).click();
+  assert.equal(
+    this.$('.form-group input').length,
+    3,
+    'another input field is added'
+  );
+  assert.deepEqual(
+    this.$('input').map(function() { return $(this).val(); }).get(),
+    ['foo', '', 'bar'],
+    'it is added at correct position'
+  );
+  this.$('.form-group input').eq(1).val('baz').trigger('change');
+  assert.equal(
+    this.get('options')[1].get('title'),
+    'baz',
+    'options are observed for new input field'
+  );
+});
+
+test('allows to delete an option', function(assert) {
+  this.set('options', [
+    Ember.Object.create({ title: 'foo' }),
+    Ember.Object.create({ title: 'bar' }),
+    Ember.Object.create({ title: 'baz' })
+  ]);
+  this.render(hbs`{{create-options-text options=options}}`);
+
+  assert.equal(
+    this.$('.form-group input').length,
+    3,
+    'there are three input fields before'
+  );
+  assert.ok(
+    this.$('.delete').get().every((el) => {
+      return el.disabled === false;
+    }),
+    'options are deleteable'
+  );
+  this.$('.form-group .delete').eq(1).click();
+  Ember.run(() => {
+    assert.equal(
+      this.$('.form-group input').length,
+      2,
+      'one input field is deleted'
+    );
+    assert.deepEqual(
+      this.$('input').map(function() { return $(this).val(); }).get(),
+      ['foo', 'baz'],
+      'correct input field is deleted'
+    );
+    assert.deepEqual(
+      this.get('options').map((option) => option.get('title')),
+      ['foo', 'baz'],
+      'option is updated'
+    );
+  });
+});

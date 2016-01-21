@@ -12,8 +12,7 @@ let Validations = buildValidations({
       min() {
         if (this.get('isFindADate') && this.get('isDateTime')) {
           return 1;
-        }
-        else {
+        } else {
           return 2;
         }
       }

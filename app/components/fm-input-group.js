@@ -3,17 +3,12 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   actions: {
     add(element) {
-      let content = this.get('content');
-      let index = content.indexOf(element);
-
-      this.sendAction('addElement', index + 1);
+      this.sendAction('addElement', element);
     },
 
     del(element) {
       if (this.get('canDeleteInputFields')) {
-        let content = this.get('content');
-        let index = content.indexOf(element);
-        this.sendAction('deleteElement', index);
+        this.sendAction('deleteElement', element);
       }
     },
 
@@ -36,6 +31,7 @@ export default Ember.Component.extend({
     return !this.get('canDeleteInputFields');
   }),
 
+  classNames: ['grouped-input'],
   classNameBindings: ['errorClass'],
 
   errors: [],

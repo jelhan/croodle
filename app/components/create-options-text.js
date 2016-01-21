@@ -2,15 +2,17 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   actions: {
-    addOption(position) {
-      let fragment = this.get('store').createFragment('option'),
-          options = this.get('options');
+    addOption(element) {
+      let fragment = this.get('store').createFragment('option');
+      let options = this.get('options');
+      let position = this.get('options').indexOf(element) + 1;
       options.insertAt(
         position,
         fragment
       );
     },
-    deleteOption(position) {
+    deleteOption(element) {
+      let position = this.get('options').indexOf(element);
       this.get('options').removeAt(position);
     }
   },

@@ -21,6 +21,11 @@ let datetimeObject = Ember.Object.extend({
       }
     },
     set(key, value) {
+      // check if it's a valid time
+      if (!moment(value, 'HH:mm', true).isValid()) {
+        return value;
+      }
+
       let [ hours, minutes ] = value.split(':');
       this.set(
         'option.title',
@@ -33,6 +38,27 @@ let datetimeObject = Ember.Object.extend({
 });
 
 export default Ember.Component.extend({
+  actions: {
+    addOption(element) {
+      let options = this.get('options');
+      let elementOption = element.get('option');
+      let dateString = moment(
+        elementOption.get('title')
+      ).format('YYYY-MM-DD');
+      let fragment = this.get('store').createFragment('option', {
+        title: dateString
+      });
+      let position = options.indexOf(elementOption) + 1;
+      options.insertAt(
+        position,
+        fragment
+      );
+    },
+    delOption(element) {
+      let position = this.get('options').indexOf(element.get('option'));
+      this.get('options').removeAt(position);
+    }
+  },
   datetimes: Ember.computed('options.[]', 'options.@each.title', function() {
     let options = this.get('options');
     if (Ember.isEmpty(options)) {
@@ -52,5 +78,6 @@ export default Ember.Component.extend({
     }
   }),
   // datetimes grouped by date
-  groupedDatetimes: groupBy('datetimes', 'dateString')
+  groupedDatetimes: groupBy('datetimes', 'dateString'),
+  store: Ember.inject.service('store')
 });
