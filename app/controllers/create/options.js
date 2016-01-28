@@ -2,7 +2,7 @@ import Ember from "ember";
 
 export default Ember.Controller.extend({
   actions: {
-    nextPage: function(){
+    nextPage() {
       this.transitionToRoute('create.settings');
     }
   }

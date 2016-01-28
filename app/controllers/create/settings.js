@@ -1,11 +1,11 @@
-import Ember from "ember";
+import Ember from 'ember';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
 /* global moment */
 
-var Validations = buildValidations({
+const Validations = buildValidations({
   anonymousUser: validator('presence', true),
   answerType: [
     validator('presence', true),
@@ -16,7 +16,7 @@ var Validations = buildValidations({
   forceAnswer: validator('presence', true)
 });
 
-var TranslateableObject = Ember.Object.extend({
+const TranslateableObject = Ember.Object.extend({
   i18n: Ember.inject.service(),
   label: Ember.computed('labelTranslation', 'i18n.locale', function() {
     return this.get('i18n').t(this.get('labelTranslation'));
@@ -26,7 +26,7 @@ var TranslateableObject = Ember.Object.extend({
 
 export default Ember.Controller.extend(Validations, {
   actions: {
-    submit: function(){
+    submit() {
       if (this.get('validations.isValid')) {
         // save poll
         this.get('model').save().then((model) => {
@@ -43,61 +43,61 @@ export default Ember.Controller.extend(Validations, {
   anonymousUser: Ember.computed.alias('model.anonymousUser'),
   answerType: Ember.computed.alias('model.answerType'),
 
-  answerTypes: function() {
+  answerTypes: Ember.computed('', function() {
     var container = this.get('container');
 
     return [
       TranslateableObject.create({
-          id : "YesNo",
-          labelTranslation : "answerTypes.yesNo.label",
+          id : 'YesNo',
+          labelTranslation : 'answerTypes.yesNo.label',
           answers : [
                   this.store.createFragment('answer', {
-                    type: "yes",
-                    labelTranslation: "answerTypes.yes.label",
-                    icon: "glyphicon glyphicon-thumbs-up"
+                    type: 'yes',
+                    labelTranslation: 'answerTypes.yes.label',
+                    icon: 'glyphicon glyphicon-thumbs-up'
                   }),
                   this.store.createFragment('answer', {
-                    type: "no",
-                    labelTranslation: "answerTypes.no.label",
-                    icon: "glyphicon glyphicon-thumbs-down"
+                    type: 'no',
+                    labelTranslation: 'answerTypes.no.label',
+                    icon: 'glyphicon glyphicon-thumbs-down'
                   })
               ],
           container
       }),
       TranslateableObject.create({
-          id : "YesNoMaybe",
-          labelTranslation : "answerTypes.yesNoMaybe.label",
+          id : 'YesNoMaybe',
+          labelTranslation : 'answerTypes.yesNoMaybe.label',
           answers : [
                   this.store.createFragment('answer', {
-                    type: "yes",
-                    labelTranslation: "answerTypes.yes.label",
-                    icon: "glyphicon glyphicon-thumbs-up"
+                    type: 'yes',
+                    labelTranslation: 'answerTypes.yes.label',
+                    icon: 'glyphicon glyphicon-thumbs-up'
                   }),
                   this.store.createFragment('answer', {
-                    type: "maybe",
-                    labelTranslation: "answerTypes.maybe.label",
-                    icon: "glyphicon glyphicon-hand-right"
+                    type: 'maybe',
+                    labelTranslation: 'answerTypes.maybe.label',
+                    icon: 'glyphicon glyphicon-hand-right'
                   }),
                   this.store.createFragment('answer', {
-                    type: "no",
-                    labelTranslation: "answerTypes.no.label",
-                    icon: "glyphicon glyphicon-thumbs-down"
+                    type: 'no',
+                    labelTranslation: 'answerTypes.no.label',
+                    icon: 'glyphicon glyphicon-thumbs-down'
                   })
               ],
           container
       }),
       TranslateableObject.create({
-          id : "FreeText",
-          labelTranslation : "answerTypes.freeText.label",
+          id : 'FreeText',
+          labelTranslation : 'answerTypes.freeText.label',
           answers : [],
           container
       })
     ];
-  }.property(),
+  }),
 
   expirationDuration: 'P3M',
 
-  expirationDurations: function() {
+  expirationDurations: Ember.computed('', function() {
     var container = this.get('container');
 
     return [
@@ -132,14 +132,14 @@ export default Ember.Controller.extend(Validations, {
         container
       })
     ];
-  }.property(),
+  }),
 
   forceAnswer: Ember.computed.alias('model.forceAnswer'),
 
   /*
    * set answers depending on selected answer type
    */
-  updateAnswers: function(){
+  updateAnswers: Ember.observer('model.answerType', function() {
     var selectedAnswer = this.get('model.answerType'),
         answers = [],
         answerTypes = this.get('answerTypes');
@@ -153,9 +153,9 @@ export default Ember.Controller.extend(Validations, {
 
       this.set('model.answers', answers);
     }
-  }.observes('model.answerType'),
+  }),
 
-  updateExpirationDate: function() {
+  updateExpirationDate: Ember.observer('expirationDuration', function() {
     var expirationDuration = this.get('expirationDuration');
 
     if(Ember.isEmpty(expirationDuration)) {
@@ -168,5 +168,5 @@ export default Ember.Controller.extend(Validations, {
         ).toISOString()
       );
     }
-  }.observes('expirationDuration')
+  })
 });

@@ -4,7 +4,7 @@ import {
 }
 from 'ember-cp-validations';
 
-var Validations = buildValidations({
+const Validations = buildValidations({
   pollType: [
     validator('presence', true),
     validator('inclusion', {
@@ -13,7 +13,7 @@ var Validations = buildValidations({
   ]
 });
 
-var TranslateableObject = Ember.Object.extend({
+const TranslateableObject = Ember.Object.extend({
   i18n: Ember.inject.service(),
   label: Ember.computed('labelTranslation', 'i18n.locale', function() {
     return this.get('i18n').t(this.get('labelTranslation'));

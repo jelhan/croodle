@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 import {
   validator, buildValidations
 }
@@ -15,7 +15,7 @@ var Validations = buildValidations({
 
 export default Ember.Controller.extend(Validations, {
   actions: {
-    submit: function(){
+    submit() {
       if (this.get('validations.isValid')) {
         this.transitionToRoute('create.options');
       }

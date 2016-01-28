@@ -26,7 +26,7 @@ let Validations = buildValidations({
 
 export default Ember.Component.extend(Validations, {
   actions: {
-    submit: function(){
+    submit() {
       if (this.get('validations.isValid')) {
         this.sendAction('nextPage');
       }
