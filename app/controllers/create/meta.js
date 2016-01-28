@@ -4,7 +4,7 @@ import {
 }
 from 'ember-cp-validations';
 
-var Validations = buildValidations({
+const Validations = buildValidations({
   title: [
     validator('presence', true),
     validator('length', {

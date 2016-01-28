@@ -1,8 +1,8 @@
-import Ember from "ember";
+import Ember from 'ember';
 /* global moment */
 
 export default Ember.Route.extend({
-  beforeModel: function(){
+  beforeModel() {
     // set encryption key
     this.get('encryption').generateKey();
   },
@@ -11,7 +11,7 @@ export default Ember.Route.extend({
   encryptionKey: Ember.computed.alias('encryption.key'),
 
   events: {
-    transitionToPoll: function(poll){
+    transitionToPoll(poll) {
       this.transitionTo('poll', poll, {
         queryParams: {
           encryptionKey: this.get('encryptionKey')
@@ -20,11 +20,11 @@ export default Ember.Route.extend({
     }
   },
 
-  model: function(){
+  model() {
     // create empty poll
     return this.store.createRecord('poll', {
       answerType: 'YesNo',
-      creationDate : new Date(),
+      creationDate: new Date(),
       forceAnswer: true,
       anonymousUser: false,
       datetime: false,

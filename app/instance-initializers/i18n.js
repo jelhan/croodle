@@ -2,38 +2,38 @@
 
 export default {
   name: 'i18n',
-  initialize: function({ container }) {
-    var i18n = container.lookup('service:i18n'),
-        availableLocales = i18n.get('locales'),
-        moment = container.lookup('service:moment'),
-        locale = getLocale(availableLocales);
+  initialize({ container }) {
+    const i18n = container.lookup('service:i18n');
+    const availableLocales = i18n.get('locales');
+    const moment = container.lookup('service:moment');
+    const locale = getLocale(availableLocales);
 
     i18n.set('locale', locale);
     moment.changeLocale(locale);
     webshim.activeLang(locale);
 
     i18n.addObserver('locale', i18n, function() {
-      var locale = this.get('locale');
+      const locale = this.get('locale');
+      // give cookie a lifetime of one year
+      const maxAge = 60 * 60 * 24 * 356;
       moment.changeLocale(locale);
       webshim.activeLang(locale);
 
       // save selected locale in cookie
-      document.cookie="language=" + locale + ";" +
-                      // give cookie a lifetime of one year
-                      "max-age=" + 60*60*24*356 + ";";
+      document.cookie = `language=${locale};max-age=${maxAge};`;
     });
   }
 };
 
 function getLocale(availableLocales) {
-  var methods = [
+  const methods = [
     getLocaleFromCookie,
     getLocaleByBrowser
   ];
-  var locale;
+  let locale;
 
   methods.any((method) => {
-    var l = method();
+    let l = method();
     if (l && availableLocales.indexOf(l) !== -1) {
       locale = l;
       return true;
@@ -48,16 +48,16 @@ function getLocale(availableLocales) {
 }
 
 function getLocaleByBrowser() {
-  return (window.navigator.userLanguage || window.navigator.language).split("-")[0];
+  return (window.navigator.userLanguage || window.navigator.language).split('-')[0];
 }
 
 function getLocaleFromCookie() {
-  var language;
+  let language;
 
-  var cookie = document.cookie.replace(" ", "").split(";");
-  cookie.forEach(function(t){
-    var x = t.split("=");
-    if (x[0] === "language") {
+  const cookie = document.cookie.replace(' ', '').split(';');
+  cookie.forEach(function(t) {
+    let x = t.split('=');
+    if (x[0] === 'language') {
       language = x[1];
     }
   });

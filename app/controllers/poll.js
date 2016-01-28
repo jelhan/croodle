@@ -9,8 +9,10 @@ export default Ember.Controller.extend({
 
   dateGroups: function() {
     // group dates only for find a date with times
-    if ( this.get('model.isFindADate') !== true ||
-         this.get('model.isDateTime') !== true ) {
+    if (
+      this.get('model.isFindADate') !== true ||
+      this.get('model.isDateTime') !== true
+    ) {
       return [];
     }
 
@@ -19,8 +21,8 @@ export default Ember.Controller.extend({
 
     let count = 0;
     let lastDate = null;
-    datetimes.forEach(function(el){
-      let date = new Date( el.title );
+    datetimes.forEach(function(el) {
+      let date = new Date(el.title);
       date.setHours(0);
       date.setMinutes(0);
       date.setSeconds(0);
@@ -34,8 +36,8 @@ export default Ember.Controller.extend({
       } else {
         // push last values;
         dateGroups.pushObject({
-          "value": lastDate,
-          "colspan": count
+          'value': lastDate,
+          'colspan': count
         });
 
         // set lastDate to current date and reset count
@@ -44,8 +46,8 @@ export default Ember.Controller.extend({
       }
     });
     dateGroups.pushObject({
-      "value": lastDate,
-      "colspan": count
+      'value': lastDate,
+      'colspan': count
     });
 
     return dateGroups;
@@ -60,7 +62,7 @@ export default Ember.Controller.extend({
 
     // if poll type is find a date
     // we return an empty array
-    if( !this.get('model.isFindADate') ) {
+    if (!this.get('model.isFindADate')) {
       return [];
     }
 
@@ -74,7 +76,7 @@ export default Ember.Controller.extend({
       timezone = this.get('model.timezone');
     }
 
-    dates = this.get('model.options').map(function(option){
+    dates = this.get('model.options').map((option) => {
       let date = moment(option.get('title'));
       if (timezone) {
         date.tz(timezone);

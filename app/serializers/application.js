@@ -1,9 +1,9 @@
-import DS from "ember-data";
-import Ember from "ember";
+import DS from 'ember-data';
+import Ember from 'ember';
 
 /*
  * extends DS.RESTSerializer to implement encryption
- * 
+ *
  * By default every attribute hash is encrypted using SJCL.
  * This is configurable by options parameter of DS.attr().
  *
@@ -20,14 +20,14 @@ export default DS.RESTSerializer.extend({
   /*
    * implement decryption
    */
-  normalize: function(modelClass, resourceHash, prop) {
+  normalize(modelClass, resourceHash, prop) {
 
     // run before serialization of attribute hash
     modelClass.eachAttribute(function(key, attributes) {
       if (
         attributes.options.encrypted !== false
       ) {
-        if (typeof resourceHash[key] !== "undefined" && resourceHash[key] !== null) {
+        if (typeof resourceHash[key] !== 'undefined' && resourceHash[key] !== null) {
           resourceHash[key] = this.get('encryption').decrypt(resourceHash[key]);
         }
       }
@@ -37,14 +37,14 @@ export default DS.RESTSerializer.extend({
     if (typeof this.legacySupport === 'function') {
       resourceHash = this.legacySupport(resourceHash);
     }
-    
+
     return this._super(modelClass, resourceHash, prop);
   },
 
   /*
    * implement encryption
    */
-  serializeAttribute: function(snapshot, json, key, attribute) {
+  serializeAttribute(snapshot, json, key, attribute) {
     this._super(snapshot, json, key, attribute);
 
     // map includePlainOnCreate after serialization of attribute hash

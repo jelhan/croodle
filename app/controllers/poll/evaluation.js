@@ -1,4 +1,4 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Controller.extend({
   dateGroups: Ember.computed.reads('pollController.dateGroups'),
@@ -17,18 +17,18 @@ export default Ember.Controller.extend({
       return [];
     }
 
-    var evaluation = [],
-        options = [],
-        lookup = [];
+    let evaluation = [];
+    let options = [];
+    let lookup = [];
 
     // init options array
-    this.get('model.options').forEach(function(option, index){
+    this.get('model.options').forEach(function(option, index) {
       options[index] = 0;
     });
 
     // init array of evalutation objects
     // create object for every possible answer
-    this.get('model.answers').forEach(function(answer){
+    this.get('model.answers').forEach(function(answer) {
       evaluation.push({
         id: answer.label,
         label: answer.label,
@@ -36,7 +36,7 @@ export default Ember.Controller.extend({
       });
     });
     // create object for no answer if answers are not forced
-    if (!this.get('model.forceAnswer')){
+    if (!this.get('model.forceAnswer')) {
       evaluation.push({
         id: null,
         label: 'no answer',
@@ -45,27 +45,26 @@ export default Ember.Controller.extend({
     }
 
     // create lookup array
-    evaluation.forEach(function(value, index){
+    evaluation.forEach(function(value, index) {
       lookup[value.id] = index;
     });
 
     // loop over all users
-    this.get('model.users').forEach(function(user){
+    this.get('model.users').forEach(function(user) {
       // loop over all selections of the user
-      user.get('selections').forEach(function(selection, optionindex){
-        var answerindex;
+      user.get('selections').forEach(function(selection, optionindex) {
+        let answerindex;
 
         // get answer index by lookup array
         if (typeof lookup[selection.value.label] === 'undefined') {
           answerindex = lookup[null];
-        }
-        else {
+        } else {
           answerindex = lookup[selection.value.label];
         }
 
         // increment counter
         try {
-          evaluation[answerindex]['options'][optionindex] = evaluation[answerindex]['options'][optionindex] + 1;
+          evaluation[answerindex].options[optionindex] = evaluation[answerindex].options[optionindex] + 1;
         } catch (e) {
           // ToDo: Throw an error
         }
@@ -79,21 +78,20 @@ export default Ember.Controller.extend({
    * calculate colspan for a row which should use all columns in table
    * used by evaluation row
    */
-  fullRowColspan: function(){
+  fullRowColspan: Ember.computed('model.options.@each', function() {
     return this.get('model.options.length') + 2;
-  }.property('model.options.@each'),
+  }),
 
-  isEvaluable: function() {
-    if(
+  isEvaluable: Ember.computed('model.users.@each', 'model.isFreeText', function() {
+    if (
       !this.get('model.isFreeText') &&
       this.get('model.users.length') > 0
     ) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
-  }.property('model.users.@each', 'model.isFreeText'),
+  }),
 
   optionCount: function() {
     return this.get('model.options.length');

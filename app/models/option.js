@@ -5,7 +5,7 @@ import {
 from 'ember-cp-validations';
 /* global MF */
 
-var Validations = buildValidations({
+const Validations = buildValidations({
   title: [
     validator('iso8601-date', {
       active() {

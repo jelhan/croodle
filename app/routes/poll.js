@@ -1,8 +1,8 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
   actions: {
-    error: function(error) {
+    error(error) {
       if (error && error.status === 404) {
         return this.transitionTo('404');
       }
@@ -13,15 +13,19 @@ export default Ember.Route.extend({
 
   encryption: Ember.inject.service(),
 
-  model: function(params) {
+  model(params) {
     // get encryption key from query parameter in singleton
     // before it's used by serializer to decrypt payload
     this.set('encryption.key', params.encryptionKey);
 
-    return this.store.find('poll', params.poll_id);
+    return this.store.find('poll', params.pollId);
   },
 
   redirect(poll) {
-    this.transitionTo('poll.participation', poll, {queryParams: {encryptionKey: this.get('encryption.key')}});
+    this.transitionTo('poll.participation', poll, {
+      queryParams: {
+        encryptionKey: this.get('encryption.key')
+      }
+    });
   }
 });

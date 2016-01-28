@@ -4,7 +4,7 @@ import moment from 'moment';
 
 export default BaseValidator.extend({
   validate(value, options) {
-    var valid;
+    let valid;
 
     if (typeof options !== 'object') {
       options = {};

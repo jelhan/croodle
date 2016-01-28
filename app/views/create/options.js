@@ -1,8 +1,8 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.View.extend({
   actions: {
-    moreOptions: function(){
+    moreOptions() {
       // create new Option
       this.get('controller.optionsTexts').pushObject({
         'value': ''

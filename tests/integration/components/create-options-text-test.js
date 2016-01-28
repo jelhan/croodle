@@ -27,7 +27,9 @@ test('generates input fields according options', function(assert) {
     'correct amount of input fields'
   );
   assert.deepEqual(
-    this.$('input').map(function() { return $(this).val(); }).get(),
+    this.$('input').map(function() {
+      return $(this).val();
+    }).get(),
     ['foo', 'bar', 'baz'],
     'input fields have correct values and order'
   );
@@ -98,7 +100,9 @@ test('allows to add another option', function(assert) {
     'another input field is added'
   );
   assert.deepEqual(
-    this.$('input').map(function() { return $(this).val(); }).get(),
+    this.$('input').map(function() {
+      return $(this).val();
+    }).get(),
     ['foo', '', 'bar'],
     'it is added at correct position'
   );
@@ -137,7 +141,9 @@ test('allows to delete an option', function(assert) {
       'one input field is deleted'
     );
     assert.deepEqual(
-      this.$('input').map(function() { return $(this).val(); }).get(),
+      this.$('input').map(function() {
+        return $(this).val();
+      }).get(),
       ['foo', 'baz'],
       'correct input field is deleted'
     );

@@ -23,7 +23,7 @@ const TranslateableObject = Ember.Object.extend({
 
 export default Ember.Controller.extend(Validations, {
   actions: {
-    submit: function() {
+    submit() {
       if (this.get('validations.isValid')) {
         this.transitionToRoute('create.meta');
       }
@@ -34,20 +34,20 @@ export default Ember.Controller.extend(Validations, {
 
   pollType: Ember.computed.alias('model.pollType'),
 
-  pollTypes: function(){
-    var container = this.get('container');
+  pollTypes: Ember.computed('', function() {
+    const container = this.get('container');
 
     return [
       TranslateableObject.create({
-        id : "FindADate",
-        labelTranslation : "pollTypes.findADate.label",
+        id: 'FindADate',
+        labelTranslation: 'pollTypes.findADate.label',
         container
       }),
       TranslateableObject.create({
-        id : "MakeAPoll",
-        labelTranslation : "pollTypes.makeAPoll.label",
+        id: 'MakeAPoll',
+        labelTranslation: 'pollTypes.makeAPoll.label',
         container
       })
     ];
-  }.property()
+  })
 });

@@ -56,7 +56,9 @@ test('option.active disables validation on false', function(assert) {
 test('option.active could be a function', function(assert) {
   let validator = this.subject();
   validator.buildOptions({
-    active() { return false; }
+    active() {
+      return false;
+    }
   }, {});
   assert.ok(
     validator.validate(null),

@@ -6,14 +6,13 @@ export default BaseValidator.extend({
       return true;
     }
 
-    var valid = value.every((element) => {
+    const valid = value.every((element) => {
       return element.get('validations.isValid');
     });
 
     if (valid) {
       return true;
-    }
-    else {
+    } else {
       return this.createErrorMessage('validCollection', options, value);
     }
   }

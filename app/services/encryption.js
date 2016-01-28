@@ -22,7 +22,7 @@ export default Ember.Service.extend({
   },
 
   generateKey() {
-    var passphraseLength = 40;
+    const passphraseLength = 40;
     this.set('key', generatePassphrase(passphraseLength));
   },
 

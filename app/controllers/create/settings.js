@@ -32,8 +32,8 @@ export default Ember.Controller.extend(Validations, {
         this.get('model').save().then((model) => {
           // reload as workaround for bug: duplicated records after save
           model.reload().then((model) => {
-             // redirect to new poll
-             this.get('target').send('transitionToPoll', model);
+            // redirect to new poll
+            this.get('target').send('transitionToPoll', model);
           });
         });
       }
@@ -44,53 +44,53 @@ export default Ember.Controller.extend(Validations, {
   answerType: Ember.computed.alias('model.answerType'),
 
   answerTypes: Ember.computed('', function() {
-    var container = this.get('container');
+    const container = this.get('container');
 
     return [
       TranslateableObject.create({
-          id : 'YesNo',
-          labelTranslation : 'answerTypes.yesNo.label',
-          answers : [
-                  this.store.createFragment('answer', {
-                    type: 'yes',
-                    labelTranslation: 'answerTypes.yes.label',
-                    icon: 'glyphicon glyphicon-thumbs-up'
-                  }),
-                  this.store.createFragment('answer', {
-                    type: 'no',
-                    labelTranslation: 'answerTypes.no.label',
-                    icon: 'glyphicon glyphicon-thumbs-down'
-                  })
-              ],
-          container
+        id: 'YesNo',
+        labelTranslation: 'answerTypes.yesNo.label',
+        answers: [
+                this.store.createFragment('answer', {
+                  type: 'yes',
+                  labelTranslation: 'answerTypes.yes.label',
+                  icon: 'glyphicon glyphicon-thumbs-up'
+                }),
+                this.store.createFragment('answer', {
+                  type: 'no',
+                  labelTranslation: 'answerTypes.no.label',
+                  icon: 'glyphicon glyphicon-thumbs-down'
+                })
+            ],
+        container
       }),
       TranslateableObject.create({
-          id : 'YesNoMaybe',
-          labelTranslation : 'answerTypes.yesNoMaybe.label',
-          answers : [
-                  this.store.createFragment('answer', {
-                    type: 'yes',
-                    labelTranslation: 'answerTypes.yes.label',
-                    icon: 'glyphicon glyphicon-thumbs-up'
-                  }),
-                  this.store.createFragment('answer', {
-                    type: 'maybe',
-                    labelTranslation: 'answerTypes.maybe.label',
-                    icon: 'glyphicon glyphicon-hand-right'
-                  }),
-                  this.store.createFragment('answer', {
-                    type: 'no',
-                    labelTranslation: 'answerTypes.no.label',
-                    icon: 'glyphicon glyphicon-thumbs-down'
-                  })
-              ],
-          container
+        id: 'YesNoMaybe',
+        labelTranslation: 'answerTypes.yesNoMaybe.label',
+        answers: [
+                this.store.createFragment('answer', {
+                  type: 'yes',
+                  labelTranslation: 'answerTypes.yes.label',
+                  icon: 'glyphicon glyphicon-thumbs-up'
+                }),
+                this.store.createFragment('answer', {
+                  type: 'maybe',
+                  labelTranslation: 'answerTypes.maybe.label',
+                  icon: 'glyphicon glyphicon-hand-right'
+                }),
+                this.store.createFragment('answer', {
+                  type: 'no',
+                  labelTranslation: 'answerTypes.no.label',
+                  icon: 'glyphicon glyphicon-thumbs-down'
+                })
+            ],
+        container
       }),
       TranslateableObject.create({
-          id : 'FreeText',
-          labelTranslation : 'answerTypes.freeText.label',
-          answers : [],
-          container
+        id: 'FreeText',
+        labelTranslation: 'answerTypes.freeText.label',
+        answers: [],
+        container
       })
     ];
   }),
@@ -98,7 +98,7 @@ export default Ember.Controller.extend(Validations, {
   expirationDuration: 'P3M',
 
   expirationDurations: Ember.computed('', function() {
-    var container = this.get('container');
+    const container = this.get('container');
 
     return [
       TranslateableObject.create({
@@ -140,14 +140,14 @@ export default Ember.Controller.extend(Validations, {
    * set answers depending on selected answer type
    */
   updateAnswers: Ember.observer('model.answerType', function() {
-    var selectedAnswer = this.get('model.answerType'),
-        answers = [],
-        answerTypes = this.get('answerTypes');
+    const selectedAnswer = this.get('model.answerType');
+    const answerTypes = this.get('answerTypes');
+    let answers = [];
 
     if (selectedAnswer !== null) {
-      for (var i=0; i < answerTypes.length; i++) {
+      for (let i = 0; i < answerTypes.length; i++) {
         if (answerTypes[i].id === selectedAnswer) {
-            answers = answerTypes[i].answers.map(Ember.copy);
+          answers = answerTypes[i].answers.map(Ember.copy);
         }
       }
 
@@ -156,12 +156,11 @@ export default Ember.Controller.extend(Validations, {
   }),
 
   updateExpirationDate: Ember.observer('expirationDuration', function() {
-    var expirationDuration = this.get('expirationDuration');
+    const expirationDuration = this.get('expirationDuration');
 
-    if(Ember.isEmpty(expirationDuration)) {
+    if (Ember.isEmpty(expirationDuration)) {
       this.set('model.expirationDate', '');
-    }
-    else {
+    } else {
       this.set('model.expirationDate',
         moment().add(
           moment.duration(expirationDuration)

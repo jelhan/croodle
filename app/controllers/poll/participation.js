@@ -1,24 +1,23 @@
-import Ember from "ember";
+import Ember from 'ember';
 import {
     validator, buildValidations
 }
 from 'ember-cp-validations';
 import moment from 'moment';
 
-var validCollection = function(collection) {
+const validCollection = function(collection) {
   // return false if any object in collection is inValid
   return !collection.any((object) => {
     return object.get('validations.isInvalid');
   });
 };
-var Validations = buildValidations({
+const Validations = buildValidations({
   name: validator('presence', {
     presence() {
       // only force presence if anonymousUser poll setting is false
       if (!this.get('model.anonymousUser')) {
         return true;
-      }
-      else {
+      } else {
         // disable presence validation
         return null;
       }
@@ -37,7 +36,7 @@ var Validations = buildValidations({
   ]
 });
 
-var SelectionValidations = buildValidations({
+const SelectionValidations = buildValidations({
   value: validator('presence', {
     presence() {
       // only force present value if forceAnswer is true in poll settings
@@ -53,15 +52,15 @@ export default Ember.Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
-        var user = this.store.createRecord('user', {
+        const user = this.store.createRecord('user', {
           creationDate: new Date(),
           name: this.get('name'),
           poll: this.get('pollController.model'),
           version: this.buildInfo.semver
         });
 
-        var selections = user.get('selections'),
-            possibleAnswers = this.get('pollController.model.answers');
+        const selections = user.get('selections');
+        const possibleAnswers = this.get('pollController.model.answers');
 
         this.get('selections').forEach((selection) => {
           if (selection.get('value') !== null) {
@@ -69,9 +68,8 @@ export default Ember.Controller.extend(Validations, {
               selections.createFragment({
                 label: selection.get('value')
               });
-            }
-            else {
-              var answer = possibleAnswers.findBy('type', selection.get('value'));
+            } else {
+              const answer = possibleAnswers.findBy('type', selection.get('value'));
               selections.createFragment({
                 icon: answer.get('icon'),
                 label: answer.get('label'),
@@ -79,8 +77,7 @@ export default Ember.Controller.extend(Validations, {
                 type: answer.get('type')
               });
             }
-          }
-          else {
+          } else {
             selections.createFragment();
           }
         });
@@ -124,7 +121,7 @@ export default Ember.Controller.extend(Validations, {
 
   possibleAnswers: Ember.computed('pollController.model.answers', function() {
     return this.get('pollController.model.answers').map((answer) => {
-      var container = this.get('container');
+      const container = this.get('container');
 
       const AnswerObject = Ember.Object.extend({
         icon: answer.get('icon'),
@@ -138,7 +135,7 @@ export default Ember.Controller.extend(Validations, {
           label: Ember.computed('i18n.locale', function() {
             return this.get('i18n').t(this.get('labelTranslation'));
           }),
-          labelTranslation: answer.get('labelTranslation'),
+          labelTranslation: answer.get('labelTranslation')
         }).create();
       } else {
         return AnswerObject.extend({
@@ -149,16 +146,15 @@ export default Ember.Controller.extend(Validations, {
   }),
 
   selections: Ember.computed('pollController.model.options', 'pollController.dates', function() {
-    var options,
-        isFindADate = this.get('isFindADate'),
-        isDateTime = this.get('isDateTime'),
-        dateFormat,
-        lastDate;
+    let options;
+    const isFindADate = this.get('isFindADate');
+    const isDateTime = this.get('isDateTime');
+    let dateFormat;
+    let lastDate;
 
     if (this.get('isFindADate')) {
       options = this.get('pollController.dates');
-    }
-    else {
+    } else {
       options = this.get('pollController.model.options');
     }
 
@@ -174,8 +170,8 @@ export default Ember.Controller.extend(Validations, {
     }
 
     return options.map((option) => {
-      var labelFormat,
-          labelValue;
+      let labelFormat;
+      let labelValue;
 
       // format label
       if (isFindADate) {
@@ -188,8 +184,7 @@ export default Ember.Controller.extend(Validations, {
           labelFormat = dateFormat;
           lastDate = option.title;
         }
-      }
-      else {
+      } else {
         labelValue = option.get('title');
         labelFormat = false;
       }
@@ -197,7 +192,7 @@ export default Ember.Controller.extend(Validations, {
       // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
       // To lookup validators, container access is required which can cause an issue with Ember.Object creation
       // if the object is statically imported. The current fix for this is as follows.
-      var container = this.get('container');
+      const container = this.get('container');
       return Ember.Object.extend(SelectionValidations, {
         container,
 
@@ -220,8 +215,8 @@ export default Ember.Controller.extend(Validations, {
             return this.get('labelValue').locale(this.get('i18n.locale')).format(this.get('labelFormat'));
           }
         }),
-        labelFormat: labelFormat,
-        labelValue: labelValue,
+        labelFormat,
+        labelValue,
         i18n: Ember.inject.service(),
         value: null
       }).create();

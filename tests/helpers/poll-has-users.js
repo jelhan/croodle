@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default function() {
+const helpers = function() {
   Ember.Test.registerHelper('pollHasUser', function(app, assert, name, selections) {
     let elBase;
     find('.user').each((index, el) => {
@@ -31,4 +31,6 @@ export default function() {
       message
     );
   });
-}()
+};
+
+export default helpers();

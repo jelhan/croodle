@@ -51,7 +51,7 @@ test('options get set correctly by optionsBootstrapDatepicker (used by ember-cli
       Ember.isArray(
         controller.get('options')
       ),
-      "options is still an array"
+      'options is still an array'
     );
     assert.equal(
       controller.get('options.length'),
