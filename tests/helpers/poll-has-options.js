@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Test.registerHelper('pollHasOptions', function(app, assert, expectedOptions) {
-  var elBase = find('.participation .selections');
+  const elBase = find('.participation .selections');
 
   assert.equal(
     find('.form-group', elBase).length,

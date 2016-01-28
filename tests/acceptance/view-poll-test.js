@@ -75,9 +75,9 @@ test('view a poll with dates', function(assert) {
 });
 
 test('view a poll with dates and times', function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789',
-      timezone = jstz.determine().name();
+  const id = 'test';
+  const encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const timezone = jstz.determine().name();
 
   server.get(`/polls/${id}`, function() {
     return serverGetPolls(
