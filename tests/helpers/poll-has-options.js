@@ -11,9 +11,9 @@ export default Ember.Test.registerHelper('pollHasOptions', function(app, assert,
 
   expectedOptions.forEach((option, index) => {
     assert.equal(
-      find('.form-group:nth-child(' + (index + 1) + ') label.control-label', elBase).text().trim(),
+      find(`.form-group:nth-child(${index + 1}) label.control-label`, elBase).text().trim(),
       option,
-      'poll option ' + index + ' is as expected'
+      `poll option ${index} is as expected`
     );
   });
 });
