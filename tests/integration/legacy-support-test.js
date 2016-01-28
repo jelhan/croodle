@@ -6,19 +6,19 @@ import startApp from 'croodle/tests/helpers/start-app';
 let application;
 
 module('Integration | legacy support', {
-  beforeEach: function() {
+  beforeEach() {
     application = startApp();
   },
 
-  afterEach: function() {
+  afterEach() {
     Ember.run(application, 'destroy');
   }
 });
 
 test('show a default poll created with v0.3.0', function(assert) {
-  var id = 'JlHpRs0Pzi',
-      encryptionKey = '5MKFuNTKILUXw6RuqkAw6ooZw4k3mWWx98ZQw8vH',
-      timezone = 'Europe/Berlin';
+  const id = 'JlHpRs0Pzi';
+  const encryptionKey = '5MKFuNTKILUXw6RuqkAw6ooZw4k3mWWx98ZQw8vH';
+  const timezone = 'Europe/Berlin';
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
@@ -84,8 +84,8 @@ test('show a default poll created with v0.3.0', function(assert) {
 });
 
 test('find a poll using free text created with v0.3.0', function(assert) {
-  var id = 'PjW3XwbuRc',
-      encryptionKey = 'Rre6dAGOYLW9gYKOP4LhX7Qwfhe5Th3je0uKDtyy';
+  const id = 'PjW3XwbuRc';
+  const encryptionKey = 'Rre6dAGOYLW9gYKOP4LhX7Qwfhe5Th3je0uKDtyy';
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 

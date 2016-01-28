@@ -8,9 +8,9 @@ moduleFor('service:i18n', 'Integration | translations', {
 
 // Replace this with your real tests.
 test('configuration is correct', function(assert) {
-  const i18n = this.subject(),
-        locales = i18n.get('locales'),
-        defaultLocale = config.i18n.defaultLocale;
+  const i18n = this.subject();
+  const locales = i18n.get('locales');
+  const { defaultLocale } = config.i18n;
 
   assert.ok(defaultLocale, 'default locale is set');
   assert.ok(locales, 'there are locales');
@@ -18,10 +18,10 @@ test('configuration is correct', function(assert) {
 });
 
 test('all locales have same amount of translation strings as default locale', function(assert) {
-  const i18n = this.subject(),
-        locales = i18n.get('locales'),
-        defaultLocale = config.i18n.defaultLocale,
-        defaultTranslations = new LocaleHelper(defaultLocale, i18n.get('container')).translations;
+  const i18n = this.subject();
+  const locales = i18n.get('locales');
+  const { defaultLocale } = config.i18n;
+  const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, i18n.get('container'));
 
   assert.expect((locales.length - 1) * 2);
 
@@ -29,25 +29,25 @@ test('all locales have same amount of translation strings as default locale', fu
     if (locale === defaultLocale) {
       return;
     }
-    var translations = new LocaleHelper(locale, i18n.get('container')).translations;
-    assert.ok(translations, 'could retrive locale ' + locale);
+    const { translations } = new LocaleHelper(locale, i18n.get('container'));
+    assert.ok(translations, `could retrive locale ${locale}`);
     assert.equal(
       Object.keys(translations).length,
       Object.keys(defaultTranslations).length,
-      'correct amount of translations for locale ' + locale
+      `correct amount of translations for locale ${locale}`
     );
   });
 });
 
 test('all locales have same translation strings as default locale', function(assert) {
-  const i18n = this.subject(),
-        locales = i18n.get('locales'),
-        defaultLocale = config.i18n.defaultLocale,
-        defaultTranslations = new LocaleHelper(defaultLocale, i18n.get('container')).translations;
+  const i18n = this.subject();
+  const locales = i18n.get('locales');
+  const { defaultLocale } = config.i18n;
+  const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, i18n.get('container'));
 
   assert.expect(
     // count of non default locales * translation strings of default locale
-    ( locales.length - 1 ) * Object.keys(defaultTranslations).length
+    (locales.length - 1) * Object.keys(defaultTranslations).length
   );
 
   Object.keys(defaultTranslations).map((translationString) => {
@@ -59,7 +59,7 @@ test('all locales have same translation strings as default locale', function(ass
       i18n.set('locale', locale);
       assert.ok(
         i18n.exists(translationString),
-        'translation for ' + translationString + ' exists in locale ' + locale
+        `translation for ${translationString} exists in locale ${locale}`
       );
     });
   });

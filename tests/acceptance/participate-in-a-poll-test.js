@@ -116,8 +116,8 @@ test('participate in a poll which does not force an answer to all options', func
 
     andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
-      pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, "Karl Käfer", [t("answerTypes.yes.label"), ""]);
+      pollHasUsersCount(assert, 1, 'user is added to user selections table');
+      pollHasUser(assert, 'Karl Käfer', [t('answerTypes.yes.label'), '']);
     });
   });
 });
@@ -148,8 +148,8 @@ test('participate in a poll which allows anonymous participation', function(asse
 
     andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
-      pollHasUsersCount(assert, 1, "user is added to user selections table");
-      pollHasUser(assert, "", [t("answerTypes.yes.label"), t("answerTypes.no.label")]);
+      pollHasUsersCount(assert, 1, 'user is added to user selections table');
+      pollHasUser(assert, '', [t('answerTypes.yes.label'), t('answerTypes.no.label')]);
     });
   });
 });

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Test.registerAsyncHelper('selectDates', function(app, datepickerElement, dates) {
-  var normalizedDates = dates.map((date) => {
+  const normalizedDates = dates.map((date) => {
     if (typeof date.toDate === 'function') {
       date = date.toDate();
     }

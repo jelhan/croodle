@@ -1,32 +1,32 @@
-import Ember from "ember";
+import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import moment from 'moment';
 /* jshint proto: true */
 
-var application;
+let application;
 
 module('Integration', {
-  beforeEach: function() {
+  beforeEach() {
     application = startApp();
     moment.locale(
       application.__container__.lookup('service:i18n').get('locale')
     );
   },
-  afterEach: function() {
+  afterEach() {
     Ember.run(application, 'destroy');
   }
 });
 
-test("create a default poll and participate", function(assert) {
-  var dates =
+test('create a default poll and participate', function(assert) {
+  const dates =
     [
       moment().add(1, 'day'),
       moment().add(1, 'week'),
       moment().add(1, 'month')
     ];
 
-  var formattedDates =
+  const formattedDates =
     dates.map((date) => {
       return date.format(
         moment.localeData().longDateFormat('LLLL')
@@ -39,25 +39,25 @@ test("create a default poll and participate", function(assert) {
   visit('/create').then(function() {
     click('button[type="submit"]');
 
-    andThen(function(){
+    andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
       fillIn('.title input', 'default poll');
       click('button[type="submit"]');
 
-      andThen(function(){
+      andThen(function() {
         assert.equal(currentPath(), 'create.options');
 
         selectDates('#datepicker .ember-view', dates);
 
         click('button[type="submit"]');
 
-        andThen(function(){
+        andThen(function() {
           assert.equal(currentPath(), 'create.settings');
 
           click('button[type="submit"]');
 
-          andThen(function(){
+          andThen(function() {
             assert.equal(currentPath(), 'poll.participation');
 
             pollTitleEqual(assert, 'default poll');
@@ -65,7 +65,7 @@ test("create a default poll and participate", function(assert) {
             pollHasOptions(assert, formattedDates);
             pollHasUsersCount(assert, 0);
             pollParticipate('Max Hoelz', ['no', 'no', 'yes']);
-            andThen(function(){
+            andThen(function() {
               assert.equal(currentPath(), 'poll.evaluation');
               pollHasUsersCount(assert, 1);
               pollHasUser(

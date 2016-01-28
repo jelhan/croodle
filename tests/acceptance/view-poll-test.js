@@ -89,7 +89,7 @@ test('view a poll with dates and times', function(assert) {
           { title: '2015-12-12T13:13:00.000Z' },
           { title: '2016-01-01T11:11:00.000Z' }
         ],
-        timezone: timezone
+        timezone
       }, encryptionKey
     );
   });
@@ -107,15 +107,14 @@ test('view a poll with dates and times', function(assert) {
 });
 
 test('view a poll while timezone differs from the one poll got created in and choose local timezone', function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789',
-      timezoneLocal = jstz.determine().name(),
-      timezonePoll;
+  const id = 'test';
+  const encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const timezoneLocal = jstz.determine().name();
+  let timezonePoll;
 
-  if(timezoneLocal !== 'America/Caracas') {
+  if (timezoneLocal !== 'America/Caracas') {
     timezonePoll = 'America/Caracas';
-  }
-  else {
+  } else {
     timezonePoll = 'Europe/Moscow';
   }
 
@@ -135,7 +134,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     stop();
-    Ember.run.later(function(){
+    Ember.run.later(function() {
       start();
 
       assert.equal(
@@ -153,7 +152,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
         ]);
 
         stop();
-        Ember.run.later(function(){
+        Ember.run.later(function() {
           start();
 
           assert.equal(
@@ -168,15 +167,14 @@ test('view a poll while timezone differs from the one poll got created in and ch
 });
 
 test('view a poll while timezone differs from the one poll got created in and choose poll timezone', function(assert) {
-  var id = 'test',
-      encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789',
-      timezoneLocal = jstz.determine().name(),
-      timezonePoll;
+  const id = 'test';
+  const encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const timezoneLocal = jstz.determine().name();
+  let timezonePoll;
 
-  if(timezoneLocal !== 'America/Caracas') {
+  if (timezoneLocal !== 'America/Caracas') {
     timezonePoll = 'America/Caracas';
-  }
-  else {
+  } else {
     timezonePoll = 'Europe/Moscow';
   }
 
@@ -196,7 +194,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
     stop();
-    Ember.run.later(function(){
+    Ember.run.later(function() {
       start();
 
       assert.equal(
@@ -214,7 +212,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
         ]);
 
         stop();
-        Ember.run.later(function(){
+        Ember.run.later(function() {
           start();
 
           assert.equal(
