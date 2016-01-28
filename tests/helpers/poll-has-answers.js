@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Test.registerHelper('pollHasAnswers', function(app, assert, answers) {
-  var elBase = find('.participation .selections .form-group')[0];
+  const elBase = find('.participation .selections .form-group')[0];
   assert.equal(
     find('.radio label', elBase).length,
     answers.length,

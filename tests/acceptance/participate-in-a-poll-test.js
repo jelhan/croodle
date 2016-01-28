@@ -47,11 +47,11 @@ test('participate in a default poll', function(assert) {
     andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
       assert.equal(
-        currentURL().split("?")[1],
+        currentURL().split('?')[1],
         `encryptionKey=${encryptionKey}`,
         'encryption key is part of query params'
       );
-      pollHasUsersCount(assert, 1, "user is added to user selections table");
+      pollHasUsersCount(assert, 1, 'user is added to user selections table');
       pollHasUser(assert, 'Max Meiner', [t('answerTypes.yes.label'), t('answerTypes.no.label')]);
     });
   });
@@ -84,7 +84,7 @@ test('participate in a poll using freetext', function(assert) {
 
     andThen(function() {
       assert.equal(currentPath(), 'poll.evaluation');
-      pollHasUsersCount(assert, 1, "user is added to user selections table");
+      pollHasUsersCount(assert, 1, 'user is added to user selections table');
       pollHasUser(assert, 'Max Manus', ['answer 1', 'answer 2']);
     });
   });

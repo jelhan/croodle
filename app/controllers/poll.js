@@ -1,5 +1,5 @@
-import Ember from "ember";
-import moment from "moment";
+import Ember from 'ember';
+import moment from 'moment';
 /* global jstz */
 
 export default Ember.Controller.extend({
@@ -14,14 +14,13 @@ export default Ember.Controller.extend({
       return [];
     }
 
-    var datetimes = this.get('dates'),
-        dateGroups = [];
+    const datetimes = this.get('dates');
+    let dateGroups = [];
 
-    var count = 0,
-        lastDate = null;
+    let count = 0;
+    let lastDate = null;
     datetimes.forEach(function(el){
-      var date;
-      date = new Date( el.title );
+      let date = new Date( el.title );
       date.setHours(0);
       date.setMinutes(0);
       date.setSeconds(0);
@@ -32,8 +31,7 @@ export default Ember.Controller.extend({
 
       if (date.getTime() === lastDate.getTime()) {
         count++;
-      }
-      else {
+      } else {
         // push last values;
         dateGroups.pushObject({
           "value": lastDate,
@@ -57,8 +55,8 @@ export default Ember.Controller.extend({
    * handles options if they are dates
    */
   dates: function() {
-    var timezone = false,
-        dates = [];
+    let timezone = false;
+    let dates = [];
 
     // if poll type is find a date
     // we return an empty array
@@ -77,7 +75,7 @@ export default Ember.Controller.extend({
     }
 
     dates = this.get('model.options').map(function(option){
-      var date = moment(option.get('title'));
+      let date = moment(option.get('title'));
       if (timezone) {
         date.tz(timezone);
       }
