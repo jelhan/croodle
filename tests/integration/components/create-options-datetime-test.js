@@ -25,7 +25,7 @@ test('it generates inpute field for options iso 8601 date string (without time)'
   );
 });
 
-test('it generates inpute field for options iso 8601 date string (without time)', function(assert) {
+test('it generates inpute field for options iso 8601 datetime string (with time)', function(assert) {
   this.set('options', [
     Ember.Object.create({ title: '2015-01-01T11:11:00.000Z' })
   ]);
