@@ -7,6 +7,13 @@ moduleForComponent('create-options-datetime', 'Integration | Component | create 
   integration: true
 });
 
+/*
+ * watch out:
+ * polyfill adds another input[type="text"] for every input[type="time"]
+ * if browser doesn't support input[type="time"]
+ * that ones could be identifed by class 'ws-inputreplace'
+ */
+
 test('it generates inpute field for options iso 8601 date string (without time)', function(assert) {
   this.set('options', [
     Ember.Object.create({ title: '2015-01-01' })
@@ -14,12 +21,12 @@ test('it generates inpute field for options iso 8601 date string (without time)'
   this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
-    this.$('.form-group input').length,
+    this.$('.form-group input:not(.ws-inputreplace)').length,
     1,
     'there is one input field'
   );
   assert.equal(
-    this.$('.form-group input').val(),
+    this.$('.form-group input:not(.ws-inputreplace)').val(),
     '',
     'value is an empty string'
   );
@@ -32,12 +39,12 @@ test('it generates inpute field for options iso 8601 datetime string (with time)
   this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
-    this.$('.form-group input').length,
+    this.$('.form-group input:not(.ws-inputreplace)').length,
     1,
     'there is one input field'
   );
   assert.equal(
-    this.$('.form-group input').val(),
+    this.$('.form-group input:not(.ws-inputreplace)').val(),
     moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
     'it has time in option as value'
   );
@@ -57,17 +64,17 @@ test('it groups input fields per date', function(assert) {
     'there are two form groups for the two different dates'
   );
   assert.equal(
-    this.$('.grouped-input').eq(0).find('input').length,
+    this.$('.grouped-input').eq(0).find('input:not(.ws-inputreplace)').length,
     2,
     'the first form group has two input fields for two different times'
   );
   assert.equal(
-    this.$('.grouped-input').eq(0).find('input').length,
+    this.$('.grouped-input').eq(0).find('input:not(.ws-inputreplace)').length,
     2,
     'the first form group with two differnt times for one day has two input fields'
   );
   assert.equal(
-    this.$('.grouped-input').eq(1).find('input').length,
+    this.$('.grouped-input').eq(1).find('input:not(.ws-inputreplace)').length,
     1,
     'the second form group without time has only one input field'
   );
@@ -81,18 +88,18 @@ test('allows to add another option', function(assert) {
   this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
-    this.$('input').length,
+    this.$('input:not(.ws-inputreplace)').length,
     2,
     'there are two input fields before'
   );
   this.$('.grouped-input').eq(0).find('.add').click();
   assert.equal(
-    this.$('input').length,
+    this.$('input:not(.ws-inputreplace)').length,
     3,
     'another input field is added'
   );
   assert.equal(
-    this.$('.grouped-input').eq(0).find('input').length,
+    this.$('.grouped-input').eq(0).find('input:not(.ws-inputreplace)').length,
     2,
     'it is added in correct date input'
   );
@@ -106,7 +113,7 @@ test('allows to delete an option', function(assert) {
   this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
-    this.$('.grouped-input input').length,
+    this.$('.grouped-input input:not(.ws-inputreplace)').length,
     2,
     'there are two input fields before'
   );
@@ -119,12 +126,12 @@ test('allows to delete an option', function(assert) {
   this.$('.form-group').eq(0).find('.delete').click();
   Ember.run(() => {
     assert.equal(
-      this.$('input').length,
+      this.$('input:not(.ws-inputreplace)').length,
       1,
       'one input field is removed after deletion'
     );
     assert.equal(
-      this.$('.grouped-input input').val(),
+      this.$('.grouped-input input:not(.ws-inputreplace)').val(),
       '22:22',
       'correct input field is deleted'
     );
