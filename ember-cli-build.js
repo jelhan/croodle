@@ -8,6 +8,10 @@ module.exports = function(defaults) {
   var trees = [];
 
   var app = new EmberApp({
+    babel: {
+      optional: ['es6.spec.symbols'],
+      includePolyfill: true
+    },
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
     }
