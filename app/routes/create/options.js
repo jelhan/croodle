@@ -1,12 +1,12 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(){
+  model() {
     return this.modelFor('create');
   },
 
   // redirect to create/meta if title is not set
-  afterModel: function(create){
+  afterModel(create) {
     if (Ember.isEmpty(create.get('title'))) {
       this.transitionTo('create.meta');
     }

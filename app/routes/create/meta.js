@@ -1,12 +1,12 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(){
+  model() {
     return this.modelFor('create');
   },
 
   // redirect to create/index if poll type is not set
-  afterModel: function(create){
+  afterModel(create) {
     if (create.get('pollType') === null) {
       this.transitionTo('create.index');
     }
