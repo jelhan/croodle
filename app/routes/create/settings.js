@@ -1,19 +1,17 @@
-import Ember from "ember";
+import Ember from 'ember';
 
 export default Ember.Route.extend({
-  model: function(){
+  model() {
     return this.modelFor('create');
   },
 
   // redirect to create/options if not enough options are defined
-  afterModel: function(create){
-    var self = this;
-    
+  afterModel(create) {
     // check if only default options are defined
     if (create.get('options.length') === 2) {
-      create.get('options').forEach(function(option) {
+      create.get('options').forEach((option) => {
         if (option.title === '') {
-          self.transitionTo('create.options');
+          this.transitionTo('create.options');
         }
       });
     }

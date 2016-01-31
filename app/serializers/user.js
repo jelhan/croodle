@@ -2,7 +2,7 @@ import ApplicationAdapter from './application';
 import Ember from 'ember';
 
 export default ApplicationAdapter.extend({
-  legacySupport: function(resourceHash) {
+  legacySupport(resourceHash) {
     /*
      * Croodle <= 0.3.0:
      * * for answer type "freetext":
@@ -27,7 +27,7 @@ export default ApplicationAdapter.extend({
         }
       });
     }
-    
+
     return resourceHash;
   }
 });
