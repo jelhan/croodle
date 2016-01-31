@@ -81,7 +81,7 @@ test('validation for FindADate and isDateTime', function(assert) {
       'default value is not valid'
     );
     Ember.run(() => {
-      option.set('title', '1945-05-08T00:00:00Z');
+      option.set('title', '1945-05-08T00:00:00.000Z');
     });
     assert.ok(
       option.get('validations.isValid'),

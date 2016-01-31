@@ -7,8 +7,8 @@ moduleFor('validator:time', 'Unit | Validator | time', {
 test('HH:mm is treated as valid', function(assert) {
   let validator = this.subject();
 
-  assert.ok(validator.validate('00:00'));
-  assert.ok(validator.validate('23:59'));
+  assert.equal(validator.validate('00:00'), true);
+  assert.equal(validator.validate('23:59'), true);
 });
 
 test('24:00 is invalid', function(assert) {
@@ -44,5 +44,5 @@ test('undefined is invalid', function(assert) {
 test('a valid time wrapped by spaces is valid', function(assert) {
   let validator = this.subject();
 
-  assert.ok(validator.validate(' 10:00 '));
+  assert.equal(validator.validate(' 10:00 '), true);
 });

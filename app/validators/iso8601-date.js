@@ -9,7 +9,10 @@ export default BaseValidator.extend({
       options = {};
     }
 
-    if (options.active === false) {
+    if (
+      options.active === false ||
+      (typeof options.active === 'function' && options.active() === false)
+    ) {
       return true;
     }
 
