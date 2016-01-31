@@ -7,6 +7,7 @@ import './poll-description-equal';
 import './poll-has-users';
 import './poll-has-options';
 import './poll-has-answers';
+import './poll-has-valid-url';
 import './poll-participate';
 import './select-dates';
 import './switch-tab';

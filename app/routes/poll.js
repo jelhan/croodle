@@ -18,7 +18,7 @@ export default Ember.Route.extend({
     // before it's used by serializer to decrypt payload
     this.set('encryption.key', params.encryptionKey);
 
-    return this.store.find('poll', params.pollId);
+    return this.store.find('poll', params.poll_id);
   },
 
   redirect(poll) {

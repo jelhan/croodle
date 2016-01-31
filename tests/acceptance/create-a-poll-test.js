@@ -11,6 +11,7 @@ let application, server;
 module('Acceptance | create a poll', {
   beforeEach() {
     let lastCreatedPoll = {};
+    const pollId = Math.random().toString(36).substr(2, 10);
 
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
@@ -19,13 +20,13 @@ module('Acceptance | create a poll', {
 
     server.post('/polls',
       function(request) {
-        let ret = serverPostPolls(request.requestBody, 'test');
+        let ret = serverPostPolls(request.requestBody, pollId);
         lastCreatedPoll = ret[2];
         return ret;
       }
     );
 
-    server.get('/polls/test',
+    server.get(`/polls/${pollId}`,
       function() {
         return [
           200,
@@ -79,6 +80,7 @@ test('create a default poll', function(assert) {
 
           andThen(function() {
             assert.equal(currentPath(), 'poll.participation');
+            pollHasValidURL(assert);
 
             pollTitleEqual(assert, 'default poll');
             pollDescriptionEqual(assert, '');
@@ -167,6 +169,7 @@ test('create a poll for answering a question', function(assert) {
 
                 andThen(function() {
                   assert.equal(currentPath(), 'poll.participation');
+                  pollHasValidURL(assert);
 
                   pollTitleEqual(assert, 'default poll');
                   pollDescriptionEqual(assert, '');
@@ -223,6 +226,7 @@ test('create a poll with description', function(assert) {
 
           andThen(function() {
             assert.equal(currentPath(), 'poll.participation');
+            pollHasValidURL(assert);
 
             pollTitleEqual(assert, 'default poll');
             pollDescriptionEqual(assert, 'a sample description');

@@ -59,6 +59,7 @@ test('create a default poll and participate', function(assert) {
 
           andThen(function() {
             assert.equal(currentPath(), 'poll.participation');
+            pollHasValidURL(assert);
 
             pollTitleEqual(assert, 'default poll');
             pollDescriptionEqual(assert, '');
