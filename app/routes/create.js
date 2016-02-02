@@ -2,15 +2,7 @@ import Ember from 'ember';
 /* global moment */
 
 export default Ember.Route.extend({
-  beforeModel() {
-    // set encryption key
-    this.get('encryption').generateKey();
-  },
-
-  encryption: Ember.inject.service(),
-  encryptionKey: Ember.computed.alias('encryption.key'),
-
-  events: {
+  actions: {
     transitionToPoll(poll) {
       this.transitionTo('poll', poll, {
         queryParams: {
@@ -19,6 +11,14 @@ export default Ember.Route.extend({
       });
     }
   },
+
+  beforeModel() {
+    // set encryption key
+    this.get('encryption').generateKey();
+  },
+
+  encryption: Ember.inject.service(),
+  encryptionKey: Ember.computed.alias('encryption.key'),
 
   model() {
     // create empty poll
