@@ -22,7 +22,8 @@
     "moment-timezone": ">= 0.1.0",
     "pretender": "^0.6.0",
     "moment": ">= 2.8.0",
-    "webshim": "~1.15.10"
+    "webshim": "~1.15.10",
+    "bootstrap-switch": "^3.3.2"
   },
   "devDependencies": {
     "ember-data-model-fragments": "1.13.1"
