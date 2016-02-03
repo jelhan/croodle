@@ -25,7 +25,7 @@
     "broccoli-unwatched-tree": "^0.1.1",
     "connect-restreamer": "^1.0.1",
     "cors": "^2.5.3",
-    "ember-bootstrap-switch": "git://github.com/jelhan/ember-bootstrap-switch.git#32c8a65fc87f49db7135f296f448ede7bde66ae8",
+    "ember-bootstrap-switch": "1.13.1",
     "ember-cli": "1.13.13",
     "ember-cli-acceptance-test-helpers": "0.4.0",
     "ember-cli-app-version": "^1.0.0",
