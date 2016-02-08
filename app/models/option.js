@@ -17,15 +17,7 @@ const Validations = buildValidations({
         return this.get('model.poll.isFindADate') && this.get('model.poll.isDateTime');
       }
     }),
-    validator('presence', {
-      presence() {
-        if (this.get('model.poll.isMakeAPoll')) {
-          return true;
-        } else {
-          return;
-        }
-      }
-    })
+    validator('presence', true)
   ]
 });
 
