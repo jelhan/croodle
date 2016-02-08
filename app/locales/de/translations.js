@@ -35,6 +35,7 @@ export default {
   'create.settings.expirationDurations.never': 'niemals',
   'create.settings.forceAnswer.label': 'Eine Antwort für jede Option erzwingen?',
   'create.save': 'Speichern',
+  'error': 'Fehler',
   'index.title': 'Croodle vereinfacht die Termin- und Entscheidungsfindung ...<br/>... und schützt dabei deine Daten',
   'index.features.title': 'Funktionen',
   'index.features.list.overview': '<strong>Finde einen Termin</strong> oder <strong>mache eine Umfrage</strong> mit so vielen Leuten, wie du möchtest.',
@@ -48,6 +49,7 @@ export default {
   'modal.save-retry.title': 'Speichern fehlgeschlagen.',
   'modal.save-retry.text': '<p>Deine Teilnahme konnte nicht gespeichert werden. Bitte prüfe deine Internetverbindung und versuche es anschließend erneut.</p><p>Sollte dies nicht helfen, kann ein kurzfristiges Ausfall des Servers schuld sein. Warte bitte einige Minuten bevor du es erneut versuchst. Du kannst die Seite so lange geöffnet lassen.</p><p>Sollten die Probleme anhalten, wende dich bitte an die Administratoren der Seite.</p>',
   'modal.save-retry.button-retry': 'erneut versuchen',
+  'options': 'Optionen',
   'poll.created-time': 'Erstellt am {{creationDate}}.',
   'poll.error.newUser.everyOptionIsAnswered': 'Bitte beantworte jede Option.',
   'poll.error.newUserName': 'Du musst einen Nutzernamen angeben.',
@@ -118,6 +120,7 @@ export default {
     email: '{{description}} muss eine gültige E-Mail-Adresse sein',
     phone: '{{description}} muss eine gültige Telefonnummer sein',
     url: '{{description}} muss eine gültige URL sein',
-    time: '{{value}} muss eine gültige Zeit sein'
+    time: '{{value}} muss eine gültige Zeit sein',
+    uniqueCollection: '{{description}} muss eindeutig sein'
   }
 };

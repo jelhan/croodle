@@ -30,6 +30,20 @@
       {{/if}}
     {{/if}}
 
+    {{#if shouldShowErrors}}
+      {{#if validations.message}}
+      <div class="row">
+        <div class="col-sm-10 col-sm-offset-2">
+          <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">{{t 'error'}}:</span>
+            {{validations.message}}
+          </div>
+        </div>
+      </div>
+      {{/if}}
+    {{/if}}
+
     {{#fm-submit
       inputWrapperClass='col-sm-10 col-sm-offset-2'
     }}

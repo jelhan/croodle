@@ -35,6 +35,7 @@ export default {
   'create.settings.expirationDurations.never': 'never',
   'create.settings.forceAnswer.label': '¿Obligar a responder todas las preguntas/opciones?',
   'create.save': 'Guardar',
+  'error': 'Error',
   'index.title': 'Croodle simplifica las citas y la toma de decisiones ...<br/>... y al mismo tiempo protege tus datos',
   'index.features.title': 'Funciones',
   'index.features.list.overview': '<strong>Encontrar una fecha</strong> o <strong>hacer una encuesta</strong> con la cantidad de personas que quieras.',
@@ -48,6 +49,7 @@ export default {
   'modal.save-retry.title': 'Error al guardar',
   'modal.save-retry.text': '<p>Tu inscripción no pudo ser guardada. Por favor, comprueba tu conexión a internet e inténtalo de nuevo.</p><p>Si esto no ayuda, podría ser debido a un breve fallo en el servidor. Por favor, espera unos minutos e inténtalo de nuevo. Puedes esperar mientras la página se abre.</p><p>Si los problemas continúan, por favor, contacte al administrador de la página.</p>',
   'modal.save-retry.button-retry': 'Reintentar',
+  'options': 'Options',
   'poll.created-time': 'Creada el {{creationDate}}.',
   'poll.error.newUser.everyOptionIsAnswered': 'Por favor responde a todas las opciones.',
   'poll.error.newUserName': 'Tienes que poner un nombre.',
@@ -118,6 +120,7 @@ export default {
     email: '{{description}} must be a valid email address',
     phone: '{{description}} must be a valid phone number',
     url: '{{description}} must be a valid url',
-    time: '{{value}} must be a valid time'
+    time: '{{value}} must be a valid time',
+    uniqueCollection: '{{description}} must be unique'
   }
 };

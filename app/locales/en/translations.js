@@ -35,6 +35,7 @@ export default {
   'create.settings.expirationDurations.never': 'never',
   'create.settings.forceAnswer.label': 'Force answer for every option?',
   'create.save': 'Save',
+  'error': 'Error',
   'index.title': 'Croodle simplifies making appointments and finding decisions ...<br/>... and at the same time protects your data',
   'index.features.title': 'Functions',
   'index.features.list.overview': '<strong>Find a date</strong> or <strong>do a poll</strong> with as many people as you like.',
@@ -48,6 +49,7 @@ export default {
   'modal.save-retry.title': 'Save failed',
   'modal.save-retry.text': '<p>Your membership could not be saved. Please check your Internet connection and try it again.</p><p>If this does not help, a short-term failure of the server could be the problem. Please wait a few minutes before trying again. You can leave as long as the page opens.</p><p>If problem persists, please contact contact administrators of the page.</p>',
   'modal.save-retry.button-retry': 'Retry',
+  'options': 'Options',
   'poll.created-time': 'Created on {{creationDate}}.',
   'poll.error.newUser.everyOptionIsAnswered': 'Please answer ever option.',
   'poll.error.newUserName': 'You have to give a user name.',
@@ -118,6 +120,7 @@ export default {
     email: '{{description}} must be a valid email address',
     phone: '{{description}} must be a valid phone number',
     url: '{{description}} must be a valid url',
-    time: '{{value}} must be a valid time'
+    time: '{{value}} must be a valid time',
+    uniqueCollection: '{{description}} must be unique'
   }
 };

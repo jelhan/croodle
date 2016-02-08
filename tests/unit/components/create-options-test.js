@@ -132,4 +132,19 @@ test('validation for find a date without times', function(assert) {
     component.get('validations.isValid'),
     'invalid if atleast one option is not a valid date'
   );
+  Ember.run(() => {
+    component.set('options.lastObject.title', '2015-01-01');
+  });
+  assert.ok(
+    component.get('validations.isValid'),
+    'valid again after title is a valid date again'
+  );
+  Ember.run(() => {
+    component.set('options.firstObject.title', '2015-01-01');
+    component.set('options.lastObject.title', '2015-01-01');
+  });
+  assert.ok(
+    component.get('validations.isValid'),
+    'invalid if dates are not unique'
+  );
 });

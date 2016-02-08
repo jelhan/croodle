@@ -18,6 +18,10 @@ let Validations = buildValidations({
       }
       // message: Ember.I18n.t('create.options.error.notEnoughOptions')
     }),
+    validator('unique-collection', {
+      dependentKeys: ['options.[]', 'options.@each.title'],
+      property: 'title'
+    }),
     validator('valid-collection', {
       dependentKeys: ['options.[]', 'options.@each.title']
     })
@@ -29,7 +33,10 @@ export default Ember.Component.extend(Validations, {
     submit() {
       if (this.get('validations.isValid')) {
         this.sendAction('nextPage');
+      } else {
+        this.set('shouldShowErrors', true);
       }
     }
-  }
+  },
+  shouldShowErrors: false
 });
