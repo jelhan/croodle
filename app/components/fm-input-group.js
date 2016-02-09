@@ -47,9 +47,6 @@ export default Ember.Component.extend({
   minimumInputFields: 1,
 
   shouldShowErrors: false,
-  showErrors: Ember.computed('shouldShowErrors', 'errors', function() {
-    return this.get('shouldShowErrors') && !Ember.isEmpty(this.get('errors'));
-  }),
 
   step: undefined,
 

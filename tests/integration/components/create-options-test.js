@@ -4,7 +4,10 @@ import expectComponent from 'croodle/tests/helpers/201-created/raw/expect-compon
 import Ember from 'ember';
 
 moduleForComponent('create-options', 'Integration | Component | create options', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    this.inject.service('store');
+  }
 });
 
 test('renders component', function(assert) {
@@ -33,11 +36,27 @@ test('renders component', function(assert) {
   );
 });
 
-test('shows validation errors', function(assert) {
-  this.set('options', []);
+test('shows validation errors if options are not unique', function(assert) {
+  assert.expect(2);
+
   this.set('isDateTime', false);
   this.set('isFindADate', false);
   this.set('isMakeAPoll', true);
+
+  // validation is based on validation of every option fragment
+  // which validates according to poll model it belongs to
+  // therefore each option needs to be pushed to poll model to have it as
+  // it's owner
+  let poll;
+  Ember.run(() => {
+    poll = this.store.createRecord('poll', {
+      isFindADate: this.get('isFindADate'),
+      isDateTime: this.get('isDateTime'),
+      isMakeAPoll: this.get('isMakeAPoll')
+    });
+  });
+  this.set('options', poll.get('options'));
+
   this.render(hbs`{{create-options options=options isDateTime=isDateTime isFindADate=isFindADate isMakeAPoll=isMakeAPoll}}`);
 
   Ember.run(() => {
@@ -50,5 +69,63 @@ test('shows validation errors', function(assert) {
 
   assert.equal(
     this.$('div.alert').length, 1
+  );
+
+  Ember.run(() => {
+    this.$('input').eq(0).val('bar').trigger('change');
+  });
+
+  assert.equal(
+    this.$('div.alert').length, 0
+  );
+});
+
+test('shows validation errors if option is empty', function(assert) {
+  this.set('isDateTime', false);
+  this.set('isFindADate', false);
+  this.set('isMakeAPoll', true);
+
+  // validation is based on validation of every option fragment
+  // which validates according to poll model it belongs to
+  // therefore each option needs to be pushed to poll model to have it as
+  // it's owner
+  let poll;
+  Ember.run(() => {
+    poll = this.store.createRecord('poll', {
+      isFindADate: this.get('isFindADate'),
+      isDateTime: this.get('isDateTime'),
+      isMakeAPoll: this.get('isMakeAPoll')
+    });
+  });
+  this.set('options', poll.get('options'));
+
+  this.render(hbs`{{create-options options=options isDateTime=isDateTime isFindADate=isFindADate isMakeAPoll=isMakeAPoll}}`);
+
+  assert.equal(
+    this.$('.form-group.has-error').length, 0
+  );
+
+  Ember.run(() => {
+    this.$('input').trigger('focusout');
+  });
+
+  assert.equal(
+    this.$('.form-group.has-error').length, 2
+  );
+
+  Ember.run(() => {
+    this.$('input').eq(0).val('foo').trigger('change');
+  });
+
+  assert.equal(
+    this.$('.form-group.has-error').length, 1
+  );
+
+  Ember.run(() => {
+    this.$('input').eq(1).val('bar').trigger('change');
+  });
+
+  assert.equal(
+    this.$('.form-group.has-error').length, 0
   );
 });

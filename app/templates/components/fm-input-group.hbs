@@ -1,5 +1,5 @@
 {{#each content as |element index|}}
-  <div class='form-group'>
+  <div class='form-group {{if (and shouldShowErrors element.validations.messages) "has-error"}}'>
     {{!--
       index should be false for first element
       so we could use an if helper to determine
@@ -21,7 +21,15 @@
         step=step
         type=type
         value=element.title
+        errors=element.validations.messages
+        onUserInteraction='userInteraction'
       }}
+
+      {{#if shouldShowErrors}}
+        {{#if element.validations.messages}}
+          {{fm-errortext errors=element.validations.messages}}
+        {{/if}}
+      {{/if}}
     </div>
 
     <div class='col-sm-2 col-md-1 col-xs-2'>
