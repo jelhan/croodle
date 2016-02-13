@@ -3,8 +3,7 @@ import Ember from 'ember';
 
 moduleForModel('option', 'Unit | Model | option', {
   needs: [
-    'validator:iso8601-date',
-    'validator:iso8601-datetime',
+    'validator:iso8601',
     'validator:presence',
     'validator:messages',
     'model:poll',
@@ -31,6 +30,13 @@ test('validation for MakeAPoll', function(assert) {
     assert.ok(
       option.get('validations.isValid'),
       'is valid for a non empty string'
+    );
+    Ember.run(() => {
+      option.set('title', '!');
+    });
+    assert.ok(
+      option.get('validations.isValid'),
+      'is invalid if set to empty string again'
     );
   });
 });
@@ -66,11 +72,10 @@ test('validation for FindADate', function(assert) {
   });
 });
 
-test('validation for FindADate and isDateTime', function(assert) {
+test('validation for FindADate', function(assert) {
   Ember.run(() => {
     let store = this.store();
     let poll = store.createRecord('poll', {
-      isDateTime: true,
       pollType: 'FindADate'
     });
     let option = store.createFragment('option');
@@ -93,6 +98,13 @@ test('validation for FindADate and isDateTime', function(assert) {
     assert.notOk(
       option.get('validations.isValid'),
       'random string is not valid'
+    );
+    Ember.run(() => {
+      option.set('title', '1945-05-08');
+    });
+    assert.ok(
+      option.get('validations.isValid'),
+      'iso 8601 date string is valid'
     );
   });
 });

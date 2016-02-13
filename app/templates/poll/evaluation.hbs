@@ -17,8 +17,10 @@
             {{#if model.isFindADate}}
               {{#each dates as |date|}}
                 <th>
-                  {{#if model.isDateTime}}
-                    {{formattedDate date.title format="LT" times=true}}
+                  {{#if dateGroups}}
+                    {{#if date.hasTime}}
+                      {{formattedDate date.title format="LT" times=true}}
+                    {{/if}}
                   {{else}}
                     {{formattedDate date.title}}
                   {{/if}}

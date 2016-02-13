@@ -7,15 +7,16 @@ from 'ember-cp-validations';
 
 const Validations = buildValidations({
   title: [
-    validator('iso8601-date', {
+    validator('iso8601', {
       active() {
-        return this.get('model.poll.isFindADate') && !this.get('model.poll.isDateTime');
-      }
-    }),
-    validator('iso8601-datetime', {
-      active() {
-        return this.get('model.poll.isFindADate') && this.get('model.poll.isDateTime');
-      }
+        return this.get('model.poll.isFindADate');
+      },
+      validFormats: [
+        'YYYY-MM-DD',
+        'YYYY-MM-DDTHH:mmZ',
+        'YYYY-MM-DDTHH:mm:ssZ',
+        'YYYY-MM-DDTHH:mm:ss.SSSZ'
+      ]
     }),
     validator('presence', true)
   ]

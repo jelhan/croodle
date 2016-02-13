@@ -1,21 +1,16 @@
 import BaseValidator from 'ember-cp-validations/validators/base';
 import moment from 'moment';
+import Ember from 'ember';
 
 export default BaseValidator.extend({
-  validate(value, options) {
-    let valid;
-    const validFormats = [
-      // ISO 8601 date time string
-      'YYYY-MM-DDTHH:mmZ',
-      // ISO 8601 date time string include seconds
-      'YYYY-MM-DDTHH:mm:ssZ',
-      // ISO 8601 date time string include seconds and milliseconds
-      'YYYY-MM-DDTHH:mm:ss.SSSZ'
-    ];
+  validate(value, options = {}) {
+    Ember.assert(
+      'options.validFormats must not be set or an array of momentJS format strings',
+      Ember.isEmpty(options.validFormats) || Ember.isArray(options.validFormats)
+    );
 
-    if (typeof options !== 'object') {
-      options = {};
-    }
+    let valid;
+    const validFormats = Ember.isEmpty(options.validFormats) ? ['YYYY-MM-DDTHH:mm:ss.SSSZ'] : options.validFormats;
 
     if (
       options.active === false ||
@@ -33,7 +28,7 @@ export default BaseValidator.extend({
     if (valid) {
       return true;
     } else {
-      return this.createErrorMessage('iso8601-date', value, options);
+      return this.createErrorMessage('iso8601', value, options);
     }
   }
 });

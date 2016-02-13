@@ -77,12 +77,14 @@ export default Ember.Controller.extend({
     }
 
     dates = this.get('model.options').map((option) => {
-      let date = moment(option.get('title'));
+      const date = moment(option.get('title'));
+      const hasTime = moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
       if (timezone) {
         date.tz(timezone);
       }
       return {
-        title: date
+        title: date,
+        hasTime
       };
     });
 

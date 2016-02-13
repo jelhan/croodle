@@ -148,25 +148,18 @@ export default Ember.Controller.extend(Validations, {
   selections: Ember.computed('pollController.model.options', 'pollController.dates', function() {
     let options;
     const isFindADate = this.get('isFindADate');
-    const isDateTime = this.get('isDateTime');
-    let dateFormat;
     let lastDate;
+    const dateFormat = moment.localeData()
+      .longDateFormat('LLLL')
+      .replace(
+        moment.localeData().longDateFormat('LT'), '')
+      .trim();
+    const dateTimeFormat = 'LLLL';
 
     if (this.get('isFindADate')) {
       options = this.get('pollController.dates');
     } else {
       options = this.get('pollController.model.options');
-    }
-
-    if (isDateTime) {
-      dateFormat = 'LLLL';
-    } else {
-      // local specific long date format without times
-      dateFormat =
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim();
     }
 
     return options.map((option) => {
@@ -175,13 +168,13 @@ export default Ember.Controller.extend(Validations, {
 
       // format label
       if (isFindADate) {
-        if (isDateTime && lastDate && option.title.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
+        if (option.hasTime && lastDate && option.title.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
           // do not repeat dates for different times
           labelValue = option.title;
           labelFormat = 'LT';
         } else {
           labelValue = option.title;
-          labelFormat = dateFormat;
+          labelFormat = option.hasTime ? dateTimeFormat : dateFormat;
           lastDate = option.title;
         }
       } else {
