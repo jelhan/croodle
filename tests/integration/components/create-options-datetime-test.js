@@ -169,3 +169,77 @@ test('allows to delete an option', function(assert) {
     );
   });
 });
+
+test('adopt times of first day - simple', function(assert) {
+  this.set('options', [
+    Ember.Object.create({ title: moment().hour(10).minute(0).toISOString() }),
+    Ember.Object.create({ title: '2015-02-02' }),
+    Ember.Object.create({ title: '2015-03-03' })
+  ]);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  Ember.run(() => {
+    this.$('button.adopt-times-of-first-day').click();
+  });
+  assert.equal(
+    this.$('.grouped-input:eq(0) input:not(.ws-inputreplace)').val(),
+    '10:00',
+    'time was not changed for first day'
+  );
+  assert.equal(
+    this.$('.grouped-input:eq(1) input:not(.ws-inputreplace)').val(),
+    '10:00',
+    'time was adopted for second day'
+  );
+  assert.equal(
+    this.$('.grouped-input:eq(1) input:not(.ws-inputreplace)').val(),
+    '10:00',
+    'time was adopted for third day'
+  );
+});
+
+test('adopt times of first day - more times on first day than on others', function(assert) {
+  this.set('options', [
+    Ember.Object.create({ title: moment().hour(10).minute(0).toISOString() }),
+    Ember.Object.create({ title: moment().hour(22).minute(0).toISOString() }),
+    Ember.Object.create({ title: '2015-02-02' })
+  ]);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  Ember.run(() => {
+    this.$('button.adopt-times-of-first-day').click();
+  });
+  assert.deepEqual(
+    this.$('.grouped-input:eq(0) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    ['10:00', '22:00'],
+    'time was not changed for first day after additionally time was added to first day'
+  );
+  assert.deepEqual(
+    this.$('.grouped-input:eq(0) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    ['10:00', '22:00'],
+    'time was adopted for second day after additionally time was added to first day'
+  );
+  assert.deepEqual(
+    this.$('.grouped-input:eq(0) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    ['10:00', '22:00'],
+    'time was adopted for third day after additionally time was added to first day'
+  );
+});
+
+test('adopt times of first day - excess times on other days got deleted', function(assert) {
+  this.set('options', [
+    Ember.Object.create({ title: moment().hour(10).minute(0).toISOString() }),
+    Ember.Object.create({ title: moment().add(1, 'day').hour(10).minute(0).toISOString() }),
+    Ember.Object.create({ title: moment().add(1, 'day').hour(22).minute(0).toISOString() })
+  ]);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  Ember.run(() => {
+    this.$('button.adopt-times-of-first-day').click();
+  });
+  assert.deepEqual(
+    this.$('.grouped-input:eq(1) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    ['10:00'],
+    'additional time on secondary day got deleted'
+  );
+});
