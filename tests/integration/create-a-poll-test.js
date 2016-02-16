@@ -53,31 +53,36 @@ test('create a default poll and participate', function(assert) {
         click('button[type="submit"]');
 
         andThen(function() {
-          assert.equal(currentPath(), 'create.settings');
-
+          assert.equal(currentPath(), 'create.options-datetime');
           click('button[type="submit"]');
 
           andThen(function() {
-            assert.equal(currentPath(), 'poll.participation');
-            pollHasValidURL(assert);
+            assert.equal(currentPath(), 'create.settings');
 
-            pollTitleEqual(assert, 'default poll');
-            pollDescriptionEqual(assert, '');
-            pollHasOptions(assert, formattedDates);
-            pollHasUsersCount(assert, 0);
-            pollParticipate('Max Hoelz', ['no', 'no', 'yes']);
+            click('button[type="submit"]');
+
             andThen(function() {
-              assert.equal(currentPath(), 'poll.evaluation');
-              pollHasUsersCount(assert, 1);
-              pollHasUser(
-                assert,
-                'Max Hoelz',
-                [
-                  t('answerTypes.no.label'),
-                  t('answerTypes.no.label'),
-                  t('answerTypes.yes.label')
-                ]
-              );
+              assert.equal(currentPath(), 'poll.participation');
+              pollHasValidURL(assert);
+
+              pollTitleEqual(assert, 'default poll');
+              pollDescriptionEqual(assert, '');
+              pollHasOptions(assert, formattedDates);
+              pollHasUsersCount(assert, 0);
+              pollParticipate('Max Hoelz', ['no', 'no', 'yes']);
+              andThen(function() {
+                assert.equal(currentPath(), 'poll.evaluation');
+                pollHasUsersCount(assert, 1);
+                pollHasUser(
+                  assert,
+                  'Max Hoelz',
+                  [
+                    t('answerTypes.no.label'),
+                    t('answerTypes.no.label'),
+                    t('answerTypes.yes.label')
+                  ]
+                );
+              });
             });
           });
         });

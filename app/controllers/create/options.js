@@ -3,7 +3,13 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     nextPage() {
-      this.transitionToRoute('create.settings');
+      if (this.get('isFindADate')) {
+        this.transitionToRoute('create.options-datetime');
+      } else {
+        this.transitionToRoute('create.settings');
+      }
     }
-  }
+  },
+
+  isFindADate: Ember.computed.alias('model.isFindADate')
 });

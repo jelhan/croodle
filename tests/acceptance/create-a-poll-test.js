@@ -74,32 +74,37 @@ test('create a default poll', function(assert) {
         click('button[type="submit"]');
 
         andThen(function() {
-          assert.equal(currentPath(), 'create.settings');
-
+          assert.equal(currentPath(), 'create.options-datetime');
           click('button[type="submit"]');
 
-          andThen(function() {
-            assert.equal(currentPath(), 'poll.participation');
-            pollHasValidURL(assert);
+          andThen(() => {
+            assert.equal(currentPath(), 'create.settings');
 
-            pollTitleEqual(assert, 'default poll');
-            pollDescriptionEqual(assert, '');
-            pollHasOptions(
-              assert,
-              dates.map((date) => {
-                return date.format(
-                  moment.localeData().longDateFormat('LLLL')
-                    .replace(
-                      moment.localeData().longDateFormat('LT'), '')
-                    .trim()
-                  );
-              })
-            );
-            pollHasAnswers(assert, [
-              t('answerTypes.yes.label'),
-              t('answerTypes.no.label')
-            ]);
-            pollHasUsersCount(assert, 0);
+            click('button[type="submit"]');
+
+            andThen(function() {
+              assert.equal(currentPath(), 'poll.participation');
+              pollHasValidURL(assert);
+
+              pollTitleEqual(assert, 'default poll');
+              pollDescriptionEqual(assert, '');
+              pollHasOptions(
+                assert,
+                dates.map((date) => {
+                  return date.format(
+                    moment.localeData().longDateFormat('LLLL')
+                      .replace(
+                        moment.localeData().longDateFormat('LT'), '')
+                      .trim()
+                    );
+                })
+              );
+              pollHasAnswers(assert, [
+                t('answerTypes.yes.label'),
+                t('answerTypes.no.label')
+              ]);
+              pollHasUsersCount(assert, 0);
+            });
           });
         });
       });
@@ -220,18 +225,23 @@ test('create a poll with description', function(assert) {
         click('button[type="submit"]');
 
         andThen(function() {
-          assert.equal(currentPath(), 'create.settings');
-
+          assert.equal(currentPath(), 'create.options-datetime');
           click('button[type="submit"]');
 
           andThen(function() {
-            assert.equal(currentPath(), 'poll.participation');
-            pollHasValidURL(assert);
+            assert.equal(currentPath(), 'create.settings');
 
-            pollTitleEqual(assert, 'default poll');
-            pollDescriptionEqual(assert, 'a sample description');
-            pollHasOptions(assert, formattedDates);
-            pollHasUsersCount(assert, 0);
+            click('button[type="submit"]');
+
+            andThen(function() {
+              assert.equal(currentPath(), 'poll.participation');
+              pollHasValidURL(assert);
+
+              pollTitleEqual(assert, 'default poll');
+              pollDescriptionEqual(assert, 'a sample description');
+              pollHasOptions(assert, formattedDates);
+              pollHasUsersCount(assert, 0);
+            });
           });
         });
       });

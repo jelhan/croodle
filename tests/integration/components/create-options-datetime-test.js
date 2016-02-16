@@ -14,19 +14,37 @@ moduleForComponent('create-options-datetime', 'Integration | Component | create 
  * that ones could be identifed by class 'ws-inputreplace'
  */
 
+test('time input is toggled by radio switch', function(assert) {
+  this.set('options', [
+    Ember.Object.create({ title: '2015-01-01' })
+  ]);
+  this.set('isDateTime', false);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  assert.ok(this.$('.grouped-input input').length === 0);
+  Ember.run(() => {
+    this.$('.bootstrap-switch-handle-off').click();
+  });
+  assert.ok(this.$('.grouped-input input').length === 1);
+  Ember.run(() => {
+    this.$('.bootstrap-switch-handle-on').click();
+  });
+  assert.ok(this.$('.grouped-input input').length === 0);
+});
+
 test('it generates inpute field for options iso 8601 date string (without time)', function(assert) {
   this.set('options', [
     Ember.Object.create({ title: '2015-01-01' })
   ]);
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
 
   assert.equal(
-    this.$('.form-group input:not(.ws-inputreplace)').length,
+    this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
     1,
     'there is one input field'
   );
   assert.equal(
-    this.$('.form-group input:not(.ws-inputreplace)').val(),
+    this.$('.grouped-input .form-group input:not(.ws-inputreplace)').val(),
     '',
     'value is an empty string'
   );
@@ -36,15 +54,16 @@ test('it generates inpute field for options iso 8601 datetime string (with time)
   this.set('options', [
     Ember.Object.create({ title: '2015-01-01T11:11:00.000Z' })
   ]);
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
 
   assert.equal(
-    this.$('.form-group input:not(.ws-inputreplace)').length,
+    this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
     1,
     'there is one input field'
   );
   assert.equal(
-    this.$('.form-group input:not(.ws-inputreplace)').val(),
+    this.$('.grouped-input .form-group input:not(.ws-inputreplace)').val(),
     moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
     'it has time in option as value'
   );
@@ -56,7 +75,8 @@ test('it groups input fields per date', function(assert) {
     Ember.Object.create({ title: moment('2015-01-01T22:22').toISOString() }),
     Ember.Object.create({ title: '2015-02-02' })
   ]);
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
 
   assert.equal(
     this.$('.grouped-input').length,
@@ -85,16 +105,17 @@ test('allows to add another option', function(assert) {
     Ember.Object.create({ title: '2015-01-01' }),
     Ember.Object.create({ title: '2015-02-02' })
   ]);
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
 
   assert.equal(
-    this.$('input:not(.ws-inputreplace)').length,
+    this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
     2,
     'there are two input fields before'
   );
   this.$('.grouped-input').eq(0).find('.add').click();
   assert.equal(
-    this.$('input:not(.ws-inputreplace)').length,
+    this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
     3,
     'another input field is added'
   );
@@ -110,7 +131,8 @@ test('allows to delete an option', function(assert) {
     Ember.Object.create({ title: moment('2015-01-01T11:11').toISOString() }),
     Ember.Object.create({ title: moment('2015-01-01T22:22').toISOString() })
   ]);
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.set('isDateTime', true);
+  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
 
   assert.equal(
     this.$('.grouped-input input:not(.ws-inputreplace)').length,
@@ -123,15 +145,15 @@ test('allows to delete an option', function(assert) {
     }),
     'options are deleteable'
   );
-  this.$('.form-group').eq(0).find('.delete').click();
+  this.$('.grouped-input .form-group').eq(0).find('.delete').click();
   Ember.run(() => {
     assert.equal(
-      this.$('input:not(.ws-inputreplace)').length,
+      this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
       1,
       'one input field is removed after deletion'
     );
     assert.equal(
-      this.$('.grouped-input input:not(.ws-inputreplace)').val(),
+      this.$('.grouped-input .form-group input:not(.ws-inputreplace)').val(),
       '22:22',
       'correct input field is deleted'
     );

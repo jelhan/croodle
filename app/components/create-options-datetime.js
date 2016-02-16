@@ -1,6 +1,28 @@
 import Ember from 'ember';
 import moment from 'moment';
 import groupBy from 'ember-group-by';
+import {
+  validator, buildValidations
+}
+from 'ember-cp-validations';
+
+let Validations = buildValidations({
+  options: [
+    validator('collection', true),
+    validator('length', {
+      dependentKeys: ['options.[]'],
+      min: 2
+      // message: Ember.I18n.t('create.options.error.notEnoughOptions')
+    }),
+    validator('unique-collection', {
+      dependentKeys: ['options.[]', 'options.@each.title'],
+      property: 'title'
+    }),
+    validator('valid-collection', {
+      dependentKeys: ['options.[]', 'options.@each.title']
+    })
+  ]
+});
 
 let datetimeObject = Ember.Object.extend({
   date: Ember.computed('option.title', function() {
@@ -37,7 +59,7 @@ let datetimeObject = Ember.Object.extend({
   title: Ember.computed.alias('time')
 });
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(Validations, {
   actions: {
     addOption(element) {
       let options = this.get('options');
@@ -57,6 +79,13 @@ export default Ember.Component.extend({
     delOption(element) {
       let position = this.get('options').indexOf(element.get('option'));
       this.get('options').removeAt(position);
+    },
+    submit() {
+      if (this.get('validations.isValid')) {
+        this.sendAction('nextPage');
+      } else {
+        this.set('shouldShowErrors', true);
+      }
     }
   },
   datetimes: Ember.computed('options.[]', 'options.@each.title', function() {
