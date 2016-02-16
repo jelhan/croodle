@@ -6,11 +6,6 @@ module.exports = function(environment) {
     modulePrefix: 'croodle',
     environment: environment,
     locationType: 'hash',
-    EmberENV: {
-      FEATURES: {
-        'query-params-new': true
-      }
-    },
 
     APP: {
       // Here you can pass flags/options to your application instance
