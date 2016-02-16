@@ -24,7 +24,7 @@ test('time input is toggled by radio switch', function(assert) {
   Ember.run(() => {
     this.$('.bootstrap-switch-handle-off').click();
   });
-  assert.ok(this.$('.grouped-input input').length === 1);
+  assert.ok(this.$('.grouped-input input').length > 0);
   Ember.run(() => {
     this.$('.bootstrap-switch-handle-on').click();
   });
