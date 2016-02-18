@@ -27,8 +27,6 @@ export default Ember.Route.extend({
       creationDate: new Date(),
       forceAnswer: true,
       anonymousUser: false,
-      datetime: false,
-      datetimesInputFields: 2,
       isDateTime: true,
       pollType: 'FindADate',
       timezone: '',
