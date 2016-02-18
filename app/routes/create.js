@@ -29,7 +29,7 @@ export default Ember.Route.extend({
       anonymousUser: false,
       datetime: false,
       datetimesInputFields: 2,
-      isDateTime: false,
+      isDateTime: true,
       pollType: 'FindADate',
       timezone: '',
       expirationDate: moment().add(3, 'month').toISOString(),
