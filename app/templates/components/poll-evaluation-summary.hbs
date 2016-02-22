@@ -15,13 +15,9 @@
 
   {{#if evaluationBestOptionsMultiple}}
     <ul>
-      {{#each evaluationBestOptions as evaluationBestOption}}
+      {{#each evaluationBestOptions as |evaluationBestOption|}}
         <li>
-          {{#if poll.isFindADate}}
-            <strong>{{formattedDate evaluationBestOption.title times=poll.isDateTime}}</strong>.
-          {{else}}
-            <strong>{{evaluationBestOption.title}}</strong>.
-          {{/if}}
+          <strong>{{evaluationBestOption.title}}</strong>.
 
           <br/>
 
@@ -50,11 +46,7 @@
       {{/each}}
     </ul>
   {{else}}
-    {{#if poll.isFindADate}}
-      <strong>{{formattedDate evaluationBestOptions.[0].title times=poll.isDateTime}}</strong>.
-    {{else}}
-      <strong>{{evaluationBestOptions.[0].title}}</strong>.
-    {{/if}}
+    <strong>{{evaluationBestOptions.[0].title}}</strong>.
 
     {{#if poll.isFindADate}}
       {{#if evaluationBestOptions.[0].answers.yes}}

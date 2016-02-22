@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import moment from 'moment';
 
 export default Ember.Component.extend({
   classNames: ['evaluation-summary'],
@@ -72,9 +73,16 @@ export default Ember.Component.extend({
 
     bestOptions.forEach((bestOption, i) => {
       if (this.get('poll.isFindADate')) {
-        bestOptions[i].title = this.get('dates')[bestOption.key].title;
+        const date = this.get(`dates.${bestOption.key}`);
+        const format = date.hasTime ? 'LLLL' : moment.localeData()
+          .longDateFormat('LLLL')
+          .replace(
+            moment.localeData().longDateFormat('LT'), '')
+          .trim();
+        bestOptions[i].title = date.title.format(format);
       } else {
-        bestOptions[i].title = this.get('poll.options')[bestOption.key].title;
+        const option = this.get(`poll.options.${bestOption.key}`);
+        bestOptions[i].title = option.get('title');
       }
     });
 
