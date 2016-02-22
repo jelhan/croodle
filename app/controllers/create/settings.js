@@ -3,7 +3,8 @@ import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-/* global moment */
+import moment from 'moment';
+/* global jstz */
 
 const Validations = buildValidations({
   anonymousUser: validator('presence', true),
@@ -28,8 +29,19 @@ export default Ember.Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
+        const model = this.get('model');
+        // set timezone if there is atleast one option with time
+        if (
+          this.get('model.isFindADate') &&
+          this.get('model.options').any((option) => {
+            return !moment(option.get('title'), 'YYYY-MM-DD', true).isValid();
+          })
+        ) {
+          this.set('model.timezone', jstz.determine().name());
+        }
+
         // save poll
-        this.get('model').save().then((model) => {
+        model.save().then((model) => {
           // reload as workaround for bug: duplicated records after save
           model.reload().then((model) => {
             // redirect to new poll
