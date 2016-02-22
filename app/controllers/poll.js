@@ -111,7 +111,8 @@ export default Ember.Controller.extend({
    * return true if current timezone differs from timezone poll got created with
    */
   timezoneDiffers: function() {
-    return jstz.determine().name() !== this.get('model.timezone');
+    const modelTimezone = this.get('model.timezone');
+    return Ember.isPresent(modelTimezone) && jstz.determine().name() !== modelTimezone;
   }.property('model.timezone'),
 
   useLocalTimezone: function() {
