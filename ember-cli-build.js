@@ -63,6 +63,9 @@ module.exports = function(defaults) {
 
   app.import('bower_components/modernizr/modernizr.js');
 
+  // ChartJS StackedBar addon
+  app.import('bower_components/Chart.StackedBar.js/src/Chart.StackedBar.js');
+
   // webshim
   app.import({
     development: 'bower_components/webshim/js-webshim/dev/polyfiller.js',

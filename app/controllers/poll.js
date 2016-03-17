@@ -56,9 +56,32 @@ export default Ember.Controller.extend({
   /*
    * handles options if they are dates
    */
-  dates: function() {
+  dates: Ember.computed('model.options.@each', 'useLocalTimezone', function() {
     let timezone = false;
     let dates = [];
+    const dateObject = Ember.Object.extend({
+      i18n: Ember.inject.service(),
+      init() {
+        // retrive locale to setup observers
+        this.get('i18n.locale');
+      },
+      formatted: Ember.computed('title', 'i18n.locale', function() {
+        const date = this.get('title');
+
+        // locale is stored on date, we have to override it if it has changed since creation
+        if (date.locale() !== this.get('i18n.locale')) {
+          date.locale(this.get('i18n.locale'));
+        }
+
+        return this.get('hasTime') ? date.format('LLLL') : date.format(
+          moment.localeData()
+            .longDateFormat('LLLL')
+            .replace(
+              moment.localeData().longDateFormat('LT'), '')
+            .trim()
+        );
+      })
+    });
 
     // if poll type is find a date
     // we return an empty array
@@ -76,20 +99,23 @@ export default Ember.Controller.extend({
       timezone = this.get('model.timezone');
     }
 
+    const container = this.get('container');
     dates = this.get('model.options').map((option) => {
       const date = moment(option.get('title'));
       const hasTime = moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
       if (timezone) {
         date.tz(timezone);
       }
-      return {
+      return dateObject.create({
         title: date,
-        hasTime
-      };
+        hasTime,
+        // inject container otherwise we could not inject i18n service
+        container
+      });
     });
 
     return dates;
-  }.property('model.options.@each', 'useLocalTimezone'),
+  }),
 
   pollUrl: function() {
     return window.location.href;

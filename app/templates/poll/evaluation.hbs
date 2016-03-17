@@ -1,71 +1,79 @@
-    <div class="table-scroll">
-      <table class="user-selections-table table table-striped table-condensed">
-        <thead>
-          {{#if model.isDateTime}}
-            <tr class="dateGroups">
-              <th>&nbsp;</th>
-              {{#each dateGroups as |dateGroup|}}
-                <th colspan="{{dateGroup.colspan}}">
-                  {{formattedDate dateGroup.value}}
-                </th>
-              {{/each}}
-              <th>&nbsp;</th>
-            </tr>
-          {{/if}}
-          <tr>
-            <th>&nbsp;</th>
-            {{#if model.isFindADate}}
-              {{#each dates as |date|}}
-                <th>
-                  {{#if dateGroups}}
-                    {{#if date.hasTime}}
-                      {{formattedDate date.title format="LT" times=true}}
-                    {{/if}}
-                  {{else}}
-                    {{formattedDate date.title}}
-                  {{/if}}
-                </th>
-              {{/each}}
-            {{else}}
-              {{#each model.options as |option|}}
-                <th>
-                  {{option.title}}
-                </th>
-              {{/each}}
-            {{/if}}
-
-            <th>&nbsp;</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {{#each sortedUsers as |user|}}
-            <tr class="user">
-              <td>{{user.name}}</td>
-              {{#each user.selections as |selection|}}
-                <td>
-                  {{#if selection.label}}
-                    {{#if model.isFreeText}}
-                      {{selection.label}}
-                    {{/if}}
-                  {{/if}}
-                  {{#if selection.labelTranslation}}
-                    {{#unless model.isFreeText}}
-                      <span class="{{selection.type}}">
-                        <span class="{{selection.icon}}"></span>
-                        {{t selection.labelTranslation}}
-                      </span>
-                    {{/unless}}
-                  {{/if}}
-                </td>
-              {{/each}}
-              <td>&nbsp;</td>
-            </tr>
-          {{/each}}
-        </tbody>
-      </table>
-    </div>
-
 {{#if isEvaluable}}
   {{poll-evaluation-summary poll=model dates=dates sortedUsers=sortedUsers}}
+
+  <h3>Übersicht</h3>
+  {{poll-evaluation-chart
+    answerType=model.answerType
+    dates=dates
+    users=model.users
+  }}
 {{/if}}
+
+<h3>Teilnehmende und ihre Antworten</h3>
+<div class="table-scroll">
+  <table class="user-selections-table table table-striped table-condensed">
+    <thead>
+      {{#if model.isDateTime}}
+        <tr class="dateGroups">
+          <th>&nbsp;</th>
+          {{#each dateGroups as |dateGroup|}}
+            <th colspan="{{dateGroup.colspan}}">
+              {{formattedDate dateGroup.value}}
+            </th>
+          {{/each}}
+          <th>&nbsp;</th>
+        </tr>
+      {{/if}}
+      <tr>
+        <th>&nbsp;</th>
+        {{#if model.isFindADate}}
+          {{#each dates as |date|}}
+            <th>
+              {{#if dateGroups}}
+                {{#if date.hasTime}}
+                  {{formattedDate date.title format="LT" times=true}}
+                {{/if}}
+              {{else}}
+                {{formattedDate date.title}}
+              {{/if}}
+            </th>
+          {{/each}}
+        {{else}}
+          {{#each model.options as |option|}}
+            <th>
+              {{option.title}}
+            </th>
+          {{/each}}
+        {{/if}}
+
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each sortedUsers as |user|}}
+        <tr class="user">
+          <td>{{user.name}}</td>
+          {{#each user.selections as |selection|}}
+            <td>
+              {{#if selection.label}}
+                {{#if model.isFreeText}}
+                  {{selection.label}}
+                {{/if}}
+              {{/if}}
+              {{#if selection.labelTranslation}}
+                {{#unless model.isFreeText}}
+                  <span class="{{selection.type}}">
+                    <span class="{{selection.icon}}"></span>
+                    {{t selection.labelTranslation}}
+                  </span>
+                {{/unless}}
+              {{/if}}
+            </td>
+          {{/each}}
+          <td>&nbsp;</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

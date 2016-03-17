@@ -32,6 +32,7 @@
     "ember-cli-babel": "^5.1.5",
     "ember-cli-bootstrap-datepicker": "0.5.3",
     "ember-cli-build-info": "0.2.0",
+    "ember-cli-chart": "jelhan/ember-cli-chart#87cc4f125ce69e22197c992206cca700edc70267",
     "ember-cli-content-security-policy": "0.4.0",
     "ember-cli-dependency-checker": "^1.1.0",
     "ember-cli-htmlbars": "^1.0.1",
