@@ -28,9 +28,24 @@ let datetimeObject = Ember.Object.extend({
   date: Ember.computed('option.title', function() {
     return moment(this.get('option.title'));
   }),
-  dateString: Ember.computed('date', function() {
-    return this.get('date').format('YYYY-MM-DD');
+  dateString: Ember.computed('date', 'i18n.locale', function() {
+    const date = this.get('date');
+    const locale = this.get('i18n.locale');
+
+    // moment caches locale so we have to check if it's changed
+    if (date.locale() !== locale) {
+      date.locale(locale);
+    }
+
+    return date.format(
+        moment.localeData()
+          .longDateFormat('LLLL')
+          .replace(
+            moment.localeData().longDateFormat('LT'), '')
+          .trim()
+      );
   }),
+  i18n: Ember.inject.service(),
   option: null,
   time: Ember.computed('option.title', {
     get() {
@@ -136,10 +151,13 @@ export default Ember.Component.extend(Validations, {
         return moment(option.get('title')).isValid();
       });
 
+      const container = this.get('container');
       // return an array of datetime object for all valid date strings
       return validDates.map((option) => {
         return datetimeObject.create({
-          option
+          option,
+          // necessary for service injection
+          container
         });
       });
     }
