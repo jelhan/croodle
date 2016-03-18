@@ -2,6 +2,8 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export default Ember.Component.extend({
+  i18n: Ember.inject.service(),
+
   /*
    * maps optionsDates for bootstrap datepicker as a simple array of date objects
    */

@@ -53,6 +53,7 @@ module.exports = function() {
 
   app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
   app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js');
+  app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js');
 
   app.import({
     development: 'bower_components/floatThead/dist/jquery.floatThead.js',
