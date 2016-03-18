@@ -1,13 +1,13 @@
 /*jshint node:true*/
 /* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-module.exports = function(defaults) {
-  var pickFiles = require('broccoli-static-compiler');
-  var unwatchedTree    = require('broccoli-unwatched-tree');
-  var trees = [];
+module.exports = function() {
+  const pickFiles = require('broccoli-static-compiler');
+  const unwatchedTree    = require('broccoli-unwatched-tree');
+  const trees = [];
 
-  var app = new EmberApp({
+  const app = new EmberApp({
     babel: {
       optional: ['es6.spec.symbols'],
       includePolyfill: true
@@ -99,6 +99,6 @@ module.exports = function(defaults) {
   }
 
   trees.push(app.toTree());
-  var mergeTrees = require('broccoli-merge-trees');
+  const mergeTrees = require('broccoli-merge-trees');
   return mergeTrees(trees);
 };
