@@ -143,3 +143,80 @@ test('evaluation is correct', function(assert) {
     });
   });
 });
+
+test('evaluation could be opened directly', function(assert) {
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+  server.get(`/polls/${id}`, function() {
+    return serverGetPolls(
+      {
+        id,
+        answers: [
+          {
+            type: 'yes',
+            labelTranslation: 'answerTypes.yes.label',
+            icon: 'glyphicon glyphicon-thumbs-up',
+            label: 'Yes'
+          },
+          {
+            type: 'no',
+            labelTranslation: 'answerTypes.no.label',
+            icon: 'glyphicon glyphicon-thumbs-down',
+            label: 'No'
+          }
+        ],
+        options: [
+          { title: '2015-12-12' },
+          { title: '2016-01-01' }
+        ],
+        users: [
+          {
+            id: `${id}_0`,
+            name: 'Maximilian',
+            selections: [
+              {
+                type: 'yes',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
+              },
+              {
+                type: 'yes',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
+              }
+            ],
+            creationDate: '2015-01-01T00:00:00.000Z'
+          },
+          {
+            id: `${id}_1`,
+            name: 'Peter',
+            selections: [
+              {
+                type: 'yes',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
+              },
+              {
+                id: 'no',
+                labelTranslation: 'answerTypes.yes.label',
+                icon: 'glyphicon glyphicon-thumbs-up',
+                label: 'Yes'
+              }
+            ],
+            creationDate: '2015-08-01T00:00:00.000Z'
+          }
+        ]
+      }, encryptionKey
+    );
+  });
+
+  visit(`/poll/${id}/evaluation?encryptionKey=${encryptionKey}`);
+
+  andThen(function() {
+    assert.equal(currentPath(), 'poll.evaluation');
+  });
+});

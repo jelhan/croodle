@@ -41,7 +41,7 @@ test('participate in a default poll', function(assert) {
   );
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    assert.equal(currentPath(), 'poll.participation');
+    assert.equal(currentPath(), 'poll.participation', 'poll is redirected to poll.participation');
     pollParticipate('Max Meiner', ['yes', 'no']);
 
     andThen(function() {
@@ -110,7 +110,7 @@ test('participate in a poll which does not force an answer to all options', func
     }
   );
 
-  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
+  visit(`/poll/${id}/participation?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Karl Käfer', ['yes', null]);
 
@@ -142,7 +142,7 @@ test('participate in a poll which allows anonymous participation', function(asse
     }
   );
 
-  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
+  visit(`/poll/${id}/participation?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate(null, ['yes', 'no']);
 

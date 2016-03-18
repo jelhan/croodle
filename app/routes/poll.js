@@ -23,11 +23,13 @@ export default Ember.Route.extend({
     /* jscs:enable requireCamelCaseOrUpperCaseIdentifiers */
   },
 
-  redirect(poll) {
-    this.transitionTo('poll.participation', poll, {
-      queryParams: {
-        encryptionKey: this.get('encryption.key')
-      }
-    });
+  redirect(poll, transition) {
+    if (transition.targetName === 'poll.index') {
+      this.transitionTo('poll.participation', poll, {
+        queryParams: {
+          encryptionKey: this.get('encryption.key')
+        }
+      });
+    }
   }
 });
