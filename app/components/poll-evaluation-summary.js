@@ -73,7 +73,7 @@ export default Ember.Component.extend({
 
     bestOptions.forEach((bestOption, i) => {
       if (this.get('poll.isFindADate')) {
-        const date = this.get(`dates.${bestOption.key}`);
+        const date = this.get('dates').objectAt(bestOption.key);
         const format = date.hasTime ? 'LLLL' : moment.localeData()
           .longDateFormat('LLLL')
           .replace(
@@ -81,7 +81,7 @@ export default Ember.Component.extend({
           .trim();
         bestOptions[i].title = date.title.format(format);
       } else {
-        const option = this.get(`poll.options.${bestOption.key}`);
+        const option = this.get('poll.options').objectAt(bestOption.key);
         bestOptions[i].title = option.get('title');
       }
     });

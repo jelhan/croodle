@@ -5,6 +5,8 @@
   {{poll-evaluation-chart
     answerType=model.answerType
     dates=dates
+    isFindADate=model.isFindADate
+    pollOptions=model.options
     users=model.users
   }}
 {{/if}}
@@ -45,8 +47,6 @@
             </th>
           {{/each}}
         {{/if}}
-
-        <th>&nbsp;</th>
       </tr>
     </thead>
 
@@ -71,7 +71,6 @@
               {{/if}}
             </td>
           {{/each}}
-          <td>&nbsp;</td>
         </tr>
       {{/each}}
     </tbody>

@@ -23,7 +23,7 @@ moduleForComponent('poll-evaluation-chart', 'Unit | Component | poll evaluation 
   }
 });
 
-test('data is a valid ChartJS dataset', function(assert) {
+test('data is a valid ChartJS dataset for FindADate', function(assert) {
   const dates = [
     Ember.Object.create({
       formatted: 'Thursday, January 1, 2015',
@@ -49,6 +49,7 @@ test('data is a valid ChartJS dataset', function(assert) {
   let component = this.subject({
     answerType: 'YesNoMaybe',
     dates,
+    isFindADate: true,
     users: [
       Ember.Object.create({
         id: 1,
@@ -98,6 +99,90 @@ test('data is a valid ChartJS dataset', function(assert) {
           .trim()
       );
     }),
+    'Labels are correct'
+  );
+  assert.equal(
+    data.datasets.length,
+    2,
+    'there are two datasets'
+  );
+  assert.deepEqual(
+    data.datasets.map((dataset) => dataset.label),
+    ['Maybe', 'Yes'],
+    'datasets having answers as label and are in correct order'
+  );
+  assert.deepEqual(
+    data.datasets[0].data,
+    [0, 50, 50, 0],
+    'dataset for maybe is correct'
+  );
+  assert.deepEqual(
+    data.datasets[1].data,
+    [100, 50, 0, 0],
+    'dataset for yes is correct'
+  );
+});
+
+test('data is a valid ChartJS dataset for MakeAPoll', function(assert) {
+  const options = [
+    Ember.Object.create({
+      title: 'first option'
+    }),
+    Ember.Object.create({
+      title: 'second option'
+    }),
+    Ember.Object.create({
+      title: 'third option'
+    }),
+    Ember.Object.create({
+      title: 'fourth option'
+    })
+  ];
+  let component = this.subject({
+    answerType: 'YesNoMaybe',
+    pollOptions: options,
+    isFindADate: false,
+    users: [
+      Ember.Object.create({
+        id: 1,
+        selections: [
+          Ember.Object.create({
+            type: 'yes'
+          }),
+          Ember.Object.create({
+            type: 'yes'
+          }),
+          Ember.Object.create({
+            type: 'maybe'
+          }),
+          Ember.Object.create({
+            type: 'no'
+          })
+        ]
+      }),
+      Ember.Object.create({
+        id: 2,
+        selections: [
+          Ember.Object.create({
+            type: 'yes'
+          }),
+          Ember.Object.create({
+            type: 'maybe'
+          }),
+          Ember.Object.create({
+            type: 'no'
+          }),
+          Ember.Object.create({
+            type: 'no'
+          })
+        ]
+      })
+    ]
+  });
+  const data = component.get('data');
+  assert.deepEqual(
+    data.labels,
+    options.map((option) => option.get('title')),
     'Labels are correct'
   );
   assert.equal(

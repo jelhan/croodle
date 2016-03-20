@@ -18,10 +18,18 @@ const addArrays = function() {
 export default Ember.Component.extend({
   i18n: Ember.inject.service(),
   type: 'StackedBar',
-  data: Ember.computed('users.[]', 'dates.[]', 'dates.@each.formatted', 'i18n.locale', function() {
-    const labels = this.get('dates').map((date) => {
-      return Ember.get(date, 'formatted');
-    });
+  data: Ember.computed('users.[]', 'dates.[]', 'dates.@each.formatted', 'pollOptions.[]', 'pollOptions.@each.title', 'i18n.locale', function() {
+    let labels;
+    if (this.get('isFindADate')) {
+      labels = this.get('dates').map((date) => {
+        return Ember.get(date, 'formatted');
+      });
+    } else {
+      labels = this.get('pollOptions').map((pollOption) => {
+        return Ember.get(pollOption, 'title');
+      });
+    }
+
     let datasets = [];
     const participants = this.get('users.length');
     if (this.get('answerType') === 'YesNoMaybe') {

@@ -70,6 +70,7 @@ test('it renders', function(assert) {
       ]
     })
   ]);
-  this.render(hbs`{{poll-evaluation-chart dates=dates answerType=answerType users=users}}`);
+  this.set('isFindADate', true);
+  this.render(hbs`{{poll-evaluation-chart dates=dates answerType=answerType isFindADate=isFindADate users=users}}`);
   assert.ok(this.$('canvas'), 'it renders a canvas element');
 });
