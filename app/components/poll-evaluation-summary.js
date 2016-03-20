@@ -49,7 +49,7 @@ export default Ember.Component.extend({
     });
 
     options.sort(function(a, b) {
-      return a.score < b.score;
+      return b.score - a.score;
     });
 
     bestOptions.push(
