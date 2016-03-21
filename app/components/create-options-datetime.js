@@ -112,8 +112,9 @@ export default Ember.Component.extend(Validations, {
         timesOfFirstDate.forEach((timeOfFirstDate, index) => {
           const target = groupedDateTime.items.objectAt(index);
           if (target === undefined) {
+            const basisDate = groupedDateTime.items.get('firstObject.date');
             let [hour, minute] = timeOfFirstDate.split(':');
-            let dateString = moment(groupedDateTime.value, 'YYYY-MM-DD', true).hour(hour).minute(minute).toISOString();
+            let dateString = basisDate.hour(hour).minute(minute).toISOString();
             let fragment = this.get('store').createFragment('option', {
               title: dateString
             });
@@ -124,7 +125,7 @@ export default Ember.Component.extend(Validations, {
             targetPosition++;
           } else {
             target.set('time', timeOfFirstDate);
-            targetPosition = options.indexOf(target.get('option'));
+            targetPosition = options.indexOf(target.get('option')) + 1;
           }
         });
       });

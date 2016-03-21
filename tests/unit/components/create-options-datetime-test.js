@@ -3,7 +3,8 @@ import Ember from 'ember';
 import moment from 'moment';
 
 moduleForComponent('create-options-datetime', 'Unit | Component | create options datetime', {
-  unit: true
+  unit: true,
+  needs: ['model:option']
 });
 
 test('it generates correct datetime objects', function(assert) {
@@ -166,4 +167,86 @@ test('bindings are working on grouped datetimes', function(assert) {
     '01:01',
     'grouped datetimes got updated correctly after option was added (same day)'
   );
+});
+
+test('adopt times of first day - simple', function(assert) {
+  let component = this.subject({
+    options: Ember.A([
+      Ember.Object.create({
+        title: moment('2015-01-01T11:11:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-01T22:22:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-02').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-03').toISOString()
+      })
+    ])
+  });
+  Ember.run(() => {
+    component.send('adoptTimesOfFirstDay');
+    assert.deepEqual(
+      component.get('options').map((option) => option.get('title')),
+      [
+        moment('2015-01-01T11:11:00.000').toISOString(),
+        moment('2015-01-01T22:22:00.000').toISOString(),
+        moment('2015-01-02T11:11:00.000').toISOString(),
+        moment('2015-01-02T22:22:00.000').toISOString(),
+        moment('2015-01-03T11:11:00.000').toISOString(),
+        moment('2015-01-03T22:22:00.000').toISOString()
+      ],
+      'times adopted correctly'
+    );
+  });
+});
+
+test('adopt times of first day - having times on the other days', function(assert) {
+  let component = this.subject({
+    options: Ember.A([
+      Ember.Object.create({
+        title: moment('2015-01-01T11:11:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-01T22:22:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-02T09:11:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-03T01:11:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-03T11:11:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-04T02:11:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-04T05:11:00.000').toISOString()
+      }),
+      Ember.Object.create({
+        title: moment('2015-01-04T12:11:00.000').toISOString()
+      })
+    ])
+  });
+  Ember.run(() => {
+    component.send('adoptTimesOfFirstDay');
+    assert.deepEqual(
+      component.get('options').map((option) => option.get('title')),
+      [
+        moment('2015-01-01T11:11:00.000').toISOString(),
+        moment('2015-01-01T22:22:00.000').toISOString(),
+        moment('2015-01-02T11:11:00.000').toISOString(),
+        moment('2015-01-02T22:22:00.000').toISOString(),
+        moment('2015-01-03T11:11:00.000').toISOString(),
+        moment('2015-01-03T22:22:00.000').toISOString(),
+        moment('2015-01-04T11:11:00.000').toISOString(),
+        moment('2015-01-04T22:22:00.000').toISOString()
+      ],
+      'times adopted correctly'
+    );
+  });
 });
