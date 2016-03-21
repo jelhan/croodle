@@ -8,10 +8,14 @@ import moment from 'moment';
 
 let application, server;
 
+const randomString = function(length) {
+  return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+};
+
 module('Acceptance | create a poll', {
   beforeEach() {
     let lastCreatedPoll = {};
-    const pollId = Math.random().toString(36).substr(2, 10);
+    const pollId = randomString(10);
 
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
