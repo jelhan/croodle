@@ -10,7 +10,7 @@ let Validations = buildValidations({
     validator('length', {
       dependentKeys: ['options.[]'],
       min() {
-        if (this.get('isFindADate') && this.get('isDateTime')) {
+        if (this.model.get('isFindADate') && this.model.get('isDateTime')) {
           return 1;
         } else {
           return 2;

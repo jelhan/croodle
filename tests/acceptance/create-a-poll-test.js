@@ -240,22 +240,15 @@ test('create a poll for answering a question', function(assert) {
   });
 });
 
-test('create a poll with description', function(assert) {
-  let dates =
-    [
-      moment().add(1, 'day'),
-      moment().add(1, 'week')
-    ];
-
-  let formattedDates =
-    dates.map((date) => {
-      return date.format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      );
-    });
+test('create a poll with times and description', function(assert) {
+  let days = [
+                moment().add(1, 'day'),
+                moment().add(1, 'week')
+              ];
+  const dayFormat = moment.localeData().longDateFormat('LLLL')
+                      .replace(
+                        moment.localeData().longDateFormat('LT'), '')
+                      .trim();
 
   pageCreateIndex
     .visit();
@@ -276,43 +269,155 @@ test('create a poll with description', function(assert) {
         assert.equal(currentPath(), 'create.options');
 
         pageCreateOptions
-          .dateOptions(dates);
+          .dateOptions(days);
         pageCreateOptions
           .next();
 
         andThen(function() {
           assert.equal(currentPath(), 'create.options-datetime');
 
+          assert.deepEqual(
+            pageCreateOptionsDatetime.days().labels,
+            days.map((day) => day.format(dayFormat)),
+            'time inputs having days as label'
+          );
+
           pageCreateOptionsDatetime
-            .next();
+            .days(0).times(0).time('10:00');
+          pageCreateOptionsDatetime
+            .days(0).times(0).add();
 
-          andThen(function() {
-            assert.equal(currentPath(), 'create.settings');
+          andThen(() => {
+            pageCreateOptionsDatetime
+              .days(0).times(1).time('18:00');
+            pageCreateOptionsDatetime
+              .days(1).times(0).time('12:00');
 
-            pageCreateSettings
+            pageCreateOptionsDatetime
               .next();
 
             andThen(function() {
-              assert.equal(currentPath(), 'poll.participation');
-              assert.ok(
-                pagePollParticipation.urlIsValid() === true,
-                'poll url is valid'
-              );
-              assert.equal(
-                pagePollParticipation.title,
-                'default poll',
-                'poll title is correct'
-              );
-              assert.equal(
-                pagePollParticipation.description,
-                'a sample description',
-                'poll description is correct'
-              );
-              assert.deepEqual(
-                pagePollParticipation.options().labels,
-                formattedDates,
-                'options are correctly labeled'
-              );
+              assert.equal(currentPath(), 'create.settings');
+
+              pageCreateSettings
+                .next();
+
+              andThen(function() {
+                assert.equal(currentPath(), 'poll.participation');
+                assert.ok(
+                  pagePollParticipation.urlIsValid() === true,
+                  'poll url is valid'
+                );
+                assert.equal(
+                  pagePollParticipation.title,
+                  'default poll',
+                  'poll title is correct'
+                );
+                assert.equal(
+                  pagePollParticipation.description,
+                  'a sample description',
+                  'poll description is correct'
+                );
+                assert.deepEqual(
+                  pagePollParticipation.options().labels,
+                  [
+                    days[0].hour(10).minute(0).format('LLLL'),
+                    days[0].hour(18).minute(0).format('LT'),
+                    days[1].hour(12).minute(0).format('LLLL')
+                  ],
+                  'options are correctly labeled'
+                );
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
+test('create a poll with only one day and multiple times', function(assert) {
+  let day = moment().add(1, 'day');
+  const dayFormat = moment.localeData().longDateFormat('LLLL')
+                      .replace(
+                        moment.localeData().longDateFormat('LT'), '')
+                      .trim();
+
+  pageCreateIndex
+    .visit();
+
+  andThen(function() {
+    pageCreateIndex
+      .next();
+
+    andThen(function() {
+      assert.equal(currentPath(), 'create.meta');
+
+      pageCreateMeta
+        .title('default poll')
+        .description('a sample description')
+        .next();
+
+      andThen(function() {
+        assert.equal(currentPath(), 'create.options');
+
+        pageCreateOptions
+          .dateOptions([ day ]);
+        pageCreateOptions
+          .next();
+
+        andThen(function() {
+          assert.equal(currentPath(), 'create.options-datetime');
+
+          assert.deepEqual(
+            pageCreateOptionsDatetime.days().labels,
+            [ day.format(dayFormat) ],
+            'time inputs having days as label'
+          );
+
+          pageCreateOptionsDatetime
+            .days(0).times(0).time('10:00');
+          pageCreateOptionsDatetime
+            .days(0).times(0).add();
+
+          andThen(() => {
+            pageCreateOptionsDatetime
+              .days(0).times(1).time('18:00');
+
+            pageCreateOptionsDatetime
+              .next();
+
+            andThen(function() {
+              assert.equal(currentPath(), 'create.settings');
+
+              pageCreateSettings
+                .next();
+
+              andThen(function() {
+                assert.equal(currentPath(), 'poll.participation');
+                assert.ok(
+                  pagePollParticipation.urlIsValid() === true,
+                  'poll url is valid'
+                );
+                assert.equal(
+                  pagePollParticipation.title,
+                  'default poll',
+                  'poll title is correct'
+                );
+                assert.equal(
+                  pagePollParticipation.description,
+                  'a sample description',
+                  'poll description is correct'
+                );
+                assert.deepEqual(
+                  pagePollParticipation.options().labels,
+                  [
+                    day.hour(10).minute(0).format('LLLL'),
+                    day.hour(18).minute(0).format('LT')
+                  ],
+                  'options are correctly labeled'
+                );
+              });
             });
           });
         });
