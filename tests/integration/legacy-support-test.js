@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from 'croodle/tests/helpers/start-app';
+import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* global moment */
 
 let application;
@@ -23,20 +24,30 @@ test('show a default poll created with v0.3.0', function(assert) {
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
-    pollTitleEqual(assert, 'default poll created with v0.3.0');
-    pollDescriptionEqual(assert, 'used for integration tests');
-
-    pollHasOptions(assert, [
-      moment.tz('2015-12-24T17:00:00.000Z', timezone).format('LLLL'),
-      moment.tz('2015-12-24T19:00:00.000Z', timezone).format('LT'),
-      moment.tz('2015-12-31T22:59:00.000Z', timezone).format('LLLL')
-    ]);
-
-    pollHasAnswers(assert, [
-      t('answerTypes.yes.label'),
-      t('answerTypes.maybe.label'),
-      t('answerTypes.no.label')
-    ]);
+    assert.equal(
+      pagePollParticipation.title,
+      'default poll created with v0.3.0'
+    );
+    assert.equal(
+      pagePollParticipation.description,
+      'used for integration tests'
+    );
+    assert.deepEqual(
+      pagePollParticipation.options().labels,
+      [
+        moment.tz('2015-12-24T17:00:00.000Z', timezone).format('LLLL'),
+        moment.tz('2015-12-24T19:00:00.000Z', timezone).format('LT'),
+        moment.tz('2015-12-31T22:59:00.000Z', timezone).format('LLLL')
+      ]
+    );
+    assert.deepEqual(
+      pagePollParticipation.options().answers,
+      [
+        t('answerTypes.yes.label').toString(),
+        t('answerTypes.maybe.label').toString(),
+        t('answerTypes.no.label').toString()
+      ]
+    );
 
     switchTab('evaluation');
 
@@ -90,14 +101,22 @@ test('find a poll using free text created with v0.3.0', function(assert) {
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
-    pollTitleEqual(assert, 'Which cake for birthday?');
-    pollDescriptionEqual(assert, '');
-
-    pollHasOptions(assert, [
-      'apple pie',
-      'pecan pie',
-      'plum pie'
-    ]);
+    assert.equal(
+      pagePollParticipation.title,
+      'Which cake for birthday?'
+    );
+    assert.equal(
+      pagePollParticipation.description,
+      ''
+    );
+    assert.deepEqual(
+      pagePollParticipation.options().labels,
+      [
+        'apple pie',
+        'pecan pie',
+        'plum pie'
+      ]
+    );
 
     switchTab('evaluation');
 

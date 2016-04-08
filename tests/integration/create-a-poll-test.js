@@ -2,6 +2,12 @@ import Ember from 'ember';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import moment from 'moment';
+import pageCreateIndex from 'croodle/tests/pages/create/index';
+import pageCreateMeta from 'croodle/tests/pages/create/meta';
+import pageCreateOptions from 'croodle/tests/pages/create/options';
+import pageCreateOptionsDatetime from 'croodle/tests/pages/create/options-datetime';
+import pageCreateSettings from 'croodle/tests/pages/create/settings';
+import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 
 let application;
@@ -36,39 +42,70 @@ test('create a default poll and participate', function(assert) {
       );
     });
 
-  visit('/create').then(function() {
-    click('button[type="submit"]');
+  pageCreateIndex
+    .visit();
+
+  andThen(function() {
+    pageCreateIndex
+      .next();
 
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('.title input', 'default poll');
-      click('button[type="submit"]');
+      pageCreateMeta
+        .title('default poll')
+        .next();
 
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
 
-        selectDates('#datepicker .ember-view', dates);
-
-        click('button[type="submit"]');
+        pageCreateOptions
+          .dateOptions(dates);
+        pageCreateOptions
+          .next();
 
         andThen(function() {
           assert.equal(currentPath(), 'create.options-datetime');
-          click('button[type="submit"]');
+
+          pageCreateOptionsDatetime
+            .next();
 
           andThen(function() {
             assert.equal(currentPath(), 'create.settings');
 
-            click('button[type="submit"]');
+            pageCreateSettings
+              .next();
 
             andThen(function() {
               assert.equal(currentPath(), 'poll.participation');
-              pollHasValidURL(assert);
+              assert.ok(
+                pagePollParticipation.urlIsValid() === true,
+                'poll url is valid'
+              );
+              assert.equal(
+                pagePollParticipation.title,
+                'default poll',
+                'title is correct'
+              );
+              assert.equal(
+                pagePollParticipation.description,
+                '',
+                'description is correct'
+              );
+              assert.deepEqual(
+                pagePollParticipation.options().labels,
+                formattedDates,
+                'option labels are correct'
+              );
+              assert.deepEqual(
+                pagePollParticipation.options().answers,
+                [
+                  t('answerTypes.yes.label').toString(),
+                  t('answerTypes.no.label').toString()
+                ],
+                'option labels are correct'
+              );
 
-              pollTitleEqual(assert, 'default poll');
-              pollDescriptionEqual(assert, '');
-              pollHasOptions(assert, formattedDates);
-              pollHasUsersCount(assert, 0);
               pollParticipate('Max Hoelz', ['no', 'no', 'yes']);
               andThen(function() {
                 assert.equal(currentPath(), 'poll.evaluation');

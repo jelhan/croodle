@@ -4,6 +4,12 @@ import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
 import serverPostPolls from '../helpers/server-post-polls';
 import moment from 'moment';
+import pageCreateIndex from 'croodle/tests/pages/create/index';
+import pageCreateMeta from 'croodle/tests/pages/create/meta';
+import pageCreateOptions from 'croodle/tests/pages/create/options';
+import pageCreateOptionsDatetime from 'croodle/tests/pages/create/options-datetime';
+import pageCreateSettings from 'croodle/tests/pages/create/settings';
+import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 
 let application, server;
@@ -52,62 +58,78 @@ module('Acceptance | create a poll', {
 });
 
 test('create a default poll', function(assert) {
-  visit('/create').then(function() {
-    click('button[type="submit"]');
+  const dates = [
+    moment().add(1, 'day'),
+    moment().add(1, 'week')
+  ];
+
+  pageCreateIndex
+    .visit();
+
+  andThen(function() {
+    pageCreateIndex
+      .next();
 
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('.title input', 'default poll');
-      click('button[type="submit"]');
+      pageCreateMeta
+        .title('default poll')
+        .next();
 
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
 
-        let dates =
-          [
-            moment().add(1, 'day'),
-            moment().add(1, 'week')
-          ];
-
-        selectDates(
-          '#datepicker .ember-view',
-          dates
-        );
-
-        click('button[type="submit"]');
+        pageCreateOptions
+          .dateOptions(dates);
+        pageCreateOptions
+          .next();
 
         andThen(function() {
           assert.equal(currentPath(), 'create.options-datetime');
-          click('button[type="submit"]');
+
+          pageCreateOptionsDatetime
+            .next();
 
           andThen(() => {
             assert.equal(currentPath(), 'create.settings');
 
-            click('button[type="submit"]');
+            pageCreateSettings
+              .next();
 
             andThen(function() {
               assert.equal(currentPath(), 'poll.participation');
-              pollHasValidURL(assert);
-
-              pollTitleEqual(assert, 'default poll');
-              pollDescriptionEqual(assert, '');
-              pollHasOptions(
-                assert,
-                dates.map((date) => {
-                  return date.format(
-                    moment.localeData().longDateFormat('LLLL')
-                      .replace(
-                        moment.localeData().longDateFormat('LT'), '')
-                      .trim()
-                    );
-                })
+              assert.ok(
+                pagePollParticipation.urlIsValid() === true,
+                `poll url ${currentURL()} is valid`
               );
-              pollHasAnswers(assert, [
-                t('answerTypes.yes.label'),
-                t('answerTypes.no.label')
-              ]);
-              pollHasUsersCount(assert, 0);
+              assert.equal(
+                pagePollParticipation.title,
+                'default poll',
+                'poll title is correct'
+              );
+              assert.equal(
+                pagePollParticipation.description,
+                '',
+                'poll description is correct'
+              );
+              const dayFormat = moment.localeData().longDateFormat('LLLL')
+                                  .replace(
+                                    moment.localeData().longDateFormat('LT'), '')
+                                  .trim();
+              assert.deepEqual(
+                pagePollParticipation.options().labels,
+                dates.map((date) => date.format(dayFormat)),
+                'options are correctly labeled'
+              );
+              assert.deepEqual(
+                pagePollParticipation.options().answers,
+                [
+                  t('answerTypes.yes.label').toString(),
+                  t('answerTypes.no.label').toString()
+                ],
+                'answers are correctly labeled'
+              );
             });
           });
         });
@@ -117,73 +139,97 @@ test('create a default poll', function(assert) {
 });
 
 test('create a poll for answering a question', function(assert) {
-  visit('/create').then(function() {
-    // select poll type answer a question
-    fillIn('.poll-type select', 'MakeAPoll');
-    click('button[type="submit"]');
+  pageCreateIndex
+    .visit();
+
+  andThen(function() {
+    pageCreateIndex
+      .pollType('MakeAPoll')
+      .next();
 
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('.title input', 'default poll');
-      click('button[type="submit"]');
+      pageCreateMeta
+        .title('default poll')
+        .next();
 
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
         expectComponent('create-options-text');
 
         assert.equal(
-          find('input').length,
+          pageCreateOptions.textOptions().count,
           2,
           'there are two input fields as default'
         );
 
-        // fill in default two option input fields
-        fillIn(find('input')[0], 'option a');
-        fillIn(find('input')[1], 'option c');
+        pageCreateOptions
+          .textOptions(0).title('option a');
+        pageCreateOptions
+          .textOptions(1).title('option c');
+        pageCreateOptions
+          .textOptions(0).add();
 
-        // add another option input field
-        click('button.add', find('.form-group')[0]);
         andThen(function() {
           assert.equal(
-            find('input').length,
+            pageCreateOptions.textOptions().count,
             3,
             'option was added'
           );
-          fillIn(find('input')[1], 'option b');
+          pageCreateOptions
+            .textOptions(1).title('option b');
+          pageCreateOptions
+            .textOptions(2).add();
 
-          click('button.add', find('.form-group')[2]);
           andThen(function() {
             assert.equal(
-              find('input').length,
+              pageCreateOptions.textOptions().count,
               4,
               'option was added'
             );
-            fillIn(find('input')[3], 'to be deleted');
-            click('button.delete', find('.form-group')[3]);
+            pageCreateOptions
+              .textOptions(3).title('to be deleted');
+            pageCreateOptions
+              .textOptions(3).delete();
 
             andThen(function() {
               assert.equal(
-                find('input').length,
+                pageCreateOptions.textOptions().count,
                 3,
                 'option got deleted'
               );
 
-              click('button[type="submit"]');
+              pageCreateOptions
+                .next();
 
               andThen(function() {
                 assert.equal(currentPath(), 'create.settings');
 
-                click('button[type="submit"]');
+                pageCreateSettings
+                  .next();
 
                 andThen(function() {
                   assert.equal(currentPath(), 'poll.participation');
-                  pollHasValidURL(assert);
-
-                  pollTitleEqual(assert, 'default poll');
-                  pollDescriptionEqual(assert, '');
-                  pollHasOptions(assert, ['option a', 'option b', 'option c']);
-                  pollHasUsersCount(assert, 0);
+                  assert.ok(
+                    pagePollParticipation.urlIsValid() === true,
+                    'poll url is valid'
+                  );
+                  assert.equal(
+                    pagePollParticipation.title,
+                    'default poll',
+                    'poll title is correct'
+                  );
+                  assert.equal(
+                    pagePollParticipation.description,
+                    '',
+                    'poll description is correct'
+                  );
+                  assert.deepEqual(
+                    pagePollParticipation.options().labels,
+                    ['option a', 'option b', 'option c'],
+                    'options are labeled correctly'
+                  );
                 });
               });
             });
@@ -211,40 +257,62 @@ test('create a poll with description', function(assert) {
       );
     });
 
-  visit('/create').then(function() {
-    click('button[type="submit"]');
+  pageCreateIndex
+    .visit();
+
+  andThen(function() {
+    pageCreateIndex
+      .next();
 
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
 
-      fillIn('.title input', 'default poll');
-      fillIn('.description textarea', 'a sample description');
-      click('button[type="submit"]');
+      pageCreateMeta
+        .title('default poll')
+        .description('a sample description')
+        .next();
 
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
 
-        selectDates('#datepicker .ember-view', dates);
-
-        click('button[type="submit"]');
+        pageCreateOptions
+          .dateOptions(dates);
+        pageCreateOptions
+          .next();
 
         andThen(function() {
           assert.equal(currentPath(), 'create.options-datetime');
-          click('button[type="submit"]');
+
+          pageCreateOptionsDatetime
+            .next();
 
           andThen(function() {
             assert.equal(currentPath(), 'create.settings');
 
-            click('button[type="submit"]');
+            pageCreateSettings
+              .next();
 
             andThen(function() {
               assert.equal(currentPath(), 'poll.participation');
-              pollHasValidURL(assert);
-
-              pollTitleEqual(assert, 'default poll');
-              pollDescriptionEqual(assert, 'a sample description');
-              pollHasOptions(assert, formattedDates);
-              pollHasUsersCount(assert, 0);
+              assert.ok(
+                pagePollParticipation.urlIsValid() === true,
+                'poll url is valid'
+              );
+              assert.equal(
+                pagePollParticipation.title,
+                'default poll',
+                'poll title is correct'
+              );
+              assert.equal(
+                pagePollParticipation.description,
+                'a sample description',
+                'poll description is correct'
+              );
+              assert.deepEqual(
+                pagePollParticipation.options().labels,
+                formattedDates,
+                'options are correctly labeled'
+              );
             });
           });
         });

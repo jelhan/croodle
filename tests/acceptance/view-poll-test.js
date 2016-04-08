@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import startApp from 'croodle/tests/helpers/start-app';
 import Pretender from 'pretender';
 import serverGetPolls from '../helpers/server-get-polls';
+import pageParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 /* global jstz, moment, start, stop */
 
@@ -57,20 +58,17 @@ test('view a poll with dates', function(assert) {
   });
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    pollHasOptions(assert, [
-      moment('2015-12-12').format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      ),
-      moment('2016-01-01').format(
-        moment.localeData().longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-      )
-    ]);
+    const dayFormat = moment.localeData().longDateFormat('LLLL')
+                        .replace(
+                          moment.localeData().longDateFormat('LT'), '')
+                        .trim();
+    assert.deepEqual(
+      pageParticipation.options().labels,
+      [
+        moment('2015-12-12').format(dayFormat),
+        moment('2016-01-01').format(dayFormat)
+      ]
+    );
   });
 });
 
@@ -95,14 +93,17 @@ test('view a poll with dates and times', function(assert) {
   });
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    pollHasOptions(assert, [
-      // full date
-      moment.tz('2015-12-12T11:11:00.000Z', timezone).format('LLLL'),
-      // only time cause day is repeated
-      moment.tz('2015-12-12T13:13:00.000Z', timezone).format('LT'),
-      // full date cause day changed
-      moment.tz('2016-01-01T11:11:00.000Z', timezone).format('LLLL')
-    ]);
+    assert.deepEqual(
+      pageParticipation.options().labels,
+      [
+        // full date
+        moment.tz('2015-12-12T11:11:00.000Z', timezone).format('LLLL'),
+        // only time cause day is repeated
+        moment.tz('2015-12-12T13:13:00.000Z', timezone).format('LT'),
+        // full date cause day changed
+        moment.tz('2016-01-01T11:11:00.000Z', timezone).format('LLLL')
+      ]
+    );
   });
 });
 
@@ -146,10 +147,13 @@ test('view a poll while timezone differs from the one poll got created in and ch
       click('.modal button.use-local-timezone');
 
       andThen(function() {
-        pollHasOptions(assert, [
-          moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format('LLLL'),
-          moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format('LLLL')
-        ]);
+        assert.deepEqual(
+          pageParticipation.options().labels,
+          [
+            moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format('LLLL'),
+            moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format('LLLL')
+          ]
+        );
 
         stop();
         Ember.run.later(function() {
@@ -206,10 +210,13 @@ test('view a poll while timezone differs from the one poll got created in and ch
       click('.modal button.use-poll-timezone');
 
       andThen(function() {
-        pollHasOptions(assert, [
-          moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format('LLLL'),
-          moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format('LLLL')
-        ]);
+        assert.deepEqual(
+          pageParticipation.options().labels,
+          [
+            moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format('LLLL'),
+            moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format('LLLL')
+          ]
+        );
 
         stop();
         Ember.run.later(function() {
