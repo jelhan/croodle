@@ -1,8 +1,12 @@
 ---
 language: php
-php:
-  - 5.6
-  - 7
+
+matrix:
+  include:
+    - env: TEST_EMBER=true
+      php: 7
+    - env: TEST_EMBER=false
+      php: 5.6
 
 sudo: false
 
@@ -11,24 +15,45 @@ cache:
     - node_modules
 
 before_install:
-  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
-  - "npm config set spin false"
-  - "npm install -g npm@^2"
+  - if $TEST_EMBER; then export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH; fi
+  - if $TEST_EMBER; then npm config set spin false; fi
+  - if $TEST_EMBER; then npm install -g npm@^2; fi
 
 install:
-  - npm install -g bower
-  - npm install
-  - npm prune
-  - bower install
-  - cd api/ && composer install --no-dev && cd .. # install non development composer requirements for api
+  - if $TEST_EMBER; then npm install -g bower; fi
+  - if $TEST_EMBER; then npm install; fi
+  - if $TEST_EMBER; then npm prune; fi
+  - if $TEST_EMBER; then bower install; fi
+  # install non development composer requirements for api
+  - if $TEST_EMBER; then cd api/ && composer install --no-dev && cd ..; fi
 
 before_script:
-  - ember server --live-reload=false & # Start a server so we can hit the fake API from integration tests
-  - sleep 10 # wait for the server to be started
-  - echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini # http://php.net/manual/de/ini.core.php#ini.always-populate-raw-post-data
-  - npm list # list all installed npm packages
+  # Start a server so we can hit the API from integration tests
+  - if $TEST_EMBER; then ember server --live-reload=false; fi &
+  # wait for the server to be started
+  - if $TEST_EMBER; then sleep 10; fi
+  # http://php.net/manual/de/ini.core.php#ini.always-populate-raw-post-data
+  - echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  # list all installed npm packages
+  - if $TEST_EMBER; then npm list; fi
+  # create a sauce tunnel
+  - if $TEST_EMBER; then ember start-sauce-connect; fi
 
 script:
-  - npm test # run frontend and integration tests
-  - cd api/ && composer install && cd .. # install development requirements for api to run api tests
-  - cd api/ && ./vendor/bin/codecept run && cd .. # run api tests with codeception
+  # run frontend and integration tests
+  - if $TEST_EMBER; then npm test; fi
+  # test against different browsers using sauce lab
+  # we can not run the integration tests against api cause api is not available to test instance running at sauce lab
+  # therefore we only run acceptance tests by filter
+  # to do so we can not just add the launcher to testem ci configuration
+  - if $TEST_EMBER; then ember test --launch='SL_chrome,SL_firefox,SL_edge,SL_ie,SL_safari' --test-port 8080 --filter 'Acceptance |'; fi
+  # install development requirements for api to run api tests
+  # not be done in install section cause otherwise integration tests would not fail
+  # if api needs an dependency in production which is specified as development dependency
+  - cd api/ && composer install && cd ..
+  # run api tests with composer
+  - cd api/ && ./vendor/bin/codecept run && cd ..
+
+after_script:
+  # destroy the sauce tunnel
+  - if [$TEST_EMBER ]; then ember stop-sauce-connect; fi
