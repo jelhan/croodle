@@ -6,6 +6,7 @@ import './poll-has-users';
 import './poll-participate';
 import './switch-tab';
 import './t';
+import './browser-navigation-buttons';
 
 registerAcceptanceTestHelpers();
 

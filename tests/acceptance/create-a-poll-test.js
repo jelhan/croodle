@@ -425,3 +425,107 @@ test('create a poll with only one day and multiple times', function(assert) {
     });
   });
 });
+
+test('create a poll and using back button (find a date)', function(assert) {
+  let days = [
+    moment().add(1, 'day'),
+    moment().add(1, 'week')
+  ];
+  const dayFormat = moment.localeData().longDateFormat('LLLL')
+                      .replace(
+                        moment.localeData().longDateFormat('LT'), '')
+                      .trim();
+
+  setupBrowserNavigationButtons();
+
+  pageCreateIndex
+    .visit();
+
+  andThen(function() {
+    pageCreateIndex
+      .next();
+
+    andThen(function() {
+      assert.equal(currentPath(), 'create.meta');
+
+      pageCreateMeta
+        .title('default poll')
+        .description('a sample description')
+        .next();
+
+      andThen(function() {
+        assert.equal(currentPath(), 'create.options');
+
+        pageCreateOptions
+          .dateOptions(days);
+        pageCreateOptions
+          .next();
+
+        andThen(function() {
+          assert.equal(currentPath(), 'create.options-datetime');
+
+          assert.deepEqual(
+            pageCreateOptionsDatetime.days().labels,
+            days.map((day) => day.format(dayFormat)),
+            'time inputs having days as label'
+          );
+          pageCreateOptionsDatetime.days(1).times(0).time('10:00');
+
+          backButton();
+
+          andThen(() => {
+            assert.equal(currentPath(), 'create.options');
+            assert.deepEqual(
+              pageCreateOptions.dateOptions().map((date) => date.toISOString()),
+              days.map((day) => day.toISOString()),
+              'days are still present after back button is used'
+            );
+
+            pageCreateOptions
+              .next();
+
+            andThen(() => {
+              assert.equal(currentPath(), 'create.options-datetime');
+
+              pageCreateOptionsDatetime
+                .next();
+
+              andThen(function() {
+                assert.equal(currentPath(), 'create.settings');
+
+                pageCreateSettings
+                  .next();
+
+                andThen(function() {
+                  assert.equal(currentPath(), 'poll.participation');
+                  assert.ok(
+                    pagePollParticipation.urlIsValid() === true,
+                    'poll url is valid'
+                  );
+                  assert.equal(
+                    pagePollParticipation.title,
+                    'default poll',
+                    'poll title is correct'
+                  );
+                  assert.equal(
+                    pagePollParticipation.description,
+                    'a sample description',
+                    'poll description is correct'
+                  );
+                  assert.deepEqual(
+                    pagePollParticipation.options().labels,
+                    [
+                      days[0].format(dayFormat),
+                      days[1].hour(10).minute(0).format('LLLL')
+                    ],
+                    'options are correctly labeled'
+                  );
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+});

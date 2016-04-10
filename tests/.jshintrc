@@ -30,7 +30,10 @@
     "pollHasUsersCount",
     "pollParticipate",
     "switchTab",
-    "t"
+    "t",
+    "backButton",
+    "forwardButton",
+    "setupBrowserNavigationButtons"
   ],
   "node": false,
   "browser": false,
