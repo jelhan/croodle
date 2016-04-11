@@ -97,6 +97,40 @@
         "--u"
       ],
       "protocol": "browser"
+    },
+    "SL_iphone": {
+      "exe": "ember",
+      "args": [
+        "sauce:launch",
+        "-b",
+        "iphone",
+        "-v",
+        "9",
+        "-dn",
+        "iPhone Simulator",
+        "--vi",
+        "public",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
+      "protocol": "browser"
+    },
+    "SL_android": {
+      "exe": "ember",
+      "args": [
+        "sauce:launch",
+        "-b",
+        "android",
+        "-dn",
+        "Android Emulator",
+        "--vi",
+        "public",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
+      "protocol": "browser"
     }
   }
 }

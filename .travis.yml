@@ -3,10 +3,11 @@ language: php
 
 matrix:
   include:
-    - env: TEST_EMBER=true
+    - env: TEST_EMBER=true TEST_SAUCE=false TEST_API=true
       php: 7
-    - env: TEST_EMBER=false
+    - env: TEST_EMBER=false TEST_SAUCE=false TEST_API=true
       php: 5.6
+    - env: TEST_EMBER=false TEST_SAUCE=true TEST_API=false
 
 sudo: false
 
@@ -15,17 +16,17 @@ cache:
     - node_modules
 
 before_install:
-  - if $TEST_EMBER; then export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH; fi
-  - if $TEST_EMBER; then npm config set spin false; fi
-  - if $TEST_EMBER; then npm install -g npm@^2; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then npm config set spin false; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then npm install -g npm@^2; fi
 
 install:
-  - if $TEST_EMBER; then npm install -g bower; fi
-  - if $TEST_EMBER; then npm install; fi
-  - if $TEST_EMBER; then npm prune; fi
-  - if $TEST_EMBER; then bower install; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then npm install -g bower; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then npm install; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then npm prune; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then bower install; fi
   # install non development composer requirements for api
-  - if $TEST_EMBER; then cd api/ && composer install --no-dev && cd ..; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then cd api/ && composer install --no-dev && cd ..; fi
 
 before_script:
   # Start a server so we can hit the API from integration tests
@@ -33,11 +34,11 @@ before_script:
   # wait for the server to be started
   - if $TEST_EMBER; then sleep 10; fi
   # http://php.net/manual/de/ini.core.php#ini.always-populate-raw-post-data
-  - echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - if $TEST_API; then echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
   # list all installed npm packages
-  - if $TEST_EMBER; then npm list; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then npm list; fi
   # create a sauce tunnel
-  - if $TEST_EMBER; then ember start-sauce-connect; fi
+  - if $TEST_SAUCE; then ember sauce:connect; fi
 
 script:
   # run frontend and integration tests
@@ -46,14 +47,14 @@ script:
   # we can not run the integration tests against api cause api is not available to test instance running at sauce lab
   # therefore we only run acceptance tests by filter
   # to do so we can not just add the launcher to testem ci configuration
-  - if $TEST_EMBER; then ember test --launch='SL_chrome,SL_firefox,SL_edge,SL_ie,SL_safari' --test-port 8080 --filter 'Acceptance |'; fi
+  - if $TEST_SAUCE; then ember test --launch='SL_chrome,SL_firefox,SL_edge,SL_ie,SL_safari,SL_iphone,SL_android' --test-port 8080 --filter 'Acceptance |'; fi
   # install development requirements for api to run api tests
   # not be done in install section cause otherwise integration tests would not fail
   # if api needs an dependency in production which is specified as development dependency
-  - cd api/ && composer install && cd ..
+  - if $TEST_API; then cd api/ && composer install && cd ..; fi
   # run api tests with composer
-  - cd api/ && ./vendor/bin/codecept run && cd ..
+  - if $TEST_API; then cd api/ && ./vendor/bin/codecept run && cd ..; fi
 
 after_script:
   # destroy the sauce tunnel
-  - if [$TEST_EMBER ]; then ember stop-sauce-connect; fi
+  - if $TEST_SAUCE; then ember sauce:disconnect; fi
