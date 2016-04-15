@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
+import moment from 'moment';
 
 moduleForComponent('create-options', 'Unit | Component | create options', {
   needs: [
@@ -50,9 +51,9 @@ test('validation for make a poll', function(assert) {
     poll.get('options').pushObject(option);
     component.get('options').pushObject(option);
   });
-  assert.notOk(
+  assert.ok(
     component.get('validations.isValid'),
-    'invalid for only one option'
+    'valid if there is atleast one valid option'
   );
   Ember.run(() => {
     let option = this.store.createFragment('option', {
@@ -105,9 +106,9 @@ test('validation for find a date without times', function(assert) {
     poll.get('options').pushObject(option);
     component.get('options').pushObject(option);
   });
-  assert.notOk(
+  assert.ok(
     component.get('validations.isValid'),
-    'invalid if there is only one valid date'
+    'valid if there is atleast one valid date'
   );
   Ember.run(() => {
     let option = this.store.createFragment('option', {
@@ -173,7 +174,7 @@ test('validation for find a date with times', function(assert) {
   );
   Ember.run(() => {
     let option = this.store.createFragment('option', {
-      title: '2015-01-01'
+      title: moment().add('1', 'day').format('YYYY-MM-DD')
     });
     poll.get('options').pushObject(option);
     component.get('options').pushObject(option);
@@ -182,4 +183,17 @@ test('validation for find a date with times', function(assert) {
     component.get('validations.isValid'),
     'valid if there is atleast one valid date'
   );
+  /*
+  Ember.run(() => {
+    let option = this.store.createFragment('option', {
+      title: moment().add('1', 'day').hour(22).minute(30).seconds(0).milliseconds(0).toISOString()
+    });
+    poll.get('options').pushObject(option);
+    component.get('options').pushObject(option);
+  });
+  assert.notOk(
+    component.get('validations.isValid'),
+    'invalid if there is a option without time for a day with has another option with time specified'
+  );
+  */
 });

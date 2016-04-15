@@ -9,13 +9,7 @@ let Validations = buildValidations({
     validator('collection', true),
     validator('length', {
       dependentKeys: ['options.[]'],
-      min() {
-        if (this.model.get('isFindADate') && this.model.get('isDateTime')) {
-          return 1;
-        } else {
-          return 2;
-        }
-      }
+      min: 1
       // message: Ember.I18n.t('create.options.error.notEnoughOptions')
     }),
     validator('unique-collection', {

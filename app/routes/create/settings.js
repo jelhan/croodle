@@ -16,7 +16,7 @@ export default Ember.Route.extend({
       });
     }
     // check if less then two options are defined
-    else if (create.get('options.length') < 2) {
+    else if (create.get('options.length') < 1) {
       this.transitionTo('create.options');
     }
   }
