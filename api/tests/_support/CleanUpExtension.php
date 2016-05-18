@@ -20,8 +20,7 @@ class CleanUpExtension extends \Codeception\Extension
       }
 
       if(is_dir($dir . '/' . $entry)) {
-        $method = __METHOD__;
-        $method($dir .'/' . $entry);
+        self::deleteDirRecursively($dir .'/' . $entry);
       }
       else {
         unlink($dir . '/' . $entry);
