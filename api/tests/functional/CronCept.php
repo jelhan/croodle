@@ -17,15 +17,14 @@ $pollTemplate = array(
 // ISO 8601 format in ECMAScript new Date().toISOString() format
 // DateTime object must be in UTC timezone
 $jsISO8601Format = 'Y-m-d\TH:i:s.00\Z';
-$date = (new DateTime())->setTimezone(new DateTimeZone('UTC'));
 $polls = [
   // expired
   "expired000" => array_merge($pollTemplate, array(
-    "serverExpirationDate" => (clone $date)->sub(new DateInterval('P1D'))->format($jsISO8601Format)
+    "serverExpirationDate" => (new DateTime())->setTimezone(new DateTimeZone('UTC'))->sub(new DateInterval('P1D'))->format($jsISO8601Format)
   )),
   // not expired
   "notExpired" => array_merge($pollTemplate, array(
-    "serverExpirationDate" => (clone $date)->add(new DateInterval('P1D'))->format($jsISO8601Format)
+    "serverExpirationDate" => (new DateTime())->setTimezone(new DateTimeZone('UTC'))->add(new DateInterval('P1D'))->format($jsISO8601Format)
   ))
 ];
 foreach ($polls as $id => $data) {
