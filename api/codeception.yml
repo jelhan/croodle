@@ -13,10 +13,11 @@ extensions:
     enabled:
         - Codeception\Extension\RunFailed
         - Codeception\Extension\PhpBuiltinServer
+        - CleanUpExtension
     config:
         Codeception\Extension\PhpBuiltinServer:
             hostname: localhost
             port: 8000
-            documentRoot: 
+            documentRoot:
             startDelay: 1
             phpIni: /etc/php5/apache2/php.ini

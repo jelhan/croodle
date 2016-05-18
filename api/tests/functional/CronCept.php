@@ -28,20 +28,19 @@ $polls = [
     "serverExpirationDate" => (clone $date)->add(new DateInterval('P1D'))->format($jsISO8601Format)
   ))
 ];
-$dataDir = 'tests/_tmp/data/';
 foreach ($polls as $id => $data) {
-  mkdir($dataDir . $id);
-  file_put_contents($dataDir . $id . '/poll_data', json_encode($data));
+  mkdir(TEST_DATA_DIR . $id);
+  file_put_contents(TEST_DATA_DIR . $id . '/poll_data', json_encode($data));
 }
 
 $I = new FunctionalTester($scenario);
 $I->wantTo('run cron and see expired polls being deleted');
 $I->runShellCommand('php cron.php tests/_tmp/data/');
 \PHPUnit_Framework_Assert::assertFalse(
-  is_dir($dataDir . 'expired000'),
+  is_dir(TEST_DATA_DIR . 'expired000'),
   'expired poll got deleted'
 );
 \PHPUnit_Framework_Assert::assertTrue(
-  is_dir($dataDir . 'notExpired'),
+  is_dir(TEST_DATA_DIR . 'notExpired'),
   'not yet expired poll is still there'
 );
