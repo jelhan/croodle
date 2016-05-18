@@ -8,10 +8,11 @@ export default Ember.Controller.extend({
   queryParams: ['encryptionKey'],
 
   dateGroups: function() {
-    // group dates only for find a date with times
+    // group dates only for find a date
+    // and if there is atleast one time
     if (
-      this.get('model.isFindADate') !== true ||
-      this.get('model.isDateTime') !== true
+      this.get('model.isFindADate') !== true &&
+      this.get('hasTimes')
     ) {
       return [];
     }
@@ -93,7 +94,7 @@ export default Ember.Controller.extend({
     // but since user timezone is default we only have to set timezone
     // if timezone poll got created in should be used
     if (
-      this.get('model.isDateTime') &&
+      this.get('hasTimes') &&
       !this.get('useLocalTimezone')
     ) {
       timezone = this.get('model.timezone');
@@ -103,7 +104,7 @@ export default Ember.Controller.extend({
     dates = this.get('model.options').map((option) => {
       const date = moment(option.get('title'));
       const hasTime = moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
-      if (timezone) {
+      if (timezone && hasTime) {
         date.tz(timezone);
       }
       return dateObject.create({
@@ -116,6 +117,16 @@ export default Ember.Controller.extend({
 
     return dates;
   }),
+
+  hasTimes: function() {
+    if (this.get('model.isMakeAPoll')) {
+      return false;
+    } else {
+      return this.get('model.options').map((option) => {
+        return moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
+      });
+    }
+  }.property('model.options.[]'),
 
   pollUrl: function() {
     return window.location.href;

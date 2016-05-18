@@ -35,9 +35,6 @@ export default DS.Model.extend({
   // Must all options been answered?
   forceAnswer: DS.attr('boolean'),
 
-  // If poll type is FindADate: are options only dates or dates + times?
-  isDateTime: DS.attr('boolean'),
-
   // array of polls options
   options: MF.fragmentArray('option'),
 

@@ -12,7 +12,6 @@ class Poll extends model {
     'description',
     'expirationDate',
     'forceAnswer',
-    'isDateTime',
     'options',
     'pollType',
     'timezone',
@@ -35,12 +34,12 @@ class Poll extends model {
       $this->getDir()
     );
   }
-  
+
   private function deleteDirRecursively($dir) {
     if (substr($dir, -1) !== '/') {
       throw new Exception('dir has to end on /');
     }
-    
+
     $dirHandle = opendir($dir);
     while (false !== ($filename = readdir($dirHandle))) {
       if ($filename === '.' || $filename === '..') {
@@ -58,7 +57,7 @@ class Poll extends model {
       }
     }
     closedir($dirHandle);
-    
+
     rmdir($dir);
   }
 
@@ -70,7 +69,7 @@ class Poll extends model {
     }
     return $randomString;
   }
-  
+
   protected function getDir() {
     if (($this->get('id') === null)) {
       throw new Exception('id must be set before calling getDir');
@@ -81,7 +80,7 @@ class Poll extends model {
   protected function getPollDir() {
     return $this->getDir();
   }
-  
+
   protected function getPath() {
     return $this->getDir() . 'poll_data';
   }
@@ -101,7 +100,7 @@ class Poll extends model {
       }
       closedir($dir);
     }
-    
+
     return $users;
   }
 
@@ -133,7 +132,7 @@ class Poll extends model {
       if (isset($data->poll) && is_object($data->poll)) {
         $data = $data->poll;
       }
-      
+
       foreach($data as $key => $value) {
         if (strpos($key, 'encrypted') === 0) {
           $newKey = lcfirst(substr($key, 9));

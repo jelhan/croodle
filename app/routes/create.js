@@ -27,7 +27,6 @@ export default Ember.Route.extend({
       creationDate: new Date(),
       forceAnswer: true,
       anonymousUser: false,
-      isDateTime: true,
       pollType: 'FindADate',
       timezone: null,
       expirationDate: moment().add(3, 'month').toISOString(),

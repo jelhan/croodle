@@ -33,6 +33,5 @@ export default Ember.Controller.extend({
     // ToDo: Find a better way without reseting the options
     this.set('options', options.sortBy('title'));
   },
-  isDateTime: Ember.computed.alias('model.isDateTime'),
   options: Ember.computed.alias('model.options')
 });

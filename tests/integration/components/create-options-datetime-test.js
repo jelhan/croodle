@@ -14,23 +14,6 @@ moduleForComponent('create-options-datetime', 'Integration | Component | create 
  * that ones could be identifed by class 'ws-inputreplace'
  */
 
-test('time input is toggled by radio switch', function(assert) {
-  this.set('options', [
-    Ember.Object.create({ title: '2015-01-01' })
-  ]);
-  this.set('isDateTime', false);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
-  assert.ok(this.$('.grouped-input input').length === 0);
-  Ember.run(() => {
-    this.$('.bootstrap-switch-handle-off').click();
-  });
-  assert.ok(this.$('.grouped-input input').length > 0);
-  Ember.run(() => {
-    this.$('.bootstrap-switch-handle-on').click();
-  });
-  assert.ok(this.$('.grouped-input input').length === 0);
-});
-
 test('it generates inpute field for options iso 8601 date string (without time)', function(assert) {
   this.set('options', [
     Ember.Object.create({ title: '2015-01-01' })

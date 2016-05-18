@@ -2,33 +2,22 @@
   {{#fm-form
     action='submit'
   }}
+    {{#each groupedDatetimes as |groupedDatetime|}}
+      {{fm-input-group
+        type='time'
+        step=900
+        label=groupedDatetime.value
+        content=groupedDatetime.items
+        addElement='addOption'
+        deleteElement='delOption'
+      }}
+    {{/each}}
+
     <div class='form-group'>
       <div class='col-sm-10 col-sm-offset-2'>
-        {{bootstrap-switch
-          checked=isDateTime
-          labelText=(t 'create.options.defineTimes.label')
-        }}
+        <button {{action "adoptTimesOfFirstDay"}} class="btn btn-default adopt-times-of-first-day">{{t "create.options-datetime.copy-first-line"}}</button>
       </div>
     </div>
-
-    {{#if isDateTime}}
-      {{#each groupedDatetimes as |groupedDatetime|}}
-        {{fm-input-group
-          type='time'
-          step=900
-          label=groupedDatetime.value
-          content=groupedDatetime.items
-          addElement='addOption'
-          deleteElement='delOption'
-        }}
-      {{/each}}
-
-      <div class='form-group'>
-        <div class='col-sm-10 col-sm-offset-2'>
-          <button {{action "adoptTimesOfFirstDay"}} class="btn btn-default adopt-times-of-first-day">{{t "create.options-datetime.copy-first-line"}}</button>
-        </div>
-      </div>
-    {{/if}}
     {{#fm-submit
       inputWrapperClass='col-sm-10 col-sm-offset-2'
     }}

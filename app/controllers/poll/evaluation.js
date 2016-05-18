@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   dateGroups: Ember.computed.reads('pollController.dateGroups'),
   dates: Ember.computed.reads('pollController.dates'),
+  hasTimes: Ember.computed.reads('pollController.hasTimes'),
   pollController: Ember.inject.controller('poll'),
   sortedUsers: Ember.computed.sort('pollController.model.users', 'usersSorting'),
   usersSorting: ['creationDate'],

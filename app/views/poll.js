@@ -14,9 +14,9 @@ export default Ember.View.extend({
     /*
      * show timezone modal if
      * - local timezone differs to timezone poll got created with and
-     * - poll is datetime
+     * - poll has times
      */
-    if (this.get('controller.timezoneDiffers') && this.get('controller.model.isDateTime')) {
+    if (this.get('controller.timezoneDiffers') && this.get('controller.hasTimes')) {
       Ember.$('#timezoneDiffers').modal();
     }
   }

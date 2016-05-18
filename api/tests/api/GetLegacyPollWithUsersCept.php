@@ -21,6 +21,7 @@ $I->seeResponseIsJson();
 
 $pollData = json_decode($pollJson, true)["poll"];
 unset($pollData["serverExpirationDate"]);
+unset($pollData["encryptedIsDateTime"]);
 foreach($pollData as $key => $value) {
   if (strpos($key, 'encrypted') === 0) {
     $key = lcfirst(substr($key, 9));
