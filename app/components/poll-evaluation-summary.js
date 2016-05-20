@@ -4,7 +4,7 @@ import moment from 'moment';
 export default Ember.Component.extend({
   classNames: ['evaluation-summary'],
 
-  evaluationBestOptions: function() {
+  evaluationBestOptions: Ember.computed('poll.users.[]', function() {
     let options = [];
     let bestOptions = [];
     // can not evaluate answer type free text
@@ -87,21 +87,21 @@ export default Ember.Component.extend({
     });
 
     return bestOptions;
-  }.property('poll.users.@each'),
+  }),
 
-  evaluationBestOptionsMultiple: function() {
+  evaluationBestOptionsMultiple: Ember.computed('evaluationBestOptions', function() {
     if (this.get('evaluationBestOptions.length') > 1) {
       return true;
     } else {
       return false;
     }
-  }.property('evaluationBestOptions'),
+  }),
 
-  evaluationLastParticipation: function() {
+  evaluationLastParticipation: Ember.computed('sortedUsers.[]', function() {
     return this.get('sortedUsers.lastObject.creationDate');
-  }.property('sortedUsers.@each'),
+  }),
 
-  evaluationParticipants: function() {
+  evaluationParticipants: Ember.computed('poll.users.[]', function() {
     return this.get('poll.users.length');
-  }.property('poll.users.@each')
+  })
 });

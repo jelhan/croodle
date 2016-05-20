@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 /* global MF */
 
 export default DS.Model.extend({
@@ -55,15 +56,15 @@ export default DS.Model.extend({
   /*
    * computed properties
    */
-  isFindADate: function() {
+  isFindADate: Ember.computed('pollType', function() {
     return this.get('pollType') === 'FindADate';
-  }.property('pollType'),
+  }),
 
-  isFreeText: function() {
+  isFreeText: Ember.computed('answerType', function() {
     return this.get('answerType') === 'FreeText';
-  }.property('answerType'),
+  }),
 
-  isMakeAPoll: function() {
+  isMakeAPoll: Ember.computed('pollType', function() {
     return this.get('pollType') === 'MakeAPoll';
-  }.property('pollType')
+  })
 });

@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
   encryptionKey: '',
   queryParams: ['encryptionKey'],
 
-  dateGroups: function() {
+  dateGroups: Ember.computed('dates.[]', function() {
     // group dates only for find a date
     // and if there is atleast one time
     if (
@@ -52,12 +52,12 @@ export default Ember.Controller.extend({
     });
 
     return dateGroups;
-  }.property('dates.@each'),
+  }),
 
   /*
    * handles options if they are dates
    */
-  dates: Ember.computed('model.options.@each', 'useLocalTimezone', function() {
+  dates: Ember.computed('model.options.[]', 'useLocalTimezone', function() {
     let timezone = false;
     let dates = [];
     const dateObject = Ember.Object.extend({
@@ -118,7 +118,7 @@ export default Ember.Controller.extend({
     return dates;
   }),
 
-  hasTimes: function() {
+  hasTimes: Ember.computed('model.options.[]', function() {
     if (this.get('model.isMakeAPoll')) {
       return false;
     } else {
@@ -126,13 +126,13 @@ export default Ember.Controller.extend({
         return moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
       });
     }
-  }.property('model.options.[]'),
+  }),
 
-  pollUrl: function() {
+  pollUrl: Ember.computed('currentPath', 'encryptionKey', function() {
     return window.location.href;
-  }.property('currentPath', 'encryptionKey'),
+  }),
 
-  preventEncryptionKeyChanges: function() {
+  preventEncryptionKeyChanges: Ember.observer('encryptionKey', function() {
     if (
       !Ember.isEmpty(this.get('encryption.key')) &&
       this.get('encryptionKey') !== this.get('encryption.key')
@@ -142,17 +142,15 @@ export default Ember.Controller.extend({
 
       this.set('encryptionKey', this.get('encryption.key'));
     }
-  }.observes('encryptionKey'),
+  }),
 
   /*
    * return true if current timezone differs from timezone poll got created with
    */
-  timezoneDiffers: function() {
+  timezoneDiffers: Ember.computed('model.timezone', function() {
     const modelTimezone = this.get('model.timezone');
     return Ember.isPresent(modelTimezone) && jstz.determine().name() !== modelTimezone;
-  }.property('model.timezone'),
+  }),
 
-  useLocalTimezone: function() {
-    return false;
-  }.property()
+  useLocalTimezone: false
 });

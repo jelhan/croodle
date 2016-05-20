@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
    * evaluates poll data
    * if free text answers are allowed evaluation is disabled
    */
-  evaluation: function() {
+  evaluation: Ember.computed('model.users.[]', function() {
     // disable evaluation if answer type is free text
     if (this.get('model.answerType') === 'FreeText') {
       return [];
@@ -73,17 +73,17 @@ export default Ember.Controller.extend({
     });
 
     return evaluation;
-  }.property('model.users.@each'),
+  }),
 
   /*
    * calculate colspan for a row which should use all columns in table
    * used by evaluation row
    */
-  fullRowColspan: Ember.computed('model.options.@each', function() {
+  fullRowColspan: Ember.computed('model.options.[]', function() {
     return this.get('model.options.length') + 2;
   }),
 
-  isEvaluable: Ember.computed('model.users.@each', 'model.isFreeText', function() {
+  isEvaluable: Ember.computed('model.users.[]', 'model.isFreeText', function() {
     if (
       !this.get('model.isFreeText') &&
       this.get('model.users.length') > 0
@@ -94,7 +94,7 @@ export default Ember.Controller.extend({
     }
   }),
 
-  optionCount: function() {
+  optionCount: Ember.computed('model.options', function() {
     return this.get('model.options.length');
-  }.property('model.options')
+  })
 });
