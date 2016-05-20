@@ -3,7 +3,10 @@ import hbs from 'htmlbars-inline-precompile';
 import Ember from 'ember';
 
 moduleForComponent('create-options-text', 'Integration | Component | create options text', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    this.inject.service('store');
+  }
 });
 
 test('it generates at least two input fields', function(assert) {
@@ -82,10 +85,23 @@ test('changes to value updates option', function(assert) {
 });
 
 test('allows to add another option', function(assert) {
-  this.set('options', [
-    Ember.Object.create({ title: 'foo' }),
-    Ember.Object.create({ title: 'bar' })
-  ]);
+  // validation is based on validation of every option fragment
+  // which validates according to poll model it belongs to
+  // therefore each option needs to be pushed to poll model to have it as
+  // it's owner
+  let poll;
+  Ember.run(() => {
+    poll = this.store.createRecord('poll', {
+      isFindADate: this.get('isFindADate'),
+      isDateTime: this.get('isDateTime'),
+      isMakeAPoll: this.get('isMakeAPoll'),
+      options: [
+        { title: 'foo' },
+        { title: 'bar' }
+      ]
+    });
+  });
+  this.set('options', poll.get('options'));
   this.render(hbs`{{create-options-text options=options}}`);
 
   assert.equal(
@@ -93,7 +109,10 @@ test('allows to add another option', function(assert) {
     2,
     'there are two input fields before'
   );
-  this.$('.form-group .add').eq(0).click();
+
+  Ember.run(() => {
+    this.$('.form-group .add').eq(0).click();
+  });
   assert.equal(
     this.$('.form-group input').length,
     3,
@@ -106,9 +125,12 @@ test('allows to add another option', function(assert) {
     ['foo', '', 'bar'],
     'it is added at correct position'
   );
-  this.$('.form-group input').eq(1).val('baz').trigger('change');
+
+  Ember.run(() => {
+    this.$('.form-group input').eq(1).val('baz').trigger('change');
+  });
   assert.equal(
-    this.get('options')[1].get('title'),
+    this.get('options').objectAt(1).get('title'),
     'baz',
     'options are observed for new input field'
   );

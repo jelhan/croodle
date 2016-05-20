@@ -18,7 +18,12 @@ const Validations = buildValidations({
         'YYYY-MM-DDTHH:mm:ss.SSSZ'
       ]
     }),
-    validator('presence', true)
+    validator('presence', true),
+    validator('unique', {
+      parent: 'poll',
+      attributeInParent: 'options',
+      dependentKeys: ['poll.options.[]', 'poll.options.@each.title']
+    })
   ]
 });
 

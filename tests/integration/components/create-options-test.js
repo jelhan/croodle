@@ -36,8 +36,8 @@ test('renders component', function(assert) {
   );
 });
 
-test('shows validation errors if options are not unique', function(assert) {
-  assert.expect(2);
+test('shows validation errors if options are not unique (makeAPoll)', function(assert) {
+  assert.expect(5);
 
   this.set('isDateTime', false);
   this.set('isFindADate', false);
@@ -59,28 +59,42 @@ test('shows validation errors if options are not unique', function(assert) {
 
   this.render(hbs`{{create-options options=options isDateTime=isDateTime isFindADate=isFindADate isMakeAPoll=isMakeAPoll}}`);
 
-  Ember.run(() => {
-    this.$('input').val('foo').trigger('change');
-  });
+  assert.ok(
+    this.$('input').length === 2,
+    'assumptions are correct'
+  );
 
   Ember.run(() => {
-    this.$('button[type="submit"]').click();
+    // there should be two inputs and both are changed to 'foo'
+    this.$('input').val('foo').trigger('change').trigger('focusout');
   });
 
-  assert.equal(
-    this.$('div.alert').length, 1
+  assert.ok(
+    this.$('.form-group').eq(1).hasClass('has-error'),
+    'second input field has validation error'
+  );
+
+  assert.ok(
+    this.$('.form-group').eq(1).find('.help-block').length === 1,
+    'validation error is shown'
   );
 
   Ember.run(() => {
     this.$('input').eq(0).val('bar').trigger('change');
   });
 
-  assert.equal(
-    this.$('div.alert').length, 0
+  assert.ok(
+    this.$('.form-group .help-block').length === 0,
+    'there is no validation error anymore after a unique value is entered'
+  );
+
+  assert.ok(
+    this.$('.form-group.has-error').length === 0,
+    'has-error classes are removed'
   );
 });
 
-test('shows validation errors if option is empty', function(assert) {
+test('shows validation errors if option is empty (makeAPoll)', function(assert) {
   this.set('isDateTime', false);
   this.set('isFindADate', false);
   this.set('isMakeAPoll', true);

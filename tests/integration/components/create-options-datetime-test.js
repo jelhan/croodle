@@ -4,7 +4,10 @@ import Ember from 'ember';
 import moment from 'moment';
 
 moduleForComponent('create-options-datetime', 'Integration | Component | create options datetime', {
-  integration: true
+  integration: true,
+  beforeEach() {
+    this.inject.service('store');
+  }
 });
 
 /*
@@ -18,8 +21,7 @@ test('it generates inpute field for options iso 8601 date string (without time)'
   this.set('options', [
     Ember.Object.create({ title: '2015-01-01' })
   ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
     this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
@@ -37,8 +39,7 @@ test('it generates inpute field for options iso 8601 datetime string (with time)
   this.set('options', [
     Ember.Object.create({ title: '2015-01-01T11:11:00.000Z' })
   ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
     this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
@@ -58,8 +59,7 @@ test('it groups input fields per date', function(assert) {
     Ember.Object.create({ title: moment('2015-01-01T22:22').toISOString() }),
     Ember.Object.create({ title: '2015-02-02' })
   ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
     this.$('.grouped-input').length,
@@ -84,12 +84,21 @@ test('it groups input fields per date', function(assert) {
 });
 
 test('allows to add another option', function(assert) {
-  this.set('options', [
-    Ember.Object.create({ title: '2015-01-01' }),
-    Ember.Object.create({ title: '2015-02-02' })
-  ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  // validation is based on validation of every option fragment
+  // which validates according to poll model it belongs to
+  // therefore each option needs to be pushed to poll model to have it as
+  // it's owner
+  let poll;
+  Ember.run(() => {
+    poll = this.store.createRecord('poll', {
+      options: [
+        { title: '2015-01-01' },
+        { title: '2015-02-02' }
+      ]
+    });
+  });
+  this.set('options', poll.get('options'));
+  this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
     this.$('.grouped-input .form-group input:not(.ws-inputreplace)').length,
@@ -114,8 +123,7 @@ test('allows to delete an option', function(assert) {
     Ember.Object.create({ title: moment('2015-01-01T11:11').toISOString() }),
     Ember.Object.create({ title: moment('2015-01-01T22:22').toISOString() })
   ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  this.render(hbs`{{create-options-datetime options=options}}`);
 
   assert.equal(
     this.$('.grouped-input input:not(.ws-inputreplace)').length,
@@ -154,13 +162,22 @@ test('allows to delete an option', function(assert) {
 });
 
 test('adopt times of first day - simple', function(assert) {
-  this.set('options', [
-    Ember.Object.create({ title: moment().hour(10).minute(0).toISOString() }),
-    Ember.Object.create({ title: '2015-02-02' }),
-    Ember.Object.create({ title: '2015-03-03' })
-  ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  // validation is based on validation of every option fragment
+  // which validates according to poll model it belongs to
+  // therefore each option needs to be pushed to poll model to have it as
+  // it's owner
+  let poll;
+  Ember.run(() => {
+    poll = this.store.createRecord('poll', {
+      options: [
+        { title: moment().hour(10).minute(0).toISOString() },
+        { title: '2015-02-02' },
+        { title: '2015-03-03' }
+      ]
+    });
+  });
+  this.set('options', poll.get('options'));
+  this.render(hbs`{{create-options-datetime options=options}}`);
   Ember.run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
@@ -182,14 +199,23 @@ test('adopt times of first day - simple', function(assert) {
 });
 
 test('adopt times of first day - more times on first day than on others', function(assert) {
-  this.set('options', [
-    Ember.Object.create({ title: moment().hour(10).minute(0).toISOString() }),
-    Ember.Object.create({ title: moment().hour(22).minute(0).toISOString() }),
-    Ember.Object.create({ title: '2015-02-02' }),
-    Ember.Object.create({ title: '2015-03-03' })
-  ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  // validation is based on validation of every option fragment
+  // which validates according to poll model it belongs to
+  // therefore each option needs to be pushed to poll model to have it as
+  // it's owner
+  let poll;
+  Ember.run(() => {
+    poll = this.store.createRecord('poll', {
+      options: [
+        { title: moment().hour(10).minute(0).toISOString() },
+        { title: moment().hour(22).minute(0).toISOString() },
+        { title: '2015-02-02' },
+        { title: '2015-03-03' }
+      ]
+    });
+  });
+  this.set('options', poll.get('options'));
+  this.render(hbs`{{create-options-datetime options=options}}`);
   Ember.run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
@@ -216,8 +242,7 @@ test('adopt times of first day - excess times on other days got deleted', functi
     Ember.Object.create({ title: moment().add(1, 'day').hour(10).minute(0).toISOString() }),
     Ember.Object.create({ title: moment().add(1, 'day').hour(22).minute(0).toISOString() })
   ]);
-  this.set('isDateTime', true);
-  this.render(hbs`{{create-options-datetime options=options isDateTime=isDateTime}}`);
+  this.render(hbs`{{create-options-datetime options=options}}`);
   Ember.run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });

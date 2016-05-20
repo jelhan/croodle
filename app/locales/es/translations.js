@@ -121,6 +121,6 @@ export default {
     phone: '{{description}} must be a valid phone number',
     url: '{{description}} must be a valid url',
     time: '{{value}} must be a valid time',
-    uniqueCollection: '{{description}} must be unique'
+    unique: '{{description}} must be unique'
   }
 };

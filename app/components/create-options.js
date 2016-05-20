@@ -12,10 +12,6 @@ let Validations = buildValidations({
       min: 1
       // message: Ember.I18n.t('create.options.error.notEnoughOptions')
     }),
-    validator('unique-collection', {
-      dependentKeys: ['options.[]', 'options.@each.title'],
-      property: 'title'
-    }),
     validator('valid-collection', {
       dependentKeys: ['options.[]', 'options.@each.title']
     })
