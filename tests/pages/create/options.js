@@ -5,7 +5,9 @@ import { findElementWithAssert } from 'croodle/tests/page-object/helpers';
 let {
   clickable,
   collection,
-  fillable
+  fillable,
+  isVisible,
+  text
 } = PageObject;
 
 const setBootstrapDatepicker = function(selector, options = {}) {
@@ -33,6 +35,8 @@ const setBootstrapDatepicker = function(selector, options = {}) {
 
 export default PageObject.create({
   dateOptions: setBootstrapDatepicker('#datepicker .ember-view'),
+  dateHasError: isVisible('.alert'),
+  dateError: text('.alert'),
   next: clickable('button[type="submit"]'),
   textOptions: collection({
     itemScope: '.grouped-input .form-group',

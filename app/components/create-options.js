@@ -8,9 +8,15 @@ let Validations = buildValidations({
   options: [
     validator('collection', true),
     validator('length', {
-      dependentKeys: ['options.[]'],
-      min: 1
-      // message: Ember.I18n.t('create.options.error.notEnoughOptions')
+      dependentKeys: ['options.[]', 'i18n.locale'],
+      min: 1,
+      message() {
+        const i18n = this.model.get('i18n');
+        const isFindADate = this.model.get('isFindADate');
+        const translationKey = isFindADate ? 'create.options.error.notEnoughDates' : 'create.options.error.notEnoughOptions';
+        const message = i18n.t(translationKey);
+        return message.toString();
+      }
     }),
     validator('valid-collection', {
       dependentKeys: ['options.[]', 'options.@each.title']
@@ -28,5 +34,7 @@ export default Ember.Component.extend(Validations, {
       }
     }
   },
+  // consumed by validator
+  i18n: Ember.inject.service(),
   shouldShowErrors: false
 });

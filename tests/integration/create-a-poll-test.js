@@ -59,66 +59,87 @@ test('create a default poll and participate', function(assert) {
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
 
-        pageCreateOptions
-          .dateOptions(dates);
+        assert.notOk(
+          pageCreateOptions.dateHasError,
+          'no validation error shown before user interaction'
+        );
+
         pageCreateOptions
           .next();
 
         andThen(function() {
-          assert.equal(currentPath(), 'create.options-datetime');
+          assert.equal(
+            currentPath(),
+            'create.options',
+            'transition is aborted due to validation error (no day selected)'
+          );
 
-          pageCreateOptionsDatetime
+          assert.ok(
+            pageCreateOptions.dateHasError,
+            'validation error is shown if no day is selected (after user interaction)'
+          );
+
+          pageCreateOptions
+            .dateOptions(dates);
+          pageCreateOptions
             .next();
 
           andThen(function() {
-            assert.equal(currentPath(), 'create.settings');
+            assert.equal(currentPath(), 'create.options-datetime');
 
-            pageCreateSettings
+            pageCreateOptionsDatetime
               .next();
 
             andThen(function() {
-              assert.equal(currentPath(), 'poll.participation');
-              assert.ok(
-                pagePollParticipation.urlIsValid() === true,
-                'poll url is valid'
-              );
-              assert.equal(
-                pagePollParticipation.title,
-                'default poll',
-                'title is correct'
-              );
-              assert.equal(
-                pagePollParticipation.description,
-                '',
-                'description is correct'
-              );
-              assert.deepEqual(
-                pagePollParticipation.options().labels,
-                formattedDates,
-                'option labels are correct'
-              );
-              assert.deepEqual(
-                pagePollParticipation.options().answers,
-                [
-                  t('answerTypes.yes.label').toString(),
-                  t('answerTypes.no.label').toString()
-                ],
-                'option labels are correct'
-              );
+              assert.equal(currentPath(), 'create.settings');
 
-              pollParticipate('Max Hoelz', ['no', 'no', 'yes']);
+              pageCreateSettings
+                .next();
+
               andThen(function() {
-                assert.equal(currentPath(), 'poll.evaluation');
-                pollHasUsersCount(assert, 1);
-                pollHasUser(
-                  assert,
-                  'Max Hoelz',
-                  [
-                    t('answerTypes.no.label'),
-                    t('answerTypes.no.label'),
-                    t('answerTypes.yes.label')
-                  ]
+                assert.equal(currentPath(), 'poll.participation');
+                assert.ok(
+                  pagePollParticipation.urlIsValid() === true,
+                  'poll url is valid'
                 );
+                assert.equal(
+                  pagePollParticipation.title,
+                  'default poll',
+                  'title is correct'
+                );
+                assert.equal(
+                  pagePollParticipation.description,
+                  '',
+                  'description is correct'
+                );
+                assert.deepEqual(
+                  pagePollParticipation.options().labels,
+                  formattedDates,
+                  'option labels are correct'
+                );
+                assert.deepEqual(
+                  pagePollParticipation.options().answers,
+                  [
+                    t('answerTypes.yes.label').toString(),
+                    t('answerTypes.no.label').toString()
+                  ],
+                  'option labels are correct'
+                );
+
+                pollParticipate('Max Hoelz', ['no', 'no', 'yes']);
+                andThen(function() {
+                  assert.equal(currentPath(), 'poll.evaluation');
+                  pollHasUsersCount(assert, 1);
+                  pollHasUser(
+                    assert,
+                    'Max Hoelz',
+                    [
+                      t('answerTypes.no.label'),
+                      t('answerTypes.no.label'),
+                      t('answerTypes.yes.label')
+                    ]
+                  );
+                });
               });
             });
           });
