@@ -54,6 +54,8 @@ export default {
   'poll.error.newUser.everyOptionIsAnswered': 'Please answer ever option.',
   'poll.error.newUserName': 'You have to give a user name.',
   'poll.evaluation.label': 'Evaluation',
+  'poll.evaluation.overview': 'Overview',
+  'poll.evaluation.participantTable': 'Participants and there answers',
   'poll.evaluation.bestOption.label.findADate.one': 'The preferred date is',
   'poll.evaluation.bestOption.label.findADate.other': 'The preferred dates are',
   'poll.evaluation.bestOption.label.makeAPoll.one': 'The preferred choice is',

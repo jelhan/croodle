@@ -54,6 +54,8 @@ export default {
   'poll.error.newUser.everyOptionIsAnswered': 'Bitte beantworte jede Option.',
   'poll.error.newUserName': 'Du musst einen Nutzernamen angeben.',
   'poll.evaluation.label': 'Auswertung',
+  'poll.evaluation.overview': 'Übersicht',
+  'poll.evaluation.participantTable': 'Teilnehmende und ihre Antworten',
   'poll.evaluation.bestOption.label.findADate.one': 'Der bevorzugte Termin ist',
   'poll.evaluation.bestOption.label.findADate.other': 'Die bevorzugten Termine sind',
   'poll.evaluation.bestOption.label.makeAPoll.one': 'Die bevorzugte Option ist',

@@ -1,7 +1,7 @@
 {{#if isEvaluable}}
   {{poll-evaluation-summary poll=model dates=dates sortedUsers=sortedUsers}}
 
-  <h3>Übersicht</h3>
+  <h3>{{t 'poll.evaluation.overview'}}</h3>
   {{poll-evaluation-chart
     answerType=model.answerType
     dates=dates
@@ -11,7 +11,7 @@
   }}
 {{/if}}
 
-<h3>Teilnehmende und ihre Antworten</h3>
+<h3>{{t 'poll.evaluation.participantTable'}}</h3>
 <div class="table-scroll">
   <table class="user-selections-table table table-striped table-condensed">
     <thead>
@@ -20,7 +20,7 @@
           <th>&nbsp;</th>
           {{#each dateGroups as |dateGroup|}}
             <th colspan="{{dateGroup.colspan}}">
-              {{formattedDate dateGroup.value}}
+              {{dateGroup.formatted}}
             </th>
           {{/each}}
           <th>&nbsp;</th>
@@ -33,7 +33,7 @@
             <th>
               {{#if dateGroups}}
                 {{#if date.hasTime}}
-                  {{formattedDate date.title format="LT" times=true}}
+                  {{date.formattedTime}}
                 {{/if}}
               {{else}}
                 {{formattedDate date.title}}
