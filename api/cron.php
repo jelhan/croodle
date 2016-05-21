@@ -2,7 +2,7 @@
 <?php
 /*
  * handles maintance jobs
- * should be called on regular basis by cron or something like that
+ * should be called on regular basis by cron or something similar
  * should only be executable by php cli
  */
 
