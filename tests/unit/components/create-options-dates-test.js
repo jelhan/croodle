@@ -38,6 +38,44 @@ test('options get mapped to dates as optionsBootstrapDatepicker (used by ember-c
   );
 });
 
+test('options having times get mapped to dates as optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
+  let controller = this.subject();
+  controller.set('options', [
+    Ember.Object.create({ title: '2014-01-01T12:00:00.00Z' }),
+    Ember.Object.create({ title: '2015-02-02T15:00:00.00Z' }),
+    Ember.Object.create({ title: '2015-02-02T15:00:00.00Z' }),
+    Ember.Object.create({ title: '2016-03-03' })
+  ]);
+  assert.ok(
+    Ember.isArray(
+      controller.get('optionsBootstrapDatepicker')
+    ),
+    "it's an array"
+  );
+  assert.equal(
+    controller.get('optionsBootstrapDatepicker.length'),
+    3,
+    'array length is correct'
+  );
+  assert.ok(
+    controller.get('optionsBootstrapDatepicker').every((el) => {
+      return moment.isDate(el);
+    }),
+    'array elements are date objects'
+  );
+  assert.deepEqual(
+    controller.get('optionsBootstrapDatepicker').map((option) => {
+      return option.toISOString();
+    }),
+    [
+      moment('2014-01-01').toISOString(),
+      moment('2015-02-02').toISOString(),
+      moment('2016-03-03').toISOString()
+    ],
+    'date is correct'
+  );
+});
+
 test('options get set correctly by optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
   let controller = this.subject();
   Ember.run.next(() => {

@@ -9,13 +9,26 @@ export default Ember.Component.extend({
    */
   optionsBootstrapDatepicker: Ember.computed('options', {
     get() {
-      return this.get('options')
-               .filter(function(option) {
-                 return moment(option.get('title')).isValid();
-               })
-               .map(function(option) {
-                 return moment(option.get('title')).toDate();
-               });
+      const options = this.get('options');
+      const validDates = options.filter(function(option) {
+        return moment(option.get('title')).isValid();
+      });
+      const normalizedDates = validDates.map(function(option) {
+        return moment(option.get('title'))
+                 .hour(0)
+                 .minute(0)
+                 .millisecond(0);
+      });
+      // convert to primitive to allow support Ember.Array.uniq()
+      const uniqueDateStrings = normalizedDates
+                                  .map((moment) => {
+                                    return moment.toISOString();
+                                  })
+                                  .uniq();
+      const dateObjects = uniqueDateStrings.map(function(dateString) {
+        return moment(dateString).toDate();
+      });
+      return dateObjects;
     },
     set(key, value) {
       // ember-cli-bootstrap-datepicker returns an array of Date objects
