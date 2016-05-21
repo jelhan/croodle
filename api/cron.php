@@ -1,7 +1,8 @@
+#!/usr/bin/php
 <?php
 /*
  * handles maintance jobs
- * should be called on regular basis by cron or something like
+ * should be called on regular basis by cron or something like that
  * should only be executable by php cli
  */
 
