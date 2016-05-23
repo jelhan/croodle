@@ -7,7 +7,7 @@
  */
 
 if (php_sapi_name() !== 'cli') {
-  throw new Exception('chron.php is only executable by php cli');
+  throw new Exception('cron.php must be called by php-cli');
 }
 
 require_once 'classes/poll.php';
