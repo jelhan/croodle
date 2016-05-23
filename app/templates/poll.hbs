@@ -40,28 +40,21 @@
   </div>
 </div>
 
-<div class="modal fade" id="timezoneDiffers">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">
-          {{t "poll.modal.timezoneDiffers.title"}}
-        </h4>
-      </div>
-      <div class="modal-body">
-        <p>
-          {{t "poll.modal.timezoneDiffers.body"}}
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" {{action "useLocalTimezone" target="view"}} class="use-local-timezone">
-          {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
-        </button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" class="use-poll-timezone">
-          {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+{{#bs-modal
+  title=(t "poll.modal.timezoneDiffers.title")
+  open=(and timezoneDiffers (not useLocalTimezone))
+}}
+  {{#bs-modal-body}}
+    <p>
+      {{t "poll.modal.timezoneDiffers.body"}}
+    </p>
+  {{/bs-modal-body}}
+  {{#bs-modal-footer as |footer|}}
+    {{#bs-button action=(action "useLocalTimezone") class="use-local-timezone"}}
+      {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
+    {{/bs-button}}
+    {{#bs-button action=(action "close" target=footer) classNames="use-poll-timezone"}}
+      {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}
+    {{/bs-button}}
+  {{/bs-modal-footer}}
+{{/bs-modal}}

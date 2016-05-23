@@ -3,6 +3,12 @@ import moment from 'moment';
 /* global jstz */
 
 export default Ember.Controller.extend({
+  actions: {
+    useLocalTimezone() {
+      this.set('useLocalTimezone', true);
+    }
+  },
+
   encryption: Ember.inject.service(),
   encryptionKey: '',
   queryParams: ['encryptionKey'],
