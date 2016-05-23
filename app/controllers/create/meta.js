@@ -6,9 +6,13 @@ from 'ember-cp-validations';
 
 const Validations = buildValidations({
   title: [
-    validator('presence', true),
+    validator('presence', {
+      presence: true,
+      dependentKeys: ['i18n.locale']
+    }),
     validator('length', {
-      min: 2
+      min: 2,
+      dependentKeys: ['i18n.locale']
     })
   ]
 });
@@ -21,6 +25,12 @@ export default Ember.Controller.extend(Validations, {
       }
     }
   },
+
+  init() {
+    this.get('i18n.locale');
+  },
+
+  i18n: Ember.inject.service(),
 
   title: Ember.computed.alias('model.title')
 });

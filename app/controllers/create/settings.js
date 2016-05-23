@@ -7,11 +7,18 @@ import moment from 'moment';
 /* global jstz */
 
 const Validations = buildValidations({
-  anonymousUser: validator('presence', true),
+  anonymousUser: validator('presence', {
+    presence: true,
+    dependentKeys: ['i18n.locale']
+  }),
   answerType: [
-    validator('presence', true),
+    validator('presence', {
+      presence: true,
+      dependentKeys: ['i18n.locale']
+    }),
     validator('inclusion', {
-      in: ['YesNo', 'YesNoMaybe', 'FreeText']
+      in: ['YesNo', 'YesNoMaybe', 'FreeText'],
+      dependentKeys: ['i18n.locale']
     })
   ],
   forceAnswer: validator('presence', true)
@@ -147,6 +154,12 @@ export default Ember.Controller.extend(Validations, {
   }),
 
   forceAnswer: Ember.computed.alias('model.forceAnswer'),
+
+  i18n: Ember.inject.service(),
+
+  init() {
+    this.get('i18n.locale');
+  },
 
   /*
    * set answers depending on selected answer type

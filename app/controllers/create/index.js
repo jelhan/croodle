@@ -6,9 +6,13 @@ from 'ember-cp-validations';
 
 const Validations = buildValidations({
   pollType: [
-    validator('presence', true),
+    validator('presence', {
+      presence: true,
+      dependentKeys: ['i18n.locale']
+    }),
     validator('inclusion', {
-      in: ['FindADate', 'MakeAPoll']
+      in: ['FindADate', 'MakeAPoll'],
+      dependentKeys: ['i18n.locale']
     })
   ]
 });
@@ -31,6 +35,10 @@ export default Ember.Controller.extend(Validations, {
   },
 
   i18n: Ember.inject.service(),
+
+  init() {
+    this.get('i18n.locale');
+  },
 
   pollType: Ember.computed.alias('model.pollType'),
 

@@ -22,7 +22,7 @@ const Validations = buildValidations({
         return null;
       }
     },
-    dependentKeys: ['anonymousUser']
+    dependentKeys: ['anonymousUser', 'i18n.locale']
   }),
 
   selections: [
@@ -31,7 +31,7 @@ const Validations = buildValidations({
     // all selection objects must be valid
     // if forceAnswer is true in poll settings
     validator(validCollection, {
-      dependentKeys: ['forceAnswer', 'selections.[]', 'selections.@each.value']
+      dependentKeys: ['forceAnswer', 'selections.[]', 'selections.@each.value', 'i18n.locale']
     })
   ]
 });
@@ -44,7 +44,7 @@ const SelectionValidations = buildValidations({
         return true;
       }
     },
-    dependentKeys: ['forceAnswer']
+    dependentKeys: ['forceAnswer', 'i18n.locale']
   })
 });
 
@@ -111,6 +111,11 @@ export default Ember.Controller.extend(Validations, {
   encryption: Ember.inject.service(),
   forceAnswer: Ember.computed.readOnly('pollController.model.forceAnswer'),
   i18n: Ember.inject.service(),
+
+  init() {
+    this.get('i18n.locale');
+  },
+
   isFreeText: Ember.computed.readOnly('pollController.model.isFreeText'),
   isFindADate: Ember.computed.readOnly('pollController.model.isFindADate'),
 
@@ -210,6 +215,9 @@ export default Ember.Controller.extend(Validations, {
         labelFormat,
         labelValue,
         i18n: Ember.inject.service(),
+        init() {
+          this.get('i18n.locale');
+        },
         value: null
       }).create();
     });
