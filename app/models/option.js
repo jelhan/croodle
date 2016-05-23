@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 import {
   validator, buildValidations
 }
@@ -16,18 +17,27 @@ const Validations = buildValidations({
         'YYYY-MM-DDTHH:mmZ',
         'YYYY-MM-DDTHH:mm:ssZ',
         'YYYY-MM-DDTHH:mm:ss.SSSZ'
-      ]
+      ],
+      dependentKeys: ['i18n.locale']
     }),
-    validator('presence', true),
+    validator('presence', {
+      presence: true,
+      dependentKeys: ['i18n.locale']
+    }),
     validator('unique', {
       parent: 'poll',
       attributeInParent: 'options',
-      dependentKeys: ['poll.options.[]', 'poll.options.@each.title']
+      dependentKeys: ['poll.options.[]', 'poll.options.@each.title', 'i18n.locale']
     })
   ]
 });
 
 export default MF.Fragment.extend(Validations, {
   poll: MF.fragmentOwner(),
-  title: DS.attr('string')
+  title: DS.attr('string'),
+
+  i18n: Ember.inject.service(),
+  init() {
+    this.get('i18n.locale');
+  }
 });
