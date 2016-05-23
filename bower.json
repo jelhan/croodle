@@ -13,7 +13,7 @@
     "loader.js": "ember-cli/loader.js#3.4.0",
     "qunit": "~1.20.0",
     "sjcl": "~1.0.0",
-    "bootstrap": "~3.3.4",
+    "bootstrap": "~3.3.5",
     "bootstrap-datepicker": "~1.4.0",
     "floatThead": "1.2.12",
     "modernizr": "~2.8.3",

@@ -14,6 +14,9 @@ module.exports = function() {
     },
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
+    },
+    'ember-bootstrap': {
+      importBootstrapCSS: false
     }
   });
 
@@ -29,27 +32,6 @@ module.exports = function() {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
-
-  app.import({
-    development: 'bower_components/bootstrap/dist/js/bootstrap.js',
-    production: 'bower_components/bootstrap/dist/js/bootstrap.min.js'
-  });
-  app.import({
-    development: 'bower_components/bootstrap/dist/css/bootstrap.css',
-    production: 'bower_components/bootstrap/dist/css/bootstrap.min.css'
-  });
-  if (app.env === 'development' || app.env === 'test') {
-    app.import('bower_components/bootstrap/dist/css/bootstrap.css.map', {
-      destDir: 'assets'
-    });
-  }
-  // include bootstrap fonts in dist
-  trees.push(
-    pickFiles('bower_components/bootstrap/dist/fonts', {
-      srcDir: '/',
-      destDir: '/fonts'
-    })
-  );
 
   app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
   app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js');
