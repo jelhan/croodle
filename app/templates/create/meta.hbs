@@ -1,23 +1,29 @@
 <div class="box">
-  {{#fm-form action='submit'}}
-    {{fm-field
-      value=title
+  {{#bs-form
+    formLayout="horizontal"
+    model=this
+    action="submit"
+  }}
+    {{bs-form-element
+      classNames='title'
+      controlType="text"
       label=(t 'create.meta.input.title.label')
       placeholder=(t 'create.meta.input.title.placeholder')
-      errors=validations.attrs.title.messages
-      class='title'
+      property="title"
     }}
-    {{fm-field
-      type='textarea'
-      value=model.description
+    {{bs-form-element
+      classNames='description'
+      controlType="textarea"
       label=(t 'create.meta.input.description.label')
       placeholder=(t 'create.meta.input.description.placeholder')
-      class='description'
+      property="description"
     }}
-    {{#fm-submit
-      inputWrapperClass='col-sm-10 col-sm-offset-2'
-    }}
-      {{t 'create.next'}}
-    {{/fm-submit}}
-  {{/fm-form}}
+    {{#bs-form-element}}
+      {{bs-button
+        defaultText=(t 'create.next')
+        type="primary"
+        buttonType="submit"
+      }}
+    {{/bs-form-element}}
+  {{/bs-form}}
 </div>

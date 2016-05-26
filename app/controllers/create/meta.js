@@ -26,6 +26,8 @@ export default Ember.Controller.extend(Validations, {
     }
   },
 
+  description: Ember.computed.alias('model.description'),
+
   init() {
     this.get('i18n.locale');
   },

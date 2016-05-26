@@ -62,6 +62,7 @@
     "ember-i18n-cp-validations": "2.2.0",
     "ember-moment": "4.1.0",
     "ember-radio-button": "^0.1.2",
+    "ember-simple-select": "0.5.0",
     "ember-suave": "1.2.3",
     "ember-truth-helpers": "1.2.0",
     "express": "^4.8.5",

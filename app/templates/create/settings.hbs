@@ -1,43 +1,57 @@
 <div class="box">
-  {{#fm-form action='submit'}}
-    {{fm-field
-      type='select'
-      content=answerTypes
-      value=answerType
-      optionValuePath='id'
-      optionLabelPath='label'
+  {{#bs-form
+    formLayout="horizontal"
+    model=this
+    action="submit"
+  }}
+    {{#bs-form-element
+      classNames='answer-type'
       label=(t 'create.settings.answerType.label')
-      errors=validations.attrs.answerType.messages
-      class='answer-type'
+      property="answerType"
+      as |value id|
     }}
-    {{fm-field
-      type='select'
-      content=expirationDurations
-      value=expirationDuration
-      optionValuePath='id'
-      optionLabelPath='label'
+      {{simple-select
+        id=id
+        content=answerTypes
+        optionLabelPath="label"
+        optionValuePath="id"
+        value=value
+        action=(action (mut value) value='id')
+      }}
+    {{/bs-form-element}}
+    {{#bs-form-element
+      classNames='expiration-duration'
       label=(t 'create.settings.expirationDate.label')
-      errors=validations.attrs.expirationDuration.messages
-      class='expiration-duration'
+      property='expirationDuration'
+      as |value id|
     }}
-    {{fm-checkbox
-      checked=anonymousUser
+      {{simple-select
+        id=id
+        content=expirationDurations
+        optionLabelPath='label'
+        optionValuePath='id'
+        value=value
+        action=(action (mut value) value='id')
+      }}
+    {{/bs-form-element}}
+    {{bs-form-element
+      classNames='anonymous-user'
+      controlType='checkbox'
       label=(t 'create.settings.anonymousUser.label')
-      errors=validations.attrs.anonymousUser.messages
-      class='anonymous-user'
-      inputWrapperClass='col-sm-10 col-sm-offset-2'
+      value=anonymousUser
     }}
-    {{fm-checkbox
-      checked=forceAnswer
+    {{bs-form-element
+      classNames='force-answer'
+      controlType='checkbox'
       label=(t 'create.settings.forceAnswer.label')
-      errors=validations.attrs.forceAnswer.messages
-      class='force-answer'
-      inputWrapperClass='col-sm-10 col-sm-offset-2'
+      value=forceAnswer
     }}
-    {{#fm-submit
-      inputWrapperClass='col-sm-10 col-sm-offset-2'
-    }}
-      {{t 'create.next'}}
-    {{/fm-submit}}
-  {{/fm-form}}
+    {{#bs-form-element}}
+      {{bs-button
+        defaultText=(t 'create.next')
+        type="primary"
+        buttonType="submit"
+      }}
+    {{/bs-form-element}}
+  {{/bs-form}}
 </div>

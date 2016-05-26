@@ -1,19 +1,30 @@
 <div class="box">
-  {{#fm-form action='submit'}}
-    {{fm-field
-      type='select'
-      value=pollType
-      content=pollTypes
-      optionValuePath='id'
-      optionLabelPath='label'
+  {{#bs-form
+    formLayout="horizontal"
+    model=this
+    action="submit"
+  }}
+    {{#bs-form-element
+      classNames='poll-type'
       label=(t 'create.index.input.pollType.label')
-      errors=validations.attrs.pollType.messages
-      class='poll-type'
+      property="pollType"
+      as |value id|
     }}
-    {{#fm-submit
-      inputWrapperClass='col-sm-10 col-sm-offset-2'
-    }}
-      {{t 'create.next'}}
-    {{/fm-submit}}
-  {{/fm-form}}
+      {{simple-select
+        id=id
+        content=pollTypes
+        optionLabelPath="label"
+        optionValuePath="id"
+        value=value
+        action=(action (mut value) value='id')
+      }}
+    {{/bs-form-element}}
+    {{#bs-form-element}}
+      {{bs-button
+        defaultText=(t 'create.next')
+        type="primary"
+        buttonType="submit"
+      }}
+    {{/bs-form-element}}
+  {{/bs-form}}
 </div>
