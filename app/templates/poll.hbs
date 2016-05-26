@@ -42,7 +42,11 @@
 
 {{#bs-modal
   title=(t "poll.modal.timezoneDiffers.title")
-  open=(and timezoneDiffers (not useLocalTimezone))
+  open=mustChooseTimezone
+  footer=false
+  closeButton=false
+  keyboard=false
+  autoClose=false
 }}
   {{#bs-modal-body}}
     <p>
@@ -53,7 +57,7 @@
     {{#bs-button action=(action "useLocalTimezone") class="use-local-timezone"}}
       {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
     {{/bs-button}}
-    {{#bs-button action=(action "close" target=footer) classNames="use-poll-timezone"}}
+    {{#bs-button action=(action (mut timezoneChoosen) true) classNames="use-poll-timezone"}}
       {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}
     {{/bs-button}}
   {{/bs-modal-footer}}

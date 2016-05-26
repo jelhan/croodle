@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   actions: {
     useLocalTimezone() {
       this.set('useLocalTimezone', true);
+      this.set('timezoneChoosen', true);
     }
   },
 
@@ -191,6 +192,8 @@ export default Ember.Controller.extend({
     }
   }),
 
+  timezoneChoosen: false,
+
   /*
    * return true if current timezone differs from timezone poll got created with
    */
@@ -199,5 +202,9 @@ export default Ember.Controller.extend({
     return Ember.isPresent(modelTimezone) && jstz.determine().name() !== modelTimezone;
   }),
 
-  useLocalTimezone: false
+  useLocalTimezone: false,
+
+  mustChooseTimezone: Ember.computed('timezoneDiffers', 'timezoneChoosen', function() {
+    return this.get('timezoneDiffers') && !this.get('timezoneChoosen');
+  })
 });
