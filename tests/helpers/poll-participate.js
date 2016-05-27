@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Test.registerAsyncHelper('pollParticipate', function(app, name, selections) {
   if (!Ember.isEmpty(name)) {
-    fillIn('.participation input#Name', name);
+    fillIn('.participation .name input', name);
   }
 
   const isFreeText = find('.participation .selections .radio').length ? false : true;
