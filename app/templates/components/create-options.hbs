@@ -1,6 +1,8 @@
 <div class="box">
-  {{#fm-form
+  {{#bs-form
     action='submit'
+    formLayout='horizontal'
+    model=this
   }}
     {{#if isMakeAPoll}}
       {{create-options-text
@@ -14,26 +16,14 @@
         options=options
         submit='submit'
       }}
-
-      {{#if shouldShowErrors}}
-        {{#if validations.message}}
-          <div class="row">
-            <div class="col-sm-10 col-sm-offset-2">
-              <div class="alert alert-danger" role="alert">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only">{{t 'error'}}:</span>
-                {{validations.message}}
-              </div>
-            </div>
-          </div>
-        {{/if}}
-      {{/if}}
     {{/if}}
 
-    {{#fm-submit
-      inputWrapperClass='col-sm-10 col-sm-offset-2'
-    }}
-      {{t 'create.next'}}
-    {{/fm-submit}}
-  {{/fm-form}}
+    {{#bs-form-element}}
+      {{bs-button
+        buttonType='submit'
+        defaultText=(t 'create.next')
+        type='primary'
+      }}
+    {{/bs-form-element}}
+  {{/bs-form}}
 </div>

@@ -164,72 +164,87 @@ test('create a poll for answering a question', function(assert) {
           'there are two input fields as default'
         );
 
-        pageCreateOptions
-          .textOptions(0).title('option a');
-        pageCreateOptions
-          .textOptions(1).title('option c');
-        pageCreateOptions
-          .textOptions(0).add();
+        pageCreateOptions.next();
 
         andThen(function() {
           assert.equal(
-            pageCreateOptions.textOptions().count,
-            3,
-            'option was added'
+            currentPath(),
+            'create.options',
+            'validation errors prevents transition'
           );
+          assert.ok(
+            pageCreateOptions.textOptions(0).hasError &&
+            pageCreateOptions.textOptions(1).hasError,
+            'validation errors are shown after submit'
+          );
+
           pageCreateOptions
-            .textOptions(1).title('option b');
+            .textOptions(0).title('option a');
           pageCreateOptions
-            .textOptions(2).add();
+            .textOptions(1).title('option c');
+          pageCreateOptions
+            .textOptions(0).add();
 
           andThen(function() {
             assert.equal(
               pageCreateOptions.textOptions().count,
-              4,
+              3,
               'option was added'
             );
             pageCreateOptions
-              .textOptions(3).title('to be deleted');
+              .textOptions(1).title('option b');
             pageCreateOptions
-              .textOptions(3).delete();
+              .textOptions(2).add();
 
             andThen(function() {
               assert.equal(
                 pageCreateOptions.textOptions().count,
-                3,
-                'option got deleted'
+                4,
+                'option was added'
               );
-
               pageCreateOptions
-                .next();
+                .textOptions(3).title('to be deleted');
+              pageCreateOptions
+                .textOptions(3).delete();
 
               andThen(function() {
-                assert.equal(currentPath(), 'create.settings');
+                assert.equal(
+                  pageCreateOptions.textOptions().count,
+                  3,
+                  'option got deleted'
+                );
 
-                pageCreateSettings
+                pageCreateOptions
                   .next();
 
                 andThen(function() {
-                  assert.equal(currentPath(), 'poll.participation');
-                  assert.ok(
-                    pagePollParticipation.urlIsValid() === true,
-                    'poll url is valid'
-                  );
-                  assert.equal(
-                    pagePollParticipation.title,
-                    'default poll',
-                    'poll title is correct'
-                  );
-                  assert.equal(
-                    pagePollParticipation.description,
-                    '',
-                    'poll description is correct'
-                  );
-                  assert.deepEqual(
-                    pagePollParticipation.options().labels,
-                    ['option a', 'option b', 'option c'],
-                    'options are labeled correctly'
-                  );
+                  assert.equal(currentPath(), 'create.settings');
+
+                  pageCreateSettings
+                    .next();
+
+                  andThen(function() {
+                    assert.equal(currentPath(), 'poll.participation');
+                    assert.ok(
+                      pagePollParticipation.urlIsValid() === true,
+                      'poll url is valid'
+                    );
+                    assert.equal(
+                      pagePollParticipation.title,
+                      'default poll',
+                      'poll title is correct'
+                    );
+                    assert.equal(
+                      pagePollParticipation.description,
+                      '',
+                      'poll description is correct'
+                    );
+                    assert.deepEqual(
+                      pagePollParticipation.options().labels,
+                      ['option a', 'option b', 'option c'],
+                      'options are labeled correctly'
+                    );
+                  });
                 });
               });
             });

@@ -6,6 +6,7 @@ let {
   clickable,
   collection,
   fillable,
+  hasClass,
   isVisible,
   text
 } = PageObject;
@@ -34,15 +35,16 @@ const setBootstrapDatepicker = function(selector, options = {}) {
 };
 
 export default PageObject.create({
-  dateOptions: setBootstrapDatepicker('#datepicker .ember-view'),
-  dateHasError: isVisible('.alert'),
-  dateError: text('.alert'),
+  dateOptions: setBootstrapDatepicker('.days .ember-view:has(.datepicker:first-child)'),
+  dateHasError: isVisible('.days.has-error'),
+  dateError: text('.days .help-block'),
   next: clickable('button[type="submit"]'),
   textOptions: collection({
-    itemScope: '.grouped-input .form-group',
+    itemScope: '.form-group.option',
     item: {
       add: clickable('button.add'),
       delete: clickable('button.delete'),
+      hasError: hasClass('has-error'),
       title: fillable('input')
     }
   })

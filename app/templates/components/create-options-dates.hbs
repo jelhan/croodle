@@ -1,23 +1,15 @@
-<div class="form-group">
-  <label class="col-sm-2 control-label">
-    {{t 'create.options.dates.label'}}
-  </label>
-
-  <div class="col-sm-10">
-    <div id="datepicker">
-      {{bootstrap-datepicker-inline
-        value=optionsBootstrapDatepicker
-        multidate=true
-        calendarWeeks=true
-        todayHighlight=true
-        language=i18n.locale
-      }}
-    </div>
-
-    {{#if showDatepickerErrors}}
-      {{#if validations.attrs.optionsBootstrapDatepicker.message}}
-        {{validations.attrs.optionsBootstrapDatepicker.message}}
-      {{/if}}
-    {{/if}}
-  </div>
-</div>
+{{#bs-form-element
+  classNames='days'
+  label=(t 'create.options.dates.label')
+  property='options'
+  as |value id|
+}}
+  {{bootstrap-datepicker-inline
+    id=id
+    value=optionsBootstrapDatepicker
+    multidate=true
+    calendarWeeks=true
+    todayHighlight=true
+    language=i18n.locale
+  }}
+{{/bs-form-element}}

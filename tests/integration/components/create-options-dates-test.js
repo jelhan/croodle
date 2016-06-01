@@ -12,7 +12,7 @@ test('it renders a ember-cli-bootstrap-datepicker component', function(assert) {
   this.render(hbs`{{create-options-dates options=options}}`);
 
   assert.equal(
-    this.$('#datepicker .ember-view').length, 1
+    this.$('.days .ember-view:has(.datepicker:first-child)').length, 1
   );
 });
 
@@ -24,12 +24,12 @@ test('bootstrap-datepicker shows dates in options', function(assert) {
   this.render(hbs`{{create-options-dates options=options}}`);
 
   assert.equal(
-    this.$('#datepicker .ember-view').datepicker('getDates')[0].toISOString(),
+    this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('getDates')[0].toISOString(),
     moment('2015-01-01').toISOString(),
     'date is correct (a)'
   );
   assert.equal(
-    this.$('#datepicker .ember-view').datepicker('getDates')[1].toISOString(),
+    this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('getDates')[1].toISOString(),
     moment('2015-01-02').toISOString(),
     'date is correct (b)'
   );
@@ -39,7 +39,7 @@ test('dates set in bootstrap-datepicker are set to options', function(assert) {
   this.set('options', []);
   this.render(hbs`{{create-options-dates options=options}}`);
 
-  this.$('#datepicker .ember-view').datepicker('setDates', [
+  this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('setDates', [
     moment('2015-01-01').toDate(),
     moment('2015-01-02').toDate()
   ]);
@@ -54,7 +54,7 @@ test('dates set in bootstrap-datepicker are set to options', function(assert) {
     'dates are correct (b)'
   );
 
-  this.$('#datepicker .ember-view').datepicker('setDates', [
+  this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('setDates', [
     moment('2016-12-31').toDate(),
     moment('2016-01-01').toDate()
   ]);
