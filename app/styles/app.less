@@ -172,3 +172,16 @@ table.floatThead-table {
 ul.nav-tabs {
   margin-bottom: 15px;
 }
+
+/*
+ * Override label validation state
+ */
+ .label-has-error .control-label {
+   color: @state-danger-text;
+ }
+ .label-has-success .control-label {
+   color: @state-success-text;
+ }
+ .label-has-no-validation .control-label {
+   color: inherit;
+}
