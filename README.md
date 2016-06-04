@@ -46,7 +46,7 @@ Afterwards copy all files in /dist folder to your werbserver.
 
 ### After installation
 
-* `data/` folder has to be writeable by web server.
+* `data/` folder has to be writeable by web server, but **must not** be accessible publicy. That means protect it in your webserver configuration!
 * HTTPS connection should be forced. You should consider using [HTTP Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security) (HSTS) and [HTTP Public Key Pinning](https://developer.mozilla.org/en-US/docs/Web/Security/Public_Key_Pinning) (HPKP).
 * [Content-Security-Policy](http://content-security-policy.com/) (CSP) should be used. Default CSP headers are provided in `.htaccess` file but commented out.
 * Execute `php api/cron.php` on a regular basis to delete outdated polls. A cronjob running once a day should be fine.
