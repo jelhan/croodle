@@ -107,7 +107,7 @@ export default {
     after: '{{description}} muss nach dem {date} sein',
     wrongDateFormat: '{{description}} muss im Format {{date}} sein',
     wrongLength: '{{description}} hat die falsche Länge, es müssen {{count}} Zeichen sein',
-    notANumber: '{{description}} ist keine zahl',
+    notANumber: '{{description}} ist keine Zahl',
     notAnInteger: '{{description}} muss eine ganze Zahl sein',
     greaterThan: '{{description}} muss größer sein als {{count}}',
     greaterThanOrEqualTo: '{{description}} muss größer oder gleich {{count}} sein',
