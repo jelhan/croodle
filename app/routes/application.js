@@ -18,13 +18,5 @@ export default Ember.Route.extend({
         parentView: 'application'
       });
     }
-  },
-
-  beforeModel() {
-    this.set('fmConfig.formClass', 'form-horizontal');
-    this.set('fmConfig.inputWrapperClass', 'col-sm-10');
-    this.set('fmConfig.labelClass', 'col-sm-2 control-label');
-  },
-
-  fmConfig: Ember.inject.service('fm-config')
+  }
 });
