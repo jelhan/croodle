@@ -12,6 +12,10 @@ export default BaseValidator.extend({
 
     options.value = value;
 
+    if (options.allowEmpty && Ember.isEmpty(value)) {
+      return true;
+    }
+
     if (!Ember.isEmpty(value) && typeof value.trim === 'function') {
       value = value.trim();
     }

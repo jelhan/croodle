@@ -4,6 +4,7 @@ import Ember from 'ember';
 moduleForModel('option', 'Unit | Model | option', {
   needs: [
     'validator:iso8601',
+    'validator:unique',
     'validator:presence',
     'validator:messages',
     'model:poll',

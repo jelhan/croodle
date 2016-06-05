@@ -9,7 +9,7 @@ let {
 
 export default PageObject.create({
   days: collection({
-    itemScope: '.grouped-input',
+    itemScope: '.days',
     item: {
       times: collection({
         itemScope: '.form-group',
@@ -21,7 +21,7 @@ export default PageObject.create({
       }),
       label: text('.form-group:eq(0) label')
     },
-    labels: text('.grouped-input .form-group label', { multiple: true })
+    labels: text('.days .form-group label', { multiple: true })
   }),
   next: clickable('button[type="submit"]')
 });

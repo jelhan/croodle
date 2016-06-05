@@ -16,6 +16,7 @@ moduleForComponent('create-options', 'Unit | Component | create options', {
     'validator:iso8601',
     'validator:length',
     'validator:presence',
+    'validator:unique',
     'validator:valid-collection',
     'validator:messages',
     // validator consumes i18n service
@@ -40,7 +41,6 @@ test('validation for make a poll', function(assert) {
   let component = this.subject();
   component.set('options', []);
   component.set('isFindADate', false);
-  component.set('isDateTime', false);
   component.set('isMakeAPoll', true);
 
   // validation is based on validation of every option fragment
@@ -51,7 +51,6 @@ test('validation for make a poll', function(assert) {
   Ember.run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: component.get('isFindADate'),
-      isDateTime: component.get('isDateTime'),
       isMakeAPoll: component.get('isMakeAPoll')
     });
   });
@@ -95,7 +94,6 @@ test('validation for find a date without times', function(assert) {
   let component = this.subject();
   component.set('options', []);
   component.set('isFindADate', true);
-  component.set('isDateTime', false);
   component.set('isMakeAPoll', false);
 
   // validation is based on validation of every option fragment
@@ -106,7 +104,6 @@ test('validation for find a date without times', function(assert) {
   Ember.run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: component.get('isFindADate'),
-      isDateTime: component.get('isDateTime'),
       isMakeAPoll: component.get('isMakeAPoll')
     });
   });
@@ -128,7 +125,7 @@ test('validation for find a date without times', function(assert) {
   );
   Ember.run(() => {
     let option = this.store.createFragment('option', {
-      title: '2015-01-01'
+      title: '2015-01-02'
     });
     poll.get('options').pushObject(option);
     component.get('options').pushObject(option);
@@ -149,7 +146,7 @@ test('validation for find a date without times', function(assert) {
     'invalid if atleast one option is not a valid date'
   );
   Ember.run(() => {
-    component.set('options.lastObject.title', '2015-01-01');
+    component.set('options.lastObject.title', '2015-01-03');
   });
   assert.ok(
     component.get('validations.isValid'),
@@ -160,7 +157,7 @@ test('validation for find a date without times', function(assert) {
     component.set('options.lastObject.title', '2015-01-01');
   });
   assert.ok(
-    component.get('validations.isValid'),
+    component.get('validations.isInvalid'),
     'invalid if dates are not unique'
   );
 });
@@ -168,8 +165,6 @@ test('validation for find a date without times', function(assert) {
 test('validation for find a date with times', function(assert) {
   let component = this.subject();
   component.set('options', []);
-  component.set('isFindADate', true);
-  component.set('isDateTime', true);
   component.set('isMakeAPoll', false);
 
   // validation is based on validation of every option fragment
@@ -180,7 +175,6 @@ test('validation for find a date with times', function(assert) {
   Ember.run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: component.get('isFindADate'),
-      isDateTime: component.get('isDateTime'),
       isMakeAPoll: component.get('isMakeAPoll')
     });
   });

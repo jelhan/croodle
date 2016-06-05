@@ -25,7 +25,7 @@ test('it generates correct datetime objects', function(assert) {
   );
   assert.equal(
     component.get('datetimes.lastObject.time'),
-    moment('11:22Z', 'HH:mmZ').format('HH:mm'),
+    moment('2016-02-02T11:22:00Z').format('HH:mm'),
     'time is set to local time according time in ISO 8601 datetime string'
   );
   component.set('options', [
@@ -39,7 +39,7 @@ test('it generates correct datetime objects', function(assert) {
   );
   assert.equal(
     component.get('datetimes.firstObject.time'),
-    moment('11:22Z', 'HH:mmZ').format('HH:mm'),
+    moment('2016-02-02T11:22:00Z').format('HH:mm'),
     'does not filter out valid date string if one is invalid'
   );
 });

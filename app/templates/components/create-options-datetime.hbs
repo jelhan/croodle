@@ -1,28 +1,56 @@
 <div class="box">
-  {{#fm-form
+  {{#bs-form
     action='submit'
+    formLayout='horizontal'
+    model=this
   }}
     {{#each groupedDatetimes as |groupedDatetime|}}
-      {{fm-input-group
-        type='time'
-        step=900
-        label=groupedDatetime.value
-        content=groupedDatetime.items
-        elementErrorsPath='option.validations.message'
-        addElement='addOption'
-        deleteElement='delOption'
-      }}
+      <div class="days">
+        {{#each groupedDatetime.items as |time index|}}
+          {{! show label only on first item }}
+          {{#bs-form-element
+            classNames='option'
+            label=(unless index groupedDatetime.value)
+            model=time
+            property='time'
+            as |value id validationState|
+          }}
+            <div class="input-group">
+              {{bs-input
+                id=id
+                type='time'
+                value=value
+              }}
+              <div class="input-group-btn">
+                {{! disable delete button if there is only one option }}
+                <button {{action 'deleteOption' time}}
+                  class="delete btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}"
+                  disabled={{if (gt groupedDatetime.items.length 1) false true}}>
+                  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+                  <span class='sr-only'>{{t 'create.options.button.delete.label'}}</span>
+                </button>
+                <button {{action 'addOption' time}}
+                  class="add btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
+                  <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
+                  <span class='sr-only'>{{t 'create.options.button.add.label'}}</span>
+                </button>
+              </div>
+            </div>
+          {{/bs-form-element}}
+        {{/each}}
+      </div>
     {{/each}}
 
-    <div class='form-group'>
-      <div class='col-sm-10 col-sm-offset-2'>
-        <button {{action "adoptTimesOfFirstDay"}} class="btn btn-default adopt-times-of-first-day">{{t "create.options-datetime.copy-first-line"}}</button>
-      </div>
-    </div>
-    {{#fm-submit
-      inputWrapperClass='col-sm-10 col-sm-offset-2'
-    }}
-      {{t 'create.next'}}
-    {{/fm-submit}}
-  {{/fm-form}}
+    {{#bs-form-element}}
+      <button {{action "adoptTimesOfFirstDay"}} class="btn btn-default adopt-times-of-first-day">{{t "create.options-datetime.copy-first-line"}}</button>
+    {{/bs-form-element}}
+
+    {{#bs-form-element}}
+      {{bs-button
+        buttonType='submit'
+        defaultText=(t 'create.next')
+        type='primary'
+      }}
+    {{/bs-form-element}}
+  {{/bs-form}}
 </div>

@@ -6,25 +6,35 @@ import {
 }
 from 'ember-cp-validations';
 
-let Validations = buildValidations({
-  options: [
+let modelValidations = buildValidations({
+  datetimes: [
     validator('collection', true),
     validator('length', {
-      dependentKeys: ['options.[]'],
+      dependentKeys: ['datetimes.[]'],
       min: 1
-      // message: Ember.I18n.t('create.options.error.notEnoughOptions')
-    }),
-    validator('unique-collection', {
-      dependentKeys: ['options.[]', 'options.@each.title'],
-      property: 'title'
     }),
     validator('valid-collection', {
-      dependentKeys: ['options.[]', 'options.@each.title']
+      dependentKeys: ['datetimes.[]', 'datetimes.@each.time']
     })
   ]
 });
 
-let datetimeObject = Ember.Object.extend({
+let datetimeValidation = buildValidations({
+  time: [
+    validator('time', {
+      allowEmpty: true
+    }),
+    // use option unique validation
+    validator('model-alias', {
+      alias: 'title',
+      dependentKeys: ['option.validations.attrs.isValid'],
+      firstMessageOnly: true,
+      model: 'option'
+    })
+  ]
+});
+
+let datetimeObject = Ember.Object.extend(datetimeValidation, {
   date: Ember.computed('option.title', function() {
     return moment(this.get('option.title'));
   }),
@@ -74,7 +84,7 @@ let datetimeObject = Ember.Object.extend({
   title: Ember.computed.alias('time')
 });
 
-export default Ember.Component.extend(Validations, {
+export default Ember.Component.extend(modelValidations, {
   actions: {
     addOption(element) {
       let options = this.get('options');
@@ -130,7 +140,7 @@ export default Ember.Component.extend(Validations, {
         });
       });
     },
-    delOption(element) {
+    deleteOption(element) {
       let position = this.get('options').indexOf(element.get('option'));
       this.get('options').removeAt(position);
     },
