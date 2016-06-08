@@ -298,15 +298,15 @@ test('create a poll with times and description', function(assert) {
           );
 
           pageCreateOptionsDatetime
-            .days(0).times(0).time('10:00');
+            .times(0).time('10:00');
           pageCreateOptionsDatetime
-            .days(0).times(0).add();
+            .times(0).add();
 
           andThen(() => {
             pageCreateOptionsDatetime
-              .days(0).times(1).time('18:00');
+              .times(1).time('18:00');
             pageCreateOptionsDatetime
-              .days(1).times(0).time('12:00');
+              .times(2).time('12:00');
 
             pageCreateOptionsDatetime
               .next();
@@ -391,13 +391,13 @@ test('create a poll with only one day and multiple times', function(assert) {
           );
 
           pageCreateOptionsDatetime
-            .days(0).times(0).time('10:00');
+            .times(0).time('10:00');
           pageCreateOptionsDatetime
-            .days(0).times(0).add();
+            .times(0).add();
 
           andThen(() => {
             pageCreateOptionsDatetime
-              .days(0).times(1).time('18:00');
+              .times(1).time('18:00');
 
             pageCreateOptionsDatetime
               .next();
@@ -559,7 +559,7 @@ test('create a poll with only one day (with time)', function(assert) {
           );
 
           pageCreateOptionsDatetime
-            .days(0).times(0).time('22:30');
+            .times(0).time('22:30');
           pageCreateOptionsDatetime
             .next();
 
@@ -719,7 +719,7 @@ test('create a poll and using back button (find a date)', function(assert) {
             days.map((day) => day.format(dayFormat)),
             'time inputs having days as label'
           );
-          pageCreateOptionsDatetime.days(1).times(0).time('10:00');
+          pageCreateOptionsDatetime.times(1).time('10:00');
 
           backButton();
 

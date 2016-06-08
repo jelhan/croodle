@@ -25,14 +25,13 @@ test('it generates inpute field for options iso 8601 date string (without time)'
   Ember.run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
-      isMakeAPoll: false
+      isMakeAPoll: false,
+      options: [
+        { title: '2015-01-01' }
+      ]
     }));
-    this.set('options', Ember.computed.alias('poll.options'));
-    this.get('options').pushObjects([
-      { title: '2015-01-01' }
-    ]);
   });
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
     this.$('.days .form-group input:not(.ws-inputreplace)').length,
@@ -54,14 +53,13 @@ test('it generates inpute field for options iso 8601 datetime string (with time)
   Ember.run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
-      isMakeAPoll: false
+      isMakeAPoll: false,
+      options: [
+        { title: '2015-01-01T11:11:00.000Z' }
+      ]
     }));
-    this.set('options', Ember.computed.alias('poll.options'));
-    this.get('options').pushObjects([
-      { title: '2015-01-01T11:11:00.000Z' }
-    ]);
   });
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
     this.$('.days .form-group input:not(.ws-inputreplace)').length,
@@ -75,7 +73,7 @@ test('it generates inpute field for options iso 8601 datetime string (with time)
   );
 });
 
-test('it groups input fields per date', function(assert) {
+test('it hides repeated labels', function(assert) {
   // validation is based on validation of every option fragment
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
@@ -83,36 +81,37 @@ test('it groups input fields per date', function(assert) {
   Ember.run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
-      isMakeAPoll: false
+      isMakeAPoll: false,
+      options: [
+        { title: moment('2015-01-01T10:11').toISOString() },
+        { title: moment('2015-01-01T22:22').toISOString() },
+        { title: '2015-02-02' }
+      ]
     }));
-    this.set('options', Ember.computed.alias('poll.options'));
-    this.get('options').pushObjects([
-      { title: moment('2015-01-01T10:11').toISOString() },
-      { title: moment('2015-01-01T22:22').toISOString() },
-      { title: '2015-02-02' }
-    ]);
   });
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
-    this.$('.days').length,
-    2,
-    'there are two form groups for the two different dates'
+    this.$('.days label').length,
+    3,
+    'every form-group has a label'
   );
   assert.equal(
-    this.$('.days').eq(0).find('input:not(.ws-inputreplace)').length,
+    this.$('.days label:not(.sr-only)').length,
     2,
-    'the first form group has two input fields for two different times'
+    'there are two not hidden labels for two different dates'
   );
-  assert.equal(
-    this.$('.days').eq(0).find('input:not(.ws-inputreplace)').length,
-    2,
-    'the first form group with two differnt times for one day has two input fields'
+  assert.notOk(
+    this.$('.days .form-group').eq(0).find('label').hasClass('sr-only'),
+    'the first label is shown'
   );
-  assert.equal(
-    this.$('.days').eq(1).find('input:not(.ws-inputreplace)').length,
-    1,
-    'the second form group without time has only one input field'
+  assert.ok(
+    this.$('.days .form-group').eq(1).find('label').hasClass('sr-only'),
+    'the repeated label on second form-group is hidden by sr-only class'
+  );
+  assert.notOk(
+    this.$('.days .form-group').eq(2).find('label').hasClass('sr-only'),
+    'the new label on third form-group is shown'
   );
 });
 
@@ -121,33 +120,35 @@ test('allows to add another option', function(assert) {
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  let poll;
   Ember.run(() => {
-    poll = this.store.createRecord('poll', {
+    this.set('poll', this.store.createRecord('poll', {
       options: [
         { title: '2015-01-01' },
         { title: '2015-02-02' }
       ]
-    });
+    }));
   });
-  this.set('options', poll.get('options'));
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
     this.$('.days .form-group input:not(.ws-inputreplace)').length,
     2,
     'there are two input fields before'
   );
-  this.$('.days').eq(0).find('.add').click();
+  this.$('.days .form-group').eq(0).find('.add').click();
   assert.equal(
     this.$('.days .form-group input:not(.ws-inputreplace)').length,
     3,
     'another input field is added'
   );
   assert.equal(
-    this.$('.days').eq(0).find('input:not(.ws-inputreplace)').length,
-    2,
-    'it is added in correct date input'
+    this.$('.days .form-group').eq(1).find('label').text(),
+    this.$('.days .form-group').eq(0).find('label').text(),
+    'new input has correct label'
+  );
+  assert.ok(
+    this.$('.days .form-group').eq(1).find('label').hasClass('sr-only'),
+    'label ofnew input is hidden cause it\'s repeated'
   );
 });
 
@@ -159,15 +160,14 @@ test('allows to delete an option', function(assert) {
   Ember.run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
-      isMakeAPoll: false
+      isMakeAPoll: false,
+      options: [
+        { title: moment('2015-01-01T11:11').toISOString() },
+        { title: moment('2015-01-01T22:22').toISOString() }
+      ]
     }));
-    this.set('options', Ember.computed.alias('poll.options'));
-    this.get('options').pushObjects([
-      { title: moment('2015-01-01T11:11').toISOString() },
-      { title: moment('2015-01-01T22:22').toISOString() }
-    ]);
   });
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
     this.$('.days input:not(.ws-inputreplace)').length,
@@ -193,12 +193,12 @@ test('allows to delete an option', function(assert) {
       'correct input field is deleted'
     );
     assert.equal(
-      this.get('options.length'),
+      this.get('poll.options.length'),
       1,
       'is also delete from option'
     );
     assert.equal(
-      this.get('options.firstObject.title'),
+      this.get('poll.options.firstObject.title'),
       moment('2015-01-01T22:22').toISOString(),
       'correct option is deleted'
     );
@@ -210,33 +210,31 @@ test('adopt times of first day - simple', function(assert) {
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  let poll;
   Ember.run(() => {
-    poll = this.store.createRecord('poll', {
+    this.set('poll', this.store.createRecord('poll', {
       options: [
         { title: moment().hour(10).minute(0).toISOString() },
         { title: '2015-02-02' },
         { title: '2015-03-03' }
       ]
-    });
+    }));
   });
-  this.set('options', poll.get('options'));
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
   Ember.run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.equal(
-    this.$('.days:eq(0) input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group').eq(0).find('input:not(.ws-inputreplace)').val(),
     '10:00',
     'time was not changed for first day'
   );
   assert.equal(
-    this.$('.days:eq(1) input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group').eq(1).find('input:not(.ws-inputreplace)').val(),
     '10:00',
     'time was adopted for second day'
   );
   assert.equal(
-    this.$('.days:eq(1) input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group').eq(2).find('input:not(.ws-inputreplace)').val(),
     '10:00',
     'time was adopted for third day'
   );
@@ -247,36 +245,24 @@ test('adopt times of first day - more times on first day than on others', functi
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  let poll;
   Ember.run(() => {
-    poll = this.store.createRecord('poll', {
+    this.set('poll', this.store.createRecord('poll', {
       options: [
         { title: moment().hour(10).minute(0).toISOString() },
         { title: moment().hour(22).minute(0).toISOString() },
         { title: '2015-02-02' },
         { title: '2015-03-03' }
       ]
-    });
+    }));
   });
-  this.set('options', poll.get('options'));
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
   Ember.run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.deepEqual(
-    this.$('.days:eq(0) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
-    ['10:00', '22:00'],
-    'time was not changed for first day after additionally time was added to first day'
-  );
-  assert.deepEqual(
-    this.$('.days:eq(1) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
-    ['10:00', '22:00'],
-    'time was adopted for second day after additionally time was added to first day'
-  );
-  assert.deepEqual(
-    this.$('.days:eq(2) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
-    ['10:00', '22:00'],
-    'time was adopted for third day after additionally time was added to first day'
+    this.$('.days .form-group input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    ['10:00', '22:00', '10:00', '22:00', '10:00', '22:00'],
+    'times were adopted correctly'
   );
 });
 
@@ -288,22 +274,26 @@ test('adopt times of first day - excess times on other days got deleted', functi
   Ember.run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
-      isMakeAPoll: false
+      isMakeAPoll: false,
+      options: [
+        { title: moment().hour(10).minute(0).toISOString() },
+        { title: moment().add(1, 'day').hour(10).minute(0).toISOString() },
+        { title: moment().add(1, 'day').hour(22).minute(0).toISOString() }
+      ]
     }));
-    this.set('options', Ember.computed.alias('poll.options'));
-    this.get('options').pushObjects([
-      { title: moment().hour(10).minute(0).toISOString() },
-      { title: moment().add(1, 'day').hour(10).minute(0).toISOString() },
-      { title: moment().add(1, 'day').hour(22).minute(0).toISOString() }
-    ]);
   });
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=poll.options}}`);
   Ember.run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
+  assert.equal(
+    this.$('.days .form-group').length,
+    2,
+    'one excess time input got deleted'
+  );
   assert.deepEqual(
-    this.$('.days:eq(1) input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
-    ['10:00'],
+    this.$('.days .form-group input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    ['10:00', '10:00'],
     'additional time on secondary day got deleted'
   );
 });
@@ -324,7 +314,7 @@ test('validation', function(assert) {
       { title: '2015-02-02' }
     ]);
   });
-  this.render(hbs`{{create-options-datetime options=options}}`);
+  this.render(hbs`{{create-options-datetime dates=options}}`);
   assert.ok(
     this.$('.has-error').length === 0,
     'does not show a validation error before user interaction'
@@ -343,9 +333,9 @@ test('validation', function(assert) {
   );
   // simulate unique violation
   this.$('.form-group').eq(0).find('.add').click();
-  this.$('.form-group input').eq(0).val('10:00').trigger('change');
-  this.$('.form-group input').eq(1).val('10:00').trigger('change');
-  this.$('.form-group input').eq(2).val('10:00').trigger('change');
+  this.$('.form-group input:not(.ws-inputreplace)').eq(0).val('10:00').trigger('change');
+  this.$('.form-group input:not(.ws-inputreplace)').eq(1).val('10:00').trigger('change');
+  this.$('.form-group input:not(.ws-inputreplace)').eq(2).val('10:00').trigger('change');
   this.$('form').submit();
   assert.ok(
     this.$('.form-group').eq(0).hasClass('has-success'),

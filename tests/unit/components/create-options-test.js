@@ -11,11 +11,13 @@ moduleForComponent('create-options', 'Unit | Component | create options', {
   needs: [
     'model:option',
     'model:poll',
+    'validator:alias',
     'model:user',
     'validator:collection',
     'validator:iso8601',
     'validator:length',
     'validator:presence',
+    'validator:time',
     'validator:unique',
     'validator:valid-collection',
     'validator:messages',
