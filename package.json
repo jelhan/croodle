@@ -61,6 +61,7 @@
     "ember-i18n-cp-validations": "2.5.0",
     "ember-math-helpers": "1.0.1",
     "ember-moment": "4.1.0",
+    "ember-object-at-helper": "0.1.0",
     "ember-radio-button": "^0.1.2",
     "ember-radio-buttons": "4.0.1",
     "ember-simple-select": "0.5.0",

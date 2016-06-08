@@ -6,11 +6,17 @@
   }}
     <div class="days">
       {{#each dates as |date index|}}
-        {{! show label only if it differ from label before }}
+        {{!
+          show label only if it differ from label before
+          Nested-helpers are called first and object-at requires a positive integer
+          but returns undefined if an element with the passed in index does not exist.
+          Therefore we pass in array length if index is null. Cause index starting
+          by zero there can't be any element with an index === array.length.
+        }}
         {{#bs-form-element
           classNames='option'
           label=date.dayFormatted
-          labelSrOnly=(eq date.dayFormatted (object-at dates (sub index 1) 'dayFormatted'))
+          labelSrOnly=(eq date.dayFormatted (object-at dates (if index (sub index 1) dates.length) 'dayFormatted'))
           model=date
           property='time'
           as |value id validationState|
