@@ -180,3 +180,35 @@ test('adopt times of first day - having times on the other days', function(asser
     'times adopted correctly'
   );
 });
+
+test('adopt times of first day - no times on first day', function(assert) {
+  let component;
+  Ember.run(() => {
+    component = this.subject({
+      dates: [
+        this.store.createFragment('option', {
+          title: '2015-01-01'
+        }),
+        this.store.createFragment('option', {
+          title: '2015-01-02'
+        }),
+        this.store.createFragment('option', {
+          title: moment('2015-01-03T11:00:00.000Z').toISOString()
+        }),
+        this.store.createFragment('option', {
+          title: moment('2015-01-03T15:00:00.000Z').toISOString()
+        })
+      ]
+    });
+    component.send('adoptTimesOfFirstDay');
+  });
+  assert.deepEqual(
+    component.get('dates').map((option) => option.get('title')),
+    [
+      '2015-01-01',
+      '2015-01-02',
+      '2015-01-03'
+    ],
+    'times are removed from all days'
+  );
+});
