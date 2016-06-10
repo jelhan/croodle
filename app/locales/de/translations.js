@@ -51,6 +51,8 @@ export default {
   'modal.save-retry.button-retry': 'erneut versuchen',
   'options': 'Optionen',
   'poll.created-time': 'Erstellt am {{creationDate}}.',
+  'poll.tab-title.participation': 'Teilnehmen',
+  'poll.tab-title.evaluation': 'Auswertung',
   'poll.error.newUser.everyOptionIsAnswered': 'Bitte beantworte jede Option.',
   'poll.error.newUserName': 'Du musst einen Nutzernamen angeben.',
   'poll.evaluation.label': 'Auswertung',

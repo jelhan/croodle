@@ -51,6 +51,8 @@ export default {
   'modal.save-retry.button-retry': 'Retry',
   'options': 'Options',
   'poll.created-time': 'Created on {{creationDate}}.',
+  'poll.tab-title.participation': 'Participation',
+  'poll.tab-title.evaluation': 'Evaluation',
   'poll.error.newUser.everyOptionIsAnswered': 'Please answer ever option.',
   'poll.error.newUserName': 'You have to give a user name.',
   'poll.evaluation.label': 'Evaluation',
