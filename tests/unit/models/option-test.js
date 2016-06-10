@@ -220,6 +220,15 @@ test('time property (set)', function(assert) {
     'sets title according to time'
   );
 
+  Ember.run(() => {
+    option.set('time', null);
+  });
+  assert.equal(
+    option.get('title'),
+    '2015-01-01',
+    'removes time from option if value is false'
+  );
+
   const before = option.get('title');
   Ember.run(() => {
     option.set('time', 'abc');

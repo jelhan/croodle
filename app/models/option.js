@@ -124,7 +124,9 @@ export default MF.Fragment.extend(Validations, {
         moment.isMoment(date)
       );
 
+      // set time to undefined if value is false
       if (Ember.isEmpty(value)) {
+        this.set('title', date.format('YYYY-MM-DD'));
         return value;
       }
 

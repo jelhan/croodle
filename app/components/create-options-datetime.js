@@ -83,9 +83,20 @@ export default Ember.Component.extend(modelValidations, {
         }
       });
     },
+    /*
+     * removes target option if it's not the only date for this day
+     * otherwise it deletes time for this date
+     */
     deleteOption(target) {
       let position = this.get('dates').indexOf(target);
-      this.get('dates').removeAt(position);
+      let datesForThisDay = this.get('groupedDates').find((groupedDate) => {
+        return groupedDate.value === target.get('day');
+      }).items;
+      if (datesForThisDay.length > 1) {
+        this.get('dates').removeAt(position);
+      } else {
+        target.set('time', null);
+      }
     },
     submit() {
       if (this.get('validations.isValid')) {

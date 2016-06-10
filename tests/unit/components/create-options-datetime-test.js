@@ -10,6 +10,62 @@ moduleForComponent('create-options-datetime', 'Unit | Component | create options
   }
 });
 
+test('delete a date', function(assert) {
+  let component = this.subject();
+  let a, b, c, d, e;
+  Ember.run(() => {
+    a = this.store.createFragment('option', { title: moment('2015-01-01T01:01:00.000').toISOString() });
+    b = this.store.createFragment('option', { title: moment('2015-01-01T11:11:00.000').toISOString() });
+    c = this.store.createFragment('option', { title: moment('2015-02-02T11:11:00.000').toISOString() });
+    d = this.store.createFragment('option', { title: '2015-02-02' });
+    e = this.store.createFragment('option', { title: '2015-02-03' });
+    component.set('dates', [a, b, c, d, e]);
+  });
+  component.send('deleteOption', b);
+  assert.deepEqual(
+    component.get('dates').map((date) => date.get('title')),
+    [
+      moment('2015-01-01T01:01:00.000').toISOString(),
+      moment('2015-02-02T11:11:00.000').toISOString(),
+      '2015-02-02',
+      '2015-02-03'
+    ],
+    'date get deleted if there is another date with same day (both having a time)'
+  );
+  component.send('deleteOption', d);
+  assert.deepEqual(
+    component.get('dates').map((date) => date.get('title')),
+    [
+      moment('2015-01-01T01:01:00.000').toISOString(),
+      moment('2015-02-02T11:11:00.000').toISOString(),
+      '2015-02-03'
+    ],
+    'date get deleted if there is another date with same day (date does not have a time)'
+  );
+  Ember.run(() => {
+    component.send('deleteOption', c);
+  });
+  assert.deepEqual(
+    component.get('dates').map((date) => date.get('title')),
+    [
+      moment('2015-01-01T01:01:00.000').toISOString(),
+      '2015-02-02',
+      '2015-02-03'
+    ],
+    'time is removed from date if there isn\' t any other date with same day'
+  );
+  component.send('deleteOption', d);
+  assert.deepEqual(
+    component.get('dates').map((date) => date.get('title')),
+    [
+      moment('2015-01-01T01:01:00.000').toISOString(),
+      '2015-02-02',
+      '2015-02-03'
+    ],
+    'nothing changes if it\'s the only date for this day it it doesn\'t have a time'
+  );
+});
+
 test('datetimes are grouped by date', function(assert) {
   let component = this.subject();
   let a, b, c;
