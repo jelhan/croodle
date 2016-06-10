@@ -1,5 +1,3 @@
-/* global webshim */
-
 export default {
   name: 'i18n',
   initialize({ container }) {
@@ -10,14 +8,12 @@ export default {
 
     i18n.set('locale', locale);
     moment.changeLocale(locale);
-    webshim.activeLang(locale);
 
     i18n.addObserver('locale', i18n, function() {
       const locale = this.get('locale');
       // give cookie a lifetime of one year
       const maxAge = 60 * 60 * 24 * 356;
       moment.changeLocale(locale);
-      webshim.activeLang(locale);
 
       // save selected locale in cookie
       document.cookie = `language=${locale};max-age=${maxAge};`;

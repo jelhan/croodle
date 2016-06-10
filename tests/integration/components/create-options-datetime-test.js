@@ -34,12 +34,12 @@ test('it generates inpute field for options iso 8601 date string (without time)'
   this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
-    this.$('.days .form-group input:not(.ws-inputreplace)').length,
+    this.$('.days .form-group input').length,
     1,
     'there is one input field'
   );
   assert.equal(
-    this.$('.days .form-group input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group input').val(),
     '',
     'value is an empty string'
   );
@@ -62,12 +62,12 @@ test('it generates inpute field for options iso 8601 datetime string (with time)
   this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
-    this.$('.days .form-group input:not(.ws-inputreplace)').length,
+    this.$('.days .form-group input').length,
     1,
     'there is one input field'
   );
   assert.equal(
-    this.$('.days .form-group input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group input').val(),
     moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
     'it has time in option as value'
   );
@@ -131,13 +131,13 @@ test('allows to add another option', function(assert) {
   this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
-    this.$('.days .form-group input:not(.ws-inputreplace)').length,
+    this.$('.days .form-group input').length,
     2,
     'there are two input fields before'
   );
   this.$('.days .form-group').eq(0).find('.add').click();
   assert.equal(
-    this.$('.days .form-group input:not(.ws-inputreplace)').length,
+    this.$('.days .form-group input').length,
     3,
     'another input field is added'
   );
@@ -170,7 +170,7 @@ test('allows to delete an option', function(assert) {
   this.render(hbs`{{create-options-datetime dates=poll.options}}`);
 
   assert.equal(
-    this.$('.days input:not(.ws-inputreplace)').length,
+    this.$('.days input').length,
     2,
     'there are two input fields before'
   );
@@ -183,12 +183,12 @@ test('allows to delete an option', function(assert) {
   this.$('.days .form-group').eq(0).find('.delete').click();
   Ember.run(() => {
     assert.equal(
-      this.$('.days .form-group input:not(.ws-inputreplace)').length,
+      this.$('.days .form-group input').length,
       1,
       'one input field is removed after deletion'
     );
     assert.equal(
-      this.$('.days .form-group input:not(.ws-inputreplace)').val(),
+      this.$('.days .form-group input').val(),
       '22:22',
       'correct input field is deleted'
     );
@@ -224,17 +224,17 @@ test('adopt times of first day - simple', function(assert) {
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.equal(
-    this.$('.days .form-group').eq(0).find('input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group').eq(0).find('input').val(),
     '10:00',
     'time was not changed for first day'
   );
   assert.equal(
-    this.$('.days .form-group').eq(1).find('input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group').eq(1).find('input').val(),
     '10:00',
     'time was adopted for second day'
   );
   assert.equal(
-    this.$('.days .form-group').eq(2).find('input:not(.ws-inputreplace)').val(),
+    this.$('.days .form-group').eq(2).find('input').val(),
     '10:00',
     'time was adopted for third day'
   );
@@ -260,7 +260,7 @@ test('adopt times of first day - more times on first day than on others', functi
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.deepEqual(
-    this.$('.days .form-group input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    this.$('.days .form-group input').map((i, el) => $(el).val()).toArray(),
     ['10:00', '22:00', '10:00', '22:00', '10:00', '22:00'],
     'times were adopted correctly'
   );
@@ -292,7 +292,7 @@ test('adopt times of first day - excess times on other days got deleted', functi
     'one excess time input got deleted'
   );
   assert.deepEqual(
-    this.$('.days .form-group input:not(.ws-inputreplace)').map((i, el) => $(el).val()).toArray(),
+    this.$('.days .form-group input').map((i, el) => $(el).val()).toArray(),
     ['10:00', '10:00'],
     'additional time on secondary day got deleted'
   );
@@ -333,9 +333,9 @@ test('validation', function(assert) {
   );
   // simulate unique violation
   this.$('.form-group').eq(0).find('.add').click();
-  this.$('.form-group input:not(.ws-inputreplace)').eq(0).val('10:00').trigger('change');
-  this.$('.form-group input:not(.ws-inputreplace)').eq(1).val('10:00').trigger('change');
-  this.$('.form-group input:not(.ws-inputreplace)').eq(2).val('10:00').trigger('change');
+  this.$('.form-group input').eq(0).val('10:00').trigger('change');
+  this.$('.form-group input').eq(1).val('10:00').trigger('change');
+  this.$('.form-group input').eq(2).val('10:00').trigger('change');
   this.$('form').submit();
   assert.ok(
     this.$('.form-group').eq(0).hasClass('has-success'),

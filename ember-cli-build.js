@@ -44,22 +44,8 @@ module.exports = function() {
 
   app.import('bower_components/sjcl/sjcl.js');
 
-  app.import('bower_components/modernizr/modernizr.js');
-
   // ChartJS StackedBar addon
   app.import('bower_components/Chart.StackedBar.js/src/Chart.StackedBar.js');
-
-  // webshim
-  app.import({
-    development: 'bower_components/webshim/js-webshim/dev/polyfiller.js',
-    production: 'bower_components/webshim/js-webshim/minified/polyfiller.js'
-  });
-  trees.push(
-    pickFiles('bower_components/webshim/js-webshim/minified/shims', {
-      srcDir: '/',
-      destDir: '/assets/shims'
-    })
-  );
 
   app.import('bower_components/jstimezonedetect/jstz.js');
 
