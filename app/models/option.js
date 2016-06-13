@@ -7,7 +7,7 @@ import {
 from 'ember-cp-validations';
 /* global MF */
 
-const { assert, computed } = Ember;
+const { assert, computed, isEmpty } = Ember;
 
 const Validations = buildValidations({
   title: [
@@ -64,7 +64,7 @@ export default MF.Fragment.extend(Validations, {
       // string can't be in this format
       return f.length === value.length && moment(value, f, true).isValid();
     });
-    if (!format) {
+    if (isEmpty(format)) {
       return;
     }
 

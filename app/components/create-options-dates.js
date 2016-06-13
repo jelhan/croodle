@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import moment from 'moment';
 
+const { isArray, isEmpty } = Ember;
+
 export default Ember.Component.extend({
   i18n: Ember.inject.service(),
 
@@ -30,23 +32,58 @@ export default Ember.Component.extend({
       });
       return dateObjects;
     },
-    set(key, value) {
-      // ember-cli-bootstrap-datepicker returns an array of Date objects
-      let newOptions = [];
-      if (Ember.isArray(value) && value.length > 0) {
-        value.sort(function(a, b) {
-          return a.getTime() - b.getTime();
-        });
-
-        newOptions = value.map((item) => {
-          return this.get('store').createFragment('option', {
-            title: moment(item).format('YYYY-MM-DD')
-          });
-        });
+    /*
+     * value is an of Date objects set by ember-cli-bootstrap-datepicker
+     */
+    set(key, days) {
+      // remove all days if value isn't an array of if it's empty
+      if (!isArray(days) || isEmpty(days)) {
+        this.set('options', []);
       }
-      this.set('options', newOptions);
 
-      return value;
+      // get days in correct order
+      days.sort(function(a, b) {
+        return a.getTime() - b.getTime();
+      });
+
+      const options = this.get('options');
+      // array of date objects
+      const newDays = days.filter((day) => {
+        return options.every((option) => {
+          return moment(day).format('YYYY-MM-DD') !== option.get('day');
+        });
+      });
+      // array of options fragments
+      const optionsForRemovedDays = options.filter((option) => {
+        return days.every((day) => {
+          return moment(day).format('YYYY-MM-DD') !== option.get('day');
+        });
+      });
+
+      options.removeObjects(optionsForRemovedDays);
+      newDays.forEach((newDay) => {
+        // new days must be entered at correct position
+        const insertBefore = options.find((option) => {
+          // options are sorted
+          // so we search for first option which value is greater than newDay
+          return option.get('date').valueOf() > newDay.valueOf();
+        });
+        let position;
+        if (isEmpty(insertBefore)) {
+          // newDay is after all existing days
+          position = options.get('length');
+        } else {
+          position = options.indexOf(insertBefore);
+        }
+        options.insertAt(
+          position,
+          this.get('store').createFragment('option', {
+            title: moment(newDay).format('YYYY-MM-DD')
+          })
+        );
+      });
+
+      return days;
     }
   }),
 

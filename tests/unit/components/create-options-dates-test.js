@@ -4,7 +4,10 @@ import moment from 'moment';
 
 moduleForComponent('create-options-dates', 'Unit | Component | create options dates', {
   needs: ['model:option'],
-  unit: true
+  unit: true,
+  beforeEach() {
+    this.inject.service('store');
+  }
 });
 
 test('options get mapped to dates as optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
@@ -118,4 +121,86 @@ test('options get set correctly by optionsBootstrapDatepicker (used by ember-cli
       'dates are in correct order'
     );
   });
+});
+
+test('existing times are preserved if new days get selected', function(assert) {
+  let component;
+  Ember.run(() => {
+    component = this.subject({
+     options: [
+       this.store.createFragment('option', {
+         title: moment('2015-01-01T11:11').toISOString()
+       }),
+       this.store.createFragment('option', {
+         title: moment('2015-01-01T22:22').toISOString()
+       }),
+       this.store.createFragment('option', {
+         title: moment('2015-06-06T08:08').toISOString()
+       }),
+       this.store.createFragment('option', {
+         title: '2016-01-01'
+       })
+     ]
+   });
+  });
+  // add another day
+  Ember.run(() => {
+    component.set('optionsBootstrapDatepicker', [
+      moment('2015-01-01').toDate(),
+      moment('2015-06-06').toDate(),
+      moment('2016-01-01').toDate(),
+      moment('2016-06-06').toDate() // new day
+    ]);
+  });
+  assert.deepEqual(
+    component.get('options').map((option) => option.get('title')),
+    [
+      moment('2015-01-01T11:11').toISOString(),
+      moment('2015-01-01T22:22').toISOString(),
+      moment('2015-06-06T08:08').toISOString(),
+      '2016-01-01',
+      '2016-06-06'
+    ],
+    'preseve existing times if another day is added'
+  );
+  // delete a day
+  Ember.run(() => {
+    component.set('optionsBootstrapDatepicker', [
+      moment('2015-06-06').toDate(),
+      moment('2016-01-01').toDate(),
+      moment('2016-06-06').toDate()
+    ]);
+  });
+  assert.deepEqual(
+    component.get('options').map((option) => option.get('title')),
+    [
+      moment('2015-06-06T08:08').toISOString(),
+      '2016-01-01',
+      '2016-06-06'
+    ],
+    'preseve existing times if a day is deleted'
+  );
+  // order if multiple days are added
+  Ember.run(() => {
+    component.set('optionsBootstrapDatepicker', [
+      moment('2015-06-06').toDate(),
+      moment('2016-01-01').toDate(),
+      moment('2016-06-06').toDate(),
+      moment('2016-12-12').toDate(),
+      moment('2015-01-01').toDate(),
+      moment('2016-03-03').toDate()
+    ]);
+  });
+  assert.deepEqual(
+    component.get('options').map((option) => option.get('title')),
+    [
+      '2015-01-01',
+      moment('2015-06-06T08:08').toISOString(),
+      '2016-01-01',
+      '2016-03-03',
+      '2016-06-06',
+      '2016-12-12'
+    ],
+    'options are in correct order after multiple days are added'
+  );
 });
