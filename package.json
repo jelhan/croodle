@@ -25,7 +25,7 @@
     "broccoli-unwatched-tree": "^0.1.1",
     "connect-restreamer": "^1.0.1",
     "cors": "^2.5.3",
-    "ember-bootstrap": "jelhan/ember-bootstrap#merged",
+    "ember-bootstrap": "kaliber5/ember-bootstrap#8f5d28a2419bb62badecd70f83644af1d2e3ddf0",
     "ember-bootstrap-cp-validations": "0.1.1",
     "ember-cli": "1.13.13",
     "ember-cli-acceptance-test-helpers": "0.4.0",
