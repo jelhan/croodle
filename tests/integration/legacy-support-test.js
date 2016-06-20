@@ -3,12 +3,16 @@ import { module, test } from 'qunit';
 import startApp from 'croodle/tests/helpers/start-app';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* global moment */
+/* jshint proto: true */
 
 let application;
 
 module('Integration | legacy support', {
   beforeEach() {
     application = startApp();
+    moment.locale(
+      application.__container__.lookup('service:i18n').get('locale')
+    );
   },
 
   afterEach() {

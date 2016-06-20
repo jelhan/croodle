@@ -170,7 +170,7 @@ export default Ember.Controller.extend({
     if (this.get('model.isMakeAPoll')) {
       return false;
     } else {
-      return this.get('model.options').map((option) => {
+      return this.get('model.options').any((option) => {
         return moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
       });
     }

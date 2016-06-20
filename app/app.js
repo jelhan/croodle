@@ -13,9 +13,6 @@ App = Ember.Application.extend({
   Resolver
 });
 
-import formattedDateHelper from 'croodle/helpers/formatted-date';
-Ember.Handlebars.registerBoundHelper('formattedDate', formattedDateHelper);
-
 loadInitializers(App, config.modulePrefix);
 
 export default App;

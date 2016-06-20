@@ -31,12 +31,12 @@
         {{#if model.isFindADate}}
           {{#each dates as |date|}}
             <th>
-              {{#if dateGroups}}
+              {{#if hasTimes}}
                 {{#if date.hasTime}}
                   {{date.formattedTime}}
                 {{/if}}
               {{else}}
-                {{formattedDate date.title}}
+                {{date.formatted}}
               {{/if}}
             </th>
           {{/each}}
