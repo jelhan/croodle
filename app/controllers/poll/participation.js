@@ -12,18 +12,29 @@ const validCollection = function(collection) {
   });
 };
 const Validations = buildValidations({
-  name: validator('presence', {
-    presence() {
-      // only force presence if anonymousUser poll setting is false
-      if (!this.get('model.anonymousUser')) {
-        return true;
-      } else {
-        // disable presence validation
-        return null;
-      }
-    },
-    dependentKeys: ['anonymousUser', 'i18n.locale']
-  }),
+  name: [
+    validator('presence', {
+      presence() {
+        // only force presence if anonymousUser poll setting is false
+        if (!this.get('model.anonymousUser')) {
+          return true;
+        } else {
+          // disable presence validation
+          return null;
+        }
+      },
+      dependentKeys: ['anonymousUser', 'i18n.locale']
+    }),
+    validator('unique', {
+      parent: 'pollController.model',
+      attributeInParent: 'users',
+      dependentKeys: ['poll.users.[]', 'poll.users.@each.name', 'i18n.locale'],
+      disable() {
+        return this.get('model.anonymousUser');
+      },
+      messageKey: 'unique.name'
+    })
+  ],
 
   selections: [
     validator('collection', true),

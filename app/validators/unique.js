@@ -16,20 +16,25 @@ export default BaseValidator.extend({
       Ember.isArray(options.dependentKeys) && options.dependentKeys.length > 0
     );
 
+    if (options.disable) {
+      return true;
+    }
+
     // ignore empty values
     if (Ember.isEmpty(value)) {
       return true;
     }
 
+    const messageKey = options.messageKey || 'unique';
     const parent = model.get(options.parent);
     const collection = parent.get(options.attributeInParent);
     const positionInCollection = collection.indexOf(model);
-    const elementsBefore = collection.slice(0, positionInCollection);
+    const elementsBefore = positionInCollection !== -1 ? collection.slice(0, positionInCollection) : collection;
     const matches = elementsBefore.findBy(attribute, value);
 
     if (matches) {
       // ToDo: translateable error message
-      return this.createErrorMessage('unique');
+      return this.createErrorMessage(messageKey);
     } else {
       return true;
     }

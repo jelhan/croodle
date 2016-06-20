@@ -125,6 +125,7 @@ export default {
     phone: '{{description}} must be a valid phone mumber',
     url: '{{description}} must be a valid URL ',
     time: '{{value}} must be a valid number',
-    unique: '{{description}} must be explicit'
+    unique: '{{description}} must be explicit',
+    'unique.name': 'This name has already been used'
   }
 };
