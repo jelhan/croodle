@@ -104,8 +104,6 @@
         "sauce:launch",
         "-b",
         "iphone",
-        "-v",
-        "9",
         "-dn",
         "iPhone Simulator",
         "--vi",
