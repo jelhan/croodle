@@ -1,0 +1,33 @@
+{{#if isFindADate}}
+  {{#if evaluationBestOption.option.hasTime}}
+    <strong>{{moment-format evaluationBestOption.option.date 'LLLL'}}</strong>.
+  {{else}}
+    <strong>{{evaluationBestOption.option.dayFormatted}}</strong>.
+  {{/if}}
+{{else}}
+  <strong>{{evaluationBestOption.option.title}}</strong>.
+{{/if}}
+
+<br/>
+
+{{#if isFindADate}}
+  {{#if evaluationBestOption.answers.yes}}
+    {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOption.answers.yes}}
+  {{/if}}
+  {{#if evaluationBestOption.answers.maybe}}
+    {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOption.answers.maybe}}
+  {{/if}}
+  {{#if evaluationBestOption.answers.no}}
+    {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOption.answers.no}}
+  {{/if}}
+{{else}}
+  {{#if evaluationBestOption.answers.yes}}
+    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOption.answers.yes}}
+  {{/if}}
+  {{#if evaluationBestOption.answers.maybe}}
+    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOption.answers.maybe}}
+  {{/if}}
+  {{#if evaluationBestOption.answers.no}}
+    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOption.answers.no}}
+  {{/if}}
+{{/if}}

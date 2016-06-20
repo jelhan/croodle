@@ -16,59 +16,11 @@
   {{#if evaluationBestOptionsMultiple}}
     <ul>
       {{#each evaluationBestOptions as |evaluationBestOption|}}
-        <li>
-          <strong>{{evaluationBestOption.title}}</strong>.
-
-          <br/>
-
-          {{#if poll.isFindADate}}
-            {{#if evaluationBestOption.answers.yes}}
-              {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOption.answers.yes}}
-            {{/if}}
-            {{#if evaluationBestOption.answers.maybe}}
-              {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOption.answers.maybe}}
-            {{/if}}
-            {{#if evaluationBestOption.answers.no}}
-              {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOption.answers.no}}
-            {{/if}}
-          {{else}}
-            {{#if evaluationBestOption.answers.yes}}
-              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOption.answers.yes}}
-            {{/if}}
-            {{#if evaluationBestOption.answers.maybe}}
-              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOption.answers.maybe}}
-            {{/if}}
-            {{#if evaluationBestOption.answers.no}}
-              {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOption.answers.no}}
-            {{/if}}
-          {{/if}}
-        </li>
+        {{component 'poll-evaluation-summary-option' evaluationBestOption=evaluationBestOption isFindADate=poll.isFindADate tagName='li'}}
       {{/each}}
     </ul>
   {{else}}
-    <strong>{{evaluationBestOptions.[0].title}}</strong>.
-
-    {{#if poll.isFindADate}}
-      {{#if evaluationBestOptions.[0].answers.yes}}
-        {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOptions.[0].answers.yes}}
-      {{/if}}
-      {{#if evaluationBestOptions.[0].answers.maybe}}
-        {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOptions.[0].answers.maybe}}
-      {{/if}}
-      {{#if evaluationBestOptions.[0].answers.no}}
-        {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOptions.[0].answers.no}}
-      {{/if}}
-    {{else}}
-      {{#if evaluationBestOptions.[0].answers.yes}}
-        {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOptions.[0].answers.yes}}
-      {{/if}}
-      {{#if evaluationBestOptions.[0].answers.maybe}}
-        {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOptions.[0].answers.maybe}}
-      {{/if}}
-      {{#if evaluationBestOptions.[0].answers.no}}
-        {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOptions.[0].answers.no}}
-      {{/if}}
-    {{/if}}
+    {{component 'poll-evaluation-summary-option' evaluationBestOption=evaluationBestOptions.firstObject isFindADate=poll.isFindADate tagName='span'}}
   {{/if}}
 </p>
 

@@ -102,6 +102,11 @@ export default MF.Fragment.extend(Validations, {
     return date.format(format);
   }),
 
+  hasTime: computed('title', function() {
+    return moment.isMoment(this.get('date')) &&
+           this.get('title').length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
+  }),
+
   time: computed('date', {
     get() {
       const date = this.get('date');

@@ -177,6 +177,21 @@ test('dayFormatted property (get)', function(assert) {
   );
 });
 
+test('hasTime property', function(assert) {
+  let option = this.subject({
+    title: '2015-01-01T11:11:00.000Z'
+  });
+  assert.ok(option.get('hasTime'));
+  Ember.run(() => {
+    option.set('title', '2015-01-01');
+  });
+  assert.notOk(option.get('hasTime'));
+  Ember.run(() => {
+    option.set('title', 'foo');
+  });
+  assert.notOk(option.get('hasTime'));
+});
+
 test('time property (get)', function(assert) {
   let option = this.subject({
     title: '2015-01-01T11:11:00.000Z'

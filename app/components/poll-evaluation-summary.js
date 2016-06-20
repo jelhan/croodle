@@ -1,90 +1,68 @@
 import Ember from 'ember';
-import moment from 'moment';
 
 export default Ember.Component.extend({
   classNames: ['evaluation-summary'],
 
   evaluationBestOptions: Ember.computed('poll.users.[]', function() {
-    let options = [];
-    let bestOptions = [];
     // can not evaluate answer type free text
     if (this.get('poll.isFreeText')) {
-      return [];
+      return undefined;
     }
 
     // can not evaluate a poll without users
     if (Ember.isEmpty(this.get('poll.users'))) {
-      return [];
+      return undefined;
     }
+
+    let answers = this.get('poll.answers').reduce((answers, answer) => {
+      answers[answer.get('type')] = 0;
+      return answers;
+    }, {});
+    let evaluation = this.get('poll.options').map((option) => {
+      return {
+        answers: Ember.copy(answers),
+        option,
+        score: 0
+      };
+    });
+    let bestOptions = [];
 
     this.get('poll.users').forEach(function(user) {
       user.get('selections').forEach(function(selection, i) {
-        if (options.length - 1 < i) {
-          options.push({
-            answers: [],
-            key: i,
-            score: 0
-          });
-        }
-
-        if (typeof options[i].answers[selection.get('type')] === 'undefined') {
-          options[i].answers[selection.get('type')] = 0;
-        }
-        options[i].answers[selection.get('type')]++;
+        evaluation[i].answers[selection.get('type')]++;
 
         switch (selection.get('type')) {
           case 'yes':
-            options[i].score += 2;
+            evaluation[i].score += 2;
             break;
 
           case 'maybe':
-            options[i].score += 1;
+            evaluation[i].score += 1;
             break;
 
           case 'no':
-            options[i].score -= 2;
+            evaluation[i].score -= 2;
             break;
         }
       });
     });
 
-    options.sort(function(a, b) {
+    evaluation.sort(function(a, b) {
       return b.score - a.score;
     });
 
-    bestOptions.push(
-      options[0]
-    );
-    let i = 1;
-    while (true) {
+    let bestScore = evaluation[0].score;
+    for (let i = 0; i < evaluation.length; i++) {
       if (
-        typeof options[i] !== 'undefined' &&
-        bestOptions[0].score === options[i].score
+        bestScore === evaluation[i].score
       ) {
         bestOptions.push(
-          options[i]
+          evaluation[i]
         );
       } else {
         break;
       }
-
-      i++;
     }
-
-    bestOptions.forEach((bestOption, i) => {
-      if (this.get('poll.isFindADate')) {
-        const date = this.get('dates').objectAt(bestOption.key);
-        const format = date.hasTime ? 'LLLL' : moment.localeData()
-          .longDateFormat('LLLL')
-          .replace(
-            moment.localeData().longDateFormat('LT'), '')
-          .trim();
-        bestOptions[i].title = date.title.format(format);
-      } else {
-        const option = this.get('poll.options').objectAt(bestOption.key);
-        bestOptions[i].title = option.get('title');
-      }
-    });
 
     return bestOptions;
   }),
