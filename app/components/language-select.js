@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import localesMeta from 'croodle/locales/meta';
 
 export default Ember.Component.extend({
   tagName: 'select',
@@ -14,7 +15,7 @@ export default Ember.Component.extend({
       return {
         id: locale,
         selected: locale === currentLocale,
-        text: locale
+        text: localesMeta[locale]
       };
     });
   }),

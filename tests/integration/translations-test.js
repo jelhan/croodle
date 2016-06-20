@@ -1,6 +1,7 @@
 import { moduleFor, test } from 'ember-qunit';
 import config from 'croodle/config/environment';
 import LocaleHelper from 'ember-i18n/utils/locale';
+import localesMeta from 'croodle/locales/meta';
 
 moduleFor('service:i18n', 'Integration | translations', {
   integration: true
@@ -63,4 +64,12 @@ test('all locales have same translation strings as default locale', function(ass
       );
     });
   });
+});
+
+test('all locales have an entry in locales/meta', function(assert) {
+  const i18n = this.subject();
+  assert.deepEqual(
+    i18n.get('locales'),
+    Object.keys(localesMeta)
+  );
 });
