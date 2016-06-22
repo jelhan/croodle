@@ -85,7 +85,7 @@ export default {
   'poll.modal.timezoneDiffers.button.usePollTimezone': 'Original-Zeitzone',
   'poll.save': 'Speichern',
   'poll.share': 'Teile den Link und lade Andere zu deiner Umfrage ein.',
-  'poll.share.notice': 'Jeder der den Link kennt, kann deine Umfrage ansehen. Falls diese private Daten enthält, solltest du den Link nur per verschlüsselter Mail oder Chat mit End-to-End-Verschlüsselung weitergeben.',
+  'poll.share.notice': 'Jeder der den Link kennt, kann deine Umfrage ansehen. Falls diese private Daten enthält, solltest du den Link nur per verschlüsselter Mail oder Chat mit Ende-zu-Ende-Verschlüsselung weitergeben.',
   'poll.input.showEvaluation.hide': 'Verbergen',
   'poll.input.showEvaluation.show': 'Anzeigen',
   'pollTypes.findADate.label': 'Ich möchte einen Termin finden. (z.B. Datum oder Uhrzeit für eine Verabredung)',
