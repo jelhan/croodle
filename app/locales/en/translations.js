@@ -16,7 +16,6 @@ export default {
   'create.options.options.label': 'Answer options',
   'create.options.dates.label': 'Days',
   'create.options.error.notEnoughDates': 'At least one day must be selected',
-  'create.options.error.notEnoughOptions': 'At least one answer option must be entered',
   'create.options.defineTimes.label': 'Determine time?',
   'create.options.input.moreOptions.label': 'Add other answer options',
   'create.options-datetime.datetimes.label': 'Times',

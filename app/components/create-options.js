@@ -10,13 +10,9 @@ let Validations = buildValidations({
     validator('length', {
       dependentKeys: ['options.[]', 'i18n.locale'],
       min: 1,
-      message() {
-        const i18n = this.model.get('i18n');
-        const isFindADate = this.model.get('isFindADate');
-        const translationKey = isFindADate ? 'create.options.error.notEnoughDates' : 'create.options.error.notEnoughOptions';
-        const message = i18n.t(translationKey);
-        return message.toString();
-      }
+      // it's impossible to delete all text options so this case could be ignored
+      // for validation error message
+      messageKey: 'create.options.error.notEnoughDates'
     }),
     validator('valid-collection', {
       dependentKeys: ['options.[]', 'options.@each.title']
