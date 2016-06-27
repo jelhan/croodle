@@ -39,6 +39,7 @@ export default Ember.Component.extend({
       // remove all days if value isn't an array of if it's empty
       if (!isArray(days) || isEmpty(days)) {
         this.set('options', []);
+        return [];
       }
 
       // get days in correct order
