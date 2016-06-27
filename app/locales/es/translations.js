@@ -101,6 +101,7 @@ export default {
     empty: '{{description}} can\'t be empty',
     blank: '{{description}} can\'t be blank',
     present: '{{description}} must be blank',
+    'present.answer.selection': 'An answer must be selected',
     collection: '{{description}} must be a collection',
     singular: '{{description}} can\'t be a collection',
     tooLong: '{{description}} is too long (maximum is {{max}} characters)',

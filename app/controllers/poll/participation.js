@@ -55,7 +55,14 @@ const SelectionValidations = buildValidations({
         return true;
       }
     },
-    dependentKeys: ['forceAnswer', 'i18n.locale']
+    messageKey() {
+      if (this.get('model.isFreeText')) {
+        return 'errors.present';
+      } else {
+        return 'errors.present.answer.selection';
+      }
+    },
+    dependentKeys: ['isFreeText', 'forceAnswer', 'i18n.locale']
   })
 });
 
@@ -204,9 +211,10 @@ export default Ember.Controller.extend(Validations, {
       return Ember.Object.extend(SelectionValidations, {
         container,
 
-        // force Answer must be included in model
+        // forceAnswer and isFreeText must be included in model
         // cause otherwise validations can't depend on it
         forceAnswer: this.get('forceAnswer'),
+        isFreeText: this.get('isFreeText'),
 
         // a little bit hacky
         // wasn't able to observe moment.locale since it should be in sync
