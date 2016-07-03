@@ -25,7 +25,6 @@ export default BaseValidator.extend({
       return true;
     }
 
-    const messageKey = options.messageKey || 'unique';
     const parent = model.get(options.parent);
     const collection = parent.get(options.attributeInParent);
     const positionInCollection = collection.indexOf(model);
@@ -33,8 +32,7 @@ export default BaseValidator.extend({
     const matches = elementsBefore.findBy(attribute, value);
 
     if (matches) {
-      // ToDo: translateable error message
-      return this.createErrorMessage(messageKey);
+      return this.createErrorMessage('unique', value, options);
     } else {
       return true;
     }

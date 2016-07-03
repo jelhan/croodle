@@ -89,6 +89,7 @@ export default {
   'poll.input.showEvaluation.show': 'Show',
   'pollTypes.findADate.label': 'I want to find a date. (e.g. time and date for an appointment)',
   'pollTypes.makeAPoll.label': 'I want to answer a question. (e.g. Where does the coffee taste best?)',
+  'times': 'Times',
 
   errors: {
     description: 'This field',

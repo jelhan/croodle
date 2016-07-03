@@ -89,6 +89,7 @@ export default {
   'poll.input.showEvaluation.show': 'Mostrar',
   'pollTypes.findADate.label': 'Querría crear una fecha (p. ej. fecha para una reunión).',
   'pollTypes.makeAPoll.label': 'Querría responder a una pregunta (p. ej. ¿con que tomas el café?).',
+  'times': 'Times',
 
   errors: {
     description: 'This field',

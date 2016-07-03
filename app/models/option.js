@@ -30,7 +30,15 @@ const Validations = buildValidations({
     validator('unique', {
       parent: 'poll',
       attributeInParent: 'options',
-      dependentKeys: ['poll.options.[]', 'poll.options.@each.title', 'i18n.locale']
+      dependentKeys: ['poll.options.[]', 'poll.options.@each.title', 'i18n.locale'],
+      descriptionKey() {
+        const isFindADate = this.get('model.poll.isFindADate');
+        if (isFindADate) {
+          return 'times';
+        } else {
+          return 'options';
+        }
+      }
     })
   ],
   time: [

@@ -89,6 +89,7 @@ export default {
   'poll.input.showEvaluation.show': 'Anzeigen',
   'pollTypes.findADate.label': 'Ich möchte einen Termin finden. (z.B. Datum oder Uhrzeit für eine Verabredung)',
   'pollTypes.makeAPoll.label': 'Ich möchte eine Frage beantworten. (z.B. Wozu schmeckt Kaffe am Besten?)',
+  'times': 'Zeiten',
 
   errors: {
     description: 'Dieses Feld',
@@ -125,7 +126,7 @@ export default {
     phone: '{{description}} muss eine gültige Telefonnummer sein',
     url: '{{description}} muss eine gültige URL sein',
     time: '{{value}} muss eine gültige Zeit sein',
-    unique: '{{description}} muss eindeutig sein',
+    unique: '{{description}} müssen eindeutig sein',
     'unique.name': 'Dieser Namen wurde bereits genutzt'
   }
 };
