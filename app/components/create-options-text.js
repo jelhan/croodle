@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import BsForm from 'ember-bootstrap/components/bs-form';
+import { anyBy } from 'ember-array-computed-macros';
 
 export default Ember.Component.extend({
   actions: {
@@ -18,28 +19,10 @@ export default Ember.Component.extend({
     }
   },
 
-  anyElementHasFeedback: Ember.computed('form.childFormElements.@each.hasFeedback', function() {
-    const childFormElements = this.get('form.childFormElements');
+  anyElementHasFeedback: anyBy('form.childFormElements', 'hasFeedback'),
 
-    if (childFormElements) {
-      return childFormElements.any((childFormElement) => {
-        return childFormElement.get('hasFeedback');
-      });
-    } else {
-      return false;
-    }
-  }),
-
-  anyElementIsInvalid: Ember.computed('form.childFormElements.@each.validation', function() {
-    const childFormElements = this.get('form.childFormElements');
-
-    if (childFormElements) {
-      return childFormElements.any((childFormElement) => {
-        return childFormElement.get('validation') === 'error';
-      });
-    } else {
-      return false;
-    }
+  anyElementIsInvalid: anyBy('form.childFormElements', 'validation', function(value) {
+    return value === 'error';
   }),
 
   everyElementIsValid: Ember.computed('form.childFormElements.@each.validation', function() {
@@ -67,13 +50,17 @@ export default Ember.Component.extend({
   labelValidationClass: Ember.computed('anyElementHasFeedback', 'anyElementIsInvalid', 'everyElementIsValid', function() {
     if (!this.get('anyElementHasFeedback')) {
       return 'label-has-no-validation';
-    } else if (this.get('anyElementIsInvalid')) {
-      return 'label-has-error';
-    } else if (this.get('everyElementIsValid')) {
-      return 'label-has-success';
-    } else {
-      return 'label-has-no-validation';
     }
+
+    if (this.get('anyElementIsInvalid')) {
+      return 'label-has-error';
+    }
+
+    if (this.get('everyElementIsValid')) {
+      return 'label-has-success';
+    }
+
+    return 'label-has-no-validation';
   }),
 
   classNameBindings: ['labelValidationClass'],
