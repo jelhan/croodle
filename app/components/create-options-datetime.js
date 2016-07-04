@@ -1,11 +1,12 @@
 import Ember from 'ember';
-import groupBy from 'ember-group-by';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
+import { groupBy } from 'ember-array-computed-macros';
 
-const { isEmpty } = Ember;
+const { isEmpty, isPresent } = Ember;
+const { filter, mapBy, readOnly } = Ember.computed;
 
 let modelValidations = buildValidations({
   dates: [
@@ -36,35 +37,32 @@ export default Ember.Component.extend(modelValidations, {
     },
     adoptTimesOfFirstDay() {
       const dates = this.get('dates');
-      const groupedDates = this.get('groupedDates');
-      const firstDate = groupedDates.get('firstObject');
-      const timesOfFirstDate = firstDate.items.map((dates) => {
-        return dates.get('time');
-      }).filter(Ember.isPresent);
-      groupedDates.slice(1).forEach((groupedDate) => {
-        if (isEmpty(timesOfFirstDate)) {
+      const timesForFirstDay = this.get('timesForFirstDay');
+      const datesWithoutFirstDay = this.get('groupedDates').slice(1);
+      datesWithoutFirstDay.forEach((groupedDate) => {
+        if (isEmpty(timesForFirstDay)) {
           // there aren't any times on first day
-          const remainingOption = groupedDate.items.get('firstObject');
+          const remainingOption = groupedDate.get('firstObject');
           // remove all times but the first one
           dates.removeObjects(
-            groupedDate.items.slice(1)
+            groupedDate.slice(1)
           );
           // set title as date without time
           remainingOption.set('title', remainingOption.get('date').format('YYYY-MM-DD'));
         } else {
           // adopt times of first day
-          if (timesOfFirstDate.get('length') < groupedDate.items.length) {
+          if (timesForFirstDay.get('length') < groupedDate.length) {
             // remove excess options
             dates.removeObjects(
-              groupedDate.items.slice(timesOfFirstDate.get('length'))
+              groupedDate.slice(timesForFirstDay.get('length'))
             );
           }
           // set times according to first day
           let targetPosition;
-          timesOfFirstDate.forEach((timeOfFirstDate, index) => {
-            const target = groupedDate.items.objectAt(index);
+          timesForFirstDay.forEach((timeOfFirstDate, index) => {
+            const target = groupedDate.objectAt(index);
             if (target === undefined) {
-              const basisDate = groupedDate.items.get('firstObject.date').clone();
+              const basisDate = groupedDate.get('firstObject.date').clone();
               let [hour, minute] = timeOfFirstDate.split(':');
               let dateString = basisDate.hour(hour).minute(minute).toISOString();
               let fragment = this.get('store').createFragment('option', {
@@ -90,8 +88,8 @@ export default Ember.Component.extend(modelValidations, {
     deleteOption(target) {
       let position = this.get('dates').indexOf(target);
       let datesForThisDay = this.get('groupedDates').find((groupedDate) => {
-        return groupedDate.value === target.get('day');
-      }).items;
+        return groupedDate.get('firstObject.day') === target.get('day');
+      });
       if (datesForThisDay.length > 1) {
         this.get('dates').removeAt(position);
       } else {
@@ -106,6 +104,12 @@ export default Ember.Component.extend(modelValidations, {
       }
     }
   },
+  // dates are sorted
+  datesForFirstDay: readOnly('groupedDates.firstObject'),
+  _timesForFirstDay: mapBy('datesForFirstDay', 'time'),
+  timesForFirstDay: filter('_timesForFirstDay', function(time) {
+    return isPresent(time);
+  }),
   groupedDates: groupBy('dates', 'day'),
   store: Ember.inject.service('store')
 });
