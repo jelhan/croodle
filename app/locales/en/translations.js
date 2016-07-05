@@ -23,6 +23,7 @@ export default {
   'create.options-datetime.copy-first-line': 'Copy and paste first row',
   'create.options-datetime.error.notEnoughTimes': 'It must be determined at least one valid time per day. If only one day is chosen, at least 2 dates must be determined.',
   'create.options-datetime.error.correctTimeFormat': 'Dates have to be entered as hour and minute divided by an colon (e.g.  13:00).',
+  'create.options-datetime.fix-validation-errors-first-day': 'You have to fix all validation errors on first day before copying.',
   'create.settings.answerType.label': 'Which answers should be available?',
   'create.settings.anonymousUser.label': 'Allow anonymous attendants for the poll?',
   'create.settings.expirationDate.label': 'When should your poll expire and be deleted?',

@@ -4,7 +4,10 @@ import moment from 'moment';
 
 moduleForComponent('create-options-datetime', 'Unit | Component | create options datetime', {
   unit: true,
-  needs: ['model:option', 'validator:collection', 'validator:length', 'validator:valid-collection'],
+  needs: [
+    'model:option', 'model:poll', 'model:user',
+    'validator:alias', 'validator:collection', 'validator:iso8601', 'validator:length', 'validator:presence', 'validator:time', 'validator:unique', 'validator:valid-collection'
+  ],
   beforeEach() {
     this.inject.service('store');
   }
@@ -155,22 +158,18 @@ test('bindings are working on grouped datetimes', function(assert) {
 
 test('adopt times of first day - simple', function(assert) {
   let component;
+  let poll;
   Ember.run(() => {
-    component = this.subject({
-      dates: [
-        this.store.createFragment('option', {
-          title: moment('2015-01-01T11:11:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-01T22:22:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-02').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-03').toISOString()
-        })
+    poll = this.store.createRecord('poll', {
+      options: [
+        { title: moment('2015-01-01T11:11:00.000').toISOString() },
+        { title: moment('2015-01-01T22:22:00.000').toISOString() },
+        { title: moment('2015-01-02').toISOString() },
+        { title: moment('2015-01-03').toISOString() }
       ]
+    });
+    component = this.subject({
+      dates: poll.get('options')
     });
     component.send('adoptTimesOfFirstDay');
   });
@@ -190,34 +189,22 @@ test('adopt times of first day - simple', function(assert) {
 
 test('adopt times of first day - having times on the other days', function(assert) {
   let component;
+  let poll;
   Ember.run(() => {
-    component = this.subject({
-      dates: [
-        this.store.createFragment('option', {
-          title: moment('2015-01-01T11:11:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-01T22:22:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-02T09:11:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-03T01:11:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-03T11:11:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-04T02:11:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-04T05:11:00.000').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-04T12:11:00.000').toISOString()
-        })
+    poll = this.store.createRecord('poll', {
+      options: [
+        { title: moment('2015-01-01T11:11:00.000').toISOString() },
+        { title: moment('2015-01-01T22:22:00.000').toISOString() },
+        { title: moment('2015-01-02T09:11:00.000').toISOString() },
+        { title: moment('2015-01-03T01:11:00.000').toISOString() },
+        { title: moment('2015-01-03T11:11:00.000').toISOString() },
+        { title: moment('2015-01-04T02:11:00.000').toISOString() },
+        { title: moment('2015-01-04T05:11:00.000').toISOString() },
+        { title: moment('2015-01-04T12:11:00.000').toISOString() }
       ]
+    });
+    component = this.subject({
+      dates: poll.get('options')
     });
     component.send('adoptTimesOfFirstDay');
   });
@@ -239,22 +226,18 @@ test('adopt times of first day - having times on the other days', function(asser
 
 test('adopt times of first day - no times on first day', function(assert) {
   let component;
+  let poll;
   Ember.run(() => {
-    component = this.subject({
-      dates: [
-        this.store.createFragment('option', {
-          title: '2015-01-01'
-        }),
-        this.store.createFragment('option', {
-          title: '2015-01-02'
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-03T11:00:00.000Z').toISOString()
-        }),
-        this.store.createFragment('option', {
-          title: moment('2015-01-03T15:00:00.000Z').toISOString()
-        })
+    poll = this.store.createRecord('poll', {
+      options: [
+        { title: '2015-01-01' },
+        { title: '2015-01-02' },
+        { title: moment('2015-01-03T11:00:00.000Z').toISOString() },
+        { title: moment('2015-01-03T15:00:00.000Z').toISOString() }
       ]
+    });
+    component = this.subject({
+      dates: poll.get('options')
     });
     component.send('adoptTimesOfFirstDay');
   });

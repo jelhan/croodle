@@ -5,7 +5,7 @@ import {
 from 'ember-cp-validations';
 import { groupBy } from 'ember-array-computed-macros';
 
-const { isEmpty, isPresent } = Ember;
+const { isEmpty, isPresent, observer } = Ember;
 const { filter, mapBy, readOnly } = Ember.computed;
 
 let modelValidations = buildValidations({
@@ -37,8 +37,21 @@ export default Ember.Component.extend(modelValidations, {
     },
     adoptTimesOfFirstDay() {
       const dates = this.get('dates');
+      const datesForFirstDay = this.get('datesForFirstDay');
       const timesForFirstDay = this.get('timesForFirstDay');
       const datesWithoutFirstDay = this.get('groupedDates').slice(1);
+
+      /* validate if times on firstDay are valid */
+      const datesForFirstDayAreValid = datesForFirstDay.every((date) => {
+        // ignore dates where time is null
+        return isEmpty(date.get('time')) || date.get('validations.isValid');
+      });
+
+      if (!datesForFirstDayAreValid) {
+        this.set('errorMessage', 'create.options-datetime.fix-validation-errors-first-day');
+        return;
+      }
+
       datesWithoutFirstDay.forEach((groupedDate) => {
         if (isEmpty(timesForFirstDay)) {
           // there aren't any times on first day
@@ -106,10 +119,21 @@ export default Ember.Component.extend(modelValidations, {
   },
   // dates are sorted
   datesForFirstDay: readOnly('groupedDates.firstObject'),
+
+  // errorMessage should be reset to null on all user interactions
+  errorMesage: null,
+  resetErrorMessage: observer('dates.@each.time', function() {
+    this.set('errorMessage', null);
+  }),
+
+  // can't use multiple computed macros at once
   _timesForFirstDay: mapBy('datesForFirstDay', 'time'),
   timesForFirstDay: filter('_timesForFirstDay', function(time) {
     return isPresent(time);
   }),
+
+  // have a look at https://github.com/martndemus/ember-array-computed-macros#groupbylistproperty-valueproperty
   groupedDates: groupBy('dates', 'day'),
-  store: Ember.inject.service('store')
+
+  store: Ember.inject.service()
 });

@@ -1,4 +1,10 @@
 <div class="box">
+  {{#if errorMessage}}
+    {{#bs-alert type="warning"}}
+      {{t errorMessage}}
+    {{/bs-alert}}
+  {{/if}}
+
   {{#bs-form
     action='submit'
     formLayout='horizontal'

@@ -23,6 +23,7 @@ export default {
   'create.options-datetime.copy-first-line': 'Utilizar el horario de la primera línea para todas las demás.',
   'create.options-datetime.error.notEnoughTimes': 'Ha de establecerse almenos un horario correcto para cada día. Si se ha elegido únicamente un día, hay que establecer almenos dos horarios.',
   'create.options-datetime.error.correctTimeFormat': 'Las horas y minutos del horario deben ser separadas por el caracter dospuntos (p.ej. 13:00).',
+  'create.options-datetime.fix-validation-errors-first-day': 'You have to fix all validation errors on first day before copying.',
   'create.settings.answerType.label': '¿Que respuesta debería estar disponible?',
   'create.settings.anonymousUser.label': '¿permitir participantes anónimos en la encuesta?',
   'create.settings.expirationDate.label': 'When should the poll expire and be deleted?',

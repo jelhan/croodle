@@ -23,6 +23,7 @@ export default {
   'create.options-datetime.copy-first-line': 'Uhrzeiten der ersten Zeile für alle anderen übernehmen',
   'create.options-datetime.error.notEnoughTimes': 'Es muss mindestens eine gültige Uhrzeit pro Tag festgelegt werden. Falls nur ein einziger Tag ausgewählt wurde, müssen mindestens 2 Uhrzeiten festgelegt werden.',
   'create.options-datetime.error.correctTimeFormat': 'Uhrzeiten müssen als Stunden und Minuten getrennt durch einen Doppelpunkt eingegeben werden (z.B. 13:00).',
+  'create.options-datetime.fix-validation-errors-first-day': 'Alle fehlerhaften Zeiten für den ersten Tag müssen vor Übernahme behoben werden.',
   'create.settings.answerType.label': 'Welche Antworten sollen verfügbar sein?',
   'create.settings.anonymousUser.label': 'Anonyme Teilnahme an der Umfrage erlauben?',
   'create.settings.expirationDate.label': 'Wann soll Ihre Umfrage verfallen und gelöscht werden?',
