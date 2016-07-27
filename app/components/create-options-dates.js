@@ -36,9 +36,11 @@ export default Ember.Component.extend({
      * value is an of Date objects set by ember-cli-bootstrap-datepicker
      */
     set(key, days) {
+      const options = this.get('options');
+
       // remove all days if value isn't an array of if it's empty
       if (!isArray(days) || isEmpty(days)) {
-        this.set('options', []);
+        options.clear();
         return [];
       }
 
@@ -47,7 +49,6 @@ export default Ember.Component.extend({
         return a.getTime() - b.getTime();
       });
 
-      const options = this.get('options');
       // array of date objects
       const newDays = days.filter((day) => {
         return options.every((option) => {
