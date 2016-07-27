@@ -16,6 +16,7 @@ cache:
     - node_modules
 
 before_install:
+  - nvm install 4
   - if $TEST_EMBER || $TEST_SAUCE; then export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH; fi
   - if $TEST_EMBER || $TEST_SAUCE; then npm config set spin false; fi
   - if $TEST_EMBER || $TEST_SAUCE; then npm install -g npm@^2; fi
