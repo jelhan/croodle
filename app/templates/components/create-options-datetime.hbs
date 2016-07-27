@@ -52,9 +52,11 @@
       {{/each}}
     </div>
 
-    {{#bs-form-element}}
-      <button {{action "adoptTimesOfFirstDay"}} class="btn btn-default adopt-times-of-first-day">{{t "create.options-datetime.copy-first-line"}}</button>
-    {{/bs-form-element}}
+    {{#if (gt groupedDates.length 1)}}
+      {{#bs-form-element}}
+        <button {{action "adoptTimesOfFirstDay"}} class="btn btn-default adopt-times-of-first-day">{{t "create.options-datetime.copy-first-line"}}</button>
+      {{/bs-form-element}}
+    {{/if}}
 
     {{#bs-form-element}}
       {{bs-button
