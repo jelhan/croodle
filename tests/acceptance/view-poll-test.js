@@ -34,7 +34,7 @@ test('view poll url', function(assert) {
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
   andThen(function() {
     assert.equal(
-      find('.share-link .link a').text(),
+      find('.poll-link .link a').text(),
       window.location.href,
       'share link is shown'
     );
