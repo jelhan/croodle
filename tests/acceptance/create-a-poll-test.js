@@ -678,8 +678,8 @@ test('create a poll for answering a question with only one option', function(ass
 
 test('create a poll and using back button (find a date)', function(assert) {
   let days = [
-    moment().add(1, 'day'),
-    moment().add(1, 'week')
+    moment().add(1, 'day').hours(0).minutes(0).seconds(0).milliseconds(0),
+    moment().add(1, 'week').hours(0).minutes(0).seconds(0).milliseconds(0)
   ];
   const dayFormat = moment.localeData().longDateFormat('LLLL')
                       .replace(
