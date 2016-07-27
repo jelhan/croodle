@@ -20,7 +20,7 @@ export default {
   'create.options.input.moreOptions.label': 'weitere Antwort-Optionen hinzufügen',
   'create.options-datetime.datetimes.label': 'Uhrzeiten',
   'create.options-datetime.more-inputs': 'Weitere Uhrzeiten eingeben',
-  'create.options-datetime.copy-first-line': 'Uhrzeiten der ersten Zeile für alle anderen übernehmen',
+  'create.options-datetime.copy-first-line': 'Uhrzeiten des ersten Tages für alle anderen übernehmen',
   'create.options-datetime.error.notEnoughTimes': 'Es muss mindestens eine gültige Uhrzeit pro Tag festgelegt werden. Falls nur ein einziger Tag ausgewählt wurde, müssen mindestens 2 Uhrzeiten festgelegt werden.',
   'create.options-datetime.error.correctTimeFormat': 'Uhrzeiten müssen als Stunden und Minuten getrennt durch einen Doppelpunkt eingegeben werden (z.B. 13:00).',
   'create.options-datetime.fix-validation-errors-first-day': 'Alle fehlerhaften Zeiten für den ersten Tag müssen vor Übernahme behoben werden.',

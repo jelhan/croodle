@@ -20,7 +20,7 @@ export default {
   'create.options.input.moreOptions.label': 'Add other answer options',
   'create.options-datetime.datetimes.label': 'Times',
   'create.options-datetime.more-inputs': 'Enter other times',
-  'create.options-datetime.copy-first-line': 'Copy and paste first row',
+  'create.options-datetime.copy-first-line': 'Copy and paste times of first day to all other',
   'create.options-datetime.error.notEnoughTimes': 'It must be determined at least one valid time per day. If only one day is chosen, at least 2 dates must be determined.',
   'create.options-datetime.error.correctTimeFormat': 'Dates have to be entered as hour and minute divided by an colon (e.g.  13:00).',
   'create.options-datetime.fix-validation-errors-first-day': 'You have to fix all validation errors on first day before copying.',
