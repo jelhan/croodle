@@ -126,7 +126,7 @@ export default {
     email: '{{description}} muss eine gültige E-Mail-Adresse sein',
     phone: '{{description}} muss eine gültige Telefonnummer sein',
     url: '{{description}} muss eine gültige URL sein',
-    time: '{{value}} muss eine gültige Zeit sein',
+    time: '{{description}} muss eine gültige Zeit sein (z.B. 10:45)',
     unique: '{{description}} müssen eindeutig sein',
     'unique.name': 'Dieser Namen wurde bereits genutzt'
   }
