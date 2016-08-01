@@ -64,7 +64,7 @@
     "ember-object-at-helper": "0.1.0",
     "ember-radio-buttons": "^4.0.1",
     "ember-simple-select": "^0.6.0",
-    "ember-suave": "1.2.3",
+    "ember-suave": "^4.0.0",
     "ember-truth-helpers": "^1.2.0",
     "express": "^4.8.5",
     "glob": "^5.0.3",

@@ -6,6 +6,8 @@ import serverGetPolls from '../helpers/server-get-polls';
 import serverPostUsers from '../helpers/server-post-users';
 /* jshint proto: true */
 
+const { run } = Ember;
+
 let application, server;
 
 module('Acceptance | participate in a poll', {
@@ -19,7 +21,7 @@ module('Acceptance | participate in a poll', {
   afterEach() {
     server.shutdown();
 
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
   }
 });
 

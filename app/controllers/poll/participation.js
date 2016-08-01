@@ -5,6 +5,8 @@ import {
 from 'ember-cp-validations';
 import moment from 'moment';
 
+const { computed, Controller, inject, isEmpty, Object: EmberObject } = Ember;
+
 const validCollection = function(collection) {
   // return false if any object in collection is inValid
   return !collection.any((object) => {
@@ -66,7 +68,7 @@ const SelectionValidations = buildValidations({
   })
 });
 
-export default Ember.Controller.extend(Validations, {
+export default Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
@@ -126,36 +128,36 @@ export default Ember.Controller.extend(Validations, {
     }
   },
 
-  anonymousUser: Ember.computed.readOnly('pollController.model.anonymousUser'),
-  encryption: Ember.inject.service(),
-  forceAnswer: Ember.computed.readOnly('pollController.model.forceAnswer'),
-  i18n: Ember.inject.service(),
+  anonymousUser: computed.readOnly('pollController.model.anonymousUser'),
+  encryption: inject.service(),
+  forceAnswer: computed.readOnly('pollController.model.forceAnswer'),
+  i18n: inject.service(),
 
   init() {
     this.get('i18n.locale');
   },
 
-  isFreeText: Ember.computed.readOnly('pollController.model.isFreeText'),
-  isFindADate: Ember.computed.readOnly('pollController.model.isFindADate'),
+  isFreeText: computed.readOnly('pollController.model.isFreeText'),
+  isFindADate: computed.readOnly('pollController.model.isFindADate'),
 
   name: '',
 
-  pollController: Ember.inject.controller('poll'),
+  pollController: inject.controller('poll'),
 
-  possibleAnswers: Ember.computed('pollController.model.answers', function() {
+  possibleAnswers: computed('pollController.model.answers', function() {
     return this.get('pollController.model.answers').map((answer) => {
       const container = this.get('container');
 
-      const AnswerObject = Ember.Object.extend({
+      const AnswerObject = EmberObject.extend({
         icon: answer.get('icon'),
         type: answer.get('type')
       });
 
-      if (!Ember.isEmpty(answer.get('labelTranslation'))) {
+      if (!isEmpty(answer.get('labelTranslation'))) {
         return AnswerObject.extend({
           container,
-          i18n: Ember.inject.service(),
-          label: Ember.computed('i18n.locale', function() {
+          i18n: inject.service(),
+          label: computed('i18n.locale', function() {
             return this.get('i18n').t(this.get('labelTranslation'));
           }),
           labelTranslation: answer.get('labelTranslation')
@@ -170,7 +172,7 @@ export default Ember.Controller.extend(Validations, {
 
   savingFailed: false,
 
-  selections: Ember.computed('pollController.model.options', 'pollController.dates', function() {
+  selections: computed('pollController.model.options', 'pollController.dates', function() {
     let options;
     const isFindADate = this.get('isFindADate');
     let lastDate;
@@ -208,10 +210,10 @@ export default Ember.Controller.extend(Validations, {
       }
 
       // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
-      // To lookup validators, container access is required which can cause an issue with Ember.Object creation
+      // To lookup validators, container access is required which can cause an issue with Object creation
       // if the object is statically imported. The current fix for this is as follows.
       const container = this.get('container');
-      return Ember.Object.extend(SelectionValidations, {
+      return EmberObject.extend(SelectionValidations, {
         container,
 
         // forceAnswer and isFreeText must be included in model
@@ -227,7 +229,7 @@ export default Ember.Controller.extend(Validations, {
         // momentFormat from ember-moment does not currently observes locale
         // changes https://github.com/stefanpenner/ember-moment/issues/108
         // but that should be the way to go
-        label: Ember.computed('i18n.locale', function() {
+        label: computed('i18n.locale', function() {
           if (this.get('labelFormat') === false) {
             return this.get('labelValue');
           } else {
@@ -236,7 +238,7 @@ export default Ember.Controller.extend(Validations, {
         }),
         labelFormat,
         labelValue,
-        i18n: Ember.inject.service(),
+        i18n: inject.service(),
         init() {
           this.get('i18n.locale');
         },

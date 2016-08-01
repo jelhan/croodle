@@ -2,7 +2,9 @@ import Ember from 'ember';
 import moment from 'moment';
 /* global jstz */
 
-export default Ember.Controller.extend({
+const { computed, Controller, inject, isEmpty, isPresent, Object: EmberObject, observer } = Ember;
+
+export default Controller.extend({
   actions: {
     useLocalTimezone() {
       this.set('useLocalTimezone', true);
@@ -10,11 +12,11 @@ export default Ember.Controller.extend({
     }
   },
 
-  encryption: Ember.inject.service(),
+  encryption: inject.service(),
   encryptionKey: '',
   queryParams: ['encryptionKey'],
 
-  dateGroups: Ember.computed('dates.[]', function() {
+  dateGroups: computed('dates.[]', function() {
     // group dates only for find a date
     // and if there is atleast one time
     if (
@@ -25,9 +27,9 @@ export default Ember.Controller.extend({
     }
 
     const datetimes = this.get('dates');
-    const dateGroupObject = Ember.Object.extend({
+    const dateGroupObject = EmberObject.extend({
       colspan: null,
-      formatted: Ember.computed('value', 'i18n.locale', function() {
+      formatted: computed('value', 'i18n.locale', function() {
         const date = this.get('value');
         const locale = this.get('i18n.locale');
         const longDateFormat = moment.localeData().longDateFormat('LLLL')
@@ -42,7 +44,7 @@ export default Ember.Controller.extend({
 
         return date.format(longDateFormat);
       }),
-      i18n: Ember.inject.service(),
+      i18n: inject.service(),
       value: null
     });
     // need to inject container into dateGroupObject to support service injection
@@ -93,16 +95,16 @@ export default Ember.Controller.extend({
   /*
    * handles options if they are dates
    */
-  dates: Ember.computed('model.options.[]', 'useLocalTimezone', function() {
+  dates: computed('model.options.[]', 'useLocalTimezone', function() {
     let timezone = false;
     let dates = [];
-    const dateObject = Ember.Object.extend({
-      i18n: Ember.inject.service(),
+    const dateObject = EmberObject.extend({
+      i18n: inject.service(),
       init() {
         // retrive locale to setup observers
         this.get('i18n.locale');
       },
-      formatted: Ember.computed('title', 'i18n.locale', function() {
+      formatted: computed('title', 'i18n.locale', function() {
         const date = this.get('title');
         const locale = this.get('i18n.locale');
 
@@ -119,7 +121,7 @@ export default Ember.Controller.extend({
             .trim()
         );
       }),
-      formattedTime: Ember.computed('title', 'i18n.locale', function() {
+      formattedTime: computed('title', 'i18n.locale', function() {
         const date = this.get('title');
         const locale = this.get('i18n.locale');
 
@@ -166,7 +168,7 @@ export default Ember.Controller.extend({
     return dates;
   }),
 
-  hasTimes: Ember.computed('model.options.[]', function() {
+  hasTimes: computed('model.options.[]', function() {
     if (this.get('model.isMakeAPoll')) {
       return false;
     } else {
@@ -176,13 +178,13 @@ export default Ember.Controller.extend({
     }
   }),
 
-  pollUrl: Ember.computed('currentPath', 'encryptionKey', function() {
+  pollUrl: computed('currentPath', 'encryptionKey', function() {
     return window.location.href;
   }),
 
-  preventEncryptionKeyChanges: Ember.observer('encryptionKey', function() {
+  preventEncryptionKeyChanges: observer('encryptionKey', function() {
     if (
-      !Ember.isEmpty(this.get('encryption.key')) &&
+      !isEmpty(this.get('encryption.key')) &&
       this.get('encryptionKey') !== this.get('encryption.key')
     ) {
       // work-a-round for url not being updated
@@ -197,14 +199,14 @@ export default Ember.Controller.extend({
   /*
    * return true if current timezone differs from timezone poll got created with
    */
-  timezoneDiffers: Ember.computed('model.timezone', function() {
+  timezoneDiffers: computed('model.timezone', function() {
     const modelTimezone = this.get('model.timezone');
-    return Ember.isPresent(modelTimezone) && jstz.determine().name() !== modelTimezone;
+    return isPresent(modelTimezone) && jstz.determine().name() !== modelTimezone;
   }),
 
   useLocalTimezone: false,
 
-  mustChooseTimezone: Ember.computed('timezoneDiffers', 'timezoneChoosen', function() {
+  mustChooseTimezone: computed('timezoneDiffers', 'timezoneChoosen', function() {
     return this.get('timezoneDiffers') && !this.get('timezoneChoosen');
   })
 });

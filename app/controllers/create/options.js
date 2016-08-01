@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
+const { computed, Controller } = Ember;
+
+export default Controller.extend({
   actions: {
     nextPage() {
       if (this.get('isFindADate')) {
@@ -11,5 +13,5 @@ export default Ember.Controller.extend({
     }
   },
 
-  isFindADate: Ember.computed.alias('model.isFindADate')
+  isFindADate: computed.alias('model.isFindADate')
 });

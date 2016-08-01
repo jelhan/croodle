@@ -4,6 +4,8 @@ import {
 }
 from 'ember-cp-validations';
 
+const { computed, Controller, Object: EmberObject, inject } = Ember;
+
 const Validations = buildValidations({
   pollType: [
     validator('presence', {
@@ -17,15 +19,15 @@ const Validations = buildValidations({
   ]
 });
 
-const TranslateableObject = Ember.Object.extend({
-  i18n: Ember.inject.service(),
-  label: Ember.computed('labelTranslation', 'i18n.locale', function() {
+const TranslateableObject = EmberObject.extend({
+  i18n: inject.service(),
+  label: computed('labelTranslation', 'i18n.locale', function() {
     return this.get('i18n').t(this.get('labelTranslation'));
   }),
   labelTranslation: undefined
 });
 
-export default Ember.Controller.extend(Validations, {
+export default Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
@@ -34,15 +36,15 @@ export default Ember.Controller.extend(Validations, {
     }
   },
 
-  i18n: Ember.inject.service(),
+  i18n: inject.service(),
 
   init() {
     this.get('i18n.locale');
   },
 
-  pollType: Ember.computed.alias('model.pollType'),
+  pollType: computed.alias('model.pollType'),
 
-  pollTypes: Ember.computed('', function() {
+  pollTypes: computed('', function() {
     const container = this.get('container');
 
     return [

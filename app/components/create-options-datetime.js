@@ -6,8 +6,8 @@ from 'ember-cp-validations';
 import { groupBy } from 'ember-array-computed-macros';
 import Form from 'ember-bootstrap/components/bs-form';
 
-const { computed, isEmpty, isPresent, observer } = Ember;
-const { filter, mapBy, readOnly } = Ember.computed;
+const { computed, Component, inject, isEmpty, isPresent, observer } = Ember;
+const { filter, mapBy, readOnly } = computed;
 
 let modelValidations = buildValidations({
   dates: [
@@ -22,7 +22,7 @@ let modelValidations = buildValidations({
   ]
 });
 
-export default Ember.Component.extend(modelValidations, {
+export default Component.extend(modelValidations, {
   actions: {
     addOption(afterOption) {
       let options = this.get('dates');
@@ -182,5 +182,5 @@ export default Ember.Component.extend(modelValidations, {
     }, {});
   }),
 
-  store: Ember.inject.service()
+  store: inject.service()
 });

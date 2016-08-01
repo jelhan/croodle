@@ -1,18 +1,20 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  dateGroups: Ember.computed.reads('pollController.dateGroups'),
-  dates: Ember.computed.reads('pollController.dates'),
-  hasTimes: Ember.computed.reads('pollController.hasTimes'),
-  pollController: Ember.inject.controller('poll'),
-  sortedUsers: Ember.computed.sort('pollController.model.users', 'usersSorting'),
+const { $, computed, Controller, inject } = Ember;
+
+export default Controller.extend({
+  dateGroups: computed.reads('pollController.dateGroups'),
+  dates: computed.reads('pollController.dates'),
+  hasTimes: computed.reads('pollController.hasTimes'),
+  pollController: inject.controller('poll'),
+  sortedUsers: computed.sort('pollController.model.users', 'usersSorting'),
   usersSorting: ['creationDate'],
 
   /*
    * evaluates poll data
    * if free text answers are allowed evaluation is disabled
    */
-  evaluation: Ember.computed('model.users.[]', function() {
+  evaluation: computed('model.users.[]', function() {
     // disable evaluation if answer type is free text
     if (this.get('model.answerType') === 'FreeText') {
       return [];
@@ -33,7 +35,7 @@ export default Ember.Controller.extend({
       evaluation.push({
         id: answer.label,
         label: answer.label,
-        options: Ember.$.extend([], options)
+        options: $.extend([], options)
       });
     });
     // create object for no answer if answers are not forced
@@ -41,7 +43,7 @@ export default Ember.Controller.extend({
       evaluation.push({
         id: null,
         label: 'no answer',
-        options: Ember.$.extend([], options)
+        options: $.extend([], options)
       });
     }
 
@@ -79,11 +81,11 @@ export default Ember.Controller.extend({
    * calculate colspan for a row which should use all columns in table
    * used by evaluation row
    */
-  fullRowColspan: Ember.computed('model.options.[]', function() {
+  fullRowColspan: computed('model.options.[]', function() {
     return this.get('model.options.length') + 2;
   }),
 
-  isEvaluable: Ember.computed('model.users.[]', 'model.isFreeText', function() {
+  isEvaluable: computed('model.users.[]', 'model.isFreeText', function() {
     if (
       !this.get('model.isFreeText') &&
       this.get('model.users.length') > 0
@@ -94,7 +96,7 @@ export default Ember.Controller.extend({
     }
   }),
 
-  optionCount: Ember.computed('model.options', function() {
+  optionCount: computed('model.options', function() {
     return this.get('model.options.length');
   })
 });

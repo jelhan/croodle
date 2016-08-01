@@ -12,6 +12,8 @@ import pageCreateSettings from 'croodle/tests/pages/create/settings';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 
+const { run } = Ember;
+
 let application, server;
 
 const randomString = function(length) {
@@ -53,7 +55,7 @@ module('Acceptance | create a poll', {
   afterEach() {
     server.shutdown();
 
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
   }
 });
 

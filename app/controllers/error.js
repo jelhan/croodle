@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
-export default Ember.Controller.extend({
-  isDecryptionError: Ember.computed('model.type', function() {
+const { computed, Controller } = Ember;
+
+export default Controller.extend({
+  isDecryptionError: computed('model.type', function() {
     return this.get('model.type') === 'decryption-failed';
   })
 });

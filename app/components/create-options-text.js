@@ -2,7 +2,9 @@ import Ember from 'ember';
 import BsForm from 'ember-bootstrap/components/bs-form';
 import { anyBy } from 'ember-array-computed-macros';
 
-export default Ember.Component.extend({
+const { Component, computed, inject, observer, on } = Ember;
+
+export default Component.extend({
   actions: {
     addOption(element) {
       let fragment = this.get('store').createFragment('option');
@@ -25,7 +27,7 @@ export default Ember.Component.extend({
     return value === 'error';
   }),
 
-  everyElementIsValid: Ember.computed('form.childFormElements.@each.validation', function() {
+  everyElementIsValid: computed('form.childFormElements.@each.validation', function() {
     const anyElementIsInvalid = this.get('anyElementIsInvalid');
     if (anyElementIsInvalid) {
       return false;
@@ -43,11 +45,11 @@ export default Ember.Component.extend({
   }),
 
   form: null,
-  registerForm: Ember.on('didInsertElement', function() {
+  registerForm: on('didInsertElement', function() {
     this.set('form', this.nearestOfType(BsForm));
   }),
 
-  labelValidationClass: Ember.computed('anyElementHasFeedback', 'anyElementIsInvalid', 'everyElementIsValid', function() {
+  labelValidationClass: computed('anyElementHasFeedback', 'anyElementIsInvalid', 'everyElementIsValid', function() {
     if (!this.get('anyElementHasFeedback')) {
       return 'label-has-no-validation';
     }
@@ -65,7 +67,7 @@ export default Ember.Component.extend({
 
   classNameBindings: ['labelValidationClass'],
 
-  enforceMinimalOptionsAmount: Ember.observer('options', 'isMakeAPoll', function() {
+  enforceMinimalOptionsAmount: observer('options', 'isMakeAPoll', function() {
     if (this.get('options.length') < 2) {
       let options = this.get('options');
       for (let missingOptions = 2 - this.get('options.length'); missingOptions > 0; missingOptions--) {
@@ -76,5 +78,5 @@ export default Ember.Component.extend({
     }
   }).on('init'),
 
-  store: Ember.inject.service('store')
+  store: inject.service('store')
 });

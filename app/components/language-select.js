@@ -1,14 +1,16 @@
 import Ember from 'ember';
 import localesMeta from 'croodle/locales/meta';
 
-export default Ember.Component.extend({
+const { Component, computed, inject } = Ember;
+
+export default Component.extend({
   tagName: 'select',
   classNames: [ 'language-select' ],
-  i18n: Ember.inject.service(),
-  moment: Ember.inject.service(),
-  current: Ember.computed.readOnly('i18n.locale'),
+  i18n: inject.service(),
+  moment: inject.service(),
+  current: computed.readOnly('i18n.locale'),
 
-  locales: Ember.computed('i18n.locales', function() {
+  locales: computed('i18n.locales', function() {
     let currentLocale = this.get('i18n.locale');
 
     return this.get('i18n.locales').map(function(locale) {

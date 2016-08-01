@@ -1,8 +1,11 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 
-export default DS.RESTAdapter.extend({
-  encryption: Ember.inject.service(),
+const { RESTAdapter } = DS;
+const { inject } = Ember;
+
+export default RESTAdapter.extend({
+  encryption: inject.service(),
 
   // set namespace to api.php in same subdirectory
   namespace:
