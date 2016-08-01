@@ -4,8 +4,9 @@ import {
 }
 from 'ember-cp-validations';
 import { groupBy } from 'ember-array-computed-macros';
+import Form from 'ember-bootstrap/components/bs-form';
 
-const { isEmpty, isPresent, observer } = Ember;
+const { computed, isEmpty, isPresent, observer } = Ember;
 const { filter, mapBy, readOnly } = Ember.computed;
 
 let modelValidations = buildValidations({
@@ -134,6 +135,52 @@ export default Ember.Component.extend(modelValidations, {
 
   // have a look at https://github.com/martndemus/ember-array-computed-macros#groupbylistproperty-valueproperty
   groupedDates: groupBy('dates', 'day'),
+
+  form: computed(function() {
+    return this.childViews.find(function(childView) {
+      return childView instanceof Form;
+    });
+  }),
+  formElements: readOnly('form.childFormElements'),
+  daysValidationState: computed('formElements.@each.validation', function() {
+    return this.get('formElements').reduce(function(daysValidationState, item) {
+      const day = item.get('model.day');
+      const validation = item.get('validation');
+      let currentValidationState;
+
+      // there maybe form elements without model or validation
+      if (isEmpty(day) || validation === undefined) {
+        return daysValidationState;
+      }
+
+      // if it's not existing initialize with current value
+      if (!daysValidationState.hasOwnProperty(day)) {
+        daysValidationState[day] = validation;
+        return daysValidationState;
+      }
+
+      currentValidationState = daysValidationState[day];
+      switch (currentValidationState) {
+        // error overrules all validation states
+        case 'error':
+          break;
+
+        // null ist overruled by 'error'
+        case null:
+          if (validation === 'error') {
+            daysValidationState[day] = 'error';
+          }
+          break;
+
+        // success is overruled by anyother validation state
+        case 'success':
+          daysValidationState[day] = validation;
+          break;
+      }
+
+      return daysValidationState;
+    }, {});
+  }),
 
   store: Ember.inject.service()
 });

@@ -13,42 +13,47 @@
     <div class="days">
       {{#each dates as |date index|}}
         {{!
-          show label only if it differ from label before
-          Nested-helpers are called first and object-at requires a positive integer
-          but returns undefined if an element with the passed in index does not exist.
-          Therefore we pass in array length if index is null. Cause index starting
-          by zero there can't be any element with an index === array.length.
+          show summarized validation state for all times in a day
         }}
-        {{#bs-form-element
-          classNames='option'
-          label=date.dayFormatted
-          invisibleLabel=(eq date.dayFormatted (object-at dates (if index (sub index 1) dates.length) 'dayFormatted'))
-          model=date
-          property='time'
-          as |value id validationState|
-        }}
-          <div class="input-group">
-            {{bs-input
-              id=id
-              placeholder='00:00'
-              type='time'
-              value=value
-            }}
-            <div class="input-group-btn">
-              {{! disable delete button if there is only one option }}
-              <button {{action 'deleteOption' date}}
-                class="delete btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
-                <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
-                <span class='sr-only'>{{t 'create.options.button.delete.label'}}</span>
-              </button>
-              <button {{action 'addOption' date}}
-                class="add btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
-                <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
-                <span class='sr-only'>{{t 'create.options.button.add.label'}}</span>
-              </button>
+        <div class="{{unless (get daysValidationState date.day) 'label-has-no-validation' (concat 'label-has-' (get daysValidationState date.day))}}">
+          {{!
+            show label only if it differ from label before
+            Nested-helpers are called first and object-at requires a positive integer
+            but returns undefined if an element with the passed in index does not exist.
+            Therefore we pass in array length if index is null. Cause index starting
+            by zero there can't be any element with an index === array.length.
+          }}
+          {{#bs-form-element
+            classNames='option'
+            label=date.dayFormatted
+            invisibleLabel=(eq date.dayFormatted (object-at dates (if index (sub index 1) dates.length) 'dayFormatted'))
+            model=date
+            property='time'
+            as |value id validationState|
+          }}
+            <div class="input-group">
+              {{bs-input
+                id=id
+                placeholder='00:00'
+                type='time'
+                value=value
+              }}
+              <div class="input-group-btn">
+                {{! disable delete button if there is only one option }}
+                <button {{action 'deleteOption' date}}
+                  class="delete btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
+                  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
+                  <span class='sr-only'>{{t 'create.options.button.delete.label'}}</span>
+                </button>
+                <button {{action 'addOption' date}}
+                  class="add btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
+                  <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
+                  <span class='sr-only'>{{t 'create.options.button.add.label'}}</span>
+                </button>
+              </div>
             </div>
-          </div>
-        {{/bs-form-element}}
+          {{/bs-form-element}}
+        </div>
       {{/each}}
     </div>
 
