@@ -26,7 +26,7 @@
     "connect-restreamer": "^1.0.1",
     "cors": "^2.5.3",
     "ember-array-computed-macros": "martndemus/ember-array-computed-macros#3fde9023336d227aa6009060b40b4de77d8b1a9b",
-    "ember-bootstrap": "kaliber5/ember-bootstrap#8f5d28a2419bb62badecd70f83644af1d2e3ddf0",
+    "ember-bootstrap": "^0.8.0",
     "ember-bootstrap-cp-validations": "0.1.1",
     "ember-cli": "1.13.13",
     "ember-cli-acceptance-test-helpers": "0.4.0",
@@ -68,6 +68,6 @@
     "ember-truth-helpers": "1.2.0",
     "express": "^4.8.5",
     "glob": "^5.0.3",
-    "node-phpcgi": "jelhan/node-phpcgi#entry-point"
+    "node-phpcgi": "^0.3.5"
   }
 }
