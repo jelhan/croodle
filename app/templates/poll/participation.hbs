@@ -55,3 +55,23 @@
     {{/bs-form-element}}
   {{/bs-form}}
 </div>
+
+{{#bs-modal
+  open=savingFailed
+  title=(t 'modal.save-retry.title')
+  body=false
+  footer=false
+  closeButton=false
+  autoClose=false
+}}
+  {{#bs-modal-body classNames='modal-body-saving-retry'}}
+    <p>{{t "modal.save-retry.text"}}</p>
+  {{/bs-modal-body}}
+  {{#bs-modal-footer}}
+    {{bs-button
+      defaultText=(t 'modal.save-retry.button-retry')
+      type='primary'
+      action='save'
+    }}
+  {{/bs-modal-footer}}
+{{/bs-modal}}

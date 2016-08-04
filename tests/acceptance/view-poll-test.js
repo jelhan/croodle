@@ -5,7 +5,7 @@ import Pretender from 'pretender';
 import serverGetPolls from '../helpers/server-get-polls';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
-/* global jstz, moment, start, stop */
+/* global jstz, moment */
 
 let application, server;
 
@@ -134,13 +134,9 @@ test('view a poll while timezone differs from the one poll got created in and ch
   });
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    stop();
-    Ember.run.later(function() {
-      start();
-
-      assert.equal(
-        find('.modal').css('display'),
-        'block',
+    Ember.run.next(function() {
+      assert.ok(
+        find('.modal .modal-body-choose-timezone').is(':visible'),
         'user gets asked which timezone should be used'
       );
 
@@ -155,18 +151,14 @@ test('view a poll while timezone differs from the one poll got created in and ch
           ]
         );
 
-        stop();
-        Ember.run.later(function() {
-          start();
-
-          assert.equal(
-            find('.modal').css('display'),
-            'none',
+        Ember.run.next(function() {
+          assert.notOk(
+            find('.modal .modal-body-choose-timezone').is(':visible'),
             'modal is closed'
           );
-        }, 1000);
+        });
       });
-    }, 1000);
+    });
   });
 });
 
@@ -197,13 +189,9 @@ test('view a poll while timezone differs from the one poll got created in and ch
   });
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    stop();
-    Ember.run.later(function() {
-      start();
-
-      assert.equal(
-        find('.modal').css('display'),
-        'block',
+    Ember.run.next(function() {
+      assert.ok(
+        find('.modal .modal-body-choose-timezone').is(':visible'),
         'user gets asked which timezone should be used'
       );
 
@@ -218,17 +206,13 @@ test('view a poll while timezone differs from the one poll got created in and ch
           ]
         );
 
-        stop();
-        Ember.run.later(function() {
-          start();
-
-          assert.equal(
-            find('.modal').css('display'),
-            'none',
+        Ember.run.next(function() {
+          assert.notOk(
+            find('.modal .modal-body-choose-timezone').is(':visible'),
             'modal is closed'
           );
-        }, 1000);
+        });
       });
-    }, 1000);
+    });
   });
 });

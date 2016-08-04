@@ -70,12 +70,13 @@ export default Ember.Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
-        const user = this.store.createRecord('user', {
+        const user = this.get('newUserRecord') || this.store.createRecord('user', {
           creationDate: new Date(),
-          name: this.get('name'),
           poll: this.get('pollController.model'),
           version: this.buildInfo.semver
         });
+
+        user.set('name', this.get('name'));
 
         const selections = user.get('selections');
         const possibleAnswers = this.get('pollController.model.answers');
@@ -100,28 +101,28 @@ export default Ember.Controller.extend(Validations, {
           }
         });
 
-        user.save()
-        .catch(() => {
-          // error: new user is not saved
-          this.send('openModal', {
-            template: 'save-retry',
-            model: {
-              record: user
-            }
-          });
-        })
-        .then(() => {
-          // reset form
-          this.set('name', '');
-          this.get('selections').forEach((selection) => {
-            selection.set('value', null);
-          });
-
-          this.transitionToRoute('poll.evaluation', this.get('model'), {
-            queryParams: { encryptionKey: this.get('encryption.key') }
-          });
-        });
+        this.set('newUserRecord', user);
+        this.send('save');
       }
+    },
+    save() {
+      const user = this.get('newUserRecord');
+      user.save()
+      .then(() => {
+        this.set('savingFailed', false);
+
+        // reset form
+        this.set('name', '');
+        this.get('selections').forEach((selection) => {
+          selection.set('value', null);
+        });
+
+        this.transitionToRoute('poll.evaluation', this.get('model'), {
+          queryParams: { encryptionKey: this.get('encryption.key') }
+        });
+      }, () => {
+        this.set('savingFailed', true);
+      });
     }
   },
 
@@ -166,6 +167,8 @@ export default Ember.Controller.extend(Validations, {
       }
     });
   }),
+
+  savingFailed: false,
 
   selections: Ember.computed('pollController.model.options', 'pollController.dates', function() {
     let options;
