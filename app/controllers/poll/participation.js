@@ -70,7 +70,7 @@ export default Ember.Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
-        const user = this.get('newUserRecord') || this.store.createRecord('user', {
+        const user = this.store.createRecord('user', {
           creationDate: new Date(),
           poll: this.get('pollController.model'),
           version: this.buildInfo.semver
