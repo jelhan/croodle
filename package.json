@@ -30,7 +30,7 @@
     "ember-bootstrap-cp-validations": "0.1.1",
     "ember-cli": "1.13.13",
     "ember-cli-acceptance-test-helpers": "0.4.0",
-    "ember-cli-app-version": "^1.0.0",
+    "ember-cli-app-version": "^2.0.0",
     "ember-cli-babel": "^5.1.5",
     "ember-cli-bootstrap-datepicker": "0.5.3",
     "ember-cli-browser-navigation-button-test-helper": "0.0.1",
