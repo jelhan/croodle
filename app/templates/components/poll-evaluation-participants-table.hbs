@@ -1,0 +1,64 @@
+<div class="table-scroll">
+  <table class="user-selections-table table table-striped table-condensed">
+    <thead>
+      {{#if hasTimes}}
+        <tr class="dateGroups">
+          <th>&nbsp;</th>
+          {{#each dateGroups as |dateGroup|}}
+            <th colspan="{{dateGroup.colspan}}">
+              {{dateGroup.formatted}}
+            </th>
+          {{/each}}
+          <th>&nbsp;</th>
+        </tr>
+      {{/if}}
+      <tr>
+        <th>&nbsp;</th>
+        {{#if isFindADate}}
+          {{#each dates as |date|}}
+            <th>
+              {{#if hasTimes}}
+                {{#if date.hasTime}}
+                  {{date.formattedTime}}
+                {{/if}}
+              {{else}}
+                {{date.formatted}}
+              {{/if}}
+            </th>
+          {{/each}}
+        {{else}}
+          {{#each options as |option|}}
+            <th>
+              {{option.title}}
+            </th>
+          {{/each}}
+        {{/if}}
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each sortedUsers as |user|}}
+        <tr class="user">
+          <td>{{user.name}}</td>
+          {{#each user.selections as |selection|}}
+            <td>
+              {{#if selection.label}}
+                {{#if isFreeText}}
+                  {{selection.label}}
+                {{/if}}
+              {{/if}}
+              {{#if selection.labelTranslation}}
+                {{#unless isFreeText}}
+                  <span class="{{selection.type}}">
+                    <span class="{{selection.icon}}"></span>
+                    {{t selection.labelTranslation}}
+                  </span>
+                {{/unless}}
+              {{/if}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
