@@ -55,6 +55,23 @@ test('participate in a default poll', function(assert) {
       );
       pollHasUsersCount(assert, 1, 'user is added to user selections table');
       pollHasUser(assert, 'Max Meiner', [t('answerTypes.yes.label'), t('answerTypes.no.label')]);
+
+      click('.nav .participation');
+
+      andThen(() => {
+        assert.equal(currentPath(), 'poll.participation');
+        assert.equal(find('.name input').val(), '', 'input for name is cleared');
+        assert.ok(
+          !find('input[type="radio"]').toArray().some((el) => $(el).prop('checked')),
+          'radios are cleared'
+        );
+        pollParticipate('Peter Müller', ['yes', 'yes']);
+
+        andThen(() => {
+          pollHasUsersCount(assert, 2, 'user is added to user selections table');
+          pollHasUser(assert, 'Peter Müller', [t('answerTypes.yes.label'), t('answerTypes.yes.label')]);
+        });
+      });
     });
   });
 });
