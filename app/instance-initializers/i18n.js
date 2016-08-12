@@ -1,9 +1,9 @@
 export default {
   name: 'i18n',
-  initialize({ container }) {
-    const i18n = container.lookup('service:i18n');
+  initialize(appInstance) {
+    const i18n = appInstance.lookup('service:i18n');
     const availableLocales = i18n.get('locales');
-    const moment = container.lookup('service:moment');
+    const moment = appInstance.lookup('service:moment');
     const locale = getLocale(availableLocales);
 
     i18n.set('locale', locale);
