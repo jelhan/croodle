@@ -6,7 +6,7 @@ export default DS.Model.extend({
   /*
    * relationships
    */
-  users: DS.hasMany('user'),
+  users: DS.hasMany('user', { async: false }),
 
   /*
    * properties
