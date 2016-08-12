@@ -5,7 +5,14 @@ import {
 from 'ember-cp-validations';
 import moment from 'moment';
 
-const { computed, Controller, inject, isEmpty, Object: EmberObject } = Ember;
+const {
+  computed,
+  Controller,
+  getOwner,
+  inject,
+  isEmpty,
+  Object: EmberObject
+} = Ember;
 
 const validCollection = function(collection) {
   // return false if any object in collection is inValid
@@ -146,7 +153,7 @@ export default Controller.extend(Validations, {
 
   possibleAnswers: computed('pollController.model.answers', function() {
     return this.get('pollController.model.answers').map((answer) => {
-      const container = this.get('container');
+      const owner = getOwner(this);
 
       const AnswerObject = EmberObject.extend({
         icon: answer.get('icon'),
@@ -154,8 +161,7 @@ export default Controller.extend(Validations, {
       });
 
       if (!isEmpty(answer.get('labelTranslation'))) {
-        return AnswerObject.extend({
-          container,
+        return AnswerObject.extend(owner.ownerInjection(), {
           i18n: inject.service(),
           label: computed('i18n.locale', function() {
             return this.get('i18n').t(this.get('labelTranslation'));
@@ -212,10 +218,8 @@ export default Controller.extend(Validations, {
       // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
       // To lookup validators, container access is required which can cause an issue with Object creation
       // if the object is statically imported. The current fix for this is as follows.
-      const container = this.get('container');
-      return EmberObject.extend(SelectionValidations, {
-        container,
-
+      const owner = getOwner(this);
+      return EmberObject.extend(owner.ownerInjection(), SelectionValidations, {
         // forceAnswer and isFreeText must be included in model
         // cause otherwise validations can't depend on it
         forceAnswer: this.get('forceAnswer'),

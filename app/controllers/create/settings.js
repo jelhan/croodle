@@ -6,7 +6,16 @@ from 'ember-cp-validations';
 import moment from 'moment';
 /* global jstz */
 
-const { computed, Controller, copy, inject, isEmpty, Object: EmberObject, observer } = Ember;
+const {
+  computed,
+  Controller,
+  copy,
+  getOwner,
+  inject,
+  isEmpty,
+  Object: EmberObject,
+  observer
+} = Ember;
 
 const Validations = buildValidations({
   anonymousUser: validator('presence', {
@@ -65,10 +74,10 @@ export default Controller.extend(Validations, {
   answerType: computed.alias('model.answerType'),
 
   answerTypes: computed('', function() {
-    const container = this.get('container');
+    const owner = getOwner(this);
 
     return [
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'YesNo',
         labelTranslation: 'answerTypes.yesNo.label',
         answers: [
@@ -82,10 +91,9 @@ export default Controller.extend(Validations, {
                   labelTranslation: 'answerTypes.no.label',
                   icon: 'glyphicon glyphicon-thumbs-down'
                 })
-            ],
-        container
+            ]
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'YesNoMaybe',
         labelTranslation: 'answerTypes.yesNoMaybe.label',
         answers: [
@@ -104,14 +112,12 @@ export default Controller.extend(Validations, {
                   labelTranslation: 'answerTypes.no.label',
                   icon: 'glyphicon glyphicon-thumbs-down'
                 })
-            ],
-        container
+            ]
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'FreeText',
         labelTranslation: 'answerTypes.freeText.label',
-        answers: [],
-        container
+        answers: []
       })
     ];
   }),
@@ -119,38 +125,32 @@ export default Controller.extend(Validations, {
   expirationDuration: 'P3M',
 
   expirationDurations: computed('', function() {
-    const container = this.get('container');
+    const owner = getOwner(this);
 
     return [
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P7D',
-        labelTranslation: 'create.settings.expirationDurations.P7D',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P7D'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P1M',
-        labelTranslation: 'create.settings.expirationDurations.P1M',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P1M'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P3M',
-        labelTranslation: 'create.settings.expirationDurations.P3M',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P3M'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P6M',
-        labelTranslation: 'create.settings.expirationDurations.P6M',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P6M'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P1Y',
-        labelTranslation: 'create.settings.expirationDurations.P1Y',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P1Y'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: '',
-        labelTranslation: 'create.settings.expirationDurations.never',
-        container
+        labelTranslation: 'create.settings.expirationDurations.never'
       })
     ];
   }),

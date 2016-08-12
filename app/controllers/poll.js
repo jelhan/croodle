@@ -2,7 +2,16 @@ import Ember from 'ember';
 import moment from 'moment';
 /* global jstz */
 
-const { computed, Controller, inject, isEmpty, isPresent, Object: EmberObject, observer } = Ember;
+const {
+  computed,
+  Controller,
+  getOwner,
+  inject,
+  isEmpty,
+  isPresent,
+  Object: EmberObject,
+  observer
+} = Ember;
 
 export default Controller.extend({
   actions: {
@@ -47,8 +56,8 @@ export default Controller.extend({
       i18n: inject.service(),
       value: null
     });
-    // need to inject container into dateGroupObject to support service injection
-    const container = this.get('container');
+    // need to inject owner into dateGroupObject to support service injection
+    const owner = getOwner(this);
     let dateGroups = [];
 
     let count = 0;
@@ -69,10 +78,9 @@ export default Controller.extend({
       } else {
         // push last values;
         dateGroups.pushObject(
-          dateGroupObject.create({
+          dateGroupObject.create(owner.ownerInjection(), {
             'value': lastDate,
-            'colspan': count,
-            container
+            'colspan': count
           })
         );
 
@@ -82,10 +90,9 @@ export default Controller.extend({
       }
     });
     dateGroups.pushObject(
-      dateGroupObject.create({
+      dateGroupObject.create(owner.ownerInjection(), {
         'value': lastDate,
-        'colspan': count,
-        container
+        'colspan': count
       })
     );
 
@@ -150,18 +157,16 @@ export default Controller.extend({
       timezone = this.get('model.timezone');
     }
 
-    const container = this.get('container');
+    const owner = getOwner(this);
     dates = this.get('model.options').map((option) => {
       const date = moment(option.get('title'));
       const hasTime = moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
       if (timezone && hasTime) {
         date.tz(timezone);
       }
-      return dateObject.create({
+      return dateObject.create(owner.ownerInjection(), {
         title: date,
-        hasTime,
-        // inject container otherwise we could not inject i18n service
-        container
+        hasTime
       });
     });
 

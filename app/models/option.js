@@ -1,13 +1,15 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import moment from 'moment';
+import Fragment from 'model-fragments/fragment';
+import { fragmentOwner } from 'model-fragments/attributes';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-/* global MF */
 
-const { assert, computed, isEmpty } = Ember;
+const { attr } = DS;
+const { assert, computed, inject, isEmpty } = Ember;
 
 const Validations = buildValidations({
   title: [
@@ -53,9 +55,9 @@ const Validations = buildValidations({
   ]
 });
 
-export default MF.Fragment.extend(Validations, {
-  poll: MF.fragmentOwner(),
-  title: DS.attr('string'),
+export default Fragment.extend(Validations, {
+  poll: fragmentOwner(),
+  title: attr('string'),
 
   date: computed('title', function() {
     const allowedFormats = [
@@ -153,7 +155,7 @@ export default MF.Fragment.extend(Validations, {
     }
   }),
 
-  i18n: Ember.inject.service(),
+  i18n: inject.service(),
   init() {
     this.get('i18n.locale');
   }

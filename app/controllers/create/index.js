@@ -4,7 +4,7 @@ import {
 }
 from 'ember-cp-validations';
 
-const { computed, Controller, Object: EmberObject, inject } = Ember;
+const { computed, Controller, getOwner, Object: EmberObject, inject } = Ember;
 
 const Validations = buildValidations({
   pollType: [
@@ -45,18 +45,16 @@ export default Controller.extend(Validations, {
   pollType: computed.alias('model.pollType'),
 
   pollTypes: computed('', function() {
-    const container = this.get('container');
+    const owner = getOwner(this);
 
     return [
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'FindADate',
-        labelTranslation: 'pollTypes.findADate.label',
-        container
+        labelTranslation: 'pollTypes.findADate.label'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'MakeAPoll',
-        labelTranslation: 'pollTypes.makeAPoll.label',
-        container
+        labelTranslation: 'pollTypes.makeAPoll.label'
       })
     ];
   })
