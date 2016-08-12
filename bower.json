@@ -15,8 +15,7 @@
     "pretender": "^0.6.0",
     "moment": ">= 2.8.0",
     "bootstrap-switch": "^3.3.2",
-    "chartjs": "1.0.2",
-    "Chart.StackedBar.js": "jelhan/Chart.StackedBar.js#3a81baa3a191cd3ff14a8249bf86e388bc650640",
+    "chartjs": "2.1.1",
     "ceibo": "1.1.0"
   }
 }

@@ -108,18 +108,18 @@ test('data is a valid ChartJS dataset for FindADate', function(assert) {
   );
   assert.deepEqual(
     data.datasets.map((dataset) => dataset.label),
-    ['Maybe', 'Yes'],
+    ['Yes', 'Maybe'],
     'datasets having answers as label and are in correct order'
   );
   assert.deepEqual(
     data.datasets[0].data,
-    [0, 50, 50, 0],
-    'dataset for maybe is correct'
+    [100, 50, 0, 0],
+    'dataset for yes is correct'
   );
   assert.deepEqual(
     data.datasets[1].data,
-    [100, 50, 0, 0],
-    'dataset for yes is correct'
+    [0, 50, 50, 0],
+    'dataset for maybe is correct'
   );
 });
 
@@ -192,17 +192,17 @@ test('data is a valid ChartJS dataset for MakeAPoll', function(assert) {
   );
   assert.deepEqual(
     data.datasets.map((dataset) => dataset.label),
-    ['Maybe', 'Yes'],
+    ['Yes', 'Maybe'],
     'datasets having answers as label and are in correct order'
   );
   assert.deepEqual(
     data.datasets[0].data,
-    [0, 50, 50, 0],
-    'dataset for maybe is correct'
+    [100, 50, 0, 0],
+    'dataset for yes is correct'
   );
   assert.deepEqual(
     data.datasets[1].data,
-    [100, 50, 0, 0],
-    'dataset for yes is correct'
+    [0, 50, 50, 0],
+    'dataset for maybe is correct'
   );
 });

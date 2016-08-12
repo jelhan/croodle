@@ -45,9 +45,6 @@ module.exports = function() {
 
   app.import('bower_components/sjcl/sjcl.js');
 
-  // ChartJS StackedBar addon
-  app.import('bower_components/Chart.StackedBar.js/src/Chart.StackedBar.js');
-
   app.import('bower_components/jstimezonedetect/jstz.js');
 
   // include api files into dist
