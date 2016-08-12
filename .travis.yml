@@ -23,7 +23,7 @@ before_install:
   - export PATH=$PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH; if [ $(phantomjs --version) != '2.1.1' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs && wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 && tar -xvf $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi
   # ...
   - if $TEST_EMBER || $TEST_SAUCE; then npm config set spin false; fi
-  - if $TEST_EMBER || $TEST_SAUCE; then npm install -g npm@^2; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then npm install -g npm@^3; fi
 
 install:
   - if $TEST_EMBER || $TEST_SAUCE; then npm install -g bower; fi
