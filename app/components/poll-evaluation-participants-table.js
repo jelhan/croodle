@@ -91,7 +91,19 @@ export default Ember.Component.extend({
    * calculates horizontal scrollbar height depending on current browser
    */
   getScrollbarHeight() {
-    const wideScrollWtml = '<div id="wide_scroll_div_one" style="width:50px;height:50px;overflow-y:scroll;position:absolute;top:-200px;left:-200px;"><div id="wide_scroll_div_two" style="height:100%;width:100px"></div></div>';
+    const wideScrollWtml = Ember.$('<div>').attr('id', 'wide_scroll_div_one').css({
+      'width': 50,
+      'height': 50,
+      'overflow-y': 'scroll',
+      'position': 'absolute',
+      'top': -200,
+      'left': -200
+    }).append(
+      Ember.$('<div>').attr('id', 'wide_scroll_div_two').css({
+        'height': '100%',
+        'width': 100
+      })
+    );
     Ember.$('body').append(wideScrollWtml); // Append our div and add the hmtl to your document for calculations
     const scrollW1 = Ember.$('#wide_scroll_div_one').height(); // Getting the width of the surrounding(parent) div - we already know it is 50px since we styled it but just to make sure.
     const scrollW2 = Ember.$('#wide_scroll_div_two').innerHeight(); // Find the inner width of the inner(child) div.
