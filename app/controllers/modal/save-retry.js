@@ -1,11 +1,13 @@
 import Ember from 'ember';
 
-export default Ember.ObjectController.extend({
+const { $, ObjectController } = Ember;
+
+export default ObjectController.extend({
   actions: {
     saveRetry() {
       this.get('model.record').save().then(function() {
         // retry war erfolgreich
-        Ember.$('.modal').modal('hide');
+        $('.modal').modal('hide');
       });
     }
   }

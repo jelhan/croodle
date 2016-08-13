@@ -1,27 +1,35 @@
 import DS from 'ember-data';
-/* global MF */
+import {
+  fragmentArray
+} from 'model-fragments/attributes';
 
-export default DS.Model.extend({
+const {
+  attr,
+  belongsTo,
+  Model
+} = DS;
+
+export default Model.extend({
   /*
    * relationship
    */
-  poll: DS.belongsTo('poll'),
+  poll: belongsTo('poll'),
 
   /*
    * properties
    */
   // ISO 8601 date + time string
-  creationDate: DS.attr('date'),
+  creationDate: attr('date'),
 
   // user name
-  name: DS.attr('string'),
+  name: attr('string'),
 
   // array of users selections
   // must be in same order as options property of poll
-  selections: MF.fragmentArray('selection'),
+  selections: fragmentArray('selection'),
 
   // Croodle version user got created with
-  version: DS.attr('string', {
+  version: attr('string', {
     encrypted: false
   })
 });

@@ -1,16 +1,18 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+const { Component, computed, copy, isEmpty } = Ember;
+
+export default Component.extend({
   classNames: ['evaluation-summary'],
 
-  evaluationBestOptions: Ember.computed('poll.users.[]', function() {
+  evaluationBestOptions: computed('poll.users.[]', function() {
     // can not evaluate answer type free text
     if (this.get('poll.isFreeText')) {
       return undefined;
     }
 
     // can not evaluate a poll without users
-    if (Ember.isEmpty(this.get('poll.users'))) {
+    if (isEmpty(this.get('poll.users'))) {
       return undefined;
     }
 
@@ -20,7 +22,7 @@ export default Ember.Component.extend({
     }, {});
     let evaluation = this.get('poll.options').map((option) => {
       return {
-        answers: Ember.copy(answers),
+        answers: copy(answers),
         option,
         score: 0
       };
@@ -67,7 +69,7 @@ export default Ember.Component.extend({
     return bestOptions;
   }),
 
-  evaluationBestOptionsMultiple: Ember.computed('evaluationBestOptions', function() {
+  evaluationBestOptionsMultiple: computed('evaluationBestOptions', function() {
     if (this.get('evaluationBestOptions.length') > 1) {
       return true;
     } else {
@@ -75,11 +77,11 @@ export default Ember.Component.extend({
     }
   }),
 
-  evaluationLastParticipation: Ember.computed('sortedUsers.[]', function() {
+  evaluationLastParticipation: computed('sortedUsers.[]', function() {
     return this.get('sortedUsers.lastObject.creationDate');
   }),
 
-  evaluationParticipants: Ember.computed('poll.users.[]', function() {
+  evaluationParticipants: computed('poll.users.[]', function() {
     return this.get('poll.users.length');
   })
 });

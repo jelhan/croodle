@@ -4,6 +4,8 @@ import {
 }
 from 'ember-cp-validations';
 
+const { computed, Controller, inject } = Ember;
+
 const Validations = buildValidations({
   title: [
     validator('presence', {
@@ -17,7 +19,7 @@ const Validations = buildValidations({
   ]
 });
 
-export default Ember.Controller.extend(Validations, {
+export default Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
@@ -26,13 +28,13 @@ export default Ember.Controller.extend(Validations, {
     }
   },
 
-  description: Ember.computed.alias('model.description'),
+  description: computed.alias('model.description'),
 
   init() {
     this.get('i18n.locale');
   },
 
-  i18n: Ember.inject.service(),
+  i18n: inject.service(),
 
-  title: Ember.computed.alias('model.title')
+  title: computed.alias('model.title')
 });

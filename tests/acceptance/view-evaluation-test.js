@@ -6,6 +6,8 @@ import serverGetPolls from '../helpers/server-get-polls';
 import moment from 'moment';
 /* jshint proto: true */
 
+const { run } = Ember;
+
 let application, server;
 let dateString;
 
@@ -24,7 +26,7 @@ module('Acceptance | view evaluation', {
   afterEach() {
     server.shutdown();
 
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
   }
 });
 

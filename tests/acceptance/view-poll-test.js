@@ -7,6 +7,8 @@ import pageParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 /* global jstz, moment */
 
+const { run } = Ember;
+
 let application, server;
 
 module('Acceptance | view poll', {
@@ -19,7 +21,7 @@ module('Acceptance | view poll', {
   afterEach() {
     server.shutdown();
 
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
   }
 });
 
@@ -134,13 +136,13 @@ test('view a poll while timezone differs from the one poll got created in and ch
   });
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    Ember.run.next(function() {
+    run.next(function() {
       assert.ok(
-        find('.modal .modal-body-choose-timezone').is(':visible'),
+        find('#modal-choose-timezone-modal').is(':visible'),
         'user gets asked which timezone should be used'
       );
 
-      click('.modal button.use-local-timezone');
+      click('#modal-choose-timezone-modal button.use-local-timezone');
 
       andThen(function() {
         assert.deepEqual(
@@ -151,9 +153,9 @@ test('view a poll while timezone differs from the one poll got created in and ch
           ]
         );
 
-        Ember.run.next(function() {
+        run.next(function() {
           assert.notOk(
-            find('.modal .modal-body-choose-timezone').is(':visible'),
+            find('#modal-choose-timezone-modal').is(':visible'),
             'modal is closed'
           );
         });
@@ -189,13 +191,14 @@ test('view a poll while timezone differs from the one poll got created in and ch
   });
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    Ember.run.next(function() {
+
+    run.next(function() {
       assert.ok(
-        find('.modal .modal-body-choose-timezone').is(':visible'),
+        find('#modal-choose-timezone-modal').is(':visible'),
         'user gets asked which timezone should be used'
       );
 
-      click('.modal button.use-poll-timezone');
+      click('#modal-choose-timezone-modal button.use-poll-timezone');
 
       andThen(function() {
         assert.deepEqual(
@@ -206,9 +209,9 @@ test('view a poll while timezone differs from the one poll got created in and ch
           ]
         );
 
-        Ember.run.next(function() {
+        run.next(function() {
           assert.notOk(
-            find('.modal .modal-body-choose-timezone').is(':visible'),
+            find('#modal-choose-timezone-modal').is(':visible'),
             'modal is closed'
           );
         });

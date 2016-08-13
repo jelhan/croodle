@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-export default Ember.Controller.extend({
+const { computed, Controller } = Ember;
+
+export default Controller.extend({
   actions: {
     nextPage() {
       this.normalizeOptions();
@@ -33,5 +35,5 @@ export default Ember.Controller.extend({
     // ToDo: Find a better way without reseting the options
     this.set('options', options.sortBy('title'));
   },
-  options: Ember.computed.alias('model.options')
+  options: computed.alias('model.options')
 });

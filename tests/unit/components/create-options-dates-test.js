@@ -2,6 +2,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 import Ember from 'ember';
 import moment from 'moment';
 
+const { Object: EmberObject, run } = Ember;
+
 moduleForComponent('create-options-dates', 'Unit | Component | create options dates', {
   needs: ['model:option'],
   unit: true,
@@ -13,9 +15,9 @@ moduleForComponent('create-options-dates', 'Unit | Component | create options da
 test('options get mapped to dates as optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
   let controller = this.subject();
   controller.set('options', [
-    Ember.Object.create({ title: '1945-05-09' }),
-    Ember.Object.create({ title: '1987-05-01' }),
-    Ember.Object.create({ title: 'non valid date string' })
+    EmberObject.create({ title: '1945-05-09' }),
+    EmberObject.create({ title: '1987-05-01' }),
+    EmberObject.create({ title: 'non valid date string' })
   ]);
   assert.ok(
     Ember.isArray(
@@ -44,10 +46,10 @@ test('options get mapped to dates as optionsBootstrapDatepicker (used by ember-c
 test('options having times get mapped to dates as optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
   let controller = this.subject();
   controller.set('options', [
-    Ember.Object.create({ title: '2014-01-01T12:00:00.00Z' }),
-    Ember.Object.create({ title: '2015-02-02T15:00:00.00Z' }),
-    Ember.Object.create({ title: '2015-02-02T15:00:00.00Z' }),
-    Ember.Object.create({ title: '2016-03-03' })
+    EmberObject.create({ title: '2014-01-01T12:00:00.00Z' }),
+    EmberObject.create({ title: '2015-02-02T15:00:00.00Z' }),
+    EmberObject.create({ title: '2015-02-02T15:00:00.00Z' }),
+    EmberObject.create({ title: '2016-03-03' })
   ]);
   assert.ok(
     Ember.isArray(
@@ -81,7 +83,7 @@ test('options having times get mapped to dates as optionsBootstrapDatepicker (us
 
 test('options get set correctly by optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
   let controller = this.subject();
-  Ember.run.next(() => {
+  run.next(() => {
     controller.set('options', []);
     // dates must be in wrong order to test sorting
     controller.set('optionsBootstrapDatepicker', [
@@ -125,26 +127,26 @@ test('options get set correctly by optionsBootstrapDatepicker (used by ember-cli
 
 test('existing times are preserved if new days get selected', function(assert) {
   let component;
-  Ember.run(() => {
+  run(() => {
     component = this.subject({
-     options: [
-       this.store.createFragment('option', {
-         title: moment('2015-01-01T11:11').toISOString()
-       }),
-       this.store.createFragment('option', {
-         title: moment('2015-01-01T22:22').toISOString()
-       }),
-       this.store.createFragment('option', {
-         title: moment('2015-06-06T08:08').toISOString()
-       }),
-       this.store.createFragment('option', {
-         title: '2016-01-01'
-       })
-     ]
-   });
+      options: [
+        this.store.createFragment('option', {
+          title: moment('2015-01-01T11:11').toISOString()
+        }),
+        this.store.createFragment('option', {
+          title: moment('2015-01-01T22:22').toISOString()
+        }),
+        this.store.createFragment('option', {
+          title: moment('2015-06-06T08:08').toISOString()
+        }),
+        this.store.createFragment('option', {
+          title: '2016-01-01'
+        })
+      ]
+    });
   });
   // add another day
-  Ember.run(() => {
+  run(() => {
     component.set('optionsBootstrapDatepicker', [
       moment('2015-01-01').toDate(),
       moment('2015-06-06').toDate(),
@@ -164,7 +166,7 @@ test('existing times are preserved if new days get selected', function(assert) {
     'preseve existing times if another day is added'
   );
   // delete a day
-  Ember.run(() => {
+  run(() => {
     component.set('optionsBootstrapDatepicker', [
       moment('2015-06-06').toDate(),
       moment('2016-01-01').toDate(),
@@ -181,7 +183,7 @@ test('existing times are preserved if new days get selected', function(assert) {
     'preseve existing times if a day is deleted'
   );
   // order if multiple days are added
-  Ember.run(() => {
+  run(() => {
     component.set('optionsBootstrapDatepicker', [
       moment('2015-06-06').toDate(),
       moment('2016-01-01').toDate(),

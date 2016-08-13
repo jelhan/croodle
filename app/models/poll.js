@@ -1,55 +1,63 @@
-import DS from 'ember-data';
 import Ember from 'ember';
-/* global MF */
+import DS from 'ember-data';
+import {
+  fragmentArray
+} from 'model-fragments/attributes';
 
-export default DS.Model.extend({
+const {
+  attr,
+  hasMany,
+  Model
+} = DS;
+
+export default Model.extend({
   /*
    * relationships
    */
-  users: DS.hasMany('user'),
+  users: hasMany('user', { async: false }),
 
   /*
    * properties
    */
   // Is participation without user name possibile?
-  anonymousUser: DS.attr('boolean'),
+  anonymousUser: attr('boolean'),
 
   // array of possible answers
-  answers: MF.fragmentArray('answer'),
+  answers: fragmentArray('answer'),
 
   // YesNo, YesNoMaybe or Freetext
-  answerType: DS.attr('string'),
+  answerType: attr('string'),
 
   // ISO-8601 combined date and time string in UTC
-  creationDate: DS.attr('date'),
+  creationDate: attr('date'),
 
   // polls description
-  description: DS.attr('string', {
+  description: attr('string', {
     defaultValue: ''
   }),
 
   // ISO 8601 date + time string in UTC
-  expirationDate: DS.attr('string', {
+  expirationDate: attr('string', {
     includePlainOnCreate: 'serverExpirationDate'
   }),
 
   // Must all options been answered?
-  forceAnswer: DS.attr('boolean'),
+  forceAnswer: attr('boolean'),
 
   // array of polls options
-  options: MF.fragmentArray('option'),
+  options: fragmentArray('option'),
 
   // FindADate or MakeAPoll
-  pollType: DS.attr('string'),
+  pollType: attr('string'),
 
   // timezone poll got created in (like "Europe/Berlin")
-  timezone: DS.attr('string'),
+  timezone: attr('string'),
 
   // polls title
-  title: DS.attr('string'),
+  title: attr('string'),
 
   // Croodle version poll got created with
-  version: DS.attr('string', {
+  version: attr('string', {
     encrypted: false
   }),
 

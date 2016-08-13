@@ -6,6 +6,8 @@ import serverGetPolls from '../helpers/server-get-polls';
 import serverPostUsers from '../helpers/server-post-users';
 /* jshint proto: true */
 
+const { run } = Ember;
+
 let application, server;
 
 module('Acceptance | participate in a poll', {
@@ -19,7 +21,7 @@ module('Acceptance | participate in a poll', {
   afterEach() {
     server.shutdown();
 
-    Ember.run(application, 'destroy');
+    run(application, 'destroy');
   }
 });
 
@@ -167,6 +169,56 @@ test('participate in a poll which allows anonymous participation', function(asse
       assert.equal(currentPath(), 'poll.evaluation');
       pollHasUsersCount(assert, 1, 'user is added to user selections table');
       pollHasUser(assert, '', [t('answerTypes.yes.label'), t('answerTypes.no.label')]);
+    });
+  });
+});
+
+test('network connectivity errors', function(assert) {
+  let id = 'test';
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+  server.get(`/polls/${id}`,
+    function() {
+      return serverGetPolls(
+        {
+          id,
+          anonymousUser: true
+        }, encryptionKey
+      );
+    }
+  );
+  server.post('/users',
+    function() {
+      return [503]; // server temporary not available
+    }
+  );
+
+  visit(`/poll/${id}/participation?encryptionKey=${encryptionKey}`).then(function() {
+    assert.equal(currentPath(), 'poll.participation');
+    pollParticipate('foo bar', ['yes', 'no']);
+
+    andThen(() => {
+      assert.ok(
+        find('#modal-saving-failed-modal').is(':visible'),
+        'user gets notified that saving failed'
+      );
+
+      server.post('/users',
+        function(request) {
+          return serverPostUsers(request.requestBody, 1);
+        }
+      );
+      click('#modal-saving-failed-modal button');
+
+      andThen(() => {
+        assert.notOk(
+          find('#modal-saving-failed-modal').is(':visible'),
+          'modal is hidden after saving was successful'
+        );
+        assert.equal(currentPath(), 'poll.evaluation');
+        pollHasUsersCount(assert, 1, 'user is added to user selections table');
+        pollHasUser(assert, 'foo bar', [t('answerTypes.yes.label'), t('answerTypes.no.label')]);
+      });
     });
   });
 });

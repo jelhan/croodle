@@ -6,6 +6,17 @@ from 'ember-cp-validations';
 import moment from 'moment';
 /* global jstz */
 
+const {
+  computed,
+  Controller,
+  copy,
+  getOwner,
+  inject,
+  isEmpty,
+  Object: EmberObject,
+  observer
+} = Ember;
+
 const Validations = buildValidations({
   anonymousUser: validator('presence', {
     presence: true,
@@ -24,15 +35,15 @@ const Validations = buildValidations({
   forceAnswer: validator('presence', true)
 });
 
-const TranslateableObject = Ember.Object.extend({
-  i18n: Ember.inject.service(),
-  label: Ember.computed('labelTranslation', 'i18n.locale', function() {
+const TranslateableObject = EmberObject.extend({
+  i18n: inject.service(),
+  label: computed('labelTranslation', 'i18n.locale', function() {
     return this.get('i18n').t(this.get('labelTranslation'));
   }),
   labelTranslation: undefined
 });
 
-export default Ember.Controller.extend(Validations, {
+export default Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
@@ -59,14 +70,14 @@ export default Ember.Controller.extend(Validations, {
     }
   },
 
-  anonymousUser: Ember.computed.alias('model.anonymousUser'),
-  answerType: Ember.computed.alias('model.answerType'),
+  anonymousUser: computed.alias('model.anonymousUser'),
+  answerType: computed.alias('model.answerType'),
 
-  answerTypes: Ember.computed('', function() {
-    const container = this.get('container');
+  answerTypes: computed('', function() {
+    const owner = getOwner(this);
 
     return [
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'YesNo',
         labelTranslation: 'answerTypes.yesNo.label',
         answers: [
@@ -80,10 +91,9 @@ export default Ember.Controller.extend(Validations, {
                   labelTranslation: 'answerTypes.no.label',
                   icon: 'glyphicon glyphicon-thumbs-down'
                 })
-            ],
-        container
+            ]
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'YesNoMaybe',
         labelTranslation: 'answerTypes.yesNoMaybe.label',
         answers: [
@@ -102,60 +112,52 @@ export default Ember.Controller.extend(Validations, {
                   labelTranslation: 'answerTypes.no.label',
                   icon: 'glyphicon glyphicon-thumbs-down'
                 })
-            ],
-        container
+            ]
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'FreeText',
         labelTranslation: 'answerTypes.freeText.label',
-        answers: [],
-        container
+        answers: []
       })
     ];
   }),
 
   expirationDuration: 'P3M',
 
-  expirationDurations: Ember.computed('', function() {
-    const container = this.get('container');
+  expirationDurations: computed('', function() {
+    const owner = getOwner(this);
 
     return [
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P7D',
-        labelTranslation: 'create.settings.expirationDurations.P7D',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P7D'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P1M',
-        labelTranslation: 'create.settings.expirationDurations.P1M',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P1M'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P3M',
-        labelTranslation: 'create.settings.expirationDurations.P3M',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P3M'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P6M',
-        labelTranslation: 'create.settings.expirationDurations.P6M',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P6M'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: 'P1Y',
-        labelTranslation: 'create.settings.expirationDurations.P1Y',
-        container
+        labelTranslation: 'create.settings.expirationDurations.P1Y'
       }),
-      TranslateableObject.create({
+      TranslateableObject.create(owner.ownerInjection(), {
         id: '',
-        labelTranslation: 'create.settings.expirationDurations.never',
-        container
+        labelTranslation: 'create.settings.expirationDurations.never'
       })
     ];
   }),
 
-  forceAnswer: Ember.computed.alias('model.forceAnswer'),
+  forceAnswer: computed.alias('model.forceAnswer'),
 
-  i18n: Ember.inject.service(),
+  i18n: inject.service(),
 
   init() {
     this.get('i18n.locale');
@@ -164,7 +166,7 @@ export default Ember.Controller.extend(Validations, {
   /*
    * set answers depending on selected answer type
    */
-  updateAnswers: Ember.observer('model.answerType', function() {
+  updateAnswers: observer('model.answerType', function() {
     const selectedAnswer = this.get('model.answerType');
     const answerTypes = this.get('answerTypes');
     let answers = [];
@@ -172,7 +174,7 @@ export default Ember.Controller.extend(Validations, {
     if (selectedAnswer !== null) {
       for (let i = 0; i < answerTypes.length; i++) {
         if (answerTypes[i].id === selectedAnswer) {
-          answers = answerTypes[i].answers.map(Ember.copy);
+          answers = answerTypes[i].answers.map(copy);
         }
       }
 
@@ -180,10 +182,10 @@ export default Ember.Controller.extend(Validations, {
     }
   }),
 
-  updateExpirationDate: Ember.observer('expirationDuration', function() {
+  updateExpirationDate: observer('expirationDuration', function() {
     const expirationDuration = this.get('expirationDuration');
 
-    if (Ember.isEmpty(expirationDuration)) {
+    if (isEmpty(expirationDuration)) {
       this.set('model.expirationDate', '');
     } else {
       this.set('model.expirationDate',

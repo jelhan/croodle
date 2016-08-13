@@ -15,6 +15,8 @@ import Ember from 'ember';
  *   recorde is created. Value is the attributes name used.
  */
 export default DS.RESTSerializer.extend({
+  isNewSerializerAPI: true,
+
   encryption: Ember.inject.service(),
 
   /*

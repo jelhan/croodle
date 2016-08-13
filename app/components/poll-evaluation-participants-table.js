@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.View.extend({
+export default Ember.Component.extend({
   didInsertElement() {
     this._super();
     Ember.run.scheduleOnce('afterRender', this, function() {
@@ -131,7 +131,7 @@ export default Ember.View.extend({
    * resize scrollbars if document height might be changed
    * and therefore scrollbars might be added
    */
-  triggerResizeScrollbars: Ember.observer('controller.isEvaluable', 'controller.model.users.@each', function() {
+  triggerResizeScrollbars: Ember.observer('controller.isEvaluable', 'controller.model.users.[]', function() {
     Ember.run.next(() => {
       this.resizeScrollbars();
     });

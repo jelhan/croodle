@@ -4,6 +4,8 @@ import {
 }
 from 'ember-cp-validations';
 
+const { Component, inject } = Ember;
+
 let Validations = buildValidations({
   options: [
     validator('collection', true),
@@ -20,7 +22,7 @@ let Validations = buildValidations({
   ]
 });
 
-export default Ember.Component.extend(Validations, {
+export default Component.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
@@ -31,6 +33,6 @@ export default Ember.Component.extend(Validations, {
     }
   },
   // consumed by validator
-  i18n: Ember.inject.service(),
+  i18n: inject.service(),
   shouldShowErrors: false
 });

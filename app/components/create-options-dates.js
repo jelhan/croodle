@@ -1,15 +1,15 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-const { isArray, isEmpty } = Ember;
+const { computed, Component, inject, isArray, isEmpty } = Ember;
 
-export default Ember.Component.extend({
-  i18n: Ember.inject.service(),
+export default Component.extend({
+  i18n: inject.service(),
 
   /*
    * maps optionsDates for bootstrap datepicker as a simple array of date objects
    */
-  optionsBootstrapDatepicker: Ember.computed('options', {
+  optionsBootstrapDatepicker: computed('options', {
     get() {
       const options = this.get('options');
       const validDates = options.filter(function(option) {
@@ -89,5 +89,5 @@ export default Ember.Component.extend({
     }
   }),
 
-  store: Ember.inject.service('store')
+  store: inject.service('store')
 });

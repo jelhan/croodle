@@ -1,9 +1,11 @@
 import DS from 'ember-data';
-/* global MF */
+import Fragment from 'model-fragments/fragment';
 
-export default MF.Fragment.extend({
-  type: DS.attr('string'),
-  label: DS.attr('string'),
-  labelTranslation: DS.attr('string'),
-  icon: DS.attr('string')
+const { attr } = DS;
+
+export default Fragment.extend({
+  type: attr('string'),
+  label: attr('string'),
+  labelTranslation: attr('string'),
+  icon: attr('string')
 });
