@@ -15,7 +15,6 @@
     "pretender": "^0.6.0",
     "moment": ">= 2.8.0",
     "bootstrap-switch": "^3.3.2",
-    "chartjs": "2.1.1",
     "ceibo": "1.1.0"
   }
 }
