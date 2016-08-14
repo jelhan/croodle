@@ -1,4 +1,4 @@
-import PageObject from 'croodle/tests/page-object';
+import PageObject from 'ember-cli-page-object';
 
 let {
   clickable,

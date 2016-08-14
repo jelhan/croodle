@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import PageObject from 'croodle/tests/page-object';
-import { findElementWithAssert } from 'croodle/tests/page-object/helpers';
+import PageObject from 'ember-cli-page-object';
+import { findElementWithAssert } from 'ember-cli-page-object';
 
 let {
   clickable,
