@@ -66,7 +66,5 @@ module.exports = function() {
     );
   }
 
-  trees.push(app.toTree());
-  const mergeTrees = require('broccoli-merge-trees');
-  return mergeTrees(trees);
+  return app.toTree(trees);
 };

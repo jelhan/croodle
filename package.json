@@ -21,7 +21,6 @@
     "body-parser": "^1.2.0",
     "broccoli-asset-rev": "^2.2.0",
     "broccoli-funnel": "^1.0.6",
-    "broccoli-merge-trees": "^0.2.1",
     "broccoli-unwatched-tree": "^0.1.1",
     "connect-restreamer": "^1.0.1",
     "cors": "^2.5.3",
