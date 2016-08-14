@@ -3,8 +3,8 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function() {
-  const pickFiles = require('broccoli-static-compiler');
-  const unwatchedTree    = require('broccoli-unwatched-tree');
+  const Funnel = require('broccoli-funnel');
+  const unwatchedTree = require('broccoli-unwatched-tree');
   const trees = [];
 
   const app = new EmberApp({
@@ -49,18 +49,19 @@ module.exports = function() {
 
   // include api files into dist
   trees.push(
-    pickFiles(unwatchedTree('api'), {
+    new Funnel(unwatchedTree('api'), {
       srcDir: '/',
       destDir: '/api',
-      files: ['index.php', 'cron.php', 'classes/*', 'vendor/*']
+      include: ['index.php', 'cron.php', 'classes/*', 'vendor/**']
     })
   );
 
   if (app.env === 'development' || app.env === 'test') {
     trees.push(
-      pickFiles('tests/dummyData', {
+      new Funnel('tests/dummyData', {
         srcDir: '/',
-        destDir: '/data'
+        destDir: '/data',
+        include: ['**']
       })
     );
   }
