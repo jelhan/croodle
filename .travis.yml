@@ -52,7 +52,7 @@ script:
   # we can not run the integration tests against api cause api is not available to test instance running at sauce lab
   # therefore we only run acceptance tests by filter
   # to do so we can not just add the launcher to testem ci configuration
-  - if $TEST_SAUCE; then ember test --launch='SL_chrome,SL_firefox,SL_edge,SL_ie,SL_safari,SL_iphone,SL_android' --test-port 8080 --filter 'Acceptance |'; fi
+  - if $TEST_SAUCE; then ember test --launch='SL_chrome,SL_firefox,SL_edge,SL_ie,SL_safari' --test-port 8080 --filter 'Acceptance |'; fi
   # install development requirements for api to run api tests
   # not be done in install section cause otherwise integration tests would not fail
   # if api needs an dependency in production which is specified as development dependency
