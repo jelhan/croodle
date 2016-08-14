@@ -15,7 +15,7 @@ require_once 'classes/poll.php';
 $startTime = time();
 $pollsProcessed = 0;
 
-$path = $argv[1] ? $argv[1] : substr($argv[0], 0, -8);
+$path = isset($argv[1]) ? $argv[1] : substr($argv[0], 0, -8);
 
 define('DATA_FOLDER', $path . '../data/');
 $dataDirHandler = opendir(DATA_FOLDER);
