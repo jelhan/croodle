@@ -69,11 +69,44 @@ test('create a default poll', function(assert) {
     .visit();
 
   andThen(function() {
+    assert.equal(currentPath(), 'create.index');
+    assert.equal(
+      pageCreateIndex.statusBar().active,
+      t('create.formStep.type').toString(),
+      'status bar shows correct item as current path (index)'
+    );
+    assert.deepEqual(
+      pageCreateIndex.statusBar().toArray().map((el) => el.text),
+      [
+        t('create.formStep.type').toString(),
+        t('create.formStep.meta').toString(),
+        t('create.formStep.options.days').toString(),
+        t('create.formStep.options-datetime').toString(),
+        t('create.formStep.settings').toString()
+      ],
+      'status bar has correct items'
+    );
+    assert.deepEqual(
+      pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+      [false, true, true, true, true],
+      'status bar has correct items disabled (index)'
+    );
+
     pageCreateIndex
       .next();
 
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
+      assert.equal(
+        pageCreateIndex.statusBar().active,
+        t('create.formStep.meta').toString(),
+        'status bar shows correct item as current path (meta)'
+      );
+      assert.deepEqual(
+        pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+        [false, false, true, true, true],
+        'status bar has correct items disabled (meta)'
+      );
 
       pageCreateMeta
         .title('default poll')
@@ -81,6 +114,16 @@ test('create a default poll', function(assert) {
 
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
+        assert.equal(
+          pageCreateIndex.statusBar().active,
+          t('create.formStep.options.days').toString(),
+          'status bar shows correct item as current path (options.days)'
+        );
+        assert.deepEqual(
+          pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+          [false, false, false, true, true],
+          'status bar has correct items disabled (options)'
+        );
 
         pageCreateOptions
           .dateOptions(dates);
@@ -89,12 +132,32 @@ test('create a default poll', function(assert) {
 
         andThen(function() {
           assert.equal(currentPath(), 'create.options-datetime');
+          assert.equal(
+            pageCreateIndex.statusBar().active,
+            t('create.formStep.options-datetime').toString(),
+            'status bar shows correct item as current path (options-datetime)'
+          );
+          assert.deepEqual(
+            pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+            [false, false, false, false, true],
+            'status bar has correct items disabled (options-datetime)'
+          );
 
           pageCreateOptionsDatetime
             .next();
 
           andThen(() => {
             assert.equal(currentPath(), 'create.settings');
+            assert.equal(
+              pageCreateIndex.statusBar().active,
+              t('create.formStep.settings').toString(),
+              'status bar shows correct item as current path (settings)'
+            );
+            assert.deepEqual(
+              pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+              [false, false, false, false, false],
+              'status bar has correct items disabled (settings)'
+            );
 
             pageCreateSettings
               .next();
@@ -145,12 +208,43 @@ test('create a poll for answering a question', function(assert) {
     .visit();
 
   andThen(function() {
+    assert.equal(
+      pageCreateIndex.statusBar().active,
+      t('create.formStep.type').toString(),
+      'status bar shows correct item as current path (index)'
+    );
+    assert.deepEqual(
+      pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+      [false, true, true, true, true],
+      'status bar has correct items disabled'
+    );
+
     pageCreateIndex
       .pollType('MakeAPoll')
       .next();
 
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
+      assert.equal(
+        pageCreateIndex.statusBar().active,
+        t('create.formStep.meta').toString(),
+        'status bar shows correct item as current path (meta)'
+      );
+      assert.deepEqual(
+        pageCreateIndex.statusBar().toArray().map((el) => el.text),
+        [
+          t('create.formStep.type').toString(),
+          t('create.formStep.meta').toString(),
+          t('create.formStep.options.text').toString(),
+          t('create.formStep.settings').toString()
+        ],
+        'status bar has correct items'
+      );
+      assert.deepEqual(
+        pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+        [false, false, true, true],
+        'status bar has correct items disabled (meta)'
+      );
 
       pageCreateMeta
         .title('default poll')
@@ -158,6 +252,16 @@ test('create a poll for answering a question', function(assert) {
 
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
+        assert.equal(
+          pageCreateIndex.statusBar().active,
+          t('create.formStep.options.text').toString(),
+          'status bar shows correct item as current path (options.text)'
+        );
+        assert.deepEqual(
+          pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+          [false, false, false, true],
+          'status bar has correct items disabled (options)'
+        );
         expectComponent('create-options-text');
 
         assert.equal(
@@ -173,6 +277,11 @@ test('create a poll for answering a question', function(assert) {
             currentPath(),
             'create.options',
             'validation errors prevents transition'
+          );
+          assert.equal(
+            pageCreateIndex.statusBar().active,
+            t('create.formStep.options.text').toString(),
+            'status bar shows correct item as current path (options.text)'
           );
           assert.ok(
             pageCreateOptions.textOptions(0).hasError &&
@@ -221,6 +330,16 @@ test('create a poll for answering a question', function(assert) {
 
                 andThen(function() {
                   assert.equal(currentPath(), 'create.settings');
+                  assert.equal(
+                    pageCreateIndex.statusBar().active,
+                    t('create.formStep.settings').toString(),
+                    'status bar shows correct item as current path (settings)'
+                  );
+                  assert.deepEqual(
+                    pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+                    [false, false, false, false],
+                    'status bar has correct items disabled (settings)'
+                  );
 
                   pageCreateSettings
                     .next();

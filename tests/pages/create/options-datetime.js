@@ -1,4 +1,9 @@
 import PageObject from 'ember-cli-page-object';
+import { defaultsForCreate } from 'croodle/tests/pages/defaults';
+
+const {
+  assign
+} = Object;
 
 let {
   clickable,
@@ -8,7 +13,7 @@ let {
   text
 } = PageObject;
 
-export default PageObject.create({
+export default PageObject.create(assign(defaultsForCreate, {
   days: collection({
     itemScope: '.form-group',
     labels: text('label:not(.sr-only)', { multiple: true })
@@ -24,4 +29,4 @@ export default PageObject.create({
     }
   }),
   next: clickable('button[type="submit"]')
-});
+}));

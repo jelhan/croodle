@@ -1,6 +1,11 @@
 import Ember from 'ember';
 import PageObject from 'ember-cli-page-object';
 import { findElementWithAssert } from 'ember-cli-page-object';
+import { defaultsForCreate } from 'croodle/tests/pages/defaults';
+
+const {
+  assign
+} = Object;
 
 let {
   clickable,
@@ -34,7 +39,7 @@ const setBootstrapDatepicker = function(selector, options = {}) {
   };
 };
 
-export default PageObject.create({
+export default PageObject.create(assign(defaultsForCreate, {
   dateOptions: setBootstrapDatepicker('.days .ember-view:has(.datepicker:first-child)'),
   dateHasError: isVisible('.days.has-error'),
   dateError: text('.days .help-block'),
@@ -48,4 +53,4 @@ export default PageObject.create({
       title: fillable('input')
     }
   })
-});
+}));
