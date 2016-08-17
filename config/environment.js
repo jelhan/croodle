@@ -22,6 +22,15 @@ module.exports = function(environment) {
       'media-src': "'self'"
     },
 
+    EmberENV: {
+      EXTEND_PROTOTYPES: {
+        Array: true,
+        Date: false,
+        String: false,
+        Function: true
+      }
+    },
+
     moment: {
       includeLocales: ['de', 'es'],
       includeTimezone: '2010-2020'
