@@ -1,7 +1,10 @@
 import { moduleFor, test } from 'ember-qunit';
+import Ember from 'ember';
 import config from 'croodle/config/environment';
 import LocaleHelper from 'ember-i18n/utils/locale';
 import localesMeta from 'croodle/locales/meta';
+
+const { getOwner } = Ember;
 
 moduleFor('service:i18n', 'Integration | translations', {
   integration: true
@@ -22,7 +25,7 @@ test('all locales have same amount of translation strings as default locale', fu
   const i18n = this.subject();
   const locales = i18n.get('locales');
   const { defaultLocale } = config.i18n;
-  const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, i18n.get('container'));
+  const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, getOwner(i18n));
 
   assert.expect((locales.length - 1) * 2);
 
@@ -30,7 +33,7 @@ test('all locales have same amount of translation strings as default locale', fu
     if (locale === defaultLocale) {
       return;
     }
-    const { translations } = new LocaleHelper(locale, i18n.get('container'));
+    const { translations } = new LocaleHelper(locale, getOwner(i18n));
     assert.ok(translations, `could retrive locale ${locale}`);
     assert.equal(
       Object.keys(translations).length,
@@ -44,7 +47,7 @@ test('all locales have same translation strings as default locale', function(ass
   const i18n = this.subject();
   const locales = i18n.get('locales');
   const { defaultLocale } = config.i18n;
-  const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, i18n.get('container'));
+  const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, getOwner(i18n));
 
   assert.expect(
     // count of non default locales * translation strings of default locale
