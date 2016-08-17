@@ -12,7 +12,12 @@ export default Ember.Route.extend({
     }
   },
 
-  beforeModel() {
+  beforeModel(transition) {
+    // enforce that wizzard is started at create.index
+    if (transition.targetName !== 'create.index') {
+      this.transitionTo('create.index');
+    }
+
     // set encryption key
     this.get('encryption').generateKey();
   },

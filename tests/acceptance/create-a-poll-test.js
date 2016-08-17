@@ -900,3 +900,10 @@ test('create a poll and using back button (find a date)', function(assert) {
     });
   });
 });
+
+test('Start at first step is enforced', function(assert) {
+  visit('create/settings');
+  andThen(() => {
+    assert.equal(currentPath(), 'create.index');
+  });
+});
