@@ -15,6 +15,7 @@ $I = new ApiTester($scenario);
 $I->wantTo('see that an expired poll gets deleted on requested');
 $I->sendGet('/polls/' . $pollId);
 $I->seeResponseCodeIs(404);
+$I->seeHttpHeader('Expires', '-1');
 $I->seeResponseEquals('');
 \PHPUnit_Framework_Assert::assertFalse(
   is_dir($pollDir),

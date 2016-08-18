@@ -16,6 +16,8 @@ $I = new ApiTester($scenario);
 $I->wantTo('create a user');
 $I->sendPOST('/users', $userJson);
 $I->seeResponseCodeIs(200);
+$I->seeHttpHeader('Content-Type', 'application/json;charset=utf-8');
+$I->seeHttpHeader('Expires', '-1');
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('user.id');
 $userId = $I->grabDataFromResponseByJsonPath('user.id')[0];

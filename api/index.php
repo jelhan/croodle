@@ -3,6 +3,9 @@
  * RESTful API used by ember data for data storage
  */
 
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+
 if (php_sapi_name() == 'cli-server') {
   // assume that cli-server is only used for testing
   define('DATA_FOLDER', 'tests/_tmp/data/');
@@ -19,66 +22,61 @@ function pollIdIsValid($pollId) {
   return preg_match('/[^A-Za-z0-9]/', $pollId) === 0;
 }
 
-$app = new \Slim\Slim(array(
-  'debug' => false
+$app = new \Slim\App(array(
+  'debug' => true
 ));
 
-/*
- * default response headers
- */
-$app->response->headers->set('Content-Type', 'application/json; charset=utf-8');
+// add expires header to all responses to
 // prevent Internet Explorer from caching AJAX requests
-$app->expires('-1');
+$app->add(function (Request $request, Response $response, $next) {
+  $response = $response->withHeader('Expires', '-1');
+  return $next($request, $response);
+});
 
 /*
  * api endpoints
  */
-$app->get('/polls/:id', function ($pollId) use ($app) {
+$app->get('/polls/{id}', function (Request $request, Response $response) {
+  $pollId = $request->getAttribute('id');
   $poll = Poll::restore($pollId);
 
   if (!$poll) {
-    $app->halt(404);
+    return $response->withStatus(404);
   }
-  
-  $app->response->setBody(
-    json_encode(
-      array(
-        'poll' => $poll->export()
-      )
+
+  return $response->withJSON(
+    array(
+      'poll' => $poll->export()
     )
   );
 });
 
-$app->post('/polls', function() use ($app) {
+$app->post('/polls', function (Request $request, Response $response) {
   $poll = Poll::create(
     json_decode(
-      $app->request->getBody()
+      $request->getBody()
     )->poll
   );
   $poll->save();
-  
-  $app->response->setBody(
-    json_encode(
-      array(
-        'poll' => $poll->export()
-      )
+
+  return $response->withJSON(
+    array(
+      'poll' => $poll->export()
     )
   );
 });
 
-$app->post('/users', function() use ($app) {
+$app->post('/users', function (Request $request, Response $response) {
   $user = User::create(
     json_decode(
-      $app->request->getBody()
+      $request->getBody()
     )->user
   );
   $user->save();
 
-  $app->response->setBody(
-    json_encode(
-      array(
-        'user' => $user->export()
-      )
+  return $response->withJSON(
+    array(
+      'user' => $user->export()
     )
   );
 });
@@ -86,12 +84,16 @@ $app->post('/users', function() use ($app) {
 /*
  * error handling
  */
-$app->error(function() use ($app) {
-  $app->halt(500);
-});
-
-$app->notFound(function() use ($app) {
-  $app->halt(404);
-});
+$c = $app->getContainer();
+$c['errorHandler'] = function ($c) {
+    return function (Request $request, Response $response, $exception) use ($c) {
+        return $c['response']->withStatus(500);
+    };
+};
+$c['notFoundHandler'] = function ($c) {
+    return function (Request $request, Response $response) use ($c) {
+        return $c['response']->withStatus(404);
+    };
+};
 
 $app->run();

@@ -17,6 +17,8 @@ $I = new ApiTester($scenario);
 $I->wantTo('get an existing legacy (v0.3.0) poll with users');
 $I->sendGET('/polls/' . $pollId);
 $I->seeResponseCodeIs(200);
+$I->seeHttpHeader('Content-Type', 'application/json;charset=utf-8');
+$I->seeHttpHeader('Expires', '-1');
 $I->seeResponseIsJson();
 
 $pollData = json_decode($pollJson, true)["poll"];

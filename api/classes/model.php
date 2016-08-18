@@ -4,7 +4,7 @@ class Model {
   const ENCRYPTED_PROPERTIES = [];
   const PLAIN_PROPERTIES = [];
   const SERVER_PROPERTIES = [];
-  
+
   protected $data;
   protected $proofKeyKnowledge;
 
@@ -43,7 +43,7 @@ class Model {
       static::PLAIN_PROPERTIES,
       static::SERVER_PROPERTIES
     );
-    
+
     // check if all properties exist on data object
     foreach ($properties as $property) {
       if (!property_exists($data, $property)) {
@@ -82,7 +82,7 @@ class Model {
     if (method_exists($this, 'includeRelationships')) {
       $this->includeRelationships($data);
     }
-    
+
     return $data;
   }
 
@@ -94,11 +94,11 @@ class Model {
       return null;
     }
   }
-  
+
   protected function getDir() {
     throw new Exception ('getDir must be implemented by model');
   }
-  
+
   protected function getPath() {
     throw new Exception ('getPath must be implemented by model');
   }
@@ -145,7 +145,7 @@ class Model {
 
   /*
    * restore object from storage
-   */ 
+   */
   public static function restore($id) {
     if (!static::isValidId($id)) {
       throw new Exception($id . ' is not a valid id');
@@ -153,12 +153,18 @@ class Model {
 
     $modelName = get_called_class();
     $model = new $modelName;
-    
+
     $model->set('id', $id);
+    $path = $model->getPath();
+
+    if (!is_file($path)) {
+      // no poll with this id
+      return false;
+    }
 
     try {
       $storageObject = file_get_contents(
-        $model->getPath()
+        $path
       );
 
       if ($storageObject === false) {
@@ -167,10 +173,9 @@ class Model {
       }
     }
     catch (Exception $e) {
-      // no poll with this id
       return false;
     }
-    
+
     $data = self::convertFromStorage($storageObject);
 
     if(method_exists($model, 'restoreLegacySupportHook')) {
@@ -206,7 +211,7 @@ class Model {
     $counter = 0;
     while (true) {
       $this->set('id', $this->generateNewId());
-      
+
       try {
         if (!is_dir($this->getDir())) {
           if (mkdir($this->getDir()) === false) {
