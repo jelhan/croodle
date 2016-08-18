@@ -52,7 +52,7 @@ module.exports = function() {
     new Funnel(unwatchedTree('api'), {
       srcDir: '/',
       destDir: '/api',
-      include: ['index.php', 'cron.php', 'classes/*', 'vendor/**']
+      include: ['index.php', 'cron.php', 'config.default.php', 'classes/*', 'utils/**', 'vendor/**']
     })
   );
 

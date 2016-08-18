@@ -11,13 +11,15 @@ if (php_sapi_name() !== 'cli') {
 }
 
 require_once 'classes/poll.php';
+require_once 'utils/get-config.php';
+
+$path = substr($argv[0], 0, -8);
+$config = getConfig($path);
+define('DATA_FOLDER', isset($argv[1]) ? $argv[1] : $path . $config['dataDir']);
 
 $startTime = time();
 $pollsProcessed = 0;
 
-$path = isset($argv[1]) ? $argv[1] : substr($argv[0], 0, -8);
-
-define('DATA_FOLDER', $path . '../data/');
 $dataDirHandler = opendir(DATA_FOLDER);
 if(!$dataDirHandler) {
   throw new Exception('could not open data dir');

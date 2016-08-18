@@ -6,17 +6,19 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+require 'vendor/autoload.php';
+require_once 'classes/poll.php';
+require_once 'classes/user.php';
+require_once 'utils/get-config.php';
+
+$config = getConfig();
 if (php_sapi_name() == 'cli-server') {
   // assume that cli-server is only used for testing
   define('DATA_FOLDER', 'tests/_tmp/data/');
 }
 else {
-  define('DATA_FOLDER', '../data/');
+  define('DATA_FOLDER', $config['dataDir']);
 }
-
-require 'vendor/autoload.php';
-require_once 'classes/poll.php';
-require_once 'classes/user.php';
 
 function pollIdIsValid($pollId) {
   return preg_match('/[^A-Za-z0-9]/', $pollId) === 0;
