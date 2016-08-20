@@ -6,6 +6,19 @@
     </form>
   </div>
   <div id="content">
+    <div id="messages">
+      {{#each flashMessages.queue as |flash|}}
+        {{#flash-message flash=flash}}
+          {{t flash.message}}
+          {{#if showProgressBar}}
+            <div class="alert-progress">
+              <div class="alert-progressBar" style={{progressDuration}}></div>
+            </div>
+          {{/if}}
+        {{/flash-message}}
+      {{/each}}
+    </div>
+
     {{outlet}}
   </div>
 </div>

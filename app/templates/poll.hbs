@@ -10,7 +10,17 @@
     <div class="col-sm-6 col-lg-5 col-lg-offset-2">
       <div class="box poll-link">
         <p>{{t "poll.share"}}</p>
-        <p class="link"><a href="{{pollUrl}}">{{pollUrl}}</a></p>
+        <p class="link">
+          <a href="{{pollUrl}}">{{pollUrl}}</a>
+          {{#copy-button
+            clipboardText=pollUrl
+            classNames="btn btn-default"
+            success=(action 'linkAction' 'copied')
+            error=(action 'linkAction' 'selected')
+          }}
+            <span class="glyphicon glyphicon-copy"></span>
+          {{/copy-button}}
+        </p>
         <p class="notice">
             {{t "poll.share.notice"}}
         </p>

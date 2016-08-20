@@ -25,21 +25,31 @@ module('Acceptance | view poll', {
   }
 });
 
-test('view poll url', function(assert) {
+test('poll url', function(assert) {
   let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz012345789';
+  let pollUrl = `/poll/${id}?encryptionKey=${encryptionKey}`;
 
   server.get(`/polls/${id}`, function() {
     return serverGetPolls({ id }, encryptionKey);
   });
 
-  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
+  visit(pollUrl);
   andThen(function() {
     assert.equal(
       find('.poll-link .link a').text(),
       window.location.href,
       'share link is shown'
     );
+
+    find('.poll-link .copy-btn').click();
+    /*
+     * Can't test if link is actually copied to clipboard due to api
+     * restrictions. Due to security it's not allowed to read from clipboard.
+     *
+     * Can't test if flash message is shown due to
+     * https://github.com/poteto/ember-cli-flash/issues/202
+    */
   });
 });
 

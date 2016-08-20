@@ -15,6 +15,18 @@ const {
 
 export default Controller.extend({
   actions: {
+    linkAction(type) {
+      let flashMessages = this.get('flashMessages');
+      switch (type) {
+        case 'copied':
+          flashMessages.success(`poll.link.copied`);
+          break;
+
+        case 'selected':
+          flashMessages.info(`poll.link.selected`);
+          break;
+      }
+    },
     useLocalTimezone() {
       this.set('useLocalTimezone', true);
       this.set('timezoneChoosen', true);
@@ -172,6 +184,8 @@ export default Controller.extend({
 
     return dates;
   }),
+
+  flashMessages: inject.service(),
 
   hasTimes: computed('model.options.[]', function() {
     if (this.get('model.isMakeAPoll')) {

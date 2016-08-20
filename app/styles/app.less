@@ -71,6 +71,23 @@ body {
   .poll-link .link {
     color:#556b2f;
     word-break:break-all;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+  .poll-link .link button {
+    -webkit-align-items: stretch;
+       -moz-align-items: stretch;
+        -ms-align-items: stretch;
+            align-items: stretch;
+
+    margin-left: 0.5em;
+  }
+  .poll-link .link button span {
+    font-size: 1.6em;
   }
   .poll-link .notice {
     font-size:90%;

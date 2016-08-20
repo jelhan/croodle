@@ -85,6 +85,8 @@ export default {
   'poll.evaluation.participants.other': '{{count}} persons have participated in the poll.',
   'poll.input.newUserName.label': 'Name',
   'poll.input.newUserName.placeholder': 'Tu nombre',
+  'poll.link.copied': 'Link copied to clipboard.',
+  'poll.link.selected': 'Link selected. Press Command+C to copy.',
   'poll.modal.timezoneDiffers.title': '¿Que zona horaria deseas utilizar para mostrar los datos?',
   'poll.modal.timezoneDiffers.body': 'La encuesta ha sido configurada para una zona horaria distinta de tu hora local. ¿Con qué zona horaria debería mostrarse la información?',
   'poll.modal.timezoneDiffers.button.useLocalTimezone': 'mi zona horaria',

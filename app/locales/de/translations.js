@@ -85,6 +85,8 @@ export default {
   'poll.evaluation.participants.other': '{{count}} Personen haben sich an der Umfrage beteiligt.',
   'poll.input.newUserName.label': 'Name',
   'poll.input.newUserName.placeholder': 'Dein Name',
+  'poll.link.copied': 'Link in die Zwischenablage kopiert.',
+  'poll.link.selected': 'Link markiert. Drücke Steuerung + C zum kopieren.',
   'poll.modal.timezoneDiffers.title': 'In welcher Zeitzone sollen die Daten angezeigt werden?',
   'poll.modal.timezoneDiffers.body': 'Die Umfrage wurde für eine Zeitzone angelegt, die von deiner lokalen Zeit abweicht. In welcher Zeitzone sollen die Daten angezeigt werden?',
   'poll.modal.timezoneDiffers.button.useLocalTimezone': 'meine Zeitzone',
