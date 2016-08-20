@@ -41,6 +41,7 @@ export default {
   'create.settings.expirationDurations.never': 'never',
   'create.settings.forceAnswer.label': '¿Obligar a responder todas las preguntas/opciones?',
   'create.save': 'Guardar',
+  'create.title': 'Create a poll',
   'error': 'Error',
   'index.title': 'Croodle simplifica las citas y la toma de decisiones ...<br/>... y al mismo tiempo protege tus datos',
   'index.features.title': 'Funciones',

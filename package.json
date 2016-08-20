@@ -65,6 +65,7 @@
     "ember-math-helpers": "^1.2.1",
     "ember-moment": "^6.1.0",
     "ember-object-at-helper": "0.1.0",
+    "ember-page-title": "3.0.6",
     "ember-radio-buttons": "^4.0.1",
     "ember-resolver": "^2.0.3",
     "ember-simple-select": "^0.6.0",

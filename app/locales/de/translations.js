@@ -41,6 +41,7 @@ export default {
   'create.settings.expirationDurations.never': 'niemals',
   'create.settings.forceAnswer.label': 'Eine Antwort für jede Option erzwingen?',
   'create.save': 'Speichern',
+  'create.title': 'Umfrage erstellen',
   'error': 'Fehler',
   'index.title': 'Croodle vereinfacht die Termin- und Entscheidungsfindung ...<br/>... und schützt dabei deine Daten',
   'index.features.title': 'Funktionen',
