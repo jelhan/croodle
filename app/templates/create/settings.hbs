@@ -8,6 +8,7 @@
       classNames='answer-type'
       label=(t 'create.settings.answerType.label')
       property="answerType"
+      showValidationOn=(array 'change' 'focusOut')
       useIcons=false
       as |value id|
     }}
@@ -24,6 +25,7 @@
       classNames='expiration-duration'
       label=(t 'create.settings.expirationDate.label')
       property='expirationDuration'
+      showValidationOn=(array 'change' 'focusOut')
       useIcons=false
       as |value id|
     }}
@@ -40,12 +42,14 @@
       classNames='anonymous-user'
       controlType='checkbox'
       label=(t 'create.settings.anonymousUser.label')
+      showValidationOn='change'
       value=anonymousUser
     }}
     {{bs-form-element
       classNames='force-answer'
       controlType='checkbox'
       label=(t 'create.settings.forceAnswer.label')
+      showValidationOn='change'
       value=forceAnswer
     }}
     {{#bs-form-element}}
