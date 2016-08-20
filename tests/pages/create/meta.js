@@ -6,12 +6,10 @@ const {
 } = Object;
 
 let {
-  clickable,
   fillable
 } = PageObject;
 
 export default PageObject.create(assign(defaultsForCreate, {
   description: fillable('.description textarea'),
-  next: clickable('button[type="submit"]'),
   title: fillable('.title input')
 }));

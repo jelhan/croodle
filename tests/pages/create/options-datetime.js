@@ -27,6 +27,5 @@ export default PageObject.create(assign(defaultsForCreate, {
       labelIsHidden: hasClass('label', 'sr-only'),
       time: fillable('input')
     }
-  }),
-  next: clickable('button[type="submit"]')
+  })
 }));

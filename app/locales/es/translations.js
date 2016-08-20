@@ -1,4 +1,5 @@
 export default {
+  'action.back': 'Back',
   'action.next': 'Siguiente',
   'action.save': 'Guardar',
   'answerTypes.yes.label': 'Si',

@@ -866,7 +866,6 @@ test('create a poll and using back button (find a date)', function(assert) {
 
                 pageCreateSettings
                   .next();
-
                 andThen(function() {
                   assert.equal(currentPath(), 'poll.participation');
                   assert.ok(
@@ -902,8 +901,95 @@ test('create a poll and using back button (find a date)', function(assert) {
 });
 
 test('Start at first step is enforced', function(assert) {
-  visit('create/settings');
+  pageCreateSettings.visit();
   andThen(() => {
     assert.equal(currentPath(), 'create.index');
+  });
+});
+
+test('back button', function(assert) {
+  pageCreateIndex.visit();
+
+  andThen(() => {
+    assert.equal(currentPath(), 'create.index');
+    pageCreateIndex.next();
+
+    andThen(() => {
+      assert.equal(currentPath(), 'create.meta');
+      pageCreateMeta
+        .title('foo')
+        .next();
+
+      andThen(() => {
+        assert.equal(currentPath(), 'create.options');
+        pageCreateOptions
+          .dateOptions([new Date()]);
+        pageCreateOptions
+          .next();
+
+        andThen(() => {
+          assert.equal(currentPath(), 'create.options-datetime');
+          pageCreateOptionsDatetime.next();
+
+          andThen(() => {
+            assert.equal(currentPath(), 'create.settings');
+            pageCreateSettings.back();
+
+            andThen(() => {
+              assert.equal(currentPath(), 'create.options-datetime');
+              pageCreateOptionsDatetime.back();
+
+              andThen(() => {
+                assert.equal(currentPath(), 'create.options');
+                pageCreateOptions.back();
+
+                andThen(() => {
+                  assert.equal(currentPath(), 'create.meta');
+                  pageCreateMeta.back();
+
+                  andThen(() => {
+                    assert.equal(currentPath(), 'create.index');
+                    pageCreateIndex
+                      .pollType('MakeAPoll')
+                      .next();
+
+                    andThen(() => {
+                      assert.equal(currentPath(), 'create.meta');
+                      pageCreateMeta.next();
+
+                      andThen(() => {
+                        assert.equal(currentPath(), 'create.options');
+                        pageCreateOptions
+                          .textOptions(1).title('bar');
+                        pageCreateOptions.next();
+
+                        andThen(() => {
+                          assert.equal(currentPath(), 'create.settings');
+                          pageCreateSettings.back();
+
+                          andThen(() => {
+                            assert.equal(currentPath(), 'create.options');
+                            pageCreateOptions.back();
+
+                            andThen(() => {
+                              assert.equal(currentPath(), 'create.meta');
+                              pageCreateMeta.back();
+
+                              andThen(() => {
+                                assert.equal(currentPath(), 'create.index');
+                              });
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
   });
 });

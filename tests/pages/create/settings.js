@@ -5,10 +5,5 @@ const {
   assign
 } = Object;
 
-let {
-  clickable
-} = PageObject;
-
 export default PageObject.create(assign(defaultsForCreate, {
-  next: clickable('button[type="submit"]')
 }));

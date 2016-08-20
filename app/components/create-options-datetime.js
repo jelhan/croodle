@@ -95,6 +95,9 @@ export default Component.extend(modelValidations, {
         }
       });
     },
+    back() {
+      this.sendAction('back');
+    },
     /*
      * removes target option if it's not the only date for this day
      * otherwise it deletes time for this date

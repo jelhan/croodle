@@ -53,12 +53,21 @@
       showValidationOn='change'
       value=forceAnswer
     }}
-    {{#bs-form-element}}
-      {{bs-button
-        defaultText=(t 'action.save')
-        type="primary"
-        buttonType="submit"
-      }}
-    {{/bs-form-element}}
+    <div class="row">
+      <div class="col-md-4 text-right">
+        {{bs-button
+          action='back'
+          defaultText=(t 'action.back')
+          classNames='back'
+        }}
+      </div>
+      <div class="col-md-8">
+        {{bs-button
+          defaultText=(t 'action.save')
+          type="primary"
+          buttonType="submit"
+        }}
+      </div>
+    </div>
   {{/bs-form}}
 </div>

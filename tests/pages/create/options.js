@@ -43,7 +43,6 @@ export default PageObject.create(assign(defaultsForCreate, {
   dateOptions: setBootstrapDatepicker('.days .ember-view:has(.datepicker:first-child)'),
   dateHasError: isVisible('.days.has-error'),
   dateError: text('.days .help-block'),
-  next: clickable('button[type="submit"]'),
   textOptions: collection({
     itemScope: '.form-group.option',
     item: {
