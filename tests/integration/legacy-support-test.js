@@ -9,6 +9,8 @@ let application;
 
 module('Integration | legacy support', {
   beforeEach() {
+    window.localStorage.setItem('locale', 'en');
+
     application = startApp();
     moment.locale(
       application.__container__.lookup('service:i18n').get('locale')

@@ -5,5 +5,10 @@ const {
   assign
 } = Object;
 
-export default PageObject.create(assign(defaultsForCreate, {
+const {
+  visitable
+} = PageObject;
+
+export default PageObject.create(assign({}, defaultsForCreate, {
+  visit: visitable('/create/settings')
 }));

@@ -13,7 +13,7 @@ let {
   text
 } = PageObject;
 
-export default PageObject.create(assign(defaultsForCreate, {
+export default PageObject.create(assign({}, defaultsForCreate, {
   days: collection({
     itemScope: '.form-group',
     labels: text('label:not(.sr-only)', { multiple: true })

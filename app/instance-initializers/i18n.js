@@ -1,29 +1,21 @@
+import Ember from 'ember';
+
+const { getOwner } = Ember;
+
 export default {
   name: 'i18n',
   initialize(appInstance) {
     const i18n = appInstance.lookup('service:i18n');
     const availableLocales = i18n.get('locales');
-    const moment = appInstance.lookup('service:moment');
-    const locale = getLocale(availableLocales);
 
-    i18n.set('locale', locale);
-    moment.changeLocale(locale);
-
-    i18n.addObserver('locale', i18n, function() {
-      const locale = this.get('locale');
-      // give cookie a lifetime of one year
-      const maxAge = 60 * 60 * 24 * 356;
-      moment.changeLocale(locale);
-
-      // save selected locale in cookie
-      document.cookie = `language=${locale};max-age=${maxAge};`;
-    });
+    i18n.addObserver('locale', i18n, localeChanged);
+    i18n.set('locale', getLocale(availableLocales));
   }
 };
 
 function getLocale(availableLocales) {
   const methods = [
-    getLocaleFromCookie,
+    getSavedLocale,
     getLocaleByBrowser
   ];
   let locale;
@@ -47,15 +39,30 @@ function getLocaleByBrowser() {
   return (window.navigator.userLanguage || window.navigator.language).split('-')[0];
 }
 
-function getLocaleFromCookie() {
-  let language;
+function getSavedLocale() {
+  let { localStorage } = window;
 
-  const cookie = document.cookie.replace(' ', '').split(';');
-  cookie.forEach(function(t) {
-    let x = t.split('=');
-    if (x[0] === 'language') {
-      language = x[1];
-    }
-  });
-  return language;
+  // test browser support
+  if (!localStorage) {
+    return;
+  }
+
+  return localStorage.getItem('locale');
+}
+
+function saveLocale(locale) {
+  let { localStorage } = window;
+
+  // test browser support
+  if (!localStorage) {
+    return;
+  }
+
+  localStorage.setItem('locale', locale);
+}
+
+function localeChanged() {
+  let locale = this.get('locale');
+  getOwner(this).lookup('service:moment').changeLocale(locale);
+  saveLocale(locale);
 }

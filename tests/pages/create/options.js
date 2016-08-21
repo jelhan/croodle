@@ -39,7 +39,7 @@ const setBootstrapDatepicker = function(selector, options = {}) {
   };
 };
 
-export default PageObject.create(assign(defaultsForCreate, {
+export default PageObject.create(assign({}, defaultsForCreate, {
   dateOptions: setBootstrapDatepicker('.days .ember-view:has(.datepicker:first-child)'),
   dateHasError: isVisible('.days.has-error'),
   dateError: text('.days .help-block'),

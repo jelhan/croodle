@@ -10,7 +10,7 @@ const {
   visitable
 } = PageObject;
 
-export default PageObject.create(assign(defaultsForCreate, {
+export default PageObject.create(assign({}, defaultsForCreate, {
   pollType: fillable('.poll-type select'),
   visit: visitable('/create')
 }));

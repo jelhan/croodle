@@ -12,6 +12,8 @@ let application, server;
 
 module('Acceptance | participate in a poll', {
   beforeEach() {
+    window.localStorage.setItem('locale', 'en');
+
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 

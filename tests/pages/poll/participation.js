@@ -1,10 +1,13 @@
 import PageObject from 'ember-cli-page-object';
+import { defaultsForApplication } from 'croodle/tests/pages/defaults';
 
 let {
   collection,
   text,
   visitable
 } = PageObject;
+
+const { assign } = Object;
 
 const urlMatches = function(regExp) {
   return function() {
@@ -13,7 +16,7 @@ const urlMatches = function(regExp) {
   };
 };
 
-export default PageObject.create({
+export default PageObject.create(assign({}, defaultsForApplication, {
   description: text('.description'),
   options: collection({
     answers: text('.selections .form-group:eq(0) .radio', { multiple: true }),
@@ -27,4 +30,4 @@ export default PageObject.create({
   urlIsValid: urlMatches(/^\/poll\/[a-zA-Z0-9]{10}\/participation\?encryptionKey=[a-zA-Z0-9]{40}$/),
   // use as .visit({ encryptionKey: ??? })
   visit: visitable('/poll/participation')
-});
+}));

@@ -22,6 +22,8 @@ const randomString = function(length) {
 
 module('Acceptance | create a poll', {
   beforeEach() {
+    window.localStorage.setItem('locale', 'en');
+
     let lastCreatedPoll = {};
     const pollId = randomString(10);
 

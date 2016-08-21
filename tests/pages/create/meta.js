@@ -9,7 +9,7 @@ let {
   fillable
 } = PageObject;
 
-export default PageObject.create(assign(defaultsForCreate, {
+export default PageObject.create(assign({}, defaultsForCreate, {
   description: fillable('.description textarea'),
   title: fillable('.title input')
 }));

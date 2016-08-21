@@ -13,6 +13,8 @@ let dateString;
 
 module('Acceptance | view evaluation', {
   beforeEach() {
+    window.localStorage.setItem('locale', 'en');
+
     application = startApp();
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
