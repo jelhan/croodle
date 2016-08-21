@@ -8,6 +8,8 @@ matrix:
     - env: TEST_EMBER=false TEST_SAUCE=false TEST_API=true
       php: 5.6
     - env: TEST_EMBER=false TEST_SAUCE=true TEST_API=false
+  allow_failures:
+    - env: TEST_EMBER=false TEST_SAUCE=true TEST_API=false
 
 sudo: false
 
