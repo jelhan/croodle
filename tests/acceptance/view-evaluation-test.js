@@ -243,7 +243,7 @@ test('evaluation is correct for MakeAPoll', function(assert) {
       'has a table showing user selections'
     );
     assert.deepEqual(
-      find('.user-selections-table thead th').map((i, el) => $(el).text().trim()).get(),
+      find('.user-selections-table.floatThead-table thead th').map((i, el) => $(el).text().trim()).get(),
       ['', 'first option', 'second option'],
       'dates are used as table headers'
     );

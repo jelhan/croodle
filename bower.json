@@ -8,7 +8,7 @@
     "sjcl": "~1.0.0",
     "bootstrap": "~3.3.5",
     "bootstrap-datepicker": "~1.4.0",
-    "floatThead": "1.2.12",
+    "floatThead": "^1.4.3",
     "jstimezonedetect": "~1.0.5",
     "ember-cli-moment-shim": "~0.2.0",
     "moment-timezone": ">= 0.1.0",

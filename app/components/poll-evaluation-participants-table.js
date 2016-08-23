@@ -8,15 +8,15 @@ export default Ember.Component.extend({
        * adding floatThead jQuery plugin to poll table
        * https://mkoryak.github.io/floatThead/
        *
-       * scrollingTop:
-       *   Offset from the top of the window where the floating header will
+       * top:
+       *   Offset from the top of the `window` where the floating header will
        *   'stick' when scrolling down
        * Since we are adding a browser horizontal scrollbar on top, scrollingTop
        * has to be set to height of horizontal scrollbar which depends on
        * used browser
        */
       Ember.$('.user-selections-table').floatThead({
-        'scrollingTop': this.getScrollbarHeight
+        top: this.getScrollbarHeight
       });
 
       /*
