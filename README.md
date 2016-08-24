@@ -10,7 +10,7 @@ Croodle is a web application to schedule a date or to do a poll on a general top
 
 This is an alpha version. Changes could brake backward compatibility. Also it is not well tested and some features are missing. It is not ment for productive use yet.
 
-Croodle is inspired by [ZeroBin](https://github.com/elrido/ZeroBin) and of course by Doodle.
+Croodle is inspired by [PrivateBin](https://github.com/PrivateBin/PrivateBin) and of course by Doodle.
 
 ## Security notice
 
