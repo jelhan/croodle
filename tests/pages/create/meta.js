@@ -1,5 +1,6 @@
 import PageObject from 'ember-cli-page-object';
 import { defaultsForCreate } from 'croodle/tests/pages/defaults';
+import { hasFocus } from 'croodle/tests/pages/helpers';
 
 const {
   assign
@@ -11,5 +12,6 @@ let {
 
 export default PageObject.create(assign({}, defaultsForCreate, {
   description: fillable('.description textarea'),
-  title: fillable('.title input')
+  title: fillable('.title input'),
+  titleHasFocus: hasFocus('.title input')
 }));

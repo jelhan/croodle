@@ -2,6 +2,7 @@ import Ember from 'ember';
 import PageObject from 'ember-cli-page-object';
 import { findElementWithAssert } from 'ember-cli-page-object';
 import { defaultsForCreate } from 'croodle/tests/pages/defaults';
+import { hasFocus } from 'croodle/tests/pages/helpers';
 
 const {
   assign
@@ -51,5 +52,10 @@ export default PageObject.create(assign({}, defaultsForCreate, {
       hasError: hasClass('has-error'),
       title: fillable('input')
     }
-  })
+  }),
+  firstTextOption: {
+    scope: '.form-group.option:first',
+
+    inputHasFocus: hasFocus('input')
+  }
 }));

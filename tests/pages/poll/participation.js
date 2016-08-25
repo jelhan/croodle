@@ -1,8 +1,10 @@
 import PageObject from 'ember-cli-page-object';
 import { defaultsForApplication } from 'croodle/tests/pages/defaults';
+import { hasFocus } from 'croodle/tests/pages/helpers';
 
 let {
   collection,
+  fillable,
   text,
   visitable
 } = PageObject;
@@ -18,6 +20,8 @@ const urlMatches = function(regExp) {
 
 export default PageObject.create(assign({}, defaultsForApplication, {
   description: text('.description'),
+  name: fillable('.name input'),
+  nameHasFocus: hasFocus('.name input'),
   options: collection({
     answers: text('.selections .form-group:eq(0) .radio', { multiple: true }),
     itemScope: '.selections .form-group',

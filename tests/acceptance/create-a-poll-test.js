@@ -93,6 +93,10 @@ test('create a default poll', function(assert) {
       [false, true, true, true, true],
       'status bar has correct items disabled (index)'
     );
+    assert.ok(
+      pageCreateIndex.pollTypeHasFocus,
+      'poll type selection has autofocus'
+    );
 
     pageCreateIndex
       .next();
@@ -100,14 +104,18 @@ test('create a default poll', function(assert) {
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
       assert.equal(
-        pageCreateIndex.statusBar().active,
+        pageCreateMeta.statusBar().active,
         t('create.formStep.meta').toString(),
         'status bar shows correct item as current path (meta)'
       );
       assert.deepEqual(
-        pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+        pageCreateMeta.statusBar().toArray().map((el) => el.isDisabled),
         [false, false, true, true, true],
         'status bar has correct items disabled (meta)'
+      );
+      assert.ok(
+        pageCreateMeta.titleHasFocus,
+        'title input has autofocus'
       );
 
       pageCreateMeta
@@ -117,12 +125,12 @@ test('create a default poll', function(assert) {
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
         assert.equal(
-          pageCreateIndex.statusBar().active,
+          pageCreateOptions.statusBar().active,
           t('create.formStep.options.days').toString(),
           'status bar shows correct item as current path (options.days)'
         );
         assert.deepEqual(
-          pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+          pageCreateOptions.statusBar().toArray().map((el) => el.isDisabled),
           [false, false, false, true, true],
           'status bar has correct items disabled (options)'
         );
@@ -135,14 +143,18 @@ test('create a default poll', function(assert) {
         andThen(function() {
           assert.equal(currentPath(), 'create.options-datetime');
           assert.equal(
-            pageCreateIndex.statusBar().active,
+            pageCreateOptionsDatetime.statusBar().active,
             t('create.formStep.options-datetime').toString(),
             'status bar shows correct item as current path (options-datetime)'
           );
           assert.deepEqual(
-            pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+            pageCreateOptionsDatetime.statusBar().toArray().map((el) => el.isDisabled),
             [false, false, false, false, true],
             'status bar has correct items disabled (options-datetime)'
+          );
+          assert.ok(
+            pageCreateOptionsDatetime.firstTime.inputHasFocus,
+            'first time input has autofocus'
           );
 
           pageCreateOptionsDatetime
@@ -151,14 +163,18 @@ test('create a default poll', function(assert) {
           andThen(() => {
             assert.equal(currentPath(), 'create.settings');
             assert.equal(
-              pageCreateIndex.statusBar().active,
+              pageCreateSettings.statusBar().active,
               t('create.formStep.settings').toString(),
               'status bar shows correct item as current path (settings)'
             );
             assert.deepEqual(
-              pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+              pageCreateSettings.statusBar().toArray().map((el) => el.isDisabled),
               [false, false, false, false, false],
               'status bar has correct items disabled (settings)'
+            );
+            assert.ok(
+              pageCreateSettings.availableAnswersHasFocus,
+              'available answers selection has autofocus'
             );
 
             pageCreateSettings
@@ -197,6 +213,10 @@ test('create a default poll', function(assert) {
                 ],
                 'answers are correctly labeled'
               );
+              assert.ok(
+                pagePollParticipation.nameHasFocus,
+                'name input has autofocus'
+              );
             });
           });
         });
@@ -228,12 +248,12 @@ test('create a poll for answering a question', function(assert) {
     andThen(function() {
       assert.equal(currentPath(), 'create.meta');
       assert.equal(
-        pageCreateIndex.statusBar().active,
+        pageCreateMeta.statusBar().active,
         t('create.formStep.meta').toString(),
         'status bar shows correct item as current path (meta)'
       );
       assert.deepEqual(
-        pageCreateIndex.statusBar().toArray().map((el) => el.text),
+        pageCreateMeta.statusBar().toArray().map((el) => el.text),
         [
           t('create.formStep.type').toString(),
           t('create.formStep.meta').toString(),
@@ -243,7 +263,7 @@ test('create a poll for answering a question', function(assert) {
         'status bar has correct items'
       );
       assert.deepEqual(
-        pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+        pageCreateMeta.statusBar().toArray().map((el) => el.isDisabled),
         [false, false, true, true],
         'status bar has correct items disabled (meta)'
       );
@@ -255,16 +275,20 @@ test('create a poll for answering a question', function(assert) {
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
         assert.equal(
-          pageCreateIndex.statusBar().active,
+          pageCreateOptions.statusBar().active,
           t('create.formStep.options.text').toString(),
           'status bar shows correct item as current path (options.text)'
         );
         assert.deepEqual(
-          pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+          pageCreateOptions.statusBar().toArray().map((el) => el.isDisabled),
           [false, false, false, true],
           'status bar has correct items disabled (options)'
         );
         expectComponent('create-options-text');
+        assert.ok(
+          pageCreateOptions.firstTextOption.inputHasFocus,
+          'first option input has autofocus'
+        );
 
         assert.equal(
           pageCreateOptions.textOptions().count,
@@ -281,7 +305,7 @@ test('create a poll for answering a question', function(assert) {
             'validation errors prevents transition'
           );
           assert.equal(
-            pageCreateIndex.statusBar().active,
+            pageCreateOptions.statusBar().active,
             t('create.formStep.options.text').toString(),
             'status bar shows correct item as current path (options.text)'
           );
@@ -333,12 +357,12 @@ test('create a poll for answering a question', function(assert) {
                 andThen(function() {
                   assert.equal(currentPath(), 'create.settings');
                   assert.equal(
-                    pageCreateIndex.statusBar().active,
+                    pageCreateSettings.statusBar().active,
                     t('create.formStep.settings').toString(),
                     'status bar shows correct item as current path (settings)'
                   );
                   assert.deepEqual(
-                    pageCreateIndex.statusBar().toArray().map((el) => el.isDisabled),
+                    pageCreateSettings.statusBar().toArray().map((el) => el.isDisabled),
                     [false, false, false, false],
                     'status bar has correct items disabled (settings)'
                   );

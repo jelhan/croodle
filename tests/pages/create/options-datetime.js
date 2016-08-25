@@ -1,5 +1,6 @@
 import PageObject from 'ember-cli-page-object';
 import { defaultsForCreate } from 'croodle/tests/pages/defaults';
+import { hasFocus } from 'croodle/tests/pages/helpers';
 
 const {
   assign
@@ -27,5 +28,10 @@ export default PageObject.create(assign({}, defaultsForCreate, {
       labelIsHidden: hasClass('label', 'sr-only'),
       time: fillable('input')
     }
-  })
+  }),
+  firstTime: {
+    scope: '.form-group:first',
+
+    inputHasFocus: hasFocus('input')
+  }
 }));
