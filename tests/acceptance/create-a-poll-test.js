@@ -15,6 +15,7 @@ import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 const { run } = Ember;
 
 let application, server;
+let serverAvailable = true;
 
 const randomString = function(length) {
   return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
@@ -34,6 +35,10 @@ module('Acceptance | create a poll', {
 
     server.post('/polls',
       function(request) {
+        if (!serverAvailable) {
+          return [503];
+        }
+
         let ret = serverPostPolls(request.requestBody, pollId);
         lastCreatedPoll = ret[2];
         return ret;
@@ -42,6 +47,10 @@ module('Acceptance | create a poll', {
 
     server.get(`/polls/${pollId}`,
       function() {
+        if (!serverAvailable) {
+          return [503];
+        }
+
         return [
           200,
           { 'Content-Type': 'application/json' },
@@ -177,46 +186,57 @@ test('create a default poll', function(assert) {
               'available answers selection has autofocus'
             );
 
+            // simulate temporate server error
+            serverAvailable = false;
             pageCreateSettings
               .save();
 
-            andThen(function() {
-              assert.equal(currentPath(), 'poll.participation');
-              assert.ok(
-                pagePollParticipation.urlIsValid() === true,
-                `poll url ${currentURL()} is valid`
-              );
-              assert.equal(
-                pagePollParticipation.title,
-                'default poll',
-                'poll title is correct'
-              );
-              assert.equal(
-                pagePollParticipation.description,
-                '',
-                'poll description is correct'
-              );
-              const dayFormat = moment.localeData().longDateFormat('LLLL')
-                                  .replace(
-                                    moment.localeData().longDateFormat('LT'), '')
-                                  .trim();
-              assert.deepEqual(
-                pagePollParticipation.options().labels,
-                dates.map((date) => date.format(dayFormat)),
-                'options are correctly labeled'
-              );
-              assert.deepEqual(
-                pagePollParticipation.options().answers,
-                [
-                  t('answerTypes.yes.label').toString(),
-                  t('answerTypes.no.label').toString()
-                ],
-                'answers are correctly labeled'
-              );
-              assert.ok(
-                pagePollParticipation.nameHasFocus,
-                'name input has autofocus'
-              );
+            andThen(() => {
+              assert.equal(currentPath(), 'create.settings');
+
+              serverAvailable = true;
+
+              pageCreateSettings
+                .save();
+
+              andThen(function() {
+                assert.equal(currentPath(), 'poll.participation');
+                assert.ok(
+                  pagePollParticipation.urlIsValid() === true,
+                  `poll url ${currentURL()} is valid`
+                );
+                assert.equal(
+                  pagePollParticipation.title,
+                  'default poll',
+                  'poll title is correct'
+                );
+                assert.equal(
+                  pagePollParticipation.description,
+                  '',
+                  'poll description is correct'
+                );
+                const dayFormat = moment.localeData().longDateFormat('LLLL')
+                                    .replace(
+                                      moment.localeData().longDateFormat('LT'), '')
+                                    .trim();
+                assert.deepEqual(
+                  pagePollParticipation.options().labels,
+                  dates.map((date) => date.format(dayFormat)),
+                  'options are correctly labeled'
+                );
+                assert.deepEqual(
+                  pagePollParticipation.options().answers,
+                  [
+                    t('answerTypes.yes.label').toString(),
+                    t('answerTypes.no.label').toString()
+                  ],
+                  'answers are correctly labeled'
+                );
+                assert.ok(
+                  pagePollParticipation.nameHasFocus,
+                  'name input has autofocus'
+                );
+              });
             });
           });
         });

@@ -59,13 +59,18 @@ export default Controller.extend(Validations, {
         }
 
         // save poll
-        model.save().then((model) => {
-          // reload as workaround for bug: duplicated records after save
-          model.reload().then((model) => {
-            // redirect to new poll
-            this.get('target').send('transitionToPoll', model);
+        model.save()
+          .then((model) => {
+            // reload as workaround for bug: duplicated records after save
+            model.reload().then((model) => {
+              // redirect to new poll
+              this.get('target').send('transitionToPoll', model);
+            });
+          })
+          .catch(() => {
+            // ToDo: Show feedback to user
+            return;
           });
-        });
       }
     }
   },
