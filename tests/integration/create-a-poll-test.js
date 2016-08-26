@@ -96,7 +96,7 @@ test('create a default poll and participate', function(assert) {
               assert.equal(currentPath(), 'create.settings');
 
               pageCreateSettings
-                .next();
+                .save();
 
               andThen(function() {
                 assert.equal(currentPath(), 'poll.participation');

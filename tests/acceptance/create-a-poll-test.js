@@ -178,7 +178,7 @@ test('create a default poll', function(assert) {
             );
 
             pageCreateSettings
-              .next();
+              .save();
 
             andThen(function() {
               assert.equal(currentPath(), 'poll.participation');
@@ -368,7 +368,7 @@ test('create a poll for answering a question', function(assert) {
                   );
 
                   pageCreateSettings
-                    .next();
+                    .save();
 
                   andThen(function() {
                     assert.equal(currentPath(), 'poll.participation');
@@ -462,7 +462,7 @@ test('create a poll with times and description', function(assert) {
               assert.equal(currentPath(), 'create.settings');
 
               pageCreateSettings
-                .next();
+                .save();
 
               andThen(function() {
                 assert.equal(currentPath(), 'poll.participation');
@@ -553,7 +553,7 @@ test('create a poll with only one day and multiple times', function(assert) {
               assert.equal(currentPath(), 'create.settings');
 
               pageCreateSettings
-                .next();
+                .save();
 
               andThen(function() {
                 assert.equal(currentPath(), 'poll.participation');
@@ -633,7 +633,7 @@ test('create a poll with only one day (without time)', function(assert) {
             assert.equal(currentPath(), 'create.settings');
 
             pageCreateSettings
-              .next();
+              .save();
 
             andThen(function() {
               assert.equal(currentPath(), 'poll.participation');
@@ -714,7 +714,7 @@ test('create a poll with only one day (with time)', function(assert) {
             assert.equal(currentPath(), 'create.settings');
 
             pageCreateSettings
-              .next();
+              .save();
 
             andThen(function() {
               assert.equal(currentPath(), 'poll.participation');
@@ -792,7 +792,7 @@ test('create a poll for answering a question with only one option', function(ass
             assert.equal(currentPath(), 'create.settings');
 
             pageCreateSettings
-              .next();
+              .save();
 
             andThen(function() {
               assert.equal(currentPath(), 'poll.participation');
@@ -891,7 +891,7 @@ test('create a poll and using back button (find a date)', function(assert) {
                 assert.equal(currentPath(), 'create.settings');
 
                 pageCreateSettings
-                  .next();
+                  .save();
                 andThen(function() {
                   assert.equal(currentPath(), 'poll.participation');
                   assert.ok(

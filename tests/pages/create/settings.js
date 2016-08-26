@@ -14,5 +14,6 @@ const {
 export default PageObject.create(assign({}, defaultsForCreate, {
   availableAnswers: fillable('.answer-type select'),
   availableAnswersHasFocus: hasFocus('.answer-type select'),
+  save: defaultsForCreate.next,
   visit: visitable('/create/settings')
 }));
