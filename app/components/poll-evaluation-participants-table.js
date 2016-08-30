@@ -16,6 +16,7 @@ export default Ember.Component.extend({
        * used browser
        */
       Ember.$('.user-selections-table').floatThead({
+        position: 'absolute',
         top: this.getScrollbarHeight
       });
 
