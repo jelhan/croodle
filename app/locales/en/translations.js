@@ -47,7 +47,7 @@ export default {
   'index.title': 'Croodle simplifies date and decision-making ...<br/>... and protects your data',
   'index.features.title': 'Functions',
   'index.features.list.overview': '<strong>Find a date</strong> or <strong> make a survey</strong> with as many people as you want.',
-  'index.features.list.privacy': 'Your datat stays pricate. Already in your browaser, it will be r <strong>encrypted</strong>. Only the people receiving the link for the poll know what your poll is about.',
+  'index.features.list.privacy': 'Your data stays private. Already in your browser, it will be <strong>encrypted</strong>. Only the people receiving the link for the poll know what your poll is about.',
   'index.features.list.options': 'You can determine as many <strong>answer options</strong> as you want. You can choose your favourite date in the <strong>calendarr</strong> or create <strong>any question</strong>.',
   'index.features.list.answers': 'You can use <strong>predefined answer options</strong> , for example <i>yes</i>, <i>no</i>, <i>maybe</i> or allow <strong>self-created answers</strong>.',
   'index.features.list.evaluation': 'You keep an overview by an automatic actualized  <strong>review of preferred answers</strong>.',
