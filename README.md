@@ -9,14 +9,14 @@ Croodle is a web application to schedule a date or to do a poll on a general top
 
 This is an alpha version. Changes could brake backward compatibility. Also it is not well tested and some features are missing. It is not ment for productive use yet.
 
-Croodle is inspired by [ZeroBin](https://github.com/sebsauvage/ZeroBin) and of course by Doodle.
+Croodle is inspired by [ZeroBin](https://github.com/sebsauvage/ZeroBin) (now called [PrivateBin](https://github.com/PrivateBin/PrivateBin)) and of course by Doodle.
 
 ## Security notice
 
 As any other web application based end-to-end encryption Croodle could be attacked by an injection of malicious code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser or the encryption key used and send it to a server under his controll.
 
 Therefore you have to
-* use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection.
+* use an encrypted connection to the server hosting Croodle. In most use cases this will be an HTTPS connection. We strongly recomend people hosting Croodle to force an encrypted connection and test their configuration with [SSLLabs](https://www.ssllabs.com/ssltest/).
 * trust the server.
 
 You could check for an attack like this by analysing the source code retrieved from server and/or using developer tools of your browser and check what data is send over the network or stored in cookies, localStorage or similar browser techniques.
