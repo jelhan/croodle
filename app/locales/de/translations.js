@@ -5,7 +5,7 @@ export default {
   'answerTypes.yes.label': 'Ja',
   'answerTypes.no.label': 'Nein',
   'answerTypes.maybe.label': 'Vielleicht',
-  'answerTypes.freeText.label': 'Freitext erlauben',
+  'answerTypes.freeText.label': 'Freitext',
   'answerTypes.yesNo.label': 'Ja, Nein',
   'answerTypes.yesNoMaybe.label': 'Ja, Nein, Vielleicht',
   'create.index.input.pollType.label': 'Was ist der Zweck deiner Umfrage?',

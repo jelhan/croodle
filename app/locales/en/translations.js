@@ -5,7 +5,7 @@ export default {
   'answerTypes.yes.label': 'Yes',
   'answerTypes.no.label': 'No',
   'answerTypes.maybe.label': 'Maybe',
-  'answerTypes.freeText.label': 'Allows free text',
+  'answerTypes.freeText.label': 'Free text',
   'answerTypes.yesNo.label': 'Yes, No',
   'answerTypes.yesNoMaybe.label': 'Yes, No, Maybe',
   'create.index.input.pollType.label': 'What is the puprose of your poll?',
