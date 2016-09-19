@@ -43,7 +43,11 @@ module.exports = function() {
     production: 'bower_components/floatThead/dist/jquery.floatThead.min.js'
   });
 
-  app.import('bower_components/sjcl/sjcl.js');
+  app.import('bower_components/sjcl/sjcl.js', {
+    using: [
+      { transformation: 'amd', as: 'sjcl' }
+    ]
+  });
 
   app.import('bower_components/jstimezonedetect/jstz.js');
 

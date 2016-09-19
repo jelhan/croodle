@@ -1,5 +1,5 @@
 import Ember from 'ember';
-/* global sjcl */
+import sjcl from 'sjcl';
 
 export default function(attr, key) {
   const defaultAttr = {
