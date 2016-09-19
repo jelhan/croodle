@@ -6,6 +6,7 @@ module.exports = function(environment) {
     modulePrefix: 'croodle',
     environment: environment,
     locationType: 'hash',
+    rootURL: '/',
 
     APP: {
       // Here you can pass flags/options to your application instance
@@ -44,7 +45,6 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
     ENV.locationType = 'hash';
 
     // keep test console output quieter
