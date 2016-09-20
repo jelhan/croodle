@@ -5,7 +5,7 @@ export default {
   'answerTypes.yes.label': 'Si',
   'answerTypes.no.label': 'No',
   'answerTypes.maybe.label': 'Quizás',
-  'answerTypes.freeText.label': 'Free text',
+  'answerTypes.freeText.label': 'Texto libre',
   'answerTypes.yesNo.label': 'Si, No',
   'answerTypes.yesNoMaybe.label': 'Si, No, Quizás',
   'create.index.input.pollType.label': '¿Que tipo de encuesta quieres hacer?',
