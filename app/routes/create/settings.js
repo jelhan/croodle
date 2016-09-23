@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   actions: {
-    back() {
+    previousPage() {
       let model = this.modelFor(this.routeName);
       let isFindADate = model.get('isFindADate');
       if (isFindADate) {

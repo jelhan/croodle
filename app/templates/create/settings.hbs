@@ -54,21 +54,9 @@
       showValidationOn='change'
       value=forceAnswer
     }}
-    <div class="row">
-      <div class="col-xs-6 col-md-4 text-right">
-        {{bs-button
-          action='back'
-          defaultText=(t 'action.back')
-          classNames='back'
-        }}
-      </div>
-      <div class="col-xs-6 col-md-8">
-        {{bs-button
-          defaultText=(t 'action.save')
-          type="primary"
-          buttonType="submit"
-        }}
-      </div>
-    </div>
+    {{form-navigation-buttons
+      nextButtonText=(t 'action.save')
+      prevAction='previousPage'
+    }}
   {{/bs-form}}
 </div>

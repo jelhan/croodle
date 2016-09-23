@@ -21,7 +21,7 @@ export const defaultsForApplication = {
  * shared features between all create/* page objects
  */
 export const defaultsForCreate = assign({}, defaultsForApplication, {
-  back: clickable('button.back'),
+  back: clickable('button.prev'),
   next: clickable('button[type="submit"]'),
   statusBar: collection({
     active: text('.form-steps button.btn-primary'),

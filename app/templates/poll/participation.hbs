@@ -48,13 +48,9 @@
       {{/each}}
     </div>
 
-    {{#bs-form-element}}
-      {{bs-button
-        defaultText=(t 'action.save')
-        type="primary"
-        buttonType="submit"
-      }}
-    {{/bs-form-element}}
+    {{form-navigation-buttons
+      renderPrevButton=false
+    }}
   {{/bs-form}}
 </div>
 

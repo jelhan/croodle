@@ -20,21 +20,8 @@
       placeholder=(t 'create.meta.input.description.placeholder')
       property="description"
     }}
-    <div class="row">
-      <div class="col-xs-6 col-md-4 text-right">
-        {{bs-button
-          action='back'
-          classNames='back'
-          defaultText=(t 'action.back')
-        }}
-      </div>
-      <div class="col-xs-6 col-md-8">
-        {{bs-button
-          defaultText=(t 'action.next')
-          type="primary"
-          buttonType="submit"
-        }}
-      </div>
-    </div>
+    {{form-navigation-buttons
+      prevAction='previousPage'
+    }}
   {{/bs-form}}
 </div>

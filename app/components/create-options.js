@@ -24,8 +24,8 @@ let Validations = buildValidations({
 
 export default Component.extend(Validations, {
   actions: {
-    back() {
-      this.sendAction('back');
+    previousPage() {
+      this.sendAction('previousPage');
     },
     submit() {
       if (this.get('validations.isValid')) {

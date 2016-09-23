@@ -95,9 +95,7 @@ export default Component.extend(modelValidations, {
         }
       });
     },
-    back() {
-      this.sendAction('back');
-    },
+
     /*
      * removes target option if it's not the only date for this day
      * otherwise it deletes time for this date
@@ -113,6 +111,11 @@ export default Component.extend(modelValidations, {
         target.set('time', null);
       }
     },
+
+    previousPage() {
+      this.sendAction('previousPage');
+    },
+
     submit() {
       if (this.get('validations.isValid')) {
         this.sendAction('nextPage');
