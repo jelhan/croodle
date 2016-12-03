@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { getOwner } = Ember;
+const { getOwner, isEmpty, isPresent } = Ember;
 
 export default {
   name: 'i18n',
@@ -21,11 +21,23 @@ function getLocale(availableLocales) {
   let locale;
 
   methods.any((method) => {
-    let l = method();
-    if (l && availableLocales.indexOf(l) !== -1) {
-      locale = l;
-      return true;
+    let preferredLocales = method();
+    let match;
+
+    if (isEmpty(preferredLocales)) {
+      return false;
     }
+
+    match = preferredLocales.find((preferredLocale) => {
+      return availableLocales.indexOf(preferredLocale) !== -1;
+    });
+
+    if (isEmpty(match)) {
+      return false;
+    }
+
+    locale = match;
+    return true;
   });
 
   if (locale) {
@@ -36,18 +48,58 @@ function getLocale(availableLocales) {
 }
 
 function getLocaleByBrowser() {
-  return (window.navigator.userLanguage || window.navigator.language).split('-')[0];
+  let languages;
+  let { navigator } = window;
+  let primaryLanguage;
+
+  if (isPresent(navigator.languages)) {
+    // prefer experimental NavigatorLanguage.languages property if available
+    // returns an array of language codes ordered by preference
+    languages = navigator.languages;
+  } else if (isPresent(navigator.language)) {
+    // navigator.language should be available in most browsers
+    // but only returns most prefered language
+    languages = [navigator.language];
+  } else if (isPresent(navigator.browserLanguage)) {
+    // work-a-round for Internet Explorer
+    // navigator.browserLanguage returns current operating system language
+    languages = [navigator.browserLanguage];
+  } else {
+    return;
+  }
+
+  if (languages.length === 1) {
+    // add primary language if the only available one is a combined language code
+    primaryLanguage = languages[0].split('-')[0];
+    if (primaryLanguage !== languages[0]) {
+      languages.push(primaryLanguage);
+    }
+  }
+
+  // normalize all language codes to lower case
+  languages = languages.map((language) => {
+    return language.toLowerCase();
+  });
+
+  return languages;
 }
 
 function getSavedLocale() {
   let { localStorage } = window;
+  let locale;
 
   // test browser support
   if (!localStorage) {
     return;
   }
 
-  return localStorage.getItem('locale');
+  locale = localStorage.getItem('locale');
+
+  if (isEmpty(locale)) {
+    return;
+  }
+
+  return [locale];
 }
 
 function saveLocale(locale) {
