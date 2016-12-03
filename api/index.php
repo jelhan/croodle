@@ -25,7 +25,7 @@ function pollIdIsValid($pollId) {
 }
 
 $app = new \Slim\App(array(
-  'debug' => true
+  'debug' => $config['debug']
 ));
 
 // add expires header to all responses to
