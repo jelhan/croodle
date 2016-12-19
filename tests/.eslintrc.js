@@ -15,6 +15,7 @@ module.exports = {
     pollHasUser: false,
     pollHasUsersCount: false,
     pollParticipate: false,
+    server: false,
     switchTab: false
   }
 };

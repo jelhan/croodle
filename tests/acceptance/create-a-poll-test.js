@@ -1,8 +1,5 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from '../helpers/start-app';
-import Pretender from 'pretender';
-import serverPostPolls from '../helpers/server-post-polls';
+import { test } from 'qunit';
+import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
 import moment from 'moment';
 import pageCreateIndex from 'croodle/tests/pages/create/index';
 import pageCreateMeta from 'croodle/tests/pages/create/meta';
@@ -12,61 +9,10 @@ import pageCreateSettings from 'croodle/tests/pages/create/settings';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 
-const { run } = Ember;
-
-let application, server;
-let serverAvailable = true;
-
-const randomString = function(length) {
-  return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
-};
-
-module('Acceptance | create a poll', {
-  beforeEach(assert) {
+moduleForAcceptance('Acceptance | create a poll', {
+  beforeEach() {
     window.localStorage.setItem('locale', 'en');
-
-    let lastCreatedPoll = {};
-    const pollId = randomString(10);
-
-    application = startApp({ assert });
-    application.__container__.lookup('adapter:application').__proto__.namespace = '';
-
-    server = new Pretender();
-
-    server.post('/polls',
-      function(request) {
-        if (!serverAvailable) {
-          return [503];
-        }
-
-        let ret = serverPostPolls(request.requestBody, pollId);
-        lastCreatedPoll = ret[2];
-        return ret;
-      }
-    );
-
-    server.get(`/polls/${pollId}`,
-      function() {
-        if (!serverAvailable) {
-          return [503];
-        }
-
-        return [
-          200,
-          { 'Content-Type': 'application/json' },
-          lastCreatedPoll
-        ];
-      }
-    );
-
-    moment.locale(
-      application.__container__.lookup('service:i18n').get('locale')
-    );
-  },
-  afterEach() {
-    server.shutdown();
-
-    run(application, 'destroy');
+    moment.locale('en');
   }
 });
 
@@ -187,14 +133,16 @@ test('create a default poll', function(assert) {
             );
 
             // simulate temporate server error
-            serverAvailable = false;
+            server.post('/polls', undefined, 503);
+
             pageCreateSettings
               .save();
 
             andThen(() => {
               assert.equal(currentPath(), 'create.settings');
 
-              serverAvailable = true;
+              // simulate server is available again
+              server.post('/polls');
 
               pageCreateSettings
                 .save();

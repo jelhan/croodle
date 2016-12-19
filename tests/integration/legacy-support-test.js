@@ -1,50 +1,49 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from 'croodle/tests/helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
+import moment from 'moment';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
-/* global moment */
 /* jshint proto: true */
 
-let application;
-
-module('Integration | legacy support', {
-  beforeEach(assert) {
+moduleForAcceptance('Integration | legacy support', {
+  beforeEach() {
     window.localStorage.setItem('locale', 'en');
-
-    application = startApp({ assert });
-    moment.locale(
-      application.__container__.lookup('service:i18n').get('locale')
-    );
-  },
-
-  afterEach() {
-    Ember.run(application, 'destroy');
+    moment.locale('en');
   }
 });
 
 test('show a default poll created with v0.3.0', function(assert) {
-  const id = 'JlHpRs0Pzi';
   const encryptionKey = '5MKFuNTKILUXw6RuqkAw6ooZw4k3mWWx98ZQw8vH';
-  const timezone = 'Europe/Berlin';
 
-  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
+  let poll = server.create('poll', {
+    encryptionKey,
+    // property 'id' of answers has been renamed to 'type' in v0.4.0
+    answers: [{ 'id': 'yes','labelTranslation': 'answerTypes.yes.label','icon': 'glyphicon glyphicon-thumbs-up','label': 'Ja' },{ 'id': 'maybe','labelTranslation': 'answerTypes.maybe.label','icon': 'glyphicon glyphicon-hand-right','label': 'Vielleicht' },{ 'id': 'no','labelTranslation': 'answerTypes.no.label','icon': 'glyphicon glyphicon-thumbs-down','label': 'Nein' }],
+    options: [{ 'title': '2015-12-24T17:00:00.000Z' },{ 'title': '2015-12-24T19:00:00.000Z' },{ 'title': '2015-12-31T22:59:00.000Z' }],
+    users: [
+      server.create('user', {
+        encryptionKey,
+        name: 'Fritz Bauer',
+        // selections.value was renamed to selections.label
+        // selections.id was renamed to selections.type
+        selections: [{ 'value': { 'id': 'yes','labelTranslation': 'answerTypes.yes.label','icon': 'glyphicon glyphicon-thumbs-up','label': 'Ja' } },{ 'value': { 'id': 'no','labelTranslation': 'answerTypes.no.label','icon': 'glyphicon glyphicon-thumbs-down','label': 'Nein' } },{ 'value': { 'id': 'no','labelTranslation': 'answerTypes.no.label','icon': 'glyphicon glyphicon-thumbs-down','label': 'Nein' } }],
+        // version tag had have wrong format
+        version: 'v0.3-0'
+      })
+    ],
+    // version tag had have wrong format
+    version: 'v0.3-0'
+  });
+
+  visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
     assert.equal(currentPath(), 'poll.participation');
-    assert.equal(
-      pagePollParticipation.title,
-      'default poll created with v0.3.0'
-    );
-    assert.equal(
-      pagePollParticipation.description,
-      'used for integration tests'
-    );
     assert.deepEqual(
       pagePollParticipation.options().labels,
       [
-        moment.tz('2015-12-24T17:00:00.000Z', timezone).format('LLLL'),
-        moment.tz('2015-12-24T19:00:00.000Z', timezone).format('LT'),
-        moment.tz('2015-12-31T22:59:00.000Z', timezone).format('LLLL')
+        moment('2015-12-24T17:00:00.000Z').format('LLLL'),
+        moment('2015-12-24T19:00:00.000Z').format('LT'),
+        moment('2015-12-31T22:59:00.000Z').format('LLLL')
       ]
     );
     assert.deepEqual(
@@ -66,14 +65,6 @@ test('show a default poll created with v0.3.0', function(assert) {
         [
           t('answerTypes.yes.label'),
           t('answerTypes.no.label'),
-          t('answerTypes.no.label')
-        ]
-      );
-      pollHasUser(assert,
-        'Lothar Hermann',
-        [
-          t('answerTypes.maybe.label'),
-          t('answerTypes.yes.label'),
           t('answerTypes.no.label')
         ]
       );
@@ -101,21 +92,32 @@ test('show a default poll created with v0.3.0', function(assert) {
   });
 });
 
-test('find a poll using free text created with v0.3.0', function(assert) {
-  const id = 'PjW3XwbuRc';
-  const encryptionKey = 'Rre6dAGOYLW9gYKOP4LhX7Qwfhe5Th3je0uKDtyy';
+test('show a poll using free text created with v0.3.0', function(assert) {
+  let encryptionKey = 'Rre6dAGOYLW9gYKOP4LhX7Qwfhe5Th3je0uKDtyy';
+  let poll = server.create('poll', {
+    encryptionKey,
+    answerType: 'FreeText',
+    answers: [],
+    options: [{ 'title': 'apple pie' }, { 'title': 'pecan pie' }, { 'title': 'plum pie' }],
+    pollType: 'MakeAPoll',
+    users: [
+      server.create('user', {
+        encryptionKey,
+        name: 'Paul Levi',
+        // selections.value was renamed to selections.label
+        // selections.id was renamed to selections.type
+        selections: [{ 'value': 'would be great!' }, { 'value': 'no way' }, { 'value': 'if I had to' }],
+        // version tag had have wrong format
+        version: 'v0.3-0'
+      })
+    ],
+    // version tag had have wrong format
+    version: 'v0.3-0'
+  });
 
-  visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
+  visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
-    assert.equal(
-      pagePollParticipation.title,
-      'Which cake for birthday?'
-    );
-    assert.equal(
-      pagePollParticipation.description,
-      ''
-    );
     assert.deepEqual(
       pagePollParticipation.options().labels,
       [

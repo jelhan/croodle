@@ -1,54 +1,23 @@
-import Ember from 'ember';
+import { test } from 'qunit';
 import jQuery from 'jquery';
-import { module, test } from 'qunit';
-import startApp from '../helpers/start-app';
-import Pretender from 'pretender';
-import serverGetPolls from '../helpers/server-get-polls';
-import serverPostUsers from '../helpers/server-post-users';
+import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
 /* jshint proto: true */
 
-const { run } = Ember;
-
-let application, server;
-
-module('Acceptance | participate in a poll', {
-  beforeEach(assert) {
+moduleForAcceptance('Acceptance | participate in a poll', {
+  beforeEach() {
     window.localStorage.setItem('locale', 'en');
-
-    application = startApp({ assert });
-    application.__container__.lookup('adapter:application').__proto__.namespace = '';
-
-    server = new Pretender();
-  },
-
-  afterEach() {
-    server.shutdown();
-
-    run(application, 'destroy');
   }
 });
 
 test('participate in a default poll', function(assert) {
-  let id = 'test';
+  server.logging = true;
+
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  let nextUserId = 1;
-
-  server.get(`/polls/${id}`, function() {
-    return serverGetPolls(
-      {
-        id
-      }, encryptionKey
-    );
+  let poll = server.create('poll', {
+    encryptionKey
   });
-  server.post('/users',
-    function(request) {
-      let userId = nextUserId;
-      nextUserId++;
-      return serverPostUsers(request.requestBody, userId);
-    }
-  );
 
-  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
+  visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation', 'poll is redirected to poll.participation');
     pollParticipate('Max Meiner', ['yes', 'no']);
 
@@ -84,27 +53,14 @@ test('participate in a default poll', function(assert) {
 });
 
 test('participate in a poll using freetext', function(assert) {
-  let id = 'test2';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let poll = server.create('poll', {
+    answerType: 'FreeText',
+    answers: [],
+    encryptionKey
+  });
 
-  server.get(`/polls/${id}`,
-    function() {
-      return serverGetPolls(
-        {
-          id,
-          answerType: 'FreeText',
-          answers: []
-        }, encryptionKey
-      );
-    }
-  );
-  server.post('/users',
-    function(request) {
-      return serverPostUsers(request.requestBody, 1);
-    }
-  );
-
-  visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
+  visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Max Manus', ['answer 1', 'answer 2']);
 
@@ -117,26 +73,13 @@ test('participate in a poll using freetext', function(assert) {
 });
 
 test('participate in a poll which does not force an answer to all options', function(assert) {
-  let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let poll = server.create('poll', {
+    encryptionKey,
+    forceAnswer: false
+  });
 
-  server.get(`/polls/${id}`,
-    function() {
-      return serverGetPolls(
-        {
-          id,
-          forceAnswer: false
-        }, encryptionKey
-      );
-    }
-  );
-  server.post('/users',
-    function(request) {
-      return serverPostUsers(request.requestBody, 1);
-    }
-  );
-
-  visit(`/poll/${id}/participation?encryptionKey=${encryptionKey}`).then(function() {
+  visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('Karl Käfer', ['yes', null]);
 
@@ -149,26 +92,13 @@ test('participate in a poll which does not force an answer to all options', func
 });
 
 test('participate in a poll which allows anonymous participation', function(assert) {
-  let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let poll = server.create('poll', {
+    anonymousUser: true,
+    encryptionKey
+  });
 
-  server.get(`/polls/${id}`,
-    function() {
-      return serverGetPolls(
-        {
-          id,
-          anonymousUser: true
-        }, encryptionKey
-      );
-    }
-  );
-  server.post('/users',
-    function(request) {
-      return serverPostUsers(request.requestBody, 1);
-    }
-  );
-
-  visit(`/poll/${id}/participation?encryptionKey=${encryptionKey}`).then(function() {
+  visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate(null, ['yes', 'no']);
 
@@ -181,26 +111,14 @@ test('participate in a poll which allows anonymous participation', function(asse
 });
 
 test('network connectivity errors', function(assert) {
-  let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let poll = server.create('poll', {
+    encryptionKey
+  });
 
-  server.get(`/polls/${id}`,
-    function() {
-      return serverGetPolls(
-        {
-          id,
-          anonymousUser: true
-        }, encryptionKey
-      );
-    }
-  );
-  server.post('/users',
-    function() {
-      return [503]; // server temporary not available
-    }
-  );
+  server.post('/users', undefined, 503);
 
-  visit(`/poll/${id}/participation?encryptionKey=${encryptionKey}`).then(function() {
+  visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`).then(function() {
     assert.equal(currentPath(), 'poll.participation');
     pollParticipate('foo bar', ['yes', 'no']);
 
@@ -210,11 +128,7 @@ test('network connectivity errors', function(assert) {
         'user gets notified that saving failed'
       );
 
-      server.post('/users',
-        function(request) {
-          return serverPostUsers(request.requestBody, 1);
-        }
-      );
+      server.post('/users');
       click('#modal-saving-failed-modal button');
 
       andThen(() => {

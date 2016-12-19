@@ -1,6 +1,5 @@
-import Ember from 'ember';
-import { module, test } from 'qunit';
-import startApp from '../helpers/start-app';
+import { test } from 'qunit';
+import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
 import moment from 'moment';
 import pageCreateIndex from 'croodle/tests/pages/create/index';
 import pageCreateMeta from 'croodle/tests/pages/create/meta';
@@ -10,19 +9,10 @@ import pageCreateSettings from 'croodle/tests/pages/create/settings';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 
-let application;
-
-module('Integration', {
-  beforeEach(assert) {
+moduleForAcceptance('Integration', {
+  beforeEach() {
     window.localStorage.setItem('locale', 'en');
-
-    application = startApp({ assert });
-    moment.locale(
-      application.__container__.lookup('service:i18n').get('locale')
-    );
-  },
-  afterEach() {
-    Ember.run(application, 'destroy');
+    moment.locale('en');
   }
 });
 

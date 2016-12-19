@@ -30,7 +30,7 @@ Due to security reasons you should have SSL encryption enabled and provide a val
 
 ## Build process and installation
 
-Production builds are provided [here](https://github.com/jelhan/croodle/releases).
+Production builds are provided as github [release assets](https://github.com/jelhan/croodle/releases).
 
 If you like to build yourself you have to install [yarn](https://yarnpkg.com/), [bower](http://bower.io/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before.
 
@@ -67,6 +67,8 @@ Files are watched for changes.
 
 If you only like to run tests ones against PhantomJS in command-line
 you could use `ember test`. This is also used in CI.
+
+Test are run against a mock-api provided by [ember-cli-mirage](http://www.ember-cli-mirage.com/).
 
 ### Api
 Api tests are provided by Codeception. To run them change current

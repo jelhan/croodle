@@ -6,7 +6,6 @@
     "bootstrap-datepicker": "~1.4.0",
     "floatThead": "^1.4.3",
     "jstimezonedetect": "~1.0.5",
-    "pretender": "^0.6.0",
     "ceibo": "1.1.0"
   }
 }
