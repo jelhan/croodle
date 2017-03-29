@@ -11,26 +11,31 @@ matrix:
   allow_failures:
     - env: TEST_EMBER=false TEST_SAUCE=true TEST_API=false
 
+dist: trusty
 sudo: false
 
 cache:
+  yarn: true
   directories:
-    - node_modules
     - travis_phantomjs
+
+addons:
+  apt:
+    sources:
+      - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
+        key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
+    packages:
+      - yarn
 
 before_install:
   # update node
-  - nvm install 4
+  - nvm install 6
   # update phantomjs
   - export PATH=$PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH; if [ $(phantomjs --version) != '2.1.1' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs && wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 && tar -xvf $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi
-  # ...
-  - if $TEST_EMBER || $TEST_SAUCE; then npm config set spin false; fi
-  - if $TEST_EMBER || $TEST_SAUCE; then npm install -g npm@^3; fi
 
 install:
-  - if $TEST_EMBER || $TEST_SAUCE; then npm install -g bower; fi
-  - if $TEST_EMBER || $TEST_SAUCE; then npm install; fi
-  - if $TEST_EMBER || $TEST_SAUCE; then npm prune; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then yarn global add bower; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then yarn install; fi
   - if $TEST_EMBER || $TEST_SAUCE; then bower install; fi
   # install non development composer requirements for api
   - if $TEST_EMBER || $TEST_SAUCE; then cd api/ && composer install --no-dev && cd ..; fi
@@ -42,14 +47,12 @@ before_script:
   - if $TEST_EMBER; then sleep 10; fi
   # http://php.net/manual/de/ini.core.php#ini.always-populate-raw-post-data
   - if $TEST_API; then echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
-  # list all installed npm packages
-  - if $TEST_EMBER || $TEST_SAUCE; then npm list; fi
   # create a sauce tunnel
   - if $TEST_SAUCE; then ember sauce:connect; fi
 
 script:
   # run frontend and integration tests
-  - if $TEST_EMBER; then npm test; fi
+  - if $TEST_EMBER; then yarn test; fi
   # test against different browsers using sauce lab
   # we can not run the integration tests against api cause api is not available to test instance running at sauce lab
   # therefore we only run acceptance tests by filter
