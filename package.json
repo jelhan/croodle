@@ -62,7 +62,7 @@
     "ember-data-model-fragments": "2.3.2",
     "ember-export-application-global": "^1.0.5",
     "ember-i18n": "^4.3.2",
-    "ember-i18n-cp-validations": "jasonmit/ember-i18n-cp-validations#34/head",
+    "ember-i18n-cp-validations": "^3.0.2",
     "ember-load-initializers": "^0.5.1",
     "ember-math-helpers": "^2.0.2",
     "ember-moment": "^6.1.0",
