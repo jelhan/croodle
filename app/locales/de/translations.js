@@ -53,7 +53,7 @@ export default {
   'index.features.list.evaluation': 'Du behälst den Überblick durch eine automatisch aktualisierte <strong>Übersicht der bevorzugten Antworten</strong>.',
   'index.link.have-a-try': 'probiere es jetzt aus',
   'index.hoster.title': 'Hoste dein eigenes Croodle:',
-  'index.hoster.text': 'Du musst diesem Croodle nicht vertrauen. Croodle ist freie Software und kannst sie auf deinem eigenen Server installieren. Hierzu werden lediglich einige Megabyte Speicherplatz, PHP und SSL-Verschlüsselung benötigt. Die Software und Tipps zur Installation findest du auf <a href=\'https://github.com/jelhan/croodle\'>GitHub</a>.',
+  'index.hoster.text': 'Du musst diesem Croodle nicht vertrauen. Croodle ist freie Software und du kannst sie auf deinem eigenen Server installieren. Hierzu werden lediglich einige Megabyte Speicherplatz, PHP und SSL-Verschlüsselung benötigt. Die Software und Tipps zur Installation findest du auf <a href=\'https://github.com/jelhan/croodle\'>GitHub</a>.',
   'modal.save-retry.title': 'Speichern fehlgeschlagen.',
   'modal.save-retry.text': '<p>Deine Teilnahme konnte nicht gespeichert werden. Bitte prüfe deine Internetverbindung und versuche es anschließend erneut.</p><p>Sollte dies nicht helfen, kann ein kurzfristiges Ausfall des Servers schuld sein. Warte bitte einige Minuten bevor du es erneut versuchst. Du kannst die Seite so lange geöffnet lassen.</p><p>Sollten die Probleme anhalten, wende dich bitte an die Administratoren der Seite.</p>',
   'modal.save-retry.button-retry': 'erneut versuchen',
@@ -88,7 +88,7 @@ export default {
   'poll.input.newUserName.label': 'Name',
   'poll.input.newUserName.placeholder': 'Dein Name',
   'poll.link.copied': 'Link in die Zwischenablage kopiert.',
-  'poll.link.selected': 'Link markiert. Drücke Steuerung + C zum kopieren.',
+  'poll.link.selected': 'Link markiert. Drücke Steuerung + C zum Kopieren.',
   'poll.modal.timezoneDiffers.title': 'In welcher Zeitzone sollen die Daten angezeigt werden?',
   'poll.modal.timezoneDiffers.body': 'Die Umfrage wurde für eine Zeitzone angelegt, die von deiner lokalen Zeit abweicht. In welcher Zeitzone sollen die Daten angezeigt werden?',
   'poll.modal.timezoneDiffers.button.useLocalTimezone': 'meine Zeitzone',
@@ -104,10 +104,10 @@ export default {
   errors: {
     description: 'Dieses Feld',
     inclusion: '{{description}} ist nicht Teil der Liste',
-    exclusion: '{{description}} is reserved',
+    exclusion: '{{description}} ist reserviert',
     invalid: '{{description}} hat keinen gültigen Wert',
     confirmation: '{{description}} doesn\'t match {{attribute}}',
-    accepted: '{{description}} must be accepted',
+    accepted: '{{description}} muss aktzeptiert werden',
     empty: '{{description}} darf nicht leer sein',
     blank: '{{description}} darf nicht leer sein',
     present: '{{description}} muss leer sein',
@@ -137,6 +137,6 @@ export default {
     url: '{{description}} muss eine gültige URL sein',
     time: '{{description}} muss eine gültige Zeit sein (z.B. 10:45)',
     unique: '{{description}} müssen eindeutig sein',
-    'unique.name': 'Dieser Namen wurde bereits genutzt'
+    'unique.name': 'Dieser Name wurde bereits genutzt'
   }
 };
