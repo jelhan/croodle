@@ -35,7 +35,7 @@ module.exports = function(environment) {
 
     moment: {
       includeLocales: ['de', 'es'],
-      includeTimezone: '2010-2020'
+      includeTimezone: 'subset'
     },
 
     i18n: {

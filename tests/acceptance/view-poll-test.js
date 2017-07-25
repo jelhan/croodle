@@ -72,15 +72,11 @@ test('view a poll with dates', function(assert) {
   });
 
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`).then(function() {
-    const dayFormat = moment.localeData().longDateFormat('LLLL')
-                        .replace(
-                          moment.localeData().longDateFormat('LT'), '')
-                        .trim();
     assert.deepEqual(
       pageParticipation.options().labels,
       [
-        moment('2015-12-12').format(dayFormat),
-        moment('2016-01-01').format(dayFormat)
+        'Saturday, December 12, 2015',
+        'Friday, January 1, 2016'
       ]
     );
   });
@@ -111,11 +107,11 @@ test('view a poll with dates and times', function(assert) {
       pageParticipation.options().labels,
       [
         // full date
-        moment.tz('2015-12-12T11:11:00.000Z', timezone).format('LLLL'),
+        moment.tz('2015-12-12T11:11:00.000Z', timezone).locale('en').format('LLLL'),
         // only time cause day is repeated
-        moment.tz('2015-12-12T13:13:00.000Z', timezone).format('LT'),
+        moment.tz('2015-12-12T13:13:00.000Z', timezone).locale('en').format('LT'),
         // full date cause day changed
-        moment.tz('2016-01-01T11:11:00.000Z', timezone).format('LLLL')
+        moment.tz('2016-01-01T11:11:00.000Z', timezone).locale('en').format('LLLL')
       ]
     );
   });
@@ -160,8 +156,8 @@ test('view a poll while timezone differs from the one poll got created in and ch
         assert.deepEqual(
           pageParticipation.options().labels,
           [
-            moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).format('LLLL'),
-            moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).format('LLLL')
+            moment.tz('2015-12-12T11:11:00.000Z', timezoneLocal).locale('en').format('LLLL'),
+            moment.tz('2016-01-01T11:11:00.000Z', timezoneLocal).locale('en').format('LLLL')
           ]
         );
 
@@ -216,8 +212,8 @@ test('view a poll while timezone differs from the one poll got created in and ch
         assert.deepEqual(
           pageParticipation.options().labels,
           [
-            moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).format('LLLL'),
-            moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).format('LLLL')
+            moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL'),
+            moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')
           ]
         );
 
