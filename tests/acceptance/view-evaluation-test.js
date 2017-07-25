@@ -9,7 +9,6 @@ import moment from 'moment';
 const { run } = Ember;
 
 let application, server;
-let dateString;
 
 module('Acceptance | view evaluation', {
   beforeEach() {
@@ -19,11 +18,6 @@ module('Acceptance | view evaluation', {
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
-    dateString = moment.localeData()
-      .longDateFormat('LLLL')
-      .replace(
-        moment.localeData().longDateFormat('LT'), '')
-      .trim();
   },
   afterEach() {
     server.shutdown();
@@ -139,7 +133,7 @@ test('evaluation is correct for FindADate', function(assert) {
     );
     assert.equal(
       find('.best-options strong').text().trim(),
-      moment('2016-01-01').format(dateString),
+      'Friday, January 1, 2016',
       'options are evaluated correctly'
     );
     assert.equal(

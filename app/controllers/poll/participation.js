@@ -182,12 +182,6 @@ export default Controller.extend(Validations, {
     let options;
     const isFindADate = this.get('isFindADate');
     let lastDate;
-    const dateFormat = moment.localeData()
-      .longDateFormat('LLLL')
-      .replace(
-        moment.localeData().longDateFormat('LT'), '')
-      .trim();
-    const dateTimeFormat = 'LLLL';
 
     if (this.get('isFindADate')) {
       options = this.get('pollController.dates');
@@ -204,15 +198,15 @@ export default Controller.extend(Validations, {
         if (option.hasTime && lastDate && option.title.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
           // do not repeat dates for different times
           labelValue = option.title;
-          labelFormat = 'LT';
+          labelFormat = 'time';
         } else {
           labelValue = option.title;
-          labelFormat = option.hasTime ? dateTimeFormat : dateFormat;
+          labelFormat = option.hasTime ? 'day-with-time' : 'day';
           lastDate = option.title;
         }
       } else {
         labelValue = option.get('title');
-        labelFormat = false;
+        labelFormat = 'plain';
       }
 
       // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
@@ -234,11 +228,35 @@ export default Controller.extend(Validations, {
         // changes https://github.com/stefanpenner/ember-moment/issues/108
         // but that should be the way to go
         label: computed('i18n.locale', function() {
-          if (this.get('labelFormat') === false) {
+          let labelFormat = this.get('labelFormat');
+
+          if (labelFormat === 'plain') {
             return this.get('labelValue');
-          } else {
-            return this.get('labelValue').locale(this.get('i18n.locale')).format(this.get('labelFormat'));
           }
+
+          let currentLocale = this.get('i18n.locale');
+          let momentFormat;
+
+          switch (labelFormat) {
+            case 'time':
+              momentFormat = 'LT';
+              break;
+
+            case 'day-with-time':
+              momentFormat = 'LLLL';
+              break;
+
+            case 'day':
+              momentFormat = moment.localeData(currentLocale)
+                .longDateFormat('LLLL')
+                .replace(moment.localeData(currentLocale).longDateFormat('LT'), '')
+                .trim();
+              break;
+          }
+
+          return this.get('labelValue')
+                   .locale(currentLocale)
+                   .format(momentFormat);
         }),
         labelFormat,
         labelValue,
