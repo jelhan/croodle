@@ -1,8 +1,8 @@
 export default {
-  'ca': 'catalan'
+  'ca': 'catalan',
   'de': 'deutsch',
   'en': 'english',
   'en-GB': 'english (GB)',
-  'es': 'español'
+  'es': 'español',
   'it': 'italiano'
 };
