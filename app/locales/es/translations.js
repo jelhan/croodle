@@ -44,7 +44,7 @@ export default {
   'create.settings.forceAnswer.label': '¿Obligar a responder todas las preguntas/opciones?',
   'create.title': 'Create a poll',
   'error': 'Error',
-  'index.title': 'Croodle simplifica las citas y la toma de decisiones ...<br/>... y al mismo tiempo protege tus datos',
+  'index.title': 'Croodle simplifica las citas y la toma de decisiones... <br/> ... y al mismo tiempo protege tus datos',
   'index.features.title': 'Funciones',
   'index.features.list.overview': '<strong>Encontrar una fecha</strong> o <strong>hacer una encuesta</strong> con la cantidad de personas que quieras.',
   'index.features.list.privacy': 'Tus datos son privados: Ya desde tu navegador los datos son <strong>encriptados</strong>. ünicamente las personas a las que mandes el enlace directamente sabrán que tu encuesta existe y de que se trata.',
