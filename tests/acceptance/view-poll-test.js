@@ -12,10 +12,10 @@ const { run } = Ember;
 let application, server;
 
 module('Acceptance | view poll', {
-  beforeEach() {
+  beforeEach(assert) {
     window.localStorage.setItem('locale', 'en');
 
-    application = startApp();
+    application = startApp({ assert });
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();

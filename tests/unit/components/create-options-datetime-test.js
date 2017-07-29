@@ -5,7 +5,9 @@ import moment from 'moment';
 moduleForComponent('create-options-datetime', 'Unit | Component | create options datetime', {
   unit: true,
   needs: [
+    'config:environment',
     'model:option', 'model:poll', 'model:user',
+    'service:i18n',
     'validator:alias', 'validator:collection', 'validator:iso8601', 'validator:length', 'validator:presence', 'validator:time', 'validator:unique', 'validator:valid-collection'
   ],
   beforeEach() {

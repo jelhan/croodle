@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import jQuery from 'jquery';
 import { module, test } from 'qunit';
 import startApp from 'croodle/tests/helpers/start-app';
 import Pretender from 'pretender';
@@ -11,10 +12,10 @@ const { run } = Ember;
 let application, server;
 
 module('Acceptance | view evaluation', {
-  beforeEach() {
+  beforeEach(assert) {
     window.localStorage.setItem('locale', 'en');
 
-    application = startApp();
+    application = startApp({ assert });
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
@@ -237,17 +238,17 @@ test('evaluation is correct for MakeAPoll', function(assert) {
       'has a table showing user selections'
     );
     assert.deepEqual(
-      find('.user-selections-table thead th').map((i, el) => $(el).text().trim()).get(),
+      find('.user-selections-table thead th').map((i, el) => jQuery(el).text().trim()).get(),
       ['', 'first option', 'second option'],
       'dates are used as table headers'
     );
     assert.deepEqual(
-      find('.user-selections-table tbody tr:nth-child(1) td').map((i, el) => $(el).text().trim()).get(),
+      find('.user-selections-table tbody tr:nth-child(1) td').map((i, el) => jQuery(el).text().trim()).get(),
       ['Maximilian', 'Yes', 'Yes'],
       'answers shown in table are correct for first user'
     );
     assert.deepEqual(
-      find('.user-selections-table tbody tr:nth-child(2) td').map((i, el) => $(el).text().trim()).get(),
+      find('.user-selections-table tbody tr:nth-child(2) td').map((i, el) => jQuery(el).text().trim()).get(),
       ['Peter', 'No', 'Yes'],
       'answers shown in table are correct for second user'
     );

@@ -1,4 +1,5 @@
 import { findElement } from 'ember-cli-page-object';
+import jQuery from 'jquery';
 
 /*
  * In Webkit `.is(':focus')` is `false` if document hasn't focus
@@ -14,7 +15,7 @@ export function hasFocus(selector, options = {}) {
     get() {
       let [ el ] = findElement(this, selector, options);
       let document = el.ownerDocument;
-      return $(el).is(':focus') || el === document.activeElement;
+      return jQuery(el).is(':focus') || el === document.activeElement;
     }
   };
 }

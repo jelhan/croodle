@@ -2,7 +2,7 @@ import Ember from 'ember';
 import BsForm from 'ember-bootstrap/components/bs-form';
 import { anyBy } from 'ember-array-computed-macros';
 
-const { Component, computed, inject, observer, on } = Ember;
+const { Component, computed, inject, observer, on, run } = Ember;
 
 export default Component.extend({
   actions: {
@@ -49,21 +49,24 @@ export default Component.extend({
     this.set('form', this.nearestOfType(BsForm));
   }),
 
-  labelValidationClass: computed('anyElementHasFeedback', 'anyElementIsInvalid', 'everyElementIsValid', function() {
-    if (!this.get('anyElementHasFeedback')) {
-      return 'label-has-no-validation';
-    }
+  labelValidationClass: 'label-has-no-validation',
+  updateLabelValidationClass: observer('anyElementHasFeedback', 'anyElementIsInvalid', 'everyElementIsValid', function() {
+    run.scheduleOnce('sync', () => {
+      let validationClass;
 
-    if (this.get('anyElementIsInvalid')) {
-      return 'label-has-error';
-    }
+      if (!this.get('anyElementHasFeedback')) {
+        validationClass = 'label-has-no-validation';
+      } else if (this.get('anyElementIsInvalid')) {
+        validationClass = 'label-has-error';
+      } else if (this.get('everyElementIsValid')) {
+        validationClass = 'label-has-success';
+      } else {
+        validationClass = 'label-has-no-validation';
+      }
 
-    if (this.get('everyElementIsValid')) {
-      return 'label-has-success';
-    }
-
-    return 'label-has-no-validation';
-  }),
+      this.set('labelValidationClass', validationClass);
+    });
+  }).on('init'),
 
   classNameBindings: ['labelValidationClass'],
 

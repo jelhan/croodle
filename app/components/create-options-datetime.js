@@ -6,7 +6,7 @@ from 'ember-cp-validations';
 import { groupBy } from 'ember-array-computed-macros';
 import Form from 'ember-bootstrap/components/bs-form';
 
-const { computed, Component, inject, isEmpty, isPresent, observer } = Ember;
+const { computed, Component, inject, isArray, isEmpty, isPresent, observer } = Ember;
 const { filter, mapBy, readOnly } = computed;
 
 let modelValidations = buildValidations({
@@ -147,7 +147,10 @@ export default Component.extend(modelValidations, {
       return childView instanceof Form;
     });
   }),
-  formElements: readOnly('form.childFormElements'),
+  formElements: computed('form.childFormElements', function() {
+    let formElements = this.get('form.childFormElements');
+    return isArray(formElements) ? formElements : [];
+  }),
   daysValidationState: computed('formElements.@each.validation', function() {
     return this.get('formElements').reduce(function(daysValidationState, item) {
       const day = item.get('model.day');

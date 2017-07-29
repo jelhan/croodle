@@ -1,8 +1,12 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('controller:poll/participation', 'Unit | Controller | poll/participation', {
-  // Specify the other units that are required for this test.
-  // needs: ['controller:foo']
+  needs: [
+    'config:environment',
+    'controller:poll',
+    'service:encryption', 'service:i18n',
+    'validator:collection', 'validator:presence', 'validator:unique'
+  ]
 });
 
 // Replace this with your real tests.

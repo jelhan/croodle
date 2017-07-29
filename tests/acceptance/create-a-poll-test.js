@@ -22,13 +22,13 @@ const randomString = function(length) {
 };
 
 module('Acceptance | create a poll', {
-  beforeEach() {
+  beforeEach(assert) {
     window.localStorage.setItem('locale', 'en');
 
     let lastCreatedPoll = {};
     const pollId = randomString(10);
 
-    application = startApp();
+    application = startApp({ assert });
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
@@ -304,7 +304,7 @@ test('create a poll for answering a question', function(assert) {
           [false, false, false, true],
           'status bar has correct items disabled (options)'
         );
-        expectComponent('create-options-text');
+        assert.hasComponent('create-options-text');
         assert.ok(
           pageCreateOptions.firstTextOption.inputHasFocus,
           'first option input has autofocus'
@@ -785,7 +785,7 @@ test('create a poll for answering a question with only one option', function(ass
 
       andThen(function() {
         assert.equal(currentPath(), 'create.options');
-        expectComponent('create-options-text');
+        assert.hasComponent('create-options-text');
 
         assert.equal(
           pageCreateOptions.textOptions().count,

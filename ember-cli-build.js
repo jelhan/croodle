@@ -1,22 +1,22 @@
-/*jshint node:true*/
-/* global require, module */
+/* eslint-env node */
+'use strict';
+
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-module.exports = function() {
+module.exports = function(defaults) {
   const Funnel = require('broccoli-funnel');
   const unwatchedTree = require('broccoli-unwatched-tree');
   const trees = [];
 
-  const app = new EmberApp({
-    babel: {
-      optional: ['es6.spec.symbols'],
-      includePolyfill: true
-    },
+  let app = new EmberApp(defaults, {
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
     },
     'ember-bootstrap': {
       importBootstrapCSS: false
+    },
+    'ember-cli-babel': {
+      includePolyfill: true
     }
   });
 

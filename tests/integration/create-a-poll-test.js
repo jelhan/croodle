@@ -13,10 +13,10 @@ import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 let application;
 
 module('Integration', {
-  beforeEach() {
+  beforeEach(assert) {
     window.localStorage.setItem('locale', 'en');
 
-    application = startApp();
+    application = startApp({ assert });
     moment.locale(
       application.__container__.lookup('service:i18n').get('locale')
     );

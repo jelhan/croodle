@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import jQuery from 'jquery';
 import Ember from 'ember';
 
 moduleForComponent('create-options-text', 'Integration | Component | create options text', {
@@ -31,7 +32,7 @@ test('generates input fields according options', function(assert) {
   );
   assert.deepEqual(
     this.$('input').map(function() {
-      return $(this).val();
+      return jQuery(this).val();
     }).get(),
     ['foo', 'bar', 'baz'],
     'input fields have correct values and order'
@@ -120,7 +121,7 @@ test('allows to add another option', function(assert) {
   );
   assert.deepEqual(
     this.$('input').map(function() {
-      return $(this).val();
+      return jQuery(this).val();
     }).get(),
     ['foo', '', 'bar'],
     'it is added at correct position'
@@ -164,7 +165,7 @@ test('allows to delete an option', function(assert) {
     );
     assert.deepEqual(
       this.$('input').map(function() {
-        return $(this).val();
+        return jQuery(this).val();
       }).get(),
       ['foo', 'baz'],
       'correct input field is deleted'

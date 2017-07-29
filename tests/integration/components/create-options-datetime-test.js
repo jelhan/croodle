@@ -1,5 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import jQuery from 'jquery';
 import Ember from 'ember';
 import moment from 'moment';
 
@@ -260,7 +261,7 @@ test('adopt times of first day - more times on first day than on others', functi
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.deepEqual(
-    this.$('.days .form-group input').map((i, el) => $(el).val()).toArray(),
+    this.$('.days .form-group input').map((i, el) => jQuery(el).val()).toArray(),
     ['10:00', '22:00', '10:00', '22:00', '10:00', '22:00'],
     'times were adopted correctly'
   );
@@ -292,7 +293,7 @@ test('adopt times of first day - excess times on other days got deleted', functi
     'one excess time input got deleted'
   );
   assert.deepEqual(
-    this.$('.days .form-group input').map((i, el) => $(el).val()).toArray(),
+    this.$('.days .form-group input').map((i, el) => jQuery(el).val()).toArray(),
     ['10:00', '10:00'],
     'additional time on secondary day got deleted'
   );

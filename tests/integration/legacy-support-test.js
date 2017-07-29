@@ -8,10 +8,10 @@ import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 let application;
 
 module('Integration | legacy support', {
-  beforeEach() {
+  beforeEach(assert) {
     window.localStorage.setItem('locale', 'en');
 
-    application = startApp();
+    application = startApp({ assert });
     moment.locale(
       application.__container__.lookup('service:i18n').get('locale')
     );
@@ -30,6 +30,7 @@ test('show a default poll created with v0.3.0', function(assert) {
   visit(`/poll/${id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
+    assert.equal(currentPath(), 'poll.participation');
     assert.equal(
       pagePollParticipation.title,
       'default poll created with v0.3.0'

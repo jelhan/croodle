@@ -180,7 +180,7 @@ export default Controller.extend(Validations, {
 
   selections: computed('pollController.model.options', 'pollController.dates', function() {
     let options;
-    const isFindADate = this.get('isFindADate');
+    let isFindADate = this.get('isFindADate');
     let lastDate;
 
     if (this.get('isFindADate')) {
@@ -195,14 +195,14 @@ export default Controller.extend(Validations, {
 
       // format label
       if (isFindADate) {
-        if (option.hasTime && lastDate && option.title.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
+        if (option.get('hasTime') && lastDate && option.get('date').format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
           // do not repeat dates for different times
-          labelValue = option.title;
+          labelValue = option.get('date');
           labelFormat = 'time';
         } else {
-          labelValue = option.title;
-          labelFormat = option.hasTime ? 'day-with-time' : 'day';
-          lastDate = option.title;
+          labelValue = option.get('date');
+          labelFormat = option.get('hasTime') ? 'day-with-time' : 'day';
+          lastDate = option.get('date');
         }
       } else {
         labelValue = option.get('title');

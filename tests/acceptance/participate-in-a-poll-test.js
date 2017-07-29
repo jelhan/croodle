@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import jQuery from 'jquery';
 import { module, test } from 'qunit';
 import startApp from '../helpers/start-app';
 import Pretender from 'pretender';
@@ -11,10 +12,10 @@ const { run } = Ember;
 let application, server;
 
 module('Acceptance | participate in a poll', {
-  beforeEach() {
+  beforeEach(assert) {
     window.localStorage.setItem('locale', 'en');
 
-    application = startApp();
+    application = startApp({ assert });
     application.__container__.lookup('adapter:application').__proto__.namespace = '';
 
     server = new Pretender();
@@ -30,6 +31,7 @@ module('Acceptance | participate in a poll', {
 test('participate in a default poll', function(assert) {
   let id = 'test';
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let nextUserId = 1;
 
   server.get(`/polls/${id}`, function() {
     return serverGetPolls(
@@ -40,7 +42,9 @@ test('participate in a default poll', function(assert) {
   });
   server.post('/users',
     function(request) {
-      return serverPostUsers(request.requestBody, 1);
+      let userId = nextUserId;
+      nextUserId++;
+      return serverPostUsers(request.requestBody, userId);
     }
   );
 
@@ -64,12 +68,13 @@ test('participate in a default poll', function(assert) {
         assert.equal(currentPath(), 'poll.participation');
         assert.equal(find('.name input').val(), '', 'input for name is cleared');
         assert.ok(
-          !find('input[type="radio"]').toArray().some((el) => $(el).prop('checked')),
+          !find('input[type="radio"]').toArray().some((el) => jQuery(el).prop('checked')),
           'radios are cleared'
         );
         pollParticipate('Peter Müller', ['yes', 'yes']);
 
         andThen(() => {
+          assert.equal(currentPath(), 'poll.evaluation');
           pollHasUsersCount(assert, 2, 'user is added to user selections table');
           pollHasUser(assert, 'Peter Müller', [t('answerTypes.yes.label'), t('answerTypes.yes.label')]);
         });

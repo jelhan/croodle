@@ -16,26 +16,16 @@ sudo: false
 
 cache:
   yarn: true
-  directories:
-    - travis_phantomjs
-
-addons:
-  apt:
-    sources:
-      - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
-        key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
-    packages:
-      - yarn
 
 before_install:
-  # update node
-  - nvm install 6
-  # update phantomjs
-  - export PATH=$PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH; if [ $(phantomjs --version) != '2.1.1' ]; then rm -rf $PWD/travis_phantomjs; mkdir -p $PWD/travis_phantomjs && wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 && tar -xvf $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi
-
+  - if $TEST_EMBER || $TEST_SAUCHE; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
+  - if $TEST_EMBER || $TEST_SAUCHE; then export PATH=$HOME/.yarn/bin:$PATH; fi
+  - if $TEST_EMBER; then yarn global add phantomjs-prebuilt; fi
+  - if $TEST_EMBER; then phantomjs --version; fi
 install:
   - if $TEST_EMBER || $TEST_SAUCE; then yarn global add bower; fi
-  - if $TEST_EMBER || $TEST_SAUCE; then yarn install; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then yarn global add bower; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then yarn install --no-interactive; fi
   - if $TEST_EMBER || $TEST_SAUCE; then bower install; fi
   # install non development composer requirements for api
   - if $TEST_EMBER || $TEST_SAUCE; then cd api/ && composer install --no-dev && cd ..; fi

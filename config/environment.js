@@ -1,5 +1,5 @@
-/* jshint node: true */
-/* jscs:disable requireEnhancedObjectLiterals */
+/* eslint-env node */
+'use strict';
 
 module.exports = function(environment) {
   const ENV = {
