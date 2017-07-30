@@ -1,8 +1,8 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import moment from 'moment';
-import Fragment from 'model-fragments/fragment';
-import { fragmentOwner } from 'model-fragments/attributes';
+import Fragment from 'ember-data-model-fragments/fragment';
+import { fragmentOwner } from 'ember-data-model-fragments/attributes';
 import {
   validator, buildValidations
 }

@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import Fragment from 'model-fragments/fragment';
+import Fragment from 'ember-data-model-fragments/fragment';
 
 const { attr } = DS;
 
