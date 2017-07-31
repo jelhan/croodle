@@ -11,7 +11,7 @@ moduleForComponent('poll-evaluation-chart', 'Integration | Component | poll eval
 });
 
 test('it renders', function(assert) {
-  this.set('dates', [
+  this.set('options', [
     Ember.Object.create({
       formatted: 'Thursday, January 1, 2015',
       title: moment('2015-01-01'),
@@ -70,7 +70,6 @@ test('it renders', function(assert) {
       ]
     })
   ]);
-  this.set('isFindADate', true);
-  this.render(hbs`{{poll-evaluation-chart dates=dates answerType=answerType isFindADate=isFindADate users=users}}`);
+  this.render(hbs`{{poll-evaluation-chart options=options answerType=answerType users=users}}`);
   assert.ok(this.$('canvas'), 'it renders a canvas element');
 });

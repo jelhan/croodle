@@ -4,9 +4,7 @@
   <h3>{{t 'poll.evaluation.overview'}}</h3>
   {{poll-evaluation-chart
     answerType=model.answerType
-    dates=dates
-    isFindADate=model.isFindADate
-    pollOptions=model.options
+    options=(if model.isFindADate dates model.options)
     users=model.users
   }}
 {{/if}}
@@ -14,10 +12,9 @@
 <h3>{{t 'poll.evaluation.participantTable'}}</h3>
 {{poll-evaluation-participants-table
   dateGroups=dateGroups
-  dates=dates
   hasTimes=hasTimes
   isFindADate=model.isFindADate
   isFreeText=model.isFreeText
-  options=model.options
+  options=(if model.isFindADate dates model.options)
   sortedUsers=sortedUsers
 }}

@@ -14,9 +14,9 @@
       {{/if}}
       <tr>
         <th>&nbsp;</th>
-        {{#if isFindADate}}
-          {{#each dates as |date|}}
-            <th>
+        {{#each options as |option|}}
+          <th>
+            {{#if isFindADate}}
               {{#if hasTimes}}
                 {{#if date.hasTime}}
                   {{date.formattedTime}}
@@ -24,15 +24,11 @@
               {{else}}
                 {{date.formatted}}
               {{/if}}
-            </th>
-          {{/each}}
-        {{else}}
-          {{#each options as |option|}}
-            <th>
+            {{else}}
               {{option.title}}
-            </th>
-          {{/each}}
-        {{/if}}
+            {{/if}}
+          </th>
+        {{/each}}
       </tr>
     </thead>
 

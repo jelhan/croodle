@@ -24,7 +24,7 @@ moduleForComponent('poll-evaluation-chart', 'Unit | Component | poll evaluation 
 });
 
 test('data is a valid ChartJS dataset for FindADate', function(assert) {
-  const dates = [
+  let options = [
     Ember.Object.create({
       formatted: 'Thursday, January 1, 2015',
       title: moment('2015-01-01'),
@@ -48,8 +48,7 @@ test('data is a valid ChartJS dataset for FindADate', function(assert) {
   ];
   let component = this.subject({
     answerType: 'YesNoMaybe',
-    dates,
-    isFindADate: true,
+    options,
     users: [
       Ember.Object.create({
         id: 1,
@@ -90,8 +89,8 @@ test('data is a valid ChartJS dataset for FindADate', function(assert) {
   const data = component.get('data');
   assert.deepEqual(
     data.labels,
-    dates.map((date) => {
-      return date.hasTime ? date.title.format('LLLL') : date.title.format(
+    options.map((date) => {
+      return date.get('hasTime') ? date.get('title').format('LLLL') : date.get('title').format(
         moment.localeData()
           .longDateFormat('LLLL')
           .replace(
@@ -140,8 +139,7 @@ test('data is a valid ChartJS dataset for MakeAPoll', function(assert) {
   ];
   let component = this.subject({
     answerType: 'YesNoMaybe',
-    pollOptions: options,
-    isFindADate: false,
+    options,
     users: [
       Ember.Object.create({
         id: 1,

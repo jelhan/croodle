@@ -20,17 +20,11 @@ const addArrays = function() {
 export default Component.extend({
   i18n: inject.service(),
   type: 'bar',
-  data: computed('users.[]', 'dates.[]', 'dates.@each.formatted', 'pollOptions.[]', 'pollOptions.@each.title', 'i18n.locale', function() {
-    let labels;
-    if (this.get('isFindADate')) {
-      labels = this.get('dates').map((date) => {
-        return get(date, 'formatted');
-      });
-    } else {
-      labels = this.get('pollOptions').map((pollOption) => {
-        return get(pollOption, 'title');
-      });
-    }
+  data: computed('users.[]', 'options.[]', 'options.@each.formatted', 'options.@each.title', 'i18n.locale', function() {
+    let labels = this.get('options').map((option) => {
+      let formatted = get(option, 'formatted');
+      return isPresent(formatted) ? formatted : get(option, 'title');
+    });
 
     let datasets = [];
     const participants = this.get('users.length');
