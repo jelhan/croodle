@@ -2861,6 +2861,18 @@ ember-cli-dependency-checker@^1.3.0:
     is-git-url "0.2.0"
     semver "^4.1.0"
 
+ember-cli-deprecation-workflow@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/ember-cli-deprecation-workflow/-/ember-cli-deprecation-workflow-0.2.3.tgz#c8cb7aa029f2d30ca24143138f4664964108c5da"
+  dependencies:
+    broccoli-funnel "^1.0.1"
+    broccoli-kitchen-sink-helpers "^0.3.1"
+    broccoli-merge-trees "^1.1.1"
+    ember-cli-babel "^5.1.5"
+    ember-debug-handlers-polyfill "^1.0.2"
+    quick-temp "^0.1.5"
+    rimraf "^2.5.2"
+
 ember-cli-eslint@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/ember-cli-eslint/-/ember-cli-eslint-3.1.0.tgz#8d9e2a867654835ac1b24858d9117e143fa54bd4"
@@ -3294,6 +3306,12 @@ ember-data@~2.14.3:
     semver "^5.1.0"
     silent-error "^1.0.0"
     testem "1.15.0"
+
+ember-debug-handlers-polyfill@^1.0.2:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ember-debug-handlers-polyfill/-/ember-debug-handlers-polyfill-1.0.3.tgz#ffd4a4b80688e0929537d9ccd70f12e2ee442714"
+  dependencies:
+    ember-cli-babel "^5.0.0"
 
 ember-export-application-global@^2.0.0:
   version "2.0.0"
@@ -6754,7 +6772,7 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@2.x.x, rimraf@^2.2.8, rimraf@^2.3.2, rimraf@^2.3.4, rimraf@^2.4.3, rimraf@^2.4.4, rimraf@^2.5.1, rimraf@^2.5.3, rimraf@^2.5.4, rimraf@^2.6.1:
+rimraf@2, rimraf@2.x.x, rimraf@^2.2.8, rimraf@^2.3.2, rimraf@^2.3.4, rimraf@^2.4.3, rimraf@^2.4.4, rimraf@^2.5.1, rimraf@^2.5.2, rimraf@^2.5.3, rimraf@^2.5.4, rimraf@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
   dependencies:
