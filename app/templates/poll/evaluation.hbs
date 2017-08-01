@@ -11,10 +11,11 @@
 
 <h3>{{t 'poll.evaluation.participantTable'}}</h3>
 {{poll-evaluation-participants-table
-  dateGroups=dateGroups
+  currentLocale=currentLocale
   hasTimes=hasTimes
   isFindADate=model.isFindADate
   isFreeText=model.isFreeText
   options=(if model.isFindADate dates model.options)
   sortedUsers=sortedUsers
+  timezone=timezone
 }}

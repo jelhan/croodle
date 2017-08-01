@@ -1,6 +1,13 @@
 import Ember from 'ember';
+import moment from 'moment';
+import { groupBy } from 'ember-awesome-macros/array';
 
-export default Ember.Component.extend({
+const {
+  Component,
+  computed
+} = Ember;
+
+export default Component.extend({
   didInsertElement() {
     this._super();
     Ember.run.scheduleOnce('afterRender', this, function() {
@@ -113,22 +120,21 @@ export default Ember.Component.extend({
     return scrollBarWidth;
   },
 
-  /*
-   * show / hide top scrollbar depending on window position
-   * used as event callback when window is scrolled
-   */
-  updateScrollbarTopVisibility() {
-    const windowTop = Ember.$(window).scrollTop();
-    const tableTop = Ember.$('.table-scroll table').offset().top;
-    if (windowTop >= tableTop - this.getScrollbarHeight()) {
-      Ember.$('.top-scrollbar-floatThead').show();
+  momentLongDayFormat: computed('currentLocale', function() {
+    let currentLocale = this.get('currentLocale');
+    return moment.localeData(currentLocale)
+      .longDateFormat('LLLL')
+      .replace(
+        moment.localeData(currentLocale).longDateFormat('LT'), '')
+      .trim();
+  }),
 
-      // update scroll position
-      Ember.$('.top-scrollbar-floatThead').scrollLeft(Ember.$('.table-scroll').scrollLeft());
-    } else {
-      Ember.$('.top-scrollbar-floatThead').hide();
-    }
-  },
+  optionsGroupedByDates: groupBy('options', 'optionsGroupedBy', function(groupValue, currentValue) {
+    // have to parse the date cause due to timezone it may start with another day string but be at same day due to timezone
+    // e.g. '2015-01-01T23:00:00.000Z' and '2015-01-02T00:00:00.000Z' both are at '2015-01-02' for timezone offset '+01:00'
+    return moment(groupValue).format('YYYY-MM-DD') === moment(currentValue).format('YYYY-MM-DD');
+  }),
+  optionsGroupedBy: 'title',
 
   /*
    * resize scrollbars
@@ -149,6 +155,23 @@ export default Ember.Component.extend({
       this.resizeScrollbars();
     });
   }),
+
+  /*
+   * show / hide top scrollbar depending on window position
+   * used as event callback when window is scrolled
+   */
+  updateScrollbarTopVisibility() {
+    const windowTop = Ember.$(window).scrollTop();
+    const tableTop = Ember.$('.table-scroll table').offset().top;
+    if (windowTop >= tableTop - this.getScrollbarHeight()) {
+      Ember.$('.top-scrollbar-floatThead').show();
+
+      // update scroll position
+      Ember.$('.top-scrollbar-floatThead').scrollLeft(Ember.$('.table-scroll').scrollLeft());
+    } else {
+      Ember.$('.top-scrollbar-floatThead').hide();
+    }
+  },
 
   /*
    * clean up

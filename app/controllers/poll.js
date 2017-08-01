@@ -101,80 +101,6 @@ export default Controller.extend({
   encryptionKey: '',
   queryParams: ['encryptionKey'],
 
-  dateGroups: computed('dates.[]', function() {
-    // group dates only for find a date
-    // and if there is atleast one time
-    if (
-      this.get('model.isFindADate') !== true &&
-      this.get('hasTimes')
-    ) {
-      return [];
-    }
-
-    const datetimes = this.get('dates');
-    const dateGroupObject = EmberObject.extend({
-      colspan: null,
-      formatted: computed('value', 'i18n.locale', function() {
-        const date = this.get('value');
-        const locale = this.get('i18n.locale');
-        const longDateFormat = moment.localeData().longDateFormat('LLLL')
-                                      .replace(
-                                        moment.localeData().longDateFormat('LT'), '')
-                                      .trim();
-
-        // moment caches locale so we have to check if it's changed
-        if (date.locale() !== locale) {
-          date.locale(locale);
-        }
-
-        return date.format(longDateFormat);
-      }),
-      i18n: inject.service(),
-      value: null
-    });
-    // need to inject owner into dateGroupObject to support service injection
-    const owner = getOwner(this);
-    let dateGroups = [];
-
-    let count = 0;
-    let lastDate = null;
-    datetimes.forEach(function(el) {
-      let date = moment(el.get('date'))
-                   .hour(0)
-                   .minute(0)
-                   .seconds(0)
-                   .milliseconds(0);
-
-      if (lastDate === null) {
-        lastDate = date;
-      }
-
-      if (date.valueOf() === lastDate.valueOf()) {
-        count++;
-      } else {
-        // push last values;
-        dateGroups.pushObject(
-          dateGroupObject.create(owner.ownerInjection(), {
-            'value': lastDate,
-            'colspan': count
-          })
-        );
-
-        // set lastDate to current date and reset count
-        lastDate = date;
-        count = 1;
-      }
-    });
-    dateGroups.pushObject(
-      dateGroupObject.create(owner.ownerInjection(), {
-        'value': lastDate,
-        'colspan': count
-      })
-    );
-
-    return dateGroups;
-  }),
-
   /*
    * handles options if they are dates
    */
@@ -202,7 +128,8 @@ export default Controller.extend({
       return false;
     } else {
       return this.get('model.options').any((option) => {
-        return moment(option.get('title'), 'YYYY-MM-DD', true).isValid() === false;
+        let dayStringLength = 10; // 'YYYY-MM-DD'.length
+        return option.get('title').length > dayStringLength;
       });
     }
   }),
@@ -237,5 +164,9 @@ export default Controller.extend({
 
   mustChooseTimezone: computed('timezoneDiffers', 'timezoneChoosen', function() {
     return this.get('timezoneDiffers') && !this.get('timezoneChoosen');
+  }),
+
+  timezone: computed('useLocalTimezone', function() {
+    return this.get('useLocalTimezone') ? undefined : this.get('model.timezone');
   })
 });
