@@ -31,7 +31,6 @@ before_install:
 install:
   # install dependencies for client
   - if $TEST_EMBER || $TEST_SAUCE; then yarn global add bower; fi
-  - if $TEST_EMBER || $TEST_SAUCE; then yarn global add bower; fi
   - if $TEST_EMBER || $TEST_SAUCE; then yarn install --no-interactive; fi
   - if $TEST_EMBER || $TEST_SAUCE; then bower install; fi
   # install dependencies for api
