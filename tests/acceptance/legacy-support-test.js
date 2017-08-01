@@ -4,7 +4,7 @@ import moment from 'moment';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 /* jshint proto: true */
 
-moduleForAcceptance('Integration | legacy support', {
+moduleForAcceptance('Acceptance | legacy support', {
   beforeEach() {
     window.localStorage.setItem('locale', 'en');
     moment.locale('en');
