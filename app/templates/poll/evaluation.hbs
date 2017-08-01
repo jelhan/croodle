@@ -1,5 +1,12 @@
 {{#if isEvaluable}}
-  {{poll-evaluation-summary poll=model dates=dates sortedUsers=sortedUsers}}
+  {{poll-evaluation-summary
+    currentLocale=currentLocale
+    dates=dates
+    momentLongDayFormat=momentLongDayFormat
+    poll=model
+    sortedUsers=sortedUsers
+    timezone=timezone
+  }}
 
   <h3>{{t 'poll.evaluation.overview'}}</h3>
   {{poll-evaluation-chart
@@ -15,6 +22,7 @@
   hasTimes=hasTimes
   isFindADate=model.isFindADate
   isFreeText=model.isFreeText
+  momentLongDayFormat=momentLongDayFormat
   options=(if model.isFindADate dates model.options)
   sortedUsers=sortedUsers
   timezone=timezone

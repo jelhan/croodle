@@ -2,6 +2,7 @@ import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
+import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
 import moment from 'moment';
 /* jshint proto: true */
 /* global jstz */
@@ -100,7 +101,26 @@ test('view a poll while timezone differs from the one poll got created in and ch
       { title: '2015-12-12T11:11:00.000Z' },
       { title: '2016-01-01T11:11:00.000Z' }
     ],
-    timezone: timezonePoll
+    timezone: timezonePoll,
+    users: [
+      server.create('user', {
+        encryptionKey,
+        selections: [
+          {
+            type: 'yes',
+            labelTranslation: 'answerTypes.yes.label',
+            icon: 'glyphicon glyphicon-thumbs-up',
+            label: 'Yes'
+          },
+          {
+            type: 'no',
+            labelTranslation: 'answerTypes.no.label',
+            icon: 'glyphicon glyphicon-thumbs-down',
+            label: 'No'
+          }
+        ]
+      })
+    ]
   });
 
   visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`).then(function() {
@@ -127,6 +147,16 @@ test('view a poll while timezone differs from the one poll got created in and ch
             'modal is closed'
           );
         });
+
+        andThen(() => {
+          switchTab('evaluation');
+          andThen(() => {
+            assert.deepEqual(
+              pageEvaluation.preferedOptions,
+              [moment.tz('2015-12-12T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')]
+            );
+          });
+        });
       });
     });
   });
@@ -143,7 +173,26 @@ test('view a poll while timezone differs from the one poll got created in and ch
       { title: '2015-12-12T11:11:00.000Z' },
       { title: '2016-01-01T11:11:00.000Z' }
     ],
-    timezone: timezonePoll
+    timezone: timezonePoll,
+    users: [
+      server.create('user', {
+        encryptionKey,
+        selections: [
+          {
+            type: 'yes',
+            labelTranslation: 'answerTypes.yes.label',
+            icon: 'glyphicon glyphicon-thumbs-up',
+            label: 'Yes'
+          },
+          {
+            type: 'no',
+            labelTranslation: 'answerTypes.no.label',
+            icon: 'glyphicon glyphicon-thumbs-down',
+            label: 'No'
+          }
+        ]
+      })
+    ]
   });
 
   visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`).then(function() {
@@ -170,6 +219,16 @@ test('view a poll while timezone differs from the one poll got created in and ch
             find('#modal-choose-timezone-modal').is(':visible'),
             'modal is closed'
           );
+        });
+
+        andThen(() => {
+          switchTab('evaluation');
+          andThen(() => {
+            assert.deepEqual(
+              pageEvaluation.preferedOptions,
+              [moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')]
+            );
+          });
         });
       });
     });

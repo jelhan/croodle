@@ -3,8 +3,7 @@ import moment from 'moment';
 import { groupBy } from 'ember-awesome-macros/array';
 
 const {
-  Component,
-  computed
+  Component
 } = Ember;
 
 export default Component.extend({
@@ -119,15 +118,6 @@ export default Component.extend({
     Ember.$('#wide_scroll_div_one').remove(); // remove the html from your document
     return scrollBarWidth;
   },
-
-  momentLongDayFormat: computed('currentLocale', function() {
-    let currentLocale = this.get('currentLocale');
-    return moment.localeData(currentLocale)
-      .longDateFormat('LLLL')
-      .replace(
-        moment.localeData(currentLocale).longDateFormat('LT'), '')
-      .trim();
-  }),
 
   optionsGroupedByDates: groupBy('options', 'optionsGroupedBy', function(groupValue, currentValue) {
     // have to parse the date cause due to timezone it may start with another day string but be at same day due to timezone

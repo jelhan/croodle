@@ -1,12 +1,18 @@
+{{!--
+  There must not be a line break between option text and "</strong>." cause otherwise
+  we will see a space between option string and following dot.
+--}}
 {{#if isFindADate}}
-  {{#if evaluationBestOption.option.hasTime}}
-    <strong>{{moment-format evaluationBestOption.option.date 'LLLL'}}</strong>.
-  {{else}}
-    <strong>{{evaluationBestOption.option.dayFormatted}}</strong>.
-  {{/if}}
+  <strong class='best-option-value'>{{moment-format
+    evaluationBestOption.option.title
+    (if evaluationBestOption.option.hasTime 'LLLL' momentLongDayFormat)
+    locale=currentLocale
+    timeZone=timezone
+  }}</strong>.
 {{else}}
-  <strong>{{evaluationBestOption.option.title}}</strong>.
+  <strong class='best-option-value'>{{evaluationBestOption.option.title}}</strong>.
 {{/if}}
+
 
 <br/>
 
