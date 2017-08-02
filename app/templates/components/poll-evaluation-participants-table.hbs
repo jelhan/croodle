@@ -24,10 +24,20 @@
             {{#if isFindADate}}
               {{#if hasTimes}}
                 {{#if option.hasTime}}
-                  {{option.formattedTime}}
+                  {{moment-format
+                    option.title
+                    'LT'
+                    locale=currentLocale
+                    timeZone=timezone
+                  }}
                 {{/if}}
               {{else}}
-                {{option.formatted}}
+                {{moment-format
+                  option.title
+                  momentLongDayFormat
+                  locale=currentLocale
+                  timeZone=timezone
+                }}
               {{/if}}
             {{else}}
               {{option.title}}
