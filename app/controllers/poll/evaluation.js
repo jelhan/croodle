@@ -6,8 +6,6 @@ const { $, computed, Controller, inject } = Ember;
 export default Controller.extend({
   currentLocale: computed.reads('i18n.locale'),
 
-  dates: computed.reads('pollController.dates'),
-
   hasTimes: computed.reads('pollController.hasTimes'),
 
   i18n: inject.service(),
@@ -20,8 +18,6 @@ export default Controller.extend({
         moment.localeData(currentLocale).longDateFormat('LT'), '')
       .trim();
   }),
-
-  optionsGroupedByDates: computed.reads('pollController.optionsGroupedByDates'),
 
   pollController: inject.controller('poll'),
 

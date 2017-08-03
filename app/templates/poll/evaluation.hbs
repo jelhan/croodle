@@ -10,8 +10,12 @@
   <h3>{{t 'poll.evaluation.overview'}}</h3>
   {{poll-evaluation-chart
     answerType=model.answerType
-    options=(if model.isFindADate dates model.options)
+    currentLocale=currentLocale
+    isFindADate=model.isFindADate
+    momentLongDayFormat=momentLongDayFormat
+    options=model.options
     users=model.users
+    timezone=timezone
   }}
 {{/if}}
 

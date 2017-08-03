@@ -1,10 +1,14 @@
 import Ember from 'ember';
+import moment from 'moment';
 
-const { Component, computed, get, inject, isPresent } = Ember;
+const { Component, computed, get, inject, isArray, isPresent } = Ember;
 
 const addArrays = function() {
-  const args = Array.prototype.slice.call(arguments);
-  const basis = args.shift();
+  let args = Array.prototype.slice.call(arguments);
+  let basis = args.shift();
+  if (!isArray(basis)) {
+    return [];
+  }
 
   args.forEach(function(array) {
     array.forEach(function(value, index) {
@@ -20,16 +24,25 @@ const addArrays = function() {
 export default Component.extend({
   i18n: inject.service(),
   type: 'bar',
-  data: computed('users.[]', 'options.[]', 'options.@each.formatted', 'options.@each.title', 'i18n.locale', function() {
+  data: computed('users.[]', 'options.[]', 'options.@each.title', 'currentLocale', function() {
     let labels = this.get('options').map((option) => {
-      let formatted = get(option, 'formatted');
-      return isPresent(formatted) ? formatted : get(option, 'title');
+      let value = get(option, 'title');
+      if (!get(this, 'isFindADate')) {
+        return value;
+      }
+
+      let hasTime = value.length > 10; // 'YYYY-MM-DD'.length === 10
+      let momentFormat = hasTime ? 'LLLL' : get(this, 'momentLongDayFormat');
+      let timezone = get(this, 'timezone');
+      let date = hasTime && isPresent(timezone) ? moment.tz(value, timezone) : moment(value);
+      date.locale(get(this, 'currentLocale'));
+      return date.format(momentFormat);
     });
 
     let datasets = [];
-    const participants = this.get('users.length');
+    let participants = this.get('users.length');
 
-    const yes = this.get('users').map((user) => {
+    let yes = this.get('users').map((user) => {
       return user.get('selections').map((selection) => {
         return selection.get('type') === 'yes' ? 1 : 0;
       });
@@ -44,7 +57,7 @@ export default Component.extend({
     });
 
     if (this.get('answerType') === 'YesNoMaybe') {
-      const maybe = this.get('users').map((user) => {
+      let maybe = this.get('users').map((user) => {
         return user.get('selections').map((selection) => {
           return selection.get('type') === 'maybe' ? 1 : 0;
         });
@@ -87,10 +100,10 @@ export default Component.extend({
       mode: 'label',
       callbacks: {
         label(tooltipItem, data) {
-          const { datasets } = data;
-          const { datasetIndex } = tooltipItem;
-          const { label } = datasets[datasetIndex];
-          const value = tooltipItem.yLabel;
+          let { datasets } = data;
+          let { datasetIndex } = tooltipItem;
+          let { label } = datasets[datasetIndex];
+          let value = tooltipItem.yLabel;
           return `${label}: ${value} %`;
         }
       }
