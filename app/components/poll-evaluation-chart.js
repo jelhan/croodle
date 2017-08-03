@@ -64,7 +64,7 @@ export default Component.extend({
       labels
     };
   }),
-  options: {
+  chartOptions: {
     legend: {
       display: false
     },
