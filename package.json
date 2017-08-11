@@ -67,7 +67,7 @@
     "ember-page-title": "^3.0.6",
     "ember-radio-buttons": "^4.0.1",
     "ember-resolver": "^4.0.0",
-    "ember-simple-select": "novafloss/ember-simple-select#1b2d13c0a8d5844757fd88b64b12f61c6455b94e",
+    "ember-simple-select": "^0.6.1",
     "ember-source": "~2.14.1",
     "ember-suave": "^4.0.0",
     "ember-transition-helper": "0.0.6",
