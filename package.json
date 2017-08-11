@@ -21,7 +21,7 @@
     "connect-restreamer": "^1.0.1",
     "ember-ajax": "^3.0.0",
     "ember-array-computed-macros": "martndemus/ember-array-computed-macros#3fde9023336d227aa6009060b40b4de77d8b1a9b",
-    "ember-array-helper": "^1.0.1",
+    "ember-array-helper": "^2.1.0",
     "ember-awesome-macros": "^0.38.2",
     "ember-bootstrap": "^0.11.3",
     "ember-bootstrap-cp-validations": "^0.2.0",

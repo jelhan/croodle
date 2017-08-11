@@ -2709,11 +2709,11 @@ ember-array-computed-macros@martndemus/ember-array-computed-macros#3fde9023336d2
   dependencies:
     ember-cli-babel "^5.1.5"
 
-ember-array-helper@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/ember-array-helper/-/ember-array-helper-1.0.2.tgz#48c1fdbcbc0835d0463e36bd639412aa47f73446"
+ember-array-helper@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ember-array-helper/-/ember-array-helper-2.1.0.tgz#7735760eba3801a2355972cfc93d73f6d180f178"
   dependencies:
-    ember-cli-babel "^5.1.7"
+    ember-cli-babel "^6.0.0"
 
 ember-awesome-macros@^0.38.2:
   version "0.38.2"
