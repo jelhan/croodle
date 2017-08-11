@@ -3,79 +3,13 @@ import moment from 'moment';
 /* global jstz */
 
 const {
-  ArrayProxy,
   computed,
   Controller,
-  getOwner,
   inject,
   isEmpty,
   isPresent,
-  Object: EmberObject,
   observer
 } = Ember;
-
-const dateObject = EmberObject.extend({
-  i18n: inject.service(),
-  init() {
-    // retrive locale on init to setup observers
-    this.get('i18n.locale');
-  },
-  date: computed('dateString', 'i18n.locale', function() {
-    let value = this.get('dateString');
-    let date;
-
-    if (isEmpty(value)) {
-      return null;
-    }
-
-    date = moment(value);
-
-    if (
-      this.get('hasTime') &&
-      !this.get('useLocalTimezone')
-    ) {
-      date.tz(this.get('timezone'));
-    }
-
-    return date;
-  }),
-  formatted: computed('date', 'hasTime', 'timezone', 'useLocaleTImezone', function() {
-    let date = this.get('date');
-
-    if (!moment.isMoment(date)) {
-      return '';
-    }
-
-    if (
-      this.get('hasTime') &&
-      !this.get('useLocaleTimezone') &&
-      isPresent(this.get('timezone'))
-    ) {
-      date.tz(this.get('timezone'));
-    }
-
-    return this.get('hasTime') ? date.format('LLLL') : date.format(
-      moment.localeData()
-        .longDateFormat('LLLL')
-        .replace(
-          moment.localeData().longDateFormat('LT'), '')
-        .trim()
-    );
-  }),
-  formattedTime: computed('date', function() {
-    let date = this.get('title');
-
-    if (!moment.isMoment(date)) {
-      return '';
-    }
-
-    return date.format('LT');
-  }),
-  hasTime: computed('dateString', function() {
-    return moment(this.get('dateString'), 'YYYY-MM-DD', true).isValid() === false;
-  }),
-  title: computed.readOnly('date')
-});
 
 export default Controller.extend({
   actions: {
@@ -102,26 +36,6 @@ export default Controller.extend({
   encryption: inject.service(),
   encryptionKey: '',
   queryParams: ['encryptionKey'],
-
-  /*
-   * handles options if they are dates
-   */
-  dates: computed('model.options', 'model.timezone', 'useLocalTimezone', function() {
-    let owner = getOwner(this);
-    let timezone = this.get('model.timezone');
-    let useLocalTimezone = this.get('useLocalTimezone');
-
-    return ArrayProxy.create({
-      content: this.get('model.options'),
-      objectAtContent(idx) {
-        return dateObject.create(owner.ownerInjection(), {
-          dateString: this.get('content').objectAt(idx).get('title'),
-          timezone,
-          useLocalTimezone
-        });
-      }
-    });
-  }),
 
   flashMessages: inject.service(),
 
