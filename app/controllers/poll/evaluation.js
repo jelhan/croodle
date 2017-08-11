@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import moment from 'moment';
 
 const { $, computed, Controller, inject } = Ember;
 
@@ -10,14 +9,7 @@ export default Controller.extend({
 
   i18n: inject.service(),
 
-  momentLongDayFormat: computed('currentLocale', function() {
-    let currentLocale = this.get('currentLocale');
-    return moment.localeData(currentLocale)
-      .longDateFormat('LLLL')
-      .replace(
-        moment.localeData(currentLocale).longDateFormat('LT'), '')
-      .trim();
-  }),
+  momentLongDayFormat: computed.readOnly('pollController.momentLongDayFormat'),
 
   pollController: inject.controller('poll'),
 

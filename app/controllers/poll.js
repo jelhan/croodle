@@ -97,6 +97,8 @@ export default Controller.extend({
     }
   },
 
+  currentLocale: computed.readOnly('i18n.locale'),
+
   encryption: inject.service(),
   encryptionKey: '',
   queryParams: ['encryptionKey'],
@@ -132,6 +134,17 @@ export default Controller.extend({
         return option.get('title').length > dayStringLength;
       });
     }
+  }),
+
+  i18n: inject.service(),
+
+  momentLongDayFormat: computed('currentLocale', function() {
+    let currentLocale = this.get('currentLocale');
+    return moment.localeData(currentLocale)
+      .longDateFormat('LLLL')
+      .replace(
+        moment.localeData(currentLocale).longDateFormat('LT'), '')
+      .trim();
   }),
 
   pollUrl: computed('currentPath', 'encryptionKey', function() {
