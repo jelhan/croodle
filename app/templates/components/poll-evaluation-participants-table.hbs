@@ -4,9 +4,14 @@
       {{#if hasTimes}}
         <tr class="dateGroups">
           <th>&nbsp;</th>
-          {{#each dateGroups as |dateGroup|}}
-            <th colspan="{{dateGroup.colspan}}">
-              {{dateGroup.formatted}}
+          {{#each optionsGroupedByDates as |optionGroup|}}
+            <th colspan="{{optionGroup.items.length}}">
+              {{moment-format
+                optionGroup.value
+                momentLongDayFormat
+                locale=currentLocale
+                timeZone=timezone
+              }}
             </th>
           {{/each}}
           <th>&nbsp;</th>
@@ -18,11 +23,21 @@
           <th>
             {{#if isFindADate}}
               {{#if hasTimes}}
-                {{#if date.hasTime}}
-                  {{date.formattedTime}}
+                {{#if option.hasTime}}
+                  {{moment-format
+                    option.title
+                    'LT'
+                    locale=currentLocale
+                    timeZone=timezone
+                  }}
                 {{/if}}
               {{else}}
-                {{date.formatted}}
+                {{moment-format
+                  option.title
+                  momentLongDayFormat
+                  locale=currentLocale
+                  timeZone=timezone
+                }}
               {{/if}}
             {{else}}
               {{option.title}}

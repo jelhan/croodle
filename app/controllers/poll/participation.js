@@ -11,6 +11,7 @@ const {
   getOwner,
   inject,
   isEmpty,
+  isPresent,
   Object: EmberObject
 } = Ember;
 
@@ -136,6 +137,7 @@ export default Controller.extend(Validations, {
   },
 
   anonymousUser: computed.readOnly('pollController.model.anonymousUser'),
+  currentLocale: computed.readOnly('i18n.locale'),
   encryption: inject.service(),
   forceAnswer: computed.readOnly('pollController.model.forceAnswer'),
   i18n: inject.service(),
@@ -147,7 +149,11 @@ export default Controller.extend(Validations, {
   isFreeText: computed.readOnly('pollController.model.isFreeText'),
   isFindADate: computed.readOnly('pollController.model.isFindADate'),
 
+  momentLongDayFormat: computed.readOnly('pollController.momentLongDayFormat'),
+
   name: '',
+
+  options: computed.readOnly('pollController.model.options'),
 
   pollController: inject.controller('poll'),
 
@@ -178,94 +184,52 @@ export default Controller.extend(Validations, {
 
   savingFailed: false,
 
-  selections: computed('pollController.model.options', 'pollController.dates', function() {
-    let options;
+  selections: computed('options', 'pollController.dates', function() {
+    let options = this.get('options');
     let isFindADate = this.get('isFindADate');
     let lastDate;
 
-    if (this.get('isFindADate')) {
-      options = this.get('pollController.dates');
-    } else {
-      options = this.get('pollController.model.options');
-    }
+    // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
+    // To lookup validators, container access is required which can cause an issue with Object creation
+    // if the object is statically imported. The current fix for this is as follows.
+    let owner = getOwner(this);
+    let SelectionObject = EmberObject.extend(owner.ownerInjection(), SelectionValidations, {
+      // forceAnswer and isFreeText must be included in model
+      // cause otherwise validations can't depend on it
+      forceAnswer: this.get('forceAnswer'),
+      isFreeText: this.get('isFreeText'),
+      value: null
+    });
 
     return options.map((option) => {
-      let labelFormat;
       let labelValue;
+      let momentFormat;
+      let value = option.get('title');
 
       // format label
       if (isFindADate) {
-        if (option.get('hasTime') && lastDate && option.get('date').format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
+        let hasTime = value.length > 10; // 'YYYY-MM-DD'.length === 10
+        let timezone = this.get('timezone');
+        let date = isPresent(timezone) ? moment.tz(value, timezone) : moment(value);
+        if (hasTime && lastDate && date.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
+          labelValue = value;
           // do not repeat dates for different times
-          labelValue = option.get('date');
-          labelFormat = 'time';
+          momentFormat = 'LT';
         } else {
-          labelValue = option.get('date');
-          labelFormat = option.get('hasTime') ? 'day-with-time' : 'day';
-          lastDate = option.get('date');
+          labelValue = value;
+          momentFormat = hasTime ? 'LLLL' : 'day';
+          lastDate = date;
         }
       } else {
-        labelValue = option.get('title');
-        labelFormat = 'plain';
+        labelValue = value;
       }
 
-      // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
-      // To lookup validators, container access is required which can cause an issue with Object creation
-      // if the object is statically imported. The current fix for this is as follows.
-      const owner = getOwner(this);
-      return EmberObject.extend(owner.ownerInjection(), SelectionValidations, {
-        // forceAnswer and isFreeText must be included in model
-        // cause otherwise validations can't depend on it
-        forceAnswer: this.get('forceAnswer'),
-        isFreeText: this.get('isFreeText'),
-
-        // a little bit hacky
-        // wasn't able to observe moment.locale since it should be in sync
-        // with i18n.locale we observe this one
-        // moment object stores it locale once it was created, therefore has
-        // to update the locale
-        // momentFormat from ember-moment does not currently observes locale
-        // changes https://github.com/stefanpenner/ember-moment/issues/108
-        // but that should be the way to go
-        label: computed('i18n.locale', function() {
-          let labelFormat = this.get('labelFormat');
-
-          if (labelFormat === 'plain') {
-            return this.get('labelValue');
-          }
-
-          let currentLocale = this.get('i18n.locale');
-          let momentFormat;
-
-          switch (labelFormat) {
-            case 'time':
-              momentFormat = 'LT';
-              break;
-
-            case 'day-with-time':
-              momentFormat = 'LLLL';
-              break;
-
-            case 'day':
-              momentFormat = moment.localeData(currentLocale)
-                .longDateFormat('LLLL')
-                .replace(moment.localeData(currentLocale).longDateFormat('LT'), '')
-                .trim();
-              break;
-          }
-
-          return this.get('labelValue')
-                   .locale(currentLocale)
-                   .format(momentFormat);
-        }),
-        labelFormat,
+      return SelectionObject.create({
         labelValue,
-        i18n: inject.service(),
-        init() {
-          this.get('i18n.locale');
-        },
-        value: null
-      }).create();
+        momentFormat
+      });
     });
-  })
+  }),
+
+  timezone: computed.readOnly('pollController.timezone')
 });

@@ -118,6 +118,7 @@ test('show a poll using free text created with v0.3.0', function(assert) {
   visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
 
   andThen(function() {
+    assert.equal(currentPath(), 'poll.participation');
     assert.deepEqual(
       pagePollParticipation.options().labels,
       [

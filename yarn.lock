@@ -2715,6 +2715,17 @@ ember-array-helper@^1.0.1:
   dependencies:
     ember-cli-babel "^5.1.7"
 
+ember-awesome-macros@^0.38.2:
+  version "0.38.2"
+  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-0.38.2.tgz#9a34eae0647e282174b1e188b485d0b1ff301b8a"
+  dependencies:
+    broccoli-file-creator "^1.1.1"
+    broccoli-merge-trees "^2.0.0"
+    ember-cli-babel "^6.6.0"
+    ember-cli-string-utils "^1.1.0"
+    ember-macro-helpers "^0.16.0"
+    ember-string-ishtmlsafe-polyfill "^1.1.0"
+
 ember-bootstrap-cp-validations@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/ember-bootstrap-cp-validations/-/ember-bootstrap-cp-validations-0.2.1.tgz#abdb54269c350da44e5b9085eb566f6ae07eb66f"
@@ -3411,6 +3422,15 @@ ember-macro-helpers@^0.14.1:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^2.0.0"
 
+ember-macro-helpers@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-0.16.0.tgz#0f6eb67780d59ff786e42170143d63383c0502a0"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cli-string-utils "^1.1.0"
+    ember-cli-test-info "^1.0.0"
+    ember-weakmap "^2.0.0"
+
 ember-math-helpers@^2.0.2:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.1.1.tgz#1911f1769acfb3603ca694df65409e20babade95"
@@ -3532,6 +3552,13 @@ ember-string-ishtmlsafe-polyfill@1.0.1:
   resolved "https://registry.yarnpkg.com/ember-string-ishtmlsafe-polyfill/-/ember-string-ishtmlsafe-polyfill-1.0.1.tgz#b40a8c98663be5c16d16f31dc686102bb655abbd"
   dependencies:
     ember-cli-babel "^5.1.6"
+
+ember-string-ishtmlsafe-polyfill@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ember-string-ishtmlsafe-polyfill/-/ember-string-ishtmlsafe-polyfill-1.1.0.tgz#ecde33419ff912b91dd8acf0640eb74b9758408e"
+  dependencies:
+    ember-cli-babel "^5.1.7"
+    ember-cli-version-checker "^1.2.0"
 
 ember-suave@^4.0.0:
   version "4.0.1"

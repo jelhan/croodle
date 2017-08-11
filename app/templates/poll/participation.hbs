@@ -18,13 +18,29 @@
         {{#if isFreeText}}
           {{bs-form-element
             controlType='text'
-            label=selection.label
+            label=(if isFindADate
+              (moment-format
+                selection.labelValue
+                (if (eq selection.momentFormat 'day') momentLongDayFormat selection.momentFormat)
+                locale=currentLocale
+                timeZone=timezone
+              )
+              selection.labelValue
+            )
             model=selection
             property='value'
           }}
         {{else}}
           {{#bs-form-element
-            label=selection.label
+            label=(if isFindADate
+              (moment-format
+                selection.labelValue
+                (if (eq selection.momentFormat 'day') momentLongDayFormat selection.momentFormat)
+                locale=currentLocale
+                timeZone=timezone
+              )
+              selection.labelValue
+            )
             model=selection
             property='value'
             showValidationOn='change'

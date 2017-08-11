@@ -16,14 +16,30 @@
   {{#if evaluationBestOptionsMultiple}}
     <ul>
       {{#each evaluationBestOptions as |evaluationBestOption|}}
-        {{component 'poll-evaluation-summary-option' evaluationBestOption=evaluationBestOption isFindADate=poll.isFindADate tagName='li'}}
+        {{component 'poll-evaluation-summary-option'
+          currentLocale=currentLocale
+          evaluationBestOption=evaluationBestOption
+          isFindADate=poll.isFindADate
+          momentLongDayFormat=momentLongDayFormat
+          tagName='li'
+          timezone=timezone
+        }}
       {{/each}}
     </ul>
   {{else}}
-    {{component 'poll-evaluation-summary-option' evaluationBestOption=evaluationBestOptions.firstObject isFindADate=poll.isFindADate tagName='span'}}
+    {{component 'poll-evaluation-summary-option'
+      currentLocale=currentLocale
+      evaluationBestOption=evaluationBestOptions.firstObject
+      isFindADate=poll.isFindADate
+      momentLongDayFormat=momentLongDayFormat
+      tagName='span'
+      timezone=timezone
+    }}
   {{/if}}
 </p>
 
 <p class="last-participation">
-  {{t "poll.evaluation.lastParticipation" ago=(moment-from-now evaluationLastParticipation)}}
+  {{t "poll.evaluation.lastParticipation"
+    ago=(moment-from-now evaluationLastParticipation locale=currentLocale timezone=timezone)
+  }}
 </p>

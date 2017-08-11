@@ -3,12 +3,20 @@ import Ember from 'ember';
 const { $, computed, Controller, inject } = Ember;
 
 export default Controller.extend({
-  dateGroups: computed.reads('pollController.dateGroups'),
-  dates: computed.reads('pollController.dates'),
+  currentLocale: computed.reads('i18n.locale'),
+
   hasTimes: computed.reads('pollController.hasTimes'),
+
+  i18n: inject.service(),
+
+  momentLongDayFormat: computed.readOnly('pollController.momentLongDayFormat'),
+
   pollController: inject.controller('poll'),
+
   sortedUsers: computed.sort('pollController.model.users', 'usersSorting'),
   usersSorting: ['creationDate'],
+
+  timezone: computed.reads('pollController.timezone'),
 
   /*
    * evaluates poll data
@@ -59,10 +67,10 @@ export default Controller.extend({
         let answerindex;
 
         // get answer index by lookup array
-        if (typeof lookup[selection.value.label] === 'undefined') {
+        if (typeof lookup[selection.get('value.label')] === 'undefined') {
           answerindex = lookup[null];
         } else {
-          answerindex = lookup[selection.value.label];
+          answerindex = lookup[selection.get('value.label')];
         }
 
         // increment counter

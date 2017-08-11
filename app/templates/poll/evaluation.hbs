@@ -1,20 +1,32 @@
 {{#if isEvaluable}}
-  {{poll-evaluation-summary poll=model dates=dates sortedUsers=sortedUsers}}
+  {{poll-evaluation-summary
+    currentLocale=currentLocale
+    momentLongDayFormat=momentLongDayFormat
+    poll=model
+    sortedUsers=sortedUsers
+    timezone=timezone
+  }}
 
   <h3>{{t 'poll.evaluation.overview'}}</h3>
   {{poll-evaluation-chart
     answerType=model.answerType
-    options=(if model.isFindADate dates model.options)
+    currentLocale=currentLocale
+    isFindADate=model.isFindADate
+    momentLongDayFormat=momentLongDayFormat
+    options=model.options
     users=model.users
+    timezone=timezone
   }}
 {{/if}}
 
 <h3>{{t 'poll.evaluation.participantTable'}}</h3>
 {{poll-evaluation-participants-table
-  dateGroups=dateGroups
+  currentLocale=currentLocale
   hasTimes=hasTimes
   isFindADate=model.isFindADate
   isFreeText=model.isFreeText
-  options=(if model.isFindADate dates model.options)
+  momentLongDayFormat=momentLongDayFormat
+  options=model.options
   sortedUsers=sortedUsers
+  timezone=timezone
 }}
