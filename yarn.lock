@@ -1977,13 +1977,20 @@ chart.js@2.2.1:
     chartjs-color "^2.0.0"
     moment "^2.10.6"
 
+chart.js@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.6.0.tgz#308f9a4b0bfed5a154c14f5deb1d9470d22abe71"
+  dependencies:
+    chartjs-color "^2.1.0"
+    moment "^2.10.6"
+
 chartjs-color-string@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.4.0.tgz#57748d4530ae28d8db0a5492182ba06dfdf2f468"
   dependencies:
     color-name "^1.0.0"
 
-chartjs-color@^2.0.0:
+chartjs-color@^2.0.0, chartjs-color@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.1.0.tgz#9c39ac830ccd98996ae80c9f11086ff12c98a756"
   dependencies:
@@ -2841,11 +2848,12 @@ ember-cli-build-info@^0.2.0:
     git-repo-version "^0.3.0"
     semver-utils "^1.1.0"
 
-"ember-cli-chart@git://github.com/jelhan/ember-cli-chart.git#52ae694db579df94e0ef057d2cf7d6d96c61f78f":
-  version "3.0.0"
-  resolved "git://github.com/jelhan/ember-cli-chart.git#52ae694db579df94e0ef057d2cf7d6d96c61f78f"
+ember-cli-chart@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-chart/-/ember-cli-chart-3.3.1.tgz#00098411ae8ad9da597098b56edf110318f137dd"
   dependencies:
-    ember-cli-babel "^5.1.6"
+    chart.js "^2.6.0"
+    ember-cli-babel "^6.3.0"
 
 ember-cli-clipboard@^0.8.0:
   version "0.8.0"
