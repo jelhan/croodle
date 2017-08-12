@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "58bc829ca8610a91fbd203b6a5b352c8",
-    "content-hash": "7637dd568ce0b131112d40f15adbd2a7",
+    "hash": "16bdecd3f86b8639dab176ca1121816a",
+    "content-hash": "9da536ee86f3aaf5f8755e403b58787e",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -459,20 +459,20 @@
         },
         {
             "name": "codeception/phpbuiltinserver",
-            "version": "v1.2.1",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tiger-seo/PhpBuiltinServer.git",
-                "reference": "730206313b7e85d9ed4838ba02a0aee24fce1239"
+                "reference": "e0509bb9e9b55ae841b5c46aca1b0db858f4c652"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tiger-seo/PhpBuiltinServer/zipball/730206313b7e85d9ed4838ba02a0aee24fce1239",
-                "reference": "730206313b7e85d9ed4838ba02a0aee24fce1239",
+                "url": "https://api.github.com/repos/tiger-seo/PhpBuiltinServer/zipball/e0509bb9e9b55ae841b5c46aca1b0db858f4c652",
+                "reference": "e0509bb9e9b55ae841b5c46aca1b0db858f4c652",
                 "shasum": ""
             },
             "require": {
-                "codeception/codeception": ">=2.0.2",
+                "codeception/codeception": "^2.1",
                 "php": ">=5.4.0"
             },
             "type": "library",
@@ -495,7 +495,7 @@
             "keywords": [
                 "codeception"
             ],
-            "time": "2014-09-19 10:14:07"
+            "time": "2016-12-20 01:05:21"
         },
         {
             "name": "doctrine/instantiator",

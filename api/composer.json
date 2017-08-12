@@ -10,7 +10,7 @@
     },
     "require-dev": {
         "codeception/codeception": "*",
-        "codeception/phpbuiltinserver": "1.2.1",
+        "codeception/phpbuiltinserver": "^1.3",
         "flow/jsonpath": "^0.3.4"
     }
 }
