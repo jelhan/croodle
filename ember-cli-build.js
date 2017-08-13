@@ -62,15 +62,5 @@ module.exports = function(defaults) {
     })
   );
 
-  if (app.env === 'development' || app.env === 'test') {
-    trees.push(
-      new Funnel('tests/dummyData', {
-        srcDir: '/',
-        destDir: '/data',
-        include: ['**']
-      })
-    );
-  }
-
   return app.toTree(trees);
 };
