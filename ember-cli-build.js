@@ -53,14 +53,5 @@ module.exports = function(defaults) {
 
   app.import('bower_components/jstimezonedetect/jstz.js');
 
-  // include api files into dist
-  trees.push(
-    new Funnel(unwatchedTree('api'), {
-      srcDir: '/',
-      destDir: '/api',
-      include: ['index.php', 'cron.php', 'config.default.php', 'classes/*', 'utils/**', 'vendor/**']
-    })
-  );
-
   return app.toTree(trees);
 };
