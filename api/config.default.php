@@ -5,11 +5,11 @@ return array(
    * dataDir (String)
    * relative or absolute path to folder where polls are stored
    */
-  'dataDir' => '../data/',
+  'dataDir' => getenv('CROODLE__DATA_DIR') ?: '../data/',
 
   /*
    * debug (Boolean)
    * controls Slim debug mode
    */
-  'debug' => false
+  'debug' => getenv('CROODLE__DEBUG') ?: false
 );

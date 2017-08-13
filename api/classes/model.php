@@ -215,12 +215,12 @@ class Model {
       try {
         if (!is_dir($this->getDir())) {
           if (mkdir($this->getDir()) === false) {
-            throw new Exception('could not create the directory for data object');
+            throw new Exception('could not create the directory ' . $this->getDir() . ' for data object');
           }
         }
 
         if (!is_writable($this->getDir())) {
-          throw new Exception('dir is not writeable');
+          throw new Exception('directory ' . $this->getDir() . ' is not writeable');
         }
 
         // save data
@@ -231,7 +231,7 @@ class Model {
             LOCK_EX
           ) === false
         ) {
-          throw new Exception('write failed...');
+          throw new Exception('Could not write data to ' . $this->getPath());
         }
       }
       catch (Exception $e) {
