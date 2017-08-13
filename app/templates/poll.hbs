@@ -6,7 +6,7 @@
       <div class="box meta-data">
         <h2 class="title">{{model.title}}</h2>
         <p class="description">{{model.description}}</p>
-        <p class="creationDate">{{t "poll.created-time" creationDate=(moment-format model.creationDate)}}</p>
+        <p class="creationDate">{{t "poll.created-time" creationDate=(moment-format model.creationDate 'LLLL' locale=currentLocale)}}</p>
       </div>
     </div>
     <div class="col-sm-6 col-lg-5 col-lg-offset-2">
