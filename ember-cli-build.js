@@ -51,7 +51,5 @@ module.exports = function(defaults) {
     ]
   });
 
-  app.import('bower_components/jstimezonedetect/jstz.js');
-
   return app.toTree(trees);
 };

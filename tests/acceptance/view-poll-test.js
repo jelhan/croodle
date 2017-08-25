@@ -5,7 +5,6 @@ import pageParticipation from 'croodle/tests/pages/poll/participation';
 import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
 import moment from 'moment';
 /* jshint proto: true */
-/* global jstz */
 
 const { run } = Ember;
 
@@ -63,7 +62,7 @@ test('view a poll with dates', function(assert) {
 
 test('view a poll with dates and times', function(assert) {
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  let timezone = jstz.determine().name();
+  let timezone = moment.tz.guess();
   let poll = server.create('poll', {
     encryptionKey,
     isDateTime: true,
@@ -92,7 +91,7 @@ test('view a poll with dates and times', function(assert) {
 
 test('view a poll while timezone differs from the one poll got created in and choose local timezone', function(assert) {
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  let timezoneUser = jstz.determine().name();
+  let timezoneUser = moment.tz.guess();
   let timezonePoll = timezoneUser !== 'America/Caracas' ? 'America/Caracas' : 'Europe/Moscow';
   let poll = server.create('poll', {
     encryptionKey,
@@ -164,7 +163,7 @@ test('view a poll while timezone differs from the one poll got created in and ch
 
 test('view a poll while timezone differs from the one poll got created in and choose poll timezone', function(assert) {
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-  let timezoneUser = jstz.determine().name();
+  let timezoneUser = moment.tz.guess();
   let timezonePoll = timezoneUser !== 'America/Caracas' ? 'America/Caracas' : 'Europe/Moscow';
   let poll = server.create('poll', {
     encryptionKey,

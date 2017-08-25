@@ -4,7 +4,6 @@
     "sjcl": "~1.0.6",
     "bootstrap": "~3.3.5",
     "bootstrap-datepicker": "~1.4.0",
-    "floatThead": "^1.4.3",
-    "jstimezonedetect": "~1.0.5"
+    "floatThead": "^1.4.3"
   }
 }

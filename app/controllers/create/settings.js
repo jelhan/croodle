@@ -4,7 +4,6 @@ import {
 }
 from 'ember-cp-validations';
 import moment from 'moment';
-/* global jstz */
 
 const {
   computed,
@@ -55,7 +54,7 @@ export default Controller.extend(Validations, {
             return !moment(option.get('title'), 'YYYY-MM-DD', true).isValid();
           })
         ) {
-          this.set('model.timezone', jstz.determine().name());
+          this.set('model.timezone', moment.tz.guess());
         }
 
         // save poll
