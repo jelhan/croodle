@@ -6,7 +6,13 @@
       <div class="box meta-data">
         <h2 class="title">{{model.title}}</h2>
         <p class="description">{{model.description}}</p>
-        <p class="creationDate">{{t "poll.created-time" creationDate=(moment-format model.creationDate 'LLLL' locale=currentLocale)}}</p>
+        <p class="dates">
+          <span class="creationDate">{{t "poll.created-date" date=(moment-format model.creationDate 'LLLL' locale=currentLocale)}}</span>
+          {{#if model.expirationDate}}
+            <br>
+            <span class="expirationDate">{{t "poll.expiration-date" date=(moment-format model.expirationDate 'LLLL' locale=currentLocale)}}</span>
+          {{/if}}
+        </p>
       </div>
     </div>
     <div class="col-sm-6 col-lg-5 col-lg-offset-2">
@@ -29,6 +35,16 @@
       </div>
     </div>
   </div>
+
+  {{#if showExpirationWarning}}
+    <div class="row">
+      <div class="col-xs-12">
+        {{#bs-alert type="warning" classNames='expiration-warning'}}
+          {{t "poll.expiration-date-warning" timeToNow=(moment-from-now model.expirationDate locale=currentLocale)}}
+        {{/bs-alert}}
+      </div>
+    </div>
+  {{/if}}
 
   <div class="box container-fluid">
     <ul class="nav nav-tabs" role="tablist">
