@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import moment from 'moment';
-/* global jstz */
 
 const {
   computed,
@@ -84,7 +83,7 @@ export default Controller.extend({
    */
   timezoneDiffers: computed('model.timezone', function() {
     const modelTimezone = this.get('model.timezone');
-    return isPresent(modelTimezone) && jstz.determine().name() !== modelTimezone;
+    return isPresent(modelTimezone) && moment.tz.guess() !== modelTimezone;
   }),
 
   useLocalTimezone: false,
