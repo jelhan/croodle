@@ -57,6 +57,24 @@ Have a look at `api/config.default.php` for available options.
 * [Content-Security-Policy](http://content-security-policy.com/) (CSP) should be used. Default CSP headers are provided in `.htaccess` file but commented out.
 * Execute `php api/cron.php` on a regular basis to delete outdated polls. A cronjob running once a day should be fine.
 
+## Development
+`ember serve` generates a development build of croodle and starts
+a server listening on `http://localhost:4200` which is serving it.
+If source files are changing, a rebuild and reload is triggered.
+
+By default croodle uses an api mock in development. Since that one
+does not persist records all polls are gone after a reload.
+
+If you like to test against real api, run api via php built-in web
+server: `php -S 127.0.0.1:8080 -t dist/`
+Afterwards start ember-cli development server using `--proxy` option:
+`ember server --proxy http://127.0.0.1:8080`.
+
+Ember-cli clears dist folder on each rebuild. If you like to keep
+created polls over rebuild, configure api to use a non default folder
+to save your polls:
+`CROODLE__DATA_DIR=/tmp/croodle_data php -S 127.0.0.1:8080 -t dist/`
+
 ## Running tests
 
 ### Ember
