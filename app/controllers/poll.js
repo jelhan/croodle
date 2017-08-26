@@ -76,6 +76,14 @@ export default Controller.extend({
     }
   }),
 
+  showExpirationWarning: computed('model.expirationDate', function() {
+    let expirationDate = this.get('model.expirationDate');
+    if (isEmpty(expirationDate)) {
+      return false;
+    }
+    return moment().add(2, 'weeks').isAfter(moment(expirationDate));
+  }),
+
   timezoneChoosen: false,
 
   /*

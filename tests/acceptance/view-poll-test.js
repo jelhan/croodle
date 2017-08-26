@@ -23,12 +23,12 @@ test('poll url', function(assert) {
   visit(pollUrl);
   andThen(function() {
     assert.equal(
-      find('.poll-link .link a').text(),
+      pageParticipation.url,
       window.location.href,
       'share link is shown'
     );
 
-    find('.poll-link .copy-btn').click();
+    pageParticipation.copyUrl();
     /*
      * Can't test if link is actually copied to clipboard due to api
      * restrictions. Due to security it's not allowed to read from clipboard.
@@ -36,6 +36,19 @@ test('poll url', function(assert) {
      * Can't test if flash message is shown due to
      * https://github.com/poteto/ember-cli-flash/issues/202
     */
+  });
+});
+
+test('shows a warning if poll is about to be expired', function(assert) {
+  let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let poll = server.create('poll', {
+    encryptionKey,
+    expirationDate: moment().add(1, 'week')
+  });
+  visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`).then(function() {
+    assert.ok(
+      pageParticipation.showsExpirationWarning
+    );
   });
 });
 
@@ -65,6 +78,7 @@ test('view a poll with dates and times', function(assert) {
   let timezone = moment.tz.guess();
   let poll = server.create('poll', {
     encryptionKey,
+    expirationDate: moment().add(1, 'year'),
     isDateTime: true,
     options: [
       { title: '2015-12-12T11:11:00.000Z' },
@@ -85,6 +99,10 @@ test('view a poll with dates and times', function(assert) {
         // full date cause day changed
         moment.tz('2016-01-01T11:11:00.000Z', timezone).locale('en').format('LLLL')
       ]
+    );
+    assert.notOk(
+      pageParticipation.showsExpirationWarning,
+      'does not show an expiration warning if poll will not expire in next weeks'
     );
   });
 });

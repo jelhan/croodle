@@ -1,4 +1,5 @@
 import PageObject from 'ember-cli-page-object';
+import { definition as Poll } from 'croodle/tests/pages/poll';
 import { defaultsForApplication } from 'croodle/tests/pages/defaults';
 import { hasFocus } from 'croodle/tests/pages/helpers';
 
@@ -11,14 +12,7 @@ let {
 
 const { assign } = Object;
 
-const urlMatches = function(regExp) {
-  return function() {
-    const pollURL = currentURL();
-    return regExp.test(pollURL);
-  };
-};
-
-export default PageObject.create(assign({}, defaultsForApplication, {
+export default PageObject.create(assign({}, defaultsForApplication, Poll, {
   description: text('.description'),
   name: fillable('.name input'),
   nameHasFocus: hasFocus('.name input'),
@@ -31,7 +25,6 @@ export default PageObject.create(assign({}, defaultsForApplication, {
     labels: text('.selections .form-group label.control-label', { multiple: true })
   }),
   title: text('h2.title'),
-  urlIsValid: urlMatches(/^\/poll\/[a-zA-Z0-9]{10}\/participation\?encryptionKey=[a-zA-Z0-9]{40}$/),
   // use as .visit({ encryptionKey: ??? })
   visit: visitable('/poll/participation')
 }));
