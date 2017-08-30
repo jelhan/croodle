@@ -90,7 +90,7 @@
         "-b",
         "safari",
         "-v",
-        "9",
+        "latest",
         "--vi",
         "public",
         "--at",
