@@ -5,8 +5,8 @@ const { getOwner, isEmpty, isPresent } = Ember;
 export default {
   name: 'i18n',
   initialize(appInstance) {
-    const i18n = appInstance.lookup('service:i18n');
-    const availableLocales = i18n.get('locales');
+    let i18n = appInstance.lookup('service:i18n');
+    let availableLocales = i18n.get('locales');
 
     i18n.addObserver('locale', i18n, localeChanged);
     i18n.set('locale', getLocale(availableLocales));
@@ -14,7 +14,7 @@ export default {
 };
 
 function getLocale(availableLocales) {
-  const methods = [
+  let methods = [
     getSavedLocale,
     getLocaleByBrowser
   ];
@@ -53,9 +53,11 @@ function getLocaleByBrowser() {
   let primaryLanguage;
 
   if (isPresent(navigator.languages)) {
-    // prefer experimental NavigatorLanguage.languages property if available
-    // returns an array of language codes ordered by preference
-    languages = navigator.languages;
+    // Prefer experimental NavigatorLanguage.languages property if available.
+    // NavigatorLanguage.languages returns an array of language codes ordered by preference.
+    // Need to clone returned array cause otherwise Safari 10.1 throws an
+    // "Attempted to assign to readonly property" error.
+    languages = navigator.languages.slice(0);
   } else if (isPresent(navigator.language)) {
     // navigator.language should be available in most browsers
     // but only returns most prefered language
