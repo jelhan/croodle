@@ -6,7 +6,7 @@ module.exports = function(environment) {
     modulePrefix: 'croodle',
     environment: environment,
     locationType: 'hash',
-    rootURL: '/',
+    rootURL: '',
 
     APP: {
       // Here you can pass flags/options to your application instance
@@ -44,6 +44,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'test') {
+    ENV.rootURL = '/';
+
     // Testem prefers this...
     ENV.locationType = 'hash';
 
