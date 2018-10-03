@@ -3,9 +3,10 @@
     formLayout="horizontal"
     model=this
     novalidate=true
-    action="submit"
+    onSubmit=(action 'submit')
+    as |form|
   }}
-    {{bs-form-element
+    {{form.element
       autofocus=true
       classNames='title'
       controlType="text"
@@ -13,7 +14,7 @@
       placeholder=(t 'create.meta.input.title.placeholder')
       property="title"
     }}
-    {{bs-form-element
+    {{form.element
       classNames='description'
       controlType="textarea"
       label=(t 'create.meta.input.description.label')
@@ -21,7 +22,7 @@
       property="description"
     }}
     {{form-navigation-buttons
-      prevAction='previousPage'
+      onPrev=(route-action 'previousPage')
     }}
   {{/bs-form}}
 </div>

@@ -113,12 +113,12 @@ export default Component.extend(modelValidations, {
     },
 
     previousPage() {
-      this.sendAction('previousPage');
+      this.onPrevPage();
     },
 
     submit() {
       if (this.get('validations.isValid')) {
-        this.sendAction('nextPage');
+        this.onNextPage();
       } else {
         this.set('shouldShowErrors', true);
       }

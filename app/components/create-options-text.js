@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import BsForm from 'ember-bootstrap/components/bs-form';
+import BsFormElement from 'ember-bootstrap/components/bs-form/element';
 import { anyBy } from 'ember-array-computed-macros';
 
-const { Component, computed, inject, observer, on, run } = Ember;
+const { Component, computed, inject, observer, run } = Ember;
 
 export default Component.extend({
   actions: {
@@ -21,20 +21,20 @@ export default Component.extend({
     }
   },
 
-  anyElementHasFeedback: anyBy('form.childFormElements', 'hasFeedback'),
+  anyElementHasFeedback: anyBy('childFormElements', 'hasFeedback'),
 
-  anyElementIsInvalid: anyBy('form.childFormElements', 'validation', function(value) {
+  anyElementIsInvalid: anyBy('childFormElements', 'validation', function(value) {
     return value === 'error';
   }),
 
-  everyElementIsValid: computed('form.childFormElements.@each.validation', function() {
+  everyElementIsValid: computed('childFormElements.@each.validation', function() {
     const anyElementIsInvalid = this.get('anyElementIsInvalid');
     if (anyElementIsInvalid) {
       return false;
     }
 
     // childFormElements contains button wrapper element which should not be taken into account here
-    const childFormElements = this.get('form.childFormElements').filterBy('hasValidator');
+    const childFormElements = this.get('childFormElements').filterBy('hasValidator');
     if (childFormElements) {
       return childFormElements.every((childFormElement) => {
         return childFormElement.get('hasFeedback') && childFormElement.get('validation') === 'success';
@@ -44,9 +44,8 @@ export default Component.extend({
     }
   }),
 
-  form: null,
-  registerForm: on('didInsertElement', function() {
-    this.set('form', this.nearestOfType(BsForm));
+  childFormElements: computed.filter('childViews', function(childView) {
+    return childView instanceof BsFormElement;
   }),
 
   labelValidationClass: 'label-has-no-validation',

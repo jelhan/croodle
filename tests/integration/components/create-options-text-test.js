@@ -12,7 +12,7 @@ moduleForComponent('create-options-text', 'Integration | Component | create opti
 
 test('it generates at least two input fields', function(assert) {
   this.set('options', []);
-  this.render(hbs`{{create-options-text options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
   assert.equal(this.$('input').length, 2);
 });
@@ -23,7 +23,7 @@ test('generates input fields according options', function(assert) {
     Ember.Object.create({ title: 'bar' }),
     Ember.Object.create({ title: 'baz' })
   ]);
-  this.render(hbs`{{create-options-text options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
   assert.equal(
     this.$('input').length,
@@ -44,7 +44,7 @@ test('observes changes to options', function(assert) {
     Ember.Object.create({ title: 'foo' }),
     Ember.Object.create({ title: 'bar' })
   ]);
-  this.render(hbs`{{create-options-text options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
   assert.equal(
     this.$('input').length,
@@ -75,7 +75,7 @@ test('changes to value updates option', function(assert) {
     Ember.Object.create({ title: 'foo' }),
     Ember.Object.create({ title: 'bar' })
   ]);
-  this.render(hbs`{{create-options-text options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
   this.$('input').eq(0).val('baz').trigger('change');
   assert.equal(
@@ -103,7 +103,7 @@ test('allows to add another option', function(assert) {
     });
   });
   this.set('options', poll.get('options'));
-  this.render(hbs`{{create-options-text options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
   assert.equal(
     this.$('.form-group input').length,
@@ -143,7 +143,7 @@ test('allows to delete an option', function(assert) {
     Ember.Object.create({ title: 'bar' }),
     Ember.Object.create({ title: 'baz' })
   ]);
-  this.render(hbs`{{create-options-text options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
   assert.equal(
     this.$('.form-group input').length,

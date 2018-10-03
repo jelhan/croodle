@@ -1,15 +1,15 @@
-{{#bs-form-element
+{{#form.element
   classNames='days'
   label=(t 'create.options.dates.label')
   property='options'
-  as |value id|
+  as |el|
 }}
   {{bootstrap-datepicker-inline
-    id=id
+    id=el.id
     value=optionsBootstrapDatepicker
     multidate=true
     calendarWeeks=true
     todayHighlight=true
     language=i18n.locale
   }}
-{{/bs-form-element}}
+{{/form.element}}

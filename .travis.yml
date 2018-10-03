@@ -15,6 +15,9 @@ matrix:
 dist: trusty
 sudo: false
 
+addons:
+  chrome: stable
+
 cache:
   yarn: true
 
@@ -22,15 +25,13 @@ before_install:
   - if [ "$TEST" == "API" ]; then export TEST_API=true; else export TEST_API=false; fi
   - if [ "$TEST" == "EMBER" ]; then export TEST_EMBER=true; else export TEST_EMBER=false; fi
   - if [ "$TEST" == "SAUCE" ]; then export TEST_SAUCE=true; else export TEST_SAUCE=false; fi
-  # provide yarn if we are testing ember build
-  - if $TEST_EMBER || $TEST_SAUCHE; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
-  - if $TEST_EMBER || $TEST_SAUCHE; then export PATH=$HOME/.yarn/bin:$PATH; fi
-  # provide phantomjs to run ember test against (not needed if tests are run against browsers provided by saucelabs)
-  - if $TEST_EMBER; then yarn global add phantomjs-prebuilt; fi
-  - if $TEST_EMBER; then phantomjs --version; fi
+  # provide yarn and bower if ember build is tested
+  - if $TEST_EMBER || $TEST_SAUCE; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then export PATH=$HOME/.yarn/bin:$PATH; fi
+  - if $TEST_EMBER || $TEST_SAUCE; then yarn global add bower; fi
+
 install:
   # install dependencies for client
-  - if $TEST_EMBER || $TEST_SAUCE; then yarn global add bower; fi
   - if $TEST_EMBER || $TEST_SAUCE; then yarn install --no-interactive; fi
   - if $TEST_EMBER || $TEST_SAUCE; then bower install; fi
   # install dependencies for api

@@ -9,7 +9,7 @@ moduleForComponent('create-options-dates', 'Integration | Component | create opt
 
 test('it renders a ember-cli-bootstrap-datepicker component', function(assert) {
   this.set('options', []);
-  this.render(hbs`{{create-options-dates options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
   assert.equal(
     this.$('.days .ember-view:has(.datepicker:first-child)').length, 1
@@ -21,7 +21,7 @@ test('bootstrap-datepicker shows dates in options', function(assert) {
     Ember.Object.create({ title: '2015-01-01' }),
     Ember.Object.create({ title: '2015-01-02' })
   ]);
-  this.render(hbs`{{create-options-dates options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
   assert.equal(
     this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('getDates')[0].toISOString(),
@@ -37,7 +37,7 @@ test('bootstrap-datepicker shows dates in options', function(assert) {
 
 test('dates set in bootstrap-datepicker are set to options', function(assert) {
   this.set('options', []);
-  this.render(hbs`{{create-options-dates options=options}}`);
+  this.render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
   this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('setDates', [
     moment('2015-01-01').toDate(),

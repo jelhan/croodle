@@ -3,51 +3,52 @@
     formLayout="horizontal"
     model=this
     novalidate=true
-    action="submit"
+    onSubmit=(action 'submit')
+    as |form|
   }}
-    {{#bs-form-element
+    {{#form.element
       classNames='answer-type'
       label=(t 'create.settings.answerType.label')
       property="answerType"
       showValidationOn=(array 'change' 'focusOut')
       useIcons=false
-      as |value id|
+      as |el|
     }}
       {{simple-select
         autofocus=true
-        id=id
+        id=el.id
         content=answerTypes
         optionLabelPath="label"
         optionValuePath="id"
-        value=value
-        action=(action (mut value) value='id')
+        value=el.value
+        action=(action (mut el.value) value='id')
       }}
-    {{/bs-form-element}}
-    {{#bs-form-element
+    {{/form.element}}
+    {{#form.element
       classNames='expiration-duration'
       label=(t 'create.settings.expirationDate.label')
       property='expirationDuration'
       showValidationOn=(array 'change' 'focusOut')
       useIcons=false
-      as |value id|
+      as |el|
     }}
       {{simple-select
-        id=id
+        id=el.id
         content=expirationDurations
         optionLabelPath='label'
         optionValuePath='id'
-        value=value
-        action=(action (mut value) value='id')
+        value=el.value
+        action=(action (mut el.value) value='id')
       }}
-    {{/bs-form-element}}
-    {{bs-form-element
+    {{/form.element}}
+    {{form.element
       classNames='anonymous-user'
       controlType='checkbox'
       label=(t 'create.settings.anonymousUser.label')
       showValidationOn='change'
       value=anonymousUser
     }}
-    {{bs-form-element
+    {{form.element
       classNames='force-answer'
       controlType='checkbox'
       label=(t 'create.settings.forceAnswer.label')
@@ -56,7 +57,7 @@
     }}
     {{form-navigation-buttons
       nextButtonText=(t 'action.save')
-      prevAction='previousPage'
+      onPrev=(route-action 'previousPage')
     }}
   {{/bs-form}}
 </div>
