@@ -3,26 +3,27 @@
     formLayout="horizontal"
     model=this
     novalidate=true
-    action="submit"
+    onSubmit=(action 'submit')
+    as |form|
   }}
-    {{#bs-form-element
+    {{#form.element
       classNames='poll-type'
       label=(t 'create.index.input.pollType.label')
       property="pollType"
       showValidationOn=(array 'change' 'focusOut')
       useIcons=false
-      as |value id|
+      as |el|
     }}
       {{simple-select
         autofocus=true
-        id=id
+        id=el.id
         content=pollTypes
         optionLabelPath="label"
         optionValuePath="id"
-        value=value
-        action=(action (mut value) value='id')
+        value=el.value
+        action=(action (mut el.value) value='id')
       }}
-    {{/bs-form-element}}
+    {{/form.element}}
     {{form-navigation-buttons
       disablePrevButton=true
     }}

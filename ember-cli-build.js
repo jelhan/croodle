@@ -13,7 +13,9 @@ module.exports = function(defaults) {
       'metaTemplate': 'version={SEMVER}'
     },
     'ember-bootstrap': {
-      importBootstrapCSS: false
+      importBootstrapCSS: false,
+      'bootstrapVersion': 3,
+      'importBootstrapFont': true
     },
     'ember-cli-babel': {
       includePolyfill: true

@@ -1,11 +1,12 @@
 <div class="participation">
   {{#bs-form
-    action='submit'
+    onSubmit=(action 'submit')
     formLayout='horizontal'
     model=this
     novalidate=true
+    as |form|
   }}
-    {{bs-form-element
+    {{form.element
       autofocus=true
       controlType='text'
       label=(t 'poll.input.newUserName.label')
@@ -16,7 +17,7 @@
     <div class="selections">
       {{#each selections as |selection index|}}
         {{#if isFreeText}}
-          {{bs-form-element
+          {{form.element
             controlType='text'
             label=(if isFindADate
               (moment-format
@@ -31,7 +32,7 @@
             property='value'
           }}
         {{else}}
-          {{#bs-form-element
+          {{#form.element
             label=(if isFindADate
               (moment-format
                 selection.labelValue
@@ -45,21 +46,21 @@
             property='value'
             showValidationOn='change'
             useIcons=false
-            as |value id|
+            as |el|
           }}
             {{#each possibleAnswers as |possibleAnswer|}}
               <div class="radio {{possibleAnswer.type}}">
                 <label>
                   {{radio-button
                     value=possibleAnswer.type
-                    checked=value
+                    checked=el.value
                   }}
                   <span class={{possibleAnswer.icon}} aria-hidden="true"></span>
                   {{possibleAnswer.label}}
                 </label>
               </div>
             {{/each}}
-          {{/bs-form-element}}
+          {{/form.element}}
         {{/if}}
       {{/each}}
     </div>
@@ -78,15 +79,16 @@
   closeButton=false
   autoClose=false
   id='modal-saving-failed'
+  as |modal|
 }}
-  {{#bs-modal-body}}
+  {{#modal.body}}
     <p>{{t "modal.save-retry.text"}}</p>
-  {{/bs-modal-body}}
-  {{#bs-modal-footer}}
+  {{/modal.body}}
+  {{#modal.footer}}
     {{bs-button
       defaultText=(t 'modal.save-retry.button-retry')
       type='primary'
-      action='save'
+      onClick=(action 'save')
     }}
-  {{/bs-modal-footer}}
+  {{/modal.footer}}
 {{/bs-modal}}

@@ -1,32 +1,33 @@
 {{#each options as |option index|}}
   {{! show label only on first item }}
-  {{#bs-form-element
+  {{#form.element
     classNames='option'
     label=(unless index (t 'create.options.options.label'))
     model=option
     property='title'
-    as |value id validationState|
+    as |el|
   }}
     <div class="input-group">
-      {{bs-input
+      {{bs-form/element/control/input
         autofocus=(unless index true false)
-        id=id
-        value=value
+        id=el.id
+        value=el.value
+        onChange=(action (mut el.value))
       }}
       <div class="input-group-btn">
         {{! disable delete button if there is only one option }}
         <button {{action 'deleteOption' option}}
-          class="delete btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}"
+          class="delete btn {{if (eq el.validation 'success') 'btn-success'}} {{if (eq el.validation 'error') 'btn-danger'}} {{unless el.validation 'btn-default'}}"
           disabled={{if (gt options.length 1) false true}}>
           <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
           <span class='sr-only'>{{t 'create.options.button.delete.label'}}</span>
         </button>
         <button {{action 'addOption' option}}
-          class="add btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
+          class="add btn {{if (eq el.validation 'success') 'btn-success'}} {{if (eq el.validation 'error') 'btn-danger'}} {{unless el.validation 'btn-default'}}">
           <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
           <span class='sr-only'>{{t 'create.options.button.add.label'}}</span>
         </button>
       </div>
     </div>
-  {{/bs-form-element}}
+  {{/form.element}}
 {{/each}}

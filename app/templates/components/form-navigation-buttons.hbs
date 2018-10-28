@@ -2,7 +2,7 @@
   {{#if renderPrevButton}}
     <div class="col-xs-6 col-md-4 text-right">
       {{bs-button
-        action=(action 'prev')
+        onClick=(action 'prev')
         classNames='prev'
         disabled=disablePrevButton
         defaultText=prevButtonText

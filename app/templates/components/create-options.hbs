@@ -4,23 +4,25 @@
     formLayout='horizontal'
     model=this
     novalidate=true
+    onSubmit=(action 'submit')
+    as |form|
   }}
     {{#if isMakeAPoll}}
       {{create-options-text
         options=options
         addOption='addOption'
         deleteOption='deleteOption'
-        submit='submit'
+        form=form
       }}
     {{else}}
       {{create-options-dates
         options=options
-        submit='submit'
+        form=form
       }}
     {{/if}}
 
     {{form-navigation-buttons
-      prevAction='previousPage'
+      onPrev=(action 'previousPage')
     }}
   {{/bs-form}}
 </div>

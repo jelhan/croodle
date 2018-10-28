@@ -6,10 +6,11 @@
   {{/if}}
 
   {{#bs-form
-    action='submit'
+    onSubmit=(action 'submit')
     formLayout='horizontal'
     model=this
     novalidate=true
+    as |form|
   }}
     <div class="days">
       {{#each dates as |date index|}}
@@ -24,49 +25,50 @@
             Therefore we pass in array length if index is null. Cause index starting
             by zero there can't be any element with an index === array.length.
           }}
-          {{#bs-form-element
+          {{#form.element
             classNames='option'
             label=date.dayFormatted
             invisibleLabel=(eq date.dayFormatted (object-at dates (if index (sub index 1) dates.length) 'dayFormatted'))
             model=date
             property='time'
-            as |value id validationState|
+            as |el|
           }}
             <div class="input-group">
-              {{bs-input
+              {{bs-form/element/control/input
                 autofocus=(unless index true false)
-                id=id
+                id=el.id
                 placeholder='00:00'
                 type='time'
-                value=value
+                value=el.value
+                onChange=(action (mut el.value))
               }}
               <div class="input-group-btn">
                 {{! disable delete button if there is only one option }}
                 <button {{action 'deleteOption' date}}
-                  class="delete btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
+                  class="delete btn {{if (eq el.validation 'success') 'btn-success'}} {{if (eq el.validation 'error') 'btn-danger'}} {{unless el.validation 'btn-default'}}">
                   <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
                   <span class='sr-only'>{{t 'create.options.button.delete.label'}}</span>
                 </button>
                 <button {{action 'addOption' date}}
-                  class="add btn {{if (eq validationState 'success') 'btn-success'}} {{if (eq validationState 'error') 'btn-danger'}} {{unless validationState 'btn-default'}}">
+                  class="add btn {{if (eq el.validation 'success') 'btn-success'}} {{if (eq el.validation 'error') 'btn-danger'}} {{unless el.validation 'btn-default'}}">
                   <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
                   <span class='sr-only'>{{t 'create.options.button.add.label'}}</span>
                 </button>
               </div>
             </div>
-          {{/bs-form-element}}
+          {{/form.element}}
         </div>
       {{/each}}
     </div>
 
     {{#if (gt groupedDates.length 1)}}
-      {{#bs-form-element}}
+      {{#form.element}}
         <button {{action "adoptTimesOfFirstDay"}} class="btn btn-default adopt-times-of-first-day">{{t "create.options-datetime.copy-first-line"}}</button>
-      {{/bs-form-element}}
+      {{/form.element}}
     {{/if}}
 
     {{form-navigation-buttons
-      prevAction='previousPage'
+      onPrev=(action 'previousPage')
     }}
   {{/bs-form}}
 </div>

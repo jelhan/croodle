@@ -6,7 +6,7 @@ const { Component, computed, get, inject } = Ember;
 export default Component.extend({
   actions: {
     prev() {
-      this.sendAction('prevAction');
+      this.onPrev();
     }
   },
 
