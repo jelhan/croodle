@@ -1844,6 +1844,13 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
+bootstrap-datepicker@^1.7.1:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-datepicker/-/bootstrap-datepicker-1.8.0.tgz#c63513931e6f09f16ae9f11b62f32d950df3958e"
+  integrity sha512-213St/G8KT3mjs4qu4qwww74KWysMaIeqgq5OhrboZjIjemIpyuxlSo9FNNI5+KzpkkxkRRba+oewiRGV42B1A==
+  dependencies:
+    jquery ">=1.7.1 <4.0.0"
+
 bootstrap@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
@@ -3939,12 +3946,15 @@ ember-cli-babel@^6.9.2:
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-bootstrap-datepicker@^0.5.5:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/ember-cli-bootstrap-datepicker/-/ember-cli-bootstrap-datepicker-0.5.6.tgz#efa86a5d4a8b6883ee749c9bd50e1f70f17fe0a5"
-  integrity sha1-76hqXUqLaIPudJyb1Q4fcPF/4KU=
+ember-cli-bootstrap-datepicker@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-bootstrap-datepicker/-/ember-cli-bootstrap-datepicker-0.6.1.tgz#73ee152e9b3e4e5ff872d8c8a2ca87c544c9e8b5"
+  integrity sha512-imo+NTPhpDuO4WBr02iU6bAXniNqO6zilvXbp2/4lz6K3/+ilg2MRorOmEgfTIt5wLiQJk+Fvky0s2p1GmiRvA==
   dependencies:
-    ember-cli-babel "^5.1.5"
+    bootstrap-datepicker "^1.7.1"
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^2.0.0"
+    ember-cli-babel "^6.6.0"
 
 ember-cli-broccoli-sane-watcher@^2.0.4:
   version "2.0.4"
@@ -6895,6 +6905,11 @@ jodid25519@^1.0.0:
   integrity sha1-BtSRIlUJNBlHfUJWM2BuDpB4KWc=
   dependencies:
     jsbn "~0.1.0"
+
+"jquery@>=1.7.1 <4.0.0":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+  integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
 
 jquery@^3.2.1:
   version "3.2.1"

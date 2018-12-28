@@ -2,7 +2,6 @@
   "name": "croodle",
   "dependencies": {
     "sjcl": "~1.0.6",
-    "bootstrap-datepicker": "~1.4.0",
     "floatThead": "^1.4.3"
   }
 }
