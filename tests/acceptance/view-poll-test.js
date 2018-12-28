@@ -1,12 +1,9 @@
-import Ember from 'ember';
 import { test } from 'qunit';
 import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
 import moment from 'moment';
 /* jshint proto: true */
-
-const { run } = Ember;
 
 moduleForAcceptance('Acceptance | view poll', {
   beforeEach() {
@@ -107,7 +104,7 @@ test('view a poll with dates and times', function(assert) {
   });
 });
 
-test('view a poll while timezone differs from the one poll got created in and choose local timezone', function(assert) {
+test('view a poll while timezone differs from the one poll got created in and choose local timezone', async function(assert) {
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
   let timezoneUser = moment.tz.guess();
   let timezonePoll = timezoneUser !== 'America/Caracas' ? 'America/Caracas' : 'Europe/Moscow';
@@ -140,46 +137,33 @@ test('view a poll while timezone differs from the one poll got created in and ch
     ]
   });
 
-  visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`).then(function() {
-    run.next(() => {
-      assert.ok(
-        find('#modal-choose-timezone-modal').is(':visible'),
-        'user gets asked which timezone should be used'
-      );
+  await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
+  assert.ok(
+    find('#modal-choose-timezone-modal').is(':visible'),
+    'user gets asked which timezone should be used'
+  );
 
-      click('#modal-choose-timezone-modal button.use-local-timezone');
+  await click('#modal-choose-timezone-modal button.use-local-timezone');
+  assert.deepEqual(
+    pageParticipation.options().labels,
+    [
+      moment.tz('2015-12-12T11:11:00.000Z', timezoneUser).locale('en').format('LLLL'),
+      moment.tz('2016-01-01T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')
+    ]
+  );
+  assert.notOk(
+    find('#modal-choose-timezone-modal').is(':visible'),
+    'modal is closed'
+  );
 
-      andThen(() => {
-        assert.deepEqual(
-          pageParticipation.options().labels,
-          [
-            moment.tz('2015-12-12T11:11:00.000Z', timezoneUser).locale('en').format('LLLL'),
-            moment.tz('2016-01-01T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')
-          ]
-        );
-
-        run.next(() => {
-          assert.notOk(
-            find('#modal-choose-timezone-modal').is(':visible'),
-            'modal is closed'
-          );
-        });
-
-        andThen(() => {
-          switchTab('evaluation');
-          andThen(() => {
-            assert.deepEqual(
-              pageEvaluation.preferedOptions,
-              [moment.tz('2015-12-12T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')]
-            );
-          });
-        });
-      });
-    });
-  });
+  await switchTab('evaluation');
+  assert.deepEqual(
+    pageEvaluation.preferedOptions,
+    [moment.tz('2015-12-12T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')]
+  );
 });
 
-test('view a poll while timezone differs from the one poll got created in and choose poll timezone', function(assert) {
+test('view a poll while timezone differs from the one poll got created in and choose poll timezone', async function(assert) {
   let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
   let timezoneUser = moment.tz.guess();
   let timezonePoll = timezoneUser !== 'America/Caracas' ? 'America/Caracas' : 'Europe/Moscow';
@@ -212,42 +196,29 @@ test('view a poll while timezone differs from the one poll got created in and ch
     ]
   });
 
-  visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`).then(function() {
+  await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
+  assert.ok(
+    find('#modal-choose-timezone-modal').is(':visible'),
+    'user gets asked which timezone should be used'
+  );
 
-    run.next(function() {
-      assert.ok(
-        find('#modal-choose-timezone-modal').is(':visible'),
-        'user gets asked which timezone should be used'
-      );
+  await click('#modal-choose-timezone-modal button.use-poll-timezone');
+  assert.deepEqual(
+    pageParticipation.options().labels,
+    [
+      moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL'),
+      moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')
+    ]
+  );
 
-      click('#modal-choose-timezone-modal button.use-poll-timezone');
+  assert.notOk(
+    find('#modal-choose-timezone-modal').is(':visible'),
+    'modal is closed'
+  );
 
-      andThen(function() {
-        assert.deepEqual(
-          pageParticipation.options().labels,
-          [
-            moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL'),
-            moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')
-          ]
-        );
-
-        run.next(function() {
-          assert.notOk(
-            find('#modal-choose-timezone-modal').is(':visible'),
-            'modal is closed'
-          );
-        });
-
-        andThen(() => {
-          switchTab('evaluation');
-          andThen(() => {
-            assert.deepEqual(
-              pageEvaluation.preferedOptions,
-              [moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')]
-            );
-          });
-        });
-      });
-    });
-  });
+  await switchTab('evaluation');
+  assert.deepEqual(
+    pageEvaluation.preferedOptions,
+    [moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')]
+  );
 });
