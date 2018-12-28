@@ -10,11 +10,11 @@ const Validations = buildValidations({
   title: [
     validator('presence', {
       presence: true,
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     }),
     validator('length', {
       min: 2,
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     })
   ]
 });

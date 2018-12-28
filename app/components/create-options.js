@@ -10,14 +10,14 @@ let Validations = buildValidations({
   options: [
     validator('collection', true),
     validator('length', {
-      dependentKeys: ['options.[]', 'i18n.locale'],
+      dependentKeys: ['model.options.[]', 'model.i18n.locale'],
       min: 1,
       // it's impossible to delete all text options so this case could be ignored
       // for validation error message
       messageKey: 'create.options.error.notEnoughDates'
     }),
     validator('valid-collection', {
-      dependentKeys: ['options.[]', 'options.@each.title']
+      dependentKeys: ['model.options.[]', 'model.options.@each.title']
     })
   ]
 });

@@ -13,11 +13,11 @@ let modelValidations = buildValidations({
   dates: [
     validator('collection', true),
     validator('length', {
-      dependentKeys: ['datetimes.[]'],
+      dependentKeys: ['model.datetimes.[]'],
       min: 1
     }),
     validator('valid-collection', {
-      dependentKeys: ['datetimes.[]', 'datetimes.@each.time']
+      dependentKeys: ['model.datetimes.[]', 'model.datetimes.@each.time']
     })
   ]
 });

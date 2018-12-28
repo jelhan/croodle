@@ -24,24 +24,15 @@ const validCollection = function(collection) {
 const Validations = buildValidations({
   name: [
     validator('presence', {
-      presence() {
-        // only force presence if anonymousUser poll setting is false
-        if (!this.get('model.anonymousUser')) {
-          return true;
-        } else {
-          // disable presence validation
-          return null;
-        }
-      },
-      dependentKeys: ['anonymousUser', 'i18n.locale']
+      presence: true,
+      disabled: computed.readOnly('model.anonymousUser'),
+      dependentKeys: ['model.i18n.locale']
     }),
     validator('unique', {
       parent: 'pollController.model',
       attributeInParent: 'users',
-      dependentKeys: ['poll.users.[]', 'poll.users.@each.name', 'i18n.locale'],
-      disable() {
-        return this.get('model.anonymousUser');
-      },
+      dependentKeys: ['model.poll.users.[]', 'model.poll.users.@each.name', 'model.i18n.locale'],
+      disable: computed.readOnly('model.anonymousUser'),
       messageKey: 'unique.name'
     })
   ],
@@ -52,27 +43,19 @@ const Validations = buildValidations({
     // all selection objects must be valid
     // if forceAnswer is true in poll settings
     validator(validCollection, {
-      dependentKeys: ['forceAnswer', 'selections.[]', 'selections.@each.value', 'i18n.locale']
+      dependentKeys: ['model.forceAnswer', 'model.selections.[]', 'model.selections.@each.value', 'model.i18n.locale']
     })
   ]
 });
 
 const SelectionValidations = buildValidations({
   value: validator('presence', {
-    presence() {
-      // only force present value if forceAnswer is true in poll settings
-      if (this.get('model.forceAnswer')) {
-        return true;
-      }
-    },
-    messageKey() {
-      if (this.get('model.isFreeText')) {
-        return 'errors.present';
-      } else {
-        return 'errors.present.answer.selection';
-      }
-    },
-    dependentKeys: ['isFreeText', 'forceAnswer', 'i18n.locale']
+    presence: true,
+    disabled: computed.not('model.forceAnswer'),
+    messageKey: computed('model.isFreeText', function() {
+      return this.get('model.isFreeText') ? 'errors.present' : 'errors.present.answer.selection';
+    }),
+    dependentKeys: ['model.i18n.locale']
   })
 });
 

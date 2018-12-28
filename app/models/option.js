@@ -14,33 +14,27 @@ const { assert, computed, inject, isEmpty } = Ember;
 const Validations = buildValidations({
   title: [
     validator('iso8601', {
-      active() {
-        return this.get('model.poll.isFindADate');
-      },
+      active: computed.readOnly('model.poll.isFindADate'),
       validFormats: [
         'YYYY-MM-DD',
         'YYYY-MM-DDTHH:mmZ',
         'YYYY-MM-DDTHH:mm:ssZ',
         'YYYY-MM-DDTHH:mm:ss.SSSZ'
       ],
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     }),
     validator('presence', {
       presence: true,
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     }),
     validator('unique', {
       parent: 'poll',
       attributeInParent: 'options',
-      dependentKeys: ['poll.options.[]', 'poll.options.@each.title', 'i18n.locale'],
-      descriptionKey() {
-        const isFindADate = this.get('model.poll.isFindADate');
-        if (isFindADate) {
-          return 'times';
-        } else {
-          return 'options';
-        }
-      }
+      dependentKeys: ['model.poll.options.[]', 'model.poll.options.@each.title', 'model.i18n.locale'],
+      descriptionKey: computed('model.poll.isFindADate', function() {
+        let isFindADate = this.get('model.poll.isFindADate');
+        return isFindADate ? 'times' : 'options';
+      })
     })
   ],
   time: [

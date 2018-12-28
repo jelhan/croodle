@@ -19,16 +19,16 @@ const {
 const Validations = buildValidations({
   anonymousUser: validator('presence', {
     presence: true,
-    dependentKeys: ['i18n.locale']
+    dependentKeys: ['model.i18n.locale']
   }),
   answerType: [
     validator('presence', {
       presence: true,
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     }),
     validator('inclusion', {
       in: ['YesNo', 'YesNoMaybe', 'FreeText'],
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     })
   ],
   forceAnswer: validator('presence', true)
