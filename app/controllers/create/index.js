@@ -10,11 +10,11 @@ const Validations = buildValidations({
   pollType: [
     validator('presence', {
       presence: true,
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     }),
     validator('inclusion', {
       in: ['FindADate', 'MakeAPoll'],
-      dependentKeys: ['i18n.locale']
+      dependentKeys: ['model.i18n.locale']
     })
   ]
 });
