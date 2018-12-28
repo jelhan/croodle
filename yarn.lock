@@ -4139,17 +4139,16 @@ ember-assign-polyfill@~2.4.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.0.0"
 
-ember-awesome-macros@^0.38.2:
-  version "0.38.6"
-  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-0.38.6.tgz#18f5aa4abcaac5151a40db3baca4ee92268e2345"
-  integrity sha1-GPWqSryqxRUaQNs7rKTukiaOI0U=
+ember-awesome-macros@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-3.1.0.tgz#342298914fcb06a25950f6411dde3780a6c0c298"
+  integrity sha512-bO/RgZPXuhgHyCGurEmmjhB0kX6IqdF5e2NZa3SbuEA2tq/Zv1uLRgVgDRj/n/L5aq7ZviH2J+1KAZ7y73ZncA==
   dependencies:
-    broccoli-file-creator "^1.1.1"
-    broccoli-merge-trees "^2.0.0"
-    ember-cli-babel "^6.6.0"
+    broccoli-file-creator "^2.1.1"
+    broccoli-merge-trees "^3.0.0"
+    ember-cli-babel "^7.0.0"
     ember-cli-string-utils "^1.1.0"
-    ember-macro-helpers "^0.17.0"
-    ember-string-ishtmlsafe-polyfill "^2.0.0"
+    ember-macro-helpers "^2.0.0"
 
 ember-bootstrap-cp-validations@^1.0.0:
   version "1.0.0"
@@ -4287,7 +4286,7 @@ ember-cli-babel@^6.8.1:
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.1.2:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.2.0.tgz#5c5bd877fb73f6fb198c878d3127ba9e18e9b8a0"
   integrity sha512-vwx/AgPD7P4ebgTFJMqFovbrSNCA02UMuItlR/Il16njYjgN9ZzjUqgYxaylN7k8RF88wdJq3jrtqyMS/oOq8A==
@@ -5022,22 +5021,22 @@ ember-lodash@^4.17.3:
     ember-cli-babel "^6.4.1"
     lodash-es "^4.17.4"
 
-ember-macro-helpers@^0.17.0:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-0.17.1.tgz#34836e9158cc260ee1c540935371d11f52ec98d9"
-  integrity sha1-NINukVjMJg7hxUCTU3HRH1LsmNk=
-  dependencies:
-    ember-cli-babel "^6.6.0"
-    ember-cli-string-utils "^1.1.0"
-    ember-cli-test-info "^1.0.0"
-    ember-weakmap "^3.0.0"
-
 ember-macro-helpers@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-1.0.0.tgz#bdb875f5752814f3e0c886e2ed650f01cc302712"
   integrity sha1-vbh19XUoFPPgyIbi7WUPAcwwJxI=
   dependencies:
     ember-cli-babel "^6.6.0"
+    ember-cli-string-utils "^1.1.0"
+    ember-cli-test-info "^1.0.0"
+    ember-weakmap "^3.0.0"
+
+ember-macro-helpers@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-2.1.0.tgz#e8eeff5704da4d2d071cc6446cd29c3b9b4c0f6d"
+  integrity sha512-VmXIXUhbMWNqtpQr81EC9Ud/1/rR8+ggiteThapxenD4OssJs7gn5i/ZJU4RopODma69/rfJTmaSlOC+/OxRSg==
+  dependencies:
+    ember-cli-babel "^7.0.0"
     ember-cli-string-utils "^1.1.0"
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^3.0.0"
