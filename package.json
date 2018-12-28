@@ -21,7 +21,7 @@
     "connect-restreamer": "^1.0.1",
     "ember-ajax": "^3.0.0",
     "ember-array-computed-macros": "martndemus/ember-array-computed-macros#3fde9023336d227aa6009060b40b4de77d8b1a9b",
-    "ember-array-helper": "^2.1.0",
+    "ember-array-helper": "^5.0.0",
     "ember-awesome-macros": "^0.38.2",
     "ember-bootstrap": "^2.1.2",
     "ember-bootstrap-cp-validations": "^1.0.0",
@@ -60,7 +60,7 @@
     "ember-i18n": "^5.0.2",
     "ember-i18n-cp-validations": "^3.0.2",
     "ember-load-initializers": "^1.0.0",
-    "ember-math-helpers": "^2.0.2",
+    "ember-math-helpers": "^2.8.1",
     "ember-moment": "7.3.1",
     "ember-native-dom-helpers": "^0.5.2",
     "ember-object-at-helper": "0.1.0",
@@ -71,8 +71,8 @@
     "ember-simple-select": "^0.6.1",
     "ember-source": "~2.14.1",
     "ember-suave": "^4.0.0",
-    "ember-transition-helper": "0.0.6",
-    "ember-truth-helpers": "^1.2.0",
+    "ember-transition-helper": "^1.0.0",
+    "ember-truth-helpers": "^2.1.0",
     "loader.js": "^4.2.3"
   },
   "engines": {
