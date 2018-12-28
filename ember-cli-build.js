@@ -4,10 +4,6 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  const Funnel = require('broccoli-funnel');
-  const unwatchedTree = require('broccoli-unwatched-tree');
-  const trees = [];
-
   let app = new EmberApp(defaults, {
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
@@ -35,12 +31,11 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js');
-  app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.ca.js');
-  app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js');
-  app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.en-GB.js');
-  app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.es.js');
-  app.import('bower_components/bootstrap-datepicker/js/locales/bootstrap-datepicker.it.js');
+  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.ca.min.js');
+  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.de.min.js');
+  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.en-GB.min.js');
+  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.es.min.js');
+  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.it.min.js');
 
   app.import({
     development: 'bower_components/floatThead/dist/jquery.floatThead.js',
@@ -53,5 +48,5 @@ module.exports = function(defaults) {
     ]
   });
 
-  return app.toTree(trees);
+  return app.toTree();
 };
