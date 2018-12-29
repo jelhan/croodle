@@ -30,7 +30,6 @@
     "ember-cli-babel": "^6.6.0",
     "ember-cli-bootstrap-datepicker": "^0.6.1",
     "ember-cli-browser-navigation-button-test-helper": "^0.0.4",
-    "ember-cli-build-info": "^0.3.0",
     "ember-cli-chart": "^3.3.1",
     "ember-cli-clipboard": "^0.8.0",
     "ember-cli-content-security-policy": "^0.6.2",
@@ -78,7 +77,8 @@
   },
   "ember-addon": {
     "paths": [
-      "lib/include-api-in-build"
+      "lib/include-api-in-build",
+      "lib/inject-app-version-in-meta-tag"
     ]
   }
 }

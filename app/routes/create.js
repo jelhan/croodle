@@ -1,6 +1,7 @@
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
+import config from 'croodle/config/environment';
 /* global moment */
 
 export default Route.extend({
@@ -37,7 +38,7 @@ export default Route.extend({
       pollType: 'FindADate',
       timezone: null,
       expirationDate: moment().add(3, 'month').toISOString(),
-      version: this.buildInfo.semver
+      version: config.APP.version,
     });
   }
 });
