@@ -1,7 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('validator:iso8601', 'Unit | Validator | iso8601', {
-  needs: ['validator:messages']
 });
 
 test('default validation is correct', function(assert) {

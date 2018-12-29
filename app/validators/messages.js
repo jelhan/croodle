@@ -1,4 +1,4 @@
-import Messages from 'ember-cp-validations/validators/messages';
+import Messages from 'ember-i18n-cp-validations/validators/messages';
 
 export default Messages.extend({
   validCollection: 'This collection is not valid.',

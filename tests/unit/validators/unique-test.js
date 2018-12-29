@@ -3,7 +3,6 @@ import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('validator:unique', 'Unit | Validator | unique', {
-  needs: ['validator:messages']
 });
 
 test('throws if required option is missing', function(assert) {
