@@ -3,12 +3,13 @@ import { readOnly, mapBy, filter } from '@ember/object/computed';
 import Component from '@ember/component';
 import { isArray } from '@ember/array';
 import { isPresent, isEmpty } from '@ember/utils';
-import { observer, computed } from '@ember/object';
+import { observer, computed, get } from '@ember/object';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-import { groupBy } from 'ember-array-computed-macros';
+import { raw } from 'ember-awesome-macros';
+import { groupBy } from 'ember-awesome-macros/array';
 import Form from 'ember-bootstrap/components/bs-form';
 
 let modelValidations = buildValidations({
@@ -55,30 +56,30 @@ export default Component.extend(modelValidations, {
         return;
       }
 
-      datesWithoutFirstDay.forEach((groupedDate) => {
+      datesWithoutFirstDay.forEach(({ items }) => {
         if (isEmpty(timesForFirstDay)) {
           // there aren't any times on first day
-          const remainingOption = groupedDate.get('firstObject');
+          const remainingOption = items[0];
           // remove all times but the first one
           dates.removeObjects(
-            groupedDate.slice(1)
+            items.slice(1)
           );
           // set title as date without time
           remainingOption.set('title', remainingOption.get('date').format('YYYY-MM-DD'));
         } else {
           // adopt times of first day
-          if (timesForFirstDay.get('length') < groupedDate.length) {
+          if (timesForFirstDay.get('length') < items.length) {
             // remove excess options
             dates.removeObjects(
-              groupedDate.slice(timesForFirstDay.get('length'))
+              items.slice(timesForFirstDay.get('length'))
             );
           }
           // set times according to first day
           let targetPosition;
           timesForFirstDay.forEach((timeOfFirstDate, index) => {
-            const target = groupedDate.objectAt(index);
+            const target = items[index];
             if (target === undefined) {
-              const basisDate = groupedDate.get('firstObject.date').clone();
+              const basisDate = get(items[0], 'date').clone();
               let [hour, minute] = timeOfFirstDate.split(':');
               let dateString = basisDate.hour(hour).minute(minute).toISOString();
               let fragment = this.get('store').createFragment('option', {
@@ -104,9 +105,9 @@ export default Component.extend(modelValidations, {
      */
     deleteOption(target) {
       let position = this.get('dates').indexOf(target);
-      let datesForThisDay = this.get('groupedDates').find((groupedDate) => {
-        return groupedDate.get('firstObject.day') === target.get('day');
-      });
+      let datesForThisDay = this.get('groupedDates').find((group) => {
+        return group.value === target.get('day');
+      }).items;
       if (datesForThisDay.length > 1) {
         this.get('dates').removeAt(position);
       } else {
@@ -127,7 +128,7 @@ export default Component.extend(modelValidations, {
     }
   },
   // dates are sorted
-  datesForFirstDay: readOnly('groupedDates.firstObject'),
+  datesForFirstDay: readOnly('groupedDates.firstObject.items'),
 
   // errorMessage should be reset to null on all user interactions
   errorMesage: null,
@@ -141,8 +142,7 @@ export default Component.extend(modelValidations, {
     return isPresent(time);
   }),
 
-  // have a look at https://github.com/martndemus/ember-array-computed-macros#groupbylistproperty-valueproperty
-  groupedDates: groupBy('dates', 'day'),
+  groupedDates: groupBy('dates', raw('day')),
 
   form: computed(function() {
     return this.childViews.find(function(childView) {
