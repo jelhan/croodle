@@ -1,0 +1,6 @@
+{
+  "name": "inject-app-version-in-meta-tag",
+  "keywords": [
+    "ember-addon"
+  ]
+}

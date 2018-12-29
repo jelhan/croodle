@@ -9,6 +9,7 @@ import {
 }
 from 'ember-cp-validations';
 import moment from 'moment';
+import config from 'croodle/config/environment';
 
 const validCollection = function(collection) {
   // return false if any object in collection is inValid
@@ -61,7 +62,7 @@ export default Controller.extend(Validations, {
         const user = this.store.createRecord('user', {
           creationDate: new Date(),
           poll: this.get('pollController.model'),
-          version: this.buildInfo.semver
+          version: config.APP.version,
         });
 
         user.set('name', this.get('name'));
