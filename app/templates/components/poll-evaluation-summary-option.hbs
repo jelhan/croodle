@@ -3,37 +3,58 @@
   we will see a space between option string and following dot.
 --}}
 {{#if isFindADate}}
-  <strong class='best-option-value'>{{moment-format
-    evaluationBestOption.option.title
-    (if evaluationBestOption.option.hasTime 'LLLL' momentLongDayFormat)
-    locale=currentLocale
-    timeZone=timezone
-  }}</strong>.
+  {{! Need to disable block indentation rule cause there shouldn't be a space between date and dot }}
+  {{! template-lint-disable block-indentation }}
+  <strong class="best-option-value">
+    {{moment-format
+      evaluationBestOption.option.title
+      (if evaluationBestOption.option.hasTime "LLLL" momentLongDayFormat)
+      locale=currentLocale
+      timeZone=timezone
+    }}</strong>.
+  {{! template-lint-enable block-indentation }}
 {{else}}
-  <strong class='best-option-value'>{{evaluationBestOption.option.title}}</strong>.
+  <strong class="best-option-value">{{evaluationBestOption.option.title}}</strong>.
 {{/if}}
 
-
-<br/>
+<br>
 
 {{#if isFindADate}}
   {{#if evaluationBestOption.answers.yes}}
-    {{t "poll.evaluation.bestOptionParticipants.findADate.yes" count=evaluationBestOption.answers.yes}}
+    {{t
+      "poll.evaluation.bestOptionParticipants.findADate.yes"
+      count=evaluationBestOption.answers.yes
+    }}
   {{/if}}
   {{#if evaluationBestOption.answers.maybe}}
-    {{t "poll.evaluation.bestOptionParticipants.findADate.maybe" count=evaluationBestOption.answers.maybe}}
+    {{t
+      "poll.evaluation.bestOptionParticipants.findADate.maybe"
+      count=evaluationBestOption.answers.maybe
+    }}
   {{/if}}
   {{#if evaluationBestOption.answers.no}}
-    {{t "poll.evaluation.bestOptionParticipants.findADate.no" count=evaluationBestOption.answers.no}}
+    {{t
+      "poll.evaluation.bestOptionParticipants.findADate.no"
+      count=evaluationBestOption.answers.no
+    }}
   {{/if}}
 {{else}}
   {{#if evaluationBestOption.answers.yes}}
-    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.yes" count=evaluationBestOption.answers.yes}}
+    {{t
+      "poll.evaluation.bestOptionParticipants.makeAPoll.yes"
+      count=evaluationBestOption.answers.yes
+    }}
   {{/if}}
   {{#if evaluationBestOption.answers.maybe}}
-    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.maybe" count=evaluationBestOption.answers.maybe}}
+    {{t
+      "poll.evaluation.bestOptionParticipants.makeAPoll.maybe"
+      count=evaluationBestOption.answers.maybe
+    }}
   {{/if}}
   {{#if evaluationBestOption.answers.no}}
-    {{t "poll.evaluation.bestOptionParticipants.makeAPoll.no" count=evaluationBestOption.answers.no}}
+    {{t
+      "poll.evaluation.bestOptionParticipants.makeAPoll.no"
+      count=evaluationBestOption.answers.no
+    }}
   {{/if}}
 {{/if}}

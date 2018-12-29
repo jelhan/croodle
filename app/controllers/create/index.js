@@ -24,7 +24,7 @@ const Validations = buildValidations({
 const TranslateableObject = EmberObject.extend({
   i18n: service(),
   label: computed('labelTranslation', 'i18n.locale', function() {
-    return this.get('i18n').t(this.get('labelTranslation'));
+    return this.i18n.t(this.labelTranslation);
   }),
   labelTranslation: undefined
 });

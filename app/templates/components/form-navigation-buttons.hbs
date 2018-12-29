@@ -2,21 +2,21 @@
   {{#if renderPrevButton}}
     <div class="col-xs-6 col-md-4 text-right">
       {{bs-button
-        onClick=(action 'prev')
-        classNames='prev'
+        onClick=(action "prev")
+        classNames="prev"
         disabled=disablePrevButton
         defaultText=prevButtonText
       }}
     </div>
   {{/if}}
   {{#if renderNextButton}}
-    <div class="{{nextButtonClassesString}}">
+    <div class={{nextButtonClassesString}}>
       {{bs-button
-        buttonType='submit'
-        classNames='next'
+        buttonType="submit"
+        classNames="next"
         defaultText=nextButtonText
         disabled=disableNextButton
-        type='primary'
+        type="primary"
       }}
     </div>
   {{/if}}

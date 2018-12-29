@@ -1,8 +1,8 @@
-{{title 'Croodle'}}
+{{title "Croodle"}}
 
 <div class="container">
   <div id="header">
-    <h1 class="logo">{{#link-to 'index'}}Croodle{{/link-to}}</h1>
+    <h1 class="logo">{{#link-to "index"}}Croodle{{/link-to}}</h1>
     <form class="form-inline">
       {{language-select class="form-control"}}
     </form>
@@ -12,11 +12,6 @@
       {{#each flashMessages.queue as |flash|}}
         {{#flash-message flash=flash}}
           {{t flash.message}}
-          {{#if showProgressBar}}
-            <div class="alert-progress">
-              <div class="alert-progressBar" style={{progressDuration}}></div>
-            </div>
-          {{/if}}
         {{/flash-message}}
       {{/each}}
     </div>
@@ -25,4 +20,4 @@
   </div>
 </div>
 
-{{outlet 'modal'}}
+{{outlet "modal"}}

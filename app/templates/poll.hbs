@@ -7,10 +7,20 @@
         <h2 class="title">{{model.title}}</h2>
         <p class="description">{{model.description}}</p>
         <p class="dates">
-          <span class="creationDate">{{t "poll.created-date" date=(moment-format model.creationDate 'LLLL' locale=currentLocale)}}</span>
+          <span class="creationDate">
+            {{t
+              "poll.created-date"
+              date=(moment-format model.creationDate "LLLL" locale=currentLocale)
+            }}
+          </span>
           {{#if model.expirationDate}}
             <br>
-            <span class="expirationDate">{{t "poll.expiration-date" date=(moment-format model.expirationDate 'LLLL' locale=currentLocale)}}</span>
+            <span class="expirationDate">
+              {{t
+                "poll.expiration-date"
+                date=(moment-format model.expirationDate "LLLL" locale=currentLocale)
+              }}
+            </span>
           {{/if}}
         </p>
       </div>
@@ -19,18 +29,20 @@
       <div class="box poll-link">
         <p>{{t "poll.share"}}</p>
         <p class="link">
-          <a href="{{pollUrl}}">{{pollUrl}}</a>
+          <a href={{pollUrl}}>
+            {{pollUrl}}
+          </a>
           {{#copy-button
             clipboardText=pollUrl
             classNames="btn btn-default"
-            success=(action 'linkAction' 'copied')
-            error=(action 'linkAction' 'selected')
+            success=(action "linkAction" "copied")
+            error=(action "linkAction" "selected")
           }}
             <span class="glyphicon glyphicon-copy"></span>
           {{/copy-button}}
         </p>
         <p class="notice">
-            {{t "poll.share.notice"}}
+          {{t "poll.share.notice"}}
         </p>
       </div>
     </div>
@@ -39,8 +51,11 @@
   {{#if showExpirationWarning}}
     <div class="row">
       <div class="col-xs-12">
-        {{#bs-alert type="warning" classNames='expiration-warning'}}
-          {{t "poll.expiration-date-warning" timeToNow=(moment-from-now model.expirationDate locale=currentLocale)}}
+        {{#bs-alert type="warning" classNames="expiration-warning"}}
+          {{t
+            "poll.expiration-date-warning"
+            timeToNow=(moment-from-now model.expirationDate locale=currentLocale)
+          }}
         {{/bs-alert}}
       </div>
     </div>
@@ -48,14 +63,26 @@
 
   <div class="box container-fluid">
     <ul class="nav nav-tabs" role="tablist">
-      {{#link-to "poll.participation" model tagName='li' activeClass='active' class='participation'}}
+      {{#link-to
+        "poll.participation"
+        model
+        tagName="li"
+        activeClass="active"
+        class="participation"
+      }}
         {{#link-to "poll.participation" model}}
-          {{t 'poll.tab-title.participation'}}
+          {{t "poll.tab-title.participation"}}
         {{/link-to}}
       {{/link-to}}
-      {{#link-to "poll.evaluation" model tagName='li' activeClass='active' class='evaluation'}}
+      {{#link-to
+        "poll.evaluation"
+        model
+        tagName="li"
+        activeClass="active"
+        class="evaluation"
+      }}
         {{#link-to "poll.evaluation" model}}
-          {{t 'poll.tab-title.evaluation'}}
+          {{t "poll.tab-title.evaluation"}}
         {{/link-to}}
       {{/link-to}}
     </ul>
@@ -75,19 +102,25 @@
   closeButton=false
   keyboard=false
   autoClose=false
-  id='modal-choose-timezone'
-  as |modal|
+  id="modal-choose-timezone"
+as |modal|
 }}
   {{#modal.body}}
     <p>
       {{t "poll.modal.timezoneDiffers.body"}}
     </p>
   {{/modal.body}}
-  {{#modal.footer as |footer|}}
-    {{#bs-button onClick=(action "useLocalTimezone") class="use-local-timezone"}}
+  {{#modal.footer}}
+    {{#bs-button
+      onClick=(action "useLocalTimezone")
+      class="use-local-timezone"
+    }}
       {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
     {{/bs-button}}
-    {{#bs-button onClick=(action (mut timezoneChoosen) true) classNames="use-poll-timezone"}}
+    {{#bs-button
+      onClick=(action (mut timezoneChoosen) true)
+      classNames="use-poll-timezone"
+    }}
       {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}
     {{/bs-button}}
   {{/modal.footer}}

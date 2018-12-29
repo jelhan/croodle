@@ -1,7 +1,6 @@
 import { inject as service } from '@ember/service';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { copy } from '@ember/object/internals';
 import { getOwner } from '@ember/application';
 import { isEmpty } from '@ember/utils';
 import EmberObject, { observer, computed } from '@ember/object';
@@ -32,7 +31,7 @@ const Validations = buildValidations({
 const TranslateableObject = EmberObject.extend({
   i18n: service(),
   label: computed('labelTranslation', 'i18n.locale', function() {
-    return this.get('i18n').t(this.get('labelTranslation'));
+    return this.i18n.t(this.labelTranslation);
   }),
   labelTranslation: undefined
 });
@@ -41,7 +40,7 @@ export default Controller.extend(Validations, {
   actions: {
     submit() {
       if (this.get('validations.isValid')) {
-        const model = this.get('model');
+        const model = this.model;
         // set timezone if there is atleast one option with time
         if (
           this.get('model.isFindADate') &&
@@ -58,7 +57,7 @@ export default Controller.extend(Validations, {
             // reload as workaround for bug: duplicated records after save
             model.reload().then((model) => {
               // redirect to new poll
-              this.get('target').send('transitionToPoll', model);
+              this.target.send('transitionToPoll', model);
             });
           })
           .catch(() => {
@@ -169,13 +168,13 @@ export default Controller.extend(Validations, {
    */
   updateAnswers: observer('model.answerType', function() {
     const selectedAnswer = this.get('model.answerType');
-    const answerTypes = this.get('answerTypes');
+    const answerTypes = this.answerTypes;
     let answers = [];
 
     if (selectedAnswer !== null) {
       for (let i = 0; i < answerTypes.length; i++) {
         if (answerTypes[i].id === selectedAnswer) {
-          answers = answerTypes[i].answers.map(copy);
+          answers = answerTypes[i].answers.slice();
         }
       }
 
@@ -184,7 +183,7 @@ export default Controller.extend(Validations, {
   }),
 
   updateExpirationDate: observer('expirationDuration', function() {
-    const expirationDuration = this.get('expirationDuration');
+    const expirationDuration = this.expirationDuration;
 
     if (isEmpty(expirationDuration)) {
       this.set('model.expirationDate', '');

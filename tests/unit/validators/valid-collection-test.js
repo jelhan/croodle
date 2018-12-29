@@ -1,9 +1,11 @@
-import { moduleFor, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleFor('validator:valid-collection', 'Unit | Validator | valid-collection', {
-});
+module('Unit | Validator | valid-collection', function(hooks) {
+  setupTest(hooks);
 
-test('it works', function(assert) {
-  let validator = this.subject();
-  assert.ok(validator);
+  test('it works', function(assert) {
+    let validator = this.owner.lookup('validator:valid-collection');
+    assert.ok(validator);
+  });
 });

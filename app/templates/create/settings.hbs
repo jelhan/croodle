@@ -3,16 +3,16 @@
     formLayout="horizontal"
     model=this
     novalidate=true
-    onSubmit=(action 'submit')
-    as |form|
+    onSubmit=(action "submit")
+  as |form|
   }}
     {{#form.element
-      classNames='answer-type'
-      label=(t 'create.settings.answerType.label')
+      classNames="answer-type"
+      label=(t "create.settings.answerType.label")
       property="answerType"
-      showValidationOn=(array 'change' 'focusOut')
+      showValidationOn=(array "change" "focusOut")
       useIcons=false
-      as |el|
+    as |el|
     }}
       {{simple-select
         autofocus=true
@@ -21,43 +21,43 @@
         optionLabelPath="label"
         optionValuePath="id"
         value=el.value
-        action=(action (mut el.value) value='id')
+        action=(action (mut el.value) value="id")
       }}
     {{/form.element}}
     {{#form.element
-      classNames='expiration-duration'
-      label=(t 'create.settings.expirationDate.label')
-      property='expirationDuration'
-      showValidationOn=(array 'change' 'focusOut')
+      classNames="expiration-duration"
+      label=(t "create.settings.expirationDate.label")
+      property="expirationDuration"
+      showValidationOn=(array "change" "focusOut")
       useIcons=false
-      as |el|
+    as |el|
     }}
       {{simple-select
         id=el.id
         content=expirationDurations
-        optionLabelPath='label'
-        optionValuePath='id'
+        optionLabelPath="label"
+        optionValuePath="id"
         value=el.value
-        action=(action (mut el.value) value='id')
+        action=(action (mut el.value) value="id")
       }}
     {{/form.element}}
     {{form.element
-      classNames='anonymous-user'
-      controlType='checkbox'
-      label=(t 'create.settings.anonymousUser.label')
-      showValidationOn='change'
+      classNames="anonymous-user"
+      controlType="checkbox"
+      label=(t "create.settings.anonymousUser.label")
+      showValidationOn="change"
       value=anonymousUser
     }}
     {{form.element
-      classNames='force-answer'
-      controlType='checkbox'
-      label=(t 'create.settings.forceAnswer.label')
-      showValidationOn='change'
+      classNames="force-answer"
+      controlType="checkbox"
+      label=(t "create.settings.forceAnswer.label")
+      showValidationOn="change"
       value=forceAnswer
     }}
     {{form-navigation-buttons
-      nextButtonText=(t 'action.save')
-      onPrev=(route-action 'previousPage')
+      nextButtonText=(t "action.save")
+      onPrev=(route-action "previousPage")
     }}
   {{/bs-form}}
 </div>

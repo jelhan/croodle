@@ -61,7 +61,7 @@ export default Fragment.extend(Validations, {
       'YYYY-MM-DD',
       'YYYY-MM-DDTHH:mm:ss.SSSZ'
     ];
-    const value = this.get('title');
+    const value = this.title;
     if (isEmpty(value)) {
       return;
     }
@@ -79,7 +79,7 @@ export default Fragment.extend(Validations, {
   }),
 
   day: computed('date', function() {
-    const date = this.get('date');
+    const date = this.date;
     if (!moment.isMoment(date)) {
       return;
     }
@@ -87,7 +87,7 @@ export default Fragment.extend(Validations, {
   }),
 
   dayFormatted: computed('date', 'i18n.locale', function() {
-    let date = this.get('date');
+    let date = this.date;
     if (!moment.isMoment(date)) {
       return;
     }
@@ -110,19 +110,19 @@ export default Fragment.extend(Validations, {
   }),
 
   hasTime: computed('title', function() {
-    return moment.isMoment(this.get('date')) &&
-           this.get('title').length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
+    return moment.isMoment(this.date) &&
+           this.title.length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
   }),
 
   time: computed('date', {
     get() {
-      const date = this.get('date');
+      const date = this.date;
       if (!moment.isMoment(date)) {
         return;
       }
       // verify that value is an ISO 8601 date string containg time
       // testing length is faster than parsing with moment
-      const value = this.get('title');
+      const value = this.title;
       if (value.length !== 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length) {
         return;
       }
@@ -130,7 +130,7 @@ export default Fragment.extend(Validations, {
       return date.format('HH:mm');
     },
     set(key, value) {
-      const date = this.get('date');
+      const date = this.date;
       assert(
         'can not set a time if current value is not a valid date',
         moment.isMoment(date)

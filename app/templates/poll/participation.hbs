@@ -1,52 +1,52 @@
 <div class="participation">
   {{#bs-form
-    onSubmit=(action 'submit')
-    formLayout='horizontal'
+    onSubmit=(action "submit")
+    formLayout="horizontal"
     model=this
     novalidate=true
-    as |form|
+  as |form|
   }}
     {{form.element
       autofocus=true
-      controlType='text'
-      label=(t 'poll.input.newUserName.label')
-      placeholder=(t 'poll.input.newUserName.placeholder')
-      property='name'
-      classNames='name'
+      controlType="text"
+      label=(t "poll.input.newUserName.label")
+      placeholder=(t "poll.input.newUserName.placeholder")
+      property="name"
+      classNames="name"
     }}
     <div class="selections">
-      {{#each selections as |selection index|}}
+      {{#each selections as |selection|}}
         {{#if isFreeText}}
           {{form.element
-            controlType='text'
+            controlType="text"
             label=(if isFindADate
               (moment-format
                 selection.labelValue
-                (if (eq selection.momentFormat 'day') momentLongDayFormat selection.momentFormat)
+                (if (eq selection.momentFormat "day") momentLongDayFormat selection.momentFormat)
                 locale=currentLocale
                 timeZone=timezone
               )
               selection.labelValue
             )
             model=selection
-            property='value'
+            property="value"
           }}
         {{else}}
           {{#form.element
             label=(if isFindADate
               (moment-format
                 selection.labelValue
-                (if (eq selection.momentFormat 'day') momentLongDayFormat selection.momentFormat)
+                (if (eq selection.momentFormat "day") momentLongDayFormat selection.momentFormat)
                 locale=currentLocale
                 timeZone=timezone
               )
               selection.labelValue
             )
             model=selection
-            property='value'
-            showValidationOn='change'
+            property="value"
+            showValidationOn="change"
             useIcons=false
-            as |el|
+          as |el|
           }}
             {{#each possibleAnswers as |possibleAnswer|}}
               <div class="radio {{possibleAnswer.type}}">
@@ -73,22 +73,22 @@
 
 {{#bs-modal
   open=savingFailed
-  title=(t 'modal.save-retry.title')
+  title=(t "modal.save-retry.title")
   body=false
   footer=false
   closeButton=false
   autoClose=false
-  id='modal-saving-failed'
-  as |modal|
+  id="modal-saving-failed"
+as |modal|
 }}
   {{#modal.body}}
     <p>{{t "modal.save-retry.text"}}</p>
   {{/modal.body}}
   {{#modal.footer}}
     {{bs-button
-      defaultText=(t 'modal.save-retry.button-retry')
-      type='primary'
-      onClick=(action 'save')
+      defaultText=(t "modal.save-retry.button-retry")
+      type="primary"
+      onClick=(action "save")
     }}
   {{/modal.footer}}
 {{/bs-modal}}

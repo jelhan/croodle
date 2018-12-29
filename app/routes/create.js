@@ -9,7 +9,7 @@ export default Route.extend({
     transitionToPoll(poll) {
       this.transitionTo('poll', poll, {
         queryParams: {
-          encryptionKey: this.get('encryptionKey')
+          encryptionKey: this.encryptionKey
         }
       });
     }
@@ -22,7 +22,7 @@ export default Route.extend({
     }
 
     // set encryption key
-    this.get('encryption').generateKey();
+    this.encryption.generateKey();
   },
 
   encryption: service(),

@@ -31,7 +31,7 @@ export default DS.RESTSerializer.extend({
         attributes.options.encrypted !== false
       ) {
         if (typeof resourceHash[key] !== 'undefined' && resourceHash[key] !== null) {
-          resourceHash[key] = this.get('encryption').decrypt(resourceHash[key]);
+          resourceHash[key] = this.encryption.decrypt(resourceHash[key]);
         }
       }
     }, this);
@@ -63,7 +63,7 @@ export default DS.RESTSerializer.extend({
     if (
       attribute.options.encrypted !== false
     ) {
-      json[key] = this.get('encryption').encrypt(json[key]);
+      json[key] = this.encryption.encrypt(json[key]);
     }
   }
 });

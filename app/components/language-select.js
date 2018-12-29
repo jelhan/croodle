@@ -25,6 +25,12 @@ export default Component.extend({
 
   change() {
     let locale = this.$().val();
-    this.get('i18n').set('locale', locale);
+
+    this.i18n.set('locale', locale);
+    this.moment.changeLocale(locale);
+
+    if (window.localStorage) {
+      window.localStorage.setItem('locale', locale);
+    }
   }
 });

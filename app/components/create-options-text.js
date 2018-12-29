@@ -2,24 +2,32 @@ import { inject as service } from '@ember/service';
 import { filter } from '@ember/object/computed';
 import Component from '@ember/component';
 import { observer, computed, get } from '@ember/object';
-import { run } from '@ember/runloop';
+import { run, next } from '@ember/runloop';
 import BsFormElement from 'ember-bootstrap/components/bs-form/element';
 import { any } from 'ember-awesome-macros/array';
 
 export default Component.extend({
   actions: {
     addOption(element) {
-      let fragment = this.get('store').createFragment('option');
-      let options = this.get('options');
-      let position = this.get('options').indexOf(element) + 1;
+      let fragment = this.store.createFragment('option');
+      let options = this.options;
+      let position = this.options.indexOf(element) + 1;
       options.insertAt(
         position,
         fragment
       );
+
+      next(() => {
+        this.notifyPropertyChange('childViews');
+      });
     },
     deleteOption(element) {
-      let position = this.get('options').indexOf(element);
-      this.get('options').removeAt(position);
+      let position = this.options.indexOf(element);
+      this.options.removeAt(position);
+
+      next(() => {
+        this.notifyPropertyChange('childViews');
+      });
     }
   },
 
@@ -32,13 +40,13 @@ export default Component.extend({
   }),
 
   everyElementIsValid: computed('childFormElements.@each.validation', function() {
-    const anyElementIsInvalid = this.get('anyElementIsInvalid');
+    const anyElementIsInvalid = this.anyElementIsInvalid;
     if (anyElementIsInvalid) {
       return false;
     }
 
     // childFormElements contains button wrapper element which should not be taken into account here
-    const childFormElements = this.get('childFormElements').filterBy('hasValidator');
+    const childFormElements = this.childFormElements.filterBy('hasValidator');
     if (childFormElements) {
       return childFormElements.every((childFormElement) => {
         return childFormElement.get('hasFeedback') && childFormElement.get('validation') === 'success';
@@ -57,11 +65,11 @@ export default Component.extend({
     run.scheduleOnce('sync', () => {
       let validationClass;
 
-      if (!this.get('anyElementHasFeedback')) {
+      if (!this.anyElementHasFeedback) {
         validationClass = 'label-has-no-validation';
-      } else if (this.get('anyElementIsInvalid')) {
+      } else if (this.anyElementIsInvalid) {
         validationClass = 'label-has-error';
-      } else if (this.get('everyElementIsValid')) {
+      } else if (this.everyElementIsValid) {
         validationClass = 'label-has-success';
       } else {
         validationClass = 'label-has-no-validation';
@@ -75,14 +83,18 @@ export default Component.extend({
 
   enforceMinimalOptionsAmount: observer('options', 'isMakeAPoll', function() {
     if (this.get('options.length') < 2) {
-      let options = this.get('options');
+      let options = this.options;
       for (let missingOptions = 2 - this.get('options.length'); missingOptions > 0; missingOptions--) {
         options.pushObject(
-          this.get('store').createFragment('option')
+          this.store.createFragment('option')
         );
       }
     }
   }).on('init'),
 
-  store: service('store')
+  store: service('store'),
+
+  didInsertElement() {
+    this.notifyPropertyChange('childViews');
+  }
 });

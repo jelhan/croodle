@@ -5,7 +5,7 @@
         <tr class="dateGroups">
           <th>&nbsp;</th>
           {{#each optionsGroupedByDates as |optionGroup|}}
-            <th colspan="{{optionGroup.items.length}}">
+            <th colspan={{optionGroup.items.length}}>
               {{moment-format
                 optionGroup.value
                 momentLongDayFormat
@@ -26,7 +26,7 @@
                 {{#if option.hasTime}}
                   {{moment-format
                     option.title
-                    'LT'
+                    "LT"
                     locale=currentLocale
                     timeZone=timezone
                   }}
@@ -60,8 +60,8 @@
               {{/if}}
               {{#if selection.labelTranslation}}
                 {{#unless isFreeText}}
-                  <span class="{{selection.type}}">
-                    <span class="{{selection.icon}}"></span>
+                  <span class={{selection.type}}>
+                    <span class={{selection.icon}}></span>
                     {{t selection.labelTranslation}}
                   </span>
                 {{/unless}}

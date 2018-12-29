@@ -8,7 +8,7 @@ export default Service.extend({
   decrypt(value) {
     return JSON.parse(
       sjcl.decrypt(
-        this.get('key'),
+        this.key,
         value
       )
     );
@@ -16,7 +16,7 @@ export default Service.extend({
 
   encrypt(value) {
     return sjcl.encrypt(
-      this.get('key'),
+      this.key,
       JSON.stringify(value)
     );
   },

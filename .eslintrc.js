@@ -1,7 +1,4 @@
 module.exports = {
-  globals: {
-    server: true,
-  },
   root: true,
   parserOptions: {
     ecmaVersion: 2017,
@@ -24,8 +21,10 @@ module.exports = {
     // node files
     {
       files: [
-        'testem.js',
+        '.template-lintrc.js',
         'ember-cli-build.js',
+        'testem.js',
+        'blueprints/*/index.js',
         'config/**/*.js',
         'lib/*/index.js'
       ],
@@ -36,24 +35,6 @@ module.exports = {
       env: {
         browser: false,
         node: true
-      }
-    },
-
-    // test files
-    {
-      files: ['tests/**/*.js'],
-      excludedFiles: ['tests/dummy/**/*.js'],
-      env: {
-        embertest: true
-      },
-      globals: {
-        backButton: true,
-        pollHasUser: true,
-        pollHasUsersCount: true,
-        pollParticipate: true,
-        setupBrowserNavigationButtons: true,
-        switchTab: true,
-        t: true,
       }
     }
   ]

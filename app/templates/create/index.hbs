@@ -3,16 +3,16 @@
     formLayout="horizontal"
     model=this
     novalidate=true
-    onSubmit=(action 'submit')
-    as |form|
+    onSubmit=(action "submit")
+  as |form|
   }}
     {{#form.element
-      classNames='poll-type'
-      label=(t 'create.index.input.pollType.label')
+      classNames="poll-type"
+      label=(t "create.index.input.pollType.label")
       property="pollType"
-      showValidationOn=(array 'change' 'focusOut')
+      showValidationOn=(array "change" "focusOut")
       useIcons=false
-      as |el|
+    as |el|
     }}
       {{simple-select
         autofocus=true
@@ -21,7 +21,7 @@
         optionLabelPath="label"
         optionValuePath="id"
         value=el.value
-        action=(action (mut el.value) value='id')
+        action=(action (mut el.value) value="id")
       }}
     {{/form.element}}
     {{form-navigation-buttons

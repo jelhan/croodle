@@ -7,7 +7,7 @@ import { getOwner } from '@ember/application';
 const formStepObject = EmberObject.extend({
   active: computed('routing.currentRouteName', function() {
     const currentRouteName = this.get('routing.currentRouteName');
-    return currentRouteName === this.get('route');
+    return currentRouteName === this.route;
   }),
   disabled: true,
   hidden: false,
@@ -15,7 +15,7 @@ const formStepObject = EmberObject.extend({
   route: null,
   routing: service('-routing'),
   updateDisabledState: observer('active', function() {
-    if (this.get('active')) {
+    if (this.active) {
       this.set('disabled', false);
     }
   }).on('init'),
@@ -35,7 +35,7 @@ export default Controller.extend({
       }),
       formStepObject.extend({
         label: computed('pollType', function() {
-          const pollType = this.get('pollType');
+          const pollType = this.pollType;
           if (pollType === 'FindADate') {
             return 'create.formStep.options.days';
           } else {
@@ -44,18 +44,18 @@ export default Controller.extend({
         }),
         pollType: readOnly('model.pollType')
       }).create(owner.ownerInjection(), {
-        model: this.get('model'),
+        model: this.model,
         route: 'create.options'
       }),
       formStepObject.extend({
         hidden: computed('pollType', function() {
-          const pollType = this.get('pollType');
+          const pollType = this.pollType;
           return pollType !== 'FindADate';
         }),
         pollType: readOnly('model.pollType')
       }).create(owner.ownerInjection(), {
         label: 'create.formStep.options-datetime',
-        model: this.get('model'),
+        model: this.model,
         route: 'create.options-datetime'
       }),
       formStepObject.create(owner.ownerInjection(), {

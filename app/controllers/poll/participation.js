@@ -65,14 +65,14 @@ export default Controller.extend(Validations, {
           version: config.APP.version,
         });
 
-        user.set('name', this.get('name'));
+        user.set('name', this.name);
 
         const selections = user.get('selections');
         const possibleAnswers = this.get('pollController.model.answers');
 
-        this.get('selections').forEach((selection) => {
+        this.selections.forEach((selection) => {
           if (selection.get('value') !== null) {
-            if (this.get('isFreeText')) {
+            if (this.isFreeText) {
               selections.createFragment({
                 label: selection.get('value')
               });
@@ -95,18 +95,18 @@ export default Controller.extend(Validations, {
       }
     },
     save() {
-      const user = this.get('newUserRecord');
+      const user = this.newUserRecord;
       user.save()
       .then(() => {
         this.set('savingFailed', false);
 
         // reset form
         this.set('name', '');
-        this.get('selections').forEach((selection) => {
+        this.selections.forEach((selection) => {
           selection.set('value', null);
         });
 
-        this.transitionToRoute('poll.evaluation', this.get('model'), {
+        this.transitionToRoute('poll.evaluation', this.model, {
           queryParams: { encryptionKey: this.get('encryption.key') }
         });
       }, () => {
@@ -151,7 +151,7 @@ export default Controller.extend(Validations, {
         return AnswerObject.extend(owner.ownerInjection(), {
           i18n: service(),
           label: computed('i18n.locale', function() {
-            return this.get('i18n').t(this.get('labelTranslation'));
+            return this.i18n.t(this.labelTranslation);
           }),
           labelTranslation: answer.get('labelTranslation')
         }).create();
@@ -166,8 +166,8 @@ export default Controller.extend(Validations, {
   savingFailed: false,
 
   selections: computed('options', 'pollController.dates', function() {
-    let options = this.get('options');
-    let isFindADate = this.get('isFindADate');
+    let options = this.options;
+    let isFindADate = this.isFindADate;
     let lastDate;
 
     // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
@@ -177,8 +177,8 @@ export default Controller.extend(Validations, {
     let SelectionObject = EmberObject.extend(owner.ownerInjection(), SelectionValidations, {
       // forceAnswer and isFreeText must be included in model
       // cause otherwise validations can't depend on it
-      forceAnswer: this.get('forceAnswer'),
-      isFreeText: this.get('isFreeText'),
+      forceAnswer: this.forceAnswer,
+      isFreeText: this.isFreeText,
       value: null
     });
 
@@ -190,7 +190,7 @@ export default Controller.extend(Validations, {
       // format label
       if (isFindADate) {
         let hasTime = value.length > 10; // 'YYYY-MM-DD'.length === 10
-        let timezone = this.get('timezone');
+        let timezone = this.timezone;
         let date = isPresent(timezone) ? moment.tz(value, timezone) : moment(value);
         if (hasTime && lastDate && date.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
           labelValue = value;
