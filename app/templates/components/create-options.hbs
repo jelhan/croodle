@@ -1,17 +1,17 @@
 <div class="box">
   {{#bs-form
-    action='submit'
-    formLayout='horizontal'
+    action="submit"
+    formLayout="horizontal"
     model=this
     novalidate=true
-    onSubmit=(action 'submit')
-    as |form|
+    onSubmit=(action "submit")
+  as |form|
   }}
     {{#if isMakeAPoll}}
       {{create-options-text
         options=options
-        addOption='addOption'
-        deleteOption='deleteOption'
+        addOption="addOption"
+        deleteOption="deleteOption"
         form=form
       }}
     {{else}}
@@ -22,7 +22,7 @@
     {{/if}}
 
     {{form-navigation-buttons
-      onPrev=(action 'previousPage')
+      onPrev=(action "previousPage")
     }}
   {{/bs-form}}
 </div>

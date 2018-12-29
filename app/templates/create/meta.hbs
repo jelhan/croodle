@@ -3,26 +3,26 @@
     formLayout="horizontal"
     model=this
     novalidate=true
-    onSubmit=(action 'submit')
-    as |form|
+    onSubmit=(action "submit")
+  as |form|
   }}
     {{form.element
       autofocus=true
-      classNames='title'
+      classNames="title"
       controlType="text"
-      label=(t 'create.meta.input.title.label')
-      placeholder=(t 'create.meta.input.title.placeholder')
+      label=(t "create.meta.input.title.label")
+      placeholder=(t "create.meta.input.title.placeholder")
       property="title"
     }}
     {{form.element
-      classNames='description'
+      classNames="description"
       controlType="textarea"
-      label=(t 'create.meta.input.description.label')
-      placeholder=(t 'create.meta.input.description.placeholder')
+      label=(t "create.meta.input.description.label")
+      placeholder=(t "create.meta.input.description.placeholder")
       property="description"
     }}
     {{form-navigation-buttons
-      onPrev=(route-action 'previousPage')
+      onPrev=(route-action "previousPage")
     }}
   {{/bs-form}}
 </div>

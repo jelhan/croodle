@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { get, computed } from '@ember/object';
+import { computed } from '@ember/object';
 import { translationMacro as t } from 'ember-i18n';
 
 export default Component.extend({
@@ -38,7 +38,7 @@ export default Component.extend({
    * @private
    */
   nextButtonClasses: computed('renderPrevButton', function() {
-    let renderPrevButton = get(this, 'renderPrevButton');
+    let renderPrevButton = this.renderPrevButton;
 
     if (renderPrevButton) {
       return ['col-xs-6', 'col-md-8'];
@@ -53,7 +53,7 @@ export default Component.extend({
    * @private
    */
   nextButtonClassesString: computed('nextButtonClasses.[]', function() {
-    let nextButtonClasses = get(this, 'nextButtonClasses');
+    let nextButtonClasses = this.nextButtonClasses;
 
     return nextButtonClasses.join(' ');
   }),

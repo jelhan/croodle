@@ -1,5 +1,5 @@
-import { registerAsyncHelper } from '@ember/test';
+import { click } from '@ember/test-helpers';
 
-export default registerAsyncHelper('switchTab', function(app, tab) {
-  click(`.nav-tabs .${tab} a`);
-});
+export default function(tab) {
+  return click(`.nav-tabs .${tab} a`);
+}

@@ -1,26 +1,24 @@
-import { test } from 'qunit';
-import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
+import { find, visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
 import pageIndex from 'croodle/tests/pages/index';
 
-moduleForAcceptance('Acceptance | i18n', {
-  beforeEach() {
-    window.localStorage.setItem('locale', 'en');
-  }
-});
+module('Acceptance | i18n', function(hooks) {
+  hooks.beforeEach(function() {
+    window.localStorage.setItem('locale', 'de');
+  });
 
-test('locale is saved in localStorage', function(assert) {
-  visit('/');
+  setupApplicationTest(hooks);
 
-  andThen(() => {
-    assert.equal(find('.language-select').val(), 'en');
-    pageIndex.locale('de');
+  test('locale is saved in localStorage', async function(assert) {
+    await visit('/');
+    assert.equal(find('.language-select').value, 'de', 'picks up locale in locale storage');
 
-    andThen(function() {
-      assert.equal(find('.language-select').val(), 'de');
-      assert.equal(
-        window.localStorage.getItem('locale'), 'de',
-        'persisted in localeStorage'
-      );
-    });
+    await pageIndex.locale('en');
+    assert.equal(find('.language-select').value, 'en');
+    assert.equal(
+      window.localStorage.getItem('locale'), 'en',
+      'persisted in localeStorage'
+    );
   });
 });

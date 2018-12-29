@@ -45,6 +45,7 @@ before_script:
 
 script:
   # run frontend and integration tests
+  - if $TEST_EMBER; then yarn run lint:hbs; fi
   - if $TEST_EMBER; then yarn run lint:js; fi
   - if $TEST_EMBER; then yarn test; fi
   # test against different browsers using sauce lab

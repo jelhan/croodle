@@ -28,9 +28,9 @@ let modelValidations = buildValidations({
 export default Component.extend(modelValidations, {
   actions: {
     addOption(afterOption) {
-      let options = this.get('dates');
+      let options = this.dates;
       let dayString = afterOption.get('day');
-      let fragment = this.get('store').createFragment('option', {
+      let fragment = this.store.createFragment('option', {
         title: dayString
       });
       let position = options.indexOf(afterOption) + 1;
@@ -40,10 +40,10 @@ export default Component.extend(modelValidations, {
       );
     },
     adoptTimesOfFirstDay() {
-      const dates = this.get('dates');
-      const datesForFirstDay = this.get('datesForFirstDay');
-      const timesForFirstDay = this.get('timesForFirstDay');
-      const datesWithoutFirstDay = this.get('groupedDates').slice(1);
+      const dates = this.dates;
+      const datesForFirstDay = this.datesForFirstDay;
+      const timesForFirstDay = this.timesForFirstDay;
+      const datesWithoutFirstDay = this.groupedDates.slice(1);
 
       /* validate if times on firstDay are valid */
       const datesForFirstDayAreValid = datesForFirstDay.every((date) => {
@@ -82,7 +82,7 @@ export default Component.extend(modelValidations, {
               const basisDate = get(items[0], 'date').clone();
               let [hour, minute] = timeOfFirstDate.split(':');
               let dateString = basisDate.hour(hour).minute(minute).toISOString();
-              let fragment = this.get('store').createFragment('option', {
+              let fragment = this.store.createFragment('option', {
                 title: dateString
               });
               dates.insertAt(
@@ -104,12 +104,12 @@ export default Component.extend(modelValidations, {
      * otherwise it deletes time for this date
      */
     deleteOption(target) {
-      let position = this.get('dates').indexOf(target);
-      let datesForThisDay = this.get('groupedDates').find((group) => {
+      let position = this.dates.indexOf(target);
+      let datesForThisDay = this.groupedDates.find((group) => {
         return group.value === target.get('day');
       }).items;
       if (datesForThisDay.length > 1) {
-        this.get('dates').removeAt(position);
+        this.dates.removeAt(position);
       } else {
         target.set('time', null);
       }
@@ -154,7 +154,7 @@ export default Component.extend(modelValidations, {
     return isArray(formElements) ? formElements : [];
   }),
   daysValidationState: computed('formElements.@each.validation', function() {
-    return this.get('formElements').reduce(function(daysValidationState, item) {
+    return this.formElements.reduce(function(daysValidationState, item) {
       const day = item.get('model.day');
       const validation = item.get('validation');
       let currentValidationState;

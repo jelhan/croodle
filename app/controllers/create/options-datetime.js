@@ -12,7 +12,7 @@ export default Controller.extend({
   },
 
   normalizeOptions() {
-    const options = this.get('options');
+    const options = this.options;
 
     // remove all days from options which haven't a time but there is atleast
     // one option with time for that day

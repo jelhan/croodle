@@ -1,3 +1,5 @@
 {{#each locales as |locale|}}
-  <option value="{{locale.id}}" selected={{locale.selected}}>{{locale.text}}</option>
+  <option value={{locale.id}} selected={{locale.selected}}>
+    {{locale.text}}
+  </option>
 {{/each}}

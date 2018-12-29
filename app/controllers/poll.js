@@ -8,7 +8,7 @@ import moment from 'moment';
 export default Controller.extend({
   actions: {
     linkAction(type) {
-      let flashMessages = this.get('flashMessages');
+      let flashMessages = this.flashMessages;
       switch (type) {
         case 'copied':
           flashMessages.success(`poll.link.copied`);
@@ -47,7 +47,7 @@ export default Controller.extend({
   i18n: service(),
 
   momentLongDayFormat: computed('currentLocale', function() {
-    let currentLocale = this.get('currentLocale');
+    let currentLocale = this.currentLocale;
     return moment.localeData(currentLocale)
       .longDateFormat('LLLL')
       .replace(
@@ -62,10 +62,10 @@ export default Controller.extend({
   preventEncryptionKeyChanges: observer('encryptionKey', function() {
     if (
       !isEmpty(this.get('encryption.key')) &&
-      this.get('encryptionKey') !== this.get('encryption.key')
+      this.encryptionKey !== this.get('encryption.key')
     ) {
       // work-a-round for url not being updated
-      window.location.hash = window.location.hash.replace(this.get('encryptionKey'), this.get('encryption.key'));
+      window.location.hash = window.location.hash.replace(this.encryptionKey, this.get('encryption.key'));
 
       this.set('encryptionKey', this.get('encryption.key'));
     }
@@ -92,10 +92,10 @@ export default Controller.extend({
   useLocalTimezone: false,
 
   mustChooseTimezone: computed('timezoneDiffers', 'timezoneChoosen', function() {
-    return this.get('timezoneDiffers') && !this.get('timezoneChoosen');
+    return this.timezoneDiffers && !this.timezoneChoosen;
   }),
 
   timezone: computed('useLocalTimezone', function() {
-    return this.get('useLocalTimezone') ? undefined : this.get('model.timezone');
+    return this.useLocalTimezone ? undefined : this.get('model.timezone');
   })
 });

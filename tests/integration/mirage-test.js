@@ -3,31 +3,32 @@ import { module, test } from 'qunit';
 import { startMirage } from 'croodle/initializers/ember-cli-mirage';
 import sjcl from 'sjcl';
 
-module('Integration | Mirage api mocking', {
-  beforeEach() {
+module('Integration | Mirage api mocking', function(hooks) {
+  hooks.beforeEach(function() {
     this.server = startMirage();
-  },
-  afterEach() {
+  });
+
+  hooks.afterEach(function() {
     this.server.shutdown();
-  }
-});
-
-test('poll factory | encrypts properties', function(assert) {
-  let encryptionKey = 'abc';
-  let poll = this.server.create('poll', {
-    description: 'bar',
-    encryptionKey,
-    title: 'foo'
   });
-  assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, get(poll, 'title'))), 'foo');
-  assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, get(poll, 'description'))), 'bar');
-});
 
-test('user factory | encrypts properties', function(assert) {
-  let encryptionKey = 'abc';
-  let user = this.server.create('user', {
-    encryptionKey,
-    name: 'foo'
+  test('poll factory | encrypts properties', function(assert) {
+    let encryptionKey = 'abc';
+    let poll = this.server.create('poll', {
+      description: 'bar',
+      encryptionKey,
+      title: 'foo'
+    });
+    assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, get(poll, 'title'))), 'foo');
+    assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, get(poll, 'description'))), 'bar');
   });
-  assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, get(user, 'name'))), 'foo');
+
+  test('user factory | encrypts properties', function(assert) {
+    let encryptionKey = 'abc';
+    let user = this.server.create('user', {
+      encryptionKey,
+      name: 'foo'
+    });
+    assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, get(user, 'name'))), 'foo');
+  });
 });

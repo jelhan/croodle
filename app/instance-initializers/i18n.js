@@ -1,14 +1,16 @@
-import { getOwner } from '@ember/application';
 import { isPresent, isEmpty } from '@ember/utils';
 
 export default {
   name: 'i18n',
   initialize(appInstance) {
     let i18n = appInstance.lookup('service:i18n');
-    let availableLocales = i18n.get('locales');
+    let moment = appInstance.lookup('service:moment');
 
-    i18n.addObserver('locale', i18n, localeChanged);
-    i18n.set('locale', getLocale(availableLocales));
+    let availableLocales = i18n.get('locales');
+    let locale = getLocale(availableLocales);
+
+    i18n.set('locale', locale);
+    moment.changeLocale(locale);
   }
 };
 
@@ -101,21 +103,4 @@ function getSavedLocale() {
   }
 
   return [locale];
-}
-
-function saveLocale(locale) {
-  let { localStorage } = window;
-
-  // test browser support
-  if (!localStorage) {
-    return;
-  }
-
-  localStorage.setItem('locale', locale);
-}
-
-function localeChanged() {
-  let locale = this.get('locale');
-  getOwner(this).lookup('service:moment').changeLocale(locale);
-  saveLocale(locale);
 }

@@ -65,14 +65,14 @@ export default Model.extend({
    * computed properties
    */
   isFindADate: computed('pollType', function() {
-    return this.get('pollType') === 'FindADate';
+    return this.pollType === 'FindADate';
   }),
 
   isFreeText: computed('answerType', function() {
-    return this.get('answerType') === 'FreeText';
+    return this.answerType === 'FreeText';
   }),
 
   isMakeAPoll: computed('pollType', function() {
-    return this.get('pollType') === 'MakeAPoll';
+    return this.pollType === 'MakeAPoll';
   })
 });

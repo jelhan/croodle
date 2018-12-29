@@ -4,6 +4,7 @@ import {
   isVisible,
   text
 } from 'ember-cli-page-object';
+import { currentURL } from '@ember/test-helpers';
 
 const urlMatches = function(regExp) {
   return function() {

@@ -1,13 +1,14 @@
-import { test } from 'qunit';
+import { visit } from '@ember/test-helpers';
+import { module, test } from 'qunit';
+import { setupApplicationTest } from 'ember-qunit';
 import jQuery from 'jquery';
-import moduleForAcceptance from 'croodle/tests/helpers/module-for-acceptance';
 
-moduleForAcceptance('Acceptance | build info');
+module('Acceptance | build info', function(hooks) {
+  setupApplicationTest(hooks);
 
-test('version is included as html meta tag', function(assert) {
-  visit('/');
+  test('version is included as html meta tag', async function(assert) {
+    await visit('/');
 
-  andThen(function() {
     // ToDo: figure out why find() helper does not work but jQuery does
     assert.ok(jQuery('head meta[name="build-info"]').length === 1, 'tag exists');
     assert.ok(

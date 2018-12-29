@@ -9,7 +9,7 @@ export default Mixin.create({
   didInsertElement() {
     this._super(...arguments);
 
-    if (this.get('autofocus')) {
+    if (this.autofocus) {
       this.$().focus();
     }
   }

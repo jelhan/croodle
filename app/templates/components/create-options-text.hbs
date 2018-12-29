@@ -1,11 +1,11 @@
 {{#each options as |option index|}}
   {{! show label only on first item }}
   {{#form.element
-    classNames='option'
-    label=(unless index (t 'create.options.options.label'))
+    classNames="option"
+    label=(unless index (t "create.options.options.label"))
     model=option
-    property='title'
-    as |el|
+    property="title"
+  as |el|
   }}
     <div class="input-group">
       {{bs-form/element/control/input
@@ -16,17 +16,39 @@
       }}
       <div class="input-group-btn">
         {{! disable delete button if there is only one option }}
-        <button {{action 'deleteOption' option}}
-          class="delete btn {{if (eq el.validation 'success') 'btn-success'}} {{if (eq el.validation 'error') 'btn-danger'}} {{unless el.validation 'btn-default'}}"
-          disabled={{if (gt options.length 1) false true}}>
-          <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
-          <span class='sr-only'>{{t 'create.options.button.delete.label'}}</span>
-        </button>
-        <button {{action 'addOption' option}}
-          class="add btn {{if (eq el.validation 'success') 'btn-success'}} {{if (eq el.validation 'error') 'btn-danger'}} {{unless el.validation 'btn-default'}}">
-          <span class='glyphicon glyphicon-plus' aria-hidden='true'></span>
-          <span class='sr-only'>{{t 'create.options.button.add.label'}}</span>
-        </button>
+        {{#bs-button
+          onClick=(action "deleteOption" option)
+          type=(if
+            (eq el.validation "success")
+            "btn-success"
+            (if
+              (eq el.validation "error")
+              "btn-danger"
+              "btn-default"
+            )
+          )
+          disabled=(lte options.length 1)
+          class="delete"
+        }}
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
+        {{/bs-button}}
+        {{#bs-button
+          onClick=(action "addOption" option)
+          type=(if
+            (eq el.validation "success")
+            "btn-success"
+            (if
+              (eq el.validation "error")
+              "btn-danger"
+              "btn-default"
+            )
+          )
+          class="add"
+        }}
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          <span class="sr-only">{{t "create.options.button.add.label"}}</span>
+        {{/bs-button}}
       </div>
     </div>
   {{/form.element}}

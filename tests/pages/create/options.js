@@ -21,7 +21,7 @@ const setBootstrapDatepicker = function(selector, options = {}) {
   return {
     isDescriptor: true,
     value(dates) {
-      const el = findElementWithAssert(this, selector, options);
+      const el = findElementWithAssert(this, selector, options).parent();
       if (isPresent(dates)) {
         const normalizedDates = dates.map((date) => {
           if (typeof date.toDate === 'function') {
@@ -41,7 +41,7 @@ const setBootstrapDatepicker = function(selector, options = {}) {
 };
 
 export default PageObject.create(assign({}, defaultsForCreate, {
-  dateOptions: setBootstrapDatepicker('.days .ember-view:has(.datepicker:first-child)'),
+  dateOptions: setBootstrapDatepicker('.days .datepicker'),
   dateHasError: isVisible('.days.has-error'),
   dateError: text('.days .help-block'),
   textOptions: collection({

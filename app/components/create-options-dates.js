@@ -13,7 +13,7 @@ export default Component.extend({
    */
   optionsBootstrapDatepicker: computed('options', {
     get() {
-      const options = this.get('options');
+      const options = this.options;
       const validDates = options.filter(function(option) {
         return moment(option.get('title')).isValid();
       });
@@ -38,7 +38,7 @@ export default Component.extend({
      * value is an of Date objects set by ember-cli-bootstrap-datepicker
      */
     set(key, days) {
-      const options = this.get('options');
+      const options = this.options;
 
       // remove all days if value isn't an array of if it's empty
       if (!isArray(days) || isEmpty(days)) {
@@ -81,7 +81,7 @@ export default Component.extend({
         }
         options.insertAt(
           position,
-          this.get('store').createFragment('option', {
+          this.store.createFragment('option', {
             title: moment(newDay).format('YYYY-MM-DD')
           })
         );

@@ -8,38 +8,47 @@
 
 <p class="best-options">
   {{#if poll.isFindADate}}
-    {{t "poll.evaluation.bestOption.label.findADate" count=evaluationBestOptions.length}}
+    {{t
+      "poll.evaluation.bestOption.label.findADate"
+      count=evaluationBestOptions.length
+    }}
   {{else}}
-    {{t "poll.evaluation.bestOption.label.makeAPoll" count=evaluationBestOptions.length}}
+    {{t
+      "poll.evaluation.bestOption.label.makeAPoll"
+      count=evaluationBestOptions.length
+    }}
   {{/if}}
 
   {{#if evaluationBestOptionsMultiple}}
     <ul>
       {{#each evaluationBestOptions as |evaluationBestOption|}}
-        {{component 'poll-evaluation-summary-option'
+        {{component
+          "poll-evaluation-summary-option"
           currentLocale=currentLocale
           evaluationBestOption=evaluationBestOption
           isFindADate=poll.isFindADate
           momentLongDayFormat=momentLongDayFormat
-          tagName='li'
+          tagName="li"
           timezone=timezone
         }}
       {{/each}}
     </ul>
   {{else}}
-    {{component 'poll-evaluation-summary-option'
+    {{component
+      "poll-evaluation-summary-option"
       currentLocale=currentLocale
       evaluationBestOption=evaluationBestOptions.firstObject
       isFindADate=poll.isFindADate
       momentLongDayFormat=momentLongDayFormat
-      tagName='span'
+      tagName="span"
       timezone=timezone
     }}
   {{/if}}
 </p>
 
 <p class="last-participation">
-  {{t "poll.evaluation.lastParticipation"
+  {{t
+    "poll.evaluation.lastParticipation"
     ago=(moment-from-now evaluationLastParticipation locale=currentLocale timezone=timezone)
   }}
 </p>
