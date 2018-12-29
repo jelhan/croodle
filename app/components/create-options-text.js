@@ -1,10 +1,10 @@
 import { inject as service } from '@ember/service';
 import { filter } from '@ember/object/computed';
 import Component from '@ember/component';
-import { observer, computed } from '@ember/object';
+import { observer, computed, get } from '@ember/object';
 import { run } from '@ember/runloop';
 import BsFormElement from 'ember-bootstrap/components/bs-form/element';
-import { anyBy } from 'ember-array-computed-macros';
+import { any } from 'ember-awesome-macros/array';
 
 export default Component.extend({
   actions: {
@@ -23,10 +23,12 @@ export default Component.extend({
     }
   },
 
-  anyElementHasFeedback: anyBy('childFormElements', 'hasFeedback'),
+  anyElementHasFeedback: any('childFormElements.@each.hasFeedback', function(childFormElement) {
+    return get(childFormElement, 'hasFeedback');
+  }),
 
-  anyElementIsInvalid: anyBy('childFormElements', 'validation', function(value) {
-    return value === 'error';
+  anyElementIsInvalid: any('childFormElements.@each.validation', function(childFormElement) {
+    return get(childFormElement, 'validation') === 'error';
   }),
 
   everyElementIsValid: computed('childFormElements.@each.validation', function() {

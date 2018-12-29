@@ -88,14 +88,14 @@ test('datetimes are grouped by date', function(assert) {
     'length is correct'
   );
   assert.deepEqual(
-    component.get('groupedDates.firstObject').map((item) => {
+    component.get('groupedDates.firstObject.items').map((item) => {
       return item.get('date').toISOString();
     }),
     [a.get('title'), b.get('title')],
     'first dates having same day are grouped together'
   );
   assert.equal(
-    component.get('groupedDates.lastObject.firstObject.date').toISOString(),
+    component.get('groupedDates.lastObject.items.firstObject.date').toISOString(),
     [c.get('title')],
     'last date having another day is in a separate group'
   );
@@ -111,13 +111,13 @@ test('bindings are working on grouped datetimes', function(assert) {
     ]);
   });
   assert.equal(
-    component.get('groupedDates.firstObject.firstObject.time'),
+    component.get('groupedDates.firstObject.items.firstObject.time'),
     moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
     'time is correct before'
   );
   run(() => {
     component.set(
-      'groupedDates.firstObject.firstObject.time',
+      'groupedDates.firstObject.items.firstObject.time',
       '00:00'
     );
   });
@@ -132,12 +132,12 @@ test('bindings are working on grouped datetimes', function(assert) {
     );
   });
   assert.equal(
-    component.get('groupedDates.firstObject.length'),
+    component.get('groupedDates.firstObject.items.length'),
     2,
     'grouped datetimes got updated after option was added (same day)'
   );
   assert.equal(
-    component.get('groupedDates.firstObject.lastObject.time'),
+    component.get('groupedDates.firstObject.items.lastObject.time'),
     '12:12',
     'grouped datetimes got updated correctly after option was added (same day)'
   );
@@ -152,7 +152,7 @@ test('bindings are working on grouped datetimes', function(assert) {
     'grouped datetimes got updated after option was added (other day)'
   );
   assert.equal(
-    component.get('groupedDates.lastObject.firstObject.time'),
+    component.get('groupedDates.lastObject.items.firstObject.time'),
     '01:01',
     'grouped datetimes got updated correctly after option was added (same day)'
   );
