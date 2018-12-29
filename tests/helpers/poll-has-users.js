@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
+import { registerHelper } from '@ember/test';
 
 const helpers = function() {
-  Ember.Test.registerHelper('pollHasUser', function(app, assert, name, selections) {
+  registerHelper('pollHasUser', function(app, assert, name, selections) {
     let elBase;
     find('.user').each((index, el) => {
       if (find('td:nth-child(1)', el).text().trim() === name) {
@@ -21,8 +22,8 @@ const helpers = function() {
     }
   });
 
-  Ember.Test.registerHelper('pollHasUsersCount', function(app, assert, count, message) {
-    if (Ember.isEmpty(message)) {
+  registerHelper('pollHasUsersCount', function(app, assert, count, message) {
+    if (isEmpty(message)) {
       message = 'poll has expected count of users';
     }
     assert.equal(

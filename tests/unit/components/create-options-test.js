@@ -1,5 +1,5 @@
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 import moment from 'moment';
 // validator consumes i18n service
 // have to register it therefore
@@ -50,7 +50,7 @@ test('validation for make a poll', function(assert) {
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: component.get('isFindADate'),
       isMakeAPoll: component.get('isMakeAPoll')
@@ -61,7 +61,7 @@ test('validation for make a poll', function(assert) {
     component.get('validations.isValid'),
     'invalid without any options'
   );
-  Ember.run(() => {
+  run(() => {
     let option = this.store.createFragment('option', {
       title: 'first option'
     });
@@ -72,7 +72,7 @@ test('validation for make a poll', function(assert) {
     component.get('validations.isValid'),
     'valid if there is atleast one valid option'
   );
-  Ember.run(() => {
+  run(() => {
     let option = this.store.createFragment('option', {
       title: 'second option'
     });
@@ -83,7 +83,7 @@ test('validation for make a poll', function(assert) {
     component.get('validations.isValid'),
     'valid for two options which are not empty strings'
   );
-  Ember.run(() => {
+  run(() => {
     component.set('options.firstObject.title', '');
   });
   assert.notOk(
@@ -103,7 +103,7 @@ test('validation for find a date without times', function(assert) {
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: component.get('isFindADate'),
       isMakeAPoll: component.get('isMakeAPoll')
@@ -114,7 +114,7 @@ test('validation for find a date without times', function(assert) {
     component.get('validations.isValid'),
     'invalid without any options'
   );
-  Ember.run(() => {
+  run(() => {
     let option = this.store.createFragment('option', {
       title: '2015-01-01'
     });
@@ -125,7 +125,7 @@ test('validation for find a date without times', function(assert) {
     component.get('validations.isValid'),
     'valid if there is atleast one valid date'
   );
-  Ember.run(() => {
+  run(() => {
     let option = this.store.createFragment('option', {
       title: '2015-01-02'
     });
@@ -136,7 +136,7 @@ test('validation for find a date without times', function(assert) {
     component.get('validations.isValid'),
     'valid for two valid dates'
   );
-  Ember.run(() => {
+  run(() => {
     let option = this.store.createFragment('option', {
       title: 'foo'
     });
@@ -147,14 +147,14 @@ test('validation for find a date without times', function(assert) {
     component.get('validations.isValid'),
     'invalid if atleast one option is not a valid date'
   );
-  Ember.run(() => {
+  run(() => {
     component.set('options.lastObject.title', '2015-01-03');
   });
   assert.ok(
     component.get('validations.isValid'),
     'valid again after title is a valid date again'
   );
-  Ember.run(() => {
+  run(() => {
     component.set('options.firstObject.title', '2015-01-01');
     component.set('options.lastObject.title', '2015-01-01');
   });
@@ -174,7 +174,7 @@ test('validation for find a date with times', function(assert) {
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: component.get('isFindADate'),
       isMakeAPoll: component.get('isMakeAPoll')
@@ -184,7 +184,7 @@ test('validation for find a date with times', function(assert) {
     component.get('validations.isValid'),
     'invalid without any options'
   );
-  Ember.run(() => {
+  run(() => {
     let option = this.store.createFragment('option', {
       title: moment().add('1', 'day').format('YYYY-MM-DD')
     });

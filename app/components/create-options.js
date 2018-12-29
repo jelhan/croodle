@@ -1,10 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-
-const { Component, inject } = Ember;
 
 let Validations = buildValidations({
   options: [
@@ -36,6 +35,6 @@ export default Component.extend(Validations, {
     }
   },
   // consumed by validator
-  i18n: inject.service(),
+  i18n: service(),
   shouldShowErrors: false
 });

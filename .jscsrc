@@ -1,7 +1,0 @@
-{
-  "preset": "ember-suave",
-  "disallowConstOutsideModuleScope": false,
-  "disallowDirectPropertyAccess": false,
-  "disallowEmberView": false,
-  "requireSpread": false
-}

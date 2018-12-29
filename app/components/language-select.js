@@ -1,14 +1,15 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 import localesMeta from 'croodle/locales/meta';
-
-const { Component, computed, inject } = Ember;
 
 export default Component.extend({
   tagName: 'select',
   classNames: [ 'language-select' ],
-  i18n: inject.service(),
-  moment: inject.service(),
-  current: computed.readOnly('i18n.locale'),
+  i18n: service(),
+  moment: service(),
+  current: readOnly('i18n.locale'),
 
   locales: computed('i18n.locales', function() {
     let currentLocale = this.get('i18n.locale');

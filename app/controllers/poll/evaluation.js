@@ -1,22 +1,24 @@
-import Ember from 'ember';
-
-const { $, computed, Controller, inject } = Ember;
+import { inject as service } from '@ember/service';
+import { reads, readOnly, sort } from '@ember/object/computed';
+import $ from 'jquery';
+import { computed } from '@ember/object';
+import Controller, { inject as controller } from '@ember/controller';
 
 export default Controller.extend({
-  currentLocale: computed.reads('i18n.locale'),
+  currentLocale: reads('i18n.locale'),
 
-  hasTimes: computed.reads('pollController.hasTimes'),
+  hasTimes: reads('pollController.hasTimes'),
 
-  i18n: inject.service(),
+  i18n: service(),
 
-  momentLongDayFormat: computed.readOnly('pollController.momentLongDayFormat'),
+  momentLongDayFormat: readOnly('pollController.momentLongDayFormat'),
 
-  pollController: inject.controller('poll'),
+  pollController: controller('poll'),
 
-  sortedUsers: computed.sort('pollController.model.users', 'usersSorting'),
-  usersSorting: ['creationDate'],
+  sortedUsers: sort('pollController.model.users', 'usersSorting'),
+  usersSorting: computed(() => ['creationDate']),
 
-  timezone: computed.reads('pollController.timezone'),
+  timezone: reads('pollController.timezone'),
 
   /*
    * evaluates poll data
@@ -93,7 +95,7 @@ export default Controller.extend({
     return this.get('model.options.length') + 2;
   }),
 
-  isEvaluable: computed('model.users.[]', 'model.isFreeText', function() {
+  isEvaluable: computed('model.{users.[],isFreeText}', function() {
     if (
       !this.get('model.isFreeText') &&
       this.get('model.users.length') > 0

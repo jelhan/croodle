@@ -1,7 +1,8 @@
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import jQuery from 'jquery';
-import Ember from 'ember';
 
 moduleForComponent('create-options-text', 'Integration | Component | create options text', {
   integration: true,
@@ -19,9 +20,9 @@ test('it generates at least two input fields', function(assert) {
 
 test('generates input fields according options', function(assert) {
   this.set('options', [
-    Ember.Object.create({ title: 'foo' }),
-    Ember.Object.create({ title: 'bar' }),
-    Ember.Object.create({ title: 'baz' })
+    EmberObject.create({ title: 'foo' }),
+    EmberObject.create({ title: 'bar' }),
+    EmberObject.create({ title: 'baz' })
   ]);
   this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
@@ -41,8 +42,8 @@ test('generates input fields according options', function(assert) {
 
 test('observes changes to options', function(assert) {
   this.set('options', [
-    Ember.Object.create({ title: 'foo' }),
-    Ember.Object.create({ title: 'bar' })
+    EmberObject.create({ title: 'foo' }),
+    EmberObject.create({ title: 'bar' })
   ]);
   this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
@@ -52,9 +53,9 @@ test('observes changes to options', function(assert) {
     'has correct amount of input fields before change'
   );
 
-  Ember.run(() => {
+  run(() => {
     this.get('options').pushObject(
-      Ember.Object.create({ title: 'baz' })
+      EmberObject.create({ title: 'baz' })
     );
   });
 
@@ -72,8 +73,8 @@ test('observes changes to options', function(assert) {
 
 test('changes to value updates option', function(assert) {
   this.set('options', [
-    Ember.Object.create({ title: 'foo' }),
-    Ember.Object.create({ title: 'bar' })
+    EmberObject.create({ title: 'foo' }),
+    EmberObject.create({ title: 'bar' })
   ]);
   this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
@@ -91,7 +92,7 @@ test('allows to add another option', function(assert) {
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: this.get('isFindADate'),
       isDateTime: this.get('isDateTime'),
@@ -111,7 +112,7 @@ test('allows to add another option', function(assert) {
     'there are two input fields before'
   );
 
-  Ember.run(() => {
+  run(() => {
     this.$('.form-group .add').eq(0).click();
   });
   assert.equal(
@@ -127,7 +128,7 @@ test('allows to add another option', function(assert) {
     'it is added at correct position'
   );
 
-  Ember.run(() => {
+  run(() => {
     this.$('.form-group input').eq(1).val('baz').trigger('change');
   });
   assert.equal(
@@ -139,9 +140,9 @@ test('allows to add another option', function(assert) {
 
 test('allows to delete an option', function(assert) {
   this.set('options', [
-    Ember.Object.create({ title: 'foo' }),
-    Ember.Object.create({ title: 'bar' }),
-    Ember.Object.create({ title: 'baz' })
+    EmberObject.create({ title: 'foo' }),
+    EmberObject.create({ title: 'bar' }),
+    EmberObject.create({ title: 'baz' })
   ]);
   this.render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
@@ -157,7 +158,7 @@ test('allows to delete an option', function(assert) {
     'options are deleteable'
   );
   this.$('.form-group .delete').eq(1).click();
-  Ember.run(() => {
+  run(() => {
     assert.equal(
       this.$('.form-group input').length,
       2,

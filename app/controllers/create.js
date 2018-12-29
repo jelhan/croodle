@@ -1,23 +1,24 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
+import EmberObject, { computed, observer } from '@ember/object';
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
 
-const { computed, Controller, getOwner, inject } = Ember;
-
-const formStepObject = Ember.Object.extend({
+const formStepObject = EmberObject.extend({
   active: computed('routing.currentRouteName', function() {
     const currentRouteName = this.get('routing.currentRouteName');
-    const active = currentRouteName === this.get('route');
-
-    if (active) {
-      this.set('disabled', false);
-    }
-
-    return active;
+    return currentRouteName === this.get('route');
   }),
   disabled: true,
   hidden: false,
   label: null,
   route: null,
-  routing: inject.service('-routing')
+  routing: service('-routing'),
+  updateDisabledState: observer('active', function() {
+    if (this.get('active')) {
+      this.set('disabled', false);
+    }
+  }).on('init'),
 });
 
 export default Controller.extend({
@@ -41,7 +42,7 @@ export default Controller.extend({
             return 'create.formStep.options.text';
           }
         }),
-        pollType: computed.readOnly('model.pollType')
+        pollType: readOnly('model.pollType')
       }).create(owner.ownerInjection(), {
         model: this.get('model'),
         route: 'create.options'
@@ -51,7 +52,7 @@ export default Controller.extend({
           const pollType = this.get('pollType');
           return pollType !== 'FindADate';
         }),
-        pollType: computed.readOnly('model.pollType')
+        pollType: readOnly('model.pollType')
       }).create(owner.ownerInjection(), {
         label: 'create.formStep.options-datetime',
         model: this.get('model'),

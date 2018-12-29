@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { isPresent } from '@ember/utils';
 import PageObject from 'ember-cli-page-object';
 import { findElementWithAssert } from 'ember-cli-page-object';
 import { defaultsForCreate } from 'croodle/tests/pages/defaults';
@@ -22,7 +22,7 @@ const setBootstrapDatepicker = function(selector, options = {}) {
     isDescriptor: true,
     value(dates) {
       const el = findElementWithAssert(this, selector, options);
-      if (Ember.isPresent(dates)) {
+      if (isPresent(dates)) {
         const normalizedDates = dates.map((date) => {
           if (typeof date.toDate === 'function') {
             date = date.toDate();

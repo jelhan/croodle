@@ -3,10 +3,11 @@
  * sjcl and encryptionKey property of model as passphrase.
  * Unsets encryptionKey property afterwards.
  */
-import Ember from 'ember';
+import { assert } from '@ember/debug';
+import { isPresent } from '@ember/utils';
+import { isArray } from '@ember/array';
+import { get } from '@ember/object';
 import sjcl from 'sjcl';
-
-const { assert, get, isArray, isPresent } = Ember;
 
 export default function(propertiesToEncrypt, model) {
   assert(isArray(propertiesToEncrypt), 'first argument must be an array');

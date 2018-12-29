@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
 import {
   fragmentArray
@@ -64,15 +64,15 @@ export default Model.extend({
   /*
    * computed properties
    */
-  isFindADate: Ember.computed('pollType', function() {
+  isFindADate: computed('pollType', function() {
     return this.get('pollType') === 'FindADate';
   }),
 
-  isFreeText: Ember.computed('answerType', function() {
+  isFreeText: computed('answerType', function() {
     return this.get('answerType') === 'FreeText';
   }),
 
-  isMakeAPoll: Ember.computed('pollType', function() {
+  isMakeAPoll: computed('pollType', function() {
     return this.get('pollType') === 'MakeAPoll';
   })
 });

@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { getOwner, isEmpty, isPresent } = Ember;
+import { getOwner } from '@ember/application';
+import { isPresent, isEmpty } from '@ember/utils';
 
 export default {
   name: 'i18n',

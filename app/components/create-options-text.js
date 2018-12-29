@@ -1,8 +1,10 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { filter } from '@ember/object/computed';
+import Component from '@ember/component';
+import { observer, computed } from '@ember/object';
+import { run } from '@ember/runloop';
 import BsFormElement from 'ember-bootstrap/components/bs-form/element';
 import { anyBy } from 'ember-array-computed-macros';
-
-const { Component, computed, inject, observer, run } = Ember;
 
 export default Component.extend({
   actions: {
@@ -44,7 +46,7 @@ export default Component.extend({
     }
   }),
 
-  childFormElements: computed.filter('childViews', function(childView) {
+  childFormElements: filter('childViews', function(childView) {
     return childView instanceof BsFormElement;
   }),
 
@@ -80,5 +82,5 @@ export default Component.extend({
     }
   }).on('init'),
 
-  store: inject.service('store')
+  store: service('store')
 });

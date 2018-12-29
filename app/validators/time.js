@@ -1,5 +1,5 @@
+import { isEmpty } from '@ember/utils';
 import BaseValidator from 'ember-cp-validations/validators/base';
-import Ember from 'ember';
 import moment from 'moment';
 
 export default BaseValidator.extend({
@@ -12,11 +12,11 @@ export default BaseValidator.extend({
 
     options.value = value;
 
-    if (options.allowEmpty && Ember.isEmpty(value)) {
+    if (options.allowEmpty && isEmpty(value)) {
       return true;
     }
 
-    if (!Ember.isEmpty(value) && typeof value.trim === 'function') {
+    if (!isEmpty(value) && typeof value.trim === 'function') {
       value = value.trim();
     }
 

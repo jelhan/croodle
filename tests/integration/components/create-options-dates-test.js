@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 import moment from 'moment';
 
 moduleForComponent('create-options-dates', 'Integration | Component | create options dates', {
@@ -18,8 +18,8 @@ test('it renders a ember-cli-bootstrap-datepicker component', function(assert) {
 
 test('bootstrap-datepicker shows dates in options', function(assert) {
   this.set('options', [
-    Ember.Object.create({ title: '2015-01-01' }),
-    Ember.Object.create({ title: '2015-01-02' })
+    EmberObject.create({ title: '2015-01-01' }),
+    EmberObject.create({ title: '2015-01-02' })
   ]);
   this.render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 

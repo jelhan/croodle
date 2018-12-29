@@ -1,5 +1,6 @@
+import { isEmpty } from '@ember/utils';
+import { inject as service } from '@ember/service';
 import DS from 'ember-data';
-import Ember from 'ember';
 
 /*
  * extends DS.RESTSerializer to implement encryption
@@ -17,7 +18,7 @@ import Ember from 'ember';
 export default DS.RESTSerializer.extend({
   isNewSerializerAPI: true,
 
-  encryption: Ember.inject.service(),
+  encryption: service(),
 
   /*
    * implement decryption
@@ -52,7 +53,7 @@ export default DS.RESTSerializer.extend({
     // map includePlainOnCreate after serialization of attribute hash
     // but before encryption so we can just use the serialized hash
     if (
-      !Ember.isEmpty(attribute.options.includePlainOnCreate) &&
+      !isEmpty(attribute.options.includePlainOnCreate) &&
       typeof attribute.options.includePlainOnCreate === 'string'
     ) {
       json[attribute.options.includePlainOnCreate] = json[key];

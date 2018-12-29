@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-
-const { computed, Controller, inject } = Ember;
 
 const Validations = buildValidations({
   title: [
@@ -28,13 +28,15 @@ export default Controller.extend(Validations, {
     }
   },
 
-  description: computed.alias('model.description'),
+  description: alias('model.description'),
 
   init() {
+    this._super(...arguments);
+
     this.get('i18n.locale');
   },
 
-  i18n: inject.service(),
+  i18n: service(),
 
-  title: computed.alias('model.title')
+  title: alias('model.title')
 });

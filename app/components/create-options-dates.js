@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
+import { isArray } from '@ember/array';
+import { isEmpty } from '@ember/utils';
 import moment from 'moment';
 
-const { computed, Component, inject, isArray, isEmpty } = Ember;
-
 export default Component.extend({
-  i18n: inject.service(),
+  i18n: service(),
 
   /*
    * maps optionsDates for bootstrap datepicker as a simple array of date objects
@@ -89,5 +91,5 @@ export default Component.extend({
     }
   }),
 
-  store: inject.service('store')
+  store: service('store')
 });

@@ -1,14 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { isPresent, isEmpty } from '@ember/utils';
+import { observer, computed } from '@ember/object';
 import moment from 'moment';
-
-const {
-  computed,
-  Controller,
-  inject,
-  isEmpty,
-  isPresent,
-  observer
-} = Ember;
 
 export default Controller.extend({
   actions: {
@@ -30,13 +25,13 @@ export default Controller.extend({
     }
   },
 
-  currentLocale: computed.readOnly('i18n.locale'),
+  currentLocale: readOnly('i18n.locale'),
 
-  encryption: inject.service(),
+  encryption: service(),
   encryptionKey: '',
   queryParams: ['encryptionKey'],
 
-  flashMessages: inject.service(),
+  flashMessages: service(),
 
   hasTimes: computed('model.options.[]', function() {
     if (this.get('model.isMakeAPoll')) {
@@ -49,7 +44,7 @@ export default Controller.extend({
     }
   }),
 
-  i18n: inject.service(),
+  i18n: service(),
 
   momentLongDayFormat: computed('currentLocale', function() {
     let currentLocale = this.get('currentLocale');

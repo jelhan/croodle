@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { computed, Controller } = Ember;
+import { computed } from '@ember/object';
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   isDecryptionError: computed('model.type', function() {
