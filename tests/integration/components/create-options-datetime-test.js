@@ -1,7 +1,8 @@
+import { alias } from '@ember/object/computed';
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 import jQuery from 'jquery';
-import Ember from 'ember';
 import moment from 'moment';
 
 moduleForComponent('create-options-datetime', 'Integration | Component | create options datetime', {
@@ -23,7 +24,7 @@ test('it generates inpute field for options iso 8601 date string (without time)'
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
       isMakeAPoll: false,
@@ -51,7 +52,7 @@ test('it generates inpute field for options iso 8601 datetime string (with time)
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
       isMakeAPoll: false,
@@ -79,7 +80,7 @@ test('it hides repeated labels', function(assert) {
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
       isMakeAPoll: false,
@@ -121,7 +122,7 @@ test('allows to add another option', function(assert) {
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       options: [
         { title: '2015-01-01' },
@@ -158,7 +159,7 @@ test('allows to delete an option', function(assert) {
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
       isMakeAPoll: false,
@@ -182,7 +183,7 @@ test('allows to delete an option', function(assert) {
     'options are deleteable'
   );
   this.$('.days .form-group').eq(0).find('.delete').click();
-  Ember.run(() => {
+  run(() => {
     assert.equal(
       this.$('.days .form-group input').length,
       1,
@@ -211,7 +212,7 @@ test('adopt times of first day - simple', function(assert) {
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       options: [
         { title: moment().hour(10).minute(0).toISOString() },
@@ -221,7 +222,7 @@ test('adopt times of first day - simple', function(assert) {
     }));
   });
   this.render(hbs`{{create-options-datetime dates=poll.options}}`);
-  Ember.run(() => {
+  run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.equal(
@@ -246,7 +247,7 @@ test('adopt times of first day - more times on first day than on others', functi
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       options: [
         { title: moment().hour(10).minute(0).toISOString() },
@@ -257,7 +258,7 @@ test('adopt times of first day - more times on first day than on others', functi
     }));
   });
   this.render(hbs`{{create-options-datetime dates=poll.options}}`);
-  Ember.run(() => {
+  run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.deepEqual(
@@ -272,7 +273,7 @@ test('adopt times of first day - excess times on other days got deleted', functi
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
       isMakeAPoll: false,
@@ -284,7 +285,7 @@ test('adopt times of first day - excess times on other days got deleted', functi
     }));
   });
   this.render(hbs`{{create-options-datetime dates=poll.options}}`);
-  Ember.run(() => {
+  run(() => {
     this.$('button.adopt-times-of-first-day').click();
   });
   assert.equal(
@@ -304,12 +305,12 @@ test('validation', function(assert) {
   // which validates according to poll model it belongs to
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
-  Ember.run(() => {
+  run(() => {
     this.set('poll', this.store.createRecord('poll', {
       isFindADate: true,
       isMakeAPoll: false
     }));
-    this.set('options', Ember.computed.alias('poll.options'));
+    this.set('options', alias('poll.options'));
     this.get('options').pushObjects([
       { title: '2015-01-01' },
       { title: '2015-02-02' }

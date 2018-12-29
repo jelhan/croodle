@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { computed, Controller } = Ember;
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   actions: {
@@ -13,5 +12,5 @@ export default Controller.extend({
     }
   },
 
-  isFindADate: computed.alias('model.isFindADate')
+  isFindADate: alias('model.isFindADate')
 });

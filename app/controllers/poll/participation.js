@@ -1,19 +1,14 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { readOnly, not } from '@ember/object/computed';
+import Controller, { inject as controller } from '@ember/controller';
+import { getOwner } from '@ember/application';
+import { isPresent, isEmpty } from '@ember/utils';
+import EmberObject, { computed } from '@ember/object';
 import {
     validator, buildValidations
 }
 from 'ember-cp-validations';
 import moment from 'moment';
-
-const {
-  computed,
-  Controller,
-  getOwner,
-  inject,
-  isEmpty,
-  isPresent,
-  Object: EmberObject
-} = Ember;
 
 const validCollection = function(collection) {
   // return false if any object in collection is inValid
@@ -25,14 +20,14 @@ const Validations = buildValidations({
   name: [
     validator('presence', {
       presence: true,
-      disabled: computed.readOnly('model.anonymousUser'),
+      disabled: readOnly('model.anonymousUser'),
       dependentKeys: ['model.i18n.locale']
     }),
     validator('unique', {
       parent: 'pollController.model',
       attributeInParent: 'users',
       dependentKeys: ['model.poll.users.[]', 'model.poll.users.@each.name', 'model.i18n.locale'],
-      disable: computed.readOnly('model.anonymousUser'),
+      disable: readOnly('model.anonymousUser'),
       messageKey: 'unique.name'
     })
   ],
@@ -51,7 +46,7 @@ const Validations = buildValidations({
 const SelectionValidations = buildValidations({
   value: validator('presence', {
     presence: true,
-    disabled: computed.not('model.forceAnswer'),
+    disabled: not('model.forceAnswer'),
     messageKey: computed('model.isFreeText', function() {
       return this.get('model.isFreeText') ? 'errors.present' : 'errors.present.answer.selection';
     }),
@@ -119,26 +114,28 @@ export default Controller.extend(Validations, {
     }
   },
 
-  anonymousUser: computed.readOnly('pollController.model.anonymousUser'),
-  currentLocale: computed.readOnly('i18n.locale'),
-  encryption: inject.service(),
-  forceAnswer: computed.readOnly('pollController.model.forceAnswer'),
-  i18n: inject.service(),
+  anonymousUser: readOnly('pollController.model.anonymousUser'),
+  currentLocale: readOnly('i18n.locale'),
+  encryption: service(),
+  forceAnswer: readOnly('pollController.model.forceAnswer'),
+  i18n: service(),
 
   init() {
+    this._super(...arguments);
+
     this.get('i18n.locale');
   },
 
-  isFreeText: computed.readOnly('pollController.model.isFreeText'),
-  isFindADate: computed.readOnly('pollController.model.isFindADate'),
+  isFreeText: readOnly('pollController.model.isFreeText'),
+  isFindADate: readOnly('pollController.model.isFindADate'),
 
-  momentLongDayFormat: computed.readOnly('pollController.momentLongDayFormat'),
+  momentLongDayFormat: readOnly('pollController.momentLongDayFormat'),
 
   name: '',
 
-  options: computed.readOnly('pollController.model.options'),
+  options: readOnly('pollController.model.options'),
 
-  pollController: inject.controller('poll'),
+  pollController: controller('poll'),
 
   possibleAnswers: computed('pollController.model.answers', function() {
     return this.get('pollController.model.answers').map((answer) => {
@@ -151,7 +148,7 @@ export default Controller.extend(Validations, {
 
       if (!isEmpty(answer.get('labelTranslation'))) {
         return AnswerObject.extend(owner.ownerInjection(), {
-          i18n: inject.service(),
+          i18n: service(),
           label: computed('i18n.locale', function() {
             return this.get('i18n').t(this.get('labelTranslation'));
           }),
@@ -214,5 +211,5 @@ export default Controller.extend(Validations, {
     });
   }),
 
-  timezone: computed.readOnly('pollController.timezone')
+  timezone: readOnly('pollController.timezone')
 });

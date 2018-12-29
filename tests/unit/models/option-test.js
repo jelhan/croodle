@@ -1,8 +1,9 @@
+import { run } from '@ember/runloop';
+import Service from '@ember/service';
 import { moduleForModel, test } from 'ember-qunit';
-import Ember from 'ember';
 import moment from 'moment';
 
-const i18nStub = Ember.Service.extend({
+const i18nStub = Service.extend({
   exists() {
     return false;
   },
@@ -42,7 +43,7 @@ test('date property (get)', function(assert) {
     'string to date conversion is correct for ISO 8601 day string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', '2015-01-01T11:11:00.000Z');
   });
   assert.ok(
@@ -55,7 +56,7 @@ test('date property (get)', function(assert) {
     'string to date conversion is correct for ISO 8601 datetime string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', null);
   });
   assert.equal(
@@ -64,7 +65,7 @@ test('date property (get)', function(assert) {
     'returns undefined if title is empty'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', 'abc');
   });
   assert.equal(
@@ -73,7 +74,7 @@ test('date property (get)', function(assert) {
     'returns undefined if title is not a valid ISO 8601 date string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', '2015');
   });
   assert.equal(
@@ -82,7 +83,7 @@ test('date property (get)', function(assert) {
     'returns undefined if title ISO 8601 string only contains a year'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', '2015-01');
   });
   assert.equal(
@@ -91,7 +92,7 @@ test('date property (get)', function(assert) {
     'returns undefined if title ISO 8601 string only contains a year and a month'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', '2013W06');
   });
   assert.equal(
@@ -111,7 +112,7 @@ test('day property (get)', function(assert) {
     'returns ISO 8601 day string if title is ISO 8601 day string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', '2015-01-01T11:11:00.000Z');
   });
   assert.equal(
@@ -120,7 +121,7 @@ test('day property (get)', function(assert) {
     'returns ISO 8601 day string if title is ISO 8601 datetime string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', 'abc');
   });
   assert.equal(
@@ -129,7 +130,7 @@ test('day property (get)', function(assert) {
     'returns undefined if title is not a valid ISO 8601 string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', null);
   });
   assert.equal(
@@ -149,7 +150,7 @@ test('dayFormatted property (get)', function(assert) {
     'returns formatted date if title is ISO 8601 day string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', moment('2015-01-01').toISOString());
   });
   assert.equal(
@@ -158,7 +159,7 @@ test('dayFormatted property (get)', function(assert) {
     'returns formatted date if title is ISO 8601 datetime string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('i18n.locale', 'de');
   });
   assert.equal(
@@ -167,7 +168,7 @@ test('dayFormatted property (get)', function(assert) {
     'observes locale changes'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', 'abc');
   });
   assert.equal(
@@ -182,11 +183,11 @@ test('hasTime property', function(assert) {
     title: '2015-01-01T11:11:00.000Z'
   });
   assert.ok(option.get('hasTime'));
-  Ember.run(() => {
+  run(() => {
     option.set('title', '2015-01-01');
   });
   assert.notOk(option.get('hasTime'));
-  Ember.run(() => {
+  run(() => {
     option.set('title', 'foo');
   });
   assert.notOk(option.get('hasTime'));
@@ -202,7 +203,7 @@ test('time property (get)', function(assert) {
     'returns time if title is ISO 8601 datetime string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', '2015-01-01');
   });
   assert.equal(
@@ -211,7 +212,7 @@ test('time property (get)', function(assert) {
     'returns undefined if title is ISO 8601 day string'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', 'abc');
   });
   assert.equal(
@@ -226,7 +227,7 @@ test('time property (set)', function(assert) {
     title: '2015-01-01'
   });
 
-  Ember.run(() => {
+  run(() => {
     option.set('time', '11:00');
   });
   assert.equal(
@@ -235,7 +236,7 @@ test('time property (set)', function(assert) {
     'sets title according to time'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('time', null);
   });
   assert.equal(
@@ -245,7 +246,7 @@ test('time property (set)', function(assert) {
   );
 
   const before = option.get('title');
-  Ember.run(() => {
+  run(() => {
     option.set('time', 'abc');
   });
   assert.equal(
@@ -254,7 +255,7 @@ test('time property (set)', function(assert) {
     'does not set title if time is invalid'
   );
 
-  Ember.run(() => {
+  run(() => {
     option.set('title', 'abc');
   });
   assert.throws(
@@ -266,7 +267,7 @@ test('time property (set)', function(assert) {
 });
 
 test('validation for MakeAPoll', function(assert) {
-  Ember.run(() => {
+  run(() => {
     let store = this.store();
     let poll = store.createRecord('poll', {
       pollType: 'MakeAPoll'
@@ -278,14 +279,14 @@ test('validation for MakeAPoll', function(assert) {
       option.get('validations.isValid'),
       'default value is not valid'
     );
-    Ember.run(() => {
+    run(() => {
       option.set('title', 'Spasibo!');
     });
     assert.ok(
       option.get('validations.isValid'),
       'is valid for a non empty string'
     );
-    Ember.run(() => {
+    run(() => {
       option.set('title', '!');
     });
     assert.ok(
@@ -296,7 +297,7 @@ test('validation for MakeAPoll', function(assert) {
 });
 
 test('validation for FindADate', function(assert) {
-  Ember.run(() => {
+  run(() => {
     let store = this.store();
     let poll = store.createRecord('poll', {
       isDateTime: false,
@@ -309,14 +310,14 @@ test('validation for FindADate', function(assert) {
       option.get('validations.isValid'),
       'default value is not valid'
     );
-    Ember.run(() => {
+    run(() => {
       option.set('title', '1945-05-08');
     });
     assert.ok(
       option.get('validations.isValid'),
       'iso 8601 date string is valid'
     );
-    Ember.run(() => {
+    run(() => {
       option.set('title', 'Spasibo!');
     });
     assert.notOk(
@@ -327,7 +328,7 @@ test('validation for FindADate', function(assert) {
 });
 
 test('validation for FindADate', function(assert) {
-  Ember.run(() => {
+  run(() => {
     let store = this.store();
     let poll = store.createRecord('poll', {
       pollType: 'FindADate'
@@ -339,21 +340,21 @@ test('validation for FindADate', function(assert) {
       option.get('validations.isValid'),
       'default value is not valid'
     );
-    Ember.run(() => {
+    run(() => {
       option.set('title', '1945-05-08T00:00:00.000Z');
     });
     assert.ok(
       option.get('validations.isValid'),
       'iso 8601 datetime string is valid'
     );
-    Ember.run(() => {
+    run(() => {
       option.set('title', 'Spasibo!');
     });
     assert.notOk(
       option.get('validations.isValid'),
       'random string is not valid'
     );
-    Ember.run(() => {
+    run(() => {
       option.set('title', '1945-05-08');
     });
     assert.ok(

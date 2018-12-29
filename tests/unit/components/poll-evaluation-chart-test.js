@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import moment from 'moment';
-import Ember from 'ember';
 import tHelper from 'ember-i18n/helper';
 import localeConfig from 'ember-i18n/config/en';
 
@@ -25,50 +25,50 @@ moduleForComponent('poll-evaluation-chart', 'Unit | Component | poll evaluation 
 
 test('data is a valid ChartJS dataset for FindADate using poll timezone', function(assert) {
   let options = [
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-01-01'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-02-02'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-03-03T01:00:00.000Z'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-03-03T11:00:00.000Z'
     })
   ];
   let users = [
-    Ember.Object.create({
+    EmberObject.create({
       id: 1,
       selections: [
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'maybe'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         })
       ]
     }),
-    Ember.Object.create({
+    EmberObject.create({
       id: 2,
       selections: [
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'maybe'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         })
       ]
@@ -119,16 +119,16 @@ test('data is a valid ChartJS dataset for FindADate using poll timezone', functi
 
 test('data is a valid ChartJS dataset for MakeAPoll', function(assert) {
   const options = [
-    Ember.Object.create({
+    EmberObject.create({
       title: 'first option'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: 'second option'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: 'third option'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: 'fourth option'
     })
   ];
@@ -136,36 +136,36 @@ test('data is a valid ChartJS dataset for MakeAPoll', function(assert) {
     answerType: 'YesNoMaybe',
     options,
     users: [
-      Ember.Object.create({
+      EmberObject.create({
         id: 1,
         selections: [
-          Ember.Object.create({
+          EmberObject.create({
             type: 'yes'
           }),
-          Ember.Object.create({
+          EmberObject.create({
             type: 'yes'
           }),
-          Ember.Object.create({
+          EmberObject.create({
             type: 'maybe'
           }),
-          Ember.Object.create({
+          EmberObject.create({
             type: 'no'
           })
         ]
       }),
-      Ember.Object.create({
+      EmberObject.create({
         id: 2,
         selections: [
-          Ember.Object.create({
+          EmberObject.create({
             type: 'yes'
           }),
-          Ember.Object.create({
+          EmberObject.create({
             type: 'maybe'
           }),
-          Ember.Object.create({
+          EmberObject.create({
             type: 'no'
           }),
-          Ember.Object.create({
+          EmberObject.create({
             type: 'no'
           })
         ]
@@ -202,50 +202,50 @@ test('data is a valid ChartJS dataset for MakeAPoll', function(assert) {
 
 test('data is a valid ChartJS dataset for FindADate using poll timezone', function(assert) {
   let options = [
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-01-01'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-02-02'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-03-03T01:00:00.000Z'
     }),
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-03-03T11:00:00.000Z'
     })
   ];
   let users = [
-    Ember.Object.create({
+    EmberObject.create({
       id: 1,
       selections: [
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'maybe'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         })
       ]
     }),
-    Ember.Object.create({
+    EmberObject.create({
       id: 2,
       selections: [
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'maybe'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         })
       ]
@@ -296,7 +296,7 @@ test('data is a valid ChartJS dataset for FindADate using poll timezone', functi
 
 test('data is a valid ChartJS dataset for FindADate using locale timezone', function(assert) {
   let options = [
-    Ember.Object.create({
+    EmberObject.create({
       title: '2015-03-03T01:00:00.000Z'
     })
   ];

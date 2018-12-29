@@ -1,5 +1,6 @@
+import { A } from '@ember/array';
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 
 moduleFor('validator:unique', 'Unit | Validator | unique', {
   needs: ['validator:messages']
@@ -38,10 +39,10 @@ test('throws if required option is missing', function(assert) {
 
 test('validation', function(assert) {
   const validator = this.subject();
-  const parent = Ember.Object.create({
-    collection: Ember.A([])
+  const parent = EmberObject.create({
+    collection: A([])
   });
-  const childObject = Ember.Object.extend({
+  const childObject = EmberObject.extend({
     parent
   });
   const options = {

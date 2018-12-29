@@ -45,6 +45,7 @@ before_script:
 
 script:
   # run frontend and integration tests
+  - if $TEST_EMBER; then yarn run lint:js; fi
   - if $TEST_EMBER; then yarn test; fi
   # test against different browsers using sauce lab
   - if $TEST_SAUCE; then node_modules/ember-cli/bin/ember test --launch='SL_chrome,SL_firefox,SL_edge,SL_ie,SL_safari' --test-port 8080; fi

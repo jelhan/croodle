@@ -1,8 +1,8 @@
-import Ember from 'ember';
+import Service from '@ember/service';
 import generatePassphrase from '../utils/generate-passphrase';
 import sjcl from 'sjcl';
 
-export default Ember.Service.extend({
+export default Service.extend({
   key: null,
 
   decrypt(value) {

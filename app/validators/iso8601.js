@@ -1,16 +1,18 @@
+import { isArray } from '@ember/array';
+import { isEmpty } from '@ember/utils';
+import { assert } from '@ember/debug';
 import BaseValidator from 'ember-cp-validations/validators/base';
 import moment from 'moment';
-import Ember from 'ember';
 
 export default BaseValidator.extend({
   validate(value, options = {}) {
-    Ember.assert(
+    assert(
       'options.validFormats must not be set or an array of momentJS format strings',
-      Ember.isEmpty(options.validFormats) || Ember.isArray(options.validFormats)
+      isEmpty(options.validFormats) || isArray(options.validFormats)
     );
 
     let valid;
-    const validFormats = Ember.isEmpty(options.validFormats) ? ['YYYY-MM-DDTHH:mm:ss.SSSZ'] : options.validFormats;
+    const validFormats = isEmpty(options.validFormats) ? ['YYYY-MM-DDTHH:mm:ss.SSSZ'] : options.validFormats;
 
     if (
       options.active === false ||

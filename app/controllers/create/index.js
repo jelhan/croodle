@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { getOwner } from '@ember/application';
+import EmberObject, { computed } from '@ember/object';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-
-const { computed, Controller, getOwner, Object: EmberObject, inject } = Ember;
 
 const Validations = buildValidations({
   pollType: [
@@ -20,7 +22,7 @@ const Validations = buildValidations({
 });
 
 const TranslateableObject = EmberObject.extend({
-  i18n: inject.service(),
+  i18n: service(),
   label: computed('labelTranslation', 'i18n.locale', function() {
     return this.get('i18n').t(this.get('labelTranslation'));
   }),
@@ -36,13 +38,15 @@ export default Controller.extend(Validations, {
     }
   },
 
-  i18n: inject.service(),
+  i18n: service(),
 
   init() {
+    this._super(...arguments);
+
     this.get('i18n.locale');
   },
 
-  pollType: computed.alias('model.pollType'),
+  pollType: alias('model.pollType'),
 
   pollTypes: computed('', function() {
     const owner = getOwner(this);

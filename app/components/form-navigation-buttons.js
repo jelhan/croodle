@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { get, computed } from '@ember/object';
 import { translationMacro as t } from 'ember-i18n';
-
-const { Component, computed, get, inject } = Ember;
 
 export default Component.extend({
   actions: {
@@ -30,7 +30,7 @@ export default Component.extend({
    */
   disablePrevButton: false,
 
-  i18n: inject.service(),
+  i18n: service(),
 
   /**
    * @property nextButtonClasses

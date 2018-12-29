@@ -1,12 +1,23 @@
-/* eslint-env node */
 'use strict';
 
 module.exports = function(environment) {
-  const ENV = {
+  let ENV = {
     modulePrefix: 'croodle',
-    environment: environment,
+    environment,
+    rootURL: '/',
     locationType: 'hash',
-    rootURL: '',
+    EmberENV: {
+      FEATURES: {
+        // Here you can enable experimental features on an ember canary build
+        // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        Array: true,
+        Date: false,
+        String: false,
+        Function: true
+      }
+    },
 
     APP: {
       // Here you can pass flags/options to your application instance
@@ -24,15 +35,6 @@ module.exports = function(environment) {
       'referrer': "no-referrer"
     },
 
-    EmberENV: {
-      EXTEND_PROTOTYPES: {
-        Array: true,
-        Date: false,
-        String: false,
-        Function: true
-      }
-    },
-
     moment: {
       includeLocales: ['ca', 'de', 'es', 'it'],
       includeTimezone: 'subset'
@@ -43,17 +45,30 @@ module.exports = function(environment) {
     }
   };
 
+  if (environment === 'development') {
+    // ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
+
   if (environment === 'test') {
     ENV.rootURL = '/';
 
     // Testem prefers this...
-    ENV.locationType = 'hash';
+    ENV.locationType = 'none';
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
+  }
+
+  if (environment === 'production') {
+    // here you can enable a production-specific feature
   }
 
   return ENV;

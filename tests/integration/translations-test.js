@@ -1,10 +1,8 @@
+import { getOwner } from '@ember/application';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 import config from 'croodle/config/environment';
 import LocaleHelper from 'ember-i18n/utils/locale';
 import localesMeta from 'croodle/locales/meta';
-
-const { getOwner } = Ember;
 
 moduleFor('service:i18n', 'Integration | translations', {
   integration: true

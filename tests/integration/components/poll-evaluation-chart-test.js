@@ -1,6 +1,6 @@
+import EmberObject from '@ember/object';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Ember from 'ember';
 import moment from 'moment';
 
 moduleForComponent('poll-evaluation-chart', 'Integration | Component | poll evaluation chart', {
@@ -12,22 +12,22 @@ moduleForComponent('poll-evaluation-chart', 'Integration | Component | poll eval
 
 test('it renders', function(assert) {
   this.set('options', [
-    Ember.Object.create({
+    EmberObject.create({
       formatted: 'Thursday, January 1, 2015',
       title: moment('2015-01-01'),
       hasTime: false
     }),
-    Ember.Object.create({
+    EmberObject.create({
       formatted: 'Monday, February 2, 2015',
       title: moment('2015-02-02'),
       hasTime: false
     }),
-    Ember.Object.create({
+    EmberObject.create({
       formatted: 'Tuesday, March 3, 2015 1:00 AM',
       title: moment('2015-03-03T01:00'),
       hasTime: true
     }),
-    Ember.Object.create({
+    EmberObject.create({
       formatted: 'Tuesday, March 3, 2015 11:00 AM',
       title: moment('2015-03-03T11:00'),
       hasTime: true
@@ -35,36 +35,36 @@ test('it renders', function(assert) {
   ]);
   this.set('answerType', 'YesNoMaybe');
   this.set('users', [
-    Ember.Object.create({
+    EmberObject.create({
       id: 1,
       selections: [
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'maybe'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         })
       ]
     }),
-    Ember.Object.create({
+    EmberObject.create({
       id: 2,
       selections: [
-        Ember.Object.create({
+        EmberObject.create({
           type: 'yes'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'maybe'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         }),
-        Ember.Object.create({
+        EmberObject.create({
           type: 'no'
         })
       ]

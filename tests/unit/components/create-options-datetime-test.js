@@ -1,5 +1,5 @@
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 import moment from 'moment';
 
 moduleForComponent('create-options-datetime', 'Unit | Component | create options datetime', {
@@ -18,7 +18,7 @@ moduleForComponent('create-options-datetime', 'Unit | Component | create options
 test('delete a date', function(assert) {
   let component = this.subject();
   let a, b, c, d, e;
-  Ember.run(() => {
+  run(() => {
     a = this.store.createFragment('option', { title: moment('2015-01-01T01:01:00.000').toISOString() });
     b = this.store.createFragment('option', { title: moment('2015-01-01T11:11:00.000').toISOString() });
     c = this.store.createFragment('option', { title: moment('2015-02-02T11:11:00.000').toISOString() });
@@ -47,7 +47,7 @@ test('delete a date', function(assert) {
     ],
     'date get deleted if there is another date with same day (date does not have a time)'
   );
-  Ember.run(() => {
+  run(() => {
     component.send('deleteOption', c);
   });
   assert.deepEqual(
@@ -76,7 +76,7 @@ test('datetimes are grouped by date', function(assert) {
   let a, b, c;
   // have to set dates in local time and than convert to ISO 8601 strings
   // because otherwise test could fail caused by timezone
-  Ember.run(() => {
+  run(() => {
     a = this.store.createFragment('option', { title: moment('2015-01-01T01:01:00').toISOString() });
     b = this.store.createFragment('option', { title: moment('2015-01-01T11:11:00').toISOString() });
     c = this.store.createFragment('option', { title: moment('2015-02-02T01:01:00').toISOString() });
@@ -103,7 +103,7 @@ test('datetimes are grouped by date', function(assert) {
 
 test('bindings are working on grouped datetimes', function(assert) {
   let component = this.subject();
-  Ember.run(() => {
+  run(() => {
     component.set('dates', [
       this.store.createFragment('option', {
         title: moment('2015-01-01T11:11:00.000Z').toISOString()
@@ -115,7 +115,7 @@ test('bindings are working on grouped datetimes', function(assert) {
     moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
     'time is correct before'
   );
-  Ember.run(() => {
+  run(() => {
     component.set(
       'groupedDates.firstObject.firstObject.time',
       '00:00'
@@ -126,7 +126,7 @@ test('bindings are working on grouped datetimes', function(assert) {
     moment('2015-01-01T00:00').toISOString(),
     'option is updated after time changed on grouped datetimes'
   );
-  Ember.run(() => {
+  run(() => {
     component.get('dates').pushObject(
       this.store.createFragment('option', { title: moment('2015-01-01T12:12').toISOString() })
     );
@@ -141,7 +141,7 @@ test('bindings are working on grouped datetimes', function(assert) {
     '12:12',
     'grouped datetimes got updated correctly after option was added (same day)'
   );
-  Ember.run(() => {
+  run(() => {
     component.get('dates').pushObject(
       this.store.createFragment('option', { title: moment('2015-02-02T01:01').toISOString() })
     );
@@ -161,7 +161,7 @@ test('bindings are working on grouped datetimes', function(assert) {
 test('adopt times of first day - simple', function(assert) {
   let component;
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       options: [
         { title: moment('2015-01-01T11:11:00.000').toISOString() },
@@ -192,7 +192,7 @@ test('adopt times of first day - simple', function(assert) {
 test('adopt times of first day - having times on the other days', function(assert) {
   let component;
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       options: [
         { title: moment('2015-01-01T11:11:00.000').toISOString() },
@@ -229,7 +229,7 @@ test('adopt times of first day - having times on the other days', function(asser
 test('adopt times of first day - no times on first day', function(assert) {
   let component;
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       options: [
         { title: '2015-01-01' },

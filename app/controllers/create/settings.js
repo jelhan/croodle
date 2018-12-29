@@ -1,20 +1,15 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
+import { copy } from '@ember/object/internals';
+import { getOwner } from '@ember/application';
+import { isEmpty } from '@ember/utils';
+import EmberObject, { observer, computed } from '@ember/object';
 import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
 import moment from 'moment';
-
-const {
-  computed,
-  Controller,
-  copy,
-  getOwner,
-  inject,
-  isEmpty,
-  Object: EmberObject,
-  observer
-} = Ember;
 
 const Validations = buildValidations({
   anonymousUser: validator('presence', {
@@ -35,7 +30,7 @@ const Validations = buildValidations({
 });
 
 const TranslateableObject = EmberObject.extend({
-  i18n: inject.service(),
+  i18n: service(),
   label: computed('labelTranslation', 'i18n.locale', function() {
     return this.get('i18n').t(this.get('labelTranslation'));
   }),
@@ -74,8 +69,8 @@ export default Controller.extend(Validations, {
     }
   },
 
-  anonymousUser: computed.alias('model.anonymousUser'),
-  answerType: computed.alias('model.answerType'),
+  anonymousUser: alias('model.anonymousUser'),
+  answerType: alias('model.answerType'),
 
   answerTypes: computed('', function() {
     const owner = getOwner(this);
@@ -159,11 +154,13 @@ export default Controller.extend(Validations, {
     ];
   }),
 
-  forceAnswer: computed.alias('model.forceAnswer'),
+  forceAnswer: alias('model.forceAnswer'),
 
-  i18n: inject.service(),
+  i18n: service(),
 
   init() {
+    this._super(...arguments);
+
     this.get('i18n.locale');
   },
 

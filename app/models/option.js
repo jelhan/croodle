@@ -1,5 +1,9 @@
+import { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
+import { assert } from '@ember/debug';
+import { computed } from '@ember/object';
+import { isEmpty } from '@ember/utils';
 import DS from 'ember-data';
-import Ember from 'ember';
 import moment from 'moment';
 import Fragment from 'ember-data-model-fragments/fragment';
 import { fragmentOwner } from 'ember-data-model-fragments/attributes';
@@ -9,12 +13,11 @@ import {
 from 'ember-cp-validations';
 
 const { attr } = DS;
-const { assert, computed, inject, isEmpty } = Ember;
 
 const Validations = buildValidations({
   title: [
     validator('iso8601', {
-      active: computed.readOnly('model.poll.isFindADate'),
+      active: readOnly('model.poll.isFindADate'),
       validFormats: [
         'YYYY-MM-DD',
         'YYYY-MM-DDTHH:mmZ',
@@ -59,7 +62,7 @@ export default Fragment.extend(Validations, {
       'YYYY-MM-DDTHH:mm:ss.SSSZ'
     ];
     const value = this.get('title');
-    if (Ember.isEmpty(value)) {
+    if (isEmpty(value)) {
       return;
     }
 
@@ -134,7 +137,7 @@ export default Fragment.extend(Validations, {
       );
 
       // set time to undefined if value is false
-      if (Ember.isEmpty(value)) {
+      if (isEmpty(value)) {
         this.set('title', date.format('YYYY-MM-DD'));
         return value;
       }
@@ -149,7 +152,7 @@ export default Fragment.extend(Validations, {
     }
   }),
 
-  i18n: inject.service(),
+  i18n: service(),
   init() {
     this.get('i18n.locale');
   }

@@ -1,9 +1,7 @@
+import { get } from '@ember/object';
 import { module, test } from 'qunit';
 import { startMirage } from 'croodle/initializers/ember-cli-mirage';
 import sjcl from 'sjcl';
-import Ember from 'ember';
-
-const { get } = Ember;
 
 module('Integration | Mirage api mocking', {
   beforeEach() {

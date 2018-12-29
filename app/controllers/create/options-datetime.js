@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import moment from 'moment';
-
-const { computed, Controller } = Ember;
 
 export default Controller.extend({
   actions: {
@@ -35,5 +34,5 @@ export default Controller.extend({
     // ToDo: Find a better way without reseting the options
     this.set('options', options.sortBy('title'));
   },
-  options: computed.alias('model.options')
+  options: alias('model.options')
 });

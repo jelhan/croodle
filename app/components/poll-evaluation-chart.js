@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { get, computed } from '@ember/object';
+import { isArray } from '@ember/array';
+import { isPresent } from '@ember/utils';
 import moment from 'moment';
-
-const { Component, computed, get, inject, isArray, isPresent } = Ember;
 
 const addArrays = function() {
   let args = Array.prototype.slice.call(arguments);
@@ -22,9 +24,9 @@ const addArrays = function() {
 };
 
 export default Component.extend({
-  i18n: inject.service(),
+  i18n: service(),
   type: 'bar',
-  data: computed('users.[]', 'options.[]', 'options.@each.title', 'currentLocale', function() {
+  data: computed('users.[]', 'options.{[],each.title}', 'currentLocale', function() {
     let labels = this.get('options').map((option) => {
       let value = get(option, 'title');
       if (!get(this, 'isFindADate')) {
@@ -77,36 +79,38 @@ export default Component.extend({
       labels
     };
   }),
-  chartOptions: {
-    legend: {
-      display: false
-    },
-    scales: {
-      xAxes: [{
-        stacked: true
-      }],
-      yAxes: [{
-        stacked: true,
-        ticks: {
-          callback(value) {
-            return `${value} %`;
-          },
-          max: 100,
-          min: 0
-        }
-      }]
-    },
-    tooltips: {
-      mode: 'label',
-      callbacks: {
-        label(tooltipItem, data) {
-          let { datasets } = data;
-          let { datasetIndex } = tooltipItem;
-          let { label } = datasets[datasetIndex];
-          let value = tooltipItem.yLabel;
-          return `${label}: ${value} %`;
+  chartOptions: computed(function () {
+    return {
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          stacked: true
+        }],
+        yAxes: [{
+          stacked: true,
+          ticks: {
+            callback(value) {
+              return `${value} %`;
+            },
+            max: 100,
+            min: 0
+          }
+        }]
+      },
+      tooltips: {
+        mode: 'label',
+        callbacks: {
+          label(tooltipItem, data) {
+            let { datasets } = data;
+            let { datasetIndex } = tooltipItem;
+            let { label } = datasets[datasetIndex];
+            let value = tooltipItem.yLabel;
+            return `${label}: ${value} %`;
+          }
         }
       }
     }
-  }
+  }),
 });

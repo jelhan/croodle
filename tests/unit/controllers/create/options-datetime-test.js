@@ -1,23 +1,24 @@
+import { run } from '@ember/runloop';
+import EmberObject from '@ember/object';
 import { moduleFor, test } from 'ember-qunit';
-import Ember from 'ember';
 import moment from 'moment';
 
 moduleFor('controller:create/options-datetime', 'Unit | Controller | create/options datetime', {
 });
 
 test('normalize options - remove days without time if there is another option with a time for that day', function(assert) {
-  const dirtyOption = Ember.Object.create({ title: '2015-01-01' });
+  const dirtyOption = EmberObject.create({ title: '2015-01-01' });
   let controller = this.subject({
     model: {
       options: [
-        Ember.Object.create({ title: '2015-01-01T12:00:00.000Z' }),
+        EmberObject.create({ title: '2015-01-01T12:00:00.000Z' }),
         dirtyOption,
-        Ember.Object.create({ title: '2017-11-11' }),
-        Ember.Object.create({ title: '2018-04-04T11:11:00.000Z' })
+        EmberObject.create({ title: '2017-11-11' }),
+        EmberObject.create({ title: '2018-04-04T11:11:00.000Z' })
       ]
     }
   });
-  Ember.run(() => {
+  run(() => {
     controller.normalizeOptions();
   });
   assert.equal(
@@ -39,14 +40,14 @@ test('normalize options - sort them', function(assert) {
   let controller = this.subject({
     model: {
       options: [
-        Ember.Object.create({ title: dateB }),
-        Ember.Object.create({ title: dateA }),
-        Ember.Object.create({ title: dateC }),
-        Ember.Object.create({ title: dateD })
+        EmberObject.create({ title: dateB }),
+        EmberObject.create({ title: dateA }),
+        EmberObject.create({ title: dateC }),
+        EmberObject.create({ title: dateD })
       ]
     }
   });
-  Ember.run(() => {
+  run(() => {
     controller.normalizeOptions();
   });
   assert.deepEqual(

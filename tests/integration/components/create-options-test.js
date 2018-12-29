@@ -1,8 +1,8 @@
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
 import { blur, fillIn, findAll, focus } from 'ember-native-dom-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import hasComponent from 'croodle/tests/helpers/201-created/raw/has-component';
-import Ember from 'ember';
 
 moduleForComponent('create-options', 'Integration | Component | create options', {
   integration: true,
@@ -49,7 +49,7 @@ test('shows validation errors if options are not unique (makeAPoll)', async func
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: this.get('isFindADate'),
       isDateTime: this.get('isDateTime'),
@@ -102,7 +102,7 @@ test('shows validation errors if option is empty (makeAPoll)', async function(as
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: this.get('isFindADate'),
       isDateTime: this.get('isDateTime'),
@@ -148,7 +148,7 @@ test('label reflects validation state of all inputs (makeAPoll)', async function
   // therefore each option needs to be pushed to poll model to have it as
   // it's owner
   let poll;
-  Ember.run(() => {
+  run(() => {
     poll = this.store.createRecord('poll', {
       isFindADate: this.get('isFindADate'),
       isDateTime: this.get('isDateTime'),

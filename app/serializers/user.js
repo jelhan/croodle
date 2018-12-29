@@ -1,5 +1,5 @@
+import { isEmpty } from '@ember/utils';
 import ApplicationAdapter from './application';
-import Ember from 'ember';
 
 export default ApplicationAdapter.extend({
   legacySupport(resourceHash) {
@@ -11,7 +11,7 @@ export default ApplicationAdapter.extend({
      *   selections where stored as child object of "value" property
      *   and selection property "type" where named "id"
      */
-    if (!Ember.isEmpty(resourceHash.selections[0].value)) {
+    if (!isEmpty(resourceHash.selections[0].value)) {
       resourceHash.selections.forEach(function(selection, index) {
         if (typeof selection.value === 'string') {
           resourceHash.selections[index] = {

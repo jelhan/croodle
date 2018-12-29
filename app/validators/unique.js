@@ -1,19 +1,21 @@
+import { isArray } from '@ember/array';
+import { isPresent, isEmpty } from '@ember/utils';
+import { assert } from '@ember/debug';
 import BaseValidator from 'ember-cp-validations/validators/base';
-import Ember from 'ember';
 
 export default BaseValidator.extend({
   validate(value, options, model, attribute) {
-    Ember.assert(
+    assert(
       'options.parent is required',
-      Ember.isPresent(options.parent)
+      isPresent(options.parent)
     );
-    Ember.assert(
+    assert(
       'options.attributeInParent is required',
-      Ember.isPresent(options.attributeInParent)
+      isPresent(options.attributeInParent)
     );
-    Ember.assert(
+    assert(
       'options.dependentKeys is required',
-      Ember.isArray(options.dependentKeys) && options.dependentKeys.length > 0
+      isArray(options.dependentKeys) && options.dependentKeys.length > 0
     );
 
     if (options.disable) {
@@ -21,7 +23,7 @@ export default BaseValidator.extend({
     }
 
     // ignore empty values
-    if (Ember.isEmpty(value)) {
+    if (isEmpty(value)) {
       return true;
     }
 

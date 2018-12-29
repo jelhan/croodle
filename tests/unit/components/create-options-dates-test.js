@@ -1,8 +1,8 @@
+import { isArray } from '@ember/array';
+import EmberObject from '@ember/object';
+import { run } from '@ember/runloop';
 import { moduleForComponent, test } from 'ember-qunit';
-import Ember from 'ember';
 import moment from 'moment';
-
-const { Object: EmberObject, run } = Ember;
 
 moduleForComponent('create-options-dates', 'Unit | Component | create options dates', {
   needs: ['config:environment', 'model:option', 'service:i18n'],
@@ -20,7 +20,7 @@ test('options get mapped to dates as optionsBootstrapDatepicker (used by ember-c
     EmberObject.create({ title: 'non valid date string' })
   ]);
   assert.ok(
-    Ember.isArray(
+    isArray(
       controller.get('optionsBootstrapDatepicker')
     ),
     "it's an array"
@@ -52,7 +52,7 @@ test('options having times get mapped to dates as optionsBootstrapDatepicker (us
     EmberObject.create({ title: '2016-03-03' })
   ]);
   assert.ok(
-    Ember.isArray(
+    isArray(
       controller.get('optionsBootstrapDatepicker')
     ),
     "it's an array"
@@ -92,7 +92,7 @@ test('options get set correctly by optionsBootstrapDatepicker (used by ember-cli
     ]);
   });
   assert.ok(
-    Ember.isArray(
+    isArray(
       controller.get('options')
     ),
     'options is still an array'

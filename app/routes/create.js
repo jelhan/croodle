@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 /* global moment */
 
-export default Ember.Route.extend({
+export default Route.extend({
   actions: {
     transitionToPoll(poll) {
       this.transitionTo('poll', poll, {
@@ -22,8 +24,8 @@ export default Ember.Route.extend({
     this.get('encryption').generateKey();
   },
 
-  encryption: Ember.inject.service(),
-  encryptionKey: Ember.computed.alias('encryption.key'),
+  encryption: service(),
+  encryptionKey: alias('encryption.key'),
 
   model() {
     // create empty poll
