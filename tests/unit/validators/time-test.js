@@ -1,7 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('validator:time', 'Unit | Validator | time', {
-  needs: ['validator:messages']
 });
 
 test('HH:mm is treated as valid', function(assert) {
