@@ -14,6 +14,9 @@ module.exports = function(defaults) {
     },
     'ember-cli-babel': {
       includePolyfill: true
+    },
+    'ember-composable-helpers': {
+      only: ['array', 'object-at'],
     }
   });
 

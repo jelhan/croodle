@@ -28,7 +28,7 @@
           {{#form.element
             classNames='option'
             label=date.dayFormatted
-            invisibleLabel=(eq date.dayFormatted (object-at dates (if index (sub index 1) dates.length) 'dayFormatted'))
+            invisibleLabel=(eq date.dayFormatted (get (object-at (if index (sub index 1) dates.length) dates) 'dayFormatted'))
             model=date
             property='time'
             as |el|
