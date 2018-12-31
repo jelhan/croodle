@@ -1,6 +1,4 @@
 # Content Security Policy-Headers
 # you have to enable apache module headers to get them working
 #Header set Content-Security-Policy "default-src 'none'; script-src 'self'; font-src 'self'; connect-src 'self'; style-src 'self';"
-#Header set X-Content-Security-Policy "default-src 'none'; script-src 'self'; font-src 'self'; connect-src 'self'; style-src 'self';"
-#Header set X-Webkit-CSP "default-src 'none'; script-src 'self'; font-src 'self'; connect-src 'self'; style-src 'self';"
 #Header set Referrer-Policy "no-referrer"
