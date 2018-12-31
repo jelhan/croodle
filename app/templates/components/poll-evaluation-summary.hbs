@@ -22,8 +22,7 @@
   {{#if evaluationBestOptionsMultiple}}
     <ul>
       {{#each evaluationBestOptions as |evaluationBestOption|}}
-        {{component
-          "poll-evaluation-summary-option"
+        {{poll-evaluation-summary-option
           currentLocale=currentLocale
           evaluationBestOption=evaluationBestOption
           isFindADate=poll.isFindADate
@@ -34,8 +33,7 @@
       {{/each}}
     </ul>
   {{else}}
-    {{component
-      "poll-evaluation-summary-option"
+    {{poll-evaluation-summary-option
       currentLocale=currentLocale
       evaluationBestOption=evaluationBestOptions.firstObject
       isFindADate=poll.isFindADate
