@@ -17,6 +17,7 @@ Croodle is inspired by [PrivateBin](https://github.com/PrivateBin/PrivateBin) an
 As any other web application based end-to-end encryption Croodle could be attacked by an injection of malicious code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser or the encryption key used and send it to a server under his controll.
 
 Therefore you have to
+
 * use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection.
 * trust the server.
 
@@ -46,6 +47,7 @@ ember build --prod
 Afterwards copy all files in /dist folder to your werbserver.
 
 ### Configuration
+
 Api could be configured by creating a `config.php` inside `api/` folder which returns an associative array.
 Have a look at `api/config.default.php` for available options.
 
@@ -58,6 +60,7 @@ Have a look at `api/config.default.php` for available options.
 * Execute `php api/cron.php` on a regular basis to delete outdated polls. A cronjob running once a day should be fine.
 
 ## Development
+
 `ember serve` generates a development build of croodle and starts
 a server listening on `http://localhost:4200` which is serving it.
 If source files are changing, a rebuild and reload is triggered.
@@ -78,17 +81,17 @@ to save your polls:
 ## Running tests
 
 ### Ember
-Prefered way is to run tests against PhantomJS, Chrome and Firefox
-by `ember test --server`. Results are reported in command-line and
-browser.
-Files are watched for changes.
 
-If you only like to run tests ones against PhantomJS in command-line
-you could use `ember test`. This is also used in CI.
+`ember test --server` is the prefered way to run tests in Chrome. Results are reported in command-line and browser. Files are watched for changes.
 
-Test are run against a mock-api provided by [ember-cli-mirage](http://www.ember-cli-mirage.com/).
+If you like to run tests only once in a headless Chrome execute `ember test`. This is also used in CI.
+
+Additionally tests are available in all development builds. This allows you to execute the tests in any browser of your choice by running `ember serve` and opening `http://locahost:4200/tests`.
+
+Tests are run against a mock-api provided by [ember-cli-mirage](http://www.ember-cli-mirage.com/). Therefor they don't cover system integration.
 
 ### Api
+
 Api tests are provided by Codeception. To run them change current
 directory to `/api` and execute `./vendor/bin/codecept run`. You have
 to install composer development requirements before (`composer install`
