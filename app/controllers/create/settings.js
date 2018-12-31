@@ -1,9 +1,9 @@
 import { inject as service } from '@ember/service';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import { getOwner } from '@ember/application';
-import { isEmpty } from '@ember/utils';
-import EmberObject, { observer, computed } from '@ember/object';
+import { isPresent } from '@ember/utils';
+import { computed } from '@ember/object';
+import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
 import {
   validator, buildValidations
 }
@@ -26,14 +26,6 @@ const Validations = buildValidations({
     })
   ],
   forceAnswer: validator('presence', true)
-});
-
-const TranslateableObject = EmberObject.extend({
-  i18n: service(),
-  label: computed('labelTranslation', 'i18n.locale', function() {
-    return this.i18n.t(this.labelTranslation);
-  }),
-  labelTranslation: undefined
 });
 
 export default Controller.extend(Validations, {
@@ -65,91 +57,46 @@ export default Controller.extend(Validations, {
             return;
           });
       }
+    },
+    updateAnswerType(answerType) {
+      this.set('model.answerType', answerType);
+      this.set('model.answers', answersForAnswerType(answerType));
     }
   },
 
   anonymousUser: alias('model.anonymousUser'),
   answerType: alias('model.answerType'),
 
-  answerTypes: computed('', function() {
-    const owner = getOwner(this);
-
+  answerTypes: computed(function() {
     return [
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'YesNo',
-        labelTranslation: 'answerTypes.yesNo.label',
-        answers: [
-                this.store.createFragment('answer', {
-                  type: 'yes',
-                  labelTranslation: 'answerTypes.yes.label',
-                  icon: 'glyphicon glyphicon-thumbs-up'
-                }),
-                this.store.createFragment('answer', {
-                  type: 'no',
-                  labelTranslation: 'answerTypes.no.label',
-                  icon: 'glyphicon glyphicon-thumbs-down'
-                })
-            ]
-      }),
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'YesNoMaybe',
-        labelTranslation: 'answerTypes.yesNoMaybe.label',
-        answers: [
-                this.store.createFragment('answer', {
-                  type: 'yes',
-                  labelTranslation: 'answerTypes.yes.label',
-                  icon: 'glyphicon glyphicon-thumbs-up'
-                }),
-                this.store.createFragment('answer', {
-                  type: 'maybe',
-                  labelTranslation: 'answerTypes.maybe.label',
-                  icon: 'glyphicon glyphicon-hand-right'
-                }),
-                this.store.createFragment('answer', {
-                  type: 'no',
-                  labelTranslation: 'answerTypes.no.label',
-                  icon: 'glyphicon glyphicon-thumbs-down'
-                })
-            ]
-      }),
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'FreeText',
-        labelTranslation: 'answerTypes.freeText.label',
-        answers: []
-      })
+      { id: 'YesNo', labelTranslation: 'answerTypes.yesNo.label' },
+      { id: 'YesNoMaybe', labelTranslation: 'answerTypes.yesNoMaybe.label' },
+      { id: 'FreeText', labelTranslation: 'answerTypes.freeText.label' },
     ];
   }),
 
-  expirationDuration: 'P3M',
+  expirationDuration: computed('model.expirationDate', {
+    get() {
+      // TODO: must be calculated based on model.expirationDate
+      return 'P3M';
+    },
+    set(key, value) {
+      this.set(
+        'model.expirationDate',
+        isPresent(value) ? moment().add(moment.duration(value)).toISOString(): ''
+      );
+      return value;
+    }
+  }),
 
   expirationDurations: computed('', function() {
-    const owner = getOwner(this);
-
     return [
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'P7D',
-        labelTranslation: 'create.settings.expirationDurations.P7D'
-      }),
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'P1M',
-        labelTranslation: 'create.settings.expirationDurations.P1M'
-      }),
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'P3M',
-        labelTranslation: 'create.settings.expirationDurations.P3M'
-      }),
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'P6M',
-        labelTranslation: 'create.settings.expirationDurations.P6M'
-      }),
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: 'P1Y',
-        labelTranslation: 'create.settings.expirationDurations.P1Y'
-      }),
-      TranslateableObject.create(owner.ownerInjection(), {
-        id: '',
-        labelTranslation: 'create.settings.expirationDurations.never'
-      })
+      { id: 'P7D', labelTranslation: 'create.settings.expirationDurations.P7D' },
+      { id: 'P1M', labelTranslation: 'create.settings.expirationDurations.P1M' },
+      { id: 'P3M', labelTranslation: 'create.settings.expirationDurations.P3M' },
+      { id: 'P6M', labelTranslation: 'create.settings.expirationDurations.P6M' },
+      { id: 'P1Y', labelTranslation: 'create.settings.expirationDurations.P1Y' },
+      { id: '', labelTranslation: 'create.settings.expirationDurations.never' },
     ];
   }),
 
@@ -161,38 +108,5 @@ export default Controller.extend(Validations, {
     this._super(...arguments);
 
     this.get('i18n.locale');
-  },
-
-  /*
-   * set answers depending on selected answer type
-   */
-  updateAnswers: observer('model.answerType', function() {
-    const selectedAnswer = this.get('model.answerType');
-    const answerTypes = this.answerTypes;
-    let answers = [];
-
-    if (selectedAnswer !== null) {
-      for (let i = 0; i < answerTypes.length; i++) {
-        if (answerTypes[i].id === selectedAnswer) {
-          answers = answerTypes[i].answers.slice();
-        }
-      }
-
-      this.set('model.answers', answers);
-    }
-  }),
-
-  updateExpirationDate: observer('expirationDuration', function() {
-    const expirationDuration = this.expirationDuration;
-
-    if (isEmpty(expirationDuration)) {
-      this.set('model.expirationDate', '');
-    } else {
-      this.set('model.expirationDate',
-        moment().add(
-          moment.duration(expirationDuration)
-        ).toISOString()
-      );
-    }
-  })
+  }
 });
