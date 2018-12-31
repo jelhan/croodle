@@ -14,15 +14,19 @@
       useIcons=false
     as |el|
     }}
-      {{simple-select
+      {{#autofocusable-element
+        tagName="select"
+        onchange=(action "updateAnswerType" value="target.value")
         autofocus=true
         id=el.id
-        content=answerTypes
-        optionLabelPath="label"
-        optionValuePath="id"
-        value=el.value
-        action=(action (mut el.value) value="id")
+        class="form-control"
       }}
+        {{#each answerTypes as |answerType|}}
+          <option value={{answerType.id}} selected={{eq el.value answerType.id}}>
+            {{t answerType.labelTranslation}}
+          </option>
+        {{/each}}
+      {{/autofocusable-element}}
     {{/form.element}}
     {{#form.element
       classNames="expiration-duration"
@@ -32,14 +36,17 @@
       useIcons=false
     as |el|
     }}
-      {{simple-select
-        id=el.id
-        content=expirationDurations
-        optionLabelPath="label"
-        optionValuePath="id"
-        value=el.value
-        action=(action (mut el.value) value="id")
-      }}
+      <select
+        id={{el.id}}
+        onchange={{action (mut el.value) value="target.value"}}
+        class="form-control"
+      >
+        {{#each expirationDurations as |duration|}}
+          <option value={{duration.id}} selected={{eq el.value duration.id}}>
+            {{t duration.labelTranslation}}
+          </option>
+        {{/each}}
+      </select>
     {{/form.element}}
     {{form.element
       classNames="anonymous-user"

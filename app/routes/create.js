@@ -2,6 +2,7 @@ import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import config from 'croodle/config/environment';
+import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
 /* global moment */
 
 export default Route.extend({
@@ -32,6 +33,7 @@ export default Route.extend({
     // create empty poll
     return this.store.createRecord('poll', {
       answerType: 'YesNo',
+      answers: answersForAnswerType('YesNo'),
       creationDate: new Date(),
       forceAnswer: true,
       anonymousUser: false,
