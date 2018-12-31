@@ -55,7 +55,7 @@ Have a look at `api/config.default.php` for available options.
 * `data/` folder has to be writeable by web server, but **must not** be accessible publicy. Protect it in your webserver configuration or move it out of webroot by changing `dataDir` api option.
 * Croodle uses [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) for assets. Therefore you **must not** tamper with build output (e.g. you have to disable cloudflare [*Auto Minify*](https://support.cloudflare.com/hc/en-us/articles/200167996-Does-CloudFlare-have-HTML-JavaScript-and-CSS-compression-features-) feature). If that's not an option for you, you have to [disable SRI](https://github.com/jonathanKingston/ember-cli-sri#options) and build yourself.
 * HTTPS connection should be forced. You should consider using [HTTP Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security) (HSTS) and [HTTP Public Key Pinning](https://developer.mozilla.org/en-US/docs/Web/Security/Public_Key_Pinning) (HPKP).
-* [Content-Security-Policy](http://content-security-policy.com/) (CSP) should be used. Default CSP headers are provided in `.htaccess` file but commented out.
+* [Content-Security-Policy](http://content-security-policy.com/) (CSP) and [Referrer-Policy](https://w3c.github.io/webappsec-referrer-policy/) headers should be used. Default headers are provided in `.htaccess` file but commented out.
 * Execute `php api/cron.php` on a regular basis to delete outdated polls. A cronjob running once a day should be fine.
 
 ## Development

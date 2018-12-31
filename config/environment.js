@@ -32,7 +32,6 @@ module.exports = function(environment) {
       'img-src': "'none'",
       'style-src': "'self'",
       'media-src': "'none'",
-      'referrer': "no-referrer"
     },
 
     moment: {
