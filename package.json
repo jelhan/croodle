@@ -68,6 +68,7 @@
     "ember-resolver": "^5.0.1",
     "ember-route-action-helper": "^2.0.6",
     "ember-source": "~3.4.0",
+    "ember-test-selectors": "^2.0.0",
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^5.2.0",
