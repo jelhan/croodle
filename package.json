@@ -67,7 +67,6 @@
     "ember-radio-buttons": "^4.0.1",
     "ember-resolver": "^5.0.1",
     "ember-route-action-helper": "^2.0.6",
-    "ember-simple-select": "jelhan/ember-simple-select#ember-3.4",
     "ember-source": "~3.4.0",
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
