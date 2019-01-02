@@ -14,15 +14,19 @@
       useIcons=false
     as |el|
     }}
-      {{simple-select
-        autofocus=true
+      {{#autofocusable-element
+        tagName="select"
+        change=(action (mut el.value) value="target.value")
         id=el.id
-        content=pollTypes
-        optionLabelPath="label"
-        optionValuePath="id"
-        value=el.value
-        action=(action (mut el.value) value="id")
+        class="form-control"
       }}
+        <option value="FindADate" selected={{eq el.value "FindADate"}}>
+          {{t "pollTypes.findADate.label"}}
+        </option>
+        <option value="MakeAPoll" selected={{eq el.value "MakeAPoll"}}>
+          {{t "pollTypes.makeAPoll.label"}}
+        </option>
+      {{/autofocusable-element}}
     {{/form.element}}
     {{form-navigation-buttons
       disablePrevButton=true

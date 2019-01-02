@@ -4835,14 +4835,6 @@ ember-runtime-enumerable-includes-polyfill@^2.0.0:
     ember-cli-babel "^6.9.0"
     ember-cli-version-checker "^2.1.0"
 
-ember-simple-select@jelhan/ember-simple-select#ember-3.4:
-  version "0.6.1"
-  resolved "https://codeload.github.com/jelhan/ember-simple-select/tar.gz/a86208766a6bcd52ec065a1c1e3cd3e5517d7926"
-  dependencies:
-    ember-cli-babel "^6.16.0"
-    ember-cli-htmlbars "^3.0.0"
-    ember-cli-htmlbars-inline-precompile "^1.0.3"
-
 ember-source@~3.4.0:
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/ember-source/-/ember-source-3.4.7.tgz#c819337c62fcc6a10ca8aee28abc703c15a57d9e"
