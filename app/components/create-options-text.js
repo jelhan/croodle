@@ -1,5 +1,4 @@
 import { inject as service } from '@ember/service';
-import { filter } from '@ember/object/computed';
 import Component from '@ember/component';
 import { observer, computed, get } from '@ember/object';
 import { run, next } from '@ember/runloop';
@@ -18,7 +17,7 @@ export default Component.extend({
       );
 
       next(() => {
-        this.notifyPropertyChange('childViews');
+        this.notifyPropertyChange('_childViews');
       });
     },
     deleteOption(element) {
@@ -26,7 +25,7 @@ export default Component.extend({
       this.options.removeAt(position);
 
       next(() => {
-        this.notifyPropertyChange('childViews');
+        this.notifyPropertyChange('_childViews');
       });
     }
   },
@@ -56,10 +55,15 @@ export default Component.extend({
     }
   }),
 
-  childFormElements: filter('childViews', function(childView) {
-    return childView instanceof BsFormElement;
+  childFormElements: computed('_childViews', function() {
+    return this.childViews.filter((childView) => {
+      return childView instanceof BsFormElement;
+    });
   }),
 
+  // Can't use a computed property cause Ember Bootstrap seem to modify validation twice in a single render.
+  // Therefor we use the scheduleOnce trick.
+  // This is the same for {{create-options-datetime}} component.
   labelValidationClass: 'label-has-no-validation',
   updateLabelValidationClass: observer('anyElementHasFeedback', 'anyElementIsInvalid', 'everyElementIsValid', function() {
     run.scheduleOnce('sync', () => {
@@ -95,6 +99,9 @@ export default Component.extend({
   store: service('store'),
 
   didInsertElement() {
-    this.notifyPropertyChange('childViews');
+    // childViews is not observeable by default. Need to notify about a change manually.
+    // Lucky enough we know that child views will only be changed on init and if times are added / removed.
+    // Use a custom variable to avoid any complications with framework.
+    this.notifyPropertyChange('_childViews');
   }
 });

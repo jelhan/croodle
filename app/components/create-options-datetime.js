@@ -1,7 +1,6 @@
 import { inject as service } from '@ember/service';
 import { readOnly, mapBy, filter } from '@ember/object/computed';
 import Component from '@ember/component';
-import { isArray } from '@ember/array';
 import { isPresent, isEmpty } from '@ember/utils';
 import { observer, computed, get } from '@ember/object';
 import {
@@ -10,7 +9,9 @@ import {
 from 'ember-cp-validations';
 import { raw } from 'ember-awesome-macros';
 import { groupBy } from 'ember-awesome-macros/array';
-import Form from 'ember-bootstrap/components/bs-form';
+import { next, scheduleOnce } from '@ember/runloop';
+import BsForm from 'ember-bootstrap/components/bs-form';
+import BsFormElement from 'ember-bootstrap/components/bs-form/element';
 
 let modelValidations = buildValidations({
   dates: [
@@ -38,6 +39,10 @@ export default Component.extend(modelValidations, {
         position,
         fragment
       );
+
+      next(() => {
+        this.notifyPropertyChange('_nestedChildViews');
+      });
     },
     adoptTimesOfFirstDay() {
       const dates = this.dates;
@@ -96,6 +101,10 @@ export default Component.extend(modelValidations, {
             }
           });
         }
+
+        next(() => {
+          this.notifyPropertyChange('_nestedChildViews');
+        });
       });
     },
 
@@ -144,54 +153,73 @@ export default Component.extend(modelValidations, {
 
   groupedDates: groupBy('dates', raw('day')),
 
-  form: computed(function() {
-    return this.childViews.find(function(childView) {
-      return childView instanceof Form;
+  childFormElements: computed('_nestedChildViews', function() {
+    let form = this.childViews.find((childView) => {
+      return childView instanceof BsForm;
+    });
+
+    if (!form) {
+      return [];
+    }
+
+    return form.childViews.filter((childView) => {
+      return childView instanceof BsFormElement;
     });
   }),
-  formElements: computed('form.childFormElements', function() {
-    let formElements = this.get('form.childFormElements');
-    return isArray(formElements) ? formElements : [];
-  }),
-  daysValidationState: computed('formElements.@each.validation', function() {
-    return this.formElements.reduce(function(daysValidationState, item) {
-      const day = item.get('model.day');
-      const validation = item.get('validation');
-      let currentValidationState;
 
-      // there maybe form elements without model or validation
-      if (isEmpty(day) || validation === undefined) {
-        return daysValidationState;
-      }
+  // Can't use a computed property cause Ember Bootstrap seem to modify validation twice in a single render.
+  // Therefor we use the scheduleOnce trick.
+  // This is the same for {{create-options-text}} component.
+  daysValidationState: null,
+  updateDaysValidationState: observer('childFormElements.@each.validation', function() {
+    scheduleOnce('sync', () => {
+      this.set('daysValidationState',
+        this.childFormElements.reduce(function(daysValidationState, item) {
+          const day = item.get('model.day');
+          const validation = item.get('validation');
+          let currentValidationState;
 
-      // if it's not existing initialize with current value
-      if (!daysValidationState.hasOwnProperty(day)) {
-        daysValidationState[day] = validation;
-        return daysValidationState;
-      }
-
-      currentValidationState = daysValidationState[day];
-      switch (currentValidationState) {
-        // error overrules all validation states
-        case 'error':
-          break;
-
-        // null ist overruled by 'error'
-        case null:
-          if (validation === 'error') {
-            daysValidationState[day] = 'error';
+          // there maybe form elements without model or validation
+          if (isEmpty(day) || validation === undefined) {
+            return daysValidationState;
           }
-          break;
 
-        // success is overruled by anyother validation state
-        case 'success':
-          daysValidationState[day] = validation;
-          break;
-      }
+          // if it's not existing initialize with current value
+          if (!daysValidationState.hasOwnProperty(day)) {
+            daysValidationState[day] = validation;
+            return daysValidationState;
+          }
 
-      return daysValidationState;
-    }, {});
-  }),
+          currentValidationState = daysValidationState[day];
+          switch (currentValidationState) {
+            // error overrules all validation states
+            case 'error':
+              break;
 
-  store: service()
+            // null ist overruled by 'error'
+            case null:
+              if (validation === 'error') {
+                daysValidationState[day] = 'error';
+              }
+              break;
+
+            // success is overruled by anyother validation state
+            case 'success':
+              daysValidationState[day] = validation;
+              break;
+          }
+
+          return daysValidationState;
+        }, {})
+      );
+    });
+  }).on('init'),
+
+  store: service(),
+
+  didInsertElement() {
+    // childViews is not observeable by default. Need to notify about a change manually.
+    // Lucky enough we know that child views will only be changed on init and if times are added / removed.
+    this.notifyPropertyChange('_nestedChildViews');
+  }
 });
