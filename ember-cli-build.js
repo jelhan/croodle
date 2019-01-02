@@ -10,7 +10,8 @@ module.exports = function(defaults) {
     'ember-bootstrap': {
       importBootstrapCSS: false,
       'bootstrapVersion': 3,
-      'importBootstrapFont': true
+      'importBootstrapFont': true,
+      whitelist: ['bs-alert', 'bs-button', 'bs-button-group', 'bs-form', 'bs-modal'],
     },
     'ember-cli-babel': {
       includePolyfill: true
