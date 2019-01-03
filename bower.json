@@ -1,7 +1,0 @@
-{
-  "name": "croodle",
-  "dependencies": {
-    "sjcl": "~1.0.6",
-    "floatThead": "^1.4.3"
-  }
-}

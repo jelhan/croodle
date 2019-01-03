@@ -25,7 +25,6 @@
     "ember-awesome-macros": "^3.1.0",
     "ember-bootstrap": "^2.1.2",
     "ember-bootstrap-cp-validations": "^1.0.0",
-    "ember-browserify": "^1.1.11",
     "ember-cli": "~3.4.4",
     "ember-cli-acceptance-test-helpers": "^1.0.0",
     "ember-cli-app-version": "^3.2.0",
@@ -72,9 +71,11 @@
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^5.2.0",
+    "floatthead": "^2.1.2",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.7.1",
-    "sass": "^1.15.2"
+    "sass": "^1.15.2",
+    "sjcl": "^1.0.8"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
