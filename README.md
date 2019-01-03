@@ -33,13 +33,12 @@ Due to security reasons you should have SSL encryption enabled and provide a val
 
 Production builds are provided as github [release assets](https://github.com/jelhan/croodle/releases).
 
-If you like to build yourself you have to install [yarn](https://yarnpkg.com/), [bower](http://bower.io/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before.
+If you like to build yourself you have to install [yarn](https://yarnpkg.com/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before.
 
 ```shell
 git clone git@github.com:jelhan/croodle.git
 cd croodle
 yarn install
-bower install
 cd api/ && composer install --no-dev && cd ..
 ember build --prod
 ```

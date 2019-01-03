@@ -7,6 +7,9 @@ module.exports = function(defaults) {
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
     },
+    'ember-auto-import': {
+      forbidEval: true,
+    },
     'ember-bootstrap': {
       importBootstrapCSS: false,
       'bootstrapVersion': 3,
@@ -40,11 +43,11 @@ module.exports = function(defaults) {
   app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.it.min.js');
 
   app.import({
-    development: 'bower_components/floatThead/dist/jquery.floatThead.js',
-    production: 'bower_components/floatThead/dist/jquery.floatThead.min.js'
+    development: 'node_modules/floatthead/dist/jquery.floatThead.js',
+    production: 'node_modules/floatthead/dist/jquery.floatThead.min.js'
   });
 
-  app.import('bower_components/sjcl/sjcl.js', {
+  app.import('node_modules/sjcl/sjcl.js', {
     using: [
       { transformation: 'amd', as: 'sjcl' }
     ]
