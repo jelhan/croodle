@@ -86,5 +86,8 @@
       "lib/include-api-in-build",
       "lib/inject-app-version-in-meta-tag"
     ]
+  },
+  "resolutions": {
+    "chart.js": "~2.6.0"
   }
 }
