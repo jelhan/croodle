@@ -73,6 +73,6 @@ module('Integration | Component | poll evaluation chart', function(hooks) {
       })
     ]);
     await render(hbs`{{poll-evaluation-chart options=options answerType=answerType users=users}}`);
-    assert.ok(this.$('canvas'), 'it renders a canvas element');
+    assert.dom('canvas').exists('it renders a canvas element');
   });
 });

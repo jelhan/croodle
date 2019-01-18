@@ -1,7 +1,7 @@
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, findAll, blur, fillIn, focus } from '@ember/test-helpers';
+import { render, find, findAll, blur, fillIn, focus } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import hasComponent from 'croodle/tests/helpers/201-created/raw/has-component';
 
@@ -75,12 +75,11 @@ module('Integration | Component | create options', function(hooks) {
     await fillIn(findAll('input')[1], 'foo');
     await blur(findAll('input')[1]);
     assert.ok(
-      this.$('.form-group').eq(1).hasClass('has-error'),
+      findAll('.form-group')[1].classList.contains('has-error'),
       'second input field has validation error'
     );
-
     assert.ok(
-      this.$('.form-group').eq(1).find('.help-block').length === 1,
+      findAll('.form-group')[1].querySelector('.help-block'),
       'validation error is shown'
     );
 
@@ -169,28 +168,28 @@ module('Integration | Component | create options', function(hooks) {
     );
 
     assert.ok(
-      this.$('form').children().hasClass('label-has-no-validation'),
+     find('form').firstElementChild.classList.contains('label-has-no-validation'),
       'does not show validation state if there wasn\'t any user interaction yet'
     );
 
     await focus(findAll('input')[0]);
     await blur(findAll('input')[0]);
     assert.ok(
-      this.$('form').children().hasClass('label-has-error'),
+     find('form').firstElementChild.classList.contains('label-has-error'),
       'shows as having error if atleast on field has an error'
     );
 
     await fillIn(findAll('input')[0], 'foo');
     await blur(findAll('input')[0]);
     assert.ok(
-      this.$('form').children().hasClass('label-has-no-validation'),
+     find('form').firstElementChild.classList.contains('label-has-no-validation'),
       'does not show validation state if no field has error but not all fields are showing error yet'
     );
 
     await fillIn(findAll('input')[1], 'bar');
     await blur(findAll('input')[1]);
     assert.ok(
-      this.$('form').children().hasClass('label-has-success'),
+     find('form').firstElementChild.classList.contains('label-has-success'),
       'shows as having success if all fields are showing success'
     );
   });

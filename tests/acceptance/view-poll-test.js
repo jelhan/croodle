@@ -1,4 +1,4 @@
-import { find, click, visit } from '@ember/test-helpers';
+import { click, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
@@ -6,7 +6,6 @@ import switchTab from 'croodle/tests/helpers/switch-tab';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
 import moment from 'moment';
-import jQuery from 'jquery';
 
 module('Acceptance | view poll', function(hooks) {
   hooks.beforeEach(function() {
@@ -138,10 +137,8 @@ module('Acceptance | view poll', function(hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.ok(
-      jQuery(find('#modal-choose-timezone-modal')).is(':visible'),
-      'user gets asked which timezone should be used'
-    );
+    assert.dom('#modal-choose-timezone-modal')
+      .exists('user is asked which timezone should be used');
 
     await click('#modal-choose-timezone-modal button.use-local-timezone');
     assert.deepEqual(
@@ -151,10 +148,7 @@ module('Acceptance | view poll', function(hooks) {
         moment.tz('2016-01-01T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')
       ]
     );
-    assert.notOk(
-      jQuery(find('#modal-choose-timezone-modal')).is(':visible'),
-      'modal is closed'
-    );
+    assert.dom('#modal-choose-timezone-modal').doesNotExist('modal is closed');
 
     await switchTab('evaluation');
     assert.deepEqual(
@@ -197,10 +191,8 @@ module('Acceptance | view poll', function(hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.ok(
-      jQuery(find('#modal-choose-timezone-modal')).is(':visible'),
-      'user gets asked which timezone should be used'
-    );
+    assert.dom('#modal-choose-timezone-modal')
+      .exists('user is asked which timezone should be used');
 
     await click('#modal-choose-timezone-modal button.use-poll-timezone');
     assert.deepEqual(
@@ -210,10 +202,7 @@ module('Acceptance | view poll', function(hooks) {
         moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')
       ]
     );
-    assert.notOk(
-      jQuery(find('#modal-choose-timezone-modal')).is(':visible'),
-      'modal is closed'
-    );
+    assert.dom('#modal-choose-timezone-modal').doesNotExist('modal is closed');
 
     await switchTab('evaluation');
     assert.deepEqual(

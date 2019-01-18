@@ -1,9 +1,10 @@
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import moment from 'moment';
+import jQuery from 'jquery';
 
 module('Integration | Component | create options dates', function(hooks) {
   setupRenderingTest(hooks);
@@ -12,9 +13,7 @@ module('Integration | Component | create options dates', function(hooks) {
     this.set('options', []);
     await render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
-    assert.equal(
-      this.$('.days .ember-view:has(.datepicker:first-child)').length, 1
-    );
+    assert.dom('.days .datepicker').exists();
   });
 
   test('bootstrap-datepicker shows dates in options', async function(assert) {
@@ -25,12 +24,12 @@ module('Integration | Component | create options dates', function(hooks) {
     await render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
     assert.equal(
-      this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('getDates')[0].toISOString(),
+      jQuery(find('.days .datepicker').parentElement).datepicker('getDates')[0].toISOString(),
       moment('2015-01-01').toISOString(),
       'date is correct (a)'
     );
     assert.equal(
-      this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('getDates')[1].toISOString(),
+      jQuery(find('.days .datepicker').parentElement).datepicker('getDates')[1].toISOString(),
       moment('2015-01-02').toISOString(),
       'date is correct (b)'
     );
@@ -40,7 +39,7 @@ module('Integration | Component | create options dates', function(hooks) {
     this.set('options', []);
     await render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
-    this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('setDates', [
+    jQuery(find('.days .datepicker').parentElement).datepicker('setDates', [
       moment('2015-01-01').toDate(),
       moment('2015-01-02').toDate()
     ]);
@@ -55,7 +54,7 @@ module('Integration | Component | create options dates', function(hooks) {
       'dates are correct (b)'
     );
 
-    this.$('.days .ember-view:has(.datepicker:first-child)').datepicker('setDates', [
+    jQuery(find('.days .datepicker').parentElement).datepicker('setDates', [
       moment('2016-12-31').toDate(),
       moment('2016-01-01').toDate()
     ]);
