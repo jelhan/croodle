@@ -11,7 +11,6 @@ import {
   triggerEvent
 } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import jQuery from 'jquery';
 import moment from 'moment';
 
 module('Integration | Component | create options datetime', function(hooks) {
@@ -113,15 +112,15 @@ module('Integration | Component | create options datetime', function(hooks) {
       'there are two not hidden labels for two different dates'
     );
     assert.notOk(
-      this.$('.days .form-group').eq(0).find('label').hasClass('sr-only'),
+      findAll('.days .form-group')[0].querySelector('label').classList.contains('sr-only'),
       'the first label is shown'
     );
     assert.ok(
-      this.$('.days .form-group').eq(1).find('label').hasClass('sr-only'),
+      findAll('.days .form-group')[1].querySelector('label').classList.contains('sr-only'),
       'the repeated label on second form-group is hidden by sr-only class'
     );
     assert.notOk(
-      this.$('.days .form-group').eq(2).find('label').hasClass('sr-only'),
+      findAll('.days .form-group')[2].querySelector('label').classList.contains('sr-only'),
       'the new label on third form-group is shown'
     );
   });
@@ -154,12 +153,12 @@ module('Integration | Component | create options datetime', function(hooks) {
       'another input field is added'
     );
     assert.equal(
-      this.$('.days .form-group').eq(1).find('label').text(),
-      this.$('.days .form-group').eq(0).find('label').text(),
+      findAll('.days .form-group')[1].querySelector('label').textContent,
+      findAll('.days .form-group')[0].querySelector('label').textContent,
       'new input has correct label'
     );
     assert.ok(
-      this.$('.days .form-group').eq(1).find('label').hasClass('sr-only'),
+      findAll('.days .form-group')[1].querySelector('label').classList.contains('sr-only'),
       'label ofnew input is hidden cause it\'s repeated'
     );
   });
@@ -265,7 +264,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     await render(hbs`{{create-options-datetime dates=poll.options}}`);
     await click('button.adopt-times-of-first-day');
     assert.deepEqual(
-      this.$('.days .form-group input').map((i, el) => jQuery(el).val()).toArray(),
+      findAll('.days .form-group input').map((el) => el.value),
       ['10:00', '22:00', '10:00', '22:00', '10:00', '22:00'],
       'times were adopted correctly'
     );
@@ -295,7 +294,7 @@ module('Integration | Component | create options datetime', function(hooks) {
       'one excess time input got deleted'
     );
     assert.deepEqual(
-      this.$('.days .form-group input').map((i, el) => jQuery(el).val()).toArray(),
+      findAll('.days .form-group input').map((el) => el.value),
       ['10:00', '10:00'],
       'additional time on secondary day got deleted'
     );

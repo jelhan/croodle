@@ -12,7 +12,6 @@ import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { t } from 'ember-i18n/test-support';
 import pollHasUser, { pollHasUsersCount } from 'croodle/tests/helpers/poll-has-user';
 import pollParticipate from 'croodle/tests/helpers/poll-participate';
-import jQuery from 'jquery';
 
 module('Acceptance | participate in a poll', function(hooks) {
   hooks.beforeEach(function() {
@@ -114,20 +113,18 @@ module('Acceptance | participate in a poll', function(hooks) {
 
     await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
+    assert.dom('modal-saving-failed-modal')
+      .doesNotExist('failed saving notification is not shown before attempt to save');
 
     await pollParticipate('foo bar', ['yes', 'no']);
-    assert.ok(
-      jQuery(find('#modal-saving-failed-modal')).is(':visible'),
-      'user gets notified that saving failed'
-    );
+    assert.dom('#modal-saving-failed-modal')
+      .exists('user gets notified that saving failed');
 
     this.server.post('/users');
 
     await click('#modal-saving-failed-modal button');
-    assert.notOk(
-      jQuery(find('#modal-saving-failed-modal')).is(':visible'),
-      'modal is hidden after saving was successful'
-    );
+    assert.dom('#modal-saving-failed-modal')
+      .doesNotExist('Notification is hidden after another save attempt was successful');
     assert.equal(currentRouteName(), 'poll.evaluation');
     pollHasUsersCount(assert, 1, 'user is added to user selections table');
     pollHasUser(assert, 'foo bar', [t('answerTypes.yes.label'), t('answerTypes.no.label')]);

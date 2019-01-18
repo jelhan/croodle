@@ -2,9 +2,8 @@ import { run } from '@ember/runloop';
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, findAll, click } from '@ember/test-helpers';
+import { render, findAll, click, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import jQuery from 'jquery';
 
 module('Integration | Component | create options text', function(hooks) {
   setupRenderingTest(hooks);
@@ -34,9 +33,7 @@ module('Integration | Component | create options text', function(hooks) {
       'correct amount of input fields'
     );
     assert.deepEqual(
-      this.$('input').map(function() {
-        return jQuery(this).val();
-      }).get(),
+      findAll('input').map((el) => el.value),
       ['foo', 'bar', 'baz'],
       'input fields have correct values and order'
     );
@@ -67,7 +64,7 @@ module('Integration | Component | create options text', function(hooks) {
       'has correct amount of input fields after change'
     );
     assert.equal(
-      this.$('input').eq(2).val(),
+      findAll('input')[2].value,
       'baz',
       'input field was added with correct value'
     );
@@ -80,7 +77,7 @@ module('Integration | Component | create options text', function(hooks) {
     ]);
     await render(hbs`{{#bs-form as |form|}}{{create-options-text options=options form=form}}{{/bs-form}}`);
 
-    this.$('input').eq(0).val('baz').trigger('change');
+    await fillIn(findAll('input')[0], 'baz');
     assert.equal(
       this.get('options')[0].get('title'),
       'baz',
@@ -114,25 +111,19 @@ module('Integration | Component | create options text', function(hooks) {
       'there are two input fields before'
     );
 
-    run(() => {
-      this.$('.form-group .add').eq(0).click();
-    });
+    await click(findAll('.form-group .add')[0]);
     assert.equal(
       findAll('.form-group input').length,
       3,
       'another input field is added'
     );
     assert.deepEqual(
-      this.$('input').map(function() {
-        return jQuery(this).val();
-      }).get(),
+      findAll('input').map((el) => el.value),
       ['foo', '', 'bar'],
       'it is added at correct position'
     );
 
-    run(() => {
-      this.$('.form-group input').eq(1).val('baz').trigger('change');
-    });
+    await fillIn(findAll('.form-group input')[1], 'baz')
     assert.equal(
       this.get('options').objectAt(1).get('title'),
       'baz',
