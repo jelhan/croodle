@@ -33,6 +33,7 @@ module.exports = function(environment) {
       'style-src': "'self'",
       'media-src': "'none'",
     },
+    contentSecurityPolicyMeta: true,
 
     moment: {
       includeLocales: ['ca', 'de', 'en-gb', 'es', 'it'],
