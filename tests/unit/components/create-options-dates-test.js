@@ -1,8 +1,6 @@
-import { isArray } from '@ember/array';
-import EmberObject from '@ember/object';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import { isArray } from '@ember/array';
 import moment from 'moment';
 
 module('Unit | Component | create options dates', function(hooks) {
@@ -12,198 +10,147 @@ module('Unit | Component | create options dates', function(hooks) {
     this.store = this.owner.lookup('service:store');
   });
 
-  test('options get mapped to dates as optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
-    let controller = this.owner.factoryFor('component:create-options-dates').create();
-    controller.set('options', [
-      EmberObject.create({ title: '1945-05-09' }),
-      EmberObject.create({ title: '1987-05-01' }),
-      EmberObject.create({ title: 'non valid date string' })
-    ]);
+  test('#selectedDays: options representing days are mapped correctly', function(assert) {
+    let values = [
+      '1945-05-09',
+      '1987-05-01',
+      'non valid date string',
+    ];
+
+    let store = this.owner.lookup('service:store');
+    let component = this.owner.factoryFor('component:create-options-dates').create({
+      options: values.map((value) => store.createFragment('option', { title: value })),
+    });
+
     assert.ok(
-      isArray(
-        controller.get('optionsBootstrapDatepicker')
-      ),
-      "it's an array"
+      isArray(component.selectedDays),
+      'it\'s an array'
     );
     assert.equal(
-      controller.get('optionsBootstrapDatepicker.length'),
-      2,
+      component.selectedDays.length, 2,
       'array length is correct'
     );
     assert.ok(
-      controller.get('optionsBootstrapDatepicker').every((el) => {
-        return moment.isDate(el);
+      component.selectedDays.every((el) => {
+        return moment.isMoment(el);
       }),
-      'array elements are date objects'
+      'array elements are moment objects'
     );
-    assert.equal(
-      controller.get('optionsBootstrapDatepicker.firstObject').toISOString(),
-      moment('1945-05-09').toISOString(),
-      'date is correct'
+    assert.deepEqual(
+      component.selectedDays.map((el) => el.format('YYYY-MM-DD')),
+      values.slice(0, 2),
+      'values are correct'
     );
   });
 
-  test('options having times get mapped to dates as optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
-    let controller = this.owner.factoryFor('component:create-options-dates').create();
-    controller.set('options', [
-      EmberObject.create({ title: '2014-01-01T12:00:00.00Z' }),
-      EmberObject.create({ title: '2015-02-02T15:00:00.00Z' }),
-      EmberObject.create({ title: '2015-02-02T15:00:00.00Z' }),
-      EmberObject.create({ title: '2016-03-03' })
-    ]);
+  test('#selectedDays: options representing days with times are mapped correctly', function(assert) {
+    let values = [
+      moment('2014-01-01T12:00').toISOString(),
+      moment('2015-02-02T15:00').toISOString(),
+      moment('2015-02-02T15:00').toISOString(),
+      '2016-03-03',
+    ];
+
+    let store = this.owner.lookup('service:store');
+    let component = this.owner.factoryFor('component:create-options-dates').create({
+      options: values.map((value) => store.createFragment('option', { title: value })),
+    });
+
     assert.ok(
-      isArray(
-        controller.get('optionsBootstrapDatepicker')
-      ),
-      "it's an array"
+      isArray(component.selectedDays),
+      'it\'s an array'
     );
     assert.equal(
-      controller.get('optionsBootstrapDatepicker.length'),
-      3,
+      component.selectedDays.length, 3,
       'array length is correct'
     );
     assert.ok(
-      controller.get('optionsBootstrapDatepicker').every((el) => {
-        return moment.isDate(el);
-      }),
-      'array elements are date objects'
+      component.selectedDays.every(moment.isMoment),
+      'array elements are moment objects'
     );
     assert.deepEqual(
-      controller.get('optionsBootstrapDatepicker').map((option) => {
-        return option.toISOString();
-      }),
-      [
-        moment('2014-01-01').toISOString(),
-        moment('2015-02-02').toISOString(),
-        moment('2016-03-03').toISOString()
-      ],
-      'date is correct'
+      component.selectedDays.map((day) => day.format('YYYY-MM-DD')),
+      ['2014-01-01', '2015-02-02', '2016-03-03'],
+      'dates are correct'
     );
   });
 
-  test('options get set correctly by optionsBootstrapDatepicker (used by ember-cli-bootstrap-datepicker)', function(assert) {
-    let controller = this.owner.factoryFor('component:create-options-dates').create();
-    run(() => {
-      controller.set('options', []);
-      // dates must be in wrong order to test sorting
-      controller.set('optionsBootstrapDatepicker', [
-        moment('1918-11-09').toDate(),
-        moment('1917-10-25').toDate()
-      ]);
+  test('action #daysSelected: new days are added in correct order', function(assert) {
+    // dates must be in wrong order to test sorting
+    let values = ['1918-11-09', '1917-10-25'];
+    let options = [];
+
+    let component = this.owner.factoryFor('component:create-options-dates').create({ options });
+    component.actions.daysSelected.bind(component)({
+      moment: values.map((_) => moment(_)),
     });
+
+    assert.ok(isArray(options), 'options is still an array');
+    assert.equal(options.length, 2, 'two entries have been added');
     assert.ok(
-      isArray(
-        controller.get('options')
-      ),
-      'options is still an array'
-    );
-    assert.equal(
-      controller.get('options.length'),
-      2,
-      'array has correct length'
+      options.every(({ title }) => typeof title === 'string'),
+      'title property of options are strings'
     );
     assert.ok(
-      controller.get('options').every((option) => {
-        return typeof option.get('title') === 'string';
-      }),
-      'option.title is a string'
+      options.every(({ title }) => moment(title, 'YYYY-MM-DD', true).isValid()),
+      'title property of options are ISO-8601 date string without time'
     );
-    assert.ok(
-      controller.get('options').every((option) => {
-        return moment(option.get('title'), 'YYYY-MM-DD', true).isValid();
-      }),
-      'option.title is an ISO-8601 date string without time'
-    );
-    assert.ok(
-      controller.get('options').findBy('title', '1918-11-09'),
-      'date is correct'
-    );
-    assert.equal(
-      controller.get('options.firstObject.title'),
-      '1917-10-25',
-      'dates are in correct order'
+    assert.deepEqual(
+      options.map(({ title }) => title), values.sort(),
+      'options having correct value and are sorted'
     );
   });
 
-  test('existing times are preserved if new days get selected', function(assert) {
-    let component;
-    run(() => {
-      component = this.owner.factoryFor('component:create-options-dates').create({
-        options: [
-          this.store.createFragment('option', {
-            title: moment('2015-01-01T11:11').toISOString()
-          }),
-          this.store.createFragment('option', {
-            title: moment('2015-01-01T22:22').toISOString()
-          }),
-          this.store.createFragment('option', {
-            title: moment('2015-06-06T08:08').toISOString()
-          }),
-          this.store.createFragment('option', {
-            title: '2016-01-01'
-          })
-        ]
-      });
+  test('action #daysSelected: existing times are preserved if new day is selected', function(assert) {
+    let existing = [
+      moment('2015-01-01T11:11').toISOString(),
+      moment('2015-01-01T22:22').toISOString(),
+      moment('2015-06-06T08:08').toISOString(),
+      '2016-01-01'
+    ];
+    let additional = '2016-06-06';
+    let merged = existing.slice();
+    merged.push(additional);
+
+    let store = this.owner.lookup('service:store');
+    let component = this.owner.factoryFor('component:create-options-dates').create({
+      options: existing.map((value) => store.createFragment('option', { title: value })),
     });
-    // add another day
-    run(() => {
-      component.set('optionsBootstrapDatepicker', [
-        moment('2015-01-01').toDate(),
-        moment('2015-06-06').toDate(),
-        moment('2016-01-01').toDate(),
-        moment('2016-06-06').toDate() // new day
-      ]);
+
+    component.actions.daysSelected.bind(component)({
+      moment: merged.map((_) => moment(_)),
     });
+
     assert.deepEqual(
-      component.get('options').map((option) => option.get('title')),
-      [
-        moment('2015-01-01T11:11').toISOString(),
-        moment('2015-01-01T22:22').toISOString(),
-        moment('2015-06-06T08:08').toISOString(),
-        '2016-01-01',
-        '2016-06-06'
-      ],
+      component.options.map(({ title }) => title),
+      merged,
       'preseve existing times if another day is added'
     );
-    // delete a day
-    run(() => {
-      component.set('optionsBootstrapDatepicker', [
-        moment('2015-06-06').toDate(),
-        moment('2016-01-01').toDate(),
-        moment('2016-06-06').toDate()
-      ]);
+  });
+
+  test('action #daysSelected: existing times are preserved if day gets unselected', function(assert) {
+    let existing = [
+      moment('2015-01-01T11:11').toISOString(),
+      moment('2015-01-01T22:22').toISOString(),
+      moment('2015-06-06T08:08').toISOString(),
+      '2016-01-01'
+    ];
+    let reduced = existing.slice();
+    reduced.splice(2, 1);
+
+    let store = this.owner.lookup('service:store');
+    let component = this.owner.factoryFor('component:create-options-dates').create({
+      options: existing.map((value) => store.createFragment('option', { title: value })),
     });
+
+    component.actions.daysSelected.bind(component)({
+      moment: reduced.map((_) => moment(_)),
+    });
+
     assert.deepEqual(
-      component.get('options').map((option) => option.get('title')),
-      [
-        moment('2015-06-06T08:08').toISOString(),
-        '2016-01-01',
-        '2016-06-06'
-      ],
+      component.options.map(({ title }) => title),
+      reduced,
       'preseve existing times if a day is deleted'
-    );
-    // order if multiple days are added
-    run(() => {
-      component.set('optionsBootstrapDatepicker', [
-        moment('2015-06-06').toDate(),
-        moment('2016-01-01').toDate(),
-        moment('2016-06-06').toDate(),
-        moment('2016-12-12').toDate(),
-        moment('2015-01-01').toDate(),
-        moment('2016-03-03').toDate()
-      ]);
-    });
-    assert.deepEqual(
-      component.get('options').map((option) => option.get('title')),
-      [
-        '2015-01-01',
-        moment('2015-06-06T08:08').toISOString(),
-        '2016-01-01',
-        '2016-03-03',
-        '2016-06-06',
-        '2016-12-12'
-      ],
-      'options are in correct order after multiple days are added'
     );
   });
 });

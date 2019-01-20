@@ -37,12 +37,6 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.ca.min.js');
-  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.de.min.js');
-  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.en-GB.min.js');
-  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.es.min.js');
-  app.import('vendor/bootstrap-datepicker-locales/bootstrap-datepicker.it.min.js');
-
   app.import({
     development: 'node_modules/floatthead/dist/jquery.floatThead.js',
     production: 'node_modules/floatthead/dist/jquery.floatThead.min.js'

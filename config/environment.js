@@ -36,7 +36,7 @@ module.exports = function(environment) {
     },
 
     moment: {
-      includeLocales: ['ca', 'de', 'es', 'it'],
+      includeLocales: ['ca', 'de', 'en-gb', 'es', 'it'],
       includeTimezone: 'subset'
     },
 

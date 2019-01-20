@@ -1,66 +1,50 @@
-import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import moment from 'moment';
-import jQuery from 'jquery';
+import { calendarSelect } from 'ember-power-calendar/test-support';
 
 module('Integration | Component | create options dates', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders a ember-cli-bootstrap-datepicker component', async function(assert) {
+  test('it renders', async function(assert) {
     this.set('options', []);
     await render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
-    assert.dom('.days .datepicker').exists();
+    assert.dom('[data-test-form-element-for="days"]').exists();
   });
 
-  test('bootstrap-datepicker shows dates in options', async function(assert) {
+  test('calendar shows existing options as selected days', async function(assert) {
+    let store = this.owner.lookup('service:store');
     this.set('options', [
-      EmberObject.create({ title: '2015-01-01' }),
-      EmberObject.create({ title: '2015-01-02' })
+      store.createFragment('option', { title: '2015-01-01' }),
+      store.createFragment('option', { title: '2015-01-02' }),
     ]);
     await render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
-    assert.equal(
-      jQuery(find('.days .datepicker').parentElement).datepicker('getDates')[0].toISOString(),
-      moment('2015-01-01').toISOString(),
-      'date is correct (a)'
-    );
-    assert.equal(
-      jQuery(find('.days .datepicker').parentElement).datepicker('getDates')[1].toISOString(),
-      moment('2015-01-02').toISOString(),
-      'date is correct (b)'
-    );
+    assert.dom('[data-test-form-element-for="days"] [data-date="2015-01-01"]')
+      .hasClass('ember-power-calendar-day--selected');
+    assert.dom('[data-test-form-element-for="days"] [data-date="2015-01-02"]')
+      .hasClass('ember-power-calendar-day--selected');
   });
 
-  test('dates set in bootstrap-datepicker are set to options', async function(assert) {
+  test('options are updated with dates selected in calendar', async function(assert) {
     this.set('options', []);
     await render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
-    jQuery(find('.days .datepicker').parentElement).datepicker('setDates', [
-      moment('2015-01-01').toDate(),
-      moment('2015-01-02').toDate()
-    ]);
-    assert.equal(
-      this.get('options.0.title'),
-      '2015-01-01',
-      'dates are correct (a)'
-    );
-    assert.equal(
-      this.get('options.1.title'),
-      '2015-01-02',
-      'dates are correct (b)'
+    await calendarSelect('[data-test-form-element-for="days"]', new Date('2015-01-01'));
+    await calendarSelect('[data-test-form-element-for="days"]', new Date('2015-01-02'));
+    assert.deepEqual(
+      this.get('options').map((option) => option.title),
+      ['2015-01-01', '2015-01-02'],
+      'dates are correct'
     );
 
-    jQuery(find('.days .datepicker').parentElement).datepicker('setDates', [
-      moment('2016-12-31').toDate(),
-      moment('2016-01-01').toDate()
-    ]);
-    assert.equal(
-      this.get('options.firstObject.title'),
-      '2016-01-01',
+    await calendarSelect('[data-test-form-element-for="days"]', new Date('2016-12-31'));
+    await calendarSelect('[data-test-form-element-for="days"]', new Date('2016-01-01'));
+    assert.deepEqual(
+      this.get('options').map((option) => option.title),
+      ['2015-01-01', '2015-01-02', '2016-01-01', '2016-12-31'],
       'dates are sorted'
     );
   });
