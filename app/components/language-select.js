@@ -7,8 +7,11 @@ import localesMeta from 'croodle/locales/meta';
 export default Component.extend({
   tagName: 'select',
   classNames: [ 'language-select' ],
+
   i18n: service(),
   moment: service(),
+  powerCalendar: service(),
+
   current: readOnly('i18n.locale'),
 
   locales: computed('i18n.locales', function() {
@@ -28,6 +31,7 @@ export default Component.extend({
 
     this.i18n.set('locale', locale);
     this.moment.changeLocale(locale);
+    this.powerCalendar.set('locale', locale);
 
     if (window.localStorage) {
       window.localStorage.setItem('locale', locale);

@@ -2,7 +2,7 @@ export default {
   'ca': 'catalan',
   'de': 'deutsch',
   'en': 'english',
-  'en-GB': 'english (GB)',
+  'en-gb': 'english (GB)',
   'es': 'español',
   'it': 'italiano'
 };

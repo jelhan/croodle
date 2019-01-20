@@ -1,4 +1,4 @@
-import { currentURL, currentRouteName } from '@ember/test-helpers';
+import { currentURL, currentRouteName, findAll } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
@@ -86,7 +86,7 @@ module('Acceptance | create a poll', function(hooks) {
       'status bar has correct items disabled (options)'
     );
 
-    await pageCreateOptions.dateOptions(dates);
+    await pageCreateOptions.selectDates(dates);
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.equal(
@@ -329,12 +329,12 @@ module('Acceptance | create a poll', function(hooks) {
       .next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.dateOptions(days);
+    await pageCreateOptions.selectDates(days);
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       pageCreateOptionsDatetime.days().labels,
-      days.map((day) => day.format(dayFormat)),
+      days.map((day) => moment(day).format(dayFormat)),
       'time inputs having days as label'
     );
 
@@ -389,7 +389,7 @@ module('Acceptance | create a poll', function(hooks) {
       .next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.dateOptions([ day ]);
+    await pageCreateOptions.selectDates([ day ]);
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
@@ -447,7 +447,7 @@ module('Acceptance | create a poll', function(hooks) {
       .next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.dateOptions([ day ]);
+    await pageCreateOptions.selectDates([ day ]);
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
@@ -501,7 +501,7 @@ module('Acceptance | create a poll', function(hooks) {
       .next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.dateOptions([ day ]);
+    await pageCreateOptions.selectDates([ day ]);
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
@@ -593,8 +593,8 @@ module('Acceptance | create a poll', function(hooks) {
 
   test('create a poll and using back button (find a date)', async function(assert) {
     let days = [
-      moment().add(1, 'day').hours(0).minutes(0).seconds(0).milliseconds(0),
-      moment().add(1, 'week').hours(0).minutes(0).seconds(0).milliseconds(0)
+      '2016-01-02',
+      '2016-01-13',
     ];
     const dayFormat = moment.localeData().longDateFormat('LLLL')
                         .replace(
@@ -613,12 +613,14 @@ module('Acceptance | create a poll', function(hooks) {
       .next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.dateOptions(days);
+    await pageCreateOptions.selectDates(
+      days.map((day) => new Date(day))
+    );
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       pageCreateOptionsDatetime.days().labels,
-      days.map((day) => day.format(dayFormat)),
+      days.map((day) => moment(day).format(dayFormat)),
       'time inputs having days as label'
     );
 
@@ -626,8 +628,8 @@ module('Acceptance | create a poll', function(hooks) {
     await backButton();
     assert.equal(currentRouteName(), 'create.options');
     assert.deepEqual(
-      pageCreateOptions.dateOptions().map((date) => date.toISOString()),
-      days.map((day) => day.toISOString()),
+      findAll('.ember-power-calendar-day--selected').map((el) => el.dataset.date),
+      days,
       'days are still present after back button is used'
     );
 
@@ -656,8 +658,8 @@ module('Acceptance | create a poll', function(hooks) {
     assert.deepEqual(
       pagePollParticipation.options().labels,
       [
-        days[0].format(dayFormat),
-        days[1].hour(10).minute(0).format('LLLL')
+        moment(days[0]).format(dayFormat),
+        moment(days[1]).hour(10).minute(0).format('LLLL')
       ],
       'options are correctly labeled'
     );
@@ -680,7 +682,7 @@ module('Acceptance | create a poll', function(hooks) {
       .next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.dateOptions([new Date()]);
+    await pageCreateOptions.selectDates([new Date()]);
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
 

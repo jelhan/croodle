@@ -5,12 +5,14 @@ export default {
   initialize(appInstance) {
     let i18n = appInstance.lookup('service:i18n');
     let moment = appInstance.lookup('service:moment');
+    let powerCalendar = appInstance.lookup('service:power-calendar');
 
     let availableLocales = i18n.get('locales');
     let locale = getLocale(availableLocales);
 
     i18n.set('locale', locale);
     moment.changeLocale(locale);
+    powerCalendar.set('local', locale);
   }
 };
 

@@ -1,15 +1,18 @@
 {{#form.element
-  classNames="days"
   label=(t "create.options.dates.label")
   property="options"
-as |el|
+  data-test-form-element-for="days"
 }}
-  {{bootstrap-datepicker-inline
-    id=el.id
-    value=optionsBootstrapDatepicker
-    multidate=true
-    calendarWeeks=true
-    todayHighlight=true
-    language=i18n.locale
-  }}
+  <InlineDatepicker
+    @center={{calendarCenter}}
+    @selectedDays={{selectedDays}}
+    @onCenterChange={{action (mut calendarCenter) value="moment"}}
+    @onSelect={{action "daysSelected"}}
+  />
+  <InlineDatepicker
+    @center={{calendarCenterNext}}
+    @selectedDays={{selectedDays}}
+    @onCenterChange={{action (mut calendarCenter) value="moment"}}
+    @onSelect={{action "daysSelected"}}
+  />
 {{/form.element}}

@@ -1,0 +1,28 @@
+<PowerCalendarMultiple
+  @center={{@center}}
+  @selected={{@selectedDays}}
+  @onCenterChange={{@onCenterChange}}
+  @onSelect={{@onSelect}} as |calendar|
+>
+  <nav class="ember-power-calendar-nav">
+    <button
+      type="button"
+      class="ember-power-calendar-nav-control"
+      onclick={{action calendar.actions.moveCenter -1 "month"}}
+    >
+      «
+    </button>
+    <div class="ember-power-calendar-nav-title">
+      {{moment-format calendar.center "MMMM YYYY"}}
+    </div>
+    <button
+      type="button"
+      class="ember-power-calendar-nav-control"
+      onclick={{action calendar.actions.moveCenter 1 "month"}}
+    >
+      »
+    </button>
+  </nav>
+
+  <calendar.days />
+</PowerCalendarMultiple>

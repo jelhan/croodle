@@ -1,49 +1,43 @@
-import { isPresent } from '@ember/utils';
-import PageObject from 'ember-cli-page-object';
-import { findElementWithAssert } from 'ember-cli-page-object';
-import { defaultsForCreate } from 'croodle/tests/pages/defaults';
-import { hasFocus } from 'croodle/tests/pages/helpers';
-
-const {
-  assign
-} = Object;
-
-let {
+import {
   clickable,
   collection,
+  create,
   fillable,
   hasClass,
   isVisible,
   text
-} = PageObject;
+} from 'ember-cli-page-object';
+import { defaultsForCreate } from 'croodle/tests/pages/defaults';
+import { hasFocus } from 'croodle/tests/pages/helpers';
+import { calendarSelect } from 'ember-power-calendar/test-support';
+import { assign } from '@ember/polyfills';
+import { isArray } from '@ember/array';
+import { assert } from '@ember/debug';
+import moment from 'moment';
 
-const setBootstrapDatepicker = function(selector, options = {}) {
+function selectDates(selector) {
   return {
     isDescriptor: true,
-    value(dates) {
-      const el = findElementWithAssert(this, selector, options).parent();
-      if (isPresent(dates)) {
-        const normalizedDates = dates.map((date) => {
-          if (typeof date.toDate === 'function') {
-            date = date.toDate();
-          }
-          date.setHours(0);
-          date.setMinutes(0);
-          date.setSeconds(0);
-          date.setMilliseconds(0);
-          return date;
-        });
-        el.datepicker('setDates', normalizedDates);
+    async value(dateOrMoments) {
+      assert(
+        'selectDates expects an array of date or moment objects as frist argument',
+        isArray(dateOrMoments) && dateOrMoments.every((dateOrMoment) => dateOrMoment instanceof Date || moment.isMoment(dateOrMoment))
+      )
+
+      for (let i = 0; i < dateOrMoments.length; i++) {
+        let dateOrMoment = dateOrMoments[i];
+        let date = moment.isMoment(dateOrMoment) ? dateOrMoment.toDate() : dateOrMoment;
+        await calendarSelect(selector, date);
       }
-      return el.datepicker('getDates');
     }
   };
-};
+}
 
-export default PageObject.create(assign({}, defaultsForCreate, {
-  dateOptions: setBootstrapDatepicker('.days .datepicker'),
+export default create(assign({}, defaultsForCreate, {
+  selectDates: selectDates('[data-test-form-element-for="days"]'),
   dateHasError: isVisible('.days.has-error'),
   dateError: text('.days .help-block'),
+
   textOptions: collection({
     itemScope: '.form-group.option',
     item: {
