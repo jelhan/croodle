@@ -1,0 +1,24 @@
+#poll {
+  .participants-table {
+    max-height: 100vh;
+
+    table {
+      th, td {
+        white-space: nowrap;
+      }
+
+      thead {
+        tr {
+          th {
+            background-color: #fff;
+          }
+
+          &:not(:last-child) th:not([rowspan="2"]) {
+            // do not show a border between rows of a multi-row header
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,18 +4,29 @@ import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { t } from 'ember-i18n/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
-import pollHasUser from 'croodle/tests/helpers/poll-has-user';
 import pollParticipate from 'croodle/tests/helpers/poll-participate';
 import moment from 'moment';
-import pagePollParticipation from 'croodle/tests/pages/poll/participation';
+import PollParticipationPage from 'croodle/tests/pages/poll/participation';
+import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
 
 module('Acceptance | legacy support', function(hooks) {
+  let yesLabel;
+  let maybeLabel;
+  let noLabel;
+
   hooks.beforeEach(function() {
     window.localStorage.setItem('locale', 'en');
   });
 
   setupApplicationTest(hooks);
   setupMirage(hooks);
+
+  hooks.beforeEach(function() {
+    yesLabel = t('answerTypes.yes.label').toString();
+    maybeLabel = t('answerTypes.maybe.label').toString();
+    noLabel = t('answerTypes.no.label').toString();
+  });
+
 
   test('show a default poll created with v0.3.0', async function(assert) {
     const encryptionKey = '5MKFuNTKILUXw6RuqkAw6ooZw4k3mWWx98ZQw8vH';
@@ -43,7 +54,7 @@ module('Acceptance | legacy support', function(hooks) {
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      PollParticipationPage.options().labels,
       [
         moment('2015-12-24T17:00:00.000Z').format('LLLL'),
         moment('2015-12-24T19:00:00.000Z').format('LT'),
@@ -51,23 +62,18 @@ module('Acceptance | legacy support', function(hooks) {
       ]
     );
     assert.deepEqual(
-      pagePollParticipation.options().answers,
-      [
-        t('answerTypes.yes.label').toString(),
-        t('answerTypes.maybe.label').toString(),
-        t('answerTypes.no.label').toString()
-      ]
+      PollParticipationPage.options().answers,
+      [yesLabel, maybeLabel, noLabel]
     );
 
     await switchTab('evaluation');
     assert.equal(currentRouteName(), 'poll.evaluation');
-    pollHasUser(assert,
-      'Fritz Bauer',
-      [
-        t('answerTypes.yes.label'),
-        t('answerTypes.no.label'),
-        t('answerTypes.no.label')
-      ]
+
+    let participant = PollEvaluationPage.participants.filterBy('name', 'Fritz Bauer')[0];
+    assert.ok(participant, 'user exists in participants table');
+    assert.deepEqual(
+      participant.selections.map((_) => _.answer), [yesLabel, noLabel, noLabel],
+      'participants table shows correct answers for new participant'
     );
 
     await switchTab('participation');
@@ -75,13 +81,12 @@ module('Acceptance | legacy support', function(hooks) {
 
     await pollParticipate('Hermann Langbein', ['yes', 'maybe', 'yes']);
     assert.equal(currentRouteName(), 'poll.evaluation');
-    pollHasUser(assert,
-      'Hermann Langbein',
-      [
-        t('answerTypes.yes.label'),
-        t('answerTypes.maybe.label'),
-        t('answerTypes.yes.label')
-      ]
+
+    participant = PollEvaluationPage.participants.filterBy('name', 'Hermann Langbein')[0];
+    assert.ok(participant, 'user exists in participants table');
+    assert.deepEqual(
+      participant.selections.map((_) => _.answer), [yesLabel, maybeLabel, yesLabel],
+      'participants table shows correct answers for new participant'
     );
   });
 
@@ -111,7 +116,7 @@ module('Acceptance | legacy support', function(hooks) {
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      PollParticipationPage.options().labels,
       [
         'apple pie',
         'pecan pie',
@@ -121,13 +126,12 @@ module('Acceptance | legacy support', function(hooks) {
 
     await switchTab('evaluation');
     assert.equal(currentRouteName(), 'poll.evaluation');
-    pollHasUser(assert,
-      'Paul Levi',
-      [
-        'would be great!',
-        'no way',
-        'if I had to'
-      ]
+
+    let participant = PollEvaluationPage.participants.filterBy('name', 'Paul Levi')[0];
+    assert.ok(participant, 'user exists in participants table');
+    assert.deepEqual(
+      participant.selections.map((_) => _.answer), ['would be great!', 'no way', 'if I had to'],
+      'participants table shows correct answers for new participant'
     );
 
     await switchTab('participation');
@@ -135,13 +139,12 @@ module('Acceptance | legacy support', function(hooks) {
 
     await pollParticipate('Hermann Langbein', ["I don't care", 'would be awesome', "can't imagine anything better"]);
     assert.equal(currentRouteName(), 'poll.evaluation');
-    pollHasUser(assert,
-      'Hermann Langbein',
-      [
-        "I don't care",
-        'would be awesome',
-        "can't imagine anything better"
-      ]
+
+    participant = PollEvaluationPage.participants.filterBy('name', 'Hermann Langbein')[0];
+    assert.ok(participant, 'user exists in participants table');
+    assert.deepEqual(
+      participant.selections.map((_) => _.answer), ['I don\'t care', 'would be awesome', 'can\'t imagine anything better'],
+      'participants table shows correct answers for new participant'
     );
   });
 });

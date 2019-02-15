@@ -1,75 +1,51 @@
-<div class="table-scroll">
-  <table class="user-selections-table table table-striped table-condensed">
-    <thead>
-      {{#if hasTimes}}
-        <tr class="dateGroups">
-          <th>&nbsp;</th>
-          {{#each optionsGroupedByDates as |optionGroup|}}
-            <th colspan={{optionGroup.items.length}}>
-              {{moment-format
-                optionGroup.value
-                momentLongDayFormat
-                locale=currentLocale
-                timeZone=timezone
-              }}
-            </th>
-          {{/each}}
-          <th>&nbsp;</th>
-        </tr>
-      {{/if}}
-      <tr>
-        <th>&nbsp;</th>
-        {{#each options as |option|}}
-          <th>
-            {{#if isFindADate}}
-              {{#if hasTimes}}
-                {{#if option.hasTime}}
-                  {{moment-format
-                    option.title
-                    "LT"
-                    locale=currentLocale
-                    timeZone=timezone
-                  }}
-                {{/if}}
-              {{else}}
-                {{moment-format
-                  option.title
-                  momentLongDayFormat
-                  locale=currentLocale
-                  timeZone=timezone
-                }}
-              {{/if}}
-            {{else}}
-              {{option.title}}
-            {{/if}}
-          </th>
-        {{/each}}
-      </tr>
-    </thead>
+<EmberTable
+  class="participants-table"
+  data-test-table-of="participants" as |t|
+>
+  <t.head
+    @columns={{this.columns}}
+    @enableReorder={{false}}
+    @enableResize={{false}} as |h|
+  >
+    <h.row as |r|>
+      <r.cell as |column|>
+        {{#if column.momentFormat}}
+          {{moment-format column.name column.momentFormat}}
+        {{else}}
+          {{column.name}}
+        {{/if}}
+      </r.cell>
+    </h.row>
+  </t.head>
 
-    <tbody>
-      {{#each sortedUsers as |user|}}
-        <tr class="user">
-          <td>{{user.name}}</td>
-          {{#each user.selections as |selection|}}
-            <td>
-              {{#if selection.label}}
-                {{#if isFreeText}}
-                  {{selection.label}}
-                {{/if}}
+  <t.body @rows={{@users}} as |b|>
+    <b.row
+      data-test-participant={{b.rowValue.id}} as |r|
+    >
+      <r.cell
+        data-test-value-for={{if r.columnValue.isAnswerCell r.columnValue.name "name"}}
+        data-test-is-selection-cell={{r.columnValue.isAnswerCell}} as |cellValue columnValue rowValue|
+      >
+        {{#if columnValue.isAnswerCell}}
+          {{#let
+            (object-at columnValue.index (get rowValue "selections"))
+          as |selection|
+          }}
+            {{#if isFreeText}}
+              {{selection.label}}
+            {{else}}
+              {{#if selection.type}}
+                <span class={{selection.type}}>
+                  <span class={{selection.icon}}></span>
+                  {{t selection.labelTranslation}}
+                </span>
               {{/if}}
-              {{#if selection.labelTranslation}}
-                {{#unless isFreeText}}
-                  <span class={{selection.type}}>
-                    <span class={{selection.icon}}></span>
-                    {{t selection.labelTranslation}}
-                  </span>
-                {{/unless}}
-              {{/if}}
-            </td>
-          {{/each}}
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+            {{/if}}
+          {{/let}}
+        {{else}}
+          {{cellValue}}
+        {{/if}}
+      </r.cell>
+    </b.row>
+  </t.body>
+</EmberTable>

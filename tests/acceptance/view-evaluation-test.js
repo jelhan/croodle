@@ -5,6 +5,8 @@ import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import { t } from 'ember-i18n/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
 import moment from 'moment';
+import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
+import { assign } from '@ember/polyfills';
 
 module('Acceptance | view evaluation', function(hooks) {
   hooks.beforeEach(function() {
@@ -114,45 +116,47 @@ module('Acceptance | view evaluation', function(hooks) {
 
   test('evaluation is correct for MakeAPoll', async function(assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let user1 = this.server.create('user', {
-      creationDate: '2015-01-01T00:00:00.000Z',
-      encryptionKey,
-      name: 'Maximilian',
-      selections: [
-        {
-          type: 'yes',
-          labelTranslation: 'answerTypes.yes.label',
-          icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
-        },
-        {
-          type: 'yes',
-          labelTranslation: 'answerTypes.yes.label',
-          icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
-        }
-      ]
-    });
-    let user2 = this.server.create('user', {
-      creationDate: '2015-08-01T00:00:00.000Z',
-      encryptionKey,
-      name: 'Peter',
-      selections: [
-        {
-          type: 'no',
-          labelTranslation: 'answerTypes.no.label',
-          icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
-        },
-        {
-          type: 'yes',
-          labelTranslation: 'answerTypes.yes.label',
-          icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
-        }
-      ]
-    });
-    let poll = this.server.create('poll', {
+    let usersData = [
+      {
+        creationDate: '2015-01-01T00:00:00.000Z',
+        encryptionKey,
+        name: 'Maximilian',
+        selections: [
+          {
+            type: 'yes',
+            labelTranslation: 'answerTypes.yes.label',
+            icon: 'glyphicon glyphicon-thumbs-up',
+            label: 'Yes'
+          },
+          {
+            type: 'yes',
+            labelTranslation: 'answerTypes.yes.label',
+            icon: 'glyphicon glyphicon-thumbs-up',
+            label: 'Yes'
+          }
+        ]
+      },
+      {
+        creationDate: '2015-08-01T00:00:00.000Z',
+        encryptionKey,
+        name: 'Peter',
+        selections: [
+          {
+            type: 'no',
+            labelTranslation: 'answerTypes.no.label',
+            icon: 'glyphicon glyphicon-thumbs-down',
+            label: 'No'
+          },
+          {
+            type: 'yes',
+            labelTranslation: 'answerTypes.yes.label',
+            icon: 'glyphicon glyphicon-thumbs-up',
+            label: 'Yes'
+          }
+        ]
+      },
+    ];
+    let pollData = {
       answers: [
         {
           type: 'yes',
@@ -173,8 +177,8 @@ module('Acceptance | view evaluation', function(hooks) {
         { title: 'second option' }
       ],
       pollType: 'MakeAPoll',
-      users: [user1, user2]
-    });
+    };
+    let poll = this.server.create('poll', assign(pollData, { users: usersData.map((_) => this.server.create('user', _)) }));
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.evaluation');
@@ -189,25 +193,25 @@ module('Acceptance | view evaluation', function(hooks) {
       'second option',
       'options are evaluated correctly'
     );
-    assert.ok(
-      findAll('.user-selections-table').length,
-      'has a table showing user selections'
-    );
+
     assert.deepEqual(
-      findAll('.user-selections-table thead th').toArray().map((el) => el.textContent.trim()),
-      ['', 'first option', 'second option'],
+      PollEvaluationPage.options.map((_) => _.label),
+      ['first option', 'second option'],
       'dates are used as table headers'
     );
     assert.deepEqual(
-      findAll('.user-selections-table tbody tr:nth-child(1) td').toArray().map((el) => el.textContent.trim()),
-      ['Maximilian', 'Yes', 'Yes'],
-      'answers shown in table are correct for first user'
+      PollEvaluationPage.participants.map((_) => _.name), usersData.map((_) => _.name),
+      'users are listed in participants table with their names'
     );
-    assert.deepEqual(
-      findAll('.user-selections-table tbody tr:nth-child(2) td').toArray().map((el) => el.textContent.trim()),
-      ['Peter', 'No', 'Yes'],
-      'answers shown in table are correct for second user'
-    );
+    usersData.forEach((user) => {
+      let participant = PollEvaluationPage.participants.filterBy('name', user.name)[0];
+      assert.deepEqual(
+        participant.selections.map((_) => _.answer),
+        user.selections.map((_) => t(_.labelTranslation).toString()),
+        `answers are shown for user ${user.name} in participants table`
+      );
+    });
+
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
