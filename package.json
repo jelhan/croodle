@@ -21,7 +21,6 @@
     "@ember/optional-features": "^0.6.3",
     "bootstrap-sass": "^3.3.7",
     "ember-ajax": "^4.0.0",
-    "ember-array-helper": "^5.0.0",
     "ember-awesome-macros": "^3.1.0",
     "ember-bootstrap": "^2.1.2",
     "ember-bootstrap-cp-validations": "^1.0.0",
