@@ -53,7 +53,6 @@
     "ember-cp-validations": "^3.5.0",
     "ember-data": "~3.4.0",
     "ember-data-model-fragments": "^3.3.0",
-    "ember-export-application-global": "^2.0.0",
     "ember-i18n": "^5.0.2",
     "ember-i18n-cp-validations": "^3.0.2",
     "ember-load-initializers": "^1.1.0",
