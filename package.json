@@ -66,7 +66,6 @@
     "ember-qunit": "^4.4.0",
     "ember-radio-buttons": "^4.0.1",
     "ember-resolver": "^5.0.1",
-    "ember-route-action-helper": "^2.0.6",
     "ember-source": "~3.4.0",
     "ember-test-selectors": "^2.0.0",
     "ember-transition-helper": "^1.0.0",

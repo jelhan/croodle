@@ -21,6 +21,9 @@ const Validations = buildValidations({
 
 export default Controller.extend(Validations, {
   actions: {
+    previousPage() {
+      this.transitionToRoute('create.index');
+    },
     submit() {
       if (this.get('validations.isValid')) {
         this.transitionToRoute('create.options');
