@@ -2,6 +2,7 @@ import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import moment from 'moment';
+import { settled } from '@ember/test-helpers';
 
 module('Unit | Component | create options datetime', function(hooks) {
   setupTest(hooks);
@@ -153,23 +154,21 @@ module('Unit | Component | create options datetime', function(hooks) {
     );
   });
 
-  test('adopt times of first day - simple', function(assert) {
-    let component;
-    let poll;
-    run(() => {
-      poll = this.store.createRecord('poll', {
-        options: [
-          { title: moment('2015-01-01T11:11:00.000').toISOString() },
-          { title: moment('2015-01-01T22:22:00.000').toISOString() },
-          { title: moment('2015-01-02').toISOString() },
-          { title: moment('2015-01-03').toISOString() }
-        ]
-      });
-      component = this.owner.factoryFor('component:create-options-datetime').create({
-        dates: poll.get('options')
-      });
-      component.send('adoptTimesOfFirstDay');
+  test('adopt times of first day - simple', async function(assert) {
+    let poll = this.store.createRecord('poll', {
+      options: [
+        { title: moment('2015-01-01T11:11:00.000').toISOString() },
+        { title: moment('2015-01-01T22:22:00.000').toISOString() },
+        { title: moment('2015-01-02').toISOString() },
+        { title: moment('2015-01-03').toISOString() }
+      ]
     });
+    let component = this.owner.factoryFor('component:create-options-datetime').create({
+      dates: poll.get('options')
+    });
+    component.send('adoptTimesOfFirstDay');
+    await settled();
+
     assert.deepEqual(
       component.get('dates').map((option) => option.get('title')),
       [
@@ -184,27 +183,25 @@ module('Unit | Component | create options datetime', function(hooks) {
     );
   });
 
-  test('adopt times of first day - having times on the other days', function(assert) {
-    let component;
-    let poll;
-    run(() => {
-      poll = this.store.createRecord('poll', {
-        options: [
-          { title: moment('2015-01-01T11:11:00.000').toISOString() },
-          { title: moment('2015-01-01T22:22:00.000').toISOString() },
-          { title: moment('2015-01-02T09:11:00.000').toISOString() },
-          { title: moment('2015-01-03T01:11:00.000').toISOString() },
-          { title: moment('2015-01-03T11:11:00.000').toISOString() },
-          { title: moment('2015-01-04T02:11:00.000').toISOString() },
-          { title: moment('2015-01-04T05:11:00.000').toISOString() },
-          { title: moment('2015-01-04T12:11:00.000').toISOString() }
-        ]
-      });
-      component = this.owner.factoryFor('component:create-options-datetime').create({
-        dates: poll.get('options')
-      });
-      component.send('adoptTimesOfFirstDay');
+  test('adopt times of first day - having times on the other days', async function(assert) {
+    let poll = this.store.createRecord('poll', {
+      options: [
+        { title: moment('2015-01-01T11:11:00.000').toISOString() },
+        { title: moment('2015-01-01T22:22:00.000').toISOString() },
+        { title: moment('2015-01-02T09:11:00.000').toISOString() },
+        { title: moment('2015-01-03T01:11:00.000').toISOString() },
+        { title: moment('2015-01-03T11:11:00.000').toISOString() },
+        { title: moment('2015-01-04T02:11:00.000').toISOString() },
+        { title: moment('2015-01-04T05:11:00.000').toISOString() },
+        { title: moment('2015-01-04T12:11:00.000').toISOString() }
+      ]
     });
+    let component = this.owner.factoryFor('component:create-options-datetime').create({
+      dates: poll.get('options')
+    });
+    component.send('adoptTimesOfFirstDay');
+    await settled();
+
     assert.deepEqual(
       component.get('dates').map((option) => option.get('title')),
       [
@@ -221,23 +218,21 @@ module('Unit | Component | create options datetime', function(hooks) {
     );
   });
 
-  test('adopt times of first day - no times on first day', function(assert) {
-    let component;
-    let poll;
-    run(() => {
-      poll = this.store.createRecord('poll', {
-        options: [
-          { title: '2015-01-01' },
-          { title: '2015-01-02' },
-          { title: moment('2015-01-03T11:00:00.000Z').toISOString() },
-          { title: moment('2015-01-03T15:00:00.000Z').toISOString() }
-        ]
-      });
-      component = this.owner.factoryFor('component:create-options-datetime').create({
-        dates: poll.get('options')
-      });
-      component.send('adoptTimesOfFirstDay');
+  test('adopt times of first day - no times on first day', async function(assert) {
+    let poll = this.store.createRecord('poll', {
+      options: [
+        { title: '2015-01-01' },
+        { title: '2015-01-02' },
+        { title: moment('2015-01-03T11:00:00.000Z').toISOString() },
+        { title: moment('2015-01-03T15:00:00.000Z').toISOString() }
+      ]
     });
+    let component = this.owner.factoryFor('component:create-options-datetime').create({
+      dates: poll.get('options')
+    });
+    component.send('adoptTimesOfFirstDay');
+    await settled();
+
     assert.deepEqual(
       component.get('dates').map((option) => option.get('title')),
       [
