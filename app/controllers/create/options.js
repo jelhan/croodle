@@ -9,7 +9,10 @@ export default Controller.extend({
       } else {
         this.transitionToRoute('create.settings');
       }
-    }
+    },
+    previousPage() {
+      this.transitionToRoute('create.meta');
+    },
   },
 
   isFindADate: alias('model.isFindADate')

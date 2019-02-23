@@ -1,4 +1,3 @@
-import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import config from 'croodle/config/environment';
@@ -6,16 +5,6 @@ import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
 /* global moment */
 
 export default Route.extend({
-  actions: {
-    transitionToPoll(poll) {
-      this.transitionTo('poll', poll, {
-        queryParams: {
-          encryptionKey: this.encryptionKey
-        }
-      });
-    }
-  },
-
   beforeModel(transition) {
     // enforce that wizzard is started at create.index
     if (transition.targetName !== 'create.index') {
@@ -27,7 +16,6 @@ export default Route.extend({
   },
 
   encryption: service(),
-  encryptionKey: alias('encryption.key'),
 
   model() {
     // create empty poll

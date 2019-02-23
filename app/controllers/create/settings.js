@@ -30,26 +30,42 @@ const Validations = buildValidations({
 
 export default Controller.extend(Validations, {
   actions: {
+    previousPage() {
+      let { isFindADate } = this.model;
+
+      if (isFindADate) {
+        this.transitionToRoute('create.options-datetime');
+      } else {
+        this.transitionToRoute('create.options');
+      }
+    },
     submit() {
-      if (this.get('validations.isValid')) {
-        const model = this.model;
+      if (this.validations.isValid) {
+        let poll = this.model;
+
         // set timezone if there is atleast one option with time
         if (
-          this.get('model.isFindADate') &&
-          this.get('model.options').any((option) => {
-            return !moment(option.get('title'), 'YYYY-MM-DD', true).isValid();
+          poll.isFindADate &&
+          poll.options.any(({ title }) => {
+            return !moment(title, 'YYYY-MM-DD', true).isValid();
           })
         ) {
           this.set('model.timezone', moment.tz.guess());
         }
 
         // save poll
-        model.save()
-          .then((model) => {
+        poll.save()
+          .then(() => {
             // reload as workaround for bug: duplicated records after save
-            model.reload().then((model) => {
+            poll.reload().then(() => {
               // redirect to new poll
-              this.target.send('transitionToPoll', model);
+              let { key: encryptionKey } = this.encryption;
+
+              this.transitionToRoute('poll', poll, {
+                queryParams: {
+                  encryptionKey,
+                },
+              });
             });
           })
           .catch(() => {
@@ -74,6 +90,8 @@ export default Controller.extend(Validations, {
       { id: 'FreeText', labelTranslation: 'answerTypes.freeText.label' },
     ];
   }),
+
+  encryption: service(),
 
   expirationDuration: computed('model.expirationDate', {
     get() {

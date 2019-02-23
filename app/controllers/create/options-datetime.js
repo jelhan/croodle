@@ -8,7 +8,10 @@ export default Controller.extend({
       this.normalizeOptions();
 
       this.transitionToRoute('create.settings');
-    }
+    },
+    previousPage() {
+      this.transitionToRoute('create.options');
+    },
   },
 
   normalizeOptions() {
