@@ -21,7 +21,10 @@ module.exports = function(defaults) {
     },
     'ember-composable-helpers': {
       only: ['array', 'object-at'],
-    }
+    },
+    'ember-math-helpers': {
+      only: ['gt', 'lte', 'sub'],
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
