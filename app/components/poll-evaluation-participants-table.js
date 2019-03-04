@@ -25,6 +25,7 @@ export default Component.extend({
   columns: computed('optionsGroupedByDays.[]', function() {
     let columns = [
       {
+        isFixed: 'left',
         name: '',
         valuePath: 'name',
       }
