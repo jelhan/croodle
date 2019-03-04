@@ -3348,10 +3348,9 @@ crypto@0.0.3:
   resolved "https://registry.yarnpkg.com/crypto/-/crypto-0.0.3.tgz#470a81b86be4c5ee17acc8207a1f5315ae20dbb0"
   integrity sha1-RwqBuGvkxe4XrMggeh9TFa4g27A=
 
-css-element-queries@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/css-element-queries/-/css-element-queries-0.4.0.tgz#cb5bcde9d980ac3699e7471f798e70600088d3de"
-  integrity sha1-y1vN6dmArDaZ50cfeY5wYACI094=
+css-element-queries@^0.4.0, css-element-queries@marcj/css-element-queries#pull/256/head:
+  version "1.1.1"
+  resolved "https://codeload.github.com/marcj/css-element-queries/tar.gz/3044a462830cd05ae7bc5befb8e2c7e9d4bd0fe7"
 
 cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   version "0.3.4"
@@ -4748,10 +4747,10 @@ ember-string-ishtmlsafe-polyfill@^2.0.0:
   dependencies:
     ember-cli-version-checker "^2.1.0"
 
-ember-table@^2.0.0-beta.4:
-  version "2.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/ember-table/-/ember-table-2.0.0-beta.4.tgz#28118098d45b53e38620efae21be8c65077460c4"
-  integrity sha512-hXO52A7WwKAunVOcgdLxbvOnntSjuD2KrNyo5kV1ItPIFgNHT8JHnscmwfEhORDEYRDTBU72MaJBAWajydt80A==
+ember-table@^2.0.0-beta.7:
+  version "2.0.0-beta.7"
+  resolved "https://registry.yarnpkg.com/ember-table/-/ember-table-2.0.0-beta.7.tgz#90aa91fa7729a8163693d8e80d65d4a883ab1c42"
+  integrity sha512-FRCLqq+Nn5ohtZJHOIMBQVo9wnvS2ah1bBn7TCNfe2HjuQJ5fT1BkdrxKos1lKSxOoD095NxJSgJNT3bYleLtw==
   dependencies:
     "@ember-decorators/argument" "^0.8.16"
     "@ember-decorators/babel-transforms" "^0.1.1"

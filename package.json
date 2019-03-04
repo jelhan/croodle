@@ -65,7 +65,7 @@
     "ember-radio-buttons": "^4.0.1",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.4.0",
-    "ember-table": "^2.0.0-beta.4",
+    "ember-table": "^2.0.0-beta.7",
     "ember-test-selectors": "^2.0.0",
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
@@ -87,6 +87,7 @@
     ]
   },
   "resolutions": {
-    "chart.js": "~2.6.0"
+    "chart.js": "~2.6.0",
+    "ember-table/css-element-queries": "marcj/css-element-queries#pull/256/head"
   }
 }
