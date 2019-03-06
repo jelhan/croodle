@@ -40,11 +40,6 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import({
-    development: 'node_modules/floatthead/dist/jquery.floatThead.js',
-    production: 'node_modules/floatthead/dist/jquery.floatThead.min.js'
-  });
-
   app.import('node_modules/sjcl/sjcl.js', {
     using: [
       { transformation: 'amd', as: 'sjcl' }
