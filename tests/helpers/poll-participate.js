@@ -1,5 +1,5 @@
 import { isEmpty } from '@ember/utils';
-import { findAll, fillIn, click } from '@ember/test-helpers';
+import { findAll, fillIn, click, settled } from '@ember/test-helpers';
 
 export default async function(name, selections) {
   if (!isEmpty(name)) {
@@ -18,4 +18,6 @@ export default async function(name, selections) {
   }
 
   await click('.participation button[type="submit"]');
+
+  await settled();
 }
