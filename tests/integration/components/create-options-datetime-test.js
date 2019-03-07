@@ -4,6 +4,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import {
   render,
+  blur,
   click,
   fillIn,
   find,
@@ -323,6 +324,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     );
 
     await fillIn('[data-test-day="2015-01-01"] .form-group input', '10:');
+    await blur('[data-test-day="2015-01-01"] .form-group input');
     assert.ok(
       find('[data-test-day="2015-01-01"] .form-group').classList.contains('has-error') ||
       // browsers with input type time support prevent non time input
