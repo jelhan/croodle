@@ -5313,11 +5313,6 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-floatthead@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/floatthead/-/floatthead-2.1.2.tgz#23be05e69760f19028937667aee7e3b99ad86fed"
-  integrity sha512-jH6twzbrqFI+Rv4oeBIAdjog6quWRNXUw1Z2TTuJIH2b5omd3BWIvlczfXUt7VpyOPD9J6BMq+nMpqrZ9ZOcHA==
-
 follow-redirects@^1.0.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.6.0.tgz#d12452c031e8c67eb6637d861bfc7a8090167933"
