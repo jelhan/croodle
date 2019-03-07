@@ -38,38 +38,6 @@ module.exports = {
     }
   },
   launchers: {
-    SL_chrome: {
-      exe: 'ember',
-      args: [
-        'sauce:launch',
-        '-b',
-        'chrome',
-        '-p',
-        'Windows 10',
-        '--vi',
-        'public',
-        '--at',
-        '--no-ct',
-        '--u',
-      ],
-      protocol: 'browser'
-    },
-    SL_firefox: {
-      exe: 'ember',
-      args: [
-        'sauce:launch',
-        '-b',
-        'firefox',
-        '-p',
-        'Windows 10',
-        '--vi',
-        'public',
-        '--at',
-        '--no-ct',
-        '--u',
-      ],
-      protocol: 'browser'
-    },
     SL_edge: {
       exe: 'ember',
       args: [
