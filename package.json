@@ -59,7 +59,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^7.8.0",
     "ember-page-title": "^5.0.0",
-    "ember-power-calendar": "^0.10.0",
+    "ember-power-calendar": "^0.11.1",
     "ember-power-calendar-moment": "^0.1.4",
     "ember-qunit": "^4.4.0",
     "ember-radio-buttons": "^4.0.1",
