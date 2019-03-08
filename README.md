@@ -96,6 +96,14 @@ directory to `/api` and execute `./vendor/bin/codecept run`. You have
 to install composer development requirements before (`composer install`
 without `--no-dev` option).
 
+## Credits
+
+Continous Integration powered by<br>
+<a href="https://travis-ci.com/"><img src="https://travis-ci.com/images/logos/TravisCI-Full-Color.png" height="50"></a>
+
+Cross-browser testing provided by<br>
+<a href="https://www.browserstack.com"><img src="docs/Browserstack-logo.svg" height="50"></a>
+
 ## License
 
 croodle is [MIT Licensed](https://github.com/jelhan/croodle/blob/master/LICENSE).
