@@ -593,8 +593,8 @@ module('Acceptance | create a poll', function(hooks) {
 
   test('create a poll and using back button (find a date)', async function(assert) {
     let days = [
-      '2016-01-02',
-      '2016-01-13',
+      moment('2016-01-02'),
+      moment('2016-01-13'),
     ];
     const dayFormat = moment.localeData().longDateFormat('LLLL')
                         .replace(
@@ -614,13 +614,13 @@ module('Acceptance | create a poll', function(hooks) {
     assert.equal(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates(
-      days.map((day) => new Date(day))
+      days.map((_) => _.toDate())
     );
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       pageCreateOptionsDatetime.days().labels,
-      days.map((day) => moment(day).format(dayFormat)),
+      days.map((_) => _.format(dayFormat)),
       'time inputs having days as label'
     );
 
@@ -629,7 +629,7 @@ module('Acceptance | create a poll', function(hooks) {
     assert.equal(currentRouteName(), 'create.options');
     assert.deepEqual(
       findAll('.ember-power-calendar-day--selected').map((el) => el.dataset.date),
-      days,
+      days.map((_) => _.format('YYYY-MM-DD')),
       'days are still present after back button is used'
     );
 
@@ -658,8 +658,8 @@ module('Acceptance | create a poll', function(hooks) {
     assert.deepEqual(
       pagePollParticipation.options().labels,
       [
-        moment(days[0]).format(dayFormat),
-        moment(days[1]).hour(10).minute(0).format('LLLL')
+        days[0].format(dayFormat),
+        days[1].clone().hour(10).minute(0).format('LLLL')
       ],
       'options are correctly labeled'
     );

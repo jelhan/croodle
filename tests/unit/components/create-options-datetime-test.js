@@ -99,34 +99,34 @@ module('Unit | Component | create options datetime', function(hooks) {
 
   test('bindings are working on grouped datetimes', function(assert) {
     let component = this.owner.factoryFor('component:create-options-datetime').create();
-    run(() => {
-      component.set('dates', [
-        this.store.createFragment('option', {
-          title: moment('2015-01-01T11:11:00.000Z').toISOString()
-        })
-      ]);
-    });
+    let baseDate = moment('2015-01-01T11:11');
+
+    component.set('dates', [
+      this.store.createFragment('option', {
+        title: baseDate.toISOString()
+      })
+    ]);
     assert.equal(
       component.get('groupedDates.firstObject.items.firstObject.time'),
-      moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
+      baseDate.format('HH:mm'),
       'time is correct before'
     );
-    run(() => {
-      component.set(
-        'groupedDates.firstObject.items.firstObject.time',
-        '00:00'
-      );
-    });
+
+    component.set(
+      'groupedDates.firstObject.items.firstObject.time',
+      '00:00'
+    );
     assert.equal(
       component.get('dates.firstObject.title'),
-      moment('2015-01-01T00:00').toISOString(),
+      moment(baseDate).hour(0).minute(0).toISOString(),
       'option is updated after time changed on grouped datetimes'
     );
-    run(() => {
-      component.get('dates').pushObject(
-        this.store.createFragment('option', { title: moment('2015-01-01T12:12').toISOString() })
-      );
-    });
+
+    component.get('dates').pushObject(
+      this.store.createFragment('option', {
+        title: baseDate.add(1, 'hour').add(1, 'minute').toISOString(),
+      })
+    );
     assert.equal(
       component.get('groupedDates.firstObject.items.length'),
       2,
@@ -137,11 +137,10 @@ module('Unit | Component | create options datetime', function(hooks) {
       '12:12',
       'grouped datetimes got updated correctly after option was added (same day)'
     );
-    run(() => {
-      component.get('dates').pushObject(
-        this.store.createFragment('option', { title: moment('2015-02-02T01:01').toISOString() })
-      );
-    });
+
+    component.get('dates').pushObject(
+      this.store.createFragment('option', { title: moment('2015-02-02T01:01').toISOString() })
+    );
     assert.equal(
       component.get('groupedDates.length'),
       2,
@@ -223,8 +222,8 @@ module('Unit | Component | create options datetime', function(hooks) {
       options: [
         { title: '2015-01-01' },
         { title: '2015-01-02' },
-        { title: moment('2015-01-03T11:00:00.000Z').toISOString() },
-        { title: moment('2015-01-03T15:00:00.000Z').toISOString() }
+        { title: moment('2015-01-03T11:00').toISOString() },
+        { title: moment('2015-01-03T15:00').toISOString() }
       ]
     });
     let component = this.owner.factoryFor('component:create-options-datetime').create({
