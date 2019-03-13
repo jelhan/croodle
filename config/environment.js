@@ -29,7 +29,7 @@ module.exports = function(environment) {
       'script-src': "'self'",
       'font-src': "'self'",
       'connect-src': "'self'",
-      'img-src': "'none'",
+      'img-src': "'self'",
       'style-src': "'self'",
       'media-src': "'none'",
     },
