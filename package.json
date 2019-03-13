@@ -22,7 +22,7 @@
     "bootstrap-sass": "^3.3.7",
     "ember-ajax": "^4.0.0",
     "ember-awesome-macros": "^3.1.0",
-    "ember-bootstrap": "kaliber5/ember-bootstrap#pull/775/head",
+    "ember-bootstrap": "kaliber5/ember-bootstrap",
     "ember-bootstrap-cp-validations": "^1.0.0",
     "ember-cli": "~3.4.4",
     "ember-cli-acceptance-test-helpers": "^1.0.0",
