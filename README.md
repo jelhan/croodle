@@ -4,8 +4,6 @@
 [![Code Climate](https://codeclimate.com/github/jelhan/croodle/badges/gpa.svg)](https://codeclimate.com/github/jelhan/croodle)
 [![devDependency Status](https://david-dm.org/jelhan/croodle/dev-status.svg)](https://david-dm.org/jelhan/croodle?type=dev)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/jelhan.svg)](https://saucelabs.com/u/jelhan)
-
 Croodle is a web application to schedule a date or to do a poll on a general topics. Stored content data like title and description, number and labels of options and available answers and names of users and there selections is encrypted/decrypted in the browser using 256 bits AES.
 
 This is an alpha version. Changes could brake backward compatibility. Also it is not well tested and some features are missing. It is not ment for productive use yet.
