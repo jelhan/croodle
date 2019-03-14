@@ -4,8 +4,6 @@
 [![Code Climate](https://codeclimate.com/github/jelhan/croodle/badges/gpa.svg)](https://codeclimate.com/github/jelhan/croodle)
 [![devDependency Status](https://david-dm.org/jelhan/croodle/dev-status.svg)](https://david-dm.org/jelhan/croodle?type=dev)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/jelhan.svg)](https://saucelabs.com/u/jelhan)
-
 Croodle is a web application to schedule a date or to do a poll on a general topics. Stored content data like title and description, number and labels of options and available answers and names of users and there selections is encrypted/decrypted in the browser using 256 bits AES.
 
 This is an alpha version. Changes could brake backward compatibility. Also it is not well tested and some features are missing. It is not ment for productive use yet.
@@ -95,6 +93,14 @@ Api tests are provided by Codeception. To run them change current
 directory to `/api` and execute `./vendor/bin/codecept run`. You have
 to install composer development requirements before (`composer install`
 without `--no-dev` option).
+
+## Credits
+
+Continous Integration powered by<br>
+<a href="https://travis-ci.com/"><img src="https://travis-ci.com/images/logos/TravisCI-Full-Color.png" height="50"></a>
+
+Cross-browser testing provided by<br>
+<a href="https://www.browserstack.com"><img src="docs/Browserstack-logo.svg" height="50"></a>
 
 ## License
 

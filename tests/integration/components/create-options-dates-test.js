@@ -32,16 +32,16 @@ module('Integration | Component | create options dates', function(hooks) {
     this.set('options', []);
     await render(hbs`{{#bs-form as |form|}}{{create-options-dates options=options form=form}}{{/bs-form}}`);
 
-    await calendarSelect('[data-test-form-element-for="days"]', new Date('2015-01-01'));
-    await calendarSelect('[data-test-form-element-for="days"]', new Date('2015-01-02'));
+    await calendarSelect('[data-test-form-element-for="days"]', new Date(2015, 0, 1));
+    await calendarSelect('[data-test-form-element-for="days"]', new Date(2015, 0, 2));
     assert.deepEqual(
       this.get('options').map((option) => option.title),
       ['2015-01-01', '2015-01-02'],
       'dates are correct'
     );
 
-    await calendarSelect('[data-test-form-element-for="days"]', new Date('2016-12-31'));
-    await calendarSelect('[data-test-form-element-for="days"]', new Date('2016-01-01'));
+    await calendarSelect('[data-test-form-element-for="days"]', new Date(2016, 11, 31));
+    await calendarSelect('[data-test-form-element-for="days"]', new Date(2016, 0, 1));
     assert.deepEqual(
       this.get('options').map((option) => option.title),
       ['2015-01-01', '2015-01-02', '2016-01-01', '2016-12-31'],

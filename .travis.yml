@@ -8,9 +8,7 @@ matrix:
     - env: TEST="API"
       php: 5.6
     - env: TEST="EMBER"
-    - env: TEST="SAUCE"
-  allow_failures:
-    - env: TEST="SAUCE"
+    - env: TEST="BROWSER"
 
 dist: trusty
 sudo: false
@@ -21,36 +19,38 @@ addons:
 cache:
   yarn: true
 
+env:
+  global:
+    - "BROWSERSTACK_USERNAME=jeldrikhanschke1"
+    - "BROWSERSTACK_ACCESS_KEY=xaM9Uxurv2GyxFLKQXgj"
+
 before_install:
-  - if [ "$TEST" == "API" ]; then export TEST_API=true; else export TEST_API=false; fi
-  - if [ "$TEST" == "EMBER" ]; then export TEST_EMBER=true; else export TEST_EMBER=false; fi
-  - if [ "$TEST" == "SAUCE" ]; then export TEST_SAUCE=true; else export TEST_SAUCE=false; fi
-  # provide yarn and bower if ember build is tested
-  - if $TEST_EMBER || $TEST_SAUCE; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
-  - if $TEST_EMBER || $TEST_SAUCE; then export PATH=$HOME/.yarn/bin:$PATH; fi
+  # provide yarn if ember build is tested
+  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
+  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ]; then export PATH=$HOME/.yarn/bin:$PATH; fi
 
 install:
   # install dependencies for client
-  - if $TEST_EMBER || $TEST_SAUCE; then yarn install --no-interactive; fi
+  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ]; then yarn install --no-interactive; fi
   # install dependencies for api
-  - if $TEST_API; then cd api/ && composer install && cd ..; fi
+  - if [ $TEST = "API" ]; then cd api/ && composer install && cd ..; fi
 
 before_script:
   # http://php.net/manual/de/ini.core.php#ini.always-populate-raw-post-data
-  - if $TEST_API; then echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
-  # create a sauce tunnel
-  - if $TEST_SAUCE; then node_modules/ember-cli/bin/ember sauce:connect; fi
+  - if [ $TEST = "API" ]; then echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
+  # create a browser stack tunnel for cross-browser testing
+  - if [ $TEST = "BROWSER" ]; then node_modules/ember-cli/bin/ember browserstack:connect; fi
 
 script:
   # run frontend and integration tests
-  - if $TEST_EMBER; then yarn run lint:hbs; fi
-  - if $TEST_EMBER; then yarn run lint:js; fi
-  - if $TEST_EMBER; then yarn test; fi
+  - if [ $TEST = "EMBER" ]; then yarn run lint:hbs; fi
+  - if [ $TEST = "EMBER" ]; then yarn run lint:js; fi
+  - if [ $TEST = "EMBER" ]; then yarn test; fi
   # test against different browsers using sauce lab
-  - if $TEST_SAUCE; then node_modules/ember-cli/bin/ember test --launch='SL_chrome,SL_firefox,SL_edge,SL_ie,SL_safari' --test-port 8080; fi
+  - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js; fi
   # run api tests with composer
-  - if $TEST_API; then cd api/ && ./vendor/bin/codecept run && cd ..; fi
+  - if [ $TEST = "API" ]; then cd api/ && ./vendor/bin/codecept run && cd ..; fi
 
 after_script:
   # destroy the sauce tunnel
-  - if $TEST_SAUCE; then node_modules/ember-cli/bin/ember sauce:disconnect; fi
+  - if [ $TEST = "BROWSER" ]; then node_modules/ember-cli/bin/ember browserstack:disconnect; fi

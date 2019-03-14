@@ -12,16 +12,14 @@ module('Unit | Controller | create/options datetime', function(hooks) {
     let controller = this.owner.factoryFor('controller:create/options-datetime').create({
       model: {
         options: [
-          EmberObject.create({ title: '2015-01-01T12:00:00.000Z' }),
+          EmberObject.create({ title: moment('2015-01-01T12:00').toISOString() }),
           dirtyOption,
           EmberObject.create({ title: '2017-11-11' }),
-          EmberObject.create({ title: '2018-04-04T11:11:00.000Z' })
+          EmberObject.create({ title: moment('2018-04-04T11:11').toISOString() })
         ]
       }
     });
-    run(() => {
-      controller.normalizeOptions();
-    });
+    controller.normalizeOptions();
     assert.equal(
       controller.get('options.length'),
       3,
