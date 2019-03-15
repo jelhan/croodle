@@ -49,7 +49,9 @@ script:
   - if [ $TEST = "EMBER" ]; then yarn run lint:js; fi
   - if [ $TEST = "EMBER" ]; then yarn test; fi
   # test against different browsers using sauce lab
-  - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js; fi
+  - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js --launch BS_IE_11; fi
+  - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js --launch BS_MS_EDGE; fi
+  - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js --launch BS_SAFARI_CURRENT; fi
   # run api tests with composer
   - if [ $TEST = "API" ]; then cd api/ && ./vendor/bin/codecept run && cd ..; fi
 
