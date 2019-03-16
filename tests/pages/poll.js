@@ -1,5 +1,4 @@
 import {
-  clickable,
   create,
   isVisible,
   text
@@ -13,7 +12,6 @@ const urlMatches = function(regExp) {
 };
 
 export const definition = {
-  copyUrl: clickable('.poll-link .copy-btn'),
   showsExpirationWarning: isVisible('.expiration-warning'),
   url: text('.poll-link .link a'),
   urlIsValid: urlMatches(/^\/poll\/[a-zA-Z0-9]{10}\/participation\?encryptionKey=[a-zA-Z0-9]{40}$/)

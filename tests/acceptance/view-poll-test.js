@@ -6,6 +6,7 @@ import switchTab from 'croodle/tests/helpers/switch-tab';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
 import moment from 'moment';
+import { triggerCopySuccess } from 'ember-cli-clipboard/test-support';
 
 module('Acceptance | view poll', function(hooks) {
   hooks.beforeEach(function() {
@@ -27,7 +28,7 @@ module('Acceptance | view poll', function(hooks) {
       'share link is shown'
     );
 
-    pageParticipation.copyUrl();
+    await triggerCopySuccess();
     /*
      * Can't test if link is actually copied to clipboard due to api
      * restrictions. Due to security it's not allowed to read from clipboard.
