@@ -18,7 +18,7 @@
     </h.row>
   </t.head>
 
-  <t.body @rows={{@users}} as |b|>
+  <t.body @rows={{this.usersSorted}} as |b|>
     <b.row
       data-test-participant={{b.rowValue.id}} as |r|
     >
@@ -31,7 +31,7 @@
             (object-at columnValue.index (get rowValue "selections"))
           as |selection|
           }}
-            {{#if isFreeText}}
+            {{#if this.isFreeText}}
               {{selection.label}}
             {{else}}
               {{#if selection.type}}

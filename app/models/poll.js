@@ -1,8 +1,7 @@
-import { computed } from '@ember/object';
 import DS from 'ember-data';
-import {
-  fragmentArray
-} from 'ember-data-model-fragments/attributes';
+import { fragmentArray } from 'ember-data-model-fragments/attributes';
+import { computed } from '@ember/object';
+import { equal } from '@ember/object/computed';
 
 const {
   attr,
@@ -64,15 +63,18 @@ export default Model.extend({
   /*
    * computed properties
    */
-  isFindADate: computed('pollType', function() {
-    return this.pollType === 'FindADate';
+  hasTimes: computed('options.[]', function() {
+    if (this.isMakeAPoll) {
+      return false;
+    }
+
+    return this.options.any((option) => {
+      let dayStringLength = 10; // 'YYYY-MM-DD'.length
+      return option.title.length > dayStringLength;
+    });
   }),
 
-  isFreeText: computed('answerType', function() {
-    return this.answerType === 'FreeText';
-  }),
-
-  isMakeAPoll: computed('pollType', function() {
-    return this.pollType === 'MakeAPoll';
-  })
+  isFindADate: equal('pollType', 'FindADate'),
+  isFreeText: equal('answerType', 'FreeText'),
+  isMakeAPoll: equal('pollType', 'MakeAPoll'),
 });

@@ -6,6 +6,11 @@ import { observer, computed } from '@ember/object';
 import moment from 'moment';
 
 export default Controller.extend({
+  encryption: service(),
+  flashMessages: service(),
+  i18n: service(),
+  router: service(),
+
   actions: {
     linkAction(type) {
       let flashMessages = this.flashMessages;
@@ -27,24 +32,8 @@ export default Controller.extend({
 
   currentLocale: readOnly('i18n.locale'),
 
-  encryption: service(),
   encryptionKey: '',
   queryParams: ['encryptionKey'],
-
-  flashMessages: service(),
-
-  hasTimes: computed('model.options.[]', function() {
-    if (this.get('model.isMakeAPoll')) {
-      return false;
-    } else {
-      return this.get('model.options').any((option) => {
-        let dayStringLength = 10; // 'YYYY-MM-DD'.length
-        return option.get('title').length > dayStringLength;
-      });
-    }
-  }),
-
-  i18n: service(),
 
   momentLongDayFormat: computed('currentLocale', function() {
     let currentLocale = this.currentLocale;
@@ -55,24 +44,26 @@ export default Controller.extend({
       .trim();
   }),
 
-  pollUrl: computed('currentPath', 'encryptionKey', function() {
+  poll: readOnly('model'),
+  pollUrl: computed('router.currentURL', 'encryptionKey', function() {
     return window.location.href;
   }),
 
+  // TODO: Remove this code. It's spooky.
   preventEncryptionKeyChanges: observer('encryptionKey', function() {
     if (
-      !isEmpty(this.get('encryption.key')) &&
-      this.encryptionKey !== this.get('encryption.key')
+      !isEmpty(this.encryption.key) &&
+      this.encryptionKey !== this.encryption.key
     ) {
       // work-a-round for url not being updated
-      window.location.hash = window.location.hash.replace(this.encryptionKey, this.get('encryption.key'));
+      window.location.hash = window.location.hash.replace(this.encryptionKey, this.encryption.key);
 
-      this.set('encryptionKey', this.get('encryption.key'));
+      this.set('encryptionKey', this.encryption.key);
     }
   }),
 
-  showExpirationWarning: computed('model.expirationDate', function() {
-    let expirationDate = this.get('model.expirationDate');
+  showExpirationWarning: computed('poll.expirationDate', function() {
+    let expirationDate = this.poll.expirationDate;
     if (isEmpty(expirationDate)) {
       return false;
     }
@@ -84,8 +75,8 @@ export default Controller.extend({
   /*
    * return true if current timezone differs from timezone poll got created with
    */
-  timezoneDiffers: computed('model.timezone', function() {
-    const modelTimezone = this.get('model.timezone');
+  timezoneDiffers: computed('poll.timezone', function() {
+    let modelTimezone = this.poll.timezone;
     return isPresent(modelTimezone) && moment.tz.guess() !== modelTimezone;
   }),
 
@@ -96,6 +87,6 @@ export default Controller.extend({
   }),
 
   timezone: computed('useLocalTimezone', function() {
-    return this.useLocalTimezone ? undefined : this.get('model.timezone');
+    return this.useLocalTimezone ? undefined : this.poll.timezone;
   })
 });

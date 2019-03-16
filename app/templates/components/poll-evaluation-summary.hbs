@@ -3,25 +3,25 @@
 </h2>
 
 <p class="participants">
-  {{t "poll.evaluation.participants" count=evaluationParticipants}}
+  {{t "poll.evaluation.participants" count=participantsCount}}
 </p>
 
 <p class="best-options">
   {{#if poll.isFindADate}}
     {{t
       "poll.evaluation.bestOption.label.findADate"
-      count=evaluationBestOptions.length
+      count=bestOptions.length
     }}
   {{else}}
     {{t
       "poll.evaluation.bestOption.label.makeAPoll"
-      count=evaluationBestOptions.length
+      count=bestOptions.length
     }}
   {{/if}}
 
-  {{#if evaluationBestOptionsMultiple}}
+  {{#if multipleBestOptions}}
     <ul>
-      {{#each evaluationBestOptions as |evaluationBestOption|}}
+      {{#each bestOptions as |evaluationBestOption|}}
         {{poll-evaluation-summary-option
           currentLocale=currentLocale
           evaluationBestOption=evaluationBestOption
@@ -35,7 +35,7 @@
   {{else}}
     {{poll-evaluation-summary-option
       currentLocale=currentLocale
-      evaluationBestOption=evaluationBestOptions.firstObject
+      evaluationBestOption=bestOptions.firstObject
       isFindADate=poll.isFindADate
       momentLongDayFormat=momentLongDayFormat
       tagName="span"
@@ -47,6 +47,6 @@
 <p class="last-participation">
   {{t
     "poll.evaluation.lastParticipation"
-    ago=(moment-from-now evaluationLastParticipation locale=currentLocale timezone=timezone)
+    ago=(moment-from-now lastParticipationAt locale=currentLocale timezone=timezone)
   }}
 </p>

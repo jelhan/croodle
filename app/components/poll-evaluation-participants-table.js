@@ -1,27 +1,10 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import { raw } from 'ember-awesome-macros';
-import { groupBy } from 'ember-awesome-macros/array';
+import { groupBy, sort } from 'ember-awesome-macros/array';
 
 export default Component.extend({
-  /**
-   * @property hasTimes
-   * @type {Boolean}
-   * @public
-   */
-
-  /**
-   * @property options
-   * @type {Option[]}
-   * @public
-   */
-
-  /**
-   * @property users
-   * @type {User[]}
-   * @public
-   */
-
   columns: computed('optionsGroupedByDays.[]', function() {
     let columns = [
       {
@@ -29,28 +12,9 @@ export default Component.extend({
         name: '',
         valuePath: 'name',
       }
-    ]
-    if (this.hasTimes) {
-      let index = 0;
-      return columns.concat(
-        this.optionsGroupedByDays.map(({ value, items }) => {
-          return {
-            momentFormat: this.momentLongDayFormat,
-            name: value,
-            subcolumns: items.map(({ date, hasTime }) => {
-              let subcolumn = {
-                isAnswerCell: true,
-                index,
-                momentFormat: hasTime ? 'LT' : null,
-                name: hasTime ? date : '',
-              };
-              index++;
-              return subcolumn;
-            }),
-          };
-        })
-      );
-    } else {
+    ];
+
+    if (!this.hasTimes) {
       return columns.concat(
         this.options.map(({ title }, index) => {
           return {
@@ -62,6 +26,35 @@ export default Component.extend({
         })
       );
     }
+
+    let index = 0;
+    return columns.concat(
+      this.optionsGroupedByDays.map(({ value, items }) => {
+        return {
+          momentFormat: this.momentLongDayFormat,
+          name: value,
+          subcolumns: items.map(({ date, hasTime }) => {
+            let subcolumn = {
+              isAnswerCell: true,
+              index,
+              momentFormat: hasTime ? 'LT' : null,
+              name: hasTime ? date : '',
+            };
+            index++;
+            return subcolumn;
+          }),
+        };
+      })
+    );
   }),
+
+  hasTimes: readOnly('poll.hasTimes'),
+
+  isFreeText: readOnly('poll.isFreeText'),
+
+  options: readOnly('poll.options'),
   optionsGroupedByDays: groupBy('options', raw('day')),
+
+  users: readOnly('poll.users'),
+  usersSorted: sort('users', ['creationDate']),
 });

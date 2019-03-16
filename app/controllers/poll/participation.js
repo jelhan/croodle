@@ -25,7 +25,7 @@ const Validations = buildValidations({
       dependentKeys: ['model.i18n.locale']
     }),
     validator('unique', {
-      parent: 'pollController.model',
+      parent: 'poll',
       attributeInParent: 'users',
       dependentKeys: ['model.poll.users.[]', 'model.poll.users.@each.name', 'model.i18n.locale'],
       disable: readOnly('model.anonymousUser'),
@@ -58,67 +58,74 @@ const SelectionValidations = buildValidations({
 export default Controller.extend(Validations, {
   actions: {
     submit() {
-      if (this.get('validations.isValid')) {
-        const user = this.store.createRecord('user', {
-          creationDate: new Date(),
-          poll: this.get('pollController.model'),
-          version: config.APP.version,
-        });
-
-        user.set('name', this.name);
-
-        const selections = user.get('selections');
-        const possibleAnswers = this.get('pollController.model.answers');
-
-        this.selections.forEach((selection) => {
-          if (selection.get('value') !== null) {
-            if (this.isFreeText) {
-              selections.createFragment({
-                label: selection.get('value')
-              });
-            } else {
-              const answer = possibleAnswers.findBy('type', selection.get('value'));
-              selections.createFragment({
-                icon: answer.get('icon'),
-                label: answer.get('label'),
-                labelTranslation: answer.get('labelTranslation'),
-                type: answer.get('type')
-              });
-            }
-          } else {
-            selections.createFragment();
-          }
-        });
-
-        this.set('newUserRecord', user);
-        this.send('save');
+      if (!this.get('validations.isValid')) {
+        return;
       }
+
+      let poll = this.poll;
+      let selections = this.selections.map(({ value }) => {
+        if (value === null) {
+          return {};
+        }
+
+        if (this.isFreeText) {
+          return {
+            label: value,
+          };
+        }
+
+        // map selection to answer if it's not freetext
+        let answer = poll.answers.findBy('type', value);
+        let { icon, label, labelTranslation, type } = answer;
+
+        return {
+          icon,
+          label,
+          labelTranslation,
+          type,
+        };
+      });
+      let user = this.store.createRecord('user', {
+        creationDate: new Date(),
+        name: this.name,
+        poll,
+        selections,
+        version: config.APP.version,
+      });
+
+      this.set('newUserRecord', user);
+      this.send('save');
     },
-    save() {
-      const user = this.newUserRecord;
-      user.save()
-      .then(() => {
+    async save() {
+      let user = this.newUserRecord;
+
+      try {
+        await user.save();
+
         this.set('savingFailed', false);
-
-        // reset form
-        this.set('name', '');
-        this.selections.forEach((selection) => {
-          selection.set('value', null);
-        });
-
-        this.transitionToRoute('poll.evaluation', this.model, {
-          queryParams: { encryptionKey: this.get('encryption.key') }
-        });
-      }, () => {
+      } catch (error) {
+        // couldn't save user model
         this.set('savingFailed', true);
+
+        return;
+      }
+
+      // reset form
+      this.set('name', '');
+      this.selections.forEach((selection) => {
+        selection.set('value', null);
+      });
+
+      this.transitionToRoute('poll.evaluation', this.model, {
+        queryParams: { encryptionKey: this.encryption.key }
       });
     }
   },
 
-  anonymousUser: readOnly('pollController.model.anonymousUser'),
+  anonymousUser: readOnly('poll.anonymousUser'),
   currentLocale: readOnly('i18n.locale'),
   encryption: service(),
-  forceAnswer: readOnly('pollController.model.forceAnswer'),
+  forceAnswer: readOnly('poll.forceAnswer'),
   i18n: service(),
 
   init() {
@@ -127,19 +134,20 @@ export default Controller.extend(Validations, {
     this.get('i18n.locale');
   },
 
-  isFreeText: readOnly('pollController.model.isFreeText'),
-  isFindADate: readOnly('pollController.model.isFindADate'),
+  isFreeText: readOnly('poll.isFreeText'),
+  isFindADate: readOnly('poll.isFindADate'),
 
   momentLongDayFormat: readOnly('pollController.momentLongDayFormat'),
 
   name: '',
 
-  options: readOnly('pollController.model.options'),
+  options: readOnly('poll.options'),
 
+  poll: readOnly('model'),
   pollController: controller('poll'),
 
-  possibleAnswers: computed('pollController.model.answers', function() {
-    return this.get('pollController.model.answers').map((answer) => {
+  possibleAnswers: computed('poll.answers', function() {
+    return this.get('poll.answers').map((answer) => {
       const owner = getOwner(this);
 
       const AnswerObject = EmberObject.extend({
