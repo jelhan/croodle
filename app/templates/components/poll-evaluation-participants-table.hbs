@@ -1,51 +1,69 @@
-<EmberTable
-  class="participants-table"
-  data-test-table-of="participants" as |t|
+<table
+  class="table participants-table"
+  data-test-table-of="participants"
 >
-  <t.head
-    @columns={{this.columns}}
-    @enableReorder={{false}}
-    @enableResize={{false}} as |h|
-  >
-    <h.row as |r|>
-      <r.cell as |column|>
-        {{#if column.momentFormat}}
-          {{moment-format column.name column.momentFormat}}
-        {{else}}
-          {{column.name}}
-        {{/if}}
-      </r.cell>
-    </h.row>
-  </t.head>
+  <thead>
+    {{#if this.hasTimes}}
+      <tr>
+        <th>
+          {{!-- column for name --}}
+        </th>
+        {{#each this.optionsGroupedByDays as |optionGroup|}}
+          <th colspan={{optionGroup.items.length}}>
+            {{moment-format optionGroup.value this.momentLongDayFormat}}
+          </th>
+        {{/each}}
+      </tr>
+    {{/if}}
 
-  <t.body @rows={{this.usersSorted}} as |b|>
-    <b.row
-      data-test-participant={{b.rowValue.id}} as |r|
-    >
-      <r.cell
-        data-test-value-for={{if r.columnValue.isAnswerCell r.columnValue.name "name"}}
-        data-test-is-selection-cell={{r.columnValue.isAnswerCell}} as |cellValue columnValue rowValue|
-      >
-        {{#if columnValue.isAnswerCell}}
-          {{#let
-            (object-at columnValue.index (get rowValue "selections"))
-          as |selection|
-          }}
-            {{#if this.isFreeText}}
-              {{selection.label}}
-            {{else}}
-              {{#if selection.type}}
-                <span class={{selection.type}}>
-                  <span class={{selection.icon}}></span>
-                  {{t selection.labelTranslation}}
-                </span>
-              {{/if}}
+    <tr>
+      <th>
+        {{!-- column for name --}}
+      </th>
+      {{#each this.options as |option|}}
+        <th>
+          {{#if (and this.isFindADate this.hasTimes)}}
+            {{#if option.hasTime}}
+              {{moment-format option.date "LT"}}
             {{/if}}
-          {{/let}}
-        {{else}}
-          {{cellValue}}
-        {{/if}}
-      </r.cell>
-    </b.row>
-  </t.body>
-</EmberTable>
+          {{else if this.isFindADate}}
+            {{moment-format option.date this.momentLongDayFormat}}
+          {{else}}
+            {{option.title}}
+          {{/if}}
+        </th>
+      {{/each}}
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each this.usersSorted as |user|}}
+      <tr data-test-participant={{user.id}}>
+        <td
+          data-test-value-for="name"
+        >
+          {{user.name}}
+        </td>
+        {{#each this.options as |option index|}}
+          <td
+            data-test-is-selection-cell
+            data-test-value-for={{option.value}}
+          >
+            {{#let (object-at index user.selections) as |selection|}}
+              {{#if this.isFreeText}}
+                {{selection.label}}
+              {{else}}
+                {{#if selection.type}}
+                  <span class={{selection.type}}>
+                    <span class={{selection.icon}}></span>
+                    {{t selection.labelTranslation}}
+                  </span>
+                {{/if}}
+              {{/if}}
+            {{/let}}
+          </td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
