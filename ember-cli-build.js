@@ -23,7 +23,7 @@ module.exports = function(defaults) {
       only: ['array', 'object-at'],
     },
     'ember-math-helpers': {
-      only: ['gt', 'lte', 'sub'],
+      only: ['lte', 'sub'],
     },
   });
 
