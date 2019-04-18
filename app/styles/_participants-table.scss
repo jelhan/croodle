@@ -1,21 +1,44 @@
 #poll {
   .participants-table {
-    max-height: 100vh;
+    max-height: 95vh;
+    width: 100%;
+    overflow: scroll;
 
     table {
+      overflow: scroll;
+
       th, td {
         white-space: nowrap;
       }
 
       thead {
-        tr {
-          th {
-            background-color: #fff;
-          }
+        // position sticky on thead is not supported by Chrome and Edge
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background-color: #fff;
 
+        tr {
           &:not(:last-child) th:not([rowspan="2"]) {
             // do not show a border between rows of a multi-row header
             border-bottom: 0;
+          }
+        }
+      }
+
+      thead,
+      tbody {
+        tr {
+          th,
+          td {
+            &:first-child {
+              position: -webkit-sticky;
+              position: sticky;
+              left: 0;
+              z-index: 200;
+              background-color: #fff;
+            }
           }
         }
       }

@@ -1,69 +1,71 @@
-<table
-  class="table participants-table"
-  data-test-table-of="participants"
->
-  <thead>
-    {{#if this.hasTimes}}
+<div class="participants-table">
+  <table
+    class="table"
+    data-test-table-of="participants"
+  >
+    <thead>
+      {{#if this.hasTimes}}
+        <tr>
+          <th>
+            {{!-- column for name --}}
+          </th>
+          {{#each this.optionsGroupedByDays as |optionGroup|}}
+            <th colspan={{optionGroup.items.length}}>
+              {{moment-format optionGroup.value this.momentLongDayFormat}}
+            </th>
+          {{/each}}
+        </tr>
+      {{/if}}
+
       <tr>
         <th>
           {{!-- column for name --}}
         </th>
-        {{#each this.optionsGroupedByDays as |optionGroup|}}
-          <th colspan={{optionGroup.items.length}}>
-            {{moment-format optionGroup.value this.momentLongDayFormat}}
+        {{#each this.options as |option|}}
+          <th>
+            {{#if (and this.isFindADate this.hasTimes)}}
+              {{#if option.hasTime}}
+                {{moment-format option.date "LT"}}
+              {{/if}}
+            {{else if this.isFindADate}}
+              {{moment-format option.date this.momentLongDayFormat}}
+            {{else}}
+              {{option.title}}
+            {{/if}}
           </th>
         {{/each}}
       </tr>
-    {{/if}}
+    </thead>
 
-    <tr>
-      <th>
-        {{!-- column for name --}}
-      </th>
-      {{#each this.options as |option|}}
-        <th>
-          {{#if (and this.isFindADate this.hasTimes)}}
-            {{#if option.hasTime}}
-              {{moment-format option.date "LT"}}
-            {{/if}}
-          {{else if this.isFindADate}}
-            {{moment-format option.date this.momentLongDayFormat}}
-          {{else}}
-            {{option.title}}
-          {{/if}}
-        </th>
-      {{/each}}
-    </tr>
-  </thead>
-
-  <tbody>
-    {{#each this.usersSorted as |user|}}
-      <tr data-test-participant={{user.id}}>
-        <td
-          data-test-value-for="name"
-        >
-          {{user.name}}
-        </td>
-        {{#each this.options as |option index|}}
+    <tbody>
+      {{#each this.usersSorted as |user|}}
+        <tr data-test-participant={{user.id}}>
           <td
-            data-test-is-selection-cell
-            data-test-value-for={{option.value}}
+            data-test-value-for="name"
           >
-            {{#let (object-at index user.selections) as |selection|}}
-              {{#if this.isFreeText}}
-                {{selection.label}}
-              {{else}}
-                {{#if selection.type}}
-                  <span class={{selection.type}}>
-                    <span class={{selection.icon}}></span>
-                    {{t selection.labelTranslation}}
-                  </span>
-                {{/if}}
-              {{/if}}
-            {{/let}}
+            {{user.name}}
           </td>
-        {{/each}}
-      </tr>
-    {{/each}}
-  </tbody>
-</table>
+          {{#each this.options as |option index|}}
+            <td
+              data-test-is-selection-cell
+              data-test-value-for={{option.value}}
+            >
+              {{#let (object-at index user.selections) as |selection|}}
+                {{#if this.isFreeText}}
+                  {{selection.label}}
+                {{else}}
+                  {{#if selection.type}}
+                    <span class={{selection.type}}>
+                      <span class={{selection.icon}}></span>
+                      {{t selection.labelTranslation}}
+                    </span>
+                  {{/if}}
+                {{/if}}
+              {{/let}}
+            </td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
