@@ -1,5 +1,6 @@
 @import "ember-bootstrap/bootstrap";
 @import "calendar";
+@import "participants-table";
 
 table tr td .form-group {
   margin-bottom:0;
@@ -168,25 +169,7 @@ body {
   left:100%;
   animation-delay:1.43s;
 }
-/*
- * using floatThead with Bootstrap 3 fix
- * https://mkoryak.github.io/floatThead/examples/bootstrap3/
- */
-table.floatThead-table {
-  border-top:none;
-  border-bottom:none;
-  background-color:#ffffff;
-}
-#poll table tr th,
-#poll table tr td {
-  white-space: nowrap;
-}
-#poll table thead tr.dateGroups th {
-  border-bottom: none;
-}
-#poll table thead tr.dateGroups ~ tr th {
-  border-top: none;
-}
+
 ul.nav-tabs {
   margin-bottom: 15px;
 }

@@ -16,7 +16,7 @@
     }}
       {{#autofocusable-element
         tagName="select"
-        onchange=(action "updateAnswerType" value="target.value")
+        change=(action "updateAnswerType" value="target.value")
         id=el.id
         class="form-control"
       }}
@@ -52,14 +52,14 @@
       controlType="checkbox"
       label=(t "create.settings.anonymousUser.label")
       showValidationOn="change"
-      value=anonymousUser
+      property="anonymousUser"
     }}
     {{form.element
       classNames="force-answer"
       controlType="checkbox"
       label=(t "create.settings.forceAnswer.label")
       showValidationOn="change"
-      value=forceAnswer
+      property="forceAnswer"
     }}
     {{form-navigation-buttons
       nextButtonText=(t "action.save")

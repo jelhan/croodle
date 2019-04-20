@@ -1,32 +1,31 @@
 import { inject as service } from '@ember/service';
-import { reads, readOnly, sort } from '@ember/object/computed';
+import { and, gt, not, readOnly } from '@ember/object/computed';
 import $ from 'jquery';
 import { computed } from '@ember/object';
 import Controller, { inject as controller } from '@ember/controller';
 
 export default Controller.extend({
-  currentLocale: reads('i18n.locale'),
+  currentLocale: readOnly('i18n.locale'),
 
-  hasTimes: reads('pollController.hasTimes'),
+  hasTimes: readOnly('poll.hasTimes'),
 
   i18n: service(),
 
   momentLongDayFormat: readOnly('pollController.momentLongDayFormat'),
 
+  poll: readOnly('model'),
   pollController: controller('poll'),
 
-  sortedUsers: sort('pollController.model.users', 'usersSorting'),
-  usersSorting: computed(() => ['creationDate']),
+  timezone: readOnly('pollController.timezone'),
 
-  timezone: reads('pollController.timezone'),
+  users: readOnly('poll.users'),
 
   /*
    * evaluates poll data
    * if free text answers are allowed evaluation is disabled
    */
-  evaluation: computed('model.users.[]', function() {
-    // disable evaluation if answer type is free text
-    if (this.get('model.answerType') === 'FreeText') {
+  evaluation: computed('users.[]', function() {
+    if (!this.isEvaluable) {
       return [];
     }
 
@@ -35,13 +34,13 @@ export default Controller.extend({
     let lookup = [];
 
     // init options array
-    this.get('model.options').forEach(function(option, index) {
+    this.poll.options.forEach((option, index) => {
       options[index] = 0;
     });
 
     // init array of evalutation objects
     // create object for every possible answer
-    this.get('model.answers').forEach(function(answer) {
+    this.poll.answers.forEach((answer) => {
       evaluation.push({
         id: answer.label,
         label: answer.label,
@@ -49,7 +48,7 @@ export default Controller.extend({
       });
     });
     // create object for no answer if answers are not forced
-    if (!this.get('model.forceAnswer')) {
+    if (!this.poll.forceAnswer) {
       evaluation.push({
         id: null,
         label: 'no answer',
@@ -63,21 +62,21 @@ export default Controller.extend({
     });
 
     // loop over all users
-    this.get('model.users').forEach(function(user) {
+    this.poll.users.forEach((user) => {
       // loop over all selections of the user
-      user.get('selections').forEach(function(selection, optionindex) {
-        let answerindex;
+      user.selections.forEach(function(selection, optionIndex) {
+        let answerIndex;
 
         // get answer index by lookup array
-        if (typeof lookup[selection.get('value.label')] === 'undefined') {
-          answerindex = lookup[null];
+        if (typeof lookup[selection.value.label] === 'undefined') {
+          answerIndex = lookup[null];
         } else {
-          answerindex = lookup[selection.get('value.label')];
+          answerIndex = lookup[selection.get('value.label')];
         }
 
         // increment counter
         try {
-          evaluation[answerindex].options[optionindex] = evaluation[answerindex].options[optionindex] + 1;
+          evaluation[answerIndex].options[optionIndex]++;
         } catch (e) {
           // ToDo: Throw an error
         }
@@ -87,26 +86,7 @@ export default Controller.extend({
     return evaluation;
   }),
 
-  /*
-   * calculate colspan for a row which should use all columns in table
-   * used by evaluation row
-   */
-  fullRowColspan: computed('model.options.[]', function() {
-    return this.get('model.options.length') + 2;
-  }),
-
-  isEvaluable: computed('model.{users.[],isFreeText}', function() {
-    if (
-      !this.get('model.isFreeText') &&
-      this.get('model.users.length') > 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }),
-
-  optionCount: computed('model.options', function() {
-    return this.get('model.options.length');
-  })
+  hasUsers: gt('poll.users.length', 0),
+  isNotFreeText: not('poll.isFreeText'),
+  isEvaluable: and('hasUsers', 'isNotFreeText'),
 });

@@ -1,27 +1,31 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { gt, mapBy, max, readOnly } from '@ember/object/computed';
 import { copy } from '@ember/object/internals';
 import { isEmpty } from '@ember/utils';
+import { inject as service } from '@ember/service';
 
 export default Component.extend({
+  i18n: service(),
+
   classNames: ['evaluation-summary'],
 
-  evaluationBestOptions: computed('poll.users.[]', function() {
+  bestOptions: computed('users.[]', function() {
     // can not evaluate answer type free text
     if (this.get('poll.isFreeText')) {
       return undefined;
     }
 
     // can not evaluate a poll without users
-    if (isEmpty(this.get('poll.users'))) {
+    if (isEmpty(this.users)) {
       return undefined;
     }
 
-    let answers = this.get('poll.answers').reduce((answers, answer) => {
+    let answers = this.poll.answers.reduce((answers, answer) => {
       answers[answer.get('type')] = 0;
       return answers;
     }, {});
-    let evaluation = this.get('poll.options').map((option) => {
+    let evaluation = this.poll.options.map((option) => {
       return {
         answers: copy(answers),
         option,
@@ -30,11 +34,11 @@ export default Component.extend({
     });
     let bestOptions = [];
 
-    this.get('poll.users').forEach(function(user) {
-      user.get('selections').forEach(function(selection, i) {
-        evaluation[i].answers[selection.get('type')]++;
+    this.users.forEach((user) => {
+      user.selections.forEach(({ type }, i) => {
+        evaluation[i].answers[type]++;
 
-        switch (selection.get('type')) {
+        switch (type) {
           case 'yes':
             evaluation[i].score += 2;
             break;
@@ -50,9 +54,7 @@ export default Component.extend({
       });
     });
 
-    evaluation.sort(function(a, b) {
-      return b.score - a.score;
-    });
+    evaluation.sort((a, b) => b.score - a.score);
 
     let bestScore = evaluation[0].score;
     for (let i = 0; i < evaluation.length; i++) {
@@ -70,19 +72,14 @@ export default Component.extend({
     return bestOptions;
   }),
 
-  evaluationBestOptionsMultiple: computed('evaluationBestOptions', function() {
-    if (this.get('evaluationBestOptions.length') > 1) {
-      return true;
-    } else {
-      return false;
-    }
-  }),
+  currentLocale: readOnly('i18n.locale'),
 
-  evaluationLastParticipation: computed('sortedUsers.[]', function() {
-    return this.get('sortedUsers.lastObject.creationDate');
-  }),
+  multipleBestOptions: gt('bestOptions.length', 1),
 
-  evaluationParticipants: computed('poll.users.[]', function() {
-    return this.get('poll.users.length');
-  })
+  lastParticipationAt: max('participationDates'),
+  participationDates: mapBy('users', 'creationDate'),
+
+  participantsCount: readOnly('users.length'),
+
+  users: readOnly('poll.users'),
 });

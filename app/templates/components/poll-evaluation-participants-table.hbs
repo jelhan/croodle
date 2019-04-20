@@ -1,44 +1,34 @@
-<div class="table-scroll">
-  <table class="user-selections-table table table-striped table-condensed">
+<div class="participants-table">
+  <table
+    class="table"
+    data-test-table-of="participants"
+  >
     <thead>
-      {{#if hasTimes}}
-        <tr class="dateGroups">
-          <th>&nbsp;</th>
-          {{#each optionsGroupedByDates as |optionGroup|}}
+      {{#if this.hasTimes}}
+        <tr>
+          <th>
+            {{!-- column for name --}}
+          </th>
+          {{#each this.optionsGroupedByDays as |optionGroup|}}
             <th colspan={{optionGroup.items.length}}>
-              {{moment-format
-                optionGroup.value
-                momentLongDayFormat
-                locale=currentLocale
-                timeZone=timezone
-              }}
+              {{moment-format optionGroup.value this.momentLongDayFormat}}
             </th>
           {{/each}}
-          <th>&nbsp;</th>
         </tr>
       {{/if}}
+
       <tr>
-        <th>&nbsp;</th>
-        {{#each options as |option|}}
+        <th>
+          {{!-- column for name --}}
+        </th>
+        {{#each this.options as |option|}}
           <th>
-            {{#if isFindADate}}
-              {{#if hasTimes}}
-                {{#if option.hasTime}}
-                  {{moment-format
-                    option.title
-                    "LT"
-                    locale=currentLocale
-                    timeZone=timezone
-                  }}
-                {{/if}}
-              {{else}}
-                {{moment-format
-                  option.title
-                  momentLongDayFormat
-                  locale=currentLocale
-                  timeZone=timezone
-                }}
+            {{#if (and this.isFindADate this.hasTimes)}}
+              {{#if option.hasTime}}
+                {{moment-format option.date "LT"}}
               {{/if}}
+            {{else if this.isFindADate}}
+              {{moment-format option.date this.momentLongDayFormat}}
             {{else}}
               {{option.title}}
             {{/if}}
@@ -48,24 +38,30 @@
     </thead>
 
     <tbody>
-      {{#each sortedUsers as |user|}}
-        <tr class="user">
-          <td>{{user.name}}</td>
-          {{#each user.selections as |selection|}}
-            <td>
-              {{#if selection.label}}
-                {{#if isFreeText}}
+      {{#each this.usersSorted as |user|}}
+        <tr data-test-participant={{user.id}}>
+          <td
+            data-test-value-for="name"
+          >
+            {{user.name}}
+          </td>
+          {{#each this.options as |option index|}}
+            <td
+              data-test-is-selection-cell
+              data-test-value-for={{option.value}}
+            >
+              {{#let (object-at index user.selections) as |selection|}}
+                {{#if this.isFreeText}}
                   {{selection.label}}
+                {{else}}
+                  {{#if selection.type}}
+                    <span class={{selection.type}}>
+                      <span class={{selection.icon}}></span>
+                      {{t selection.labelTranslation}}
+                    </span>
+                  {{/if}}
                 {{/if}}
-              {{/if}}
-              {{#if selection.labelTranslation}}
-                {{#unless isFreeText}}
-                  <span class={{selection.type}}>
-                    <span class={{selection.icon}}></span>
-                    {{t selection.labelTranslation}}
-                  </span>
-                {{/unless}}
-              {{/if}}
+              {{/let}}
             </td>
           {{/each}}
         </tr>

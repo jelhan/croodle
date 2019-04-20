@@ -1,32 +1,21 @@
 {{#if isEvaluable}}
   {{poll-evaluation-summary
-    currentLocale=currentLocale
     momentLongDayFormat=momentLongDayFormat
-    poll=model
-    sortedUsers=sortedUsers
+    poll=poll
     timezone=timezone
   }}
 
   <h3>{{t "poll.evaluation.overview"}}</h3>
   {{poll-evaluation-chart
-    answerType=model.answerType
-    currentLocale=currentLocale
-    isFindADate=model.isFindADate
     momentLongDayFormat=momentLongDayFormat
-    options=model.options
-    users=model.users
+    poll=poll
     timezone=timezone
   }}
 {{/if}}
 
 <h3>{{t "poll.evaluation.participantTable"}}</h3>
 {{poll-evaluation-participants-table
-  currentLocale=currentLocale
-  hasTimes=hasTimes
-  isFindADate=model.isFindADate
-  isFreeText=model.isFreeText
   momentLongDayFormat=momentLongDayFormat
-  options=model.options
-  sortedUsers=sortedUsers
+  poll=poll
   timezone=timezone
 }}

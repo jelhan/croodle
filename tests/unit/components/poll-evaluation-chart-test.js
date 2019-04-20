@@ -67,21 +67,22 @@ module('Unit | Component | poll evaluation chart', function(hooks) {
         ]
       })
     ];
-    let currentLocale = 'en';
-    let momentLongDayFormat = moment.localeData(currentLocale)
+    let momentLongDayFormat = moment.localeData('en')
       .longDateFormat('LLLL')
       .replace(
-        moment.localeData(currentLocale).longDateFormat('LT'), '')
+        moment.localeData('en').longDateFormat('LT'), '')
       .trim();
     let component = this.owner.factoryFor('component:poll-evaluation-chart').create({
-      answerType: 'YesNoMaybe',
-      currentLocale,
-      isFindADate: true,
       momentLongDayFormat,
-      options,
+      poll: {
+        answerType: 'YesNoMaybe',
+        isFindADate: true,
+        options,
+        users,
+      },
       timezone: 'Asia/Hong_Kong',
-      users
     });
+
     const data = component.get('data');
     assert.deepEqual(
       data.labels,
@@ -126,45 +127,48 @@ module('Unit | Component | poll evaluation chart', function(hooks) {
       })
     ];
     let component = this.owner.factoryFor('component:poll-evaluation-chart').create({
-      answerType: 'YesNoMaybe',
-      options,
-      users: [
-        EmberObject.create({
-          id: 1,
-          selections: [
-            EmberObject.create({
-              type: 'yes'
-            }),
-            EmberObject.create({
-              type: 'yes'
-            }),
-            EmberObject.create({
-              type: 'maybe'
-            }),
-            EmberObject.create({
-              type: 'no'
-            })
-          ]
-        }),
-        EmberObject.create({
-          id: 2,
-          selections: [
-            EmberObject.create({
-              type: 'yes'
-            }),
-            EmberObject.create({
-              type: 'maybe'
-            }),
-            EmberObject.create({
-              type: 'no'
-            }),
-            EmberObject.create({
-              type: 'no'
-            })
-          ]
-        })
-      ]
+      poll: {
+        answerType: 'YesNoMaybe',
+        options,
+        users: [
+          EmberObject.create({
+            id: 1,
+            selections: [
+              EmberObject.create({
+                type: 'yes'
+              }),
+              EmberObject.create({
+                type: 'yes'
+              }),
+              EmberObject.create({
+                type: 'maybe'
+              }),
+              EmberObject.create({
+                type: 'no'
+              })
+            ]
+          }),
+          EmberObject.create({
+            id: 2,
+            selections: [
+              EmberObject.create({
+                type: 'yes'
+              }),
+              EmberObject.create({
+                type: 'maybe'
+              }),
+              EmberObject.create({
+                type: 'no'
+              }),
+              EmberObject.create({
+                type: 'no'
+              })
+            ]
+          })
+        ]
+      }
     });
+
     const data = component.get('data');
     assert.deepEqual(
       data.labels,
@@ -244,21 +248,22 @@ module('Unit | Component | poll evaluation chart', function(hooks) {
         ]
       })
     ];
-    let currentLocale = 'en';
-    let momentLongDayFormat = moment.localeData(currentLocale)
+    let momentLongDayFormat = moment.localeData('en')
       .longDateFormat('LLLL')
       .replace(
-        moment.localeData(currentLocale).longDateFormat('LT'), '')
+        moment.localeData('en').longDateFormat('LT'), '')
       .trim();
     let component = this.owner.factoryFor('component:poll-evaluation-chart').create({
-      answerType: 'YesNoMaybe',
-      currentLocale,
-      isFindADate: true,
       momentLongDayFormat,
-      options,
+      poll: {
+        answerType: 'YesNoMaybe',
+        isFindADate: true,
+        options,
+        users,
+      },
       timezone: 'Asia/Hong_Kong',
-      users
     });
+
     const data = component.get('data');
     assert.deepEqual(
       data.labels,
@@ -294,14 +299,15 @@ module('Unit | Component | poll evaluation chart', function(hooks) {
       })
     ];
     let component = this.owner.factoryFor('component:poll-evaluation-chart').create({
-      answerType: 'YesNoMaybe',
-      currentLocale: 'en',
-      isFindADate: true,
       momentLongDayFormat: '',
-      options,
-      timezone: undefined,
-      users: []
+      poll: {
+        answerType: 'YesNoMaybe',
+        isFindADate: true,
+        options,
+        users: [],
+      },
     });
+
     const data = component.get('data');
     assert.deepEqual(
       data.labels,

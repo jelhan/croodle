@@ -69,7 +69,6 @@
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^5.2.0",
-    "floatthead": "^2.1.2",
     "fs-extra": "^7.0.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.7.1",
