@@ -1,11 +1,12 @@
 /* eslint-env node */
 module.exports = {
-  'test_page': 'tests/index.html?hidepassed',
-  'disable_watching': true,
-  'parallel': 5,
+  test_page: 'tests/index.html?hidepassed',
+  disable_watching: true,
+  parallel: 4,
+  timeout: 1200,
   browser_start_timeout: 2000,
   browser_disconnect_timeout: 120,
-  'launch_in_ci': [
+  launch_in_ci: [
     'BS_IE_11',
     'BS_MS_Edge',
     'BS_Safari_Current',
