@@ -7,9 +7,6 @@ module.exports = function(defaults) {
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
     },
-    'ember-auto-import': {
-      forbidEval: true,
-    },
     'ember-bootstrap': {
       importBootstrapCSS: false,
       'bootstrapVersion': 3,
