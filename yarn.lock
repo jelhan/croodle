@@ -3970,9 +3970,9 @@ ember-cli-normalize-entity-name@^1.0.0:
     silent-error "^1.0.0"
 
 ember-cli-page-object@^1.11.0:
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-page-object/-/ember-cli-page-object-1.15.1.tgz#da1f870638584b17e183d0014b4efb15465fadd5"
-  integrity sha512-/oUkiha+CLUNQGkQLHJ+mw9rm/V6Gi3VGgzKo7laEGZe6Mk8jl13otxEKWKI2NTJmL69fZxPPfFsqQqpzN+0UA==
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/ember-cli-page-object/-/ember-cli-page-object-1.15.3.tgz#4b1814e270367a455353aeb81019fb8d8c641886"
+  integrity sha512-wGZqQnsyFHcJilf0xcWa53my/bprtZWHXg7m6wZPbWbnJCXNf1aAouj9uwH77r3PnE+/uYt0MIKMfX3Cnd607g==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-merge-trees "^2.0.0"
@@ -6560,9 +6560,9 @@ jquery-deferred@^0.3.0:
   integrity sha1-WW7KHKr/VPYbEQlisjyv6nTDU1U=
 
 jquery@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
-  integrity sha1-XE2d5lKvbNCncBVKYxu6ErAVx4c=
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.0.tgz#8de513fa0fa4b2c7d2e48a530e26f0596936efdf"
+  integrity sha512-ggRCXln9zEqv6OqAGXFEcshF5dSBvCkzj6Gm2gzuR5fWawaX8t7cxKVkkygKODrDAzKdoYw3l/e3pm3vlT4IbQ==
 
 jquery@^3.3.1:
   version "3.3.1"
