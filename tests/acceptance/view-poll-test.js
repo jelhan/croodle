@@ -1,4 +1,4 @@
-import { click, visit } from '@ember/test-helpers';
+import { click, currentURL, currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
@@ -211,4 +211,37 @@ module('Acceptance | view poll', function(hooks) {
       [moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')]
     );
   });
+
+  test('shows error page if poll does not exist', async function(assert) {
+    let pollId = 'not-existing';
+    let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+    await visit(`/poll/${pollId}?encryptionKey=${encryptionKey}`);
+    assert.equal(currentURL(), `/poll/${pollId}?encryptionKey=${encryptionKey}`, 'shows URL entered by user');
+    assert.equal(currentRouteName(), 'poll_error', 'shows error substate of poll route');
+    assert.dom('[data-test-error-type]').hasAttribute('data-test-error-type', 'not-found');
+  });
+
+  test('shows error page if encryption key is wrong', async function(assert) {
+    let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let poll = this.server.create('poll', { encryptionKey: 'anotherkey' });
+
+    await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
+    assert.equal(currentURL(), `/poll/${poll.id}?encryptionKey=${encryptionKey}`, 'shows URL entered by user');
+    assert.equal(currentRouteName(), 'poll_error', 'shows error substate of poll route');
+    assert.dom('[data-test-error-type]').hasAttribute('data-test-error-type', 'decryption-failed');
+  });
+
+  test('shows error page if server returns a 500', async function(assert) {
+    let pollId = 'not-existing';
+    let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+    // mock server returning 500 error
+    this.server.get('polls/:id', () => {}, 500);
+
+    await visit(`/poll/${pollId}?encryptionKey=${encryptionKey}`);
+    assert.equal(currentURL(), `/poll/${pollId}?encryptionKey=${encryptionKey}`, 'shows URL entered by user');
+    assert.equal(currentRouteName(), 'poll_error', 'shows error substate of poll route');
+    assert.dom('[data-test-error-type]').hasAttribute('data-test-error-type', 'unexpected');
+  })
 });
