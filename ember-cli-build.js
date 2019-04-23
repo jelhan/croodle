@@ -4,6 +4,13 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
+    autoImport: {
+      // exclude sjcl from auto imports as it's imported through `app.import()`
+      // to avoid blowing up build size
+      // https://github.com/ef4/ember-auto-import/issues/208
+      exclude: ['sjcl'],
+      forbidEval: true,
+    },
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
     },
