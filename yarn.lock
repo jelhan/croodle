@@ -3927,17 +3927,15 @@ ember-cli-dependency-checker@^3.1.0:
     resolve "^1.5.0"
     semver "^5.3.0"
 
-ember-cli-deprecation-workflow@^0.2.3:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/ember-cli-deprecation-workflow/-/ember-cli-deprecation-workflow-0.2.5.tgz#5d4b199f5fd510d6ea56e3a83a9f1a4767c5d200"
-  integrity sha512-AIHga2us2rKC+88tT8snusZ3WxkYwkvW4OeK1AwN/N27WeVUko64wEa1R8piYsyTbvMxKGAKdK8SSgsKKWmzYA==
+ember-cli-deprecation-workflow@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-deprecation-workflow/-/ember-cli-deprecation-workflow-1.0.1.tgz#3305a6879af7f074216a54963d92491c411ce7e0"
+  integrity sha512-tns8l4FLz8zmhmNRH7ywihs4XNTTuQysl+POYTpiyjb4zPNKv0cUJBCT/MklYFWBCo/5DcVzabhLODJZcScUfg==
   dependencies:
-    broccoli-funnel "^1.0.1"
-    broccoli-kitchen-sink-helpers "^0.3.1"
-    broccoli-merge-trees "^1.1.1"
-    ember-debug-handlers-polyfill "^1.0.2"
-    quick-temp "^0.1.5"
-    rimraf "^2.5.2"
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^3.0.1"
+    broccoli-plugin "^1.3.1"
+    ember-debug-handlers-polyfill "^1.1.1"
 
 ember-cli-element-closest-polyfill@^0.0.1:
   version "0.0.1"
@@ -4444,7 +4442,7 @@ ember-data@~3.8.0:
     semver "^5.6.0"
     silent-error "^1.1.1"
 
-ember-debug-handlers-polyfill@^1.0.2:
+ember-debug-handlers-polyfill@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ember-debug-handlers-polyfill/-/ember-debug-handlers-polyfill-1.1.1.tgz#e9ae0a720271a834221179202367421b580002ef"
   integrity sha512-lO7FBAqJjzbL+IjnWhVfQITypPOJmXdZngZR/Vdn513W4g/Q6Sjicao/mDzeDCb48Y70C4Facwk0LjdIpSZkRg==
@@ -8777,7 +8775,7 @@ ret@~0.1.10:
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
 
-rimraf@^2.2.8, rimraf@^2.3.4, rimraf@^2.4.3, rimraf@^2.4.4, rimraf@^2.5.2, rimraf@^2.5.3, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@~2.6.2:
+rimraf@^2.2.8, rimraf@^2.3.4, rimraf@^2.4.3, rimraf@^2.4.4, rimraf@^2.5.3, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@~2.6.2:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.3.tgz#b2d104fe0d8fb27cf9e0a1cda8262dd3833c6cab"
   integrity sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==
