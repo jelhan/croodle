@@ -4335,12 +4335,12 @@ ember-macro-helpers@^2.0.0:
     ember-weakmap "^3.0.0"
 
 ember-math-helpers@^2.8.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.8.1.tgz#6c01de988ad2623e8f5890f22c2d7427ea72a7a2"
-  integrity sha512-j3UAX94kNaP8bFDQxmp7SBgS82e6XtvCMI/QQaX7n729YBygEsddD8soCNqCytw07iEdLsXO+SRDdrP7RfiGLg==
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.11.1.tgz#a598ed813fc0ffcae7147f1392331eda66bff044"
+  integrity sha512-IiufDQkQeKChQp0GZQ+yJA6oE/KxFipbbdW5kHBNXlnmbH/CLoufpFDJ3v7Ng+BcWRUdxAd7CrCso3vtO+tz0w==
   dependencies:
-    broccoli-funnel "^2.0.0"
-    ember-cli-babel "^6.16.0"
+    broccoli-funnel "^2.0.2"
+    ember-cli-babel "^7.1.2"
     ember-cli-htmlbars "^3.0.0"
 
 ember-maybe-import-regenerator@^0.1.5, ember-maybe-import-regenerator@^0.1.6:
