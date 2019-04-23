@@ -1,31 +1,32 @@
 <div class="box">
   {{#if decryptionFailed}}
-    <h2 data-test-error-type="decryption-failed">Decryption failed</h2>
-
+    <h2 data-test-error-type="decryption-failed">
+      {{t "error.poll.decryptionFailed.title"}}
+    </h2>
     <p>
-      Decrypting poll data failed. This is most likely caused by a wrong encryption key.
-      Please double-check the URL entered, especially the part after the question mark.
+      {{t "error.poll.decryptionFailed.description"}}
     </p>
   {{else if notFound}}
-    <h2 data-test-error-type="not-found">Poll could not be found</h2>
-
+    <h2 data-test-error-type="not-found">
+      {{t "error.poll.notFound.title"}}
+    </h2>
     <p>
-      The poll you are looking for could not be found.
-      This could be caused by different reasons, including:
+      {{t "error.poll.notFound.description"}}
     </p>
     <ul>
       <li>
-        The poll is expired and has been deleted.
+        {{t "error.poll.notFound.reasons.expired"}}
       </li>
       <li>
-        There is a typo in the URL. You may want to double-check it - especially the part before the question mark.
+        {{t "error.poll.notFound.reasons.typo"}}
       </li>
     </ul>
   {{else}}
-    <h2 data-test-error-type="unexpected">An unexpected error occured</h2>
-
+    <h2 data-test-error-type="unexpected">
+      {{t "error.poll.unexpected.title"}}
+    </h2>
     <p>
-      We are facing an unexpected error. Please try again later.
+      {{t "error.poll.unexpected.description"}}
     </p>
   {{/if}}
 </div>
