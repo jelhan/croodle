@@ -4307,9 +4307,9 @@ ember-i18n-cp-validations@^3.0.2:
     ember-cli-babel "^6.6.0"
 
 ember-i18n@^5.0.2:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/ember-i18n/-/ember-i18n-5.3.0.tgz#0c18df938d6bc4094d1a4162313c75ffec2d4596"
-  integrity sha512-YzLcd7vWNPjDbQk7n/Nze3cPKNvC14zlFKsBOxJIDjfEDqts3j7GKbF99R5Pvl6JqUhh5MlIPFzIiWST00IJFQ==
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/ember-i18n/-/ember-i18n-5.3.1.tgz#32d0628a5a230918ebc57acc9c008b0ee680503d"
+  integrity sha512-tZRYwhkLGcbWa7TK2Axa2e3+2c3UiJ1gl60f5/TJ7ffz9njGGzOTi3acDIhkh8oeKX07emJtL0XPJk2SBX2pJA==
   dependencies:
     broccoli-funnel "^2.0.1"
     ember-cli-babel "^6.11.0"
