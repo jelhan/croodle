@@ -4416,9 +4416,9 @@ ember-native-dom-helpers@^0.5.3:
     ember-cli-babel "^6.6.0"
 
 ember-page-title@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-5.0.0.tgz#6de61ecfd0278246c2f57ab29f3affd208e0459d"
-  integrity sha512-BQ3/yeKUWQejieZdnnR/lo51n8GYuqzEHrok3nw9nAkOCp81kJTf47EAUjp/ZbDJeWfm1uTfsXVacjwaNW9GHQ==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-5.0.1.tgz#7e1b744f47ad9bc5aadbdb47bcecce0e1170221d"
+  integrity sha512-xUlKRuerTQRLrnBVWsPv7a2Rmz3M4I2Irqj21bI7Q7UZfxEFQBjmksZ7TAe21anC2VdUdTXrd25QWRaRrHpduw==
   dependencies:
     ember-cli-babel "^6.6.0"
     ember-cli-head "^0.4.0"
