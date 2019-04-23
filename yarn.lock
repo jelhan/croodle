@@ -3483,9 +3483,10 @@ ember-bootstrap-cp-validations@^1.0.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-bootstrap@kaliber5/ember-bootstrap:
-  version "2.6.0"
-  resolved "https://codeload.github.com/kaliber5/ember-bootstrap/tar.gz/5acaa52e321ab8cb92ffc33dd22db92d5e9879b2"
+ember-bootstrap@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/ember-bootstrap/-/ember-bootstrap-2.6.1.tgz#65c69dbfc384e9d46fc575a2900ba3cbe0e889ee"
+  integrity sha512-CJokAYVlJCviiFAERUvk0RK5mun/heyEtXPI1YspNZd4OmeOQy6TN0yZmeMHGyVncJDMlPIIlZ7vCk8nYbZgpA==
   dependencies:
     broccoli-debug "^0.6.3"
     broccoli-funnel "^2.0.0"
