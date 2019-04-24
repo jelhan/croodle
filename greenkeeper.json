@@ -1,0 +1,11 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "lib/include-api-in-build/package.json",
+        "lib/inject-app-version-in-meta-tag/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
