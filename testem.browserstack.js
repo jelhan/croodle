@@ -5,7 +5,7 @@ module.exports = {
   parallel: 4,
   timeout: 1200,
   browser_start_timeout: 2000,
-  browser_disconnect_timeout: 120,
+  browser_disconnect_timeout: 300,
   launch_in_ci: [
     'BS_IE_11',
     'BS_MS_Edge',
