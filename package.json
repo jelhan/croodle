@@ -86,6 +86,7 @@
     ]
   },
   "resolutions": {
-    "chart.js": "~2.6.0"
+    "chart.js": "~2.6.0",
+    "jquery": "~3.3.1"
   }
 }
