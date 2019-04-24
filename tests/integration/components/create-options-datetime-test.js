@@ -1,4 +1,3 @@
-import { alias } from '@ember/object/computed';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -306,17 +305,16 @@ module('Integration | Component | create options datetime', function(hooks) {
     // which validates according to poll model it belongs to
     // therefore each option needs to be pushed to poll model to have it as
     // it's owner
-    run(() => {
-      this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false
-      }));
-      this.set('options', alias('poll.options'));
-      this.get('options').pushObjects([
-        { title: '2015-01-01' },
-        { title: '2015-02-02' }
-      ]);
+    let poll = this.store.createRecord('poll', {
+      isFindADate: true,
+      isMakeAPoll: false
     });
+    poll.options.pushObjects([
+      { title: '2015-01-01' },
+      { title: '2015-02-02' }
+    ]);
+    this.set('options', poll.options);
+
     await render(hbs`{{create-options-datetime dates=options}}`);
     assert.ok(
       findAll('.has-error').length === 0 && findAll('.has-success').length === 0,
