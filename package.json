@@ -50,7 +50,7 @@
     "ember-cli-template-lint": "^1.0.0-beta.1",
     "ember-cli-uglify": "^2.1.0",
     "ember-composable-helpers": "^2.1.0",
-    "ember-cp-validations": "^3.5.0",
+    "ember-cp-validations": "^4.0.0-beta.8",
     "ember-data": "~3.8.0",
     "ember-data-model-fragments": "^4.0.0",
     "ember-i18n": "^5.0.2",
