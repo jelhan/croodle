@@ -44,7 +44,7 @@
     "ember-cli-mirage": "^0.4.10",
     "ember-cli-moment-shim": "^3.7.1",
     "ember-cli-page-object": "^1.11.0",
-    "ember-cli-release": "^0.2.9",
+    "ember-cli-release": "^1.0.0-beta.2",
     "ember-cli-sass": "^10.0.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-template-lint": "^1.0.0-beta.1",
