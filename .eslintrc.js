@@ -16,6 +16,7 @@ module.exports = {
     es6: true
   },
   rules: {
+    'ember/no-observers': 'warn'
   },
   overrides: [
     // node files
