@@ -6,6 +6,11 @@ module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     autoImport: {
       forbidEval: true,
+      webpack: {
+        externals: {
+          crypto: "null",
+        },
+      },
     },
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
