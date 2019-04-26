@@ -1,6 +1,6 @@
 {
   "extends": [
-    "config:base",
+    "config:base"
   ],
   "ignoreDeps": [
     "@ember/jquery",
@@ -28,7 +28,7 @@
     "ember-welcome-page",
     "eslint-plugin-ember",
     "loader.js",
-    "qunit-dom",
+    "qunit-dom"
   ],
   "rebaseStrategy": "update-lockfile"
 }
