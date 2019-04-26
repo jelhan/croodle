@@ -8,6 +8,9 @@ module.exports = function(defaults) {
       forbidEval: true,
       webpack: {
         externals: {
+          // sjcl requires node's cryto library, which isn't needed
+          // in Browser but causes webpack to bundle a portable version
+          // which increases the build size by an inacceptable amount
           crypto: "null",
         },
       },
