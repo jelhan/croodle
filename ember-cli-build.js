@@ -5,11 +5,15 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     autoImport: {
-      // exclude sjcl from auto imports as it's imported through `app.import()`
-      // to avoid blowing up build size
-      // https://github.com/ef4/ember-auto-import/issues/208
-      exclude: ['sjcl'],
       forbidEval: true,
+      webpack: {
+        externals: {
+          // sjcl requires node's cryto library, which isn't needed
+          // in Browser but causes webpack to bundle a portable version
+          // which increases the build size by an inacceptable amount
+          crypto: "null",
+        },
+      },
     },
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
@@ -43,12 +47,6 @@ module.exports = function(defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
-
-  app.import('node_modules/sjcl/sjcl.js', {
-    using: [
-      { transformation: 'amd', as: 'sjcl' }
-    ]
-  });
 
   return app.toTree();
 };
