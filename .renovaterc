@@ -30,5 +30,5 @@
     "loader.js",
     "qunit-dom"
   ],
-  "rebaseStrategy": "update-lockfile"
+  "rangeStrategy": "update-lockfile"
 }
