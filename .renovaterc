@@ -31,7 +31,7 @@
     "qunit-dom"
   ],
   "ignorePaths": [
-    "lib/**",
+    "lib/**"
   ],
   "rangeStrategy": "update-lockfile"
 }
