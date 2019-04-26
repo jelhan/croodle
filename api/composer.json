@@ -7,6 +7,6 @@
         "codeception/codeception": "^2.5",
         "codeception/phpbuiltinserver": "^1.4",
         "flow/jsonpath": "^0.4.0",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^3.0.0"
     }
 }
