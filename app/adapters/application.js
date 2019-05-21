@@ -1,9 +1,10 @@
 import { inject as service } from '@ember/service';
 import DS from 'ember-data';
+import AdapterFetch from 'ember-fetch/mixins/adapter-fetch';
 
 const { RESTAdapter } = DS;
 
-export default RESTAdapter.extend({
+export default RESTAdapter.extend(AdapterFetch, {
   encryption: service(),
 
   // set namespace to api.php in same subdirectory
