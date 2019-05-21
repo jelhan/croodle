@@ -1,7 +1,7 @@
 import { currentURL, currentRouteName, findAll } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import { t } from 'ember-i18n/test-support';
 import { setupBrowserNavigationButtons, backButton } from 'ember-cli-browser-navigation-button-test-helper/test-support';
 import moment from 'moment';

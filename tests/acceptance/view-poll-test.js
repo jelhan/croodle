@@ -1,7 +1,7 @@
 import { click, currentURL, currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import pageEvaluation from 'croodle/tests/pages/poll/evaluation';

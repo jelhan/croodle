@@ -9,7 +9,7 @@ import {
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { t } from 'ember-i18n/test-support';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
 import pollParticipate from 'croodle/tests/helpers/poll-participate';
 
