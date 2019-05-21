@@ -70,7 +70,7 @@
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^6.4.1",
-    "fs-extra": "^7.0.1",
+    "fs-extra": "^8.0.0",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.8.0",
     "sass": "^1.19.0",
