@@ -11,6 +11,7 @@ matrix:
       php: 7.1
     - env: TEST="EMBER"
     - env: TEST="BROWSER"
+    - env: TEST="BUNDLESIZE"
 
 dist: trusty
 sudo: false
@@ -28,12 +29,12 @@ env:
 
 before_install:
   # provide yarn if ember build is tested
-  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
-  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ]; then export PATH=$HOME/.yarn/bin:$PATH; fi
+  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ] || [ $TEST = "BUNDLESIZE" ]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
+  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ] || [ $TEST = "BUNDLESIZE" ]; then export PATH=$HOME/.yarn/bin:$PATH; fi
 
 install:
   # install dependencies for client
-  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ]; then yarn install --no-interactive; fi
+  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ] || [ $TEST = "BUNDLESIZE" ]; then yarn install --no-interactive; fi
   # install dependencies for api
   - if [ $TEST = "API" ]; then cd api/ && composer install && cd ..; fi
 
@@ -50,6 +51,8 @@ script:
   - if [ $TEST = "EMBER" ]; then yarn test; fi
   # test against different browsers using sauce lab
   - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js; fi
+  # test bundle size
+  - if [ $TEST = "BUNDLESIZE" ]; then node_modules/ember-cli/bin/ember bundlesize:test
   # run api tests with composer
   - if [ $TEST = "API" ]; then cd api/ && ./vendor/bin/codecept run && cd ..; fi
 
