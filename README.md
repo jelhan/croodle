@@ -79,9 +79,9 @@ to save your polls:
 
 ### Ember
 
-`ember test --server` is the prefered way to run tests in Chrome/Chromium. Results are reported in command-line and browser. Files are watched for changes.
+`ember test --server` is the prefered way to run tests in Chrome. Results are reported in command-line and browser. Files are watched for changes.
 
-If you like to run tests only once in a headless Chrome/Chromium execute `ember test`. This is also used in CI.
+If you like to run tests only once in a headless Chrome and Firefox execute `ember test`. This is also used in CI.
 
 Additionally tests are available in all development builds. This allows you to execute the tests in any browser of your choice by running `ember serve` and opening `http://locahost:4200/tests`.
 
