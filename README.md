@@ -1,31 +1,31 @@
-# croodle
+# Croodle
 
 [![Build Status](https://travis-ci.org/jelhan/croodle.svg?branch=master)](https://travis-ci.org/jelhan/croodle)
 [![Code Climate](https://codeclimate.com/github/jelhan/croodle/badges/gpa.svg)](https://codeclimate.com/github/jelhan/croodle)
 [![devDependency Status](https://david-dm.org/jelhan/croodle/dev-status.svg)](https://david-dm.org/jelhan/croodle?type=dev)
 
-Croodle is a web application to schedule a date or to do a poll on a general topics. Stored content data like title and description, number and labels of options and available answers and names of users and there selections is encrypted/decrypted in the browser using 256 bits AES.
+Croodle is an end-to-end encrypted web application to schedule a date or to do a poll on a any topic. All data like title, description, number and labels of options, available answers and names of users and their selections are encrypted/decrypted in the browser using strong 256-bit AES encryption.
 
-This is an alpha version. Changes could brake backward compatibility. Also it is not well tested and some features are missing. It is not ment for productive use yet.
+This is an alpha version. Changes could brake backward compatibility. It is also not well tested and some features are missing. It is not meant for productive use yet.
 
 Croodle is inspired by [PrivateBin](https://github.com/PrivateBin/PrivateBin) and, of course, by Doodle.
 
 ## Security notice
 
-As any other web application based end-to-end encryption Croodle could be attacked by an injection of malicious code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, he would be able to read decrypted content in the browser or the encryption key used and send it to a server under his controll.
+As any other web application based end-to-end encryption Croodle could be attacked by an injection of malicious code on serverside or threw a man-in-the-middle attack. If an attacker could inject for example JavaScript, they would be able to read the decrypted content in the browser or the encryption key that is used used and exfiltrate that data.
 
-Therefore you have to
+Therefore you have to:
 
-* use an encrypted connection to the server hosting Croodle. In most use cases this will be an httpS connection. We strongly recomend people hosting Croodle to force an encrypted connection.
+* use an encrypted connection to the server hosting Croodle. In most use cases this will be an HTTPS connection. We strongly recomend people hosting Croodle to force an encrypted connection.
 * trust the server.
 
-You could check for an attack like this by analysing the source code retrieved from server and/or using developer tools of your browser and check what data is send over the network or stored in cookies, localStorage or similar browser techniques.
+Theoretically you could also check for an attack like this by analysing the source code retrieved from server and/or using developer tools of your browser and check what data is send over the network or stored in cookies, local storage or similar browser techniques.
 
 ## Requirements
 
-Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP >= 5.6. Croodle stores the data in textfiles, so there is no need for a database server like mySQL.
+Croodle is designed to have as few as possible requirements on the server it is running on. Croodle runs on almost every web space with PHP >= 5.6. Croodle stores the data in textfiles, so there is no need for a database server like MySQL.
 
-Due to security reasons you should have SSL encryption enabled and provide a valid certificate.
+Due to security reasons you should have TLS encryption enabled and provide a valid certificate. (see the [security notice](#security-notice))
 
 ## Build process and installation
 
@@ -41,16 +41,16 @@ cd api/ && composer install --no-dev && cd ..
 ember build --prod
 ```
 
-Afterwards copy all files in /dist folder to your werbserver.
+Afterwards copy all files in `/dist` folder to your werbserver.
 
 ### Configuration
 
-Api could be configured by creating a `config.php` inside `api/` folder which returns an associative array.
+The API can be configured by creating a `config.php` inside `api/` folder which returns an associative array.
 Have a look at `api/config.default.php` for available options.
 
 ### Webserver configuration
 
-* `data/` folder has to be writeable by web server, but **must not** be accessible publicy. Protect it in your webserver configuration or move it out of webroot by changing `dataDir` api option.
+* `data/` folder has to be writeable by web server, but **must not** be accessible publicly. Protect it in your webserver configuration or move it out of webroot by changing `dataDir` api option.
 * Croodle uses [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) (SRI) for assets. Therefore you **must not** tamper with build output (e.g. you have to disable cloudflare [*Auto Minify*](https://support.cloudflare.com/hc/en-us/articles/200167996-Does-CloudFlare-have-HTML-JavaScript-and-CSS-compression-features-) feature). If that's not an option for you, you have to [disable SRI](https://github.com/jonathanKingston/ember-cli-sri#options) and build yourself.
 * HTTPS connection should be forced. You should consider using [HTTP Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security) (HSTS) and [HTTP Public Key Pinning](https://developer.mozilla.org/en-US/docs/Web/Security/Public_Key_Pinning) (HPKP).
 * [Content-Security-Policy](http://content-security-policy.com/) (CSP) and [Referrer-Policy](https://w3c.github.io/webappsec-referrer-policy/) headers should be used. Default headers are provided in `.htaccess` file but commented out.
@@ -58,14 +58,14 @@ Have a look at `api/config.default.php` for available options.
 
 ## Development
 
-`ember serve` generates a development build of croodle and starts
+`ember serve` generates a development build of Croodle and starts
 a server listening on `http://localhost:4200` which is serving it.
 If source files are changing, a rebuild and reload is triggered.
 
-By default croodle uses an api mock in development. Since that one
+By default Croodle uses an api mock in development. Since that one
 does not persist records all polls are gone after a reload.
 
-If you like to test against real api, run api via php built-in web
+If you like to test against the real API, run api via php built-in web
 server: `php -S 127.0.0.1:8080 -t dist/`
 Afterwards start ember-cli development server using `--proxy` option:
 `ember server --proxy http://127.0.0.1:8080`.
@@ -81,15 +81,15 @@ to save your polls:
 
 `ember test --server` is the prefered way to run tests in Chrome. Results are reported in command-line and browser. Files are watched for changes.
 
-If you like to run tests only once in a headless Chrome execute `ember test`. This is also used in CI.
+If you like to run tests only once in a headless Chrome and Firefox execute `ember test`. This is also used in CI.
 
 Additionally tests are available in all development builds. This allows you to execute the tests in any browser of your choice by running `ember serve` and opening `http://locahost:4200/tests`.
 
 Tests are run against a mock-api provided by [ember-cli-mirage](http://www.ember-cli-mirage.com/). Therefor they don't cover system integration.
 
-### Api
+### API
 
-Api tests are provided by Codeception. To run them change current
+API tests are provided by Codeception. To run them change current
 directory to `/api` and execute `./vendor/bin/codecept run`. You have
 to install composer development requirements before (`composer install`
 without `--no-dev` option).
@@ -104,4 +104,4 @@ Cross-browser testing provided by<br>
 
 ## License
 
-croodle is [MIT Licensed](https://github.com/jelhan/croodle/blob/master/LICENSE).
+Croodle is [MIT Licensed](https://github.com/jelhan/croodle/blob/master/LICENSE).
