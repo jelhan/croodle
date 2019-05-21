@@ -10,7 +10,7 @@ export default Mixin.create({
     this._super(...arguments);
 
     if (this.autofocus) {
-      this.$().focus();
+      this.element.focus();
     }
   }
 });
