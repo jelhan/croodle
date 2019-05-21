@@ -64,7 +64,6 @@
     "ember-power-calendar": "^0.13.1",
     "ember-power-calendar-moment": "^0.1.4",
     "ember-qunit": "^4.4.0",
-    "ember-radio-buttons": "^4.0.1",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.8.0",
     "ember-test-selectors": "^2.0.0",

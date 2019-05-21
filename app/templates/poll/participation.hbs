@@ -51,10 +51,12 @@
             {{#each possibleAnswers as |possibleAnswer|}}
               <div class="radio {{possibleAnswer.type}}">
                 <label>
-                  {{radio-button
-                    value=possibleAnswer.type
-                    checked=el.value
-                  }}
+                  <input
+                    type="radio"
+                    value={{possibleAnswer.type}}
+                    checked={{eq possibleAnswer.type el.value}}
+                    onchange={{action (mut el.value) possibleAnswer.type}}
+                  >
                   <span class={{possibleAnswer.icon}} aria-hidden="true"></span>
                   {{possibleAnswer.label}}
                 </label>
