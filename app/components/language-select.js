@@ -27,7 +27,7 @@ export default Component.extend({
   }),
 
   change() {
-    let locale = this.$().val();
+    let locale = this.element.options[this.element.selectedIndex].value;
 
     this.i18n.set('locale', locale);
     this.moment.changeLocale(locale);

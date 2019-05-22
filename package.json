@@ -17,7 +17,6 @@
     "test": "ember test"
   },
   "devDependencies": {
-    "@ember/jquery": "^0.6.0",
     "@ember/optional-features": "^0.7.0",
     "bootstrap-sass": "^3.3.7",
     "ember-ajax": "^5.0.0",
@@ -54,6 +53,7 @@
     "ember-cp-validations": "^4.0.0-beta.8",
     "ember-data": "~3.8.0",
     "ember-data-model-fragments": "^4.0.0",
+    "ember-fetch": "^6.5.1",
     "ember-i18n": "^5.0.2",
     "ember-i18n-cp-validations": "^3.0.2",
     "ember-load-initializers": "^1.1.0",
@@ -64,7 +64,6 @@
     "ember-power-calendar": "^0.13.1",
     "ember-power-calendar-moment": "^0.1.4",
     "ember-qunit": "^4.4.0",
-    "ember-radio-buttons": "^4.0.1",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.8.0",
     "ember-test-selectors": "^2.0.0",
