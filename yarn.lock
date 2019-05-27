@@ -3074,10 +3074,15 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000844, caniuse-lite@^1.0.30000967:
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000967:
   version "1.0.30000969"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000969.tgz#7664f571f2072657bde70b00a1fc1ba41f1942a9"
   integrity sha512-Kus0yxkoAJgVc0bax7S4gLSlFifCa7MnSZL9p9VuS/HIKEL4seaqh28KIQAAO50cD/rJ5CiJkJFapkdDAlhFxQ==
+
+caniuse-lite@^1.0.30000844:
+  version "1.0.30000971"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000971.tgz#d1000e4546486a6977756547352bc96a4cfd2b13"
+  integrity sha512-TQFYFhRS0O5rdsmSbF1Wn+16latXYsQJat66f7S7lizXW1PVpWJeZw9wqqVLIjuxDRz7s7xRUj13QCfd8hKn6g==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -3616,7 +3621,12 @@ core-js-pure@3.1.1:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.1.1.tgz#92494ab7bae22f156ae93973a5e2738814efa7f8"
   integrity sha512-jH3ZJ0CJ0wwDvWY0olbOComLo6tbWg4kE2x0j4+wlqYnofwF9mYm98YvADuENUzGw69IddmWFCF1FQ2S0jP96A==
 
-core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0, core-js@^2.6.5:
+core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.9.tgz#6b4b214620c834152e179323727fc19741b084f2"
+  integrity sha512-HOpZf6eXmnl7la+cUdMnLvUxKNqLUzJvgIziQ0DiF3JwSImNphIqdGqzj6hIKyX04MmV0poclQ7+wjWvxQyR2A==
+
+core-js@^2.6.5:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.7.tgz#c2b19af9b50ec49c356ee087d6155632a889e968"
   integrity sha512-ydmsQxDVH7lDpYoirXft8S83ddKKfdsrsmWhtyj7xafXVLbLhKOyfD7kAi2ueFfeP7m9rNavjW59O3hLLzzC5A==
@@ -3991,10 +4001,15 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-electron-to-chromium@^1.3.133, electron-to-chromium@^1.3.47:
+electron-to-chromium@^1.3.133:
   version "1.3.135"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.135.tgz#f5799b95f2bcd8de17cde47d63392d83a4477041"
   integrity sha512-xXLNstRdVsisPF3pL3H9TVZo2XkMILfqtD6RiWIUmDK2sFX1Bjwqmd8LBp0Kuo2FgKO63JXPoEVGm8WyYdwP0Q==
+
+electron-to-chromium@^1.3.47:
+  version "1.3.137"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.137.tgz#ba7c88024984c038a5c5c434529aabcea7b42944"
+  integrity sha512-kGi32g42a8vS/WnYE7ELJyejRT7hbr3UeOOu0WeuYuQ29gCpg9Lrf6RdcTQVXSt/v0bjCfnlb/EWOOsiKpTmkw==
 
 element-closest@^2.0.2:
   version "2.0.2"
@@ -4086,9 +4101,9 @@ ember-bootstrap-cp-validations@^1.0.0:
     ember-cli-babel "^6.6.0"
 
 ember-bootstrap@^2.6.1:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/ember-bootstrap/-/ember-bootstrap-2.7.0.tgz#870a75dce729059932f0fc2a5fadcd0f089224f4"
-  integrity sha512-oie+ZA5givp4xyUi4sYOupWYfop3Taly9ufq/0aMGEKOYs5L55HqLxbwDaX/RkNvhhjDEEI9JK2gyS2lGv0enA==
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/ember-bootstrap/-/ember-bootstrap-2.7.1.tgz#44f4c9ad83c543f447796429d27ddb621d70b820"
+  integrity sha512-qqB0GPNZa3ypwoaI11GtrIs6Ugs3KPz/0TWG6M3eHbRb6BKTLfx3mUh0Ws0SwJDgZ5pMPsdHI4m1yDBrR9/ulQ==
   dependencies:
     broccoli-debug "^0.6.3"
     broccoli-funnel "^2.0.0"
