@@ -4067,16 +4067,16 @@ ember-auto-import@^1.2.19, ember-auto-import@^1.3.0:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-awesome-macros@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-4.0.0.tgz#3b79e09002bdfe18ef3a4e90977d590a3a8435c5"
-  integrity sha512-SUeke/N7ELiulriqJv+tSRNnZk+/CjJfSIBLlciz4JZLykCHuMHJEQ8eb5IDqTDWQs1jQeXQOXfAc8EpXmiB6A==
+ember-awesome-macros@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-5.0.0.tgz#a92ec4b7353268d3a2d231efcc63f668e733dcb1"
+  integrity sha512-Ya2+yG8vFTgIgsrTLX0NTuU4+A+Nj7iYD/bE3p03Bah5hTex241/XpwLlasZ75z+KEwzoxWKcONxAmgDqXjxgg==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-merge-trees "^3.0.0"
-    ember-cli-babel "^7.1.2"
+    ember-cli-babel "^7.7.3"
     ember-cli-string-utils "^1.1.0"
-    ember-macro-helpers "^3.0.0"
+    ember-macro-helpers "^4.0.0"
 
 ember-bootstrap-cp-validations@^1.0.0:
   version "1.0.0"
@@ -4863,12 +4863,12 @@ ember-macro-helpers@^2.1.0:
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^3.0.0"
 
-ember-macro-helpers@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-3.0.0.tgz#18cab1447af9db33d02626aa69a1f918cc6bc5b6"
-  integrity sha512-LjjLDghhosY14d9rW03hGek63A3ESYV+obS9TVTgA1t206u6ryczGlWenNNKsdY4qTxuWVyEJ3Z/I5Upc4ysVw==
+ember-macro-helpers@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ember-macro-helpers/-/ember-macro-helpers-4.0.0.tgz#2ce180265d7ffe6059f5bc962f9046ceb5b12adb"
+  integrity sha512-p3h1RlrcKjvsxz8Bmrh0rxPmc5FaB6uSUhzVUi1MJFSvITzAEO+VOyNsWGr3bjyezvgEFlrDwDfFiuQqjVB1yw==
   dependencies:
-    ember-cli-babel "^7.1.2"
+    ember-cli-babel "^7.7.3"
     ember-cli-string-utils "^1.1.0"
     ember-cli-test-info "^1.0.0"
     ember-weakmap "^3.0.0"
