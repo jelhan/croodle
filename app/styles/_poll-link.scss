@@ -1,0 +1,14 @@
+.cr-poll-link {
+  &__link {
+    position: relative;
+    overflow-x: scroll;
+    background: gray("200");
+    padding: map-get($spacers, 3) map-get($spacers, 3) 3em map-get($spacers, 3);
+  }
+
+  &__copy-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

@@ -1,16 +1,28 @@
 @import "ember-power-calendar";
 
-@media only screen and (max-width: $screen-sm-min) {
+@include media-breakpoint-down(sm) {
   .ember-power-calendar {
-    @include ember-power-calendar($cell-size: 63px);
+    @include ember-power-calendar(30px);
+    width: 100%;
+  }
+  .ember-power-calendar .ember-power-calendar-day,
+  .ember-power-calendar .ember-power-calendar-weekday {
+    max-width: none;
+    width: auto;
+    max-height: none;
+    height: 10vw;
+  }
+  .ember-power-calendar .ember-power-calendar-weekdays,
+  .ember-power-calendar .ember-power-calendar-week {
+    height: calc(10vw + 2px);
   }
 }
 
-@media only screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .ember-power-calendar {
     @include ember-power-calendar($cell-size: 47px);
 
-    float:left;
+    float: left;
 
     &:first-child {
       margin-right: 10px;
@@ -22,13 +34,13 @@
   }
 }
 
-@media only screen and (min-width: $screen-md-min) {
+@include media-breakpoint-up(md) {
   .ember-power-calendar {
     @include ember-power-calendar($cell-size: 40px);
   }
 }
 
-@media only screen and (min-width: $screen-lg-min) {
+@include media-breakpoint-up(lg) {
   .ember-power-calendar {
     @include ember-power-calendar($cell-size: 50px);
   }

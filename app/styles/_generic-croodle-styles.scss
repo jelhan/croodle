@@ -1,0 +1,19 @@
+.cr-navbar {
+  background: map-get($theme-colors, dark);
+}
+
+.cr-logo {
+  font-size: $font-size-base;
+  margin-bottom: 0;
+  // This is needed for cases when the h1 does not contain a link, like when JS
+  // is disabled.
+  color: $body-bg;
+}
+
+.cr-main {
+  padding-top: map-get($spacers, 5);
+}
+
+.cr-claim {
+  margin-bottom: map-get($spacers, 4);
+}
