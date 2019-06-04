@@ -2216,10 +2216,10 @@ boom@2.x.x:
   dependencies:
     hoek "2.x.x"
 
-bootstrap-sass@^3.3.7:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/bootstrap-sass/-/bootstrap-sass-3.4.1.tgz#6843c73b1c258a0ac5cb2cc6f6f5285b664a8e9a"
-  integrity sha512-p5rxsK/IyEDQm2CwiHxxUi0MZZtvVFbhWmyMOt4lLkA4bujDA1TGoKT0i1FKIWiugAdP+kK8T5KMDFIKQCLYIA==
+bootstrap@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
+  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
 
 bower-config@^1.3.0:
   version "1.4.1"
@@ -4095,7 +4095,7 @@ ember-bootstrap-cp-validations@^1.0.0:
   dependencies:
     ember-cli-babel "^6.6.0"
 
-ember-bootstrap@^2.6.1:
+ember-bootstrap@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/ember-bootstrap/-/ember-bootstrap-2.7.1.tgz#44f4c9ad83c543f447796429d27ddb621d70b820"
   integrity sha512-qqB0GPNZa3ypwoaI11GtrIs6Ugs3KPz/0TWG6M3eHbRb6BKTLfx3mUh0Ws0SwJDgZ5pMPsdHI4m1yDBrR9/ulQ==
@@ -8985,6 +8985,11 @@ onetime@^2.0.0:
   integrity sha1-BnQoIw/WdEOyeUsiu6UotoZ5YtQ=
   dependencies:
     mimic-fn "^1.0.0"
+
+open-iconic@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/open-iconic/-/open-iconic-1.1.1.tgz#9dcfc8c7cd3c61cdb4a236b1a347894c97adc0c6"
+  integrity sha1-nc/Ix808Yc20ojaxo0eJTJetwMY=
 
 opener@~1.4.1:
   version "1.4.3"
