@@ -1,4 +1,4 @@
-<div class="participation">
+<div class="participation cr-form-wrapper">
   {{#bs-form
     onSubmit=(action "submit")
     formLayout="horizontal"
@@ -15,7 +15,7 @@
       classNames="name"
     }}
     <div class="selections">
-      {{#each selections as |selection|}}
+      {{#each selections as |selection index|}}
         {{#if isFreeText}}
           {{form.element
             controlType="text"
@@ -49,15 +49,17 @@
           as |el|
           }}
             {{#each possibleAnswers as |possibleAnswer|}}
-              <div class="radio {{possibleAnswer.type}}">
-                <label>
-                  <input
-                    type="radio"
-                    value={{possibleAnswer.type}}
-                    checked={{eq possibleAnswer.type el.value}}
-                    onchange={{action (mut el.value) possibleAnswer.type}}
-                  >
-                  <span class={{possibleAnswer.icon}} aria-hidden="true"></span>
+              <div class="radio custom-control custom-radio custom-control-inline {{possibleAnswer.type}}">
+                <input
+                  class="custom-control-input"
+                  type="radio"
+                  value={{possibleAnswer.type}}
+                  checked={{eq possibleAnswer.type el.value}}
+                  onchange={{action (mut el.value) possibleAnswer.type}}
+                  id={{concat possibleAnswer.type index}}
+                  name={{concat possibleAnswer.type index}}
+                >
+                <label class="custom-control-label" for={{concat possibleAnswer.type index}}>
                   {{possibleAnswer.label}}
                 </label>
               </div>

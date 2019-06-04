@@ -9,10 +9,4 @@
     @onCenterChange={{action (mut calendarCenter) value="moment"}}
     @onSelect={{action "daysSelected"}}
   />
-  <InlineDatepicker
-    @center={{calendarCenterNext}}
-    @selectedDays={{selectedDays}}
-    @onCenterChange={{action (mut calendarCenter) value="moment"}}
-    @onSelect={{action "daysSelected"}}
-  />
 {{/form.element}}

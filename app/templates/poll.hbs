@@ -25,25 +25,25 @@
         </p>
       </div>
     </div>
-    <div class="col-sm-6 col-lg-5 col-lg-offset-2">
-      <div class="box poll-link">
+    <div class="col-sm-6 col-lg-6 offset-lg-1">
+      <div class="box poll-link cr-poll-link">
         <p>{{t "poll.share"}}</p>
-        <p class="link">
+        <p class="link cr-poll-link__link">
           <a href={{pollUrl}}>
             {{pollUrl}}
           </a>
           {{#copy-button
             clipboardText=pollUrl
-            classNames="btn btn-default"
+            classNames="btn btn-primary cr-poll-link__copy-btn"
             success=(action "linkAction" "copied")
             error=(action "linkAction" "selected")
           }}
-            <span class="glyphicon glyphicon-copy"></span>
+            <span class="oi oi-clipboard" title={{t "poll.link.copy-label"}} aria-hidden="true"></span>
           {{/copy-button}}
         </p>
-        <p class="notice">
+        <small class="text-muted">
           {{t "poll.share.notice"}}
-        </p>
+        </small>
       </div>
     </div>
   </div>
@@ -61,16 +61,16 @@
     </div>
   {{/if}}
 
-  <div class="box container-fluid">
+  <div class="box">
     <ul class="nav nav-tabs" role="tablist">
       {{#link-to
         "poll.participation"
         model
         tagName="li"
         activeClass="active"
-        class="participation"
+        class="participation nav-item"
       }}
-        {{#link-to "poll.participation" model}}
+        {{#link-to "poll.participation" model class="nav-link"}}
           {{t "poll.tab-title.participation"}}
         {{/link-to}}
       {{/link-to}}
@@ -79,9 +79,9 @@
         model
         tagName="li"
         activeClass="active"
-        class="evaluation"
+        class="evaluation nav-item"
       }}
-        {{#link-to "poll.evaluation" model}}
+        {{#link-to "poll.evaluation" model class="nav-link"}}
           {{t "poll.tab-title.evaluation"}}
         {{/link-to}}
       {{/link-to}}

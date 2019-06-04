@@ -1,23 +1,31 @@
-<div class="row">
+<div class="row cr-steps-bottom-nav">
   {{#if renderPrevButton}}
-    <div class="col-xs-6 col-md-4 text-right">
-      {{bs-button
+    <div class="col-6 col-md-4 text-right">
+      {{#bs-button
         onClick=(action "prev")
-        classNames="prev"
+        classNames="cr-steps-bottom-nav__button cr-steps-bottom-nav__prev-button prev"
         disabled=disablePrevButton
-        defaultText=prevButtonText
       }}
+        <span class="cr-steps-bottom-nav__icon oi oi-caret-left" title={{ prevButtonText }} aria-hidden="true"></span>
+        <span class="cr-steps-bottom-nav__label">
+          {{ prevButtonText }}
+        </span>
+      {{/bs-button}}
     </div>
   {{/if}}
   {{#if renderNextButton}}
     <div class={{nextButtonClassesString}}>
-      {{bs-button
+      {{#bs-button
         buttonType="submit"
-        classNames="next"
-        defaultText=nextButtonText
+        classNames="cr-steps-bottom-nav__button cr-steps-bottom-nav__next-button next"
         disabled=disableNextButton
         type="primary"
       }}
+        <span class="cr-steps-bottom-nav__label">
+          {{ nextButtonText }}
+        </span>
+        <span class="cr-steps-bottom-nav__icon oi oi-caret-right" title={{ nextButtonText }} aria-hidden="true"></span>
+      {{/bs-button}}
     </div>
   {{/if}}
 </div>
