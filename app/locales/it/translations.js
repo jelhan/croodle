@@ -98,6 +98,7 @@ export default {
   'poll.input.newUserName.label': 'Nome',
   'poll.input.newUserName.placeholder': 'Il tuo nome',
   'poll.link.copied': 'Il link è stato copiato.',
+  'poll.link.copy-label': 'Copia il link negli appunti',
   'poll.link.selected': 'Link selezionato. Preme Command+C per copiarlo.',
   'poll.modal.timezoneDiffers.title': 'In quale fuso orario devono essere presentate le date?',
   'poll.modal.timezoneDiffers.body': 'Il sondaggio è stato creato per un fuso orario diverso dal tuo. In quali orari devono essere presentate le date?',

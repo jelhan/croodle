@@ -98,6 +98,7 @@ export default {
   'poll.input.newUserName.label': 'Nombre',
   'poll.input.newUserName.placeholder': 'Tu nombre',
   'poll.link.copied': 'Enlace copiado al portapapeles.',
+  'poll.link.copy-label': 'Copiar enlace al portapapeles',
   'poll.link.selected': 'Enlace seleccionado. Presiona Comando+C para copiarlo.',
   'poll.modal.timezoneDiffers.title': '¿Que zona horaria deseas utilizar para mostrar los datos?',
   'poll.modal.timezoneDiffers.body': 'La encuesta ha sido configurada para una zona horaria distinta de tu hora local. ¿Con qué zona horaria debería mostrarse la información?',
