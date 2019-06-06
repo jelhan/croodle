@@ -316,15 +316,13 @@ module('Integration | Component | create options datetime', function(hooks) {
     this.set('options', poll.options);
 
     await render(hbs`{{create-options-datetime dates=options}}`);
-    assert.ok(
-      findAll('.has-error').length === 0 && findAll('.has-success').length === 0,
-      'does not show a validation error before user interaction'
-    );
+    assert.dom('.form-group .is-invalid').doesNotExist('does not show validation errors before user interaction');
+    assert.dom('.form-group .is-valid').doesNotExist('does not show validation success before user interaction');
 
     await fillIn('[data-test-day="2015-01-01"] .form-group input', '10:');
     await blur('[data-test-day="2015-01-01"] .form-group input');
     assert.ok(
-      find('[data-test-day="2015-01-01"] .form-group').classList.contains('has-error') ||
+      find('[data-test-day="2015-01-01"] .form-group input').classList.contains('is-invalid') ||
       // browsers with input type time support prevent non time input
       find('[data-test-day="2015-01-01"] .form-group input').value === '',
       'shows error after invalid input or prevents invalid input'
@@ -336,22 +334,11 @@ module('Integration | Component | create options datetime', function(hooks) {
     await fillIn(findAll('[data-test-day="2015-01-01"]')[1].querySelector('input'), '10:00');
     await fillIn('[data-test-day="2015-02-02"] .form-group input', '10:00');
     await triggerEvent('form', 'submit');
-    assert.dom(findAll('[data-test-day="2015-01-01"]')[0].querySelector('.form-group')).hasClass('has-success',
-      'first time shows validation success'
-    );
-    assert.dom(findAll('[data-test-day="2015-01-01"]')[1].querySelector('.form-group')).hasClass('has-error',
-      'same time for same day shows validation error'
-    );
-    assert.dom('[data-test-day="2015-02-02"] .form-group').hasClass('has-success',
-      'same time for different day shows validation success'
-    );
-
-    // label reflects validation state for all times of this day
-    assert.dom(find('[data-test-day="2015-01-01"]')).hasClass('label-has-error',
-      'label reflects validation state for all times (error)'
-    );
-    assert.dom('[data-test-day="2015-02-02"]').hasClass('label-has-success',
-      'label reflects validation state for all times (success)'
-    );
+    assert.dom(findAll('[data-test-day="2015-01-01"]')[0].querySelector('.form-group input'))
+      .hasClass('is-valid', 'first time shows validation success');
+    assert.dom(findAll('[data-test-day="2015-01-01"]')[1].querySelector('.form-group input'))
+      .hasClass('is-invalid', 'same time for same day shows validation error');
+    assert.dom('[data-test-day="2015-02-02"] .form-group input')
+      .hasClass('is-valid', 'same time for different day shows validation success');
   });
 });

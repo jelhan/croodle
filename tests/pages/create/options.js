@@ -43,7 +43,7 @@ export default create(assign({}, defaultsForCreate, {
     item: {
       add: clickable('button.add'),
       delete: clickable('button.delete'),
-      hasError: hasClass('has-error'),
+      hasError: hasClass('is-invalid', 'input'),
       title: fillable('input')
     }
   }),
