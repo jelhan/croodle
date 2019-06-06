@@ -52,10 +52,10 @@
               <div class="input-group-append">
                 {{! disable delete button if there is only one option }}
                 {{#bs-button
-                  onClick=(action "deleteOption" option)
+                  onClick=(action "deleteOption" date)
                   type="link"
                   class="delete"
-                  disabled=(lte options.length 1)
+                  disabled=(lte dates.length 1)
                 }}
                   <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
                   <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
