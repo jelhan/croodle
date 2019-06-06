@@ -17,3 +17,10 @@
 .cr-claim {
   margin-bottom: map-get($spacers, 4);
 }
+
+.cr-hide-on-mobile {
+  display: none;
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+}

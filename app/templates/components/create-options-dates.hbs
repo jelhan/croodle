@@ -3,10 +3,22 @@
   property="options"
   data-test-form-element-for="days"
 }}
-  <InlineDatepicker
-    @center={{calendarCenter}}
-    @selectedDays={{selectedDays}}
-    @onCenterChange={{action (mut calendarCenter) value="moment"}}
-    @onSelect={{action "daysSelected"}}
-  />
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <InlineDatepicker
+        @center={{calendarCenter}}
+        @selectedDays={{selectedDays}}
+        @onCenterChange={{action (mut calendarCenter) value="moment"}}
+        @onSelect={{action "daysSelected"}}
+      />
+    </div>
+    <div class="col-6 cr-hide-on-mobile">
+      <InlineDatepicker
+        @center={{calendarCenterNext}}
+        @selectedDays={{selectedDays}}
+        @onCenterChange={{action (mut calendarCenter) value="moment"}}
+        @onSelect={{action "daysSelected"}}
+      />
+    </div>
+  </div>
 {{/form.element}}
