@@ -13,7 +13,7 @@ const urlMatches = function(regExp) {
 
 export const definition = {
   showsExpirationWarning: isVisible('.expiration-warning'),
-  url: text('.poll-link .link a'),
+  url: text('.poll-link .link code'),
   urlIsValid: urlMatches(/^\/poll\/[a-zA-Z0-9]{10}\/participation\?encryptionKey=[a-zA-Z0-9]{40}$/)
 };
 
