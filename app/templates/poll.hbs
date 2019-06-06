@@ -29,15 +29,16 @@
       <div class="box poll-link cr-poll-link">
         <p>{{t "poll.share"}}</p>
         <p class="link cr-poll-link__link">
-          <a href={{pollUrl}}>
-            {{pollUrl}}
-          </a>
+          <small>
+            <code class="cr-poll-link__url">{{pollUrl}}</code>
+          </small>
           {{#copy-button
             clipboardText=pollUrl
-            classNames="btn btn-primary cr-poll-link__copy-btn"
+            classNames="btn btn-secondary cr-poll-link__copy-btn btn-sm"
             success=(action "linkAction" "copied")
             error=(action "linkAction" "selected")
           }}
+            {{t "poll.link.copy-label"}}&nbsp;
             <span class="oi oi-clipboard" title={{t "poll.link.copy-label"}} aria-hidden="true"></span>
           {{/copy-button}}
         </p>
