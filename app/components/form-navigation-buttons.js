@@ -41,9 +41,9 @@ export default Component.extend({
     let renderPrevButton = this.renderPrevButton;
 
     if (renderPrevButton) {
-      return ['col-xs-6', 'col-md-8'];
+      return ['col-6', 'col-md-8'];
     } else {
-      return ['col-md-8', 'col-md-offset-4'];
+      return ['col-md-8', 'offset-md-4'];
     }
   }),
 

@@ -1,4 +1,4 @@
-<div class="box">
+<div class="cr-form-wrapper box">
   {{#if errorMessage}}
     {{#bs-alert type="warning"}}
       {{t errorMessage}}
@@ -41,7 +41,7 @@
           as |el|
           }}
             <div class="input-group">
-              {{bs-form/element/control/input
+              {{el.control
                 autofocus=(unless index true false)
                 id=el.id
                 placeholder="00:00"
@@ -49,42 +49,28 @@
                 value=el.value
                 onChange=(action (mut el.value))
               }}
-              <div class="input-group-btn">
+              <div class="input-group-append">
                 {{! disable delete button if there is only one option }}
                 {{#bs-button
                   onClick=(action "deleteOption" date)
-                  type=(if
-                    (eq el.validation "success")
-                    "btn-success"
-                    (if
-                      (eq el.validation "error")
-                      "btn-danger"
-                      "btn-default"
-                    )
-                  )
+                  type="link"
                   class="delete"
+                  disabled=(lte dates.length 1)
                 }}
-                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
                   <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
-                {{/bs-button}}
-                {{#bs-button
-                  onClick=(action "addOption" date)
-                  type=(if
-                    (eq el.validation "success")
-                    "btn-success"
-                    (if
-                      (eq el.validation "error")
-                      "btn-danger"
-                      "btn-default"
-                    )
-                  )
-                  class="add"
-                }}
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                  <span class="sr-only">{{t "create.options.button.add.label"}}</span>
                 {{/bs-button}}
               </div>
             </div>
+            {{#bs-button
+              onClick=(action "addOption" date)
+              type="link"
+              size="sm"
+              class="add cr-option-menu__button cr-option-menu__add-button"
+            }}
+              <span class="oi oi-plus" title={{t "create.options.button.add.label"}} aria-hidden="true"></span>
+              <span class="sr-only">{{t "create.options.button.add.label"}}</span>
+            {{/bs-button}}
           {{/form.element}}
         </div>
       {{/each}}
@@ -95,6 +81,7 @@
         {{#bs-button
           onClick=(action "adoptTimesOfFirstDay")
           class="adopt-times-of-first-day"
+          size="sm"
         }}
           {{t "create.options-datetime.copy-first-line"}}
         {{/bs-button}}

@@ -1,4 +1,4 @@
-<div class="box">
+<div class="cr-form-wrapper box">
   {{#bs-form
     formLayout="horizontal"
     model=this
@@ -18,7 +18,7 @@
         tagName="select"
         change=(action "updateAnswerType" value="target.value")
         id=el.id
-        class="form-control"
+        class="custom-select"
       }}
         {{#each answerTypes as |answerType|}}
           <option value={{answerType.id}} selected={{eq el.value answerType.id}}>
@@ -33,12 +33,13 @@
       property="expirationDuration"
       showValidationOn=(array "change" "focusOut")
       useIcons=false
+      controlType="select"
     as |el|
     }}
       <select
         id={{el.id}}
         onchange={{action (mut el.value) value="target.value"}}
-        class="form-control"
+        class="custom-select"
       >
         {{#each expirationDurations as |duration|}}
           <option value={{duration.id}} selected={{eq el.value duration.id}}>

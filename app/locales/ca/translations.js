@@ -98,6 +98,7 @@ export default {
   'poll.input.newUserName.label': 'Nom',
   'poll.input.newUserName.placeholder': 'El teu nom',
   'poll.link.copied': 'Enllaç copiat al porta-retalls.',
+  'poll.link.copy-label': 'Copia l\'enllaç al porta-retalls',
   'poll.link.selected': 'Enllaç seleccionat. Premeu Command + C per copiar.',
   'poll.modal.timezoneDiffers.title': 'En quines zones horàries s\'han de presentar les dates?',
   'poll.modal.timezoneDiffers.body': 'L\'enquesta es va crear per a una zona horària diferent de la vostra hora local. En quines zones horàries s\'han de presentar les dates?',

@@ -98,6 +98,7 @@ export default {
   'poll.input.newUserName.label': 'Name',
   'poll.input.newUserName.placeholder': 'Your Name',
   'poll.link.copied': 'Link copied to clipboard.',
+  'poll.link.copy-label': 'Copy link to clipboard',
   'poll.link.selected': 'Link selected. Press Command+C to copy.',
   'poll.modal.timezoneDiffers.title': 'In which time zones should the dates be presented?',
   'poll.modal.timezoneDiffers.body': 'The poll was created for a time zone which differs from your local time. In which time zones should the dates be presented?',

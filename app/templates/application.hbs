@@ -2,24 +2,25 @@
 
 {{title "Croodle"}}
 
-<div class="container">
-  <div id="header">
-    <h1 class="logo">{{#link-to "index"}}Croodle{{/link-to}}</h1>
-    <form class="form-inline">
-      {{language-select class="form-control"}}
+<nav class="cr-navbar navbar navbar-dark">
+  <h1 class="cr-logo">{{#link-to "index" class="navbar-brand"}}Croodle{{/link-to}}</h1>
+  <div class="collapse" id="headerNavbar">
+    <form class="form-inline my-2 my-lg-0">
+      {{language-select class="custom-select custom-select-sm"}}
     </form>
   </div>
-  <div id="content">
-    <div id="messages">
-      {{#each flashMessages.queue as |flash|}}
-        {{#flash-message flash=flash}}
-          {{t flash.message}}
-        {{/flash-message}}
-      {{/each}}
-    </div>
+</nav>
 
-    {{outlet}}
+<main role="main" class="container cr-main">
+  <div id="messages">
+    {{#each flashMessages.queue as |flash|}}
+      {{#flash-message flash=flash}}
+        {{t flash.message}}
+      {{/flash-message}}
+    {{/each}}
   </div>
-</div>
+
+  {{outlet}}
+</main>
 
 {{outlet "modal"}}

@@ -1,17 +1,16 @@
 {{title (t "create.title")}}
 
-{{#bs-button-group justified=true classNames="form-steps"}}
+{{#bs-button-group justified=true classNames="cr-steps-top-nav form-steps"}}
   {{#each formSteps as |formStep|}}
     {{#unless formStep.hidden}}
-      <div class="btn-group" role="group">
-        {{#bs-button
-          onClick=(transition-to formStep.route)
-          type=(if formStep.active "primary" "default")
-          disabled=formStep.disabled
-        }}
-          {{t formStep.label}}
-        {{/bs-button}}
-      </div>
+      {{#bs-button
+        onClick=(transition-to formStep.route)
+        type=(if formStep.active "primary is-active" "default")
+        disabled=formStep.disabled
+        classNames="cr-steps-top-nav__button"
+      }}
+        {{t formStep.label}}
+      {{/bs-button}}
     {{/unless}}
   {{/each}}
 {{/bs-button-group}}

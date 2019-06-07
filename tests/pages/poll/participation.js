@@ -20,9 +20,9 @@ export default PageObject.create(assign({}, defaultsForApplication, Poll, {
     answers: text('.selections .form-group:eq(0) .radio', { multiple: true }),
     itemScope: '.selections .form-group',
     item: {
-      label: text('label.control-label')
+      label: text('label')
     },
-    labels: text('.selections .form-group label.control-label', { multiple: true })
+    labels: text('.selections .form-group > label', { multiple: true })
   }),
   title: text('h2.title'),
   // use as .visit({ encryptionKey: ??? })

@@ -24,18 +24,18 @@
     {{content-for "body-footer"}}
 
     <noscript>
-      <div class="container-fluid">
-        <div id="header">
-          <h1 class="logo">Croodle</h1>
+      <nav class="cr-navbar navbar navbar-dark">
+        <h1 class="cr-logo">Croodle</h1>
+      </nav>
+
+      <main role="main" class="container cr-main">
+        <div class="alert alert-danger" role="alert">
+          <h2>Please enable JavaScript!</h2>
+          <p>JavaScript is currently disabled in your browser settings or your browser does not support JavaScript.</p>
+          <p>Croodle requires JavaScript. Therefore to use Croodle, you must first enable JavaScript.</p>
+          <a class="btn btn-outline-dark btn-lg" href="http://www.enable-javascript.com/">Click here for instructions on how to enable JavaScript.</a>
         </div>
-        <div id="content">
-          <div class="box">
-            <h1>Please enable JavaScript</h1>
-            <p>Croodle requires JavaScript. But JavaScript is currently disabled in your browser settings or your browser does not support JavaScript. Therefore you can't use Croodle.</p>
-            <h2><a href="http://www.enable-javascript.com/">Click here for instructions on how to enable JavaScript.</a></h2>
-          </div>
-        </div>
-      </div>
+      </main>
     </noscript>
   </body>
 </html>

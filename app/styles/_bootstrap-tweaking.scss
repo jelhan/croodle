@@ -1,0 +1,24 @@
+// We don't want the extra space added to jumbotron at larger screen sizes.
+.jumbotron {
+  @include media-breakpoint-up(sm) {
+    padding: $jumbotron-padding $jumbotron-padding;
+  }
+}
+
+.sr-only {
+  padding: 0 !important;
+}
+
+.tab-pane {
+  padding-top: map-get($spacers, 4);
+}
+
+.navbar-dark .custom-select {
+  background-color: gray("900");
+  color: gray("500");
+  border: $custom-select-border-width solid gray("500");
+}
+
+h3, .h3 {
+  margin-top: map-get($spacers, 5);
+}

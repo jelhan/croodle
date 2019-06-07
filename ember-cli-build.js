@@ -20,8 +20,8 @@ module.exports = function(defaults) {
     },
     'ember-bootstrap': {
       importBootstrapCSS: false,
-      'bootstrapVersion': 3,
-      'importBootstrapFont': true,
+      'bootstrapVersion': 4,
+      'importBootstrapFont': false,
       whitelist: ['bs-alert', 'bs-button', 'bs-button-group', 'bs-form', 'bs-modal'],
     },
     'ember-cli-babel': {
@@ -32,6 +32,15 @@ module.exports = function(defaults) {
     },
     'ember-math-helpers': {
       only: ['lte', 'sub'],
+    },
+    autoprefixer: {
+      browsers: ['last 2 ios version'],
+      cascade: false,
+      sourcemap: true
+    },
+    sassOptions: {
+      sourceMapEmbed: true,
+      includePaths: ['node_modules'],
     },
   });
 
@@ -47,6 +56,9 @@ module.exports = function(defaults) {
   // modules that you would like to import into your application
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
+
+  app.import('node_modules/open-iconic/font/fonts/open-iconic.ttf');
+  app.import('node_modules/open-iconic/font/fonts/open-iconic.woff');
 
   return app.toTree();
 };

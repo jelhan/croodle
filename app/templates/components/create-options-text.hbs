@@ -8,48 +8,33 @@
   as |el|
   }}
     <div class="input-group">
-      {{bs-form/element/control/input
+      {{el.control
         autofocus=(unless index true false)
         id=el.id
         value=el.value
         onChange=(action (mut el.value))
       }}
-      <div class="input-group-btn">
+      <div class="input-group-append">
         {{! disable delete button if there is only one option }}
         {{#bs-button
           onClick=(action "deleteOption" option)
-          type=(if
-            (eq el.validation "success")
-            "btn-success"
-            (if
-              (eq el.validation "error")
-              "btn-danger"
-              "btn-default"
-            )
-          )
-          disabled=(lte options.length 1)
+          type="link"
           class="delete"
+          disabled=(lte options.length 1)
         }}
-          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
           <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
-        {{/bs-button}}
-        {{#bs-button
-          onClick=(action "addOption" option)
-          type=(if
-            (eq el.validation "success")
-            "btn-success"
-            (if
-              (eq el.validation "error")
-              "btn-danger"
-              "btn-default"
-            )
-          )
-          class="add"
-        }}
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          <span class="sr-only">{{t "create.options.button.add.label"}}</span>
         {{/bs-button}}
       </div>
     </div>
+    {{#bs-button
+      onClick=(action "addOption" option)
+      type="link"
+      size="sm"
+      class="add"
+    }}
+      <span class="oi oi-plus" title={{t "create.options.button.add.label"}} aria-hidden="true"></span>
+      <span class="sr-only">{{t "create.options.button.add.label"}}</span>
+    {{/bs-button}}
   {{/form.element}}
 {{/each}}

@@ -98,6 +98,7 @@ export default {
   'poll.input.newUserName.label': 'Name',
   'poll.input.newUserName.placeholder': 'Dein Name',
   'poll.link.copied': 'Link in die Zwischenablage kopiert.',
+  'poll.link.copy-label': 'Kopiere Link in die Zwischenablage',
   'poll.link.selected': 'Link markiert. Drücke Steuerung + C zum Kopieren.',
   'poll.modal.timezoneDiffers.title': 'In welcher Zeitzone sollen die Daten angezeigt werden?',
   'poll.modal.timezoneDiffers.body': 'Die Umfrage wurde für eine Zeitzone angelegt, die von deiner lokalen Zeit abweicht. In welcher Zeitzone sollen die Daten angezeigt werden?',
