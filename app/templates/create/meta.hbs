@@ -21,8 +21,14 @@
       placeholder=(t "create.meta.input.description.placeholder")
       property="description"
     }}
-    {{form-navigation-buttons
-      onPrev=(action "previousPage")
-    }}
+
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-6 col-md-4 text-right">
+        <BackButton @onClick={{action "previousPage"}} />
+      </div>
+      <div class="col-6 col-md-8">
+        <NextButton />
+      </div>
+    </div>
   {{/bs-form}}
 </div>

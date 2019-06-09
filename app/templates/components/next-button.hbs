@@ -1,0 +1,15 @@
+<BsButton
+  @buttonType={{if @buttonType @buttonType "submit"}}
+  @type="primary"
+  class="cr-steps-bottom-nav__button cr-steps-bottom-nav__next-button next"
+  disabled={{@disabled}}
+>
+  <span class="cr-steps-bottom-nav__label">
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{t "action.next"}}
+    {{/if}}
+  </span>
+  <span class="cr-steps-bottom-nav__icon oi oi-caret-right"></span>
+</BsButton>

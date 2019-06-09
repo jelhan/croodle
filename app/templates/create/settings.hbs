@@ -62,9 +62,16 @@
       showValidationOn="change"
       property="forceAnswer"
     }}
-    {{form-navigation-buttons
-      nextButtonText=(t "action.save")
-      onPrev=(action "previousPage")
-    }}
+
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-6 col-md-4 text-right">
+        <BackButton @onClick={{action "previousPage"}} />
+      </div>
+      <div class="col-6 col-md-8">
+        <NextButton>
+          {{t "action.save"}}
+        </NextButton>
+      </div>
+    </div>
   {{/bs-form}}
 </div>
