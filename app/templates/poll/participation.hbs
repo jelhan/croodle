@@ -71,7 +71,7 @@
 
     <div class="row cr-steps-bottom-nav">
       <div class="col-md-8 offset-md-4">
-        <NextButton>
+        <NextButton @isPending={{form.isSubmitting}} data-test-button="submit">
           {{t "action.save"}}
         </NextButton>
       </div>

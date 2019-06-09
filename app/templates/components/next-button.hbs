@@ -3,6 +3,7 @@
   @type="primary"
   class="cr-steps-bottom-nav__button cr-steps-bottom-nav__next-button next"
   disabled={{@disabled}}
+  ...attributes
 >
   <span class="cr-steps-bottom-nav__label">
     {{#if (has-block)}}
@@ -11,5 +12,10 @@
       {{t "action.next"}}
     {{/if}}
   </span>
-  <span class="cr-steps-bottom-nav__icon oi oi-caret-right"></span>
+
+  {{#if @isPending}}
+    <LoadingSpinner />
+  {{else}}
+    <span class="cr-steps-bottom-nav__icon oi oi-caret-right"></span>
+  {{/if}}
 </BsButton>

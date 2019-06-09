@@ -57,7 +57,7 @@ const SelectionValidations = buildValidations({
 
 export default Controller.extend(Validations, {
   actions: {
-    submit() {
+    async submit() {
       if (!this.get('validations.isValid')) {
         return;
       }
@@ -94,7 +94,7 @@ export default Controller.extend(Validations, {
       });
 
       this.set('newUserRecord', user);
-      this.send('save');
+      await this.actions.save.bind(this)();
     },
     async save() {
       let user = this.newUserRecord;

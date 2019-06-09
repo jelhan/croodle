@@ -68,7 +68,7 @@
         <BackButton @onClick={{action "previousPage"}} />
       </div>
       <div class="col-6 col-md-8">
-        <NextButton>
+        <NextButton @isPending={{form.isSubmitting}} data-test-button="submit">
           {{t "action.save"}}
         </NextButton>
       </div>

@@ -39,39 +39,39 @@ export default Controller.extend(Validations, {
         this.transitionToRoute('create.options');
       }
     },
-    submit() {
-      if (this.validations.isValid) {
-        let poll = this.model;
+    async submit() {
+      if (!this.validations.isValid) {
+        return;
+      }
 
-        // set timezone if there is atleast one option with time
-        if (
-          poll.isFindADate &&
-          poll.options.any(({ title }) => {
-            return !moment(title, 'YYYY-MM-DD', true).isValid();
-          })
-        ) {
-          this.set('model.timezone', moment.tz.guess());
-        }
+      let poll = this.model;
 
-        // save poll
-        poll.save()
-          .then(() => {
-            // reload as workaround for bug: duplicated records after save
-            poll.reload().then(() => {
-              // redirect to new poll
-              let { key: encryptionKey } = this.encryption;
+      // set timezone if there is atleast one option with time
+      if (
+        poll.isFindADate &&
+        poll.options.any(({ title }) => {
+          return !moment(title, 'YYYY-MM-DD', true).isValid();
+        })
+      ) {
+        this.set('model.timezone', moment.tz.guess());
+      }
 
-              this.transitionToRoute('poll', poll, {
-                queryParams: {
-                  encryptionKey,
-                },
-              });
-            });
-          })
-          .catch(() => {
-            // ToDo: Show feedback to user
-            return;
-          });
+      // save poll
+      try {
+        await poll.save();
+
+        // reload as workaround for bug: duplicated records after save
+        await poll.reload();
+
+        // redirect to new poll
+        await this.transitionToRoute('poll', poll, {
+          queryParams: {
+            encryptionKey: this.encryption.key,
+          },
+        });
+      } catch(err) {
+        // TODO: show feedback to user
+        throw err;
       }
     },
     updateAnswerType(answerType) {
