@@ -52,7 +52,7 @@ export default {
   'error.poll.notFound.reasons.typo': 'There is a typo in the URL. You may want to double-check it - especially the part before the question mark.',
   'error.generic.unexpected.title': 'An unexpected error occured',
   'error.generic.unexpected.description': 'We are sorry. An unexpected error occurred. Please try again later.',
-  'index.title': 'Croodle simplifica la data i la presa de decisions ...<br/>... i protegeix les teves dades',
+  'index.title': 'Croodle simplifica la data i la presa de decisions …<br/>… i protegeix les teves dades',
   'index.features.title': 'Funcions',
   'index.features.list.overview': '<strong> Troba una data </strong> o <strong> fer una enquesta </strong> amb tantes persones com vulgui.',
   'index.features.list.privacy': 'Les vostres dades es mantenen privades. Ja en el vostre navegador, serà <strong>xifrat</strong>. Només les persones que reben l\'enllaç de l\'enquesta saben què és la vostra enquesta.',
