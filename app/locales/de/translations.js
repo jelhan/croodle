@@ -52,7 +52,7 @@ export default {
   'error.poll.notFound.reasons.typo': 'There is a typo in the URL. You may want to double-check it - especially the part before the question mark.',
   'error.generic.unexpected.title': 'An unexpected error occured',
   'error.generic.unexpected.description': 'We are sorry. An unexpected error occurred. Please try again later.',
-  'index.title': 'Croodle vereinfacht die Termin- und Entscheidungsfindung ...<br/>... und schützt dabei deine Daten',
+  'index.title': 'Croodle vereinfacht die Termin- und Entscheidungsfindung …<br/>… und schützt dabei deine Daten',
   'index.features.title': 'Funktionen',
   'index.features.list.overview': '<strong>Finde einen Termin</strong> oder <strong>mache eine Umfrage</strong> mit so vielen Leuten, wie du möchtest.',
   'index.features.list.privacy': 'Deine Daten bleiben privat: Sie werden bereits in deinem Browser <strong>verschlüsselt</strong>. Worum es in deiner Umfrage geht, wissen nur die Personen, denen du den Umfrage-Link sendest.',

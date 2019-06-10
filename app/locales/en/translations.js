@@ -52,7 +52,7 @@ export default {
   'error.poll.notFound.reasons.typo': 'There is a typo in the URL. You may want to double-check it - especially the part before the question mark.',
   'error.generic.unexpected.title': 'An unexpected error occured',
   'error.generic.unexpected.description': 'We are sorry. An unexpected error occurred. Please try again later.',
-  'index.title': 'Croodle simplifies date and decision-making ...<br/>... and protects your data',
+  'index.title': 'Croodle simplifies date and decision-making …<br/>… and protects your data',
   'index.features.title': 'Functions',
   'index.features.list.overview': '<strong>Find a date</strong> or <strong> make a survey</strong> with as many people as you want.',
   'index.features.list.privacy': 'Your data stays private. It will be <strong>encrypted</strong> directly in your browser. Only the people receiving the link for the poll know what your poll is about.',
