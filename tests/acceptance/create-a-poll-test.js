@@ -143,7 +143,7 @@ module('Acceptance | create a poll', function(hooks) {
     pageCreateSettings.save();
 
     // shows loading spinner while saving
-    await waitFor('[data-test-button="submit"] svg', {
+    await waitFor('[data-test-button="submit"] .spinner-border', {
       timeoutMessage: 'timeout while waiting for loading spinner to appear',
     });
     assert.ok(true, 'loading spinner is shown');

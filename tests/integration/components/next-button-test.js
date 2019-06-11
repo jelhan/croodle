@@ -25,6 +25,6 @@ module('Integration | Component | next-button', function(hooks) {
   test('it renders a loading spinner if `@isPending` is `true`', async function(assert) {
     await render(hbs`<NextButton @isPending={{true}} />`);
 
-    assert.dom('button svg').exists();
+    assert.dom('button .spinner-border').exists();
   });
 });

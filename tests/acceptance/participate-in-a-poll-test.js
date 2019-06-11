@@ -193,7 +193,7 @@ module('Acceptance | participate in a poll', function(hooks) {
     await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
     pollParticipate('John Doe', ['yes', 'no']);
 
-    await waitFor('[data-test-button="submit"] svg', {
+    await waitFor('[data-test-button="submit"] .spinner-border', {
       timeoutMessage: 'timeout while waiting for loading spinner to appear',
     });
     assert.ok(true, 'loading spinner shown cause otherwise there would have been a timeout');
