@@ -28,8 +28,14 @@
         </option>
       {{/autofocusable-element}}
     {{/form.element}}
-    {{form-navigation-buttons
-      disablePrevButton=true
-    }}
+
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-6 col-md-4 text-right">
+        <BackButton @disabled={{true}} />
+      </div>
+      <div class="col-6 col-md-8">
+        <NextButton />
+      </div>
+    </div>
   {{/bs-form}}
 </div>

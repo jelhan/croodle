@@ -69,9 +69,13 @@
       {{/each}}
     </div>
 
-    {{form-navigation-buttons
-      renderPrevButton=false
-    }}
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-md-8 offset-md-4">
+        <NextButton @isPending={{form.isSubmitting}} data-test-button="submit">
+          {{t "action.save"}}
+        </NextButton>
+      </div>
+    </div>
   {{/bs-form}}
 </div>
 

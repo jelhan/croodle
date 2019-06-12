@@ -1,4 +1,4 @@
-import { currentURL, currentRouteName, findAll } from '@ember/test-helpers';
+import { currentURL, currentRouteName, findAll, settled, waitFor } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -121,16 +121,36 @@ module('Acceptance | create a poll', function(hooks) {
       'available answers selection has autofocus'
     );
 
-    // simulate temporate this.server error
+    // simulate temporary server error
     this.server.post('/polls', undefined, 503);
 
     await pageCreateSettings.save();
     assert.equal(currentRouteName(), 'create.settings');
 
-    // simulate this.server is available again
-    this.server.post('/polls');
+    // simulate server is available again
+    // defer creation for testing loading spinner
+    let resolveSubmission;
+    let resolveSubmissionWith;
+    this.server.post('/polls', function(schema) {
+      return new Promise((resolve) => {
+        let attrs = this.normalizedRequestAttrs();
 
-    await pageCreateSettings.save();
+        resolveSubmission = resolve;
+        resolveSubmissionWith = schema.polls.create(attrs);
+      });
+    });
+
+    pageCreateSettings.save();
+
+    // shows loading spinner while saving
+    await waitFor('[data-test-button="submit"] .spinner-border', {
+      timeoutMessage: 'timeout while waiting for loading spinner to appear',
+    });
+    assert.ok(true, 'loading spinner is shown');
+
+    resolveSubmission(resolveSubmissionWith);
+    await settled();
+
     assert.equal(currentRouteName(), 'poll.participation');
     assert.ok(
       pagePollParticipation.urlIsValid() === true,
