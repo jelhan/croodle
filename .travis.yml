@@ -50,7 +50,7 @@ script:
   - if [ $TEST = "EMBER" ]; then yarn run lint:js; fi
   - if [ $TEST = "EMBER" ]; then yarn test; fi
   # test that CSP headers in public/.htaccess are matching the ones configured in config/environment.js
-  - if [ $TEST = "EMBER" ]; then ember csp-headers --environment production --silent 2>&1 | sed 's/ $//'
+  - if [ $TEST = "EMBER" ]; then ember csp-headers --environment production --silent 2>&1 | sed 's/ $//'; fi
   - if [ $TEST = "EMBER" ]; then grep "`ember csp-headers --environment production --silent 2>&1 | sed 's/ $//'`" public/.htaccess || (echo "CSP headers in public/.htaccess does not match configuration" && exit 1); fi
   # test against different browsers using sauce lab
   - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js; fi
