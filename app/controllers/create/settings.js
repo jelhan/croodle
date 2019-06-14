@@ -61,6 +61,8 @@ export default Controller.extend(Validations, {
         await poll.save();
       } catch(err) {
         this.flashMessages.danger('error.poll.savingFailed');
+
+        throw err;
       }
 
       try {
