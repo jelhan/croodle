@@ -2604,26 +2604,7 @@ broccoli-persistent-filter@^2.1.0:
     symlink-or-copy "^1.0.1"
     walk-sync "^1.0.0"
 
-broccoli-persistent-filter@^2.1.1:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/broccoli-persistent-filter/-/broccoli-persistent-filter-2.2.3.tgz#63dbd7ff05b6d7dcfdefd75238e1097370ac7467"
-  integrity sha512-WSq6S9lC78LZ2T6L8s+NueEDuWdVSDiwjH8XbHo4ocL7V5fZLXupxvnPWtoH2Jp20j6/nvznTkgKJC4g70JVdA==
-  dependencies:
-    async-disk-cache "^1.2.1"
-    async-promise-queue "^1.0.3"
-    broccoli-plugin "^1.0.0"
-    fs-tree-diff "^2.0.0"
-    hash-for-dep "^1.5.0"
-    heimdalljs "^0.2.1"
-    heimdalljs-logger "^0.1.7"
-    mkdirp "^0.5.1"
-    promise-map-series "^0.2.1"
-    rimraf "^2.6.1"
-    rsvp "^4.7.0"
-    symlink-or-copy "^1.0.1"
-    walk-sync "^1.0.0"
-
-broccoli-persistent-filter@^2.2.1:
+broccoli-persistent-filter@^2.1.1, broccoli-persistent-filter@^2.2.1:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/broccoli-persistent-filter/-/broccoli-persistent-filter-2.3.0.tgz#191e6272e20693c6e110e844cce58bdb46238035"
   integrity sha512-3ckoDlHB4IVsMrPFUOmFhPlSj6GC6p4PgxVRZU581GCq0j2IdEfmhzjm/s+ctkkl2PFUANBSs3Ot5W9wYgP4ZQ==
@@ -3997,10 +3978,15 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
-electron-to-chromium@^1.3.150, electron-to-chromium@^1.3.47:
+electron-to-chromium@^1.3.150:
   version "1.3.157"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.157.tgz#6211d69e8c4ee18df8c84e74e8644bcafc09486c"
   integrity sha512-vxGi3lOGqlupuogZxJOMfu+Q1vaOlG6XbsblWw8XnUZSr/ptbt3D6jhHT5LJPZuFUpKhbEo1u4QipivSory1Kg==
+
+electron-to-chromium@^1.3.47:
+  version "1.3.159"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.159.tgz#4292643c5cb77678821ce01557ba6dd0f562db5e"
+  integrity sha512-bhiEr8/A97GUBcUzNb9MFNhzQOjakbKmEKBEAa6UMY45zG2e8PM63LOgAPXEJE9bQiaQH6nOdYiYf8X821tZjQ==
 
 element-closest@^2.0.2:
   version "2.0.2"
@@ -4122,9 +4108,9 @@ ember-bootstrap-cp-validations@^1.0.0:
     ember-cli-babel "^6.6.0"
 
 ember-bootstrap@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/ember-bootstrap/-/ember-bootstrap-2.7.1.tgz#44f4c9ad83c543f447796429d27ddb621d70b820"
-  integrity sha512-qqB0GPNZa3ypwoaI11GtrIs6Ugs3KPz/0TWG6M3eHbRb6BKTLfx3mUh0Ws0SwJDgZ5pMPsdHI4m1yDBrR9/ulQ==
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/ember-bootstrap/-/ember-bootstrap-2.8.0.tgz#5e43e7b3c921019063c3776fc2bdc9e7663aa913"
+  integrity sha512-3F4CYatmtf7cv8ePibfcSOcatNuJsJvcu+lVSpTfroKycnFhisdpZyiBmlWY+h/3jT4hQYtV0Qro+wgHItRB5A==
   dependencies:
     broccoli-debug "^0.6.3"
     broccoli-funnel "^2.0.0"
@@ -4731,9 +4717,9 @@ ember-composable-helpers@^2.1.0:
     resolve "^1.10.0"
 
 "ember-concurrency@^0.8.0 || ^0.9.0 || ^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.10.0.tgz#9c7c79dca411e01466119f02d7197c0a4ff0df08"
-  integrity sha512-KhNNkUqnAN0isuAwSHaTJtmY/MdHJogSSAj7lCigzfJn2+21yafQcwzoVqf5LdMOn2+owWYURr1YiwzuOvlGyQ==
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.10.1.tgz#aae4528540391a7278e2c193a146b5474cad5ec2"
+  integrity sha512-KdvR5TEfnLov4igeIZiVueFOL0kMjkabMQrioipegey+NF23SSYThc/y2rKv109D92lTAJgC6Vp7+j2RtXqD+w==
   dependencies:
     babel-core "^6.24.1"
     ember-cli-babel "^6.8.2"
@@ -10175,15 +10161,15 @@ rsvp@^3.0.14, rsvp@^3.0.17, rsvp@^3.0.18, rsvp@^3.0.21, rsvp@^3.0.6, rsvp@^3.1.0
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-3.6.2.tgz#2e96491599a96cde1b515d5674a8f7a91452926a"
   integrity sha512-OfWGQTb9vnwRjwtA2QwpG2ICclHC3pgXZO5xt8H2EfgDquO0qVdSb5T88L4qJVAEugbS56pAuV4XZM58UX8ulw==
 
-rsvp@^4.0.1, rsvp@^4.6.1, rsvp@^4.8.1:
-  version "4.8.4"
-  resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.4.tgz#b50e6b34583f3dd89329a2f23a8a2be072845911"
-  integrity sha512-6FomvYPfs+Jy9TfXmBpBuMWNH94SgCsZmJKcanySzgNNP6LjWxBvyLTa9KaMfDDM5oxRfrKDB0r/qeRsLwnBfA==
-
-rsvp@^4.7.0, rsvp@^4.8.2, rsvp@^4.8.3, rsvp@^4.8.4:
+rsvp@^4.0.1, rsvp@^4.7.0, rsvp@^4.8.2, rsvp@^4.8.3, rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
   integrity sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==
+
+rsvp@^4.6.1, rsvp@^4.8.1:
+  version "4.8.4"
+  resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.4.tgz#b50e6b34583f3dd89329a2f23a8a2be072845911"
+  integrity sha512-6FomvYPfs+Jy9TfXmBpBuMWNH94SgCsZmJKcanySzgNNP6LjWxBvyLTa9KaMfDDM5oxRfrKDB0r/qeRsLwnBfA==
 
 rsvp@~3.2.1:
   version "3.2.1"
