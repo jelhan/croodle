@@ -202,4 +202,34 @@ module('Acceptance | participate in a poll', function(hooks) {
     // need to resolve with a valid response cause otherwise Ember Data would throw
     resolveSubmission(resolveSubmissionWith);
   });
+
+  test('does not show validation errors while saving participation', async function(assert) {
+    let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let poll = this.server.create('poll', {
+      encryptionKey
+    });
+
+    let resolveSubmission;
+    let resolveSubmissionWith;
+    this.server.post('/users', function(schema) {
+      return new Promise((resolve) => {
+        let attrs = this.normalizedRequestAttrs();
+
+        resolveSubmission = resolve;
+        resolveSubmissionWith = schema.users.create(attrs);
+      });
+    });
+
+    await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
+    pollParticipate('John Doe', ['yes', 'no']);
+
+    await waitFor('[data-test-button="submit"] .spinner-border', {
+      timeoutMessage: 'timeout while waiting for loading spinner to appear',
+    });
+    assert.dom('.is-invalid').doesNotExist('does not show any validation error');
+
+    // resolve promise for test to finish
+    // need to resolve with a valid response cause otherwise Ember Data would throw
+    resolveSubmission(resolveSubmissionWith);
+  });
 });
