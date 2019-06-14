@@ -27,11 +27,18 @@ export default BaseValidator.extend({
       return true;
     }
 
-    const parent = model.get(options.parent);
-    const collection = parent.get(options.attributeInParent);
-    const positionInCollection = collection.indexOf(model);
-    const elementsBefore = positionInCollection !== -1 ? collection.slice(0, positionInCollection) : collection;
-    const matches = elementsBefore.findBy(attribute, value);
+    let parent = model.get(options.parent);
+    let collection = parent.get(options.attributeInParent);
+
+    if (options.ignoreNewRecords) {
+      // ignore records while saving cause otherwise the record
+      // being created itself is considered a duplicate while saving
+      collection = collection.filter((_) => !_.isNew);
+    }
+
+    let positionInCollection = collection.indexOf(model);
+    let elementsBefore = positionInCollection !== -1 ? collection.slice(0, positionInCollection) : collection;
+    let matches = elementsBefore.findBy(attribute, value);
 
     if (matches) {
       return this.createErrorMessage('unique', value, options);

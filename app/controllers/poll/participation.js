@@ -29,7 +29,8 @@ const Validations = buildValidations({
       attributeInParent: 'users',
       dependentKeys: ['model.poll.users.[]', 'model.poll.users.@each.name', 'model.i18n.locale'],
       disable: readOnly('model.anonymousUser'),
-      messageKey: 'unique.name'
+      messageKey: 'unique.name',
+      ignoreNewRecords: true,
     })
   ],
 
