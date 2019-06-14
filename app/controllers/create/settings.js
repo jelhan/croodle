@@ -59,7 +59,11 @@ export default Controller.extend(Validations, {
       // save poll
       try {
         await poll.save();
+      } catch(err) {
+        this.flashMessages.danger('error.poll.savingFailed');
+      }
 
+      try {
         // reload as workaround for bug: duplicated records after save
         await poll.reload();
 

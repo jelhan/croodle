@@ -50,6 +50,7 @@ export default {
   'error.poll.notFound.description': 'The poll you are looking for could not be found. This could be caused by different reasons, including:',
   'error.poll.notFound.reasons.expired': 'The poll is expired and has been deleted.',
   'error.poll.notFound.reasons.typo': 'There is a typo in the URL. You may want to double-check it - especially the part before the question mark.',
+  'error.poll.savingFailed': 'The poll could not be saved. Please try again in a few seconds.',
   'error.generic.unexpected.title': 'An unexpected error occured',
   'error.generic.unexpected.description': 'We are sorry. An unexpected error occurred. Please try again later.',
   'index.title': 'Croodle simplifica las citas y la toma de decisiones …<br/>… y al mismo tiempo protege tus datos',
