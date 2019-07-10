@@ -56,7 +56,7 @@ script:
   # test against different browsers using sauce lab
   - if [ $TEST = "BROWSER" ]; then yarn test --config-file testem.browserstack.js; fi
   # test bundle size
-  - if [ $TEST = "BUNDLESIZE" ]; then node_modules/ember-cli/bin/ember bundlesize:test; fi
+  - if [ $TEST = "BUNDLESIZE" ]; then yarn test:bundlesize; fi
   # run api tests with composer
   - if [ $TEST = "API" ]; then cd api/ && ./vendor/bin/codecept run && cd ..; fi
 

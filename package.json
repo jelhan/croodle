@@ -14,7 +14,8 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "test:bundlesize": "ember bundlesize:test"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",
