@@ -28,6 +28,8 @@ env:
     - "BROWSERSTACK_ACCESS_KEY=xaM9Uxurv2GyxFLKQXgj"
 
 before_install:
+  # use a recent node version if ember build is tested
+  - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ] || [ $TEST = "BUNDLESIZE" ]; then nvm install --lts | bash; fi
   # provide yarn if ember build is tested
   - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ] || [ $TEST = "BUNDLESIZE" ]; then curl -o- -L https://yarnpkg.com/install.sh | bash; fi
   - if [ $TEST = "EMBER" ] || [ $TEST = "BROWSER" ] || [ $TEST = "BUNDLESIZE" ]; then export PATH=$HOME/.yarn/bin:$PATH; fi
