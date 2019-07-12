@@ -47,16 +47,6 @@ module.exports = {
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'node/no-unpublished-require': 'off'
       })
-    },
-    // in-repo-addon violates node/no-extraneous-require by reusing dependencies of application
-    // https://github.com/ember-cli/ember-cli/issues/8740
-    {
-      files: [
-        'lib/*/index.js'
-      ],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        'node/no-extraneous-require': 'off'
-      })
-    },
+    }
   ]
 };
