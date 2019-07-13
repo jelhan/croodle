@@ -2,5 +2,8 @@
   "name": "include-api-in-build",
   "keywords": [
     "ember-addon"
-  ]
+  ],
+  "dependencies": {
+    "fs-extra": "*"
+  }
 }

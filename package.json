@@ -14,7 +14,8 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "test:bundlesize": "ember bundlesize:test"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",
@@ -24,10 +25,10 @@
     "ember-awesome-macros": "^5.0.0",
     "ember-bootstrap": "^2.7.1",
     "ember-bootstrap-cp-validations": "^1.0.0",
-    "ember-cli": "~3.8.2",
+    "ember-cli": "~3.10.1",
     "ember-cli-acceptance-test-helpers": "^1.0.0",
     "ember-cli-app-version": "^3.2.0",
-    "ember-cli-babel": "^7.1.2",
+    "ember-cli-babel": "^7.7.3",
     "ember-cli-browser-navigation-button-test-helper": "^0.1.1",
     "ember-cli-browserstack": "^0.0.7",
     "ember-cli-bundlesize": "^0.2.0",
@@ -36,10 +37,10 @@
     "ember-cli-content-security-policy": "^1.0.0",
     "ember-cli-dependency-checker": "^3.1.0",
     "ember-cli-deprecation-workflow": "^1.0.1",
-    "ember-cli-eslint": "^4.2.3",
+    "ember-cli-eslint": "^5.1.0",
     "ember-cli-flash": "^1.4.0",
-    "ember-cli-htmlbars": "^3.0.0",
-    "ember-cli-htmlbars-inline-precompile": "^1.0.3",
+    "ember-cli-htmlbars": "^3.0.1",
+    "ember-cli-htmlbars-inline-precompile": "^2.1.0",
     "ember-cli-inject-live-reload": "^1.8.2",
     "ember-cli-mirage": "^1.0.0-beta.1",
     "ember-cli-moment-shim": "^3.7.1",
@@ -51,34 +52,35 @@
     "ember-cli-uglify": "^2.1.0",
     "ember-composable-helpers": "^2.1.0",
     "ember-cp-validations": "^4.0.0-beta.8",
-    "ember-data": "~3.8.0",
+    "ember-data": "~3.10.0",
     "ember-data-model-fragments": "^4.0.0",
     "ember-fetch": "^6.5.1",
     "ember-i18n": "^5.0.2",
     "ember-i18n-cp-validations": "^3.0.2",
-    "ember-load-initializers": "^1.1.0",
+    "ember-load-initializers": "^2.0.0",
     "ember-math-helpers": "^2.8.1",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^7.8.0",
     "ember-page-title": "^5.0.0",
     "ember-power-calendar": "^0.13.1",
     "ember-power-calendar-moment": "^0.1.4",
-    "ember-qunit": "^4.4.0",
+    "ember-qunit": "^4.4.1",
     "ember-resolver": "^5.0.1",
-    "ember-source": "~3.8.0",
+    "ember-source": "~3.10.0",
     "ember-test-selectors": "^2.0.0",
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^6.4.1",
+    "eslint-plugin-node": "^9.0.1",
     "fs-extra": "^8.0.0",
     "loader.js": "^4.7.0",
     "open-iconic": "^1.1.1",
-    "qunit-dom": "^0.8.0",
+    "qunit-dom": "^0.8.4",
     "sass": "^1.19.0",
     "sjcl": "^1.0.8"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   },
   "ember-addon": {
     "paths": [
@@ -88,6 +90,7 @@
   },
   "resolutions": {
     "chart.js": "~2.6.0",
+    "ember-macro-helpers": "^4.0.0",
     "jquery": "~3.3.1"
   }
 }
