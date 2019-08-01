@@ -1,7 +1,7 @@
 {
     "require": {
         "php": "^7.1",
-        "slim/slim": "^3.5"
+        "slim/slim": "^4.0.0"
     },
     "require-dev": {
         "codeception/codeception": "^2.5",
