@@ -30,7 +30,7 @@
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^7.7.3",
     "ember-cli-browser-navigation-button-test-helper": "^0.2.0",
-    "ember-cli-browserstack": "^0.0.7",
+    "ember-cli-browserstack": "^0.0.8",
     "ember-cli-bundlesize": "^0.2.0",
     "ember-cli-chart": "^3.3.1",
     "ember-cli-clipboard": "^0.12.0",
