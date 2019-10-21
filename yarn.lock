@@ -4246,15 +4246,15 @@ ember-auto-import@^1.3.0:
     webpack "~4.28"
 
 ember-awesome-macros@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-5.0.0.tgz#a92ec4b7353268d3a2d231efcc63f668e733dcb1"
-  integrity sha512-Ya2+yG8vFTgIgsrTLX0NTuU4+A+Nj7iYD/bE3p03Bah5hTex241/XpwLlasZ75z+KEwzoxWKcONxAmgDqXjxgg==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-5.0.1.tgz#fbe36a680165eb63a402e587a0d808ba54b5be5b"
+  integrity sha512-qqXc/AOf3gc7lr4tMmGMIulQ7uyWOsPWSIxSspnzgtUJ955M1iXRLyefh8US/+oWdKGMYNum/4vdTkV6SP3Eeg==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-merge-trees "^3.0.0"
     ember-cli-babel "^7.7.3"
     ember-cli-string-utils "^1.1.0"
-    ember-macro-helpers "^4.0.0"
+    ember-macro-helpers "^4.2.2"
 
 ember-bootstrap-cp-validations@^1.0.0:
   version "1.0.0"
@@ -6437,10 +6437,22 @@ glob@^5.0.10:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.4, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4:
+glob@^7.0.4, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.4:
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.4.tgz#aa608a2f6c577ad357e1ae5a5c26d9a8d1969255"
   integrity sha512-hkLPepehmnKk41pUGm3sYxoFs/umurYfYJCerbXEyFIWcAzvpipAgVkBqqT9RBKMGjnq6kMuyYwha6csxbiM1A==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
+glob@^7.1.3:
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.5.tgz#6714c69bee20f3c3e64c4dd905553e532b40cdc0"
+  integrity sha512-J9dlskqUXK1OeTOYBEn5s8aMukWMwWfs+rPTn/jn50Ux4MNXVhubL1wu/j2t+H4NVI+cXEcCaYellqaPVGXNqQ==
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
