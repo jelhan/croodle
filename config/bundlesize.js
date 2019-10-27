@@ -9,7 +9,7 @@ module.exports = {
     },
     css: {
       pattern: 'assets/*.css',
-      limit: '15KB',
+      limit: '15.3KB',
       compression: 'gzip'
     }
   }
