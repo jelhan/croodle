@@ -1,6 +1,13 @@
 import Component from '@ember/component';
-import AutofocusSupport from 'croodle/mixins/autofocus-support';
 
-export default Component.extend(AutofocusSupport, {
+export default Component.extend({
   autofocus: true,
+
+  didInsertElement() {
+    this._super(...arguments);
+
+    if (this.autofocus) {
+      this.element.focus();
+    }
+  },
 });

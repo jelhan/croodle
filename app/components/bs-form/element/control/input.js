@@ -1,4 +1,11 @@
 import BsInput from 'ember-bootstrap/components/bs-form/element/control/input';
-import AutofocusSupport from 'croodle/mixins/autofocus-support';
 
-export default BsInput.extend(AutofocusSupport);
+export default BsInput.extend({
+  didInsertElement() {
+    this._super(...arguments);
+
+    if (this.autofocus) {
+      this.element.focus();
+    }
+  },
+});

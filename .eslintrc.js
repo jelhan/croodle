@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
@@ -13,10 +14,10 @@ module.exports = {
   ],
   env: {
     browser: true,
-    es6: true
   },
   rules: {
-    'ember/no-observers': 'warn'
+    'ember/no-observers': 'warn',
+    'ember/no-jquery': 'error',
   },
   overrides: [
     // node files
@@ -32,8 +33,7 @@ module.exports = {
         'server/**/*.js'
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,
