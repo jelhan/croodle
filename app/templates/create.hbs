@@ -1,18 +1,18 @@
 {{title (t "create.title")}}
 
-{{#bs-button-group justified=true classNames="cr-steps-top-nav form-steps"}}
+<BsButtonGroup @justified={{true}} class="cr-steps-top-nav form-steps">
   {{#each formSteps as |formStep|}}
     {{#unless formStep.hidden}}
-      {{#bs-button
-        onClick=(transition-to formStep.route)
-        type=(if formStep.active "primary is-active" "default")
-        disabled=formStep.disabled
-        classNames="cr-steps-top-nav__button"
-      }}
+      <BsButton
+        @onClick={{transition-to formStep.route}}
+        @type={{if (eq router.currentRouteName formStep.route) "primary is-active" "default"}}
+        disabled={{formStep.disabled}}
+        class="cr-steps-top-nav__button"
+      >
         {{t formStep.label}}
-      {{/bs-button}}
+      </BsButton>
     {{/unless}}
   {{/each}}
-{{/bs-button-group}}
+</BsButtonGroup>
 
 {{outlet}}

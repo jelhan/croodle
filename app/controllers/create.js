@@ -1,67 +1,94 @@
 import { inject as service } from '@ember/service';
-import { readOnly } from '@ember/object/computed';
-import EmberObject, { computed, observer } from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 import Controller from '@ember/controller';
 import { getOwner } from '@ember/application';
+import { getProperties } from '@ember/object';
 
-const formStepObject = EmberObject.extend({
-  active: computed('routing.currentRouteName', function() {
-    const currentRouteName = this.get('routing.currentRouteName');
-    return currentRouteName === this.route;
+const FormStep = EmberObject.extend({
+  router: service(),
+
+  disabled: computed('requiredState', 'visited', function() {
+    let { visited, requiredState } = this;
+    return !visited || requiredState === false;
   }),
-  disabled: true,
   hidden: false,
   label: null,
   route: null,
-  routing: service('-routing'),
-  updateDisabledState: observer('active', function() {
-    if (this.active) {
-      this.set('disabled', false);
-    }
-  }).on('init'),
+  visited: false,
+
+  init() {
+    this._super(...arguments);
+
+    let setVisited = () => {
+      if (this.router.currentRouteName === this.route) {
+        this.set('visited', true);
+      }
+    };
+    this.router.on('routeDidChange', setVisited);
+  }
 });
 
+const FORM_STEPS = [
+  {
+    label: 'create.formStep.type',
+    route: 'create.index',
+  },
+  {
+    label: 'create.formStep.meta',
+    requiredState: computed('model.pollType', function() {
+      return this.model.pollType;
+    }),
+    route: 'create.meta',
+  },
+  {
+    label: computed('model.pollType', function() {
+      let { pollType } = this.model;
+      return pollType === 'FindADate' ? 'create.formStep.options.days' : 'create.formStep.options.text';
+    }),
+    requiredState: computed('model.title', function() {
+      let { title } = this.model;
+      return typeof title === 'string' && title.length >= 2;
+    }),
+    route: 'create.options',
+  },
+  {
+    hidden: computed('model.pollType', function() {
+      let { pollType } = this.model;
+      return pollType !== 'FindADate';
+    }),
+    label: 'create.formStep.options-datetime',
+    requiredState: computed('model.options.length', function() {
+      return this.model.options.length >= 1;
+    }),
+    route: 'create.options-datetime'
+  },
+  {
+    label: 'create.formStep.settings',
+    requiredState: computed('model.options.length', function() {
+      return this.model.options.length >= 1;
+    }),
+    route: 'create.settings',
+  },
+];
+
 export default Controller.extend({
+  router: service(),
+
   formSteps: computed('model', function() {
-    const owner = getOwner(this);
-    return [
-      formStepObject.create(owner.ownerInjection(), {
-        label: 'create.formStep.type',
-        route: 'create.index'
-      }),
-      formStepObject.create(owner.ownerInjection(), {
-        label: 'create.formStep.meta',
-        route: 'create.meta'
-      }),
-      formStepObject.extend({
-        label: computed('pollType', function() {
-          const pollType = this.pollType;
-          if (pollType === 'FindADate') {
-            return 'create.formStep.options.days';
-          } else {
-            return 'create.formStep.options.text';
-          }
-        }),
-        pollType: readOnly('model.pollType')
-      }).create(owner.ownerInjection(), {
-        model: this.model,
-        route: 'create.options'
-      }),
-      formStepObject.extend({
-        hidden: computed('pollType', function() {
-          const pollType = this.pollType;
-          return pollType !== 'FindADate';
-        }),
-        pollType: readOnly('model.pollType')
-      }).create(owner.ownerInjection(), {
-        label: 'create.formStep.options-datetime',
-        model: this.model,
-        route: 'create.options-datetime'
-      }),
-      formStepObject.create(owner.ownerInjection(), {
-        label: 'create.formStep.settings',
-        route: 'create.settings'
-      })
-    ];
+    let owner = getOwner(this);
+
+    return FORM_STEPS.map((definition, index) => {
+      let computedProperties = Object.keys(definition).filter((key) => typeof definition[key] === 'function');
+      let values = Object.keys(definition).filter((key) => typeof definition[key] !== 'function');
+
+      let extendDefinition = getProperties(definition, ...computedProperties)
+      let createDefinition = Object.assign({ model: this.model }, getProperties(definition, ...values));
+
+      if (index === 0) {
+        createDefinition.visited = true;
+      }
+
+      return FormStep.extend(extendDefinition).create(owner.ownerInjection(), createDefinition);
+    });
   })
 });
