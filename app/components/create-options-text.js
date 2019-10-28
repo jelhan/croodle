@@ -1,6 +1,5 @@
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { observer } from '@ember/object';
 
 export default Component.extend({
   actions: {
@@ -19,7 +18,7 @@ export default Component.extend({
     }
   },
 
-  enforceMinimalOptionsAmount: observer('options', 'isMakeAPoll', function() {
+  enforceMinimalOptionsAmount() {
     if (this.get('options.length') < 2) {
       let options = this.options;
       for (let missingOptions = 2 - this.get('options.length'); missingOptions > 0; missingOptions--) {
@@ -28,7 +27,13 @@ export default Component.extend({
         );
       }
     }
-  }).on('init'),
+  },
 
   store: service('store'),
+
+  init() {
+    this._super(...arguments);
+
+    this.enforceMinimalOptionsAmount();
+  }
 });

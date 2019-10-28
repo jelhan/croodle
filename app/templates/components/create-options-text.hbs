@@ -10,10 +10,11 @@
     >
       <div class="input-group">
         <el.control
+          {{! first control should be autofocused }}
           @autofocus={{unless index true false}}
-          @id={{el.id}}
-          @value={{el.value}}
           @onChange={{action (mut el.value)}}
+          @value={{el.value}}
+          id={{el.id}}
         />
         <div class="input-group-append">
           <BsButton
