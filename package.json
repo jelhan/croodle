@@ -89,7 +89,6 @@
   },
   "resolutions": {
     "chart.js": "~2.6.0",
-    "ember-macro-helpers": "^4.0.0",
-    "jquery": "~3.3.1"
+    "ember-macro-helpers": "^4.0.0"
   }
 }
