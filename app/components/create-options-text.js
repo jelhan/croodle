@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { observer } from '@ember/object';
+import { next } from '@ember/runloop';
 
 export default Component.extend({
   actions: {
@@ -19,16 +19,26 @@ export default Component.extend({
     }
   },
 
-  enforceMinimalOptionsAmount: observer('options', 'isMakeAPoll', function() {
-    if (this.get('options.length') < 2) {
-      let options = this.options;
-      for (let missingOptions = 2 - this.get('options.length'); missingOptions > 0; missingOptions--) {
-        options.pushObject(
-          this.store.createFragment('option')
-        );
-      }
+  enforceMinimalOptionsAmount() {
+    let options = this.options;
+
+    while (options.length < 2) {
+      options.pushObject(
+        this.store.createFragment('option')
+      );
     }
-  }).on('init'),
+  },
 
   store: service('store'),
+
+  init() {
+    this._super(...arguments);
+
+    // need to delay pushing fragments into options array to prevent
+    // > You modified "disabled" twice on <(unknown):ember330> in a single render.
+    // error.
+    next(() => {
+      this.enforceMinimalOptionsAmount();
+    });
+  }
 });
