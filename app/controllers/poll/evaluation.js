@@ -1,6 +1,5 @@
 import { inject as service } from '@ember/service';
 import { and, gt, not, readOnly } from '@ember/object/computed';
-import $ from 'jquery';
 import { computed } from '@ember/object';
 import Controller, { inject as controller } from '@ember/controller';
 
@@ -44,7 +43,7 @@ export default Controller.extend({
       evaluation.push({
         id: answer.label,
         label: answer.label,
-        options: $.extend([], options)
+        options: [...options],
       });
     });
     // create object for no answer if answers are not forced
@@ -52,7 +51,7 @@ export default Controller.extend({
       evaluation.push({
         id: null,
         label: 'no answer',
-        options: $.extend([], options)
+        options: [...options],
       });
     }
 

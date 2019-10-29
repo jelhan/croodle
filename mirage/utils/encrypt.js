@@ -10,8 +10,8 @@ import { get } from '@ember/object';
 import sjcl from 'sjcl';
 
 export default function(propertiesToEncrypt, model) {
-  assert(isArray(propertiesToEncrypt), 'first argument must be an array');
-  assert(isPresent(get(model, 'encryptionKey')), 'model must have an encryptionKey property which isn\'t empty');
+  assert('first argument must be an array', isArray(propertiesToEncrypt));
+  assert('model must have an encryptionKey property which isn\'t empty', isPresent(get(model, 'encryptionKey')));
 
   let passphrase = get(model, 'encryptionKey');
   let data = {
