@@ -4,9 +4,9 @@
         "slim/slim": "^3.5"
     },
     "require-dev": {
-        "codeception/codeception": "^2.5",
-        "codeception/phpbuiltinserver": "^1.4",
         "flow/jsonpath": "^0.4.0",
-        "vlucas/phpdotenv": "^3.0.0"
+        "vlucas/phpdotenv": "^3.0.0",
+        "codeception/codeception": "^3.1",
+        "codeception/phpbuiltinserver": "^1.5"
     }
 }
