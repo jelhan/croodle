@@ -157,13 +157,13 @@ export default Controller.extend(Validations, {
       });
 
       if (!isEmpty(answer.get('labelTranslation'))) {
-        return AnswerObject.extend(owner.ownerInjection(), {
+        return AnswerObject.extend({
           i18n: service(),
           label: computed('i18n.locale', function() {
             return this.i18n.t(this.labelTranslation);
           }),
           labelTranslation: answer.get('labelTranslation')
-        }).create();
+        }).create(owner.ownerInjection());
       } else {
         return AnswerObject.extend({
           label: answer.get('label')
@@ -179,11 +179,7 @@ export default Controller.extend(Validations, {
     let isFindADate = this.isFindADate;
     let lastDate;
 
-    // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
-    // To lookup validators, container access is required which can cause an issue with Object creation
-    // if the object is statically imported. The current fix for this is as follows.
-    let owner = getOwner(this);
-    let SelectionObject = EmberObject.extend(owner.ownerInjection(), SelectionValidations, {
+    let SelectionObject = EmberObject.extend(SelectionValidations, {
       // forceAnswer and isFreeText must be included in model
       // cause otherwise validations can't depend on it
       forceAnswer: this.forceAnswer,
@@ -214,7 +210,11 @@ export default Controller.extend(Validations, {
         labelValue = value;
       }
 
-      return SelectionObject.create({
+      // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
+      // To lookup validators, container access is required which can cause an issue with Object creation
+      // if the object is statically imported. The current fix for this is as follows.
+      let owner = getOwner(this);
+      return SelectionObject.create(owner.ownerInjection(), {
         labelValue,
         momentFormat
       });
