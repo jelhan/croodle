@@ -8,5 +8,10 @@
         "vlucas/phpdotenv": "^3.0.0",
         "codeception/codeception": "^3.1",
         "codeception/phpbuiltinserver": "^1.5"
+    },
+    "config": {
+        "platform": {
+            "php": "7.1"
+        }
     }
 }
