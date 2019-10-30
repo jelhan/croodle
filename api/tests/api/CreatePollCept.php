@@ -6,7 +6,7 @@ $I = new ApiTester($scenario);
 $I->wantTo('create a poll');
 $I->sendPOST('/polls', $pollJson);
 $I->seeResponseCodeIs(200);
-$I->seeHttpHeader('Content-Type', 'application/json;charset=utf-8');
+$I->seeHttpHeader('Content-Type', 'application/json');
 $I->seeHttpHeader('Expires', '-1');
 $I->seeResponseIsJson();
 $I->seeResponseJsonMatchesJsonPath('poll.id');
