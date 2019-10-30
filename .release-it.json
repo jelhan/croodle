@@ -1,0 +1,18 @@
+{
+  "git": {
+    "changelog": "lerna-changelog --next-version Changelog",
+    "tagName": "v${version}"
+  },
+  "github": {
+    "assets": ["dist/*.tar.gz"],
+    "tokenRef": "GITHUB_AUTH",
+    "release": true
+  },
+  "hooks": {
+    "before:git:bump": "yarn install && ember build --prod",
+    "before:github:release": "cd dist && tar -czf ../croodle.tar.gz --exclude .. * .* && mv ../croodle.tar.gz croodle-v${version}.tar.gz"
+  },
+  "npm": {
+    "publish": false
+  }
+}
