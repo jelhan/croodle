@@ -15,7 +15,7 @@ module('Acceptance | build', function(hooks) {
 
     let content = buildInfoEl.content;
     assert.ok(
-      /^version=\d[\d.]+\d(-(alpha|beta|rc)\d)?(\+[\da-z]{8})?$/.test(content),
+      /^version=\d[\d.]+\d(-(alpha|beta|rc).\d)?(\+[\da-z]{8})?$/.test(content),
       `${content} is valid version string`
     );
   });
