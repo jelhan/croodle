@@ -148,6 +148,7 @@ export default {
     phone: '{{description}} deve essere un numero di telefono valido.',
     url: '{{description}} deve essere un URL valido ',
     time: '{{description}} deve essere un orario valido (ad es. 10:45)',
+    'time.notPartially': 'Partially times are not supported',
     unique: '{{description}} deve essere esplicito',
     'unique.name': 'Questo nome è già stato usato'
   }

@@ -27,7 +27,7 @@ module('Integration | Component | create options datetime', function(hooks) {
    * that ones could be identifed by class 'ws-inputreplace'
    */
 
-  test('it generates inpute field for options iso 8601 date string (without time)', async function(assert) {
+  test('it generates input field for options iso 8601 date string (without time)', async function(assert) {
     // validation is based on validation of every option fragment
     // which validates according to poll model it belongs to
     // therefore each option needs to be pushed to poll model to have it as
@@ -55,7 +55,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     );
   });
 
-  test('it generates inpute field for options iso 8601 datetime string (with time)', async function(assert) {
+  test('it generates input field for options iso 8601 datetime string (with time)', async function(assert) {
     // validation is based on validation of every option fragment
     // which validates according to poll model it belongs to
     // therefore each option needs to be pushed to poll model to have it as

@@ -148,6 +148,7 @@ export default {
     phone: '{{description}} ha de ser un número de telèfon vàlid',
     url: '{{description}} ha de ser un URL vàlid ',
     time: '{{description}} ha de ser un orari vàlid (p. ex. 10:45)',
+    'time.notPartially': 'Partially times are not supported',
     unique: '{{description}} ha de ser explícita',
     'unique.name': 'Aquest nom ja s\'ha usat'
   }
