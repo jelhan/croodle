@@ -15,6 +15,10 @@ from 'ember-cp-validations';
 const { attr } = DS;
 
 const Validations = buildValidations({
+  isPartiallyFilled: validator('falsy', {
+    messageKey: 'errors.time.notPartially',
+    dependentKeys: ['model.i18n.locale'],
+  }),
   title: [
     validator('iso8601', {
       active: readOnly('model.poll.isFindADate'),
@@ -48,7 +52,11 @@ const Validations = buildValidations({
     validator('alias', {
       alias: 'title',
       firstMessageOnly: true
-    })
+    }),
+    // alias is partially filled validation as that's part of time validation
+    validator('alias', {
+      alias: 'isPartiallyFilled',
+    }),
   ]
 });
 
@@ -114,6 +122,12 @@ export default Fragment.extend(Validations, {
            this.title.length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
   }),
 
+  // isPartiallyFilled should be set only for times on creation if input is filled
+  // partially (e.g. "11:--"). It's required cause ember-cp-validations does not
+  // provide any method to push a validation error into validations. It's only
+  // working based on a property of the model.
+  isPartiallyFilled: false,
+
   time: computed('date', {
     get() {
       const date = this.date;
@@ -130,7 +144,7 @@ export default Fragment.extend(Validations, {
       return date.format('HH:mm');
     },
     set(key, value) {
-      const date = this.date;
+      let date = this.date;
       assert(
         'can not set a time if current value is not a valid date',
         moment.isMoment(date)

@@ -2,7 +2,7 @@ import { inject as service } from '@ember/service';
 import { readOnly, mapBy, filter } from '@ember/object/computed';
 import Component from '@ember/component';
 import { isPresent, isEmpty } from '@ember/utils';
-import { observer, get } from '@ember/object';
+import { action, observer, get } from '@ember/object';
 import {
   validator, buildValidations
 }
@@ -128,7 +128,7 @@ export default Component.extend(modelValidations, {
       } else {
         this.set('shouldShowErrors', true);
       }
-    }
+    },
   },
   // dates are sorted
   datesForFirstDay: readOnly('groupedDates.firstObject.items'),
@@ -148,4 +148,20 @@ export default Component.extend(modelValidations, {
   groupedDates: groupBy('dates', raw('day')),
 
   store: service(),
+
+  inputChanged: action(function(date, value) {
+    // reset partially filled state
+    date.set('isPartiallyFilled', false);
+
+    date.set('time', value);
+  }),
+
+  validateInput: action(function(date, event) {
+    let element = event.target;
+
+    if (!element.checkValidity()) {
+      // partially filled time input
+      date.set('isPartiallyFilled', true);
+    }
+  }),
 });
