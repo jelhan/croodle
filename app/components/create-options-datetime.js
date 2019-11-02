@@ -159,9 +159,11 @@ export default Component.extend(modelValidations, {
   validateInput: action(function(date, event) {
     let element = event.target;
 
+    // update partially filled time validation error
     if (!element.checkValidity()) {
-      // partially filled time input
       date.set('isPartiallyFilled', true);
+    } else {
+      date.set('isPartiallyFilled', false);
     }
   }),
 });
