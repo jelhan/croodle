@@ -6,6 +6,7 @@
   {{/if}}
 
   <BsForm
+    @onInvalid={{scroll-first-invalid-element-into-view-port}}
     @onSubmit={{action "submit"}}
     @formLayout="horizontal"
     @model={{this}}

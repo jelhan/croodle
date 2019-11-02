@@ -1,5 +1,6 @@
 <div class="participation cr-form-wrapper">
   {{#bs-form
+    onInvalid=(scroll-first-invalid-element-into-view-port)
     onSubmit=(action "submit")
     formLayout="horizontal"
     model=this
