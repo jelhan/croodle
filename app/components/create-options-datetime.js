@@ -150,18 +150,31 @@ export default Component.extend(modelValidations, {
   store: service(),
 
   inputChanged: action(function(date, value) {
+    // update property, which is normally done by default
+    date.set('time', value);
+
     // reset partially filled state
     date.set('isPartiallyFilled', false);
-
-    date.set('time', value);
   }),
 
+  // validate input field for being partially filled
   validateInput: action(function(date, event) {
     let element = event.target;
 
+    // update partially filled time validation error
     if (!element.checkValidity()) {
-      // partially filled time input
       date.set('isPartiallyFilled', true);
+    } else {
+      date.set('isPartiallyFilled', false);
+    }
+  }),
+
+  // remove partially filled validation error if user fixed it
+  updateInputValidation: action(function(date, event) {
+    let element = event.target;
+
+    if (element.checkValidity() && date.isPartiallyFilled) {
+      date.set('isPartiallyFilled', false);
     }
   }),
 });
