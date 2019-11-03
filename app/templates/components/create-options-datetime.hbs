@@ -44,12 +44,30 @@
             <div class="input-group">
               <el.control
                 @autofocus={{unless index true false}}
-                @onChange={{action this.inputChanged date}}
+                @onChange={{fn this.inputChanged date}}
                 @placeholder="00:00"
                 @type="time"
                 @value={{el.value}}
 
-                {{on "focusout" (action this.validateInput date)}}
+                {{! run validation for partially filled input on focusout event }}
+                {{on "focusout" (fn this.validateInput date)}}
+
+                {{!--
+                  Validation for partially input field must be reset if input is cleared.
+                  But `@onChange` is not called and `focusout` event not triggered in that
+                  scenario. Need to listen to additional events to ensure that partially
+                  input validation is updated as soon as user fixed a partially input.
+                  The `keyup` events captures all scenarios in which the input is cleared
+                  using keyboard. `focusin` event is triggered if user clicks the clears
+                  button provided by native input. As a fallback validation is rerun on
+                  `focusout`.
+                  As the time of implementation this was only affecting Chrome cause
+                  Firefox does not consider partially time input as invalid, Edge prevents
+                  partially filling in first place and Desktop Safari as well as IE 11
+                  do not support `<input type="time">`.
+                --}}
+                {{on "focusin" (fn this.updateInputValidation date)}}
+                {{on "keyup" (fn this.updateInputValidation date)}}
 
                 id={{el.id}}
               />
