@@ -42,6 +42,18 @@
           }
         }
       }
+
+      tbody {
+        td {
+          &.yes {
+            background-color: #c6ffbf;
+          }
+
+          &.no {
+            background-color: #ffbabc;
+          }
+        }
+      }
     }
   }
 }
