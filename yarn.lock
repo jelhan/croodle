@@ -3726,9 +3726,9 @@ chartjs-color@^2.1.0:
     color-convert "^1.9.3"
 
 "chokidar@>=2.0.0 <4.0.0":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.2.3.tgz#b9270a565d14f02f6bfdd537a6a2bbf5549b8c8c"
-  integrity sha512-GtrxGuRf6bzHQmXWRepvsGnXpkQkVU+D2/9a7dAe4a7v1NhrfZOZ2oKf76M3nOs46fFYL8D+Q8JYA4GYeJ8Cjw==
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.3.0.tgz#12c0714668c55800f659e262d4962a97faf554a6"
+  integrity sha512-dGmKLDdT3Gdl7fBUe8XK+gAtGmzy5Fn0XkkWQuYxGIgWVPPse2CxFA5mtrlD0TOHaHjEUqkWNyP1XdHoJES/4A==
   dependencies:
     anymatch "~3.1.1"
     braces "~3.0.2"
@@ -10005,9 +10005,9 @@ performance-now@^2.1.0:
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
 
 picomatch@^2.0.4:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.1.0.tgz#0fd042f568d08b1ad9ff2d3ec0f0bfb3cb80e177"
-  integrity sha512-uhnEDzAbrcJ8R3g2fANnSuXZMBtkpSjxTTgn2LeSiQlfmq72enQJWdQllXW24MBLYnA1SBD2vfvx2o0Zw3Ielw==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.1.1.tgz#ecdfbea7704adb5fe6fb47f9866c4c0e15e905c5"
+  integrity sha512-OYMyqkKzK7blWO/+XZYP6w8hH0LDvkBvdvKukti+7kqYFCiEAk+gI3DWnryapc0Dau05ugGTy0foQ6mqn4AHYA==
 
 picomatch@^2.0.5:
   version "2.0.7"
@@ -10962,9 +10962,9 @@ sane@^4.0.0, sane@^4.1.0:
     walker "~1.0.5"
 
 sass@^1.19.0:
-  version "1.23.2"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.23.2.tgz#eef0163c7670c80e8824ff75e76a5b4004fe2fd2"
-  integrity sha512-ZfOl81QxcWmjxOgjPbyog3uELzOxd4X9OaqEIAi9r/d2kEjtEYaMAD9a3E+xgjcKeP3NDLMhU9GB/WMv+rAeSw==
+  version "1.23.3"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.23.3.tgz#f07503b9e8d2bcf06ef69e8beea5d085589b1620"
+  integrity sha512-1DKRZxJMOh4Bme16AbWTyYeJAjTlrvw2+fWshHHaepeJfGq2soFZTnt0YhWit+bohtDu4LdyPoEj6VFD4APHog==
   dependencies:
     chokidar ">=2.0.0 <4.0.0"
 
