@@ -46,23 +46,19 @@
             {{user.name}}
           </td>
           {{#each this.options as |option index|}}
-            <td
-              data-test-is-selection-cell
-              data-test-value-for={{option.value}}
-            >
-              {{#let (object-at index user.selections) as |selection|}}
-                {{#if this.isFreeText}}
-                  {{selection.label}}
+            {{#let (object-at index user.selections) as |selection|}}
+              <td
+                class={{selection.type}}
+                data-test-is-selection-cell
+                data-test-value-for={{option.value}}
+              >
+                {{#if selection.labelTranslation}}
+                  {{t selection.labelTranslation}}
                 {{else}}
-                  {{#if selection.type}}
-                    <span class={{selection.type}}>
-                      <span class={{selection.icon}}></span>
-                      {{t selection.labelTranslation}}
-                    </span>
-                  {{/if}}
+                  {{selection.label}}
                 {{/if}}
-              {{/let}}
-            </td>
+              </td>
+            {{/let}}
           {{/each}}
         </tr>
       {{/each}}
