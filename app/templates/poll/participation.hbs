@@ -80,24 +80,32 @@
   {{/bs-form}}
 </div>
 
-{{#bs-modal
-  open=savingFailed
-  title=(t "modal.save-retry.title")
-  body=false
-  footer=false
-  closeButton=false
-  autoClose=false
-  id="modal-saving-failed"
-as |modal|
-}}
-  {{#modal.body}}
+<BsModal
+  @id="modal-saving-failed-modal"
+  @onHidden={{action (mut savingFailed) false}}
+  @onSubmit={{action "save"}}
+  @open={{savingFailed}}
+  as |modal|
+>
+  <modal.header
+    @closeButton={{false}}
+    @title={{t "modal.save-retry.title"}}
+  />
+  <modal.body>
     <p>{{t "modal.save-retry.text"}}</p>
-  {{/modal.body}}
-  {{#modal.footer}}
-    {{bs-button
-      defaultText=(t "modal.save-retry.button-retry")
-      type="primary"
-      onClick=(action "save")
-    }}
-  {{/modal.footer}}
-{{/bs-modal}}
+  </modal.body>
+  <modal.footer>
+    <BsButton
+      @onClick={{action modal.close}}
+    >
+      {{t "action.abort"}}
+    </BsButton>
+    <BsButton
+      @type="primary"
+      @onClick={{action modal.submit}}
+      data-test-button="retry"
+    >
+      {{t "modal.save-retry.button-retry"}}
+    </BsButton>
+  </modal.footer>
+</BsModal>

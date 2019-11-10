@@ -1,4 +1,5 @@
 export default {
+  'action.abort': 'Abort',
   'action.back': 'Back',
   'action.next': 'Next',
   'action.save': 'Save',
