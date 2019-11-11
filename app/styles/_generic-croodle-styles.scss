@@ -28,3 +28,9 @@
 .cr-h-auto {
   height: auto !important;
 }
+
+// adds the same padding-right as .is-valid / .is-invalid validation feedback
+// classes provided by Bootstrap do
+.cr-pr-validation {
+  padding-right: calc(1.5em + .74rem);
+}
