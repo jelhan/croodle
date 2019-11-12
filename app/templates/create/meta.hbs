@@ -24,11 +24,11 @@
     }}
 
     <div class="row cr-steps-bottom-nav">
-      <div class="col-6 col-md-4 text-right">
-        <BackButton @onClick={{action "previousPage"}} />
-      </div>
-      <div class="col-6 col-md-8">
+      <div class="col-6 col-md-8 order-12">
         <NextButton />
+      </div>
+      <div class="col-6 col-md-4 order-1 text-right">
+        <BackButton @onClick={{action "previousPage"}} />
       </div>
     </div>
   {{/bs-form}}
