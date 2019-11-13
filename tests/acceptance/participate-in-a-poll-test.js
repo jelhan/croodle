@@ -150,17 +150,17 @@ module('Acceptance | participate in a poll', function(hooks) {
 
     await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
-    assert.dom('#modal-saving-failed-modal .modal-content')
+    assert.dom('[data-test-modal="saving-failed"] .modal-content')
       .isNotVisible('failed saving notification is not shown before attempt to save');
 
     await pollParticipate('John Doe', ['yes', 'no']);
-    assert.dom('#modal-saving-failed-modal .modal-content')
+    assert.dom('[data-test-modal="saving-failed"] .modal-content')
       .isVisible('user gets notified that saving failed');
 
     this.server.post('/users');
 
-    await click('#modal-saving-failed-modal [data-test-button="retry"]');
-    assert.dom('#modal-saving-failed-modal .modal-content')
+    await click('[data-test-modal="saving-failed"] [data-test-button="retry"]');
+    assert.dom('[data-test-modal="saving-failed"] .modal-content')
       .isNotVisible('Notification is hidden after another save attempt was successful');
     assert.equal(currentRouteName(), 'poll.evaluation');
     assert.equal(PollEvaluationPage.participants.length, 1, 'user is added to participants table');

@@ -81,10 +81,10 @@
 </div>
 
 <BsModal
-  @id="modal-saving-failed-modal"
   @onHidden={{action (mut savingFailed) false}}
   @onSubmit={{action "save"}}
   @open={{savingFailed}}
+  data-test-modal="saving-failed"
   as |modal|
 >
   <modal.header
