@@ -11,6 +11,7 @@ import pageCreateOptions from 'croodle/tests/pages/create/options';
 import pageCreateOptionsDatetime from 'croodle/tests/pages/create/options-datetime';
 import pageCreateSettings from 'croodle/tests/pages/create/settings';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
+import asyncThrowsAssertion from '../assertions/async-throws';
 
 module('Acceptance | create a poll', function(hooks) {
   hooks.beforeEach(function() {
@@ -19,6 +20,10 @@ module('Acceptance | create a poll', function(hooks) {
 
   setupApplicationTest(hooks);
   setupMirage(hooks);
+
+  hooks.beforeEach(function(assert) {
+    assert.asyncThrows = asyncThrowsAssertion;
+  });
 
   test('create a default poll', async function(assert) {
     const dates = [
@@ -124,7 +129,9 @@ module('Acceptance | create a poll', function(hooks) {
     // simulate temporary server error
     this.server.post('/polls', undefined, 503);
 
-    await pageCreateSettings.save();
+    await assert.asyncThrows(async () => {
+      await pageCreateSettings.save();
+    }, 'Ember Data Request POST /api/index.php/polls returned a 503');
     assert.equal(currentRouteName(), 'create.settings');
 
     // simulate server is available again

@@ -138,10 +138,10 @@ module('Acceptance | view poll', function(hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.dom('#modal-choose-timezone-modal')
+    assert.dom('[data-test-modal="choose-timezone"]')
       .exists('user is asked which timezone should be used');
 
-    await click('#modal-choose-timezone-modal button.use-local-timezone');
+    await click('[data-test-modal="choose-timezone"] [data-test-button="use-local-timezone"]');
     assert.deepEqual(
       pageParticipation.options().labels,
       [
@@ -149,7 +149,7 @@ module('Acceptance | view poll', function(hooks) {
         moment.tz('2016-01-01T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')
       ]
     );
-    assert.dom('#modal-choose-timezone-modal').doesNotExist('modal is closed');
+    assert.dom('[data-test-modal="choose-timezone"]').doesNotExist('modal is closed');
 
     await switchTab('evaluation');
     assert.deepEqual(
@@ -192,10 +192,10 @@ module('Acceptance | view poll', function(hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.dom('#modal-choose-timezone-modal')
+    assert.dom('[data-test-modal="choose-timezone"]')
       .exists('user is asked which timezone should be used');
 
-    await click('#modal-choose-timezone-modal button.use-poll-timezone');
+    await click('[data-test-modal="choose-timezone"] [data-test-button="use-poll-timezone"]');
     assert.deepEqual(
       pageParticipation.options().labels,
       [
@@ -203,7 +203,7 @@ module('Acceptance | view poll', function(hooks) {
         moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')
       ]
     );
-    assert.dom('#modal-choose-timezone-modal').doesNotExist('modal is closed');
+    assert.dom('[data-test-modal="choose-timezone"]').doesNotExist('modal is closed');
 
     await switchTab('evaluation');
     assert.deepEqual(
