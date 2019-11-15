@@ -60,10 +60,10 @@
                   value={{possibleAnswer.type}}
                   checked={{eq possibleAnswer.type el.value}}
                   onchange={{action (mut el.value) possibleAnswer.type}}
-                  id={{concat possibleAnswer.type index}}
+                  id={{concat el.id "_" possibleAnswer.type}}
                   name={{concat possibleAnswer.type index}}
                 >
-                <label class="custom-control-label" for={{concat possibleAnswer.type index}}>
+                <label class="custom-control-label" for={{concat el.id "_" possibleAnswer.type}}>
                   {{possibleAnswer.label}}
                 </label>
               </div>
