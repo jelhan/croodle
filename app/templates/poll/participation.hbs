@@ -52,7 +52,10 @@
             {{#each possibleAnswers as |possibleAnswer|}}
               <div class="radio custom-control custom-radio custom-control-inline {{possibleAnswer.type}}">
                 <input
-                  class="custom-control-input"
+                  class="custom-control-input
+                    {{if (eq el.validation "success") "is-valid"}}
+                    {{if (eq el.validation "error") "is-invalid"}}
+                  "
                   type="radio"
                   value={{possibleAnswer.type}}
                   checked={{eq possibleAnswer.type el.value}}
