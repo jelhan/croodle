@@ -219,6 +219,8 @@ module('Acceptance | participate in a poll', function(hooks) {
       assert.dom('[data-test-form-element="option-2018-01-01"] input[value="yes"]').hasClass('is-invalid');
       assert.dom('[data-test-form-element="option-2018-01-01"] input[value="no"]').hasClass('is-invalid');
 
+      assert.dom('[data-test-form-element="name"] input').isFocused();
+
       assert.equal(currentRouteName(), 'poll.participation', 'invalid form prevents a transition');
     });
 
@@ -238,6 +240,8 @@ module('Acceptance | participate in a poll', function(hooks) {
       assert.dom('[data-test-form-element="option-2018-01-01"] input[value="yes"]').hasClass('is-invalid');
       assert.dom('[data-test-form-element="option-2018-01-01"] input[value="no"]').hasClass('is-invalid');
 
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="yes"]').isFocused();
+
       assert.equal(currentRouteName(), 'poll.participation', 'invalid form prevents a transition');
     });
 
@@ -256,6 +260,8 @@ module('Acceptance | participate in a poll', function(hooks) {
       assert.dom('[data-test-form-element="option-2017-12-24"] input[value="no"]').hasClass('is-valid');
       assert.dom('[data-test-form-element="option-2018-01-01"] input[value="yes"]').hasClass('is-valid');
       assert.dom('[data-test-form-element="option-2018-01-01"] input[value="no"]').hasClass('is-valid');
+
+      assert.dom('[data-test-form-element="name"] input').isFocused();
 
       assert.equal(currentRouteName(), 'poll.participation', 'invalid form prevents a transition');
     });
