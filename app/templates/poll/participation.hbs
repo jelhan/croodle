@@ -14,6 +14,7 @@
       placeholder=(t "poll.input.newUserName.placeholder")
       property="name"
       classNames="name"
+      data-test-form-element="name"
     }}
     <div class="selections">
       {{#each selections as |selection index|}}
@@ -47,6 +48,7 @@
             property="value"
             showValidationOn="change"
             useIcons=false
+            data-test-form-element=(concat "option-" selection.labelValue)
           as |el|
           }}
             {{#each possibleAnswers as |possibleAnswer|}}
