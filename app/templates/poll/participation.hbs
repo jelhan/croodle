@@ -17,7 +17,7 @@
       data-test-form-element="name"
     }}
     <div class="selections">
-      {{#each selections as |selection index|}}
+      {{#each selections as |selection|}}
         {{#if isFreeText}}
           {{form.element
             controlType="text"
@@ -63,7 +63,7 @@
                   checked={{eq possibleAnswer.type el.value}}
                   onchange={{action (mut el.value) possibleAnswer.type}}
                   id={{concat el.id "_" possibleAnswer.type}}
-                  name={{concat possibleAnswer.type index}}
+                  name={{selection.labelValue}}
                 >
                 <label class="custom-control-label" for={{concat el.id "_" possibleAnswer.type}}>
                   {{possibleAnswer.label}}

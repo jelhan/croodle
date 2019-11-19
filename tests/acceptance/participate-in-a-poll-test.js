@@ -214,10 +214,10 @@ module('Acceptance | participate in a poll', function(hooks) {
       await click('button[type="submit"]');
 
       assert.dom('[data-test-form-element="name"] input').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="yes"]').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="no"]').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2018-01-01"] input[value="yes"]').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2018-01-01"] input[value="no"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="no"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="no"]').hasClass('is-invalid');
 
       assert.dom('[data-test-form-element="name"] input').isFocused();
 
@@ -235,13 +235,12 @@ module('Acceptance | participate in a poll', function(hooks) {
       await click('button[type="submit"]');
 
       assert.dom('[data-test-form-element="name"] input').hasClass('is-valid');
-      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="yes"]').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="no"]').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2018-01-01"] input[value="yes"]').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2018-01-01"] input[value="no"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="no"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="no"]').hasClass('is-invalid');
 
-      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="yes"]').isFocused();
-
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').isFocused();
       assert.equal(currentRouteName(), 'poll.participation', 'invalid form prevents a transition');
     });
 
@@ -256,10 +255,10 @@ module('Acceptance | participate in a poll', function(hooks) {
       await click('button[type="submit"]');
 
       assert.dom('[data-test-form-element="name"] input').hasClass('is-invalid');
-      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="yes"]').hasClass('is-valid');
-      assert.dom('[data-test-form-element="option-2017-12-24"] input[value="no"]').hasClass('is-valid');
-      assert.dom('[data-test-form-element="option-2018-01-01"] input[value="yes"]').hasClass('is-valid');
-      assert.dom('[data-test-form-element="option-2018-01-01"] input[value="no"]').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="no"]').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="yes"]').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="no"]').hasClass('is-valid');
 
       assert.dom('[data-test-form-element="name"] input').isFocused();
 
