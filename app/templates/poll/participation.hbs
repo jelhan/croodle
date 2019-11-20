@@ -14,9 +14,10 @@
       placeholder=(t "poll.input.newUserName.placeholder")
       property="name"
       classNames="name"
+      data-test-form-element="name"
     }}
     <div class="selections">
-      {{#each selections as |selection index|}}
+      {{#each selections as |selection|}}
         {{#if isFreeText}}
           {{form.element
             controlType="text"
@@ -47,6 +48,7 @@
             property="value"
             showValidationOn="change"
             useIcons=false
+            data-test-form-element=(concat "option-" selection.labelValue)
           as |el|
           }}
             {{#each possibleAnswers as |possibleAnswer|}}
@@ -61,7 +63,7 @@
                   checked={{eq possibleAnswer.type el.value}}
                   onchange={{action (mut el.value) possibleAnswer.type}}
                   id={{concat el.id "_" possibleAnswer.type}}
-                  name={{concat possibleAnswer.type index}}
+                  name={{selection.labelValue}}
                 >
                 <label class="custom-control-label" for={{concat el.id "_" possibleAnswer.type}}>
                   {{possibleAnswer.label}}

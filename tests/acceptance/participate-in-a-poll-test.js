@@ -203,33 +203,96 @@ module('Acceptance | participate in a poll', function(hooks) {
     resolveSubmission(resolveSubmissionWith);
   });
 
-  test('does not show validation errors while saving participation', async function(assert) {
-    let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let poll = this.server.create('poll', {
-      encryptionKey
-    });
-
-    let resolveSubmission;
-    let resolveSubmissionWith;
-    this.server.post('/users', function(schema) {
-      return new Promise((resolve) => {
-        let attrs = this.normalizedRequestAttrs();
-
-        resolveSubmission = resolve;
-        resolveSubmissionWith = schema.users.create(attrs);
+  module('validation', function() {
+    test('shows validation errors for participation form on submit', async function(assert) {
+      let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let poll = this.server.create('poll', {
+        encryptionKey,
       });
+
+      await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
+      await click('button[type="submit"]');
+
+      assert.dom('[data-test-form-element="name"] input').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="no"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="no"]').hasClass('is-invalid');
+
+      assert.dom('[data-test-form-element="name"] input').isFocused();
+
+      assert.equal(currentRouteName(), 'poll.participation', 'invalid form prevents a transition');
     });
 
-    await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
-    pollParticipate('John Doe', ['yes', 'no']);
+    test('does not show validation error for name if poll allows anonymous participation', async function(assert) {
+      let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let poll = this.server.create('poll', {
+        anonymousUser: true,
+        encryptionKey,
+      });
 
-    await waitFor('[data-test-button="submit"] .spinner-border', {
-      timeoutMessage: 'timeout while waiting for loading spinner to appear',
+      await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
+      await click('button[type="submit"]');
+
+      assert.dom('[data-test-form-element="name"] input').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="no"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="yes"]').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="no"]').hasClass('is-invalid');
+
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').isFocused();
+      assert.equal(currentRouteName(), 'poll.participation', 'invalid form prevents a transition');
     });
-    assert.dom('.is-invalid').doesNotExist('does not show any validation error');
 
-    // resolve promise for test to finish
-    // need to resolve with a valid response cause otherwise Ember Data would throw
-    resolveSubmission(resolveSubmissionWith);
+    test('does not show validation error for option inputs if poll does not force an answer to each option', async function(assert) {
+      let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let poll = this.server.create('poll', {
+        encryptionKey,
+        forceAnswer: false
+      });
+
+      await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
+      await click('button[type="submit"]');
+
+      assert.dom('[data-test-form-element="name"] input').hasClass('is-invalid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2017-12-24"] input[id$="no"]').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="yes"]').hasClass('is-valid');
+      assert.dom('[data-test-form-element="option-2018-01-01"] input[id$="no"]').hasClass('is-valid');
+
+      assert.dom('[data-test-form-element="name"] input').isFocused();
+
+      assert.equal(currentRouteName(), 'poll.participation', 'invalid form prevents a transition');
+    });
+
+    test('does not show validation errors while saving participation', async function(assert) {
+      let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let poll = this.server.create('poll', {
+        encryptionKey
+      });
+
+      let resolveSubmission;
+      let resolveSubmissionWith;
+      this.server.post('/users', function(schema) {
+        return new Promise((resolve) => {
+          let attrs = this.normalizedRequestAttrs();
+
+          resolveSubmission = resolve;
+          resolveSubmissionWith = schema.users.create(attrs);
+        });
+      });
+
+      await visit(`/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`);
+      pollParticipate('John Doe', ['yes', 'no']);
+
+      await waitFor('[data-test-button="submit"] .spinner-border', {
+        timeoutMessage: 'timeout while waiting for loading spinner to appear',
+      });
+      assert.dom('.is-invalid').doesNotExist('does not show any validation error');
+
+      // resolve promise for test to finish
+      // need to resolve with a valid response cause otherwise Ember Data would throw
+      resolveSubmission(resolveSubmissionWith);
+    });
   });
 });
