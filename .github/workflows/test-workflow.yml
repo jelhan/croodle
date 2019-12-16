@@ -33,9 +33,8 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-          ini-values: post_max_size=256M, short_open_tag=On
-      - name: install mbstring
-        run: sudo apt-get install php7.4-mbstring
+      - name: install php extension
+        run: sudo apt-get install php7.4-mbstring php7.4-zip
       - name: Install php dependencies
         run: cd api && composer install
       - name: Run backend tests
