@@ -1,0 +1,33 @@
+name: Croodle CI
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  test-frontend:
+    name: Test ember frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository files
+        uses: actions/checkout@v2
+      - name: Install node js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node dependencies
+        run: yarn install
+      - name: Run frontend tests
+        run: yarn test
+  test-backend:
+    name: Test php backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install php
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+      - name: Switch to api directory
+        run: cd api
+      - name: Install php dependencies
+        run: composer install
+      - name: Run backend tests
+        run: ./vendor/bin/codecept run
