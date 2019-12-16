@@ -27,9 +27,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-      - name: Switch to api directory
-        run: cd api
       - name: Install php dependencies
-        run: composer install
+        run: cd api && composer install
       - name: Run backend tests
-        run: ./vendor/bin/codecept run
+        run: cd api && ./vendor/bin/codecept run
