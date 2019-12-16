@@ -1,6 +1,12 @@
-name: Croodle CI
+name: Test Frontend and backend
 # This workflow is triggered on pushes to the repository.
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   test-frontend:
@@ -21,13 +27,15 @@ jobs:
     name: Test php backend
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository files
+        uses: actions/checkout@v2
       - name: Install php
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
-      - name: Switch to api directory
-        run: cd api
+      - name: install php extension
+        run: sudo apt-get install php7.4-mbstring php7.4-zip
       - name: Install php dependencies
-        run: composer install
+        run: cd api && composer install
       - name: Run backend tests
-        run: ./vendor/bin/codecept run
+        run: cd api && ./vendor/bin/codecept run
