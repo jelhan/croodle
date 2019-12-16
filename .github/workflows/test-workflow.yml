@@ -1,6 +1,12 @@
 name: Test Frontend and backend
 # This workflow is triggered on pushes to the repository.
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   test-frontend:
@@ -27,6 +33,9 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: '7.4'
+          ini-values: post_max_size=256M, short_open_tag=On
+      - name: install mbstring
+        run: sudo apt-get install php7.4-mbstring
       - name: Install php dependencies
         run: cd api && composer install
       - name: Run backend tests
