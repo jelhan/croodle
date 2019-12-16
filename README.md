@@ -38,7 +38,7 @@ git clone git@github.com:jelhan/croodle.git
 cd croodle
 yarn install
 cd api/ && composer install --no-dev && cd ..
-ember build --prod
+yarn build -- --prod
 ```
 
 Afterwards copy all files in `/dist` folder to your werbserver.
