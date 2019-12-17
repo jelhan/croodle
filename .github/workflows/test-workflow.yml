@@ -9,42 +9,192 @@ on:
       - master
 
 jobs:
-  test-frontend:
-    name: Test ember frontend
+  install-frontend-dependencies:
+    name: Install frontend dependencies
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository files
-        uses: actions/checkout@v2
-      - name: Install node js
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v1
+      - name: Install node modules
+        uses: borales/actions-yarn@v2.0.0
         with:
-          node-version: '12.x'
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v1
+          cmd: install
+      - uses: actions/upload-artifact@v1
         with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install node dependencies
-        run: yarn install
-      - name: lint Javascript
-        run: yarn lint:js
-      - name: lint templates
-        run: yarn lint:hbs
-      - name: Run frontend tests
-        run: yarn test
-      - name: Run frontend tests in browserstack
+          name: repository-with-installed-node-modules
+          path: .
+  lint-javascript:
+    name: lint javascript
+    runs-on: ubuntu-latest
+    needs: install-frontend-dependencies
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-installed-node-modules
+          path: .
+      - name: Run lint
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: lint:js
+  lint-templates:
+    name: lint ember templates
+    runs-on: ubuntu-latest
+    needs: install-frontend-dependencies
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-installed-node-modules
+          path: .
+      - name: Run lint
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: lint:hbs
+  test-bundlesize:
+    name: test bundlesize
+    runs-on: ubuntu-latest
+    needs: install-frontend-dependencies
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-installed-node-modules
+          path: .
+      - name: Run tests
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:bundlesize
+  test-csp-header:
+    name: test CSP in .htaccess
+    runs-on: ubuntu-latest
+    needs: install-frontend-dependencies
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-installed-node-modules
+          path: .
+      - name: Run tests
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:csp-header
+
+  build-test-environment:
+    name: Build test environment
+    runs-on: ubuntu-latest
+    needs: install-frontend-dependencies
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-installed-node-modules
+          path: .
+      - name: Build with test environment
+        env:
+          CI: true
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build --environment test
+      - uses: actions/upload-artifact@v1
+        with:
+          name: repository-with-built-test-environment
+          path: .
+  test-chrome:
+    name: test in chrome
+    runs-on: ubuntu-latest
+    needs: build-test-environment
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-built-test-environment
+          path: .
+      - name: run tests in chrome
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test --launch Chrome --path dist
+  test-firefox:
+    name: test in firefox
+    runs-on: ubuntu-latest
+    needs: build-test-environment
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-built-test-environment
+          path: .
+      - name: run tests in firefox
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test --launch Firefox --path dist
+  test-ie11:
+    name: test in ie11
+    name: Build test environment
+    runs-on: ubuntu-latest
+    needs: build-test-environment
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-built-test-environment
+          path: .
+      - name: Connect to browserstack
         env: # Or as an environment variable
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-        run: yarn test:browserstack
-      - name: Run bundlesize test
-        run: yarn test:bundlesize
-      - name: Run CSP in .htaccess test
-        run: yarn test:csp-in-htaccess
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:connect
+      - name: Test in IE11
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:ie11
+      - name: Disconnect from browserstack
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:disconnect
+  test-edge:
+    name: test in edge
+    name: Build test environment
+    runs-on: ubuntu-latest
+    needs: build-test-environment
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-built-test-environment
+          path: .
+      - name: Connect to browserstack
+        env: # Or as an environment variable
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:connect
+      - name: Test in Microsoft Edge
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:edge
+      - name: Disconnect from browserstack
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:disconnect
+  test-safari:
+    name: test in Safari
+    name: Build test environment
+    runs-on: ubuntu-latest
+    needs: build-test-environment
+    steps:
+      - uses: actions/download-artifact@v1
+        with:
+          name: repository-with-built-test-environment
+          path: .
+      - name: Connect to browserstack
+        env: # Or as an environment variable
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:connect
+      - name: Test in Safari
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:safari
+      - name: Disconnect from browserstack
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: test:browserstack:disconnect
   test-backend:
     name: Test php backend
     runs-on: ubuntu-latest
