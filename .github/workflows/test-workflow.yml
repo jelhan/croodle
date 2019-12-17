@@ -20,17 +20,18 @@ jobs:
           cmd: install
       - uses: actions/upload-artifact@v1
         with:
-          name: repository-with-installed-node-modules
-          path: .
+          name: node-modules
+          path: ./node_modules
   lint-javascript:
     name: lint javascript
     runs-on: ubuntu-latest
     needs: install-frontend-dependencies
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-installed-node-modules
-          path: .
+          name: node-modules
+          path: ./node_modules
       - name: Run lint
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -40,10 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-frontend-dependencies
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-installed-node-modules
-          path: .
+          name: node-modules
+          path: ./node_modules
       - name: Run lint
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -53,10 +55,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-frontend-dependencies
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-installed-node-modules
-          path: .
+          name: node-modules
+          path: ./node_modules
       - name: Run tests
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -66,10 +69,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-frontend-dependencies
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-installed-node-modules
-          path: .
+          name: node-modules
+          path: ./node_modules
       - name: Run tests
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -80,10 +84,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-frontend-dependencies
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-installed-node-modules
-          path: .
+          name: node-modules
+          path: ./node_modules
       - name: Build with test environment
         env:
           CI: true
@@ -92,17 +97,22 @@ jobs:
           cmd: build --environment test
       - uses: actions/upload-artifact@v1
         with:
-          name: repository-with-built-test-environment
-          path: .
+          name: built-test-environment
+          path: ./dist
   test-chrome:
     name: test in chrome
     runs-on: ubuntu-latest
     needs: build-test-environment
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-built-test-environment
-          path: .
+          name: node-modules
+          path: ./node_modules
+      - uses: actions/download-artifact@v1
+        with:
+          name: built-test-environment
+          path: ./dist
       - name: run tests in chrome
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -112,10 +122,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-test-environment
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-built-test-environment
-          path: .
+          name: node-modules
+          path: ./node_modules
+      - uses: actions/download-artifact@v1
+        with:
+          name: built-test-environment
+          path: ./dist
       - name: run tests in firefox
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -125,10 +140,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-test-environment
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-built-test-environment
-          path: .
+          name: node-modules
+          path: ./node_modules
+      - uses: actions/download-artifact@v1
+        with:
+          name: built-test-environment
+          path: ./dist
       - name: Connect to browserstack
         env: # Or as an environment variable
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -149,10 +169,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-test-environment
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-built-test-environment
-          path: .
+          name: node-modules
+          path: ./node_modules
+      - uses: actions/download-artifact@v1
+        with:
+          name: built-test-environment
+          path: ./dist
       - name: Connect to browserstack
         env: # Or as an environment variable
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
@@ -173,10 +198,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-test-environment
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
         with:
-          name: repository-with-built-test-environment
-          path: .
+          name: node-modules
+          path: ./node_modules
+      - uses: actions/download-artifact@v1
+        with:
+          name: built-test-environment
+          path: ./dist
       - name: Connect to browserstack
         env: # Or as an environment variable
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
