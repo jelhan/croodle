@@ -19,23 +19,49 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: Install node dependencies
         run: yarn install
+      - name: lint Javascript
+        run: yarn lint:js
+      - name: lint templates
+        run: yarn lint:hbs
       - name: Run frontend tests
         run: yarn test
+      - name: Run frontend tests in browserstack
+        env: # Or as an environment variable
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        run: yarn test:browserstack
+      - name: Run bundlesize test
+        run: yarn test:bundlesize
+      - name: Run CSP in .htaccess test
+        run: yarn test:csp-in-htaccess
   test-backend:
     name: Test php backend
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.2', '7.3', '7.4']
     steps:
       - name: Checkout repository files
         uses: actions/checkout@v2
       - name: Install php
         uses: shivammathur/setup-php@v1
         with:
-          php-version: '7.4'
-      - name: install php extension
-        run: sudo apt-get install php7.4-mbstring php7.4-zip
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, zip
       - name: Install php dependencies
-        run: cd api && composer install
+        run: composer install
+        working-directory: ./api
       - name: Run backend tests
-        run: cd api && ./vendor/bin/codecept run
+        run: ./vendor/bin/codecept run
+        working-directory: ./api
