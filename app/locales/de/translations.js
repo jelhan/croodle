@@ -60,7 +60,7 @@ export default {
   'index.features.list.privacy': 'Deine Daten bleiben privat: Sie werden bereits in deinem Browser <strong>verschlüsselt</strong>. Worum es in deiner Umfrage geht, wissen nur die Personen, denen du den Umfrage-Link sendest.',
   'index.features.list.options': 'Du kannst so viele <strong>Antwortmöglichkeiten</strong> festlegen, wie du möchtest. Du kannst deinen Wunschtermin im <strong>Kalender</strong> auswählen, oder <strong>beliebige Fragen</strong> erstellen.',
   'index.features.list.answers': 'Du kannst <strong>vordefinierte Anwortmöglichkeiten</strong> nutzen, wie zum Beispiel <i>ja</i>, <i>nein</i>, <i>vielleicht</i> oder <strong>selbsterstellte Antworten</strong> erlauben.',
-  'index.features.list.evaluation': 'Du behälst den Überblick durch eine automatisch aktualisierte <strong>Übersicht der bevorzugten Antworten</strong>.',
+  'index.features.list.evaluation': 'Du behältst den Überblick durch eine automatisch aktualisierte <strong>Übersicht der bevorzugten Antworten</strong>.',
   'index.link.have-a-try': 'probiere es jetzt aus',
   'index.hoster.title': 'Hoste dein eigenes Croodle:',
   'index.hoster.text': 'Du musst diesem Croodle nicht vertrauen. Croodle ist freie Software und du kannst sie auf deinem eigenen Server installieren. Hierzu werden lediglich einige Megabyte Speicherplatz, PHP und SSL-Verschlüsselung benötigt. Die Software und Tipps zur Installation findest du auf <a href=\'https://github.com/jelhan/croodle\'>GitHub</a>.',
