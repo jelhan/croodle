@@ -42,11 +42,6 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Install php
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: 7.4
-          extensions: mbstring, zip
       - name: Run tests
         uses: borales/actions-yarn@v2.0.0
         with:
@@ -74,11 +69,6 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Install php
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: 7.4
-          extensions: mbstring, zip
       - name: Build with test environment
         env:
           CI: true
@@ -98,11 +88,6 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Install php
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: 7.4
-          extensions: mbstring, zip
       - name: Build with test environment
         env:
           CI: true
@@ -122,11 +107,6 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Install php
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: 7.4
-          extensions: mbstring, zip
       - name: Build with test environment
         env:
           CI: true
@@ -157,11 +137,6 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Install php
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: 7.4
-          extensions: mbstring, zip
       - name: Build with test environment
         env:
           CI: true
@@ -192,11 +167,6 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install
-      - name: Install php
-        uses: shivammathur/setup-php@v1
-        with:
-          php-version: 7.4
-          extensions: mbstring, zip
       - name: Build with test environment
         env:
           CI: true
