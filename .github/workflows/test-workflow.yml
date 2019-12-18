@@ -77,7 +77,7 @@ jobs:
       - name: Install chrome browser
         run: |
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb2
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
       - name: Build with test environment
         env:
           CI: true
