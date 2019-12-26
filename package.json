@@ -71,7 +71,7 @@
     "ember-transition-helper": "^1.0.0",
     "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^7.1.0",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-node": "^11.0.0",
     "fs-extra": "^8.0.0",
     "lerna-changelog": "^0.8.2",
     "loader.js": "^4.7.0",
