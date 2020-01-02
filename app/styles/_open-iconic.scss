@@ -1,0 +1,12 @@
+@import "open-iconic/font/css/open-iconic-bootstrap.scss";
+
+.oi {
+  // open-iconic uses `display: inline-block` by default which prevents text
+  // decorations to be applied. Text decorations like underscore are used to
+  // indicate that an element is focusable. Not showing them by default is
+  // easily causing accessibility issue. We change the default to
+  // `display: inline` to have a safe default behavior. It could be easily
+  // overruled per element by applying Bootstrap's utility class
+  // `.d-inline-block`.
+  display: inline;
+}
