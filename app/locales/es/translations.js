@@ -150,7 +150,7 @@ export default {
     url: '{{description}} debe de ser una URL valida',
     time: '{{description}} debe de ser un horario valido (p.ej. 10:45)',
     'time.notPartially': 'Partially times are not supported',
-    unique: '{{description}} debe de ser único',
+    unique: '{{description}} deben ser explícitas',
     'unique.name': 'Este nombre ya está usado'
   }
 };
