@@ -39,7 +39,7 @@ jobs:
       - name: Install php
         uses: shivammathur/setup-php@v1
         with:
-          php-version: 7.4
+          php-version: '7.4'
           extensions: mbstring, zip
       - uses: actions/setup-node@v1
         with:
