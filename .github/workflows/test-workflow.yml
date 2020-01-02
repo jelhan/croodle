@@ -119,7 +119,7 @@ jobs:
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: yarn test:browserstack:connect
       - name: Test in IE11
-        run: yarn test:browserstack:ie11
+        run: yarn test:browserstack-ie11
       - name: Disconnect from browserstack
         run: yarn test:browserstack:disconnect
   test-edge:
@@ -142,7 +142,7 @@ jobs:
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: yarn test:browserstack:connect
       - name: Test in Microsoft Edge
-        run: yarn test:browserstack:edge
+        run: yarn test:browserstack-edge
       - name: Disconnect from browserstack
         run: yarn test:browserstack:disconnect
   test-safari:
@@ -165,7 +165,7 @@ jobs:
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: yarn test:browserstack:connect
       - name: Test in Safari
-        run: yarn test:browserstack:safari
+        run: yarn test:browserstack-safari
       - name: Disconnect from browserstack
         run: yarn test:browserstack:disconnect
   test-backend:
