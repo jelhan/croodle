@@ -5340,6 +5340,26 @@ ember-cli-htmlbars@^4.0.0:
     strip-bom "^4.0.0"
     walk-sync "^2.0.2"
 
+ember-cli-htmlbars@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-4.2.0.tgz#a3694ab31f6d571c45786a3041b9c76e4eb30989"
+  integrity sha512-YymJLg/rRiclK5jxbTFpaRNlbS+f3SY6SplnMExjcrcbSjMRsBuams50+mppENEu7iKfd6PBqH3FHVbYsukHSQ==
+  dependencies:
+    "@ember/edition-utils" "^1.1.1"
+    babel-plugin-htmlbars-inline-precompile "^3.0.0"
+    broccoli-debug "^0.6.5"
+    broccoli-persistent-filter "^2.3.1"
+    broccoli-plugin "^3.0.0"
+    common-tags "^1.8.0"
+    ember-cli-babel-plugin-helpers "^1.1.0"
+    fs-tree-diff "^2.0.1"
+    hash-for-dep "^1.5.1"
+    heimdalljs-logger "^0.1.10"
+    json-stable-stringify "^1.0.1"
+    semver "^6.3.0"
+    strip-bom "^4.0.0"
+    walk-sync "^2.0.2"
+
 ember-cli-import-polyfill@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-import-polyfill/-/ember-cli-import-polyfill-0.2.0.tgz#c1a08a8affb45c97b675926272fe78cf4ca166f2"
@@ -5840,13 +5860,13 @@ ember-macro-helpers@^4.2.2:
     ember-cli-test-info "^1.0.0"
 
 ember-math-helpers@^2.8.1:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.12.0.tgz#21b778ffe1ad484c8858d61123002413172ea83d"
-  integrity sha512-oy40rbDeuK2Dq48TNRicgGTtfZxvObKrpzR2Q019x4vLwGQPdRYda5KjjQMZltGyxzR0AElvUxrO8e31TFULpg==
+  version "2.12.1"
+  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.12.1.tgz#a08faee5563f42dd315ff9db613221dc818654a9"
+  integrity sha512-vnL3+ndIea5c7sUmkVFFsCiYNfdyylx7irlpYqoYJ/jakO0eHzmF+9vYU2LtO0pLo8/PjgyZSEO00LPAff7b/g==
   dependencies:
     broccoli-funnel "^2.0.2"
-    ember-cli-babel "^7.11.1"
-    ember-cli-htmlbars "^4.0.0"
+    ember-cli-babel "^7.13.0"
+    ember-cli-htmlbars "^4.2.0"
 
 ember-maybe-import-regenerator@^0.1.6:
   version "0.1.6"
