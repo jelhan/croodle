@@ -6,6 +6,11 @@ on:
       - master
   pull_request:
 
+
+env:
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+
 jobs:
   lint-javascript:
     name: lint javascript
@@ -114,9 +119,6 @@ jobs:
           CI: true
         run: yarn build --environment test
       - name: Connect to browserstack
-        env: # Or as an environment variable
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: yarn test:browserstack:connect
       - name: Test in IE11
         run: yarn test:browserstack-ie11
@@ -137,9 +139,6 @@ jobs:
           CI: true
         run: yarn build --environment test
       - name: Connect to browserstack
-        env: # Or as an environment variable
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: yarn test:browserstack:connect
       - name: Test in Microsoft Edge
         run: yarn test:browserstack-edge
@@ -160,9 +159,6 @@ jobs:
           CI: true
         run: yarn build --environment test
       - name: Connect to browserstack
-        env: # Or as an environment variable
-          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: yarn test:browserstack:connect
       - name: Test in Safari
         run: yarn test:browserstack-safari
