@@ -79,9 +79,9 @@ module('Acceptance | view poll', function(hooks) {
       expirationDate: moment().add(1, 'year'),
       isDateTime: true,
       options: [
-        { title: '2015-12-12T11:11:00.000Z' },
-        { title: '2015-12-12T13:13:00.000Z' },
-        { title: '2016-01-01T11:11:00.000Z' }
+        { title: new Date('2015-12-12T11:11:00').toISOString() },
+        { title: new Date('2015-12-12T13:13:00').toISOString() },
+        { title: new Date('2016-01-01T11:11:00').toISOString() }
       ],
       timezone
     });
@@ -91,11 +91,11 @@ module('Acceptance | view poll', function(hooks) {
       pageParticipation.options().labels,
       [
         // full date
-        moment.tz('2015-12-12T11:11:00.000Z', timezone).locale('en').format('LLLL'),
+        'Saturday, December 12, 2015 11:11 AM',
         // only time cause day is repeated
-        moment.tz('2015-12-12T13:13:00.000Z', timezone).locale('en').format('LT'),
+        '1:13 PM',
         // full date cause day changed
-        moment.tz('2016-01-01T11:11:00.000Z', timezone).locale('en').format('LLLL')
+        'Friday, January 1, 2016 11:11 AM',
       ]
     );
     assert.notOk(
