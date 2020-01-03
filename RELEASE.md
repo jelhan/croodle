@@ -21,6 +21,7 @@ When reviewing merged PR's the labels to be used are:
 * enhancement - Used when the PR adds a new feature or enhancement.
 * bug - Used when the PR fixes a bug included in a previous release.
 * documentation - Used when the PR adds or updates documentation.
+* i18n - Used when the PR adds new locales or improves existing translations.
 * internal - Used for internal changes that still require a mention in the
   changelog/release notes.
 

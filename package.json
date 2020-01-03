@@ -94,5 +94,15 @@
   },
   "resolutions": {
     "chart.js": "~2.6.0"
+  },
+  "changelog": {
+    "labels": {
+      "breaking": ":boom: Breaking Change",
+      "enhancement": ":rocket: Enhancement",
+      "bug": ":bug: Bug Fix",
+      "documentation": ":memo: Documentation",
+      "i18n": ":abc: Internalization",
+      "internal": ":house: Internal"
+    }
   }
 }
