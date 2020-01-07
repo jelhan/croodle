@@ -1,13 +1,7 @@
-import DS from 'ember-data';
+import Model, { hasMany, attr } from '@ember-data/model';
 import { fragmentArray } from 'ember-data-model-fragments/attributes';
 import { computed } from '@ember/object';
 import { equal } from '@ember/object/computed';
-
-const {
-  attr,
-  hasMany,
-  Model
-} = DS;
 
 export default Model.extend({
   /*

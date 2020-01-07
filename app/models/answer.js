@@ -1,7 +1,5 @@
-import DS from 'ember-data';
+import { attr } from '@ember-data/model';
 import Fragment from 'ember-data-model-fragments/fragment';
-
-const { attr } = DS;
 
 export default Fragment.extend({
   type: attr('string'),

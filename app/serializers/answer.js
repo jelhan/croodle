@@ -1,4 +1,4 @@
-import DS from 'ember-data';
+import RESTSerializer from '@ember-data/serializer/rest';
 
-export default DS.RESTSerializer.extend({
+export default RESTSerializer.extend({
 });

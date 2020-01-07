@@ -1,8 +1,8 @@
+import { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';
 import { isEmpty } from '@ember/utils';
-import DS from 'ember-data';
 import ApplicationAdapter from './application';
 
-export default ApplicationAdapter.extend(DS.EmbeddedRecordsMixin, {
+export default ApplicationAdapter.extend(EmbeddedRecordsMixin, {
   attrs: {
     users: {
       deserialize: 'records'
