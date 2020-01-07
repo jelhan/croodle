@@ -1,7 +1,7 @@
-{{create-options
-  isFindADate=model.isFindADate
-  isMakeAPoll=model.isMakeAPoll
-  options=model.options
-  onPrevPage=(action "previousPage")
-  onNextPage=(action "nextPage")
-}}
+<CreateOptions
+  @isFindADate={{model.isFindADate}}
+  @isMakeAPoll={{model.isMakeAPoll}}
+  @options={{model.options}}
+  @onPrevPage={{action "previousPage"}}
+  @onNextPage={{action "nextPage"}}
+/>

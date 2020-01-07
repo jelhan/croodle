@@ -1,34 +1,34 @@
 <div class="cr-form-wrapper box">
-  {{#bs-form
-    formLayout="horizontal"
-    model=this
-    novalidate=true
-    onInvalid=(scroll-first-invalid-element-into-view-port)
-    onSubmit=(action "submit")
-  as |form|
-  }}
-    {{#form.element
-      classNames="poll-type"
-      label=(t "create.index.input.pollType.label")
-      property="pollType"
-      showValidationOn=(array "change" "focusOut")
-      useIcons=false
-    as |el|
-    }}
-      {{#autofocusable-element
-        tagName="select"
-        change=(action (mut el.value) value="target.value")
-        id=el.id
+  <BsForm
+    @formLayout="horizontal"
+    @model={{this}}
+    @onInvalid={{scroll-first-invalid-element-into-view-port }}
+    @onSubmit={{action "submit"}}
+    novalidate
+    as |form|
+  >
+    <form.element
+      @label={{t "create.index.input.pollType.label"}}
+      @property="pollType"
+      @showValidationOn={{array "change" "focusOut"}}
+      @useIcons={{false}}
+      class="poll-type"
+      as |el|
+    >
+      <AutofocusableElement
+        @tagName="select"
+        @change={{action (mut el.value) value="target.value"}}
+        id={{el.id}}
         class="form-control"
-      }}
+      >
         <option value="FindADate" selected={{eq el.value "FindADate"}}>
           {{t "pollTypes.findADate.label"}}
         </option>
         <option value="MakeAPoll" selected={{eq el.value "MakeAPoll"}}>
           {{t "pollTypes.makeAPoll.label"}}
         </option>
-      {{/autofocusable-element}}
-    {{/form.element}}
+      </AutofocusableElement>
+    </form.element>
 
     <div class="row cr-steps-bottom-nav">
       <div class="col-6 col-md-8 order-12">
@@ -38,5 +38,5 @@
         <BackButton @disabled={{true}} />
       </div>
     </div>
-  {{/bs-form}}
+  </BsForm>
 </div>

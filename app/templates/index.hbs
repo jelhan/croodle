@@ -4,7 +4,9 @@
     <h2 class="cr-claim">
       {{t "index.title"}}
     </h2>
-    {{#link-to "create" class="btn btn-primary btn-lg"}}{{t "index.link.have-a-try"}}{{/link-to}}
+    <LinkTo @route="create" class="btn btn-primary btn-lg">
+      {{t "index.link.have-a-try"}}
+    </LinkTo>
   </div>
 
   <div class="row">

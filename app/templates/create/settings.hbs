@@ -1,42 +1,42 @@
 <div class="cr-form-wrapper box">
-  {{#bs-form
-    formLayout="horizontal"
-    model=this
-    novalidate=true
-    onInvalid=(scroll-first-invalid-element-into-view-port)
-    onSubmit=(action "submit")
-  as |form|
-  }}
-    {{#form.element
-      classNames="answer-type"
-      label=(t "create.settings.answerType.label")
-      property="answerType"
-      showValidationOn=(array "change" "focusOut")
-      useIcons=false
-    as |el|
-    }}
-      {{#autofocusable-element
-        tagName="select"
-        change=(action "updateAnswerType" value="target.value")
-        id=el.id
+  <BsForm
+    @formLayout="horizontal"
+    @model={{this}}
+    @novalidate={{true}}
+    @onInvalid={{scroll-first-invalid-element-into-view-port }}
+    @onSubmit={{action "submit"}}
+    as |form|
+  >
+    <form.element
+      @label={{t "create.settings.answerType.label"}}
+      @property="answerType"
+      @showValidationOn={{array "change" "focusOut"}}
+      @useIcons={{false}}
+      class="answer-type"
+      as |el|
+    >
+      <AutofocusableElement
+        @tagName="select"
+        @change={{action "updateAnswerType" value="target.value"}}
+        id={{el.id}}
         class="custom-select"
-      }}
+      >
         {{#each answerTypes as |answerType|}}
           <option value={{answerType.id}} selected={{eq el.value answerType.id}}>
             {{t answerType.labelTranslation}}
           </option>
         {{/each}}
-      {{/autofocusable-element}}
-    {{/form.element}}
-    {{#form.element
-      classNames="expiration-duration"
-      label=(t "create.settings.expirationDate.label")
-      property="expirationDuration"
-      showValidationOn=(array "change" "focusOut")
-      useIcons=false
-      controlType="select"
-    as |el|
-    }}
+      </AutofocusableElement>
+    </form.element>
+    <form.element
+      @controlType="select"
+      @label={{t "create.settings.expirationDate.label"}}
+      @property="expirationDuration"
+      @showValidationOn={{array "change" "focusOut"}}
+      @useIcons={{false}}
+      class="expiration-duration"
+      as |el|
+    >
       <select
         id={{el.id}}
         onchange={{action (mut el.value) value="target.value"}}
@@ -48,21 +48,21 @@
           </option>
         {{/each}}
       </select>
-    {{/form.element}}
-    {{form.element
-      classNames="anonymous-user"
-      controlType="checkbox"
-      label=(t "create.settings.anonymousUser.label")
-      showValidationOn="change"
-      property="anonymousUser"
-    }}
-    {{form.element
-      classNames="force-answer"
-      controlType="checkbox"
-      label=(t "create.settings.forceAnswer.label")
-      showValidationOn="change"
-      property="forceAnswer"
-    }}
+    </form.element>
+    <form.element
+      @controlType="checkbox"
+      @label={{t "create.settings.anonymousUser.label"}}
+      @showValidationOn="change"
+      @property="anonymousUser"
+      class="anonymous-user"
+    />
+    <form.element
+      @controlType="checkbox"
+      @label={{t "create.settings.forceAnswer.label"}}
+      @showValidationOn="change"
+      @property="forceAnswer"
+      class="force-answer"
+    />
 
     <div class="row cr-steps-bottom-nav">
       <div class="col-6 col-md-8 order-12">
@@ -72,5 +72,5 @@
         <BackButton @onClick={{action "previousPage"}} />
       </div>
     </div>
-  {{/bs-form}}
+  </BsForm>
 </div>
