@@ -1,6 +1,6 @@
+import RESTSerializer from '@ember-data/serializer/rest';
 import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
-import DS from 'ember-data';
 
 /*
  * extends DS.RESTSerializer to implement encryption
@@ -15,7 +15,7 @@ import DS from 'ember-data';
  *   If set the attribute will be included plain (not encrypted) when
  *   recorde is created. Value is the attributes name used.
  */
-export default DS.RESTSerializer.extend({
+export default RESTSerializer.extend({
   isNewSerializerAPI: true,
 
   encryption: service(),

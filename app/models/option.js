@@ -1,9 +1,9 @@
+import { attr } from '@ember-data/model';
 import { inject as service } from '@ember/service';
 import { readOnly } from '@ember/object/computed';
 import { assert } from '@ember/debug';
 import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
-import DS from 'ember-data';
 import moment from 'moment';
 import Fragment from 'ember-data-model-fragments/fragment';
 import { fragmentOwner } from 'ember-data-model-fragments/attributes';
@@ -11,8 +11,6 @@ import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-
-const { attr } = DS;
 
 const Validations = buildValidations({
   isPartiallyFilled: validator('falsy', {

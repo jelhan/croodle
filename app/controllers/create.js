@@ -1,8 +1,7 @@
 import { inject as service } from '@ember/service';
-import EmberObject, { computed } from '@ember/object';
+import EmberObject, { computed, getProperties } from '@ember/object';
 import Controller from '@ember/controller';
 import { getOwner } from '@ember/application';
-import { getProperties } from '@ember/object';
 
 const FormStep = EmberObject.extend({
   router: service(),

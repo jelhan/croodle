@@ -1,13 +1,7 @@
-import DS from 'ember-data';
+import Model, { belongsTo, attr } from '@ember-data/model';
 import {
   fragmentArray
 } from 'ember-data-model-fragments/attributes';
-
-const {
-  attr,
-  belongsTo,
-  Model
-} = DS;
 
 export default Model.extend({
   /*
