@@ -1,27 +1,27 @@
 <div class="cr-form-wrapper box">
-  {{#bs-form
-    formLayout="horizontal"
-    model=this
-    novalidate=true
-    onInvalid=(scroll-first-invalid-element-into-view-port)
-    onSubmit=(action "submit")
-  as |form|
-  }}
-    {{form.element
-      autofocus=true
-      classNames="title"
-      controlType="text"
-      label=(t "create.meta.input.title.label")
-      placeholder=(t "create.meta.input.title.placeholder")
-      property="title"
-    }}
-    {{form.element
-      classNames="description"
-      controlType="textarea"
-      label=(t "create.meta.input.description.label")
-      placeholder=(t "create.meta.input.description.placeholder")
-      property="description"
-    }}
+  <BsForm
+    @formLayout="horizontal"
+    @model={{this}}
+    @onInvalid={{scroll-first-invalid-element-into-view-port}}
+    @onSubmit={{action "submit"}}
+    novalidate
+    as |form|
+  >
+    <form.element
+      @autofocus={{true}}
+      @controlType="text"
+      @label={{t "create.meta.input.title.label"}}
+      @placeholder={{t "create.meta.input.title.placeholder"}}
+      @property="title"
+      class="title"
+    />
+    <form.element
+      @controlType="textarea"
+      @label={{t "create.meta.input.description.label"}}
+      @placeholder={{t "create.meta.input.description.placeholder"}}
+      @property="description"
+      class="description"
+    />
 
     <div class="row cr-steps-bottom-nav">
       <div class="col-6 col-md-8 order-12">
@@ -31,5 +31,5 @@
         <BackButton @onClick={{action "previousPage"}} />
       </div>
     </div>
-  {{/bs-form}}
+  </BsForm>
 </div>

@@ -32,15 +32,15 @@
           <small>
             <code class="cr-poll-link__url">{{pollUrl}}</code>
           </small>
-          {{#copy-button
-            clipboardText=pollUrl
-            classNames="btn btn-secondary cr-poll-link__copy-btn btn-sm"
-            success=(action "linkAction" "copied")
-            error=(action "linkAction" "selected")
-          }}
+          <CopyButton
+            @clipboardText={{pollUrl}}
+            @error={{action "linkAction" "selected"}}
+            @success={{action "linkAction" "copied"}}
+            class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
+          >
             {{t "poll.link.copy-label"}}&nbsp;
             <span class="oi oi-clipboard" title={{t "poll.link.copy-label"}} aria-hidden="true"></span>
-          {{/copy-button}}
+          </CopyButton>
         </p>
         <small class="text-muted">
           {{t "poll.share.notice"}}
@@ -52,40 +52,28 @@
   {{#if showExpirationWarning}}
     <div class="row">
       <div class="col-xs-12">
-        {{#bs-alert type="warning" classNames="expiration-warning"}}
+        <BsAlert @type="warning" class="expiration-warning">
           {{t
             "poll.expiration-date-warning"
             timeToNow=(moment-from-now model.expirationDate locale=currentLocale)
           }}
-        {{/bs-alert}}
+        </BsAlert>
       </div>
     </div>
   {{/if}}
 
   <div class="box">
     <ul class="nav nav-tabs" role="tablist">
-      {{#link-to
-        "poll.participation"
-        model
-        tagName="li"
-        activeClass="active"
-        class="participation nav-item"
-      }}
-        {{#link-to "poll.participation" model class="nav-link"}}
+      <LinkTo @route="poll.participation" @model={{model}} @tagName="li" @activeClass="active" class="participation nav-item">
+        <LinkTo @route="poll.participation" @model={{model}} class="nav-link">
           {{t "poll.tab-title.participation"}}
-        {{/link-to}}
-      {{/link-to}}
-      {{#link-to
-        "poll.evaluation"
-        model
-        tagName="li"
-        activeClass="active"
-        class="evaluation nav-item"
-      }}
-        {{#link-to "poll.evaluation" model class="nav-link"}}
+        </LinkTo>
+      </LinkTo>
+      <LinkTo @route="poll.evaluation" @model={{model}} @tagName="li" @activeClass="active" class="evaluation nav-item">
+        <LinkTo @route="poll.evaluation" @model={{model}} class="nav-link">
           {{t "poll.tab-title.evaluation"}}
-        {{/link-to}}
-      {{/link-to}}
+        </LinkTo>
+      </LinkTo>
     </ul>
 
     <div class="tab-content">

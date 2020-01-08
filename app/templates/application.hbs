@@ -1,12 +1,16 @@
-{{head-layout}}
+<HeadLayout />
 
 {{title "Croodle"}}
 
 <nav class="cr-navbar navbar navbar-dark">
-  <h1 class="cr-logo">{{#link-to "index" class="navbar-brand"}}Croodle{{/link-to}}</h1>
+  <h1 class="cr-logo">
+    <LinkTo @route="index" class="navbar-brand">
+      Croodle
+    </LinkTo>
+  </h1>
   <div class="collapse" id="headerNavbar">
     <form class="form-inline my-2 my-lg-0">
-      {{language-select class="custom-select custom-select-sm"}}
+      <LanguageSelect class="custom-select custom-select-sm" />
     </form>
   </div>
 </nav>
@@ -14,9 +18,9 @@
 <main role="main" class="container cr-main">
   <div id="messages">
     {{#each flashMessages.queue as |flash|}}
-      {{#flash-message flash=flash}}
+      <FlashMessage @flash={{flash}}>
         {{t flash.message}}
-      {{/flash-message}}
+      </FlashMessage>
     {{/each}}
   </div>
 

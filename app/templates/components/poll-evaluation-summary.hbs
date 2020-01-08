@@ -22,25 +22,25 @@
   {{#if multipleBestOptions}}
     <ul>
       {{#each bestOptions as |evaluationBestOption|}}
-        {{poll-evaluation-summary-option
-          currentLocale=currentLocale
-          evaluationBestOption=evaluationBestOption
-          isFindADate=poll.isFindADate
-          momentLongDayFormat=momentLongDayFormat
-          tagName="li"
-          timezone=timezone
-        }}
+        <PollEvaluationSummaryOption
+          @currentLocale={{currentLocale}}
+          @evaluationBestOption={{evaluationBestOption}}
+          @isFindADate={{poll.isFindADate}}
+          @momentLongDayFormat={{momentLongDayFormat}}
+          @tagName="li"
+          @timezone={{timezone}}
+        />
       {{/each}}
     </ul>
   {{else}}
-    {{poll-evaluation-summary-option
-      currentLocale=currentLocale
-      evaluationBestOption=bestOptions.firstObject
-      isFindADate=poll.isFindADate
-      momentLongDayFormat=momentLongDayFormat
-      tagName="span"
-      timezone=timezone
-    }}
+    <PollEvaluationSummaryOption
+      @currentLocale={{currentLocale}}
+      @evaluationBestOption={{bestOptions.firstObject}}
+      @isFindADate={{poll.isFindADate}}
+      @momentLongDayFormat={{momentLongDayFormat}}
+      @tagName="span"
+      @timezone={{timezone}}
+    />
   {{/if}}
 </p>
 

@@ -1,27 +1,27 @@
 <div class="participation cr-form-wrapper">
-  {{#bs-form
-    onInvalid=(scroll-first-invalid-element-into-view-port)
-    onSubmit=(action "submit")
-    formLayout="horizontal"
-    model=this
-    novalidate=true
-  as |form|
-  }}
-    {{form.element
-      autofocus=true
-      controlType="text"
-      label=(t "poll.input.newUserName.label")
-      placeholder=(t "poll.input.newUserName.placeholder")
-      property="name"
-      classNames="name"
+  <BsForm
+    @formLayout="horizontal"
+    @model={{this}}
+    @onInvalid={{scroll-first-invalid-element-into-view-port}}
+    @onSubmit={{action "submit"}}
+    novalidate
+    as |form|
+  >
+    <form.element
+      @autofocus={{true}}
+      @controlType="text"
+      @label={{t "poll.input.newUserName.label"}}
+      @placeholder={{t "poll.input.newUserName.placeholder"}}
+      @property="name"
+      class="name"
       data-test-form-element="name"
-    }}
+    />
     <div class="selections">
       {{#each selections as |selection|}}
         {{#if isFreeText}}
-          {{form.element
-            controlType="text"
-            label=(if isFindADate
+          <form.element
+            @controlType="text"
+            @label={{if isFindADate
               (moment-format
                 selection.labelValue
                 (if (eq selection.momentFormat "day") momentLongDayFormat selection.momentFormat)
@@ -29,13 +29,13 @@
                 timeZone=timezone
               )
               selection.labelValue
-            )
-            model=selection
-            property="value"
-          }}
+            }}
+            @model={{selection}}
+            @property="value"
+          />
         {{else}}
-          {{#form.element
-            label=(if isFindADate
+          <form.element
+            @label={{if isFindADate
               (moment-format
                 selection.labelValue
                 (if (eq selection.momentFormat "day") momentLongDayFormat selection.momentFormat)
@@ -43,14 +43,14 @@
                 timeZone=timezone
               )
               selection.labelValue
-            )
-            model=selection
-            property="value"
-            showValidationOn="change"
-            useIcons=false
-            data-test-form-element=(concat "option-" selection.labelValue)
-          as |el|
-          }}
+            }}
+            @model={{selection}}
+            @property="value"
+            @showValidationOn="change"
+            @useIcons={{false}}
+            data-test-form-element={{concat "option-" selection.labelValue}}
+            as |el|
+          >
             {{#each possibleAnswers as |possibleAnswer|}}
               <div class="radio custom-control custom-radio custom-control-inline {{possibleAnswer.type}}">
                 <input
@@ -70,7 +70,7 @@
                 </label>
               </div>
             {{/each}}
-          {{/form.element}}
+          </form.element>
         {{/if}}
       {{/each}}
     </div>
@@ -80,7 +80,7 @@
         <SaveButton @isPending={{form.isSubmitting}} data-test-button="submit" />
       </div>
     </div>
-  {{/bs-form}}
+  </BsForm>
 </div>
 
 <BsModal

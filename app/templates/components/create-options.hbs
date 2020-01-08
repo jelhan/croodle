@@ -1,25 +1,16 @@
 <div class="cr-form-wrapper box">
-  {{#bs-form
-    action="submit"
-    formLayout="horizontal"
-    model=this
-    novalidate=true
-    onInvalid=(scroll-first-invalid-element-into-view-port)
-    onSubmit=(action "submit")
-  as |form|
-  }}
+  <BsForm
+    @formLayout="horizontal"
+    @model={{this}}
+    @onInvalid={{scroll-first-invalid-element-into-view-port}}
+    @onSubmit={{action "submit"}}
+    novalidate
+    as |form|
+  >
     {{#if isMakeAPoll}}
-      {{create-options-text
-        options=options
-        addOption="addOption"
-        deleteOption="deleteOption"
-        form=form
-      }}
+      <CreateOptionsText @options={{options}} @addOption="addOption" @deleteOption="deleteOption" @form={{form}} />
     {{else}}
-      {{create-options-dates
-        options=options
-        form=form
-      }}
+      <CreateOptionsDates @options={{options}} @form={{form}} />
     {{/if}}
 
     <div class="row cr-steps-bottom-nav">
@@ -30,5 +21,5 @@
         <BackButton @onClick={{action "previousPage"}} />
       </div>
     </div>
-  {{/bs-form}}
+  </BsForm>
 </div>
