@@ -46,6 +46,10 @@ before_script:
   # create a browser stack tunnel for cross-browser testing
   - if [ $TEST = "BROWSER" ]; then node_modules/ember-cli/bin/ember browserstack:connect; fi
 
+branches:
+  only:
+    - master
+
 script:
   # run frontend and integration tests
   - if [ $TEST = "EMBER" ]; then yarn run lint:hbs; fi
