@@ -76,7 +76,7 @@ module.exports = {
         '--os',
         'OS X',
         '--osv',
-        'High Sierra',
+        'Catalina',
         '--b',
         'safari',
         '--bv',
