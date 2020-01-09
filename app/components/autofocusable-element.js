@@ -1,13 +1,15 @@
+import classic from 'ember-classic-decorator';
 import Component from '@ember/component';
 
-export default Component.extend({
-  autofocus: true,
+@classic
+export default class AutofocusableElement extends Component {
+  autofocus = true;
 
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
 
     if (this.autofocus) {
       this.element.focus();
     }
-  },
-});
+  }
+}

@@ -1,16 +1,20 @@
-import Component from '@ember/component';
+import classic from 'ember-classic-decorator';
+import { classNames } from '@ember-decorators/component';
 import { computed } from '@ember/object';
-import { gt, mapBy, max, readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { readOnly, max, mapBy, gt } from '@ember/object/computed';
+import Component from '@ember/component';
 import { copy } from '@ember/object/internals';
 import { isEmpty } from '@ember/utils';
-import { inject as service } from '@ember/service';
 
-export default Component.extend({
-  i18n: service(),
+@classic
+@classNames('evaluation-summary')
+export default class PollEvaluationSummary extends Component {
+  @service
+  i18n;
 
-  classNames: ['evaluation-summary'],
-
-  bestOptions: computed('users.[]', function() {
+  @computed('users.[]')
+  get bestOptions() {
     // can not evaluate answer type free text
     if (this.get('poll.isFreeText')) {
       return undefined;
@@ -70,16 +74,23 @@ export default Component.extend({
     }
 
     return bestOptions;
-  }),
+  }
 
-  currentLocale: readOnly('i18n.locale'),
+  @readOnly('i18n.locale')
+  currentLocale;
 
-  multipleBestOptions: gt('bestOptions.length', 1),
+  @gt('bestOptions.length', 1)
+  multipleBestOptions;
 
-  lastParticipationAt: max('participationDates'),
-  participationDates: mapBy('users', 'creationDate'),
+  @max('participationDates')
+  lastParticipationAt;
 
-  participantsCount: readOnly('users.length'),
+  @mapBy('users', 'creationDate')
+  participationDates;
 
-  users: readOnly('poll.users'),
-});
+  @readOnly('users.length')
+  participantsCount;
+
+  @readOnly('poll.users')
+  users;
+}

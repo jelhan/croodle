@@ -1,7 +1,8 @@
+import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
+import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
 import { get, computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 import { isArray } from '@ember/array';
 import { isPresent } from '@ember/utils';
 import moment from 'moment';
@@ -24,10 +25,13 @@ const addArrays = function() {
   return basis;
 };
 
-export default Component.extend({
-  i18n: service(),
+@classic
+export default class PollEvaluationChart extends Component {
+  @service
+  i18n;
 
-  chartOptions: computed(function () {
+  @computed
+  get chartOptions() {
     return {
       legend: {
         display: false
@@ -60,9 +64,10 @@ export default Component.extend({
         }
       }
     }
-  }),
+  }
 
-  data: computed('users.[]', 'options.{[],each.title}', 'currentLocale', function() {
+  @computed('users.[]', 'options.{[],each.title}', 'currentLocale')
+  get data() {
     let labels = this.options.map((option) => {
       let value = get(option, 'title');
       if (!this.isFindADate) {
@@ -110,11 +115,20 @@ export default Component.extend({
       datasets,
       labels
     };
-  }),
+  }
 
-  answerType: readOnly('poll.answerType'),
-  currentLocale: readOnly('i18n.locale'),
-  isFindADate: readOnly('poll.isFindADate'),
-  options: readOnly('poll.options'),
-  users: readOnly('poll.users'),
-});
+  @readOnly('poll.answerType')
+  answerType;
+
+  @readOnly('i18n.locale')
+  currentLocale;
+
+  @readOnly('poll.isFindADate')
+  isFindADate;
+
+  @readOnly('poll.options')
+  options;
+
+  @readOnly('poll.users')
+  users;
+}

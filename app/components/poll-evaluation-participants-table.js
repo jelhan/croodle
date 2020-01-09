@@ -1,17 +1,29 @@
-import Component from '@ember/component';
+import classic from 'ember-classic-decorator';
 import { readOnly } from '@ember/object/computed';
+import Component from '@ember/component';
 import { raw } from 'ember-awesome-macros';
 import { groupBy, sort } from 'ember-awesome-macros/array';
 
-export default Component.extend({
-  hasTimes: readOnly('poll.hasTimes'),
+@classic
+export default class PollEvaluationParticipantsTable extends Component {
+  @readOnly('poll.hasTimes')
+  hasTimes;
 
-  isFindADate: readOnly('poll.isFindADate'),
-  isFreeText: readOnly('poll.isFreeText'),
+  @readOnly('poll.isFindADate')
+  isFindADate;
 
-  options: readOnly('poll.options'),
-  optionsGroupedByDays: groupBy('options', raw('day')),
+  @readOnly('poll.isFreeText')
+  isFreeText;
 
-  users: readOnly('poll.users'),
-  usersSorted: sort('users', ['creationDate']),
-});
+  @readOnly('poll.options')
+  options;
+
+  @groupBy('options', raw('day'))
+  optionsGroupedByDays;
+
+  @readOnly('poll.users')
+  users;
+
+  @sort('users', ['creationDate'])
+  usersSorted;
+}
