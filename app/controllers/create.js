@@ -1,93 +1,54 @@
 import { inject as service } from '@ember/service';
-import EmberObject, { computed, getProperties } from '@ember/object';
+import { action, computed } from '@ember/object';
 import Controller from '@ember/controller';
-import { getOwner } from '@ember/application';
-
-const FormStep = EmberObject.extend({
-  router: service(),
-
-  disabled: computed('requiredState', 'visited', function() {
-    let { visited, requiredState } = this;
-    return !visited || requiredState === false;
-  }),
-  hidden: false,
-  label: null,
-  route: null,
-  visited: false,
-
-  init() {
-    this._super(...arguments);
-
-    let setVisited = () => {
-      if (this.router.currentRouteName === this.route) {
-        this.set('visited', true);
-      }
-    };
-    this.router.on('routeDidChange', setVisited);
-  }
-});
-
-const FORM_STEPS = [
-  {
-    label: 'create.formStep.type',
-    route: 'create.index',
-  },
-  {
-    label: 'create.formStep.meta',
-    requiredState: computed('model.pollType', function() {
-      return this.model.pollType;
-    }),
-    route: 'create.meta',
-  },
-  {
-    label: computed('model.pollType', function() {
-      let { pollType } = this.model;
-      return pollType === 'FindADate' ? 'create.formStep.options.days' : 'create.formStep.options.text';
-    }),
-    requiredState: computed('model.title', function() {
-      let { title } = this.model;
-      return typeof title === 'string' && title.length >= 2;
-    }),
-    route: 'create.options',
-  },
-  {
-    hidden: computed('model.pollType', function() {
-      let { pollType } = this.model;
-      return pollType !== 'FindADate';
-    }),
-    label: 'create.formStep.options-datetime',
-    requiredState: computed('model.options.length', function() {
-      return this.model.options.length >= 1;
-    }),
-    route: 'create.options-datetime'
-  },
-  {
-    label: 'create.formStep.settings',
-    requiredState: computed('model.options.length', function() {
-      return this.model.options.length >= 1;
-    }),
-    route: 'create.settings',
-  },
-];
 
 export default Controller.extend({
   router: service(),
 
-  formSteps: computed('model', function() {
-    let owner = getOwner(this);
+  canEnterMetaStep: computed('model.pollType', 'visitedSteps', function() {
+    return this.visitedSteps.has('meta') && this.model.pollType;
+  }),
 
-    return FORM_STEPS.map((definition, index) => {
-      let computedProperties = Object.keys(definition).filter((key) => typeof definition[key] === 'function');
-      let values = Object.keys(definition).filter((key) => typeof definition[key] !== 'function');
+  canEnterOptionsStep: computed('model.title', 'visitedSteps', function() {
+    let { title } = this.model;
+    return this.visitedSteps.has('options') &&
+      typeof title === 'string' && title.length >= 2;
+  }),
 
-      let extendDefinition = getProperties(definition, ...computedProperties)
-      let createDefinition = Object.assign({ model: this.model }, getProperties(definition, ...values));
+  canEnterOptionsDatetimeStep: computed('model.options.[]', 'visitedSteps', function() {
+    return this.visitedSteps.has('options-datetime') && this.model.options.length >= 1;
+  }),
 
-      if (index === 0) {
-        createDefinition.visited = true;
-      }
+  canEnterSettingsStep: computed('model.options.[]', 'visitedSteps', function() {
+    return this.visitedSteps.has('settings') && this.model.options.length >= 1;
+  }),
 
-      return FormStep.extend(extendDefinition).create(owner.ownerInjection(), createDefinition);
-    });
-  })
+  isFindADate: computed('model.pollType', function() {
+    return this.model.pollType === 'FindADate';
+  }),
+
+  updateVisitedSteps: action(function() {
+    let { currentRouteName } = this.router;
+
+    // currentRouteName might not be defined in some edge cases
+    if (!currentRouteName) {
+      return;
+    }
+
+    let step = currentRouteName.split('.').pop();
+    this.visitedSteps.add(step);
+
+    // as visitedSteps is a Set must notify about changes manually
+    this.notifyPropertyChange('visitedSteps');
+  }),
+
+  listenForStepChanges() {
+    this.set('visitedSteps', new Set());
+
+    this.router.on('routeDidChange', this.updateVisitedSteps);
+  },
+
+  clearListenerForStepChanges() {
+    this.router.off('routeDidChange', this.updateVisitedSteps);
+  },
 });
