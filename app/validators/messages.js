@@ -1,6 +1,8 @@
-import Messages from 'ember-i18n-cp-validations/validators/messages';
+import classic from 'ember-classic-decorator';
+import BaseMessages from 'ember-i18n-cp-validations/validators/messages';
 
-export default Messages.extend({
-  validCollection: 'This collection is not valid.',
-  time: '{{value}} is not a vaild time.'
-});
+@classic
+export default class ValidationMessages extends BaseMessages {
+  validCollection = 'This collection is not valid.';
+  time = '{{value}} is not a vaild time.';
+}

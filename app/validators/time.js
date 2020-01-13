@@ -1,8 +1,10 @@
+import classic from 'ember-classic-decorator';
 import { isEmpty } from '@ember/utils';
 import BaseValidator from 'ember-cp-validations/validators/base';
 import moment from 'moment';
 
-export default BaseValidator.extend({
+@classic
+export default class TimeValidator extends BaseValidator {
   validate(value, options) {
     let valid;
 
@@ -28,4 +30,4 @@ export default BaseValidator.extend({
       return this.createErrorMessage('time', value, options);
     }
   }
-});
+}

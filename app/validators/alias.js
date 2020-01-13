@@ -1,7 +1,9 @@
+import classic from 'ember-classic-decorator';
 import Alias from 'ember-cp-validations/validators/alias';
 
-export default Alias.extend({
+@classic
+export default class AliasValidator extends Alias {
   validate(value, options, model, attribute) {
-    return this._super(value, options, model, attribute) || true;
+    return super.validate(value, options, model, attribute) || true;
   }
-});
+}

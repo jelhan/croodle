@@ -1,10 +1,12 @@
+import classic from 'ember-classic-decorator';
 import { isArray } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 import { assert } from '@ember/debug';
 import BaseValidator from 'ember-cp-validations/validators/base';
 import moment from 'moment';
 
-export default BaseValidator.extend({
+@classic
+export default class Iso8601Validator extends BaseValidator {
   validate(value, options = {}) {
     assert(
       'options.validFormats must not be set or an array of momentJS format strings',
@@ -33,4 +35,4 @@ export default BaseValidator.extend({
       return this.createErrorMessage('iso8601', value, options);
     }
   }
-});
+}
