@@ -1,8 +1,9 @@
-import { attr } from '@ember-data/model';
+import classic from 'ember-classic-decorator';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { readOnly } from '@ember/object/computed';
+import { attr } from '@ember-data/model';
 import { assert } from '@ember/debug';
-import { computed } from '@ember/object';
 import { isEmpty } from '@ember/utils';
 import moment from 'moment';
 import Fragment from 'ember-data-model-fragments/fragment';
@@ -58,18 +59,32 @@ const Validations = buildValidations({
   ]
 });
 
-export default Fragment.extend(Validations, {
-  poll: fragmentOwner(),
-  title: attr('string'),
+@classic
+export default class Option extends Fragment.extend(Validations) {
+  @service
+  i18n;
 
-  date: computed('title', function() {
+  @fragmentOwner()
+  poll;
+
+  @attr('string')
+  title;
+
+  // isPartiallyFilled should be set only for times on creation if input is filled
+  // partially (e.g. "11:--"). It's required cause ember-cp-validations does not
+  // provide any method to push a validation error into validations. It's only
+  // working based on a property of the model.
+  isPartiallyFilled = false;
+
+  @computed('title')
+  get date() {
     const allowedFormats = [
       'YYYY-MM-DD',
       'YYYY-MM-DDTHH:mm:ss.SSSZ'
     ];
     const value = this.title;
     if (isEmpty(value)) {
-      return;
+      return null;
     }
 
     const format = allowedFormats.find((f) => {
@@ -78,24 +93,26 @@ export default Fragment.extend(Validations, {
       return f.length === value.length && moment(value, f, true).isValid();
     });
     if (isEmpty(format)) {
-      return;
+      return null;
     }
 
     return moment(value, format, true);
-  }),
+  }
 
-  day: computed('date', function() {
+  @computed('date')
+  get day() {
     const date = this.date;
     if (!moment.isMoment(date)) {
-      return;
+      return null;
     }
     return date.format('YYYY-MM-DD');
-  }),
+  }
 
-  dayFormatted: computed('date', 'i18n.locale', function() {
+  @computed('date', 'i18n.locale')
+  get dayFormatted() {
     let date = this.date;
     if (!moment.isMoment(date)) {
-      return;
+      return null;
     }
 
     const locale = this.get('i18n.locale');
@@ -113,59 +130,54 @@ export default Fragment.extend(Validations, {
     }
 
     return date.format(format);
-  }),
+  }
 
-  hasTime: computed('title', function() {
+  @computed('title')
+  get hasTime() {
     return moment.isMoment(this.date) &&
            this.title.length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
-  }),
+  }
 
-  // isPartiallyFilled should be set only for times on creation if input is filled
-  // partially (e.g. "11:--"). It's required cause ember-cp-validations does not
-  // provide any method to push a validation error into validations. It's only
-  // working based on a property of the model.
-  isPartiallyFilled: false,
+  @computed('date')
+  get time() {
+    const date = this.date;
+    if (!moment.isMoment(date)) {
+      return null;
+    }
+    // verify that value is an ISO 8601 date string containg time
+    // testing length is faster than parsing with moment
+    const value = this.title;
+    if (value.length !== 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length) {
+      return null;
+    }
 
-  time: computed('date', {
-    get() {
-      const date = this.date;
-      if (!moment.isMoment(date)) {
-        return;
-      }
-      // verify that value is an ISO 8601 date string containg time
-      // testing length is faster than parsing with moment
-      const value = this.title;
-      if (value.length !== 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length) {
-        return;
-      }
+    return date.format('HH:mm');
+  }
+  set time(value) {
+    let date = this.date;
+    assert(
+      'can not set a time if current value is not a valid date',
+      moment.isMoment(date)
+    );
 
-      return date.format('HH:mm');
-    },
-    set(key, value) {
-      let date = this.date;
-      assert(
-        'can not set a time if current value is not a valid date',
-        moment.isMoment(date)
-      );
-
-      // set time to undefined if value is false
-      if (isEmpty(value)) {
-        this.set('title', date.format('YYYY-MM-DD'));
-        return value;
-      }
-
-      if (!moment(value, 'HH:mm', true).isValid()) {
-        return value;
-      }
-
-      const [ hour, minute ] = value.split(':');
-      this.set('title', date.hour(hour).minute(minute).toISOString());
+    // set time to undefined if value is false
+    if (isEmpty(value)) {
+      this.set('title', date.format('YYYY-MM-DD'));
       return value;
     }
-  }),
 
-  i18n: service(),
+    if (!moment(value, 'HH:mm', true).isValid()) {
+      return value;
+    }
+
+    const [ hour, minute ] = value.split(':');
+    this.set('title', date.hour(hour).minute(minute).toISOString());
+    return value;
+  }
+
   init() {
+    super.init(...arguments);
+
     this.get('i18n.locale');
   }
-});
+}

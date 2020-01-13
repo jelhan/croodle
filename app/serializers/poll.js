@@ -1,13 +1,13 @@
 import { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';
 import { isEmpty } from '@ember/utils';
-import ApplicationAdapter from './application';
+import ApplicationSerializer from './application';
 
-export default ApplicationAdapter.extend(EmbeddedRecordsMixin, {
-  attrs: {
+export default class PollSerializer extends ApplicationSerializer.extend(EmbeddedRecordsMixin) {
+  attrs = {
     users: {
       deserialize: 'records'
     }
-  },
+  };
 
   legacySupport(resourceHash) {
     // croodle <= 0.3.0
@@ -24,4 +24,4 @@ export default ApplicationAdapter.extend(EmbeddedRecordsMixin, {
 
     return resourceHash;
   }
-});
+}

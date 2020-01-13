@@ -1,7 +1,9 @@
+import classic from 'ember-classic-decorator';
 import { isEmpty } from '@ember/utils';
-import ApplicationAdapter from './application';
+import ApplicationSerializer from './application';
 
-export default ApplicationAdapter.extend({
+@classic
+export default class UserSerializer extends ApplicationSerializer {
   legacySupport(resourceHash) {
     /*
      * Croodle <= 0.3.0:
@@ -30,4 +32,4 @@ export default ApplicationAdapter.extend({
 
     return resourceHash;
   }
-});
+}

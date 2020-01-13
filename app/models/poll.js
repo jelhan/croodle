@@ -1,63 +1,79 @@
-import Model, { hasMany, attr } from '@ember-data/model';
-import { fragmentArray } from 'ember-data-model-fragments/attributes';
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { equal } from '@ember/object/computed';
+import Model, { hasMany, attr } from '@ember-data/model';
+import { fragmentArray } from 'ember-data-model-fragments/attributes';
 
-export default Model.extend({
+@classic
+export default class Poll extends Model {
   /*
    * relationships
    */
-  users: hasMany('user', { async: false }),
+  @hasMany('user', { async: false })
+  users;
 
   /*
    * properties
    */
   // Is participation without user name possibile?
-  anonymousUser: attr('boolean'),
+  @attr('boolean')
+  anonymousUser;
 
   // array of possible answers
-  answers: fragmentArray('answer'),
+  @fragmentArray('answer')
+  answers;
 
   // YesNo, YesNoMaybe or Freetext
-  answerType: attr('string'),
+  @attr('string')
+  answerType;
 
   // ISO-8601 combined date and time string in UTC
-  creationDate: attr('date'),
+  @attr('date')
+  creationDate;
 
   // polls description
-  description: attr('string', {
+  @attr('string', {
     defaultValue: ''
-  }),
+  })
+  description;
 
   // ISO 8601 date + time string in UTC
-  expirationDate: attr('string', {
+  @attr('string', {
     includePlainOnCreate: 'serverExpirationDate'
-  }),
+  })
+  expirationDate;
 
   // Must all options been answered?
-  forceAnswer: attr('boolean'),
+  @attr('boolean')
+  forceAnswer;
 
   // array of polls options
-  options: fragmentArray('option'),
+  @fragmentArray('option')
+  options;
 
   // FindADate or MakeAPoll
-  pollType: attr('string'),
+  @attr('string')
+  pollType;
 
   // timezone poll got created in (like "Europe/Berlin")
-  timezone: attr('string'),
+  @attr('string')
+  timezone;
 
   // polls title
-  title: attr('string'),
+  @attr('string')
+  title;
 
   // Croodle version poll got created with
-  version: attr('string', {
+  @attr('string', {
     encrypted: false
-  }),
+  })
+  version;
 
   /*
    * computed properties
    */
-  hasTimes: computed('options.[]', function() {
+  @computed('options.[]')
+  get hasTimes() {
     if (this.isMakeAPoll) {
       return false;
     }
@@ -66,9 +82,14 @@ export default Model.extend({
       let dayStringLength = 10; // 'YYYY-MM-DD'.length
       return option.title.length > dayStringLength;
     });
-  }),
+  }
 
-  isFindADate: equal('pollType', 'FindADate'),
-  isFreeText: equal('answerType', 'FreeText'),
-  isMakeAPoll: equal('pollType', 'MakeAPoll'),
-});
+  @equal('pollType', 'FindADate')
+  isFindADate;
+
+  @equal('answerType', 'FreeText')
+  isFreeText;
+
+  @equal('pollType', 'MakeAPoll')
+  isMakeAPoll;
+}

@@ -1,4 +1,5 @@
+import classic from 'ember-classic-decorator';
 import RESTSerializer from '@ember-data/serializer/rest';
 
-export default RESTSerializer.extend({
-});
+@classic
+export default class SelectionSerializer extends RESTSerializer {}

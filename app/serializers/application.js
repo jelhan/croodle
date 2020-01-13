@@ -1,6 +1,7 @@
+import classic from 'ember-classic-decorator';
+import { inject as service } from '@ember/service';
 import RESTSerializer from '@ember-data/serializer/rest';
 import { isEmpty } from '@ember/utils';
-import { inject as service } from '@ember/service';
 
 /*
  * extends DS.RESTSerializer to implement encryption
@@ -15,10 +16,12 @@ import { inject as service } from '@ember/service';
  *   If set the attribute will be included plain (not encrypted) when
  *   recorde is created. Value is the attributes name used.
  */
-export default RESTSerializer.extend({
-  isNewSerializerAPI: true,
+@classic
+export default class ApplicationSerializer extends RESTSerializer {
+  isNewSerializerAPI = true;
 
-  encryption: service(),
+  @service
+  encryption;
 
   /*
    * implement decryption
@@ -41,14 +44,14 @@ export default RESTSerializer.extend({
       resourceHash = this.legacySupport(resourceHash);
     }
 
-    return this._super(modelClass, resourceHash, prop);
-  },
+    return super.normalize(modelClass, resourceHash, prop);
+  }
 
   /*
    * implement encryption
    */
   serializeAttribute(snapshot, json, key, attribute) {
-    this._super(snapshot, json, key, attribute);
+    super.serializeAttribute(snapshot, json, key, attribute);
 
     // map includePlainOnCreate after serialization of attribute hash
     // but before encryption so we can just use the serialized hash
@@ -66,4 +69,4 @@ export default RESTSerializer.extend({
       json[key] = this.encryption.encrypt(json[key]);
     }
   }
-});
+}
