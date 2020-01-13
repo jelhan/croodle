@@ -1,8 +1,8 @@
 import classic from 'ember-classic-decorator';
-import BsInput from 'ember-bootstrap/components/bs-form/element/control/input';
+import BaseBsInput from 'ember-bootstrap/components/bs-form/element/control/input';
 
 @classic
-export default class Input extends BsInput {
+export default class CustomizedBsInput extends BaseBsInput {
   didInsertElement() {
     super.didInsertElement(...arguments);
 
