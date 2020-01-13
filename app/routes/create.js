@@ -30,5 +30,15 @@ export default Route.extend({
       expirationDate: moment().add(3, 'month').toISOString(),
       version: config.APP.version,
     });
-  }
+  },
+
+  activate() {
+    let controller = this.controllerFor(this.routeName);
+    controller.listenForStepChanges();
+  },
+
+  deactivate() {
+    let controller = this.controllerFor(this.routeName);
+    controller.clearListenerForStepChanges();
+  },
 });
