@@ -1,4 +1,5 @@
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import {
@@ -19,27 +20,31 @@ const Validations = buildValidations({
   ]
 });
 
-export default Controller.extend(Validations, {
-  actions: {
-    previousPage() {
-      this.transitionToRoute('create.index');
-    },
-    submit() {
-      if (this.get('validations.isValid')) {
-        this.transitionToRoute('create.options');
-      }
-    }
-  },
+export default class CreateMetaController extends Controller.extend(Validations) {
+  @service
+  i18n;
 
-  description: alias('model.description'),
+  @alias('model.description')
+  description;
+
+  @alias('model.title')
+  title;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
 
     this.get('i18n.locale');
-  },
+  }
 
-  i18n: service(),
+  @action
+  previousPage() {
+    this.transitionToRoute('create.index');
+  }
 
-  title: alias('model.title')
-});
+  @action
+  submit() {
+    if (this.get('validations.isValid')) {
+      this.transitionToRoute('create.options');
+    }
+  }
+}

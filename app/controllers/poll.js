@@ -2,55 +2,101 @@ import { inject as service } from '@ember/service';
 import { readOnly } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import { isPresent, isEmpty } from '@ember/utils';
-import { observer, computed } from '@ember/object';
+import { action, computed } from '@ember/object';
+import { observes } from '@ember-decorators/object';
 import moment from 'moment';
 
-export default Controller.extend({
-  encryption: service(),
-  flashMessages: service(),
-  i18n: service(),
-  router: service(),
+export default class PollController extends Controller {
+  @service
+  encryption;
 
-  actions: {
-    linkAction(type) {
-      let flashMessages = this.flashMessages;
-      switch (type) {
-        case 'copied':
-          flashMessages.success(`poll.link.copied`);
-          break;
+  @service
+  flashMessages;
 
-        case 'selected':
-          flashMessages.info(`poll.link.selected`);
-          break;
-      }
-    },
-    useLocalTimezone() {
-      this.set('useLocalTimezone', true);
-      this.set('timezoneChoosen', true);
-    }
-  },
+  @service
+  i18n;
 
-  currentLocale: readOnly('i18n.locale'),
+  @service
+  router;
 
-  encryptionKey: '',
-  queryParams: ['encryptionKey'],
+  queryParams = ['encryptionKey'];
 
-  momentLongDayFormat: computed('currentLocale', function() {
+  encryptionKey = '';
+  timezoneChoosen = false;
+  useLocalTimezone = false;
+
+  @readOnly('i18n.locale')
+  currentLocale;
+
+  @computed('currentLocale')
+  get momentLongDayFormat() {
     let currentLocale = this.currentLocale;
     return moment.localeData(currentLocale)
       .longDateFormat('LLLL')
       .replace(
         moment.localeData(currentLocale).longDateFormat('LT'), '')
       .trim();
-  }),
+  }
 
-  poll: readOnly('model'),
-  pollUrl: computed('router.currentURL', 'encryptionKey', function() {
+  @readOnly('model')
+  poll;
+
+  @computed('router.currentURL', 'encryptionKey')
+  get pollUrl() {
     return window.location.href;
-  }),
+  }
+
+  @computed('poll.expirationDate')
+  get showExpirationWarning() {
+    let expirationDate = this.poll.expirationDate;
+    if (isEmpty(expirationDate)) {
+      return false;
+    }
+    return moment().add(2, 'weeks').isAfter(moment(expirationDate));
+  }
+
+  /*
+   * return true if current timezone differs from timezone poll got created with
+   */
+  @computed('poll.timezone')
+  get timezoneDiffers() {
+    let modelTimezone = this.poll.timezone;
+    return isPresent(modelTimezone) && moment.tz.guess() !== modelTimezone;
+  }
+
+  @computed('timezoneDiffers', 'timezoneChoosen')
+  get mustChooseTimezone() {
+    return this.timezoneDiffers && !this.timezoneChoosen;
+  }
+
+  @computed('useLocalTimezone')
+  get timezone() {
+    return this.useLocalTimezone ? undefined : this.poll.timezone;
+  }
+
+  @action
+  linkAction(type) {
+    let flashMessages = this.flashMessages;
+    switch (type) {
+      case 'copied':
+        flashMessages.success(`poll.link.copied`);
+        break;
+
+      case 'selected':
+        flashMessages.info(`poll.link.selected`);
+        break;
+    }
+  }
+
+  @action
+  useLocalTimezone() {
+    this.set('useLocalTimezone', true);
+    this.set('timezoneChoosen', true);
+  }
 
   // TODO: Remove this code. It's spooky.
-  preventEncryptionKeyChanges: observer('encryptionKey', function() {
+  @observes('encryptionKey')
+  preventEncryptionKeyChanges() {
     if (
       !isEmpty(this.encryption.key) &&
       this.encryptionKey !== this.encryption.key
@@ -60,33 +106,5 @@ export default Controller.extend({
 
       this.set('encryptionKey', this.encryption.key);
     }
-  }),
-
-  showExpirationWarning: computed('poll.expirationDate', function() {
-    let expirationDate = this.poll.expirationDate;
-    if (isEmpty(expirationDate)) {
-      return false;
-    }
-    return moment().add(2, 'weeks').isAfter(moment(expirationDate));
-  }),
-
-  timezoneChoosen: false,
-
-  /*
-   * return true if current timezone differs from timezone poll got created with
-   */
-  timezoneDiffers: computed('poll.timezone', function() {
-    let modelTimezone = this.poll.timezone;
-    return isPresent(modelTimezone) && moment.tz.guess() !== modelTimezone;
-  }),
-
-  useLocalTimezone: false,
-
-  mustChooseTimezone: computed('timezoneDiffers', 'timezoneChoosen', function() {
-    return this.timezoneDiffers && !this.timezoneChoosen;
-  }),
-
-  timezone: computed('useLocalTimezone', function() {
-    return this.useLocalTimezone ? undefined : this.poll.timezone;
-  })
-});
+  }
+}

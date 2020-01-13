@@ -1,5 +1,6 @@
+import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
-import { readOnly, not } from '@ember/object/computed';
+import { not, readOnly } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
 import { getOwner } from '@ember/application';
 import { isPresent, isEmpty } from '@ember/utils';
@@ -55,6 +56,11 @@ const SelectionValidations = buildValidations({
     dependentKeys: ['model.i18n.locale']
   })
 });
+
+@classic
+class SelectionObject extends EmberObject.extend(SelectionValidations) {
+  value = null;
+}
 
 export default Controller.extend(Validations, {
   actions: {
@@ -179,14 +185,6 @@ export default Controller.extend(Validations, {
     let isFindADate = this.isFindADate;
     let lastDate;
 
-    let SelectionObject = EmberObject.extend(SelectionValidations, {
-      // forceAnswer and isFreeText must be included in model
-      // cause otherwise validations can't depend on it
-      forceAnswer: this.forceAnswer,
-      isFreeText: this.isFreeText,
-      value: null
-    });
-
     return options.map((option) => {
       let labelValue;
       let momentFormat;
@@ -216,7 +214,12 @@ export default Controller.extend(Validations, {
       let owner = getOwner(this);
       return SelectionObject.create(owner.ownerInjection(), {
         labelValue,
-        momentFormat
+        momentFormat,
+
+        // forceAnswer and isFreeText must be included in model
+        // cause otherwise validations can't depend on it
+        forceAnswer: this.forceAnswer,
+        isFreeText: this.isFreeText,
       });
     });
   }),

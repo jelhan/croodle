@@ -2,32 +2,39 @@ import { inject as service } from '@ember/service';
 import { action, computed } from '@ember/object';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  router: service(),
+export default class CreateController extends Controller {
+  @service
+  router;
 
-  canEnterMetaStep: computed('model.pollType', 'visitedSteps', function() {
+  @computed('model.pollType', 'visitedSteps')
+  get canEnterMetaStep() {
     return this.visitedSteps.has('meta') && this.model.pollType;
-  }),
+  }
 
-  canEnterOptionsStep: computed('model.title', 'visitedSteps', function() {
+  @computed('model.title', 'visitedSteps')
+  get canEnterOptionsStep() {
     let { title } = this.model;
     return this.visitedSteps.has('options') &&
       typeof title === 'string' && title.length >= 2;
-  }),
+  }
 
-  canEnterOptionsDatetimeStep: computed('model.options.[]', 'visitedSteps', function() {
+  @computed('model.options.[]', 'visitedSteps')
+  get canEnterOptionsDatetimeStep() {
     return this.visitedSteps.has('options-datetime') && this.model.options.length >= 1;
-  }),
+  }
 
-  canEnterSettingsStep: computed('model.options.[]', 'visitedSteps', function() {
+  @computed('model.options.[]', 'visitedSteps')
+  get canEnterSettingsStep() {
     return this.visitedSteps.has('settings') && this.model.options.length >= 1;
-  }),
+  }
 
-  isFindADate: computed('model.pollType', function() {
+  @computed('model.pollType')
+  get isFindADate() {
     return this.model.pollType === 'FindADate';
-  }),
+  }
 
-  updateVisitedSteps: action(function() {
+  @action
+  updateVisitedSteps() {
     let { currentRouteName } = this.router;
 
     // currentRouteName might not be defined in some edge cases
@@ -40,15 +47,15 @@ export default Controller.extend({
 
     // as visitedSteps is a Set must notify about changes manually
     this.notifyPropertyChange('visitedSteps');
-  }),
+  }
 
   listenForStepChanges() {
     this.set('visitedSteps', new Set());
 
     this.router.on('routeDidChange', this.updateVisitedSteps);
-  },
+  }
 
   clearListenerForStepChanges() {
     this.router.off('routeDidChange', this.updateVisitedSteps);
-  },
-});
+  }
+}

@@ -1,4 +1,5 @@
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import {
@@ -19,22 +20,23 @@ const Validations = buildValidations({
   ]
 });
 
-export default Controller.extend(Validations, {
-  actions: {
-    submit() {
-      if (this.get('validations.isValid')) {
-        this.transitionToRoute('create.meta');
-      }
-    }
-  },
+export default class CreateIndex extends Controller.extend(Validations) {
+  @service
+  i18n;
 
-  i18n: service(),
+  @alias('model.pollType')
+  pollType;
+
+  @action
+  submit() {
+    if (this.get('validations.isValid')) {
+      this.transitionToRoute('create.meta');
+    }
+  }
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
 
-    this.get('i18n.locale');
-  },
-
-  pollType: alias('model.pollType')
-});
+    this.i18n.locale;
+  }
+}

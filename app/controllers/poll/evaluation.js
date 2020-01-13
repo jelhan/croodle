@@ -1,29 +1,41 @@
-import { inject as service } from '@ember/service';
-import { and, gt, not, readOnly } from '@ember/object/computed';
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { readOnly, not, gt, and } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
 
-export default Controller.extend({
-  currentLocale: readOnly('i18n.locale'),
+@classic
+export default class PollEvaluationController extends Controller {
+  @readOnly('i18n.locale')
+  currentLocale;
 
-  hasTimes: readOnly('poll.hasTimes'),
+  @readOnly('poll.hasTimes')
+  hasTimes;
 
-  i18n: service(),
+  @service
+  i18n;
 
-  momentLongDayFormat: readOnly('pollController.momentLongDayFormat'),
+  @readOnly('pollController.momentLongDayFormat')
+  momentLongDayFormat;
 
-  poll: readOnly('model'),
-  pollController: controller('poll'),
+  @readOnly('model')
+  poll;
 
-  timezone: readOnly('pollController.timezone'),
+  @controller('poll')
+  pollController;
 
-  users: readOnly('poll.users'),
+  @readOnly('pollController.timezone')
+  timezone;
+
+  @readOnly('poll.users')
+  users;
 
   /*
    * evaluates poll data
    * if free text answers are allowed evaluation is disabled
    */
-  evaluation: computed('users.[]', function() {
+  @computed('users.[]')
+  get evaluation() {
     if (!this.isEvaluable) {
       return [];
     }
@@ -83,9 +95,14 @@ export default Controller.extend({
     });
 
     return evaluation;
-  }),
+  }
 
-  hasUsers: gt('poll.users.length', 0),
-  isNotFreeText: not('poll.isFreeText'),
-  isEvaluable: and('hasUsers', 'isNotFreeText'),
-});
+  @gt('poll.users.length', 0)
+  hasUsers;
+
+  @not('poll.isFreeText')
+  isNotFreeText;
+
+  @and('hasUsers', 'isNotFreeText')
+  isEvaluable;
+}
