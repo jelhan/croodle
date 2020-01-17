@@ -15,6 +15,11 @@ module.exports = function(defaults) {
         },
       },
     },
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-optional-catch-binding',
+      ],
+    },
     'buildInfoOptions': {
       'metaTemplate': 'version={SEMVER}'
     },
