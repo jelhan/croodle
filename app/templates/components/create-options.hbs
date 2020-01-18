@@ -8,9 +8,9 @@
     as |form|
   >
     {{#if this.isMakeAPoll}}
-      <CreateOptionsText @options={{this.options}} @form={{form}} />
+      <CreateOptionsText @options={{@options}} @form={{form}} />
     {{else}}
-      <CreateOptionsDates @options={{this.options}} @form={{form}} />
+      <CreateOptionsDates @options={{@options}} @form={{form}} />
     {{/if}}
 
     <div class="row cr-steps-bottom-nav">

@@ -1,5 +1,5 @@
 {{#let @form as |form|}}
-  {{#each this.options as |option index|}}
+  {{#each @options as |option index|}}
     <form.element
       {{! show label only on first item }}
       @label={{unless index (t "create.options.options.label")}}
@@ -22,7 +22,7 @@
             @type="link"
             class="delete"
             {{! disable delete button if there is only one option }}
-            disabled={{lte this.options.length 1}}
+            disabled={{lte @options.length 1}}
           >
             <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
             <span class="sr-only">{{t "create.options.button.delete.label"}}</span>

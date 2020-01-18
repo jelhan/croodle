@@ -7,7 +7,7 @@
 </p>
 
 <p class="best-options">
-  {{#if this.poll.isFindADate}}
+  {{#if @poll.isFindADate}}
     {{t
       "poll.evaluation.bestOption.label.findADate"
       count=this.bestOptions.length
@@ -25,10 +25,10 @@
         <PollEvaluationSummaryOption
           @currentLocale={{this.currentLocale}}
           @evaluationBestOption={{evaluationBestOption}}
-          @isFindADate={{this.poll.isFindADate}}
-          @momentLongDayFormat={{this.momentLongDayFormat}}
+          @isFindADate={{@poll.isFindADate}}
+          @momentLongDayFormat={{@momentLongDayFormat}}
           @tagName="li"
-          @timezone={{this.timezone}}
+          @timezone={{@timezone}}
         />
       {{/each}}
     </ul>
@@ -36,10 +36,10 @@
     <PollEvaluationSummaryOption
       @currentLocale={{this.currentLocale}}
       @evaluationBestOption={{this.bestOptions.firstObject}}
-      @isFindADate={{this.poll.isFindADate}}
-      @momentLongDayFormat={{this.momentLongDayFormat}}
+      @isFindADate={{@poll.isFindADate}}
+      @momentLongDayFormat={{@momentLongDayFormat}}
       @tagName="span"
-      @timezone={{this.timezone}}
+      @timezone={{@timezone}}
     />
   {{/if}}
 </p>
@@ -47,6 +47,6 @@
 <p class="last-participation">
   {{t
     "poll.evaluation.lastParticipation"
-    ago=(moment-from-now this.lastParticipationAt locale=this.currentLocale timezone=this.timezone)
+    ago=(moment-from-now this.lastParticipationAt locale=this.currentLocale timezone=@timezone)
   }}
 </p>

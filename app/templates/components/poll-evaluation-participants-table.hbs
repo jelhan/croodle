@@ -11,7 +11,7 @@
           </th>
           {{#each this.optionsGroupedByDays as |optionGroup|}}
             <th colspan={{optionGroup.items.length}}>
-              {{moment-format optionGroup.value this.momentLongDayFormat}}
+              {{moment-format optionGroup.value @momentLongDayFormat}}
             </th>
           {{/each}}
         </tr>
@@ -28,7 +28,7 @@
                 {{moment-format option.date "LT"}}
               {{/if}}
             {{else if this.isFindADate}}
-              {{moment-format option.date this.momentLongDayFormat}}
+              {{moment-format option.date @momentLongDayFormat}}
             {{else}}
               {{option.title}}
             {{/if}}

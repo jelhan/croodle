@@ -14,7 +14,7 @@
     as |form|
   >
     <div class="days">
-      {{#each this.dates as |date index|}}
+      {{#each @dates as |date index|}}
         {{!
           show summarized validation state for all times in a day
         }}
@@ -35,7 +35,7 @@
               Therefore we pass in array length if index is null. Cause index starting
               by zero there can't be any element with an index === array.length.
             }}
-            @invisibleLabel={{eq date.dayFormatted (get (object-at (if index (sub index 1) this.dates.length) this.dates) "dayFormatted")}}
+            @invisibleLabel={{eq date.dayFormatted (get (object-at (if index (sub index 1) @dates.length) @dates) "dayFormatted")}}
             @model={{date}}
             @property="time"
             class="option"
@@ -77,7 +77,7 @@
                   @type="link"
                   class="delete"
                   {{! disable delete button if there is only one option }}
-                  disabled={{lte this.dates.length 1}}
+                  disabled={{lte @dates.length 1}}
                 >
                   <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
                   <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
