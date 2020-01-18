@@ -1,11 +1,13 @@
-import BsInput from 'ember-bootstrap/components/bs-form/element/control/input';
+import classic from 'ember-classic-decorator';
+import BaseBsInput from 'ember-bootstrap/components/bs-form/element/control/input';
 
-export default BsInput.extend({
+@classic
+export default class CustomizedBsInput extends BaseBsInput {
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
 
     if (this.autofocus) {
       this.element.focus();
     }
-  },
-});
+  }
+}

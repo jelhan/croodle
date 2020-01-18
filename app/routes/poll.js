@@ -1,18 +1,21 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 
-export default Route.extend({
-  actions: {
-    error(error) {
-      if (error && error.status === 404) {
-        return this.transitionTo('404');
-      }
-
-      return true;
+@classic
+export default class PollRoute extends Route {
+  @action
+  error(error) {
+    if (error && error.status === 404) {
+      return this.transitionTo('404');
     }
-  },
 
-  encryption: service(),
+    return true;
+  }
+
+  @service
+  encryption;
 
   model(params) {
     // get encryption key from query parameter in singleton
@@ -20,7 +23,7 @@ export default Route.extend({
     this.set('encryption.key', params.encryptionKey);
 
     return this.store.find('poll', params.poll_id);
-  },
+  }
 
   redirect(poll, transition) {
     if (transition.targetName === 'poll.index') {
@@ -31,4 +34,4 @@ export default Route.extend({
       });
     }
   }
-});
+}

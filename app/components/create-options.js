@@ -1,4 +1,5 @@
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 import Component from '@ember/component';
 import {
   validator, buildValidations
@@ -21,20 +22,23 @@ let Validations = buildValidations({
   ]
 });
 
-export default Component.extend(Validations, {
-  actions: {
-    previousPage() {
-      this.onPrevPage();
-    },
-    submit() {
-      if (this.get('validations.isValid')) {
-        this.onNextPage();
-      } else {
-        this.set('shouldShowErrors', true);
-      }
-    }
-  },
+export default class CreateOptionsComponent extends Component.extend(Validations) {
+  shouldShowErrors = false;
+
   // consumed by validator
-  i18n: service(),
-  shouldShowErrors: false
-});
+  @service i18n;
+
+  @action
+  previousPage() {
+    this.onPrevPage();
+  }
+
+  @action
+  submit() {
+    if (this.get('validations.isValid')) {
+      this.onNextPage();
+    } else {
+      this.set('shouldShowErrors', true);
+    }
+  }
+}

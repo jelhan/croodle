@@ -4,7 +4,7 @@ module.exports = {
   app: {
     javascript: {
       pattern: 'assets/*.js',
-      limit: '410KB',
+      limit: '420KB',
       compression: 'gzip'
     },
     css: {

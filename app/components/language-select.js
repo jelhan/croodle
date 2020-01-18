@@ -1,20 +1,29 @@
+import classic from 'ember-classic-decorator';
+import { classNames, tagName } from '@ember-decorators/component';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import localesMeta from 'croodle/locales/meta';
 
-export default Component.extend({
-  tagName: 'select',
-  classNames: [ 'language-select' ],
+@classic
+@tagName('select')
+@classNames('language-select')
+export default class LanguageSelect extends Component {
+  @service
+  i18n;
 
-  i18n: service(),
-  moment: service(),
-  powerCalendar: service(),
+  @service
+  moment;
 
-  current: readOnly('i18n.locale'),
+  @service
+  powerCalendar;
 
-  locales: computed('i18n.locales', function() {
+  @readOnly('i18n.locale')
+  current;
+
+  @computed('i18n.locales')
+  get locales() {
     let currentLocale = this.get('i18n.locale');
 
     return this.get('i18n.locales').map(function(locale) {
@@ -24,7 +33,7 @@ export default Component.extend({
         text: localesMeta[locale]
       };
     });
-  }),
+  }
 
   change() {
     let locale = this.element.options[this.element.selectedIndex].value;
@@ -37,4 +46,4 @@ export default Component.extend({
       window.localStorage.setItem('locale', locale);
     }
   }
-});
+}

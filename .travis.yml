@@ -18,6 +18,7 @@ sudo: false
 
 addons:
   chrome: stable
+  firefox: latest-esr
 
 cache:
   yarn: true

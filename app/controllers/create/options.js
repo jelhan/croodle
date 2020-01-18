@@ -1,19 +1,24 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 
-export default Controller.extend({
-  actions: {
-    nextPage() {
-      if (this.isFindADate) {
-        this.transitionToRoute('create.options-datetime');
-      } else {
-        this.transitionToRoute('create.settings');
-      }
-    },
-    previousPage() {
-      this.transitionToRoute('create.meta');
-    },
-  },
+@classic
+export default class CreateOptionsController extends Controller {
+  @action
+  nextPage() {
+    if (this.isFindADate) {
+      this.transitionToRoute('create.options-datetime');
+    } else {
+      this.transitionToRoute('create.settings');
+    }
+  }
 
-  isFindADate: alias('model.isFindADate')
-});
+  @action
+  previousPage() {
+    this.transitionToRoute('create.meta');
+  }
+
+  @alias('model.isFindADate')
+  isFindADate;
+}

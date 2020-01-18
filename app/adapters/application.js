@@ -2,11 +2,12 @@ import RESTAdapter from '@ember-data/adapter/rest';
 import { inject as service } from '@ember/service';
 import AdapterFetch from 'ember-fetch/mixins/adapter-fetch';
 
-export default RESTAdapter.extend(AdapterFetch, {
-  encryption: service(),
+export default class ApplicationAdapter extends RESTAdapter.extend(AdapterFetch) {
+  @service
+  encryption;
 
   // set namespace to api.php in same subdirectory
-  namespace:
+  namespace =
     window.location.pathname
     // remove index.html if it's there
     .replace(/index.html$/, '')
@@ -20,4 +21,4 @@ export default RESTAdapter.extend(AdapterFetch, {
     .concat('/api/index.php')
     // remove leading slash
     .replace(/^\//g, '')
-});
+}

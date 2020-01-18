@@ -1,6 +1,8 @@
+import classic from 'ember-classic-decorator';
 import BaseValidator from 'ember-cp-validations/validators/base';
 
-export default BaseValidator.extend({
+@classic
+export default class ValidCollectionValidator extends BaseValidator {
   validate(value, options) {
     if (options.active === false) {
       return true;
@@ -16,4 +18,4 @@ export default BaseValidator.extend({
       return this.createErrorMessage('validCollection', options, value);
     }
   }
-});
+}

@@ -1,11 +1,16 @@
-import Controller from '@ember/controller';
+import classic from 'ember-classic-decorator';
 import { computed } from '@ember/object';
 import { equal } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import sjcl from 'sjcl';
 
-export default Controller.extend({
-  decryptionFailed: computed('model', function() {
+@classic
+export default class PollErrorController extends Controller {
+  @computed('model')
+  get decryptionFailed() {
     return this.model instanceof sjcl.exception.corrupt;
-  }),
-  notFound: equal('model.errors.firstObject.status', '404')
-});
+  }
+
+  @equal('model.errors.firstObject.status', '404')
+  notFound;
+}

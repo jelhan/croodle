@@ -1,23 +1,27 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { next } from '@ember/runloop';
 
-export default Component.extend({
-  actions: {
-    addOption(element) {
-      let fragment = this.store.createFragment('option');
-      let options = this.options;
-      let position = this.options.indexOf(element) + 1;
-      options.insertAt(
-        position,
-        fragment
-      );
-    },
-    deleteOption(element) {
-      let position = this.options.indexOf(element);
-      this.options.removeAt(position);
-    }
-  },
+@classic
+export default class CreateOptionsText extends Component {
+  @action
+  addOption(element) {
+    let fragment = this.store.createFragment('option');
+    let options = this.options;
+    let position = this.options.indexOf(element) + 1;
+    options.insertAt(
+      position,
+      fragment
+    );
+  }
+
+  @action
+  deleteOption(element) {
+    let position = this.options.indexOf(element);
+    this.options.removeAt(position);
+  }
 
   enforceMinimalOptionsAmount() {
     let options = this.options;
@@ -27,12 +31,13 @@ export default Component.extend({
         this.store.createFragment('option')
       );
     }
-  },
+  }
 
-  store: service('store'),
+  @service('store')
+  store;
 
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
 
     // need to delay pushing fragments into options array to prevent
     // > You modified "disabled" twice on <(unknown):ember330> in a single render.
@@ -41,4 +46,4 @@ export default Component.extend({
       this.enforceMinimalOptionsAmount();
     });
   }
-});
+}

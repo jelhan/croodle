@@ -31,7 +31,7 @@
       </div>
 
       <BsButton
-        @onClick={{action "addOption" option}}
+        @onClick={{fn this.addOption option}}
         @type="link"
         @size="sm"
         class="add float-left"

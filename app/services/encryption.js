@@ -1,9 +1,11 @@
+import classic from 'ember-classic-decorator';
 import Service from '@ember/service';
 import generatePassphrase from '../utils/generate-passphrase';
 import sjcl from 'sjcl';
 
-export default Service.extend({
-  key: null,
+@classic
+export default class EncryptionService extends Service {
+  key = null;
 
   decrypt(value) {
     return JSON.parse(
@@ -12,21 +14,17 @@ export default Service.extend({
         value
       )
     );
-  },
+  }
 
   encrypt(value) {
     return sjcl.encrypt(
       this.key,
       JSON.stringify(value)
     );
-  },
+  }
 
   generateKey() {
     const passphraseLength = 40;
     this.set('key', generatePassphrase(passphraseLength));
-  },
-
-  init() {
-    this._super(...arguments);
   }
-});
+}

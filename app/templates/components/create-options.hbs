@@ -8,7 +8,7 @@
     as |form|
   >
     {{#if isMakeAPoll}}
-      <CreateOptionsText @options={{options}} @addOption="addOption" @deleteOption="deleteOption" @form={{form}} />
+      <CreateOptionsText @options={{options}} @form={{form}} />
     {{else}}
       <CreateOptionsDates @options={{options}} @form={{form}} />
     {{/if}}

@@ -1,10 +1,12 @@
+import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import config from 'croodle/config/environment';
 import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
 /* global moment */
 
-export default Route.extend({
+@classic
+export default class CreateRoute extends Route {
   beforeModel(transition) {
     // enforce that wizzard is started at create.index
     if (transition.targetName !== 'create.index') {
@@ -13,9 +15,10 @@ export default Route.extend({
 
     // set encryption key
     this.encryption.generateKey();
-  },
+  }
 
-  encryption: service(),
+  @service
+  encryption;
 
   model() {
     // create empty poll
@@ -30,15 +33,15 @@ export default Route.extend({
       expirationDate: moment().add(3, 'month').toISOString(),
       version: config.APP.version,
     });
-  },
+  }
 
   activate() {
     let controller = this.controllerFor(this.routeName);
     controller.listenForStepChanges();
-  },
+  }
 
   deactivate() {
     let controller = this.controllerFor(this.routeName);
     controller.clearListenerForStepChanges();
-  },
-});
+  }
+}

@@ -1,29 +1,36 @@
+import classic from 'ember-classic-decorator';
 import Model, { belongsTo, attr } from '@ember-data/model';
 import {
   fragmentArray
 } from 'ember-data-model-fragments/attributes';
 
-export default Model.extend({
+@classic
+export default class User extends Model {
   /*
    * relationship
    */
-  poll: belongsTo('poll'),
+  @belongsTo('poll')
+  poll;
 
   /*
    * properties
    */
   // ISO 8601 date + time string
-  creationDate: attr('date'),
+  @attr('date')
+  creationDate;
 
   // user name
-  name: attr('string'),
+  @attr('string')
+  name;
 
   // array of users selections
   // must be in same order as options property of poll
-  selections: fragmentArray('selection'),
+  @fragmentArray('selection')
+  selections;
 
   // Croodle version user got created with
-  version: attr('string', {
+  @attr('string', {
     encrypted: false
   })
-});
+  version;
+}

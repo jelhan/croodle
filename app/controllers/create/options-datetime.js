@@ -1,18 +1,22 @@
+import classic from 'ember-classic-decorator';
+import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
 import moment from 'moment';
 
-export default Controller.extend({
-  actions: {
-    nextPage() {
-      this.normalizeOptions();
+@classic
+export default class CreateOptionsDatetimeController extends Controller {
+  @action
+  nextPage() {
+    this.normalizeOptions();
 
-      this.transitionToRoute('create.settings');
-    },
-    previousPage() {
-      this.transitionToRoute('create.options');
-    },
-  },
+    this.transitionToRoute('create.settings');
+  }
+
+  @action
+  previousPage() {
+    this.transitionToRoute('create.options');
+  }
 
   normalizeOptions() {
     const options = this.options;
@@ -36,6 +40,8 @@ export default Controller.extend({
     // sort options
     // ToDo: Find a better way without reseting the options
     this.set('options', options.sortBy('title'));
-  },
-  options: alias('model.options')
-});
+  }
+
+  @alias('model.options')
+  options;
+}
