@@ -1,24 +1,24 @@
-{{title model.title}}
+{{title this.model.title}}
 
 <div id="poll">
   <div class="row">
     <div class="col-sm-6 col-lg-5">
       <div class="box meta-data">
-        <h2 class="title">{{model.title}}</h2>
-        <p class="description">{{model.description}}</p>
+        <h2 class="title">{{this.model.title}}</h2>
+        <p class="description">{{this.model.description}}</p>
         <p class="dates">
           <span class="creationDate">
             {{t
               "poll.created-date"
-              date=(moment-format model.creationDate "LLLL" locale=currentLocale)
+              date=(moment-format this.model.creationDate "LLLL" locale=this.currentLocale)
             }}
           </span>
-          {{#if model.expirationDate}}
+          {{#if this.model.expirationDate}}
             <br>
             <span class="expirationDate">
               {{t
                 "poll.expiration-date"
-                date=(moment-format model.expirationDate "LLLL" locale=currentLocale)
+                date=(moment-format this.model.expirationDate "LLLL" locale=this.currentLocale)
               }}
             </span>
           {{/if}}
@@ -30,10 +30,10 @@
         <p>{{t "poll.share"}}</p>
         <p class="link cr-poll-link__link">
           <small>
-            <code class="cr-poll-link__url">{{pollUrl}}</code>
+            <code class="cr-poll-link__url">{{this.pollUrl}}</code>
           </small>
           <CopyButton
-            @clipboardText={{pollUrl}}
+            @clipboardText={{this.pollUrl}}
             @error={{action "linkAction" "selected"}}
             @success={{action "linkAction" "copied"}}
             class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
@@ -49,13 +49,13 @@
     </div>
   </div>
 
-  {{#if showExpirationWarning}}
+  {{#if this.showExpirationWarning}}
     <div class="row">
       <div class="col-xs-12">
         <BsAlert @type="warning" class="expiration-warning">
           {{t
             "poll.expiration-date-warning"
-            timeToNow=(moment-from-now model.expirationDate locale=currentLocale)
+            timeToNow=(moment-from-now this.model.expirationDate locale=this.currentLocale)
           }}
         </BsAlert>
       </div>
@@ -64,13 +64,13 @@
 
   <div class="box">
     <ul class="nav nav-tabs" role="tablist">
-      <LinkTo @route="poll.participation" @model={{model}} @tagName="li" @activeClass="active" class="participation nav-item">
-        <LinkTo @route="poll.participation" @model={{model}} class="nav-link">
+      <LinkTo @route="poll.participation" @model={{this.model}} @tagName="li" @activeClass="active" class="participation nav-item">
+        <LinkTo @route="poll.participation" @model={{this.model}} class="nav-link">
           {{t "poll.tab-title.participation"}}
         </LinkTo>
       </LinkTo>
-      <LinkTo @route="poll.evaluation" @model={{model}} @tagName="li" @activeClass="active" class="evaluation nav-item">
-        <LinkTo @route="poll.evaluation" @model={{model}} class="nav-link">
+      <LinkTo @route="poll.evaluation" @model={{this.model}} @tagName="li" @activeClass="active" class="evaluation nav-item">
+        <LinkTo @route="poll.evaluation" @model={{this.model}} class="nav-link">
           {{t "poll.tab-title.evaluation"}}
         </LinkTo>
       </LinkTo>
@@ -86,7 +86,7 @@
 
 <BsModal
   @title={{t "poll.modal.timezoneDiffers.title"}}
-  @open={{mustChooseTimezone}}
+  @open={{this.mustChooseTimezone}}
   @footer={{false}}
   @closeButton={{false}}
   @keyboard={{false}}
@@ -107,7 +107,7 @@
       {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
     </BsButton>
     <BsButton
-      @onClick={{action (mut timezoneChoosen) true}}
+      @onClick={{action (mut this.timezoneChoosen) true}}
       data-test-button="use-poll-timezone"
     >
       {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}

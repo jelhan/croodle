@@ -1,7 +1,7 @@
 <div class="cr-form-wrapper box">
-  {{#if errorMessage}}
+  {{#if this.errorMessage}}
     <BsAlert type="warning">
-      {{t errorMessage}}
+      {{t this.errorMessage}}
     </BsAlert>
   {{/if}}
 
@@ -14,14 +14,14 @@
     as |form|
   >
     <div class="days">
-      {{#each dates as |date index|}}
+      {{#each this.dates as |date index|}}
         {{!
           show summarized validation state for all times in a day
         }}
         <div
           class={{if
-            (get daysValidationState date.day)
-            (concat "label-has-" (get daysValidationState date.day))
+            (get this.daysValidationState date.day)
+            (concat "label-has-" (get this.daysValidationState date.day))
             "label-has-no-validation"
           }}
           data-test-day={{date.day}}
@@ -35,7 +35,7 @@
               Therefore we pass in array length if index is null. Cause index starting
               by zero there can't be any element with an index === array.length.
             }}
-            @invisibleLabel={{eq date.dayFormatted (get (object-at (if index (sub index 1) dates.length) dates) "dayFormatted")}}
+            @invisibleLabel={{eq date.dayFormatted (get (object-at (if index (sub index 1) this.dates.length) this.dates) "dayFormatted")}}
             @model={{date}}
             @property="time"
             class="option"
@@ -77,7 +77,7 @@
                   @type="link"
                   class="delete"
                   {{! disable delete button if there is only one option }}
-                  disabled={{lte dates.length 1}}
+                  disabled={{lte this.dates.length 1}}
                 >
                   <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
                   <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
@@ -99,7 +99,7 @@
       {{/each}}
     </div>
 
-    {{#if (gt groupedDates.length 1)}}
+    {{#if (gt this.groupedDates.length 1)}}
       <form.element>
         <BsButton
           @onClick={{action "adoptTimesOfFirstDay"}}

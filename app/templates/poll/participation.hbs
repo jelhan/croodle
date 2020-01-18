@@ -17,16 +17,16 @@
       data-test-form-element="name"
     />
     <div class="selections">
-      {{#each selections as |selection|}}
-        {{#if isFreeText}}
+      {{#each this.selections as |selection|}}
+        {{#if this.isFreeText}}
           <form.element
             @controlType="text"
-            @label={{if isFindADate
+            @label={{if this.isFindADate
               (moment-format
                 selection.labelValue
-                (if (eq selection.momentFormat "day") momentLongDayFormat selection.momentFormat)
-                locale=currentLocale
-                timeZone=timezone
+                (if (eq selection.momentFormat "day") this.momentLongDayFormat selection.momentFormat)
+                locale=this.currentLocale
+                timeZone=this.timezone
               )
               selection.labelValue
             }}
@@ -35,12 +35,12 @@
           />
         {{else}}
           <form.element
-            @label={{if isFindADate
+            @label={{if this.isFindADate
               (moment-format
                 selection.labelValue
-                (if (eq selection.momentFormat "day") momentLongDayFormat selection.momentFormat)
-                locale=currentLocale
-                timeZone=timezone
+                (if (eq selection.momentFormat "day") this.momentLongDayFormat selection.momentFormat)
+                locale=this.currentLocale
+                timeZone=this.timezone
               )
               selection.labelValue
             }}
@@ -51,7 +51,7 @@
             data-test-form-element={{concat "option-" selection.labelValue}}
             as |el|
           >
-            {{#each possibleAnswers as |possibleAnswer|}}
+            {{#each this.possibleAnswers as |possibleAnswer|}}
               <div class="radio custom-control custom-radio custom-control-inline {{possibleAnswer.type}}">
                 <input
                   class="custom-control-input
@@ -84,9 +84,9 @@
 </div>
 
 <BsModal
-  @onHidden={{action (mut savingFailed) false}}
+  @onHidden={{action (mut this.savingFailed) false}}
   @onSubmit={{action "save"}}
-  @open={{savingFailed}}
+  @open={{this.savingFailed}}
   data-test-modal="saving-failed"
   as |modal|
 >
