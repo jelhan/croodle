@@ -5065,14 +5065,15 @@ ember-cli-build-config-editor@0.5.0:
   dependencies:
     recast "^0.12.0"
 
-ember-cli-bundlesize@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-bundlesize/-/ember-cli-bundlesize-0.2.1.tgz#4836d2ce6ba82a637090691d0b9fdf5c8ab18830"
-  integrity sha512-sodLxaMwGVCL75DhVfogpHiXAgEujkNk1Y1nxeaLximpAJ8LbXpqFy6louM++qHYmle7n5VOMgZIySdKIBBwqw==
+ember-cli-bundlesize@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-bundlesize/-/ember-cli-bundlesize-0.3.0.tgz#8ff729788f8d5320499160d121750767db1dbb9c"
+  integrity sha512-Ox5OuByYJQWn5Zyq15QSGeRgZCEnLLUrd1fctM6YdswTQMzoyzVfe/Rveg6ecadzxe30NL0ae/agxTYeuSIaYw==
   dependencies:
     bytes "^3.0.0"
     chalk "^2.4.1"
-    ember-cli-babel "^6.16.0"
+    ember-cli-babel "^7.13.0"
+    ember-cli-htmlbars "^4.2.0"
     execa "^1.0.0"
     fast-glob "^2.2.2"
     gzip-size "^5.0.0"
