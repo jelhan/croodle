@@ -21,7 +21,7 @@
         id={{el.id}}
         class="custom-select"
       >
-        {{#each answerTypes as |answerType|}}
+        {{#each this.answerTypes as |answerType|}}
           <option value={{answerType.id}} selected={{eq el.value answerType.id}}>
             {{t answerType.labelTranslation}}
           </option>
@@ -42,7 +42,7 @@
         onchange={{action (mut el.value) value="target.value"}}
         class="custom-select"
       >
-        {{#each expirationDurations as |duration|}}
+        {{#each this.expirationDurations as |duration|}}
           <option value={{duration.id}} selected={{eq el.value duration.id}}>
             {{t duration.labelTranslation}}
           </option>

@@ -3,43 +3,43 @@
 </h2>
 
 <p class="participants">
-  {{t "poll.evaluation.participants" count=participantsCount}}
+  {{t "poll.evaluation.participants" count=this.participantsCount}}
 </p>
 
 <p class="best-options">
-  {{#if poll.isFindADate}}
+  {{#if @poll.isFindADate}}
     {{t
       "poll.evaluation.bestOption.label.findADate"
-      count=bestOptions.length
+      count=this.bestOptions.length
     }}
   {{else}}
     {{t
       "poll.evaluation.bestOption.label.makeAPoll"
-      count=bestOptions.length
+      count=this.bestOptions.length
     }}
   {{/if}}
 
-  {{#if multipleBestOptions}}
+  {{#if this.multipleBestOptions}}
     <ul>
-      {{#each bestOptions as |evaluationBestOption|}}
-        <PollEvaluationSummaryOption
-          @currentLocale={{currentLocale}}
-          @evaluationBestOption={{evaluationBestOption}}
-          @isFindADate={{poll.isFindADate}}
-          @momentLongDayFormat={{momentLongDayFormat}}
-          @tagName="li"
-          @timezone={{timezone}}
-        />
+      {{#each this.bestOptions as |evaluationBestOption|}}
+        <li>
+          <PollEvaluationSummaryOption
+            @currentLocale={{this.currentLocale}}
+            @evaluationBestOption={{evaluationBestOption}}
+            @isFindADate={{@poll.isFindADate}}
+            @momentLongDayFormat={{@momentLongDayFormat}}
+            @timezone={{@timezone}}
+          />
+        </li>
       {{/each}}
     </ul>
   {{else}}
     <PollEvaluationSummaryOption
-      @currentLocale={{currentLocale}}
-      @evaluationBestOption={{bestOptions.firstObject}}
-      @isFindADate={{poll.isFindADate}}
-      @momentLongDayFormat={{momentLongDayFormat}}
-      @tagName="span"
-      @timezone={{timezone}}
+      @currentLocale={{this.currentLocale}}
+      @evaluationBestOption={{this.bestOptions.firstObject}}
+      @isFindADate={{@poll.isFindADate}}
+      @momentLongDayFormat={{@momentLongDayFormat}}
+      @timezone={{@timezone}}
     />
   {{/if}}
 </p>
@@ -47,6 +47,6 @@
 <p class="last-participation">
   {{t
     "poll.evaluation.lastParticipation"
-    ago=(moment-from-now lastParticipationAt locale=currentLocale timezone=timezone)
+    ago=(moment-from-now this.lastParticipationAt locale=this.currentLocale timezone=@timezone)
   }}
 </p>

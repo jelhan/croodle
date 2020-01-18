@@ -1,21 +1,23 @@
-{{#if isEvaluable}}
-  <PollEvaluationSummary
-    @momentLongDayFormat={{momentLongDayFormat}}
-    @poll={{poll}}
-    @timezone={{timezone}}
-  />
+{{#let @model as |poll|}}
+  {{#if this.isEvaluable}}
+    <PollEvaluationSummary
+      @momentLongDayFormat={{this.momentLongDayFormat}}
+      @poll={{poll}}
+      @timezone={{this.timezone}}
+    />
 
-  <h3>{{t "poll.evaluation.overview"}}</h3>
-  <PollEvaluationChart
-    @momentLongDayFormat={{momentLongDayFormat}}
-    @poll={{poll}}
-    @timezone={{timezone}}
-  />
-{{/if}}
+    <h3>{{t "poll.evaluation.overview"}}</h3>
+    <PollEvaluationChart
+      @momentLongDayFormat={{this.momentLongDayFormat}}
+      @poll={{poll}}
+      @timezone={{this.timezone}}
+    />
+  {{/if}}
 
-<h3>{{t "poll.evaluation.participantTable"}}</h3>
-<PollEvaluationParticipantsTable
-  @momentLongDayFormat={{momentLongDayFormat}}
-  @poll={{poll}}
-  @timezone={{timezone}}
-/>
+  <h3>{{t "poll.evaluation.participantTable"}}</h3>
+  <PollEvaluationParticipantsTable
+    @momentLongDayFormat={{this.momentLongDayFormat}}
+    @poll={{poll}}
+    @timezone={{this.timezone}}
+  />
+{{/let}}

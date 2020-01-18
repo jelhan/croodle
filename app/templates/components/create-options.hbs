@@ -7,10 +7,10 @@
     novalidate
     as |form|
   >
-    {{#if isMakeAPoll}}
-      <CreateOptionsText @options={{options}} @form={{form}} />
+    {{#if this.isMakeAPoll}}
+      <CreateOptionsText @options={{@options}} @form={{form}} />
     {{else}}
-      <CreateOptionsDates @options={{options}} @form={{form}} />
+      <CreateOptionsDates @options={{@options}} @form={{form}} />
     {{/if}}
 
     <div class="row cr-steps-bottom-nav">
