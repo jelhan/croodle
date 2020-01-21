@@ -63,7 +63,7 @@ export default {
   'index.features.list.evaluation': 'Podeu consultar una revisió automàtica actualitzada de les <strong>respostes preferides</strong>.',
   'index.link.have-a-try': 'Prova-ho ara',
   'index.hoster.title': 'Hoste el vostre Croodle:',
-  'index.hoster.text': 'No has de confiar en aquest Croodle. Croodle és un programari lliure i el podeu instal·lar al vostre propi servidor. Només necessiteu un servidor amb un espai de uns quans mega bytes, PHP i xifratge SSL. El programari i consells per a la instal·lació estan aquí:<a href=\'https://github.com/jelhan/croodle\'>GitHub</a>.',
+  'index.hoster.text': 'No has de confiar en aquest Croodle. Croodle és un programari lliure i el podeu instal·lar al vostre propi servidor. Només necessiteu un servidor amb un espai de uns quans mega bytes, PHP i xifratge SSL. El programari i consells per a la instal·lació estan aquí: {{{gitHubLink}}}.',
   'modal.save-retry.title': 'S\'ha produït un error en desar.',
   'modal.save-retry.text': '<p> No s\'ha pogut desar la teva assistència. Comproveu la vostra connexió a Internet i torneu-ho a provar.</p><p>Si això no funciona, és possible que es produeixi una desconexiò temporal del servidor. Espereu uns minuts abans d\'entrenar-hi. Podeu deixar la pàgina oberta.</p><p>Si els problemes continuen, poseu-vos en contacte amb l\'administrador d\'aquest lloc.</p>',
   'modal.save-retry.button-retry': 'Torna-ho a provar',

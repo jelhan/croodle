@@ -63,7 +63,7 @@ export default {
   'index.features.list.evaluation': 'Avrai una panoramica attualizzata <strong>delle risposte preferite</strong>.',
   'index.link.have-a-try': 'Provalo subito',
   'index.hoster.title': 'Installa il tuo prorio Croodle:',
-  'index.hoster.text': 'Non devi per forza fidarti di questo Croodle. Croodle è un software libero che puoi installare in locale. Ti servono solamente pochi MB di spazio su disco, PHP, e supporto per SSL. Codice sorgente e documentazione sono disponibili qui:<a href=\'https://github.com/jelhan/croodle\'>GitHub</a>.',
+  'index.hoster.text': 'Non devi per forza fidarti di questo Croodle. Croodle è un software libero che puoi installare in locale. Ti servono solamente pochi MB di spazio su disco, PHP, e supporto per SSL. Codice sorgente e documentazione sono disponibili qui: {{{gitHubLink}}}.',
   'modal.save-retry.title': 'Salvataggio fallito.',
   'modal.save-retry.text': '<p> Impossibile salvare le tue risposte. Per favore controlla la tua connessione Internet e prova di nuovo.</p><p>Se questo non funziona, prova a riavviare il server, e attendi un minuto prima di tentare di nuovo. Puoi lasciare aperta la pagina.</p><p>Se i problemi persistono, contatta l\'amministratore di questo sito.</p>',
   'modal.save-retry.button-retry': 'Riprova',
