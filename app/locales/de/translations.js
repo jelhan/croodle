@@ -63,7 +63,7 @@ export default {
   'index.features.list.evaluation': 'Du behältst den Überblick durch eine automatisch aktualisierte <strong>Übersicht der bevorzugten Antworten</strong>.',
   'index.link.have-a-try': 'probiere es jetzt aus',
   'index.hoster.title': 'Hoste dein eigenes Croodle:',
-  'index.hoster.text': 'Du musst diesem Croodle nicht vertrauen. Croodle ist freie Software und du kannst sie auf deinem eigenen Server installieren. Hierzu werden lediglich einige Megabyte Speicherplatz, PHP und SSL-Verschlüsselung benötigt. Die Software und Tipps zur Installation findest du auf <a href=\'https://github.com/jelhan/croodle\'>GitHub</a>.',
+  'index.hoster.text': 'Du musst diesem Croodle nicht vertrauen. Croodle ist freie Software und du kannst sie auf deinem eigenen Server installieren. Hierzu werden lediglich einige Megabyte Speicherplatz, PHP und SSL-Verschlüsselung benötigt. Die Software und Tipps zur Installation findest du auf {{{gitHubLink}}}.',
   'modal.save-retry.title': 'Speichern fehlgeschlagen.',
   'modal.save-retry.text': '<p>Deine Teilnahme konnte nicht gespeichert werden. Bitte prüfe deine Internetverbindung und versuche es anschließend erneut.</p><p>Sollte dies nicht helfen, kann ein kurzfristiges Ausfall des Servers schuld sein. Warte bitte einige Minuten bevor du es erneut versuchst. Du kannst die Seite so lange geöffnet lassen.</p><p>Sollten die Probleme anhalten, wende dich bitte an die Administratoren der Seite.</p>',
   'modal.save-retry.button-retry': 'erneut versuchen',
