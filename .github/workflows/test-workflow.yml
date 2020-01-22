@@ -1,0 +1,121 @@
+name: Test Frontend and backend
+# This workflow is triggered on pushes to the repository.
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  lint-javascript:
+    name: lint javascript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node modules
+        run: yarn install
+      - name: Run lint
+        run: yarn lint:js
+  lint-templates:
+    name: lint ember templates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node modules
+        run: yarn install
+      - name: Run lint
+        run: yarn lint:hbs
+  test-bundlesize:
+    name: test bundlesize
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install php
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.4'
+          extensions: mbstring, zip
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node modules
+        run: yarn install
+      - name: Run tests
+        run: yarn test:bundlesize
+  test-csp-header:
+    name: test CSP in .htaccess
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node modules
+        run: yarn install
+      - name: Run tests
+        run: yarn test:csp-header
+
+  test-chrome:
+    name: test in chrome
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node modules
+        run: yarn install
+      - name: Install chrome browser
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+      - name: Build with test environment
+        env:
+          CI: true
+        run: yarn build --environment test
+      - name: run tests in chrome
+        run: yarn test --launch Chrome --path dist
+  test-firefox:
+    name: test in firefox
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node modules
+        run: yarn install
+      - name: Install Firefox
+        run: sudo apt-get install firefox
+      - name: Build with test environment
+        env:
+          CI: true
+        run: yarn build --environment test
+      - name: run tests in firefox
+        run: yarn test --launch Firefox --path dist
+  test-backend:
+    name: Test php backend
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.2', '7.3', '7.4']
+    steps:
+      - name: Checkout repository files
+        uses: actions/checkout@v2
+      - name: Install php
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, zip
+      - name: Install php dependencies
+        run: composer install
+        working-directory: ./api
+      - name: Run backend tests
+        run: ./vendor/bin/codecept run
+        working-directory: ./api
