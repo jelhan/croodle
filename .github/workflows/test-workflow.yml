@@ -6,11 +6,6 @@ on:
       - master
   pull_request:
 
-
-env:
-  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
-
 jobs:
   lint-javascript:
     name: lint javascript
@@ -104,54 +99,6 @@ jobs:
         run: yarn build --environment test
       - name: run tests in firefox
         run: yarn test --launch Firefox --path dist
-  test-ie11:
-    name: test in ie11
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - name: Install node modules
-        run: yarn install
-      - name: Build with test environment
-        env:
-          CI: true
-        run: yarn build --environment test
-      - name: Test in IE11
-        run: yarn test:browserstack:connect && yarn test:browserstack-ie11 && yarn test:browserstack:disconnect
-  test-edge:
-    name: test in edge
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - name: Install node modules
-        run: yarn install
-      - name: Build with test environment
-        env:
-          CI: true
-        run: yarn build --environment test
-      - name: Test in Microsoft Edge
-        run: yarn test:browserstack:connect && yarn test:browserstack-edge && yarn test:browserstack:disconnect
-  test-safari:
-    name: test in Safari
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - name: Install node modules
-        run: yarn install
-      - name: Build with test environment
-        env:
-          CI: true
-        run: yarn build --environment test
-      - name: Test in Safari
-        run: yarn test:browserstack:connect && yarn test:browserstack-safari && yarn test:browserstack:disconnect
   test-backend:
     name: Test php backend
     runs-on: ubuntu-latest
