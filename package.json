@@ -17,11 +17,6 @@
     "start": "ember serve",
     "test": "ember test",
     "test:bundlesize": "ember bundlesize:test",
-    "test:browserstack:connect": "ember browserstack:connect",
-    "test:browserstack:disconnect": "ember browserstack:disconnect",
-    "test:browserstack-ie11": "yarn test --launch BS_IE_11 --path dist --config-file testem.browserstack.js",
-    "test:browserstack-edge": "yarn test --launch BS_MS_Edge --path dist --config-file testem.browserstack.js",
-    "test:browserstack-safari": "yarn test --launch BS_Safari_Current --path dist --config-file testem.browserstack.js",
     "test:csp-header": "grep \"`ember csp-headers --environment production --silent 2>&1 | sed 's/ $//'`\" public/.htaccess || (echo \"CSP headers in public/.htaccess does not match configuration\" && exit 1)"
   },
   "devDependencies": {
