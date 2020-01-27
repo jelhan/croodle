@@ -63,7 +63,7 @@ export default {
   'index.features.list.evaluation': 'Mantendrás el control mediante la <strong>revisión de las respuestas favoritas</strong>.',
   'index.link.have-a-try': 'pruebalo ahora',
   'index.hoster.title': 'Instala tu propio Croodle:',
-  'index.hoster.text': 'No tienes porque fiarte de este Croodle. Croodle es software libre y tu puedes instalarlo en tu propio servidor. Sólo unos pocos megas de espacio, PHP y encriptación-SSL. Puesde encontrar el software y ayuda en inglés para la instalación aquí {{{gitHubLink}}}.',
+  'index.hoster.text': 'No tienes porque fiarte de este Croodle. Croodle es software libre y tu puedes instalarlo en tu propio servidor. Sólo unos pocos megas de espacio, PHP y encriptación-SSL. Puesde encontrar el software y ayuda en inglés para la instalación aquí {{gitHubLink}}.',
   'modal.save-retry.title': 'Error al guardar',
   'modal.save-retry.text': '<p>Tu inscripción no pudo ser guardada. Por favor, comprueba tu conexión a internet e inténtalo de nuevo.</p><p>Si esto no ayuda, podría ser debido a un breve fallo en el servidor. Por favor, espera unos minutos e inténtalo de nuevo. Puedes esperar mientras la página se abre.</p><p>Si los problemas continúan, por favor, contacte al administrador de la página.</p>',
   'modal.save-retry.button-retry': 'Reintentar',

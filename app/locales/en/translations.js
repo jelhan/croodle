@@ -63,7 +63,7 @@ export default {
   'index.features.list.evaluation': 'You keep an overview by an automatic actualized <strong>review of preferred answers</strong>.',
   'index.link.have-a-try': 'Try it now',
   'index.hoster.title': 'Host your own Croodle:',
-  'index.hoster.text': 'You don’t have to trust this Croodle. Croodle is a free software and you can install it on your own server. You only need some mega byte server space, PHP and SSL-encryption. The software and tips for installation are here: {{{gitHubLink}}}.',
+  'index.hoster.text': 'You don’t have to trust this Croodle. Croodle is a free software and you can install it on your own server. You only need some mega byte server space, PHP and SSL-encryption. The software and tips for installation are here: {{gitHubLink}}.',
   'modal.save-retry.title': 'Saving failed.',
   'modal.save-retry.text': '<p>Your attendance could not be saved. Please check your internet connection and try again.</p><p>If this doesn’t work, a short-term breakdown of the server could be the reason. Please wait a couple of minutes before trying again. You can leave the page open.</p><p>Please contact the site administrator if the problem persists.</p>',
   'modal.save-retry.button-retry': 'Try again',
