@@ -11,18 +11,18 @@ const Validations = buildValidations({
   title: [
     validator('presence', {
       presence: true,
-      dependentKeys: ['model.i18n.locale']
+      dependentKeys: ['model.intl.locale']
     }),
     validator('length', {
       min: 2,
-      dependentKeys: ['model.i18n.locale']
+      dependentKeys: ['model.intl.locale']
     })
   ]
 });
 
 export default class CreateMetaController extends Controller.extend(Validations) {
   @service
-  i18n;
+  intl;
 
   @alias('model.description')
   description;
@@ -33,7 +33,7 @@ export default class CreateMetaController extends Controller.extend(Validations)
   init() {
     super.init(...arguments);
 
-    this.get('i18n.locale');
+    this.get('intl.locale');
   }
 
   @action

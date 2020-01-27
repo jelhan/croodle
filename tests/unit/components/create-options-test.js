@@ -2,21 +2,12 @@ import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import moment from 'moment';
-// validator consumes i18n service
-// have to register it therefore
-// https://github.com/jamesarosen/ember-i18n/wiki/Doc:-Testing#unit-tests
-import tHelper from 'ember-i18n/helper';
-import localeConfig from 'ember-i18n/config/en';
 
 module('Unit | Component | create options', function(hooks) {
   setupTest(hooks);
 
   hooks.beforeEach(function() {
     this.store = this.owner.lookup('service:store');
-    // validator consumes i18n service
-    this.owner.lookup('service:i18n').set('locale', 'en');
-    this.owner.register('locale:en/config', localeConfig);
-    this.owner.register('helper:t', tHelper);
   });
 
   test('validation for make a poll', function(assert) {

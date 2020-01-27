@@ -1,16 +1,17 @@
 import { isPresent, isEmpty } from '@ember/utils';
+import localesMeta from 'croodle/locales/meta';
 
 export default {
   name: 'i18n',
   initialize(appInstance) {
-    let i18n = appInstance.lookup('service:i18n');
+    let intl = appInstance.lookup('service:intl');
     let moment = appInstance.lookup('service:moment');
     let powerCalendar = appInstance.lookup('service:power-calendar');
 
-    let availableLocales = i18n.get('locales');
+    let availableLocales = Object.keys(localesMeta);
     let locale = getLocale(availableLocales);
 
-    i18n.set('locale', locale);
+    intl.set('locale', locale.includes('-') ? [locale, locale.split('-')[0]] : [locale]);
     moment.changeLocale(locale);
     powerCalendar.set('local', locale);
   }

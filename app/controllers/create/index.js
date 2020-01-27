@@ -11,18 +11,18 @@ const Validations = buildValidations({
   pollType: [
     validator('presence', {
       presence: true,
-      dependentKeys: ['model.i18n.locale']
+      dependentKeys: ['model.intl.locale']
     }),
     validator('inclusion', {
       in: ['FindADate', 'MakeAPoll'],
-      dependentKeys: ['model.i18n.locale']
+      dependentKeys: ['model.intl.locale']
     })
   ]
 });
 
 export default class CreateIndex extends Controller.extend(Validations) {
   @service
-  i18n;
+  intl;
 
   @alias('model.pollType')
   pollType;
@@ -37,6 +37,6 @@ export default class CreateIndex extends Controller.extend(Validations) {
   init() {
     super.init(...arguments);
 
-    this.i18n.locale;
+    this.intl.locale;
   }
 }

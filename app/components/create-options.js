@@ -10,11 +10,11 @@ let Validations = buildValidations({
   options: [
     validator('collection', true),
     validator('length', {
-      dependentKeys: ['model.options.[]', 'model.i18n.locale'],
+      dependentKeys: ['model.options.[]', 'model.intl.locale'],
       min: 1,
       // it's impossible to delete all text options so this case could be ignored
       // for validation error message
-      messageKey: 'create.options.error.notEnoughDates'
+      descriptionKey: 'create.options.error.notEnoughDates'
     }),
     validator('valid-collection', {
       dependentKeys: ['model.options.[]', 'model.options.@each.title']
@@ -26,7 +26,7 @@ export default class CreateOptionsComponent extends Component.extend(Validations
   shouldShowErrors = false;
 
   // consumed by validator
-  @service i18n;
+  @service intl;
 
   @action
   previousPage() {
@@ -40,5 +40,11 @@ export default class CreateOptionsComponent extends Component.extend(Validations
     } else {
       this.set('shouldShowErrors', true);
     }
+  }
+
+  init() {
+    super.init(...arguments);
+
+    this.intl.locale;
   }
 }

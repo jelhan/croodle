@@ -1,66 +1,56 @@
-import { getOwner } from '@ember/application';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import config from 'croodle/config/environment';
-import LocaleHelper from 'ember-i18n/utils/locale';
 import localesMeta from 'croodle/locales/meta';
+
+const DEFAULT_LOCALE = 'en';
+
+function getTranslationsForLocale(intlService, locale) {
+  return intlService._adapter.lookupLocale(locale).translations;
+}
 
 module('Integration | translations', function(hooks) {
   setupTest(hooks);
 
-  // Replace this with your real tests.
-  test('configuration is correct', function(assert) {
-    const i18n = this.owner.lookup('service:i18n');
-    const locales = i18n.get('locales');
-    const { defaultLocale } = config.i18n;
-
-    assert.ok(defaultLocale, 'default locale is set');
-    assert.ok(locales, 'there are locales');
-    assert.ok(locales.indexOf(defaultLocale) !== -1, 'default locale is part of locales');
-  });
-
   test('all locales have same amount of translation strings as default locale', function(assert) {
-    const i18n = this.owner.lookup('service:i18n');
-    const locales = i18n.get('locales');
-    const { defaultLocale } = config.i18n;
-    const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, this.owner);
+    const intl = this.owner.lookup('service:intl');
+    const locales = intl.locales;
+    const translationsForDefaultLocale = getTranslationsForLocale(intl, DEFAULT_LOCALE);
 
     assert.expect((locales.length - 1) * 2);
 
     locales.map((locale) => {
-      if (locale === defaultLocale) {
+      if (locale === DEFAULT_LOCALE) {
         return;
       }
-      const { translations } = new LocaleHelper(locale, getOwner(i18n));
+
+      let translations = getTranslationsForLocale(intl, locale);
       assert.ok(translations, `could retrive locale ${locale}`);
       assert.equal(
         Object.keys(translations).length,
-        Object.keys(defaultTranslations).length,
+        Object.keys(translationsForDefaultLocale).length,
         `correct amount of translations for locale ${locale}`
       );
     });
   });
 
-  test('all locales have same translation strings as default locale', function(assert) {
-    const i18n = this.owner.lookup('service:i18n');
-    const locales = i18n.get('locales');
-    const { defaultLocale } = config.i18n;
-    const { translations: defaultTranslations } = new LocaleHelper(defaultLocale, this.owner);
+  test('all locales include same translation strings as default locale', function(assert) {
+    const intl = this.owner.lookup('service:intl');
+    const locales = intl.locales;
+    const translationsForDefaultLocale = getTranslationsForLocale(intl, DEFAULT_LOCALE);
 
     assert.expect(
       // count of non default locales * translation strings of default locale
-      (locales.length - 1) * Object.keys(defaultTranslations).length
+      (locales.length - 1) * Object.keys(translationsForDefaultLocale).length
     );
 
-    Object.keys(defaultTranslations).map((translationString) => {
+    Object.keys(translationsForDefaultLocale).map((translationString) => {
       locales.map((locale) => {
-        if (locale === defaultLocale) {
+        if (locale === DEFAULT_LOCALE) {
           return;
         }
 
-        i18n.set('locale', locale);
         assert.ok(
-          i18n.exists(translationString),
+          intl.exists(translationString, locale),
           `translation for ${translationString} exists in locale ${locale}`
         );
       });
@@ -68,10 +58,10 @@ module('Integration | translations', function(hooks) {
   });
 
   test('all locales have an entry in locales/meta', function(assert) {
-    const i18n = this.owner.lookup('service:i18n');
-    assert.deepEqual(
-      i18n.get('locales'),
-      Object.keys(localesMeta)
-    );
+    let intl = this.owner.lookup('service:intl');
+
+    intl.locales.forEach((locale) => {
+      assert.ok(Object.keys(localesMeta).includes(locale), `locales meta data is present for ${locale}`);
+    });
   });
 });

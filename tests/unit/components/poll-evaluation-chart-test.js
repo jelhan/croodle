@@ -2,18 +2,14 @@ import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import moment from 'moment';
-import tHelper from 'ember-i18n/helper';
-import localeConfig from 'ember-i18n/config/en';
+import { setupIntl } from 'ember-intl/test-support';
 
 module('Unit | Component | poll evaluation chart', function(hooks) {
   setupTest(hooks);
+  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function() {
     moment.locale('en');
-
-    this.owner.lookup('service:i18n').set('locale', 'en');
-    this.owner.register('locale:en/config', localeConfig);
-    this.owner.register('helper:t', tHelper);
   });
 
   test('data is a valid ChartJS dataset for FindADate using poll timezone', function(assert) {

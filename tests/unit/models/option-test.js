@@ -1,22 +1,14 @@
 import { run } from '@ember/runloop';
-import Service from '@ember/service';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
+import { setupIntl } from 'ember-intl/test-support';
 import moment from 'moment';
-
-const i18nStub = Service.extend({
-  exists() {
-    return false;
-  },
-  locale: 'en'
-});
 
 module('Unit | Model | option', function(hooks) {
   setupTest(hooks);
+  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function() {
-    this.owner.register('service:i18n', i18nStub);
-    this.i18n = this.owner.lookup('service:i18n');
     moment.locale('en');
   });
 
@@ -151,7 +143,7 @@ module('Unit | Model | option', function(hooks) {
     );
 
     run(() => {
-      option.set('i18n.locale', 'de');
+      option.set('intl.locale', 'de');
     });
     assert.equal(
       option.get('dayFormatted'),

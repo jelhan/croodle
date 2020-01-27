@@ -39,10 +39,6 @@ module.exports = function(environment) {
       includeLocales: ['ca', 'de', 'en-gb', 'es', 'it'],
       includeTimezone: 'subset'
     },
-
-    i18n: {
-      defaultLocale: 'en'
-    }
   };
 
   if (environment === 'development') {

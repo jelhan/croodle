@@ -2,8 +2,7 @@ import { findAll, currentRouteName, find, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { t } from 'ember-i18n/test-support';
-import switchTab from 'croodle/tests/helpers/switch-tab';
+import { setupIntl, t } from 'ember-intl/test-support';import switchTab from 'croodle/tests/helpers/switch-tab';
 import moment from 'moment';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
 import { assign } from '@ember/polyfills';
@@ -14,6 +13,7 @@ module('Acceptance | view evaluation', function(hooks) {
   });
 
   setupApplicationTest(hooks);
+  setupIntl(hooks);
   setupMirage(hooks);
 
   test('evaluation summary is not present for poll without participants', async function(assert) {
