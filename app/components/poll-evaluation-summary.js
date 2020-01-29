@@ -11,7 +11,7 @@ import { isEmpty } from '@ember/utils';
 @classNames('evaluation-summary')
 export default class PollEvaluationSummary extends Component {
   @service
-  i18n;
+  intl;
 
   @computed('users.[]')
   get bestOptions() {
@@ -76,7 +76,7 @@ export default class PollEvaluationSummary extends Component {
     return bestOptions;
   }
 
-  @readOnly('i18n.locale')
+  @readOnly('intl.primaryLocale')
   currentLocale;
 
   @gt('bestOptions.length', 1)

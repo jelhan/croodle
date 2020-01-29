@@ -8,9 +8,6 @@ import moment from 'moment';
 
 @classic
 export default class CreateOptionsDates extends Component {
-  @service
-  i18n;
-
   @service('store')
   store;
 

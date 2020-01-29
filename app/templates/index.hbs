@@ -2,7 +2,7 @@
 
   <div class="jumbotron">
     <h2 class="cr-claim">
-      {{t "index.title"}}
+      {{t "index.title" htmlSafe=true}}
     </h2>
     <LinkTo @route="create" class="btn btn-primary btn-lg">
       {{t "index.link.have-a-try"}}
@@ -14,19 +14,19 @@
       <h3>{{t "index.features.title"}}</h3>
       <ul>
         <li>
-          {{t "index.features.list.overview"}}
+          {{t "index.features.list.overview" htmlSafe=true}}
         </li>
         <li>
-          {{t "index.features.list.options"}}
+          {{t "index.features.list.options" htmlSafe=true}}
         </li>
         <li>
-          {{t "index.features.list.answers"}}
+          {{t "index.features.list.answers" htmlSafe=true}}
         </li>
         <li>
-          {{t "index.features.list.evaluation"}}
+          {{t "index.features.list.evaluation" htmlSafe=true}}
         </li>
         <li>
-          {{t "index.features.list.privacy"}}
+          {{t "index.features.list.privacy" htmlSafe=true}}
         </li>
       </ul>
     </div>
@@ -34,7 +34,7 @@
     <div class="col-lg-5 offset-lg-1">
       <h3>{{t "index.hoster.title"}}</h3>
       <p>
-        {{t "index.hoster.text" gitHubLink="<a href=\"https://github.com/jelhan/croodle\">GitHub</a>"}}
+        {{t "index.hoster.text" gitHubLink=(mark-as-safe-html "<a href=\"https://github.com/jelhan/croodle\">GitHub</a>") htmlSafe=true}}
       </p>
     </div>
   </div>

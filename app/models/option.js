@@ -15,8 +15,7 @@ from 'ember-cp-validations';
 
 const Validations = buildValidations({
   isPartiallyFilled: validator('falsy', {
-    messageKey: 'errors.time.notPartially',
-    dependentKeys: ['model.i18n.locale'],
+    descriptionKey: 'errors.timeNotPartially',
   }),
   title: [
     validator('iso8601', {
@@ -27,16 +26,14 @@ const Validations = buildValidations({
         'YYYY-MM-DDTHH:mm:ssZ',
         'YYYY-MM-DDTHH:mm:ss.SSSZ'
       ],
-      dependentKeys: ['model.i18n.locale']
     }),
     validator('presence', {
       presence: true,
-      dependentKeys: ['model.i18n.locale']
     }),
     validator('unique', {
       parent: 'poll',
       attributeInParent: 'options',
-      dependentKeys: ['model.poll.options.[]', 'model.poll.options.@each.title', 'model.i18n.locale'],
+      dependentKeys: ['model.poll.options.[]', 'model.poll.options.@each.title', 'model.intl.locale'],
       descriptionKey: computed('model.poll.isFindADate', function() {
         let isFindADate = this.get('model.poll.isFindADate');
         return isFindADate ? 'times' : 'options';
@@ -62,7 +59,7 @@ const Validations = buildValidations({
 @classic
 export default class Option extends Fragment.extend(Validations) {
   @service
-  i18n;
+  intl;
 
   @fragmentOwner()
   poll;
@@ -108,14 +105,14 @@ export default class Option extends Fragment.extend(Validations) {
     return date.format('YYYY-MM-DD');
   }
 
-  @computed('date', 'i18n.locale')
+  @computed('date', 'intl.primaryLocale')
   get dayFormatted() {
     let date = this.date;
     if (!moment.isMoment(date)) {
       return null;
     }
 
-    const locale = this.get('i18n.locale');
+    const locale = this.get('intl.primaryLocale');
     const format = moment.localeData(locale)
                          .longDateFormat('LLLL')
                          .replace(
@@ -178,6 +175,8 @@ export default class Option extends Fragment.extend(Validations) {
   init() {
     super.init(...arguments);
 
-    this.get('i18n.locale');
+    // current locale needs to be consumed in order to be observeable
+    // for localization of validation messages
+    this.intl.locale;
   }
 }

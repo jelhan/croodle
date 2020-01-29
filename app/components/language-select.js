@@ -11,7 +11,7 @@ import localesMeta from 'croodle/locales/meta';
 @classNames('language-select')
 export default class LanguageSelect extends Component {
   @service
-  i18n;
+  intl;
 
   @service
   moment;
@@ -19,14 +19,14 @@ export default class LanguageSelect extends Component {
   @service
   powerCalendar;
 
-  @readOnly('i18n.locale')
+  @readOnly('intl.primaryLocale')
   current;
 
-  @computed('i18n.locales')
+  @computed('intl.locales')
   get locales() {
-    let currentLocale = this.get('i18n.locale');
+    let currentLocale = this.intl.primaryLocale;
 
-    return this.get('i18n.locales').map(function(locale) {
+    return Object.keys(localesMeta).map(function(locale) {
       return {
         id: locale,
         selected: locale === currentLocale,
@@ -38,7 +38,7 @@ export default class LanguageSelect extends Component {
   change() {
     let locale = this.element.options[this.element.selectedIndex].value;
 
-    this.i18n.set('locale', locale);
+    this.intl.set('locale', locale.includes('-') ? [locale, locale.split('-')[0]] : [locale]);
     this.moment.changeLocale(locale);
     this.powerCalendar.set('locale', locale);
 

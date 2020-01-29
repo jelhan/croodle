@@ -28,7 +28,7 @@ const addArrays = function() {
 @classic
 export default class PollEvaluationChart extends Component {
   @service
-  i18n;
+  intl;
 
   @computed
   get chartOptions() {
@@ -89,7 +89,7 @@ export default class PollEvaluationChart extends Component {
       return selections.map(({ type }) => type === 'yes' ? 1 : 0);
     });
     datasets.push({
-      label: this.i18n.t('answerTypes.yes.label').toString(),
+      label: this.intl.t('answerTypes.yes.label').toString(),
       backgroundColor: 'rgba(151,187,205,0.5)',
       borderColor: 'rgba(151,187,205,0.8)',
       hoverBackgroundColor: 'rgba(151,187,205,0.75)',
@@ -102,7 +102,7 @@ export default class PollEvaluationChart extends Component {
         return selections.map(({ type }) => type === 'maybe' ? 1 : 0);
       });
       datasets.push({
-        label: this.i18n.t('answerTypes.maybe.label').toString(),
+        label: this.intl.t('answerTypes.maybe.label').toString(),
         backgroundColor: 'rgba(220,220,220,0.5)',
         borderColor: 'rgba(220,220,220,0.8)',
         hoverBackgroundColor: 'rgba(220,220,220,0.75)',
@@ -120,7 +120,7 @@ export default class PollEvaluationChart extends Component {
   @readOnly('poll.answerType')
   answerType;
 
-  @readOnly('i18n.locale')
+  @readOnly('intl.primaryLocale')
   currentLocale;
 
   @readOnly('poll.isFindADate')

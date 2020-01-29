@@ -13,16 +13,16 @@ import moment from 'moment';
 const Validations = buildValidations({
   anonymousUser: validator('presence', {
     presence: true,
-    dependentKeys: ['model.i18n.locale']
+    dependentKeys: ['model.intl.locale']
   }),
   answerType: [
     validator('presence', {
       presence: true,
-      dependentKeys: ['model.i18n.locale']
+      dependentKeys: ['model.intl.locale']
     }),
     validator('inclusion', {
       in: ['YesNo', 'YesNoMaybe', 'FreeText'],
-      dependentKeys: ['model.i18n.locale']
+      dependentKeys: ['model.intl.locale']
     })
   ],
   forceAnswer: validator('presence', true)
@@ -33,7 +33,7 @@ export default class CreateSettings extends Controller.extend(Validations) {
   encryption;
 
   @service
-  i18n;
+  intl;
 
   @alias('model.anonymousUser')
   anonymousUser;
@@ -141,6 +141,6 @@ export default class CreateSettings extends Controller.extend(Validations) {
   init() {
     super.init(...arguments);
 
-    this.i18n.locale;
+    this.intl.locale;
   }
 }

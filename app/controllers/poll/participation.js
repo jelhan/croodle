@@ -23,14 +23,14 @@ const Validations = buildValidations({
     validator('presence', {
       presence: true,
       disabled: readOnly('model.anonymousUser'),
-      dependentKeys: ['model.i18n.locale']
+      dependentKeys: ['model.intl.locale']
     }),
     validator('unique', {
       parent: 'poll',
       attributeInParent: 'users',
-      dependentKeys: ['model.poll.users.[]', 'model.poll.users.@each.name', 'model.i18n.locale'],
+      dependentKeys: ['model.poll.users.[]', 'model.poll.users.@each.name', 'model.intl.locale'],
       disable: readOnly('model.anonymousUser'),
-      messageKey: 'errors.unique.name',
+      messageKey: 'errors.uniqueName',
       ignoreNewRecords: true,
     })
   ],
@@ -41,7 +41,7 @@ const Validations = buildValidations({
     // all selection objects must be valid
     // if forceAnswer is true in poll settings
     validator(validCollection, {
-      dependentKeys: ['model.forceAnswer', 'model.selections.[]', 'model.selections.@each.value', 'model.i18n.locale']
+      dependentKeys: ['model.forceAnswer', 'model.selections.[]', 'model.selections.@each.value', 'model.intl.locale']
     })
   ]
 });
@@ -51,15 +51,25 @@ const SelectionValidations = buildValidations({
     presence: true,
     disabled: not('model.forceAnswer'),
     messageKey: computed('model.isFreeText', function() {
-      return this.get('model.isFreeText') ? 'errors.present' : 'errors.present.answer.selection';
+      return this.get('model.isFreeText') ? 'errors.present' : 'errors.answerRequired';
     }),
-    dependentKeys: ['model.i18n.locale']
+    dependentKeys: ['model.intl.locale']
   })
 });
 
 @classic
 class SelectionObject extends EmberObject.extend(SelectionValidations) {
+  @service intl;
+
   value = null;
+
+  init() {
+    super.init(...arguments);
+
+    // current locale needs to be consumed in order to be observeable
+    // for localization of validation messages
+    this.intl.locale;
+  }
 }
 
 export default Controller.extend(Validations, {
@@ -130,15 +140,17 @@ export default Controller.extend(Validations, {
   },
 
   anonymousUser: readOnly('poll.anonymousUser'),
-  currentLocale: readOnly('i18n.locale'),
+  currentLocale: readOnly('intl.locale'),
   encryption: service(),
   forceAnswer: readOnly('poll.forceAnswer'),
-  i18n: service(),
+  intl: service(),
 
   init() {
     this._super(...arguments);
 
-    this.get('i18n.locale');
+    // current locale needs to be consumed in order to be observeable
+    // for localization of validation messages
+    this.intl.locale;
   },
 
   isFreeText: readOnly('poll.isFreeText'),
@@ -164,11 +176,11 @@ export default Controller.extend(Validations, {
 
       if (!isEmpty(answer.get('labelTranslation'))) {
         return AnswerObject.extend({
-          i18n: service(),
-          label: computed('i18n.locale', function() {
-            return this.i18n.t(this.labelTranslation);
+          intl: service(),
+          label: computed('intl.locale', function() {
+            return this.intl.t(this.labelTranslation);
           }),
-          labelTranslation: answer.get('labelTranslation')
+          labelTranslation: answer.get('labelTranslation'),
         }).create(owner.ownerInjection());
       } else {
         return AnswerObject.extend({

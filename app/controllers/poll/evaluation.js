@@ -6,14 +6,14 @@ import Controller, { inject as controller } from '@ember/controller';
 
 @classic
 export default class PollEvaluationController extends Controller {
-  @readOnly('i18n.locale')
+  @readOnly('intl.primaryLocale')
   currentLocale;
 
   @readOnly('poll.hasTimes')
   hasTimes;
 
   @service
-  i18n;
+  intl;
 
   @readOnly('pollController.momentLongDayFormat')
   momentLongDayFormat;

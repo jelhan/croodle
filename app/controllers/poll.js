@@ -14,7 +14,7 @@ export default class PollController extends Controller {
   flashMessages;
 
   @service
-  i18n;
+  intl;
 
   @service
   router;
@@ -25,7 +25,7 @@ export default class PollController extends Controller {
   timezoneChoosen = false;
   useLocalTimezone = false;
 
-  @readOnly('i18n.locale')
+  @readOnly('intl.primaryLocale')
   currentLocale;
 
   @computed('currentLocale')

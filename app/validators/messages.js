@@ -1,5 +1,5 @@
 import classic from 'ember-classic-decorator';
-import BaseMessages from 'ember-i18n-cp-validations/validators/messages';
+import BaseMessages from 'ember-intl-cp-validations/validators/messages';
 
 @classic
 export default class ValidationMessages extends BaseMessages {
