@@ -13,9 +13,13 @@ if (php_sapi_name() !== 'cli') {
 require_once 'classes/poll.php';
 require_once 'utils/get-config.php';
 
-$path = substr($argv[0], 0, -8);
-$config = getConfig($path);
-define('DATA_FOLDER', isset($argv[1]) ? $argv[1] : $path . $config['dataDir']);
+$basePath = substr($argv[0], 0, -8);
+$config = getConfig($basePath);
+
+// Data directory could be provided as first argument. If not, the configured one should be used.
+// The configured data dir could be either an absolute or a relative path.
+$defaultDataDir = $config['dataDir'][0] === '/' ? $config['dataDir'] : $basePath . $config['dataDir'];
+define('DATA_FOLDER', isset($argv[1]) ? $argv[1] : $defaultDataDir);
 
 $startTime = time();
 $pollsProcessed = 0;
