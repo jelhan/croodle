@@ -79,9 +79,12 @@ module('Acceptance | view poll', function(hooks) {
       expirationDate: moment().add(1, 'year'),
       isDateTime: true,
       options: [
-        { title: new Date('2015-12-12T11:11:00').toISOString() },
-        { title: new Date('2015-12-12T13:13:00').toISOString() },
-        { title: new Date('2016-01-01T11:11:00').toISOString() }
+        // need to parse the date with moment cause Safari's Date.parse()
+        // implementation treats a data-time string without explicit
+        // time zone as UTC rather than local time
+        { title: moment('2015-12-12T11:11:00').toISOString() },
+        { title: moment('2015-12-12T13:13:00').toISOString() },
+        { title: moment('2016-01-01T11:11:00').toISOString() }
       ],
       timezone
     });
