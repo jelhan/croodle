@@ -100,7 +100,7 @@
     ]
   },
   "resolutions": {
-    "chart.js": "~2.6.0"
+    "chart.js": "~2.9.0"
   },
   "changelog": {
     "labels": {
