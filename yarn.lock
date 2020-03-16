@@ -3311,6 +3311,22 @@ broccoli-funnel@^2.0.0, broccoli-funnel@^2.0.1, broccoli-funnel@^2.0.2:
     symlink-or-copy "^1.0.0"
     walk-sync "^0.3.1"
 
+broccoli-funnel@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/broccoli-funnel/-/broccoli-funnel-3.0.2.tgz#25e1c9a512b3852d3c9dde19ebdf07880d619c73"
+  integrity sha512-yRa7f0H/BtfqXNmL4eCYtAiVAQASI5b83//17MxAYp3I+w8XzGY8Tc3mwhdUrAgh6Zhb6LZwgvUZDZPTLmkK7w==
+  dependencies:
+    array-equal "^1.0.0"
+    blank-object "^1.0.1"
+    broccoli-plugin "^4.0.1"
+    debug "^4.1.1"
+    fast-ordered-set "^1.0.0"
+    fs-tree-diff "^2.0.1"
+    heimdalljs "^0.2.0"
+    minimatch "^3.0.0"
+    path-posix "^1.0.0"
+    walk-sync "^2.0.2"
+
 broccoli-kitchen-sink-helpers@^0.2.5:
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/broccoli-kitchen-sink-helpers/-/broccoli-kitchen-sink-helpers-0.2.9.tgz#a5e0986ed8d76fb5984b68c3f0450d3a96e36ecc"
@@ -3421,6 +3437,15 @@ broccoli-output-wrapper@^2.0.0:
   dependencies:
     heimdalljs-logger "^0.1.10"
 
+broccoli-output-wrapper@^3.1.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/broccoli-output-wrapper/-/broccoli-output-wrapper-3.2.1.tgz#8f9d1092afe0c1a4b7a1b6f0d2c62f1c403e82ad"
+  integrity sha512-mhOTy8AyzEsqgefR2ejbv5QTy3dbY2bvDfkARo55Xml52r2MU0CehQu4T/CH6oPcAXkdVYG/hGm9UpV1vU9Ohg==
+  dependencies:
+    fs-extra "^8.1.0"
+    heimdalljs-logger "^0.1.10"
+    symlink-or-copy "^1.2.0"
+
 broccoli-persistent-filter@^1.1.6, broccoli-persistent-filter@^1.4.3:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/broccoli-persistent-filter/-/broccoli-persistent-filter-1.4.6.tgz#80762d19000880a77da33c34373299c0f6a3e615"
@@ -3502,6 +3527,19 @@ broccoli-plugin@^3.0.0, broccoli-plugin@^3.1.0:
     quick-temp "^0.1.3"
     rimraf "^2.3.4"
     symlink-or-copy "^1.1.8"
+
+broccoli-plugin@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/broccoli-plugin/-/broccoli-plugin-4.0.1.tgz#5a0468a9c8e02f763d5c162ced0a5930db4567a9"
+  integrity sha512-rBYVtV1rWvlDS8fd+CUUG7L/TO5VUCRjaGm2HEOBaTwUYQKswKJXLRSxwv0CYLo3QfVZJpI1akcn7NGe9kywIQ==
+  dependencies:
+    broccoli-node-api "^1.6.0"
+    broccoli-output-wrapper "^3.1.1"
+    fs-merger "^3.0.1"
+    promise-map-series "^0.2.1"
+    quick-temp "^0.1.3"
+    rimraf "^3.0.0"
+    symlink-or-copy "^1.3.0"
 
 broccoli-rollup@^2.1.1:
   version "2.1.1"
@@ -6132,11 +6170,11 @@ ember-macro-helpers@^4.2.2:
     ember-cli-test-info "^1.0.0"
 
 ember-math-helpers@^2.8.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.12.1.tgz#a08faee5563f42dd315ff9db613221dc818654a9"
-  integrity sha512-vnL3+ndIea5c7sUmkVFFsCiYNfdyylx7irlpYqoYJ/jakO0eHzmF+9vYU2LtO0pLo8/PjgyZSEO00LPAff7b/g==
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/ember-math-helpers/-/ember-math-helpers-2.13.0.tgz#eb304b6f75f217e7c1c62fceada396365faf63eb"
+  integrity sha512-UW4MKjpTp5TXcO/mIAvuZtKBx1uuL3W/uDJsFp5fDHA3Thdl5R+NQsQcnJZURbsKeaW3oPGPyM9tG806yopRbA==
   dependencies:
-    broccoli-funnel "^2.0.2"
+    broccoli-funnel "^3.0.1"
     ember-cli-babel "^7.13.0"
     ember-cli-htmlbars "^4.2.0"
 
@@ -11754,7 +11792,7 @@ rimraf@^2.2.8, rimraf@^2.3.4, rimraf@^2.4.3, rimraf@^2.4.4, rimraf@^2.5.3, rimra
   dependencies:
     glob "^7.1.3"
 
-rimraf@^3.0.1:
+rimraf@^3.0.0, rimraf@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.2.tgz#f1a5402ba6220ad52cc1282bac1ae3aa49fd061a"
   integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
@@ -12645,7 +12683,7 @@ symbol-tree@^3.2.2:
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
   integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
 
-symlink-or-copy@^1.0.0, symlink-or-copy@^1.0.1, symlink-or-copy@^1.1.8, symlink-or-copy@^1.2.0:
+symlink-or-copy@^1.0.0, symlink-or-copy@^1.0.1, symlink-or-copy@^1.1.8, symlink-or-copy@^1.2.0, symlink-or-copy@^1.3.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/symlink-or-copy/-/symlink-or-copy-1.3.1.tgz#9506dd64d8e98fa21dcbf4018d1eab23e77f71fe"
   integrity sha512-0K91MEXFpBUaywiwSSkmKjnGcasG/rVBXFLJz5DrgGabpYD6N+3yZrfD6uUIfpuTu65DZLHi7N8CizHc07BPZA==
