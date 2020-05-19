@@ -1,0 +1,215 @@
+action:
+    abort: Annuler
+    back: Retour
+    next: Suivant
+    save: Sauver
+answerTypes:
+    yes:
+        label: Oui
+    no:
+        label: Non
+    maybe:
+        label: Peut-être
+    freeText:
+        label: 'Texte libre'
+    yesNo:
+        label: 'Oui, Non'
+    yesNoMaybe:
+        label: 'Oui, Non, Peut-être'
+create:
+    index:
+        input:
+            pollType:
+                label: 'Quel est le but de votre sondage?'
+    formStep:
+        type: 'Type de sondage'
+        meta: 'Titre et description'
+        options:
+            days: Jours
+            text: Options
+        options-datetime: Heures
+        settings: PAramètres
+    meta:
+        input:
+            title:
+                label: Titre
+                placeholder: 'Ajoutez un titre de sondage.'
+            description:
+                label: Description
+                placeholder: 'Facultatif: ajoutez une description au sondage.'
+    options:
+        button:
+            add:
+                label: 'Ajouter une autre option après'
+            delete:
+                label: 'Supprimer cette option'
+        options:
+            label: 'Options de réponse'
+        dates:
+            label: Jours
+        error:
+            notEnoughDates: 'Au moins un jour doit être sélectionné'
+        defineTimes:
+            label: 'Déterminer le temps?'
+        input:
+            moreOptions:
+                label: 'Ajouter d'autres options de réponse'
+    options-datetime:
+        datetimes:
+            label: Heures
+        more-inputs: 'Entrez d'autres horaires'
+        copy-first-line: 'Copiez et collez les horaires du premier jour sur tous les autres'
+        error:
+            notEnoughTimes: 'Il doit être déterminé au moins une fois par jour. Si un seul jour est choisi, au moins 2 dates doivent être déterminées.'
+            correctTimeFormat: 'Les dates doivent être saisies en heures et minutes séparé par deux points (example.  13:00).'
+        fix-validation-errors-first-day: 'Vous devez corriger toutes les erreurs de validation du premier jour avant la copie.'
+    settings:
+        answerType:
+            label: 'Quelles réponses devraient être disponibles?'
+        anonymousUser:
+            label: 'Autoriser les préposés anonymes au sondage?'
+        expirationDate:
+            label: 'Quand votre sondage doit-il expirer et être supprimé?'
+        expirationDurations:
+            P7D: 'Dans une semaine'
+            P1M: 'Dans un mois'
+            P3M: 'Dans 3 mois'
+            P6M: 'Dans 6 mois'
+            P1Y: 'Dans un an'
+            never: Jamais
+        forceAnswer:
+            label: 'Forcer une réponse pour chaque option?'
+    title: 'Créer un sondage'
+error:
+    poll:
+        decryptionFailed:
+            title: 'Échec du déchiffrement'
+            description: 'Échec du déchiffrement des données de sondage. Cela est probablement dû à une mauvaise clé de chiffrement. Veuillez vérifier l'URL saisie, en particulier la partie après le point d'interrogation.'
+        notFound:
+            title: 'Le sondage est introuvable'
+            description: 'Le sondage que vous recherchez est introuvable. Cela peut être dû à différentes raisons, notamment:'
+            reasons:
+                expired: 'Le sondage a expiré et a été supprimé.'
+                typo: 'Il y a une faute de frappe dans l'URL. Vous voudrez peut-être revérifier - en particulier la partie avant le point d'interrogation.'
+        savingFailed: 'Le sondage n'a pas pu être enregistré. Veuillez réessayer dans quelques secondes.'
+    generic:
+        unexpected:
+            title: 'Une erreur inattendue s'est produite'
+            description: 'Nous sommes désolés. Une erreur inattendue est apparue. Veuillez réessayer plus tard.'
+index:
+    title: 'Croodle simplifie la date et la prise de décision …<br/>… et protège vos données'
+    features:
+        title: Fonctions
+        list:
+            overview: '<strong>Trouvez une date</strong> ou <strong> faire un sondage</strong> avec autant de personnes que vous le souhaitez.'
+            privacy: 'Vos données restent privées. Elles sont <strong>encrypté</strong> directement dans votre navigateur. Seules les personnes qui reçoivent le lien du sondage savent de quoi parle votre sondage.'
+            options: 'Vous pouvez déterminer autant <strong>d'options de réponse</strong> que vous souhaitez. Vous pouvez choisir vos dates préférées dans le <strong>calendrier</strong> oo Créer <strong>un questionnaire</strong>.'
+            answers: 'Vous pouvez utiliser des <strong>options de réponse prédéfinie</strong>,par example <i>oui</i>, <i>non</i>, <i>peut-être</i> ou permettre des <strong>réponses personalisées</strong>.'
+            evaluation: 'Vous conservez un aperçu par un <strong>compte-rendu des réponses préférées</strong>.'
+    link:
+        have-a-try: 'Essayez-le maintenant'
+    hoster:
+        title: 'Hébergez votre propre Croodle:'
+        text: 'Vous n’avez pas à faire confiance à ce Croodle. Croodle est un logiciel libre et vous pouvez l’installer sur votre propre serveur. Vous n’avez besoin que d’un espace serveur, PHP et SSL-encryption. Le logiciel et les conseils d’installation sont ici: {gitHubLink}.'
+modal:
+    save-retry:
+        title: 'Erreur de sauvegarde.'
+        text: '<p>Votre sondage n’a pas pu être sauvée. S'il vous plaît, vérifiez votre connexion à internet et réessayez.</p><p>Si ça ne fonctionne pas, une panne momentanée du serveur pourrait être la cause. Veuillez patienter quelques minutes avant de réessayer. Vous pouvez laisser la page ouverte.</p><p>Merci de contacter l'administrateur du site si le problème persiste.</p>'
+        button-retry: 'Réessayer'
+options: Options
+poll:
+    created-date: 'Créer le {date}.'
+    expiration-date: 'Expire le {date}.'
+    expiration-date-warning: 'Ce sondage expire {timeToNow} et sera supprimé par la suite.'
+    tab-title:
+        participation: Préposés
+        evaluation: Evaluation
+    error:
+        newUser:
+            everyOptionIsAnswered: 'Veuillez répondre à chaque option.'
+        newUserName: 'Vous devez saisir un nom d'utilisateur.'
+    evaluation:
+        label: Evaluation
+        overview: Revue
+        participantTable: 'Préposés et leurs réponses'
+        bestOption:
+            label:
+                findADate: '{count, plural, =1 {La date préférée est} other {Les dates préférées sont}}'
+                makeAPoll: '{count, plural, =1 {L'option préférée est} other {Les options préférées sont}}'
+        bestOptionParticipants:
+            findADate:
+                yes: '{count, plural, =1 {une personne a le temps.} other {# personnes ont le temps.}}'
+                maybe: '{count, plural, =1 {une personne a peut-être le temps.} other {# personnes ont peut-être le temps.}}'
+                no: '{count, plural, =1 {Une personne n'a pas le temps.} other {# personnes n'ont pas le temps.}}'
+            makeAPoll:
+                yes: '{count, plural, =1 {Une personne aime cette option.} other {# personnes aiment cette option.}}'
+                maybe: '{count, plural, =1 {une personne aime peut-être cette option.} other {# personnes aiment peut-être cette option.}}'
+                no: '{count, plural, =1 {Une personne n'aime pas cette option} other {# personnes n'aiment pas cette option.}}'
+        lastParticipation: 'La dernière personne a assisté {ago}.'v
+        participants: '{count, plural, =1 {Une personne a participé au sondage.} other {# personnes ont participé au sondage.}}'
+    input:
+        newUserName:
+            label: Nom
+            placeholder: 'Votre nom'
+        showEvaluation:
+            hide: Caché
+            show: Affiché
+    link:
+        copied: 'Lien copié dans le presse-papiers.'
+        copy-label: 'Copier le lien dans le presse-papiers'
+        selected: 'Lien sélectionné. Appuyez sur Commande+C pour copier.'
+    modal:
+        timezoneDiffers:
+            title: 'Dans quels fuseaux horaires les dates doivent-elles être présentées?'
+            body: 'Le sondage a été créé pour un fuseau horaire différent de votre heure locale. Dans quels fuseaux horaires les dates doivent-elles être présentées?'
+            button:
+                useLocalTimezone: 'Mon fuseau horaire'
+                usePollTimezone: 'Fuseau horaire d'origine'
+    share:
+        title: 'Partagez le lien et invitez d'autres personnes à participer au sondage.'
+        notice: 'Tout le monde avec le lien peut accéder votre sondage. S'il contient des données privées, vous ne devez les transmettre que par courrier crypté ou par chat avec un cryptage de bout en bout.'
+pollTypes:
+    findADate:
+        label: 'Je veux trouver une date. (ex. heure et date d'un rendez-vous)'
+    makeAPoll:
+        label: 'Je veux répondre à une question. (ex. Où le café a-t-il le meilleur goût?)'
+times: Heures
+errors:
+    answerRequired: 'Une réponse doit être sélectionnée'
+    timeNotPartially: 'Les temps partiels ne sont pas pris en charge'
+    uniqueName: 'Ce nom a déjà été utilisé'
+    description: 'Ce champ'
+    inclusion: '{description} ne fait pas partie de la liste'
+    exclusion: '{description} est réservé'
+    invalid: '{description} n'a pas de valeur applicable'
+    confirmation: '{description} ne correspond pas {attribute}'
+    accepted: '{description} doit être accepté'
+    empty: '{description} ne doit pas être vide'
+    blank: '{description} ne doit pas être vide'
+    present: '{description} doit être vide'
+    collection: '{description} doit être une collection'
+    singular: '{description} ne doit pas être une collection'
+    tooLong: '{description} est trop long (max. {max} caractères)'
+    tooShort: '{description} est trop court (au moins {min} caractères)'
+    before: '{description} doit être avant {date}'
+    after: '{description} doit être après {date}'
+    wrongDateFormat: '{description} doit être {date}'
+    wrongLength: '{description} a la mauvaise longueur, il doit avoir {is} caractères'
+    notANumber: '{description} n'est pas un nombre'
+    notAnInteger: '{description} doit être un nombre entier'
+    greaterThan: '{description} doit être plus grand que{count}'
+    greaterThanOrEqualTo: '{description} doit être égal ou supérieur à {count}'
+    equalTo: '{description} doit être à {count}'
+    lessThan: '{description} doit être supérieur à {count}'
+    lessThanOrEqualTo: '{description} doit être égal ou inférieur à {count}'
+    otherThan: '{description} ne doit pas être {count}'
+    odd: '{description} doit être inégal'
+    even: '{description} doit être égal'
+    positive: '{description} doit être positif'
+    date: '{description} Doit être une date valide'
+    email: '{description} Doit être une adresse e-mail valide'
+    phone: '{description} doit être un numéro de téléphone valide'
+    url: '{description} doit être une URL valide '
+    time: '{description} doit être une heure valide (ex. 10:45)'
+    unique: '{description} doit être explicite'
+    
