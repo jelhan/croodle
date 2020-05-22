@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "slim/slim": "^3.5"
     },
     "require-dev": {
@@ -11,7 +11,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.1"
+            "php": "7.2"
         }
     }
 }
