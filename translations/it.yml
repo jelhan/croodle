@@ -1,11 +1,11 @@
 action:
-    abort: Abort
+    abort: Cancella
     back: Indietro
     next: Avanti
     save: Salva
 answerTypes:
     yes:
-        label: Yes
+        label: Si
     no:
         label: No
     maybe:
@@ -60,7 +60,7 @@ create:
         more-inputs: 'Inserisci altri orari'
         copy-first-line: 'Usa lo stesso orario per tutti i giorni'
         error:
-            notEnoughTimes: 'It must be determined at least one valid time per day. If only one day is chosen, at least 2 dates must be determined.'
+            notEnoughTimes: 'Devi almeno stabilire un orario valido per ogni giorno. Se soltanto hai stabilito un giorno, un minimo di due orari devono essere impostati.'
             correctTimeFormat: 'Le date devono essere immesse come ora e minuto divise da due punti (e.g.  13:00).'
         fix-validation-errors-first-day: 'Devi risolvere tutti gli errori di convalida nel primo giorno prima della copia.'
     settings:
@@ -83,19 +83,19 @@ create:
 error:
     poll:
         decryptionFailed:
-            title: 'Decryption failed'
-            description: 'Decrypting poll data failed. This is most likely caused by a wrong encryption key. Please double-check the URL entered, especially the part after the question mark.'
+            title: 'La decrittazione e fallita.'
+            description: 'La decrittazione è fallita. Il più probbabile sia dovuto ad una chiave cirttografica sbagliata. Per favor, controlla la URL che hai inserito, particolarmente la parte dopo il punto interrogativo.'
         notFound:
-            title: 'Poll could not be found'
-            description: 'Il sondaggio che stai cercando non esiste. Questo potrebbe accadere per diverse ragioni:'
+            title: 'Il sondaggio non è stato trovato.'
+            description: 'Il sondaggio che stai cercando non esiste. Questo potrebbe accadere per diversi motivi:'
             reasons:
                 expired: 'Il sondaggio è scaduto ed è stato rimosso.'
                 typo: 'L''URL è errato. Prova a ricontrollarlo, specialmente la parte prima del punto interrogativo.'
-        savingFailed: 'The poll could not be saved. Please try again in a few seconds.'
+        savingFailed: 'Non è stato possible salvare il sondaggio. Riprova tra qualche secondo.'
     generic:
         unexpected:
-            title: 'An unexpected error occured'
-            description: 'We are sorry. An unexpected error occurred. Please try again later.'
+            title: 'Un errore inesperato è occorso.'
+            description: 'Ci dispiace. È occorso un errore inesperato. Per favore, riprova più tardi.'
 index:
     title: 'Croodle semplifica la scelta delle date e il processo decisionale …<br/>… e protegge i tuoi dati'
     features:
@@ -209,6 +209,6 @@ errors:
     phone: '{description} deve essere un numero di telefono valido.'
     url: '{description} deve essere un URL valido '
     time: '{description} deve essere un orario valido (ad es. 10:45)'
-    timeNotPartially: 'Partially times are not supported'
+    timeNotPartially: 'I tempi parziali non sono sopportati.'
     unique: '{description} deve essere esplicito'
     uniqueName: 'Questo nome è già stato usato'
