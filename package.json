@@ -88,7 +88,7 @@
     "sjcl": "^1.0.8"
   },
   "engines": {
-    "node": "8.* || >= 10.*"
+    "node": "8.* >= v8.17.0"
   },
   "ember": {
     "edition": "octane"
