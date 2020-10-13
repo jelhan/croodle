@@ -36,7 +36,7 @@ module.exports = function(environment) {
     contentSecurityPolicyMeta: true,
 
     moment: {
-      includeLocales: ['ca', 'de', 'en-gb', 'es', 'it'],
+      includeLocales: ['ca', 'de', 'en-gb', 'es', 'fr', 'it'],
       includeTimezone: 'subset'
     },
   };
