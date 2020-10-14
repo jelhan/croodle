@@ -1026,7 +1026,7 @@
     "@babel/parser" "^7.8.3"
     "@babel/types" "^7.8.3"
 
-"@babel/traverse@^7.1.6", "@babel/traverse@^7.10.4", "@babel/traverse@^7.11.5", "@babel/traverse@^7.2.4", "@babel/traverse@^7.3.4", "@babel/traverse@^7.8.3", "@babel/traverse@^7.8.4":
+"@babel/traverse@^7.1.6", "@babel/traverse@^7.10.4", "@babel/traverse@^7.11.5", "@babel/traverse@^7.2.4", "@babel/traverse@^7.3.4", "@babel/traverse@^7.8.4":
   version "7.11.5"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.11.5.tgz#be777b93b518eb6d76ee2e1ea1d143daa11e61c3"
   integrity sha512-EjiPXt+r7LiCZXEfRpSJd+jUMnBd4/9OUv7Nx3+0u9+eimMwJmG0Q98lw4/289JCoxSE8OolDMNZaaF/JZ69WQ==
@@ -5529,14 +5529,14 @@ ember-auto-import@^1.4.1, ember-auto-import@^1.5.3:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-awesome-macros@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-5.0.1.tgz#fbe36a680165eb63a402e587a0d808ba54b5be5b"
-  integrity sha512-qqXc/AOf3gc7lr4tMmGMIulQ7uyWOsPWSIxSspnzgtUJ955M1iXRLyefh8US/+oWdKGMYNum/4vdTkV6SP3Eeg==
+ember-awesome-macros@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/ember-awesome-macros/-/ember-awesome-macros-6.0.0.tgz#edc01b9480f475e961d1eada6cb5a5fead7ddd20"
+  integrity sha512-n6YEylbud7avMQ2yLOlZ46HbF/iehP81kbGnq5IEN/SV7cCnRS8xH8kPUM4oKKHfwyKZSSicyrnNdTJskoGbhw==
   dependencies:
     broccoli-file-creator "^2.1.1"
     broccoli-merge-trees "^3.0.0"
-    ember-cli-babel "^7.7.3"
+    ember-cli-babel "^7.11.1"
     ember-cli-string-utils "^1.1.0"
     ember-macro-helpers "^4.2.2"
 
