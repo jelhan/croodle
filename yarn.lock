@@ -5478,15 +5478,10 @@ electron-to-chromium@^1.3.413:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.564.tgz#e9c319ae437b3eb8bbf3e3bae4bead5a21945961"
   integrity sha512-fNaYN3EtKQWLQsrKXui8mzcryJXuA0LbCLoizeX6oayG2emBaS5MauKjCPAvc29NEY4FpLHIUWiP+Y0Bfrs5dg==
 
-electron-to-chromium@^1.3.47:
+electron-to-chromium@^1.3.47, electron-to-chromium@^1.3.571:
   version "1.3.579"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.579.tgz#58bf17499de6edf697e1442017d8569bce0d301a"
   integrity sha512-9HaGm4UDxCtcmIqWWdv79pGgpRZWTqr+zg6kxp0MelSHfe1PNjrI8HXy1HgTSy4p0iQETGt8/ElqKFLW008BSA==
-
-electron-to-chromium@^1.3.571:
-  version "1.3.578"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.578.tgz#e6671936f4571a874eb26e2e833aa0b2c0b776e0"
-  integrity sha512-z4gU6dA1CbBJsAErW5swTGAaU2TBzc2mPAonJb00zqW1rOraDo2zfBMDRvaz9cVic+0JEZiYbHWPw/fTaZlG2Q==
 
 element-closest@^2.0.2:
   version "2.0.2"
@@ -6714,9 +6709,9 @@ ember-on-helper@^0.1.0:
     ember-cli-babel "^7.7.3"
 
 ember-page-title@^5.0.0:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-5.2.1.tgz#12261e010bec96af6200cd132fe4068e717ccbec"
-  integrity sha512-Nvgmkp0xhgMl+f8AQeWlhNNMiIujnPnTTctsquUjezdE42ZU5U14OIuJoyNhSwsrhoEwx6K1tpRmBexBwPrDKw==
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-5.2.3.tgz#63b039d70d4a5d7db9c00de5b2108823fb90bb9d"
+  integrity sha512-2ErWCJsTawaKJy7fzZqIsrUTNaNtDgEboiiL4OcqEg2A3gKmuuaDFSWz0w9njFRxWISvfPfRw1df0kpYAr98ng==
   dependencies:
     ember-cli-babel "^7.7.3"
     ember-cli-head "^0.4.0"
