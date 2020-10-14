@@ -5955,9 +5955,9 @@ ember-cli-eslint@^5.1.0:
     walk-sync "^1.0.0"
 
 ember-cli-flash@^1.4.0:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-flash/-/ember-cli-flash-1.8.1.tgz#2836adc9a2d075769cc0aad14b313c23358284c0"
-  integrity sha512-wonc/qa90HYfKv4oqkDfZh/qSNhm01VPW6mvuX6wtU8lcNjG9zfVNcT6NWwXWxFgUgrALv5saloeECbTiETptw==
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-flash/-/ember-cli-flash-1.9.0.tgz#d414ea55c869d405a46f1e26983309d3943a13cf"
+  integrity sha512-sTVsPDUS8NF7HDJPFFCMUZT6UnYi422R7ED/9FrnIjxlCbOABea4EgoQTqKFmLNhST482zMnsfBqdN2hpybn4A==
   dependencies:
     ember-cli-babel "^7.1.2"
     ember-cli-htmlbars "^3.0.0"
@@ -9084,15 +9084,15 @@ is-buffer@~2.0.3:
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.4.tgz#3e572f23c8411a5cfd9557c849e3665e0b290623"
   integrity sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
 
-is-callable@^1.1.4, is-callable@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.1.5.tgz#f7e46b596890456db74e7f6e976cb3273d06faab"
-  integrity sha512-ESKv5sMCJB2jnHTWZ3O5itG+O128Hsus4K4Qh1h2/cgn2vbgnLSVqfV46AeJA9D5EeeLa9w81KUXMtn34zhX+Q==
-
-is-callable@^1.2.2:
+is-callable@^1.1.4, is-callable@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.2.2.tgz#c7c6715cd22d4ddb48d3e19970223aceabb080d9"
   integrity sha512-dnMqspv5nU3LoewK2N/y7KLtxtakvTuaCsU9FU50/QDmdbHNy/4/JuRtMHqRU22o3q+W89YQndQEeCVwK+3qrA==
+
+is-callable@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/is-callable/-/is-callable-1.1.5.tgz#f7e46b596890456db74e7f6e976cb3273d06faab"
+  integrity sha512-ESKv5sMCJB2jnHTWZ3O5itG+O128Hsus4K4Qh1h2/cgn2vbgnLSVqfV46AeJA9D5EeeLa9w81KUXMtn34zhX+Q==
 
 is-ci@2.0.0, is-ci@^2.0.0:
   version "2.0.0"
