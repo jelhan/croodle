@@ -88,9 +88,9 @@ error:
   poll:
     decryptionFailed:
       title: 'Entschlüsselung fehlgeschlagen'
-      description: 'Decrypting poll data failed. This is most likely caused by a wrong
-        encryption key. Please double-check the URL entered, especially the part after
-        the question mark.'
+      description: 'Das Entschlüsseln der Umfragedaten ist fehlgeschlagen. Dies wird
+        höchstwahrscheinlich durch einen falschen Verschlüsselungsschlüssel verursacht.
+        Bitte überprüfen Sie die eingegebene URL, insbesondere den Teil nach dem Fragezeichen.'
     notFound:
       title: 'Umfrage nicht gefunden'
       description: 'Die Umfrage, die Sie aufgerufen haben, konnte nicht gefunden wurde.
@@ -105,7 +105,8 @@ error:
   generic:
     unexpected:
       title: 'Ein unerwarteter Fehler ist aufgetreten'
-      description: 'We are sorry. An unexpected error occurred. Please try again later.'
+      description: 'Es tut uns leid. Ein unerwarteter Fehler ist aufgetreten. Bitte
+        versuchen Sie es später noch einmal.'
 index:
   title: 'Croodle vereinfacht die Termin- und Entscheidungsfindung …<br/>… und schützt
     dabei deine Daten'
@@ -154,7 +155,7 @@ poll:
   error:
     newUser:
       everyOptionIsAnswered: 'Bitte beantworte jede Option.'
-    newUserName: 'Du musst einen Nutzernamen angeben.'
+    newUserName: 'Du musst einen Benutzernamen angeben.'
   evaluation:
     label: Auswertung
     overview: Übersicht
@@ -203,9 +204,9 @@ poll:
         usePollTimezone: Original-Zeitzone
   share:
     title: 'Teile den Link und lade Andere zu deiner Umfrage ein.'
-    notice: 'Jeder der den Link kennt, kann deine Umfrage ansehen. Falls diese private
-      Daten enthält, solltest du den Link nur per verschlüsselter Mail oder Chat mit
-      Ende-zu-Ende-Verschlüsselung weitergeben.'
+    notice: 'Jeder, der den Link kennt, kann deine Umfrage ansehen. Falls diese private
+      Daten enthält, solltest du den Link nur per verschlüsselter E-Mail oder Chat
+      mit Ende-zu-Ende-Verschlüsselung weitergeben.'
 pollTypes:
   findADate:
     label: 'Ich möchte einen Termin finden. (z.B. Datum oder Uhrzeit für eine Verabredung)'
@@ -233,7 +234,7 @@ errors:
   wrongLength: '{description} hat die falsche Länge, es müssen {is} Zeichen sein'
   notANumber: '{description} ist keine Zahl'
   notAnInteger: '{description} muss eine ganze Zahl sein'
-  greaterThan: '{description} muss größer sein als {count}'
+  greaterThan: '{description} muss größer als {count} sein'
   greaterThanOrEqualTo: '{description} muss größer oder gleich {count} sein'
   equalTo: '{description} muss {count} sein'
   lessThan: '{description} muss weniger als {count} sein'

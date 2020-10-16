@@ -239,7 +239,7 @@ errors:
   even: '{description} debe de ser par'
   positive: '{description} debe de ser positivo'
   date: '{description} debe de ser una fecha válida'
-  email: '{description} debe de ser una dirección de e-mail valida'
+  email: '{description} debe de ser una dirección de correo electrónico valida'
   phone: '{description} debe de ser un número de teléfono valido'
   url: '{description} debe de ser una URL valida '
   time: '{description} debe de ser un horario valido (p.ej. 10:45)'
