@@ -1,214 +1,248 @@
 action:
-    abort: Abort
-    back: Atras
-    next: Siguiente
-    save: Guardar
+  abort: Abort
+  back: Atras
+  next: Siguiente
+  save: Guardar
 answerTypes:
-    yes:
-        label: Si
-    no:
-        label: No
-    maybe:
-        label: Quizás
-    freeText:
-        label: 'Texto libre'
-    yesNo:
-        label: 'Si, No'
-    yesNoMaybe:
-        label: 'Si, No, Quizás'
+  yes:
+    label: Si
+  no:
+    label: No
+  maybe:
+    label: Quizás
+  freeText:
+    label: 'Texto libre'
+  yesNo:
+    label: 'Si, No'
+  yesNoMaybe:
+    label: 'Si, No, Quizás'
 create:
-    index:
-        input:
-            pollType:
-                label: '¿Que tipo de encuesta quieres hacer?'
-    formStep:
-        type: 'Tipo de encuesta'
-        meta: 'Título y descripción'
-        options:
-            days: Días
-            text: Opciones
-        options-datetime: Horas
-        settings: Ajustes
-    meta:
-        input:
-            title:
-                label: Título
-                placeholder: 'Añade el título de la encuesta.'
-            description:
-                label: Descripción
-                placeholder: 'Opcional: Añade una descripción a la encuesta.'
+  index:
+    input:
+      pollType:
+        label: '¿Que tipo de encuesta quieres hacer?'
+  formStep:
+    type: 'Tipo de encuesta'
+    meta: 'Título y descripción'
     options:
-        button:
-            add:
-                label: 'añade otras opción después de esta'
-            delete:
-                label: 'borra esta opción'
-        options:
-            label: 'Opciones de respuesta'
-        dates:
-            label: Días
-        error:
-            notEnoughDates: 'Debes elegir almenos un día'
-        defineTimes:
-            label: '¿Establecer horarios?'
-        input:
-            moreOptions:
-                label: 'Añadir más opciones de respuesta'
-    options-datetime:
-        datetimes:
-            label: Horarios
-        more-inputs: 'Añadir más horarios'
-        copy-first-line: 'Utilizar el horario de la primera línea para todas las demás.'
-        error:
-            notEnoughTimes: 'Ha de establecerse almenos un horario correcto para cada día. Si se ha elegido únicamente un día, hay que indicar almenos dos horarios.'
-            correctTimeFormat: 'Las horas y minutos del horario deben estar separadas por el caracter dospuntos (p.ej. 13:00).'
-        fix-validation-errors-first-day: 'Tienes quee corregir todos los errores antes de copiar.'
-    settings:
-        answerType:
-            label: '¿Que respuesta debería estar disponible?'
-        anonymousUser:
-            label: '¿permitir participantes anónimos en la encuesta?'
-        expirationDate:
-            label: '¿Cuando debería caducar la encuesta y ser borrada?'
-        expirationDurations:
-            P7D: 'dentro de una semana desde hoy '
-            P1M: 'dentro de un mes desde'
-            P3M: 'dentro de tres meses desde hoy'
-            P6M: 'dentro de seis meses desde hoy'
-            P1Y: 'dentro de un año desde hoy'
-            never: jamás
-        forceAnswer:
-            label: '¿Obligar a responder todas las preguntas/opciones?'
-    title: 'Crear una encuesta'
+      days: Días
+      text: Opciones
+    options-datetime: Horas
+    settings: Ajustes
+  meta:
+    input:
+      title:
+        label: Título
+        placeholder: 'Añade el título de la encuesta.'
+      description:
+        label: Descripción
+        placeholder: 'Opcional: Añade una descripción a la encuesta.'
+  options:
+    button:
+      add:
+        label: 'añade otras opción después de esta'
+      delete:
+        label: 'borra esta opción'
+    options:
+      label: 'Opciones de respuesta'
+    dates:
+      label: Días
+    error:
+      notEnoughDates: 'Debes elegir almenos un día'
+    defineTimes:
+      label: '¿Establecer horarios?'
+    input:
+      moreOptions:
+        label: 'Añadir más opciones de respuesta'
+  options-datetime:
+    datetimes:
+      label: Horarios
+    more-inputs: 'Añadir más horarios'
+    copy-first-line: 'Utilizar el horario de la primera línea para todas las demás.'
+    error:
+      notEnoughTimes: 'Ha de establecerse almenos un horario correcto para cada día.
+        Si se ha elegido únicamente un día, hay que indicar almenos dos horarios.'
+      correctTimeFormat: 'Las horas y minutos del horario deben estar separadas por
+        el caracter dospuntos (p.ej. 13:00).'
+    fix-validation-errors-first-day: 'Tienes quee corregir todos los errores antes
+      de copiar.'
+  settings:
+    answerType:
+      label: '¿Que respuesta debería estar disponible?'
+    anonymousUser:
+      label: '¿permitir participantes anónimos en la encuesta?'
+    expirationDate:
+      label: '¿Cuando debería caducar la encuesta y ser borrada?'
+    expirationDurations:
+      P7D: 'dentro de una semana desde hoy'
+      P1M: 'dentro de un mes desde'
+      P3M: 'dentro de tres meses desde hoy'
+      P6M: 'dentro de seis meses desde hoy'
+      P1Y: 'dentro de un año desde hoy'
+      never: jamás
+    forceAnswer:
+      label: '¿Obligar a responder todas las preguntas/opciones?'
+  title: 'Crear una encuesta'
 error:
-    poll:
-        decryptionFailed:
-            title: 'Decryption failed'
-            description: 'Decrypting poll data failed. This is most likely caused by a wrong encryption key. Please double-check the URL entered, especially the part after the question mark.'
-        notFound:
-            title: 'Poll could not be found'
-            description: 'The poll you are looking for could not be found. This could be caused by different reasons, including:'
-            reasons:
-                expired: 'The poll is expired and has been deleted.'
-                typo: 'There is a typo in the URL. You may want to double-check it - especially the part before the question mark.'
-        savingFailed: 'The poll could not be saved. Please try again in a few seconds.'
-    generic:
-        unexpected:
-            title: 'An unexpected error occured'
-            description: 'We are sorry. An unexpected error occurred. Please try again later.'
+  poll:
+    decryptionFailed:
+      title: 'Decryption failed'
+      description: 'Decrypting poll data failed. This is most likely caused by a wrong
+        encryption key. Please double-check the URL entered, especially the part after
+        the question mark.'
+    notFound:
+      title: 'Poll could not be found'
+      description: 'The poll you are looking for could not be found. This could be
+        caused by different reasons, including:'
+      reasons:
+        expired: 'The poll is expired and has been deleted.'
+        typo: 'There is a typo in the URL. You may want to double-check it - especially
+          the part before the question mark.'
+    savingFailed: 'The poll could not be saved. Please try again in a few seconds.'
+  generic:
+    unexpected:
+      title: 'An unexpected error occured'
+      description: 'We are sorry. An unexpected error occurred. Please try again later.'
 index:
-    title: 'Croodle simplifica las citas y la toma de decisiones …<br/>… y al mismo tiempo protege tus datos'
-    features:
-        title: Funciones
-        list:
-            overview: '<strong>Encontrar una fecha</strong> o <strong>hacer una encuesta</strong> con la cantidad de personas que quieras.'
-            privacy: 'Tus datos son privados: Ya desde tu navegador los datos son <strong>encriptados</strong>. ünicamente las personas a las que mandes el enlace directamente sabrán que tu encuesta existe y de que se trata.'
-            options: 'Puedes incluir tantas <strong>opciones de respuesta</strong> como quieras. Puedes elegir tus <strong>fechas preferidas</strong> o escribir <strong>cualquier pregunta</strong>'
-            answers: 'Puedes utilizar <sttong>respuestas pre definidas</strong> como <i>si</i>,<i>no</i>, <i>quizás</i> o permitir una <strong>respuesta libre</strong>.'
-            evaluation: 'Mantendrás el control mediante la <strong>revisión de las respuestas favoritas</strong>.'
-    link:
-        have-a-try: 'pruebalo ahora'
-    hoster:
-        title: 'Instala tu propio Croodle:'
-        text: 'No tienes porque fiarte de este Croodle. Croodle es software libre y tu puedes instalarlo en tu propio servidor. Sólo unos pocos megas de espacio, PHP y encriptación-SSL. Puesde encontrar el software y ayuda en inglés para la instalación aquí {gitHubLink}.'
+  title: 'Croodle simplifica las citas y la toma de decisiones …<br/>… y al mismo
+    tiempo protege tus datos'
+  features:
+    title: Funciones
+    list:
+      overview: '<strong>Encontrar una fecha</strong> o <strong>hacer una encuesta</strong>
+        con la cantidad de personas que quieras.'
+      privacy: 'Tus datos son privados: Ya desde tu navegador los datos son <strong>encriptados</strong>.
+        ünicamente las personas a las que mandes el enlace directamente sabrán que
+        tu encuesta existe y de que se trata.'
+      options: 'Puedes incluir tantas <strong>opciones de respuesta</strong> como
+        quieras. Puedes elegir tus <strong>fechas preferidas</strong> o escribir <strong>cualquier
+        pregunta</strong>'
+      answers: 'Puedes utilizar <strong>respuestas pre definidas</strong> como <i>si</i>,<i>no</i>,
+        <i>quizás</i> o permitir una <strong>respuesta libre</strong>.'
+      evaluation: 'Mantendrás el control mediante la <strong>revisión de las respuestas
+        favoritas</strong>.'
+  link:
+    have-a-try: 'pruebalo ahora'
+  hoster:
+    title: 'Instala tu propio Croodle:'
+    text: 'No tienes porque fiarte de este Croodle. Croodle es software libre y tu
+      puedes instalarlo en tu propio servidor. Sólo unos pocos megas de espacio, PHP
+      y encriptación-SSL. Puesde encontrar el software y ayuda en inglés para la instalación
+      aquí {gitHubLink}.'
 modal:
-    save-retry:
-        title: 'Error al guardar'
-        text: '<p>Tu inscripción no pudo ser guardada. Por favor, comprueba tu conexión a internet e inténtalo de nuevo.</p><p>Si esto no ayuda, podría ser debido a un breve fallo en el servidor. Por favor, espera unos minutos e inténtalo de nuevo. Puedes esperar mientras la página se abre.</p><p>Si los problemas continúan, por favor, contacte al administrador de la página.</p>'
-        button-retry: Reintentar
+  save-retry:
+    title: 'Error al guardar'
+    text: '<p>Tu inscripción no pudo ser guardada. Por favor, comprueba tu conexión
+      a internet e inténtalo de nuevo.</p><p>Si esto no ayuda, podría ser debido a
+      un breve fallo en el servidor. Por favor, espera unos minutos e inténtalo de
+      nuevo. Puedes esperar mientras la página se abre.</p><p>Si los problemas continúan,
+      por favor, contacte al administrador de la página.</p>'
+    button-retry: Reintentar
 options: Options
 poll:
-    created-date: 'Creada el {date}.'
-    expiration-date: 'Expires on {date}.'
-    expiration-date-warning: 'This poll expires {timeToNow} and will be deleted afterwards.'
-    tab-title:
-        participation: Participation
-        evaluation: Evaluation
-    error:
-        newUser:
-            everyOptionIsAnswered: 'Por favor responde a todas las opciones.'
-        newUserName: 'Tienes que poner un nombre.'
-    evaluation:
-        label: Evaluar
-        overview: Supervisar
-        participantTable: 'Participantes y respuestas'
-        bestOption:
-            label:
-                findADate: '{count, plural, =1 {La fecha preferida es} other {Las fechas preferidas son}}'
-                makeAPoll: '{count, plural, =1 {La opción preferida es} other {Las opciones preferidas son}}'
-        bestOptionParticipants:
-            findADate:
-                yes: '{count, plural, =1 {Una persona tiene tiempo.} other {# personas tienen tiempo.}}'
-                maybe: '{count, plural, =1 {Una persona quizás tiene tiempo.} other {# personas quizás tienen tiempo.}}'
-                no: '{count, plural, =1 {Una persona no tiene tiempo.} other {# personas no tienen tiempo.}}'
-            makeAPoll:
-                yes: '{count, plural, =1 {A una persona le gusta esta opción.} other {# personas les gusta esta opción.}}'
-                maybe: '{count, plural, =1 {A una persona quizás le gusta esta opción.} other {# personas quizás les guste esta opción.}}'
-                no: '{count, plural, =1 {A una persona no le gustan estas opciones.} other {# personas no les gustan estas opciones.}}'
-        lastParticipation: 'La última persona participó hace {ago}.'
-        participants: '{count, plural, =1 {Una personas participó en la encuesta.} other {# personas participaron en la encuesta.}}'
-    input:
-        newUserName:
-            label: Nombre
-            placeholder: 'Tu nombre'
-        showEvaluation:
-            hide: Esconder
-            show: Mostrar
-    link:
-        copied: 'Enlace copiado al portapapeles.'
-        copy-label: 'Copiar enlace al portapapeles'
-        selected: 'Enlace seleccionado. Presiona Comando+C para copiarlo.'
-    modal:
-        timezoneDiffers:
-            title: '¿Que zona horaria deseas utilizar para mostrar los datos?'
-            body: 'La encuesta ha sido configurada para una zona horaria distinta de tu hora local. ¿Con qué zona horaria debería mostrarse la información?'
-            button:
-                useLocalTimezone: 'mi zona horaria'
-                usePollTimezone: 'la zona horaria original'
-    share:
-        title: 'Comparte el enlace e invita a otras personas a la encuesta.'
-        notice: 'Cualquiera que conozca el enlace podrá ver tu encuesta. Si esta contiene información privada deberías compartir el enlace únicamente mediante un correo electrónico encriptado o mediante chat con encriptación de-punto-a-punto.'
+  created-date: 'Creada el {date}.'
+  expiration-date: 'Expires on {date}.'
+  expiration-date-warning: 'This poll expires {timeToNow} and will be deleted afterwards.'
+  tab-title:
+    participation: Participation
+    evaluation: Evaluation
+  error:
+    newUser:
+      everyOptionIsAnswered: 'Por favor responde a todas las opciones.'
+    newUserName: 'Tienes que poner un nombre.'
+  evaluation:
+    label: Evaluar
+    overview: Supervisar
+    participantTable: 'Participantes y respuestas'
+    bestOption:
+      label:
+        findADate: '{count, plural, =1 {La fecha preferida es} other {Las fechas preferidas
+          son}}'
+        makeAPoll: '{count, plural, =1 {La opción preferida es} other {Las opciones
+          preferidas son}}'
+    bestOptionParticipants:
+      findADate:
+        yes: '{count, plural, =1 {Una persona tiene tiempo.} other {# personas tienen
+          tiempo.}}'
+        maybe: '{count, plural, =1 {Una persona quizás tiene tiempo.} other {# personas
+          quizás tienen tiempo.}}'
+        no: '{count, plural, =1 {Una persona no tiene tiempo.} other {# personas no
+          tienen tiempo.}}'
+      makeAPoll:
+        yes: '{count, plural, =1 {A una persona le gusta esta opción.} other {# personas
+          les gusta esta opción.}}'
+        maybe: '{count, plural, =1 {A una persona quizás le gusta esta opción.} other
+          {# personas quizás les guste esta opción.}}'
+        no: '{count, plural, =1 {A una persona no le gustan estas opciones.} other
+          {# personas no les gustan estas opciones.}}'
+    lastParticipation: 'La última persona participó hace {ago}.'
+    participants: '{count, plural, =1 {Una personas participó en la encuesta.} other
+      {# personas participaron en la encuesta.}}'
+  input:
+    newUserName:
+      label: Nombre
+      placeholder: 'Tu nombre'
+    showEvaluation:
+      hide: Esconder
+      show: Mostrar
+  link:
+    copied: 'Enlace copiado al portapapeles.'
+    copy-label: 'Copiar enlace al portapapeles'
+    selected: 'Enlace seleccionado. Presiona Comando+C para copiarlo.'
+  modal:
+    timezoneDiffers:
+      title: '¿Que zona horaria deseas utilizar para mostrar los datos?'
+      body: 'La encuesta ha sido configurada para una zona horaria distinta de tu
+        hora local. ¿Con qué zona horaria debería mostrarse la información?'
+      button:
+        useLocalTimezone: 'mi zona horaria'
+        usePollTimezone: 'la zona horaria original'
+  share:
+    title: 'Comparte el enlace e invita a otras personas a la encuesta.'
+    notice: 'Cualquiera que conozca el enlace podrá ver tu encuesta. Si esta contiene
+      información privada deberías compartir el enlace únicamente mediante un correo
+      electrónico encriptado o mediante chat con encriptación de-punto-a-punto.'
 pollTypes:
-    findADate:
-        label: 'Querría crear una fecha (p. ej. fecha para una reunión).'
-    makeAPoll:
-        label: 'Querría responder a una pregunta (p. ej. ¿con que tomas el café?).'
+  findADate:
+    label: 'Querría crear una fecha (p. ej. fecha para una reunión).'
+  makeAPoll:
+    label: 'Querría responder a una pregunta (p. ej. ¿con que tomas el café?).'
 times: Horarios
 errors:
-    description: 'Este campo'
-    inclusion: '{description} no está en la lista'
-    exclusion: '{description} está reservada'
-    invalid: '{description} no es válida'
-    confirmation: '{description} no encaja con {attribute}'
-    accepted: '{description} debe ser aceptado/a'
-    empty: '{description} no puede estar vacio'
-    blank: '{description} no puede estar en blanco'
-    present: '{description} debe estar en blanco'
-    answerRequired: 'Hay que escoger una respuesta.'
-    collection: '{description} tiene que ser una colección'
-    singular: '{description} no puede ser una colección'
-    tooLong: '{description} es demasiado largo/a (el máximo son {max} caractéres)'
-    tooShort: '{description} es muy corto/a (el mínimo son {min} caractéres)'
-    before: '{description} debe de ser antes de {date}'
-    after: '{description} debe de ser después de {date}'
-    wrongDateFormat: '{description} tiene que estar en el formato de {date}'
-    wrongLength: '{description} tiene una longitud erronea (debería de ser {is} caractéres)'
-    notANumber: '{description} no es un número'
-    notAnInteger: '{description} debe de ser un número entero'
-    greaterThan: '{description} debe de ser mayor que {count}'
-    greaterThanOrEqualTo: '{description} debe de ser mayour o igual que {count}'
-    equalTo: '{description} debe de ser igual que {count}'
-    lessThan: '{description} debe de ser menor que {count}'
-    lessThanOrEqualTo: '{description} debe de ser menor o igual que {count}'
-    otherThan: '{description} debe de ser distinto de {count}'
-    odd: '{description} debe de ser impar'
-    even: '{description} debe de ser par'
-    positive: '{description} debe de ser positivo'
-    date: '{description} debe de ser una fecha válida'
-    email: '{description} debe de ser una dirección de e-mail valida'
-    phone: '{description} debe de ser un número de teléfono valido'
-    url: '{description} debe de ser una URL valida'
-    time: '{description} debe de ser un horario valido (p.ej. 10:45)'
-    timeNotPartially: 'Partially times are not supported'
-    unique: '{description} deben ser explícitas'
-    uniqueName: 'Este nombre ya está usado'
+  description: 'Este campo'
+  inclusion: '{description} no está en la lista'
+  exclusion: '{description} está reservada'
+  invalid: '{description} no es válida'
+  confirmation: '{description} no encaja con {attribute}'
+  accepted: '{description} debe ser aceptado/a'
+  empty: '{description} no puede estar vacio'
+  blank: '{description} no puede estar en blanco'
+  present: '{description} debe estar en blanco'
+  answerRequired: 'Hay que escoger una respuesta.'
+  collection: '{description} tiene que ser una colección'
+  singular: '{description} no puede ser una colección'
+  tooLong: '{description} es demasiado largo/a (el máximo son {max} caractéres)'
+  tooShort: '{description} es muy corto/a (el mínimo son {min} caractéres)'
+  before: '{description} debe de ser antes de {date}'
+  after: '{description} debe de ser después de {date}'
+  wrongDateFormat: '{description} tiene que estar en el formato de {date}'
+  wrongLength: '{description} tiene una longitud erronea (debería de ser {is} caractéres)'
+  notANumber: '{description} no es un número'
+  notAnInteger: '{description} debe de ser un número entero'
+  greaterThan: '{description} debe de ser mayor que {count}'
+  greaterThanOrEqualTo: '{description} debe de ser mayour o igual que {count}'
+  equalTo: '{description} debe de ser igual que {count}'
+  lessThan: '{description} debe de ser menor que {count}'
+  lessThanOrEqualTo: '{description} debe de ser menor o igual que {count}'
+  otherThan: '{description} debe de ser distinto de {count}'
+  odd: '{description} debe de ser impar'
+  even: '{description} debe de ser par'
+  positive: '{description} debe de ser positivo'
+  date: '{description} debe de ser una fecha válida'
+  email: '{description} debe de ser una dirección de e-mail valida'
+  phone: '{description} debe de ser un número de teléfono valido'
+  url: '{description} debe de ser una URL valida '
+  time: '{description} debe de ser un horario valido (p.ej. 10:45)'
+  timeNotPartially: 'Partially times are not supported'
+  unique: '{description} deben ser explícitas'
+  uniqueName: 'Este nombre ya está usado'
