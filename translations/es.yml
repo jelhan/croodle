@@ -244,7 +244,7 @@ errors:
     date: '{description} debe de ser una fecha válida'
     email: '{description} debe de ser una dirección de correo electrónico valida'
     phone: '{description} debe de ser un número de teléfono valido'
-    url: '{description} debe de ser una URL valida '
+    url: '{description} debe de ser una URL valida'
     time: '{description} debe de ser un horario valido (p.ej. 10:45)'
     timeNotPartially: 'Partially times are not supported'
     unique: '{description} deben ser explícitas'
