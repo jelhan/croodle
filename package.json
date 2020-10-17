@@ -82,7 +82,7 @@
     "loader.js": "^4.7.0",
     "open-iconic": "^1.1.1",
     "qunit-dom": "^0.9.2",
-    "release-it": "^13.0.0",
+    "release-it": "^14.0.0",
     "release-it-lerna-changelog": "^2.0.0",
     "sass": "^1.19.0",
     "sjcl": "^1.0.8"
