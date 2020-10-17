@@ -252,7 +252,7 @@ errors:
     date: '{description} muss ein gültiges datum sein'
     email: '{description} muss eine gültige E-Mail-Adresse sein'
     phone: '{description} muss eine gültige Telefonnummer sein'
-    url: '{description} muss eine gültige URL sein '
+    url: '{description} muss eine gültige URL sein'
     time: '{description} muss eine gültige Zeit sein (z.B. 10:45)'
     timeNotPartially: 'Zeiten müssen vollständig sein'
     unique: '{description} müssen eindeutig sein'
