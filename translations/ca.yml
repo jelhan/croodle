@@ -1,5 +1,5 @@
 action:
-    abort: Abort
+    abort: Cancel·la
     back: Enrere
     next: Següent
     save: Desa
@@ -83,19 +83,19 @@ create:
 error:
     poll:
         decryptionFailed:
-            title: 'Decryption failed'
-            description: 'Decrypting poll data failed. This is most likely caused by a wrong encryption key. Please double-check the URL entered, especially the part after the question mark.'
+            title: 'La desencriptació va fallar'
+            description: 'Desencriptant dada de sondeig va fallar. Això és més probablement causat per una clau d''encriptació incorrecta. Per favor doble-comprova el URL va entrar, especialment la part després del signe d''interrogació.'
         notFound:
-            title: 'Poll could not be found'
-            description: 'The poll you are looking for could not be found. This could be caused by different reasons, including:'
+            title: 'No hem pogut trobar el sondeig'
+            description: 'El sondeig que estàs buscant no l''hem pogut trobar per diverses raons, incloent:'
             reasons:
-                expired: 'The poll is expired and has been deleted.'
-                typo: 'There is a typo in the URL. You may want to double-check it - especially the part before the question mark.'
-        savingFailed: 'The poll could not be saved. Please try again in a few seconds.'
+                expired: 'El sondeig ha caducat i ha estat eliminat.'
+                typo: 'Hi ha un error tipogràfic en la URL. Pots tornar a comprovar el que has posat, especialment la part anterior al signe d''interrogació.'
+        savingFailed: 'No hem pogut guardar el sondeig, si us plau, intenta''l de nou en uns segons.'
     generic:
         unexpected:
-            title: 'An unexpected error occured'
-            description: 'We are sorry. An unexpected error occurred. Please try again later.'
+            title: 'Va ocórrer unerror inesperat.'
+            description: 'El sentim. Va ocórrer un error inesperat. Si us plau intenta-ho més tard.'
 index:
     title: 'Croodle simplifica la data i la presa de decisions …<br/>… i protegeix les teves dades'
     features:
@@ -209,6 +209,6 @@ errors:
     phone: '{description} ha de ser un número de telèfon vàlid'
     url: '{description} ha de ser un URL vàlid '
     time: '{description} ha de ser un orari vàlid (p. ex. 10:45)'
-    timeNotPartially: 'Partially times are not supported'
+    timeNotPartially: 'Temps parcials no estan suportats.'
     unique: '{description} ha de ser explícita'
     uniqueName: 'Aquest nom ja s''ha usat'

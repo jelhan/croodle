@@ -1,6 +1,6 @@
 action:
-    abort: Abort
-    back: Atras
+    abort: Cancelar
+    back: Atrás
     next: Siguiente
     save: Guardar
 answerTypes:
@@ -83,19 +83,19 @@ create:
 error:
     poll:
         decryptionFailed:
-            title: 'Decryption failed'
-            description: 'Decrypting poll data failed. This is most likely caused by a wrong encryption key. Please double-check the URL entered, especially the part after the question mark.'
+            title: 'Falló al desencriptar'
+            description: 'La información de la encuesta falló al ser desencriptada. Lo más probable es que sea debido a una llave de encriptación errónea. Repasa y comprueba la URL que pusiste, sobre todo la parte que sigue al signo de interrogación' 
         notFound:
-            title: 'Poll could not be found'
-            description: 'The poll you are looking for could not be found. This could be caused by different reasons, including:'
+            title: 'La encuesta no se encontró'
+            description: 'La encuesta que estás buscando no se pudo encontrar. Esto puede ser debido a diversos motivos, entre ello:'
             reasons:
-                expired: 'The poll is expired and has been deleted.'
-                typo: 'There is a typo in the URL. You may want to double-check it - especially the part before the question mark.'
-        savingFailed: 'The poll could not be saved. Please try again in a few seconds.'
+                expired: 'La encuesta ha expirado y ha sido borrada'
+                typo: 'Hay un error al teclear la URL. Por favor, comprueba que la has escrito bien, sobre todo la parte anterior al signo de interrogación.'
+        savingFailed: 'La encuesta no pude ser guardada. Por favor prueba de nuevo en unos segundos.'
     generic:
         unexpected:
-            title: 'An unexpected error occured'
-            description: 'We are sorry. An unexpected error occurred. Please try again later.'
+            title: 'Ocurrió un error inesperado'
+            description: 'Lo sentimos. Ocurrió un error inesperado. Por favor inténtalo más tarde.'
 index:
     title: 'Croodle simplifica las citas y la toma de decisiones …<br/>… y al mismo tiempo protege tus datos'
     features:
@@ -116,21 +116,21 @@ modal:
         title: 'Error al guardar'
         text: '<p>Tu inscripción no pudo ser guardada. Por favor, comprueba tu conexión a internet e inténtalo de nuevo.</p><p>Si esto no ayuda, podría ser debido a un breve fallo en el servidor. Por favor, espera unos minutos e inténtalo de nuevo. Puedes esperar mientras la página se abre.</p><p>Si los problemas continúan, por favor, contacte al administrador de la página.</p>'
         button-retry: Reintentar
-options: Options
+options: 'Opciones'
 poll:
     created-date: 'Creada el {date}.'
     expiration-date: 'Expires on {date}.'
     expiration-date-warning: 'This poll expires {timeToNow} and will be deleted afterwards.'
     tab-title:
-        participation: Participation
-        evaluation: Evaluation
+        participation: 'Participación'
+        evaluation: 'Evaluar'
     error:
         newUser:
             everyOptionIsAnswered: 'Por favor responde a todas las opciones.'
         newUserName: 'Tienes que poner un nombre.'
     evaluation:
-        label: Evaluar
-        overview: Supervisar
+        label: 'Evaluar'
+        overview: 'Supervisar'
         participantTable: 'Participantes y respuestas'
         bestOption:
             label:
@@ -209,6 +209,6 @@ errors:
     phone: '{description} debe de ser un número de teléfono valido'
     url: '{description} debe de ser una URL valida'
     time: '{description} debe de ser un horario valido (p.ej. 10:45)'
-    timeNotPartially: 'Partially times are not supported'
+    timeNotPartially: 'Los tiempos parciales no están soportados, no pueden utilizarse.'
     unique: '{description} deben ser explícitas'
     uniqueName: 'Este nombre ya está usado'
