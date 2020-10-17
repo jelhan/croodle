@@ -1,208 +1,210 @@
 poll:
-  error:
-    newUserName: Du må skrive inn et brukernavn
-    newUser:
-      everyOptionIsAnswered: Besvar alle alternativene.
-  share:
-    notice: Alle med lenken kan se avstemmingen din. Hvis den inneholder privat data,
-      bør du sende den per kryptert e-post eller sludring med ende-til-ende- kryptering.
-    title: Del lenken og inviter andre til avstemmingen.
-  modal:
-    timezoneDiffers:
-      body: Avstemmingen ble opprettet for en tidssone som skiller seg fra din lokaltid.
-        Hvilken tidssone skal datoene presenteres i?
-      title: Hvilke tidssoner skal datoene vises i?
-      button:
-        usePollTimezone: Opprinnelig tidssone
-        useLocalTimezone: Min tidssone
-  evaluation:
-    lastParticipation: Siste person tok del {ago}.
-    participantTable: Deltagere og svarene deres
-  tab-title:
-    participation: Ta del
-    evaluation: Vurdering
-  expiration-date-warning: Denne avstemmingen utløper {timeToNow} og vil slettes etterpå.
-  link:
-    selected: Lenke valgt. Trykk Command+C for å kopiere.
-    copy-label: Kopier lenke til utklippstavle
-    copied: Lenke kopiert til utklippstavle.
-  input:
-    showEvaluation:
-      show: Vis
-      hide: Skjul
-    newUserName:
-      placeholder: Ditt navn
-      label: Navn
-  expiration-date: Utløper {date}.
-  created-date: Opprettet {date}.
+    error:
+        newUserName: Du må skrive inn et brukernavn
+        newUser:
+            everyOptionIsAnswered: Besvar alle alternativene.
+    share:
+        notice: Alle med lenken kan se avstemmingen din. Hvis den inneholder privat
+            data, bør du sende den per kryptert e-post eller sludring med ende-til-ende-
+            kryptering.
+        title: Del lenken og inviter andre til avstemmingen.
+    modal:
+        timezoneDiffers:
+            body: Avstemmingen ble opprettet for en tidssone som skiller seg fra din
+                lokaltid. Hvilken tidssone skal datoene presenteres i?
+            title: Hvilke tidssoner skal datoene vises i?
+            button:
+                usePollTimezone: Opprinnelig tidssone
+                useLocalTimezone: Min tidssone
+    evaluation:
+        lastParticipation: Siste person tok del {ago}.
+        participantTable: Deltagere og svarene deres
+    tab-title:
+        participation: Ta del
+        evaluation: Vurdering
+    expiration-date-warning: Denne avstemmingen utløper {timeToNow} og vil slettes
+        etterpå.
+    link:
+        selected: Lenke valgt. Trykk Command+C for å kopiere.
+        copy-label: Kopier lenke til utklippstavle
+        copied: Lenke kopiert til utklippstavle.
+    input:
+        showEvaluation:
+            show: Vis
+            hide: Skjul
+        newUserName:
+            placeholder: Ditt navn
+            label: Navn
+    expiration-date: Utløper {date}.
+    created-date: Opprettet {date}.
 index:
-  title: Croodle forenkler datovalg og avgjørelser …<br/>… og beskytter din data
-  hoster:
-    text: 'Du trenger ikke å stole på denne Croodle-en. Croodle er fri programvare
-      og du kan installere det på din egen tjener. Du trenger kun noen megabyte tjenerplass,
-      PHP og SSL-kryptering. Programvare og tips for installasjon er å finne her:
-      {gitHubLink}.'
-    title: 'Vertstjen din egen Croodle:'
-  features:
-    list:
-      privacy: Din data forblir privat. Den vil bli <strong>kryptert</strong> direkte
-        i din nettleser. Kun folk som folk mpttar lenken for avstemmingen vil vite
-        hva den dreier seg om.
-      answers: Du kan bruke <strong>forhåndsdefinerte svaralternativer</strong>, for
-        eksempel <i>ja</i>, <i>nei</i>, <i>kanskje</i> eller tillate <strong>fritekstsvar</strong>.
-      options: Du kan bestemme så mange <strong>svaralternativer</strong> du ønsker.
-        Du kan velge din favorittdato i <strong>kalenderen</strong> eller opprette
-        <strong>hvilket spørsmål som helst</strong>.
-      overview: <strong>Finn en dato</strong> eller <strong>opprett en avstemming</strong>
-        med så mange folk du ønsker.
-    title: Funksjoner
-  link:
-    have-a-try: Prøv det nå
+    title: Croodle forenkler datovalg og avgjørelser …<br/>… og beskytter din data
+    hoster:
+        text: 'Du trenger ikke å stole på denne Croodle-en. Croodle er fri programvare
+            og du kan installere det på din egen tjener. Du trenger kun noen megabyte
+            tjenerplass, PHP og SSL-kryptering. Programvare og tips for installasjon
+            er å finne her: {gitHubLink}.'
+        title: 'Vertstjen din egen Croodle:'
+    features:
+        list:
+            privacy: Din data forblir privat. Den vil bli <strong>kryptert</strong>
+                direkte i din nettleser. Kun folk som folk mpttar lenken for avstemmingen
+                vil vite hva den dreier seg om.
+            answers: Du kan bruke <strong>forhåndsdefinerte svaralternativer</strong>,
+                for eksempel <i>ja</i>, <i>nei</i>, <i>kanskje</i> eller tillate <strong>fritekstsvar</strong>.
+            options: Du kan bestemme så mange <strong>svaralternativer</strong> du
+                ønsker. Du kan velge din favorittdato i <strong>kalenderen</strong>
+                eller opprette <strong>hvilket spørsmål som helst</strong>.
+            overview: <strong>Finn en dato</strong> eller <strong>opprett en avstemming</strong>
+                med så mange folk du ønsker.
+        title: Funksjoner
+    link:
+        have-a-try: Prøv det nå
 errors:
-  tooShort: '{description} er for kort (minst {min} tegn)'
-  greaterThan: '{description} må være større enn {count}'
-  unique: '{description} må være eksplisitt'
-  time: '{description} må være en gyldig tid (f.eks. 10:45)'
-  url: '{description} må være en gyldig nettadresse '
-  phone: '{description} må være et gyldig telefonnummer'
-  email: '{description} må være en gyldig e-postadresse'
-  date: '{description} må være en gyldig dato'
-  positive: '{description} må være positiv'
-  even: '{description} må være lik'
-  odd: '{description} kan ikke være lik'
-  otherThan: '{description} kan ikke være {count}'
-  lessThanOrEqualTo: '{description} må være lik eller mindre enn {count}'
-  lessThan: '{description} må være mer enn {count}'
-  equalTo: '{description} må være {count}'
-  greaterThanOrEqualTo: '{description} må være lik eller større enn {count}'
-  notAnInteger: '{description} må være et heltall'
-  notANumber: '{description} er ikke et tall'
-  after: '{description} må være etter {date}'
-  before: '{description} må være før {date}'
-  confirmation: '{description} samsvarer ikke med {attribute}'
-  exclusion: '{description} er reservert'
-  uniqueName: Dette navnet er allerede i bruk
-  tooLong: '{description} er for lang (maks. {max} tegn)'
-  singular: '{description} kan ikke være en samling'
-  collection: '{description} må være en samling'
-  present: '{description} må være tom'
-  blank: '{description} kan ikke være tom'
-  empty: '{description} kan ikke være tom'
-  accepted: '{description} må godtas'
-  inclusion: '{description} er ikke en del av listen'
-  description: Dette feltet
-  answerRequired: Et svar må velges
+    tooShort: '{description} er for kort (minst {min} tegn)'
+    greaterThan: '{description} må være større enn {count}'
+    unique: '{description} må være eksplisitt'
+    time: '{description} må være en gyldig tid (f.eks. 10:45)'
+    url: '{description} må være en gyldig nettadresse'
+    phone: '{description} må være et gyldig telefonnummer'
+    email: '{description} må være en gyldig e-postadresse'
+    date: '{description} må være en gyldig dato'
+    positive: '{description} må være positiv'
+    even: '{description} må være lik'
+    odd: '{description} kan ikke være lik'
+    otherThan: '{description} kan ikke være {count}'
+    lessThanOrEqualTo: '{description} må være lik eller mindre enn {count}'
+    lessThan: '{description} må være mer enn {count}'
+    equalTo: '{description} må være {count}'
+    greaterThanOrEqualTo: '{description} må være lik eller større enn {count}'
+    notAnInteger: '{description} må være et heltall'
+    notANumber: '{description} er ikke et tall'
+    after: '{description} må være etter {date}'
+    before: '{description} må være før {date}'
+    confirmation: '{description} samsvarer ikke med {attribute}'
+    exclusion: '{description} er reservert'
+    uniqueName: Dette navnet er allerede i bruk
+    tooLong: '{description} er for lang (maks. {max} tegn)'
+    singular: '{description} kan ikke være en samling'
+    collection: '{description} må være en samling'
+    present: '{description} må være tom'
+    blank: '{description} kan ikke være tom'
+    empty: '{description} kan ikke være tom'
+    accepted: '{description} må godtas'
+    inclusion: '{description} er ikke en del av listen'
+    description: Dette feltet
+    answerRequired: Et svar må velges
 pollTypes:
-  makeAPoll:
-    label: Jeg ønsker å besvare spørsmålet. (f.eks. «Hvor svarer kaffen best?»)
+    makeAPoll:
+        label: Jeg ønsker å besvare spørsmålet. (f.eks. «Hvor svarer kaffen best?»)
 modal:
-  save-retry:
-    title: Kunne ikke lagre.
-    button-retry: Prøv igjen
+    save-retry:
+        title: Kunne ikke lagre.
+        button-retry: Prøv igjen
 error:
-  poll:
-    notFound:
-      description: 'Finner ikke avstemmingen du leget etter. Dette kan ha flere årsaker,
-        inkludert:'
-      reasons:
-        typo: Det er en skrivefeil i nettadressen. Dobbeltsjekk den, spesielt delen
-          før spørsmålstegnet.
-        expired: Avstemmingen er utløpt, og har blitt slettet.
-      title: Kunne ikke finne avstemming
-    savingFailed: Kunne ikke lagre avstemming. Prøv igjen om noen sekunder.
-    decryptionFailed:
-      description: Dekryptering av avstemmingsdata mislyktes. Dette skjer antageligvis
-        fordi krypteringsnøkkelen ikke er riktig. Dobbeltsjekk nettadressen som er
-        skrevet inn, spesielt delen etter spørsmålstegnet.
-      title: Dekryptering mislyktes
-  generic:
-    unexpected:
-      description: Uventet feil inntraff. Prøv igjen senere.
-      title: Uventet feil
+    poll:
+        notFound:
+            description: 'Finner ikke avstemmingen du leget etter. Dette kan ha flere
+                årsaker, inkludert:'
+            reasons:
+                typo: Det er en skrivefeil i nettadressen. Dobbeltsjekk den, spesielt
+                    delen før spørsmålstegnet.
+                expired: Avstemmingen er utløpt, og har blitt slettet.
+            title: Kunne ikke finne avstemming
+        savingFailed: Kunne ikke lagre avstemming. Prøv igjen om noen sekunder.
+        decryptionFailed:
+            description: Dekryptering av avstemmingsdata mislyktes. Dette skjer antageligvis
+                fordi krypteringsnøkkelen ikke er riktig. Dobbeltsjekk nettadressen
+                som er skrevet inn, spesielt delen etter spørsmålstegnet.
+            title: Dekryptering mislyktes
+    generic:
+        unexpected:
+            description: Uventet feil inntraff. Prøv igjen senere.
+            title: Uventet feil
 create:
-  formStep:
+    formStep:
+        options:
+            text: Alternativer
+            days: Dager
+        settings: Innstillinger
+        options-datetime: Tider
+        meta: Tittel og beskrivelse
+        type: Type avstemming
+    title: Opprett avstemming
+    settings:
+        forceAnswer:
+            label: Krev svar for hvert alternativ?
+        expirationDurations:
+            never: Aldri
+            P1Y: Om et år
+            P6M: Om et halvt år
+            P3M: Om tre måneder
+            P1M: Om en måned
+            P7D: Om en uke
+        expirationDate:
+            label: Når skal avstemmingen din utløpe og bli slettet?
+        anonymousUser:
+            label: Tillat anonyme deltagere i avstemmingen?
+        answerType:
+            label: Hvilke svar skal være tilgjengelige?
+    options-datetime:
+        fix-validation-errors-first-day: Du må fikse alle bekreftelsesfeil på første
+            dag før kopiering.
+        error:
+            correctTimeFormat: Dager må skrives inn som time og minutter, inndelt
+                med kolon (f.eks. 13:00).
+            notEnoughTimes: Det må bestemmes minst én gyldig tid per dag. Hvis kun
+                én dag er valg, må minst to dager bestemmes.
+        copy-first-line: Kopier og lim inn tider for første dag til alle andre
+        more-inputs: Skriv inn andre tider
+        datetimes:
+            label: Tider
     options:
-      text: Alternativer
-      days: Dager
-    settings: Innstillinger
-    options-datetime: Tider
-    meta: Tittel og beskrivelse
-    type: Type avstemming
-  title: Opprett avstemming
-  settings:
-    forceAnswer:
-      label: Krev svar for hvert alternativ?
-    expirationDurations:
-      never: Aldri
-      P1Y: Om et år
-      P6M: Om et halvt år
-      P3M: Om tre måneder
-      P1M: Om en måned
-      P7D: Om en uke
-    expirationDate:
-      label: Når skal avstemmingen din utløpe og bli slettet?
-    anonymousUser:
-      label: Tillat anonyme deltagere i avstemmingen?
-    answerType:
-      label: Hvilke svar skal være tilgjengelige?
-  options-datetime:
-    fix-validation-errors-first-day: Du må fikse alle bekreftelsesfeil på første dag
-      før kopiering.
-    error:
-      correctTimeFormat: Dager må skrives inn som time og minutter, inndelt med kolon
-        (f.eks. 13:00).
-      notEnoughTimes: Det må bestemmes minst én gyldig tid per dag. Hvis kun én dag
-        er valg, må minst to dager bestemmes.
-    copy-first-line: Kopier og lim inn tider for første dag til alle andre
-    more-inputs: Skriv inn andre tider
-    datetimes:
-      label: Tider
-  options:
-    input:
-      moreOptions:
-        label: Legg til andre svaralternativer
-    defineTimes:
-      label: Bestem tid?
-    error:
-      notEnoughDates: Minst én dag må velges
-    dates:
-      label: Dager
-    options:
-      label: Svaralternativer
-    button:
-      delete:
-        label: Slett dette alternativet
-      add:
-        label: Legg til et annet alternativ etter dette
-  meta:
-    input:
-      description:
-        placeholder: 'Valgfritt: Legg til en beskrivelse av avstemmingen.'
-        label: Beskrivelse
-      title:
-        placeholder: Legg til en avstemmingstittel.
-        label: Tittel
-  index:
-    input:
-      pollType:
-        label: Hva er formålet med avstemmingen?
+        input:
+            moreOptions:
+                label: Legg til andre svaralternativer
+        defineTimes:
+            label: Bestem tid?
+        error:
+            notEnoughDates: Minst én dag må velges
+        dates:
+            label: Dager
+        options:
+            label: Svaralternativer
+        button:
+            delete:
+                label: Slett dette alternativet
+            add:
+                label: Legg til et annet alternativ etter dette
+    meta:
+        input:
+            description:
+                placeholder: 'Valgfritt: Legg til en beskrivelse av avstemmingen.'
+                label: Beskrivelse
+            title:
+                placeholder: Legg til en avstemmingstittel.
+                label: Tittel
+    index:
+        input:
+            pollType:
+                label: Hva er formålet med avstemmingen?
 times: Tider
 options: Alternativer
 answerTypes:
-  yesNoMaybe:
-    label: Ja, nei, kanskje
-  yesNo:
-    label: Ja, nei
-  freeText:
-    label: Fri tekst
-  maybe:
-    label: Kanskje
-  no:
-    label: Nei
-  yes:
-    label: Ja
+    yesNoMaybe:
+        label: Ja, nei, kanskje
+    yesNo:
+        label: Ja, nei
+    freeText:
+        label: Fri tekst
+    maybe:
+        label: Kanskje
+    no:
+        label: Nei
+    yes:
+        label: Ja
 action:
-  save: Lagre
-  next: Neste
-  back: Tilbake
-  abort: Avbryt
+    save: Lagre
+    next: Neste
+    back: Tilbake
+    abort: Avbryt
