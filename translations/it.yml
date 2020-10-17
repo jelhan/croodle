@@ -209,6 +209,6 @@ errors:
     phone: '{description} deve essere un numero di telefono valido.'
     url: '{description} deve essere un URL valido '
     time: '{description} deve essere un orario valido (ad es. 10:45)'
-    timeNotPartially: 'I tempi parziali non sono sopportati.'
+    timeNotPartially: "L'orario deve specificare sia le ore che i minuti."
     unique: '{description} deve essere esplicito'
     uniqueName: 'Questo nome è già stato usato'
