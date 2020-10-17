@@ -97,24 +97,40 @@ error:
             title: 'Si è verificato un errore inaspettato.'
             description: 'Siamo spiacenti, ma si è verificato un errore inaspettato. Per favore, riprova più tardi.'
 index:
-    title: 'Croodle semplifica la scelta delle date e il processo decisionale …<br/>… e protegge i tuoi dati'
+    title: 'Croodle semplifica la scelta delle date e il processo decisionale …<br/>…
+        e protegge i tuoi dati'
     features:
         title: funzioni
         list:
-            overview: '<strong>Stabilisci una data</strong> o <strong>fai un sondaggio</strong> con tanti partecipanti.'
-            privacy: 'I tuoi dati rimangono privati. Saranno <stron>cifrati</strong> a partire dal browser. Solo le persone che ricevono il link del sondaggio potranno conoscerne i dettagli.'
-            options: 'Potrai determinare quante <strong>opzioni di ristposta</stron> ne vuoi. Potrai scegliere la tua data preferita nel <strong>calendario</strong> o creare <strong>qualsiasi domanda</strong>.'
-            answers: 'Potrai utilizare delle <strong>risposte predefinite</strong>, ad esempio  <i>si</i>, <i>no</i>, <i>può essere</i> o creare le <strong>tue proprie risposte</strong>.'
-            evaluation: 'Avrai una panoramica attualizzata <strong>delle risposte preferite</strong>.'
+            overview: '<strong>Stabilisci una data</strong> o <strong>fai un sondaggio</strong>
+                con tanti partecipanti.'
+            privacy: 'I tuoi dati rimangono privati. Saranno <strong>cifrati</strong>
+                a partire dal browser. Solo le persone che ricevono il collegamento
+                del sondaggio potranno conoscerne i dettagli.'
+            options: 'Potrai determinare quante <strong>opzioni di ristposta</strong>
+                ne vuoi. Potrai scegliere la tua data preferita nel <strong>calendario</strong>
+                o creare <strong>qualsiasi domanda</strong>.'
+            answers: 'Potrai utilizare delle <strong>risposte predefinite</strong>,
+                ad esempio <i>si</i>, <i>no</i>, <i>può essere</i> o creare le <strong>tue
+                proprie risposte</strong>.'
+            evaluation: 'Avrai una panoramica attualizzata <strong>delle risposte
+                preferite</strong>.'
     link:
         have-a-try: 'Provalo subito'
     hoster:
         title: 'Installa il tuo prorio Croodle:'
-        text: 'Non devi per forza fidarti di questo Croodle. Croodle è un software libero che puoi installare in locale. Ti servono solamente pochi MB di spazio su disco, PHP, e supporto per SSL. Codice sorgente e documentazione sono disponibili qui: {gitHubLink}.'
+        text: 'Non devi per forza fidarti di questo Croodle. Croodle è un software
+            libero che puoi installare in locale. Ti servono solamente pochi MB di
+            spazio su disco, PHP, e supporto per SSL. Codice sorgente e documentazione
+            sono disponibili qui: {gitHubLink}.'
 modal:
     save-retry:
         title: 'Salvataggio fallito.'
-        text: '<p> Impossibile salvare le tue risposte. Per favore controlla la tua connessione Internet e prova di nuovo.</p><p>Se questo non funziona, prova a riavviare il server, e attendi un minuto prima di tentare di nuovo. Puoi lasciare aperta la pagina.</p><p>Se i problemi persistono, contatta l''amministratore di questo sito.</p>'
+        text: '<p> Impossibile salvare le tue risposte. Per favore controlla la tua
+            connessione Internet e prova di nuovo.</p><p>Se questo non funziona, prova
+            a riavviare il server, e attendi un minuto prima di tentare di nuovo.
+            Puoi lasciare aperta la pagina.</p><p>Se i problemi persistono, contatta
+            l''amministratore di questo sito.</p>'
         button-retry: Riprova
 options: Opzioni
 poll:
@@ -126,7 +142,7 @@ poll:
         evaluation: Risultati
     error:
         newUser:
-            everyOptionIsAnswered: 'Per favore, rispondi a tutte le opzioni'
+            everyOptionIsAnswered: 'Per favore, rispondi a tutte le opzioni.'
         newUserName: 'Devi inserire un nuovo nome utente.'
     evaluation:
         label: Risultati
@@ -134,19 +150,28 @@ poll:
         participantTable: 'Partecipanti e le loro risposte'
         bestOption:
             label:
-                findADate: '{count, plural, =1 {La data preferita è} other {Le date preferite sono}}'
-                makeAPoll: '{count, plural, =1 {L''opzione preferita è} other {Le opzioni preferite sono}}'
+                findADate: '{count, plural, =1 {La data preferita è} other {Le date
+                    preferite sono}}'
+                makeAPoll: '{count, plural, =1 {L''opzione preferita è} other {Le
+                    opzioni preferite sono}}'
         bestOptionParticipants:
             findADate:
-                yes: '{count, plural, =1 {Una persona è disponibile.} other {#  persone sono disponibili.}}'
-                maybe: '{count, plural, =1 {Una persona  forse è disponibile.} other {# persone forse sono disponibili.}}'
-                no: '{count, plural, =1 {Una persona non è disponibile.} other {# persone non sono disponibili.}}'
+                yes: '{count, plural, =1 {Una persona è disponibile.} other {# persone
+                    sono disponibili.}}'
+                maybe: '{count, plural, =1 {Una persona forse è disponibile.} other
+                    {# persone forse sono disponibili.}}'
+                no: '{count, plural, =1 {Una persona non è disponibile.} other {#
+                    persone non sono disponibili.}}'
             makeAPoll:
-                yes: '{count, plural, =1 {Una persona preferisce questa opzione.} other {# persone preferiscono questa opzione.}}'
-                maybe: '{count, plural, =1 {Una persona forse preferisce questa opzione.} other {# persone forse preferiscono questa opzione.}}'
-                no: '{count, plural, =1 {Ad una persona non piace questa opzione.} other {A # persone non piace questa opzione.}}'
+                yes: '{count, plural, =1 {Una persona preferisce questa opzione.}
+                    other {# persone preferiscono questa opzione.}}'
+                maybe: '{count, plural, =1 {Una persona forse preferisce questa opzione.}
+                    other {# persone forse preferiscono questa opzione.}}'
+                no: '{count, plural, =1 {Ad una persona non piace questa opzione.}
+                    other {A # persone non piace questa opzione.}}'
         lastParticipation: 'L''ultima persona ha partecipato fa {ago}.'
-        participants: '{count, plural, =1 {Una persona ha partecipato al sondaggio.} other {#  persone hanno partecipato al sondaggio.}}'
+        participants: '{count, plural, =1 {Una persona ha partecipato al sondaggio.}
+            other {# persone hanno partecipato al sondaggio.}}'
     input:
         newUserName:
             label: Nome
@@ -161,23 +186,27 @@ poll:
     modal:
         timezoneDiffers:
             title: 'In quale fuso orario devono essere presentate le date?'
-            body: 'Il sondaggio è stato creato per un fuso orario diverso dal tuo. In quali orari devono essere presentate le date?'
+            body: 'Il sondaggio è stato creato per un fuso orario diverso dal tuo.
+                In quali orari devono essere presentate le date?'
             button:
-                useLocalTimezone: 'Il mio fuso orario.'
-                usePollTimezone: 'Fuso orario originale.'
+                useLocalTimezone: 'Il mio fuso orario'
+                usePollTimezone: 'Fuso orario originale'
     share:
         title: 'Condividi il link e invita altre persone al sondaggio.'
-        notice: 'Tutti quelli che hanno il link possono accedere al tuo sondaggio. Se il sondaggio contiene dati sensibili, inoltralo unicamente tramite una mail cifrata o chat con crittografia end-to-end.'
+        notice: 'Tutti quelli che hanno il collegamento possono accedere al tuo sondaggio.
+            Se il sondaggio contiene dati sensibili, inoltralo unicamente tramite
+            posta elettronica cifrata o chat cifrato dall''inizio alla fine.'
 pollTypes:
     findADate:
         label: 'Voglio trovare una data. (ad es. orario e data per un appuntamento)'
     makeAPoll:
-        label: 'Voglio rispondere a una domanda. (ad es. Dove si prende meglio il caffè?)'
+        label: 'Voglio rispondere a una domanda. (ad es. Dove si prende meglio il
+            caffè?)'
 times: Orari
 errors:
     description: 'Questo campo'
     inclusion: '{description} non fa parte dell''elenco'
-    exclusion: '{description} è riservato.'
+    exclusion: '{description} è riservato'
     invalid: '{description} non si può applicare il valore'
     confirmation: '{description} non corrisponde a {attribute}'
     accepted: '{description} deve essere accettato'
@@ -206,8 +235,8 @@ errors:
     positive: '{description} deve essere positivo'
     date: '{description} deve essere una data valida'
     email: '{description} deve essere un indirizzo elettronico valido'
-    phone: '{description} deve essere un numero di telefono valido.'
-    url: '{description} deve essere un URL valido '
+    phone: '{description} deve essere un numero di telefono valido'
+    url: '{description} deve essere un URL valido'
     time: '{description} deve essere un orario valido (ad es. 10:45)'
     timeNotPartially: "L'orario deve specificare sia le ore che i minuti."
     unique: '{description} deve essere esplicito'
