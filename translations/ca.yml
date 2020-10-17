@@ -243,7 +243,7 @@ errors:
     date: '{description} ha de ser una data valida'
     email: '{description} ha de ser una adreça vàlida de correu electrònic'
     phone: '{description} ha de ser un número de telèfon vàlid'
-    url: '{description} ha de ser un URL vàlid '
+    url: '{description} ha de ser un URL vàlid'
     time: '{description} ha de ser un orari vàlid (p. ex. 10:45)'
     timeNotPartially: 'Partially times are not supported'
     unique: '{description} ha de ser explícita'
