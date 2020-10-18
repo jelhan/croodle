@@ -79,7 +79,7 @@ jobs:
           CI: true
         run: yarn build --environment test
       - name: run tests in chrome
-        run: yarn test --launch Chrome --path dist
+        run: yarn test:ember --launch Chrome --path dist
   test-firefox:
     name: test in firefox
     runs-on: ubuntu-latest
@@ -97,7 +97,7 @@ jobs:
           CI: true
         run: yarn build --environment test
       - name: run tests in firefox
-        run: yarn test --launch Firefox --path dist
+        run: yarn test:ember --launch Firefox --path dist
   test-backend:
     name: Test php backend
     runs-on: ubuntu-latest

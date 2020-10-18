@@ -35,7 +35,7 @@ before_script:
 
 script:
   # run tests on BrowserStack
-  - yarn test --config-file testem.browserstack.js
+  - yarn test:ember --config-file testem.browserstack.js
 
 after_script:
   # destroy the sauce tunnel
