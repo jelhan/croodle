@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -19,8 +21,15 @@ module.exports = {
     browser: true,
   },
   rules: {
+    // Croodle is not compliant with some of the recommended rules yet.
+    // We should refactor the code step by step and enable them as soon
+    // as the code is compliant.
+    'ember/no-get': 'warn',
     'ember/no-observers': 'warn',
-    'ember/no-jquery': 'error',
+    'ember/require-computed-property-dependencies': 'warn',
+    'no-prototype-builtins': 'warn',
+    'no-setter-return': 'warn',
+    'no-useless-catch': 'warn',
   },
   overrides: [
     // node files
@@ -43,13 +52,12 @@ module.exports = {
         node: true
       },
       plugins: ['node'],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        // add your custom rules and overrides for node files here
-
+      extends: ['plugin:node/recommended'],
+      rules: {
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
         'node/no-unpublished-require': 'off'
-      })
+      }
     }
   ]
 };
