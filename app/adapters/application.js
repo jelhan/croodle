@@ -1,8 +1,7 @@
 import RESTAdapter from '@ember-data/adapter/rest';
 import { inject as service } from '@ember/service';
-import AdapterFetch from 'ember-fetch/mixins/adapter-fetch';
 
-export default class ApplicationAdapter extends RESTAdapter.extend(AdapterFetch) {
+export default class ApplicationAdapter extends RESTAdapter {
   @service
   encryption;
 
