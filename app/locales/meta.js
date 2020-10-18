@@ -6,4 +6,5 @@ export default {
   'es': 'español',
   'fr': 'français',
   'it': 'italiano',
+  'nb': 'norsk',
 };
