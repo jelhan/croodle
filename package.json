@@ -92,7 +92,7 @@
     "sjcl": "^1.0.8"
   },
   "engines": {
-    "node": "10.* || >= 12"
+    "node": "10.* >= v10.22.1"
   },
   "ember": {
     "edition": "octane"
