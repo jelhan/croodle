@@ -11,7 +11,7 @@ jobs:
     name: lint javascript
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -23,7 +23,7 @@ jobs:
     name: lint ember templates
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -35,7 +35,7 @@ jobs:
     name: test bundlesize
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install php
         uses: shivammathur/setup-php@v1
         with:
@@ -52,7 +52,7 @@ jobs:
     name: test CSP in .htaccess
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -64,7 +64,7 @@ jobs:
     name: test in chromium
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -84,7 +84,7 @@ jobs:
     name: test in firefox
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
