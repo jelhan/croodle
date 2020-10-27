@@ -61,7 +61,7 @@ jobs:
       - name: Run tests
         run: yarn test:csp-header
   test-chrome:
-    name: test in chromium
+    name: test against Chrome
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -81,7 +81,7 @@ jobs:
       - name: run tests in chrome
         run: yarn test:ember --launch Chrome --path dist
   test-firefox:
-    name: test in firefox
+    name: test against Firefox
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -99,7 +99,7 @@ jobs:
       - name: run tests in firefox
         run: yarn test:ember --launch Firefox --path dist
   test-browserstack:
-    name: test Safari in BrowserStack
+    name: test against additional browser in BrowserStack
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -124,7 +124,7 @@ jobs:
           local-logging-level: 'all-logs'
           local-identifier: 'random'
       - name: 'Running test on BrowserStack'
-        run: yarn test:ember --config-file testem.browserstack.js
+        run: yarn test:ember --config-file testem.browserstack.js --path dist
       - name: 'BrowserStackLocal Stop'
         uses: browserstack/github-actions/setup-local@master
         with:
