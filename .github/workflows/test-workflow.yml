@@ -98,6 +98,37 @@ jobs:
         run: yarn build --environment test
       - name: run tests in firefox
         run: yarn test:ember --launch Firefox --path dist
+  test-browserstack:
+    name: test Safari in BrowserStack
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install node modules
+        run: yarn install
+      - name: Build with test environment
+        env:
+          CI: true
+        run: yarn build --environment test
+      - name: 'BrowserStack Env Setup'
+        uses: 'browserstack/github-actions/setup-env@master'
+        with:
+          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+      - name: 'Start BrowserStackLocal Tunnel'
+        uses: 'browserstack/github-actions/setup-local@master'
+        with:
+          local-testing: 'start'
+          local-logging-level: 'all-logs'
+          local-identifier: 'random'
+      - name: 'Running test on BrowserStack'
+        run: yarn test:ember --config-file testem.browserstack.js
+      - name: 'BrowserStackLocal Stop'
+        uses: browserstack/github-actions/setup-local@master
+        with:
+          local-testing: stop
   test-backend:
     name: Test php backend
     runs-on: ubuntu-latest
