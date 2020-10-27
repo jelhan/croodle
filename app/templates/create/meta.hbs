@@ -8,13 +8,15 @@
     as |form|
   >
     <form.element
-      @autofocus={{true}}
       @controlType="text"
       @label={{t "create.meta.input.title.label"}}
       @placeholder={{t "create.meta.input.title.placeholder"}}
       @property="title"
       class="title"
-    />
+      as |el|
+    >
+      <el.control {{autofocus}} />
+    </form.element>
     <form.element
       @controlType="textarea"
       @label={{t "create.meta.input.description.label"}}

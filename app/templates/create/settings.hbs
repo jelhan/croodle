@@ -15,18 +15,18 @@
       class="answer-type"
       as |el|
     >
-      <AutofocusableElement
-        @tagName="select"
-        @change={{action "updateAnswerType" value="target.value"}}
+      <select
         id={{el.id}}
         class="custom-select"
+        {{on "change" (action "updateAnswerType" value="target.value")}}
+        {{autofocus}}
       >
         {{#each this.answerTypes as |answerType|}}
           <option value={{answerType.id}} selected={{eq el.value answerType.id}}>
             {{t answerType.labelTranslation}}
           </option>
         {{/each}}
-      </AutofocusableElement>
+      </select>
     </form.element>
     <form.element
       @controlType="select"

@@ -15,11 +15,11 @@
       class="poll-type"
       as |el|
     >
-      <AutofocusableElement
-        @tagName="select"
-        @change={{action (mut el.value) value="target.value"}}
+      <select
         id={{el.id}}
         class="form-control"
+        {{on "change" (action (mut el.value) value="target.value")}}
+        {{autofocus}}
       >
         <option value="FindADate" selected={{eq el.value "FindADate"}}>
           {{t "pollTypes.findADate.label"}}
@@ -27,7 +27,7 @@
         <option value="MakeAPoll" selected={{eq el.value "MakeAPoll"}}>
           {{t "pollTypes.makeAPoll.label"}}
         </option>
-      </AutofocusableElement>
+      </select>
     </form.element>
 
     <div class="row cr-steps-bottom-nav">
