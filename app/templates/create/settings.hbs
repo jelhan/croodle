@@ -2,9 +2,9 @@
   <BsForm
     @formLayout="horizontal"
     @model={{this}}
-    @novalidate={{true}}
     @onInvalid={{scroll-first-invalid-element-into-view-port }}
     @onSubmit={{action "submit"}}
+    novalidate
     as |form|
   >
     <form.element
