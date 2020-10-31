@@ -10,20 +10,26 @@
     <form.element
       @controlType="text"
       @label={{t "create.meta.input.title.label"}}
-      @placeholder={{t "create.meta.input.title.placeholder"}}
       @property="title"
       class="title"
       as |el|
     >
-      <el.control {{autofocus}} />
+      <el.control
+        placeholder={{t "create.meta.input.title.placeholder"}}
+        {{autofocus}}
+      />
     </form.element>
     <form.element
       @controlType="textarea"
       @label={{t "create.meta.input.description.label"}}
-      @placeholder={{t "create.meta.input.description.placeholder"}}
       @property="description"
       class="description"
-    />
+      as |el|
+    >
+      <el.control
+        placeholder={{t "create.meta.input.description.placeholder"}}
+      />
+    </form.element>
 
     <div class="row cr-steps-bottom-nav">
       <div class="col-6 col-md-8 order-12">

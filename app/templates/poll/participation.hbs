@@ -10,13 +10,15 @@
     <form.element
       @controlType="text"
       @label={{t "poll.input.newUserName.label"}}
-      @placeholder={{t "poll.input.newUserName.placeholder"}}
       @property="name"
       class="name"
       data-test-form-element="name"
       as |el|
     >
-      <el.control {{autofocus}} />
+      <el.control
+        placeholder={{t "poll.input.newUserName.placeholder"}}
+        {{autofocus}}
+      />
     </form.element>
     <div class="selections">
       {{#each this.selections as |selection|}}
