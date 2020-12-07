@@ -71,7 +71,7 @@
     "ember-page-title": "^5.0.0",
     "ember-power-calendar": "^0.16.0",
     "ember-power-calendar-moment": "^0.1.4",
-    "ember-qunit": "^4.6.0",
+    "ember-qunit": "^5.0.0",
     "ember-resolver": "^8.0.0",
     "ember-source": "~3.20.2",
     "ember-template-lint": "^2.9.1",
