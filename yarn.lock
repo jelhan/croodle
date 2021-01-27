@@ -6195,7 +6195,7 @@ ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.3, ember-cl
     rimraf "^3.0.1"
     semver "^5.5.0"
 
-ember-cli-babel@^7.1.2, ember-cli-babel@^7.11.0, ember-cli-babel@^7.11.1, ember-cli-babel@^7.18.0, ember-cli-babel@^7.22.1, ember-cli-babel@^7.23.0, ember-cli-babel@^7.4.1, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
+ember-cli-babel@^7.1.2, ember-cli-babel@^7.11.0, ember-cli-babel@^7.11.1, ember-cli-babel@^7.18.0, ember-cli-babel@^7.23.0, ember-cli-babel@^7.4.1, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
   version "7.23.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.23.0.tgz#ec580aa2c115d0810e454dd5c2fffce238284b92"
   integrity sha512-ix58DlRDAbGITtdJoRUPcAoQwKLYr/x/kIXjU9u1ATyhmuUjqb+0FDXghOWbkNihGiNOqBBR49+LBgK9AeBcNw==
@@ -6254,7 +6254,7 @@ ember-cli-babel@^7.12.0, ember-cli-babel@^7.13.0:
     ensure-posix-path "^1.0.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.19.0, ember-cli-babel@^7.21.0:
+ember-cli-babel@^7.19.0, ember-cli-babel@^7.21.0, ember-cli-babel@^7.22.1:
   version "7.23.1"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.23.1.tgz#d1517228ede08a5d4b045c78a7429728e956b30b"
   integrity sha512-qYggmt3hRs6QJ6cRkww3ahMpyP8IEV2KFrIRO/Z6hu9MkE/8Y28Xd5NjQl6fPV3oLoG0vwuHzhNe3Jr7Wec8zw==
@@ -7141,9 +7141,9 @@ ember-on-helper@^0.1.0:
     ember-cli-babel "^7.7.3"
 
 ember-page-title@^6.0.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-6.1.0.tgz#66a9bea3a197c8732d893f19d1075c62b75ba3a1"
-  integrity sha512-AogwY4D7ocpISuSfApT5DpSbCHmSLRCeX/x45ZMt9reI6Nf7Rcwd9I2bikesjBn6MviStrtjwQFmKN8mfMDNkQ==
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/ember-page-title/-/ember-page-title-6.2.0.tgz#d79f7422299ebb8f8ac819399596e8f54f01a0e9"
+  integrity sha512-mgzI59rVH6Q00uG1OnsbrSfic+MxFQbtsjX3BuDWGgU7hWahDhAAgaQrKIFx99aEqWoiL+OiX4tQLPnxyZEceA==
   dependencies:
     ember-cli-babel "^7.22.1"
 
