@@ -6,7 +6,7 @@
     "require-dev": {
         "flow/jsonpath": "^0.5.0",
         "vlucas/phpdotenv": "^3.6.6",
-        "codeception/codeception": "^3.1",
+        "codeception/codeception": "^4.0",
         "codeception/phpbuiltinserver": "^1.5"
     },
     "config": {
