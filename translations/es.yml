@@ -88,18 +88,25 @@ error:
     poll:
         decryptionFailed:
             title: 'Falló al desencriptar'
-            description: 'La información de la encuesta falló al ser desencriptada. Lo más probable es que sea debido a una llave de encriptación errónea. Repasa y comprueba la URL que pusiste, sobre todo la parte que sigue al signo de interrogación' 
+            description: 'La información de la encuesta falló al ser desencriptada.
+                Lo más probable es que sea debido a una llave de encriptación errónea.
+                Repasa y comprueba la URL que pusiste, sobre todo la parte que sigue
+                al signo de interrogación.'
         notFound:
             title: 'La encuesta no se encontró'
-            description: 'La encuesta que estás buscando no se pudo encontrar. Esto puede ser debido a diversos motivos, entre ello:'
+            description: 'La encuesta que estás buscando no se pudo encontrar. Esto
+                puede ser debido a diversos motivos, entre ello:'
             reasons:
-                expired: 'La encuesta ha expirado y ha sido borrada'
-                typo: 'Hay un error al teclear la URL. Por favor, comprueba que la has escrito bien, sobre todo la parte anterior al signo de interrogación.'
-        savingFailed: 'La encuesta no pude ser guardada. Por favor prueba de nuevo en unos segundos.'
+                expired: 'La encuesta ha expirado y ha sido borrada.'
+                typo: 'Hay un error al teclear la URL. Por favor, comprueba que la
+                    has escrito bien, sobre todo la parte anterior al signo de interrogación.'
+        savingFailed: 'La encuesta no pude ser guardada. Por favor prueba de nuevo
+            en unos segundos.'
     generic:
         unexpected:
             title: 'Ocurrió un error inesperado'
-            description: 'Lo sentimos. Ocurrió un error inesperado. Por favor inténtalo más tarde.'
+            description: 'Lo sentimos. Ocurrió un error inesperado. Por favor inténtalo
+                más tarde.'
 index:
     title: 'Croodle simplifica las citas y la toma de decisiones …<br/>… y al mismo
         tiempo protege tus datos'
@@ -109,8 +116,8 @@ index:
             overview: '<strong>Encontrar una fecha</strong> o <strong>hacer una encuesta</strong>
                 con la cantidad de personas que quieras.'
             privacy: 'Tus datos son privados: Ya desde tu navegador los datos son
-                <strong>encriptados</strong>. ünicamente las personas a las que mandes
-                el enlace directamente sabrán que tu encuesta existe y de que se trata.'
+                <strong>encriptados</strong>. Únicamente quienes reciban el enlace
+                a la encuesta sabrán de qué se trata.'
             options: 'Puedes incluir tantas <strong>opciones de respuesta</strong>
                 como quieras. Puedes elegir tus <strong>fechas preferidas</strong>
                 o escribir <strong>cualquier pregunta</strong>.'
@@ -139,8 +146,8 @@ modal:
 options: 'Opciones'
 poll:
     created-date: 'Creada el {date}.'
-    expiration-date: 'Expires on {date}.'
-    expiration-date-warning: 'This poll expires {timeToNow} and will be deleted afterwards.'
+    expiration-date: 'Caduca el {date}.'
+    expiration-date-warning: 'Esta encuesta caduca el {timeToNow} y después será borrada.'
     tab-title:
         participation: 'Participación'
         evaluation: 'Evaluar'
@@ -204,7 +211,7 @@ pollTypes:
     findADate:
         label: 'Querría crear una fecha (p. ej. fecha para una reunión)'
     makeAPoll:
-        label: 'Querría responder a una pregunta (p. ej. ¿con que tomas el café?).'
+        label: 'Querría responder a una pregunta (p. ej. ¿con que tomas el café?)'
 times: Horarios
 errors:
     description: 'Este campo'
@@ -241,6 +248,6 @@ errors:
     phone: '{description} debe de ser un número de teléfono valido'
     url: '{description} debe de ser una URL valida'
     time: '{description} debe de ser un horario valido (p.ej. 10:45)'
-    timeNotPartially: 'Los tiempos parciales no están soportados, no pueden utilizarse.'
+    timeNotPartially: 'Los tiempos parciales no están soportados, no pueden utilizarse'
     unique: '{description} deben ser explícitas'
     uniqueName: 'Este nombre ya está usado'
