@@ -19,6 +19,8 @@ poll:
     evaluation:
         lastParticipation: Siste person tok del {ago}.
         participantTable: Deltagere og svarene deres
+        overview: Oversikt
+        label: Vurdering
     tab-title:
         participation: Ta del
         evaluation: Vurdering
@@ -57,6 +59,8 @@ index:
                 eller opprette <strong>hvilket spørsmål som helst</strong>.
             overview: <strong>Finn en dato</strong> eller <strong>opprett en avstemming</strong>
                 med så mange folk du ønsker.
+            evaluation: Du beholder en automatisk laget <strong>vurderingsliste over
+                foretrukne svar</strong>.
         title: Funksjoner
     link:
         have-a-try: Prøv det nå
@@ -94,9 +98,14 @@ errors:
     inclusion: '{description} er ikke en del av listen'
     description: Dette feltet
     answerRequired: Et svar må velges
+    invalid: '{description} har ikke en gyldig verdi'
+    wrongLength: '{description} har feil lengde, den må være {is} tegn'
+    wrongDateFormat: '{description} må være i {date}-format'
 pollTypes:
     makeAPoll:
         label: Jeg ønsker å besvare spørsmålet. (f.eks. «Hvor svarer kaffen best?»)
+    findADate:
+        label: Jeg ønsker å finne en dato (f.eks. tid og dato for et møte)
 modal:
     save-retry:
         title: Kunne ikke lagre.
