@@ -1,11 +1,11 @@
 {
     "require": {
         "php": "^7.2",
-        "slim/slim": "^3.5"
+        "slim/slim": "^4.0"
     },
     "require-dev": {
         "flow/jsonpath": "^0.5.0",
-        "vlucas/phpdotenv": "^3.6.6",
+        "vlucas/phpdotenv": "^3.6.0",
         "codeception/codeception": "^3.1",
         "codeception/phpbuiltinserver": "^1.5"
     },
