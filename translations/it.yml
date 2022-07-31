@@ -60,9 +60,13 @@ create:
         more-inputs: 'Inserisci altri orari'
         copy-first-line: 'Usa lo stesso orario per tutti i giorni'
         error:
-            notEnoughTimes: 'Devi indicare almeno un orario valido per ciascun giorno. Se hai impostato un solo giorno, devi indicare un minimo di due orari validi.'
-            correctTimeFormat: 'Le date devono essere immesse come ora e minuto divise da due punti (e.g.  13:00).'
-        fix-validation-errors-first-day: 'Devi risolvere tutti gli errori di convalida nel primo giorno prima della copia.'
+            notEnoughTimes: 'Devi indicare almeno un orario valido per ciascun giorno.
+                Se hai impostato un solo giorno, devi indicare un minimo di due orari
+                validi.'
+            correctTimeFormat: 'Le date devono essere immesse come ora e minuto divise
+                da due punti (e.g.  13:00).'
+        fix-validation-errors-first-day: 'Devi risolvere tutti gli errori di convalida
+            nel primo giorno prima della copia.'
     settings:
         answerType:
             label: 'Quali risposte dovrebbero essere disponibili?'
@@ -83,19 +87,25 @@ create:
 error:
     poll:
         decryptionFailed:
-            title: 'Decifratura fallita.'
-            description: 'La decifratura è fallita. Questo errore è probabilmente dovuto ad una chiave crittografica non corretta. Controlla la URL che hai inserito, ed in particolare la parte che segue il punto interrogativo.'
+            title: 'Decifratura fallita'
+            description: 'La decifratura è fallita. Questo errore è probabilmente
+                dovuto ad una chiave crittografica non corretta. Controlla la URL
+                che hai inserito, ed in particolare la parte che segue il punto interrogativo.'
         notFound:
-            title: 'Il sondaggio non è stato trovato.'
-            description: 'Il sondaggio che stai cercando non esiste. Questo potrebbe essere accaduto per diversi motivi:'
+            title: 'Il sondaggio non è stato trovato'
+            description: 'Il sondaggio che stai cercando non esiste. Questo potrebbe
+                essere accaduto per diversi motivi:'
             reasons:
                 expired: 'Il sondaggio è scaduto ed è stato rimosso.'
-                typo: 'L''URL è errato. Prova a ricontrollarlo, specialmente la parte prima del punto interrogativo.'
-        savingFailed: 'Non è stato possible salvare il sondaggio. Riprova tra qualche secondo.'
+                typo: 'L''URL è errato. Prova a ricontrollarlo, specialmente la parte
+                    prima del punto interrogativo.'
+        savingFailed: 'Non è stato possible salvare il sondaggio. Riprova tra qualche
+            secondo.'
     generic:
         unexpected:
-            title: 'Si è verificato un errore inaspettato.'
-            description: 'Siamo spiacenti, ma si è verificato un errore inaspettato. Per favore, riprova più tardi.'
+            title: 'Si è verificato un errore inaspettato'
+            description: 'Siamo spiacenti, ma si è verificato un errore inaspettato.
+                Per favore, riprova più tardi.'
 index:
     title: 'Croodle semplifica la scelta delle date e il processo decisionale …<br/>…
         e protegge i tuoi dati'
@@ -238,6 +248,6 @@ errors:
     phone: '{description} deve essere un numero di telefono valido'
     url: '{description} deve essere un URL valido'
     time: '{description} deve essere un orario valido (ad es. 10:45)'
-    timeNotPartially: "L'orario deve specificare sia le ore che i minuti."
+    timeNotPartially: "L'orario deve specificare sia le ore che i minuti"
     unique: '{description} deve essere esplicito'
     uniqueName: 'Questo nome è già stato usato'
