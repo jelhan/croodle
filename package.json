@@ -57,7 +57,7 @@
     "ember-cli-uglify": "^3.0.0",
     "ember-composable-helpers": "^4.0.0",
     "ember-cp-validations": "^4.0.0-beta.8",
-    "ember-data": "~3.12.0",
+    "ember-data": "~3.28.0",
     "ember-data-model-fragments": "^4.0.0",
     "ember-decorators": "^6.1.1",
     "ember-export-application-global": "^2.0.1",
