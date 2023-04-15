@@ -1,0 +1,51 @@
+<form {{on "submit" this.createPoll}}>
+  {{#let (unique-id) as |inputId|}}
+    <div>
+      <label for={{inputId}}>
+        Title
+      </label>
+      <input id={{inputId}} name="title" type="text" required />
+    </div>
+  {{/let}}
+
+  {{#let (unique-id) as |textareaId|}}
+    <div>
+      <label for={{textareaId}}>
+        Description
+      </label>
+      <textarea id={{textareaId}} name="description"></textarea>
+    </div>
+  {{/let}}
+
+  {{#let (unique-id) as |inputId|}}
+    <div>
+      <label for={{inputId}}>
+        Add a date
+      </label>
+      <input
+        id={{inputId}}
+        name="add-date"
+        required={{if this.dates.size false true}}
+        type="datetime-local"
+        {{on "change" this.addDate}}
+      />
+    </div>
+  {{/let}}
+
+  <ol>
+    {{#each this.sortedDates as |date|}}
+      <li>
+        {{date}}
+        <button type="button" {{on "click" (fn this.removeDate date)}}>
+          <span title="delete">
+            🗙
+          </span>
+        </button>
+      </li>
+    {{/each}}
+  </ol>
+
+  <button type="submit">
+    Create
+  </button>
+</form>
