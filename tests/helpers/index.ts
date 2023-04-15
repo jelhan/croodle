@@ -1,3 +1,4 @@
+import { polls } from 'croodle/mocks/db';
 import {
   setupApplicationTest as upstreamSetupApplicationTest,
   setupRenderingTest as upstreamSetupRenderingTest,
@@ -11,6 +12,11 @@ import {
 
 function setupApplicationTest(hooks: NestedHooks, options?: SetupTestOptions) {
   upstreamSetupApplicationTest(hooks, options);
+
+  hooks.beforeEach(() => {
+    // reset mock database before each test run
+    polls.clear();
+  });
 
   // Additional setup for application tests can be done here.
   //

@@ -13,10 +13,14 @@
       "croodle/*": [
         "app/*"
       ],
+      "fetch": [
+        "node_modules/ember-fetch"
+      ],
       "*": [
         "types/*"
       ]
-    }
+    },
+    "skipLibCheck": true
   },
   "include": [
     "app/**/*",

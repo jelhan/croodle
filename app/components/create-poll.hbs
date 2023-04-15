@@ -1,28 +1,41 @@
-<form {{on "submit" this.createPoll}}>
+<h1>Create a poll</h1>
+
+<form {{on "submit" this.createPoll.perform}}>
   {{#let (unique-id) as |inputId|}}
-    <div>
-      <label for={{inputId}}>
+    <div class="mb-3">
+      <label class="form-label" for={{inputId}}>
         Title
       </label>
-      <input id={{inputId}} name="title" type="text" required />
+      <input
+        class="form-control"
+        id={{inputId}}
+        name="title"
+        type="text"
+        required
+      />
     </div>
   {{/let}}
 
   {{#let (unique-id) as |textareaId|}}
-    <div>
-      <label for={{textareaId}}>
+    <div class="mb-3">
+      <label class="form-label" for={{textareaId}}>
         Description
       </label>
-      <textarea id={{textareaId}} name="description"></textarea>
+      <textarea
+        class="form-control"
+        id={{textareaId}}
+        name="description"
+      ></textarea>
     </div>
   {{/let}}
 
   {{#let (unique-id) as |inputId|}}
-    <div>
-      <label for={{inputId}}>
+    <div class="mb-3">
+      <label class="form-label" for={{inputId}}>
         Add a date
       </label>
       <input
+        class="form-control"
         id={{inputId}}
         name="add-date"
         required={{if this.dates.size false true}}
@@ -45,7 +58,20 @@
     {{/each}}
   </ol>
 
-  <button type="submit">
-    Create
+  <button
+    class="btn btn-primary"
+    disabled={{this.createPoll.isRunning}}
+    type="submit"
+  >
+    {{#if this.createPoll.isRunning}}
+      Creating
+      <span
+        class="spinner-border spinner-border-sm"
+        role="status"
+        aria-hidden="true"
+      ></span>
+    {{else}}
+      Create
+    {{/if}}
   </button>
 </form>

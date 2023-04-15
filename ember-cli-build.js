@@ -7,6 +7,8 @@ module.exports = function (defaults) {
     // Add options here
   });
 
+  app.import('node_modules/bootstrap/dist/css/bootstrap.css');
+
   const { Webpack } = require('@embroider/webpack');
   return require('@embroider/compat').compatBuild(app, Webpack, {
     skipBabel: [
