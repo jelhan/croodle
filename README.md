@@ -8,16 +8,15 @@ A short introduction of this app could easily go here.
 You will need the following things properly installed on your computer.
 
 * [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/)
-* [Yarn](https://yarnpkg.com/)
+* [Node.js](https://nodejs.org/) (with npm)
 * [Ember CLI](https://cli.emberjs.com/release/)
 * [Google Chrome](https://google.com/chrome/)
 
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd croodle`
-* `yarn install`
+* `cd my-app`
+* `npm install`
 
 ## Running / Development
 
@@ -36,8 +35,8 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Linting
 
-* `yarn lint`
-* `yarn lint:fix`
+* `npm run lint`
+* `npm run lint:fix`
 
 ### Building
 
