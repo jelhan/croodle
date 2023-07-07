@@ -31,7 +31,7 @@ Due to security reasons you should have TLS encryption enabled and provide a val
 
 Production builds are provided as github [release assets](https://github.com/jelhan/croodle/releases).
 
-If you like to build yourself you have to install [yarn](https://yarnpkg.com/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before.
+If you like to build yourself you have to install [node](https://nodejs.org/), [yarn](https://yarnpkg.com/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before. It's recommended using [volta](https://volta.sh/) to ensure a compatible and tested node version is used.
 
 ```shell
 git clone git@github.com:jelhan/croodle.git
