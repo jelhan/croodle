@@ -65,8 +65,27 @@ If source files are changing, a rebuild and reload is triggered.
 By default Croodle uses an api mock in development. Since that one
 does not persist records all polls are gone after a reload.
 
-If you like to test against the real API, run api via php built-in web
-server: `php -S 127.0.0.1:8080 -t dist/`
+If you like to test against the real API, you could
+
+1. run the API using php built-in web server locally if having a
+   compatible version of PHP installed:
+
+   ```sh
+   php -S 127.0.0.1:8080 -t dist/
+   ```
+
+   or
+
+2. use Docker. A Dockerfile to build a development container of
+   Croodle's API is provided in `api/` folder. It exposes the API
+   at port 8080 using PHP's built-in web server.
+
+   ```sh
+   cd api
+   docker build --tag croodle-api .
+   docker run --rm -t -p 8080:8080 croodle-api
+   ``` 
+
 Afterwards start ember-cli development server using `--proxy` option:
 `ember server --proxy http://127.0.0.1:8080`.
 
