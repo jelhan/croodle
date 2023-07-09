@@ -38,7 +38,7 @@
     "ember-cli-acceptance-test-helpers": "^1.0.0",
     "ember-cli-app-version": "^4.0.0",
     "ember-cli-babel": "^7.21.0",
-    "ember-cli-browser-navigation-button-test-helper": "^0.2.0",
+    "ember-cli-browser-navigation-button-test-helper": "^0.3.0",
     "ember-cli-browserstack": "^1.0.0",
     "ember-cli-bundlesize": "^0.3.0",
     "ember-cli-chart": "^3.3.1",

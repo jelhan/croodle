@@ -5857,7 +5857,7 @@ ember-cli-babel-plugin-helpers@^1.0.0, ember-cli-babel-plugin-helpers@^1.1.0, em
     rimraf "^3.0.1"
     semver "^5.5.0"
 
-ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.12.0, ember-cli-babel@^6.16.0, ember-cli-babel@^6.17.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.7.1, ember-cli-babel@^6.7.2, ember-cli-babel@^6.8.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2:
+ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.12.0, ember-cli-babel@^6.16.0, ember-cli-babel@^6.17.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.7.1, ember-cli-babel@^6.7.2, ember-cli-babel@^6.8.0, ember-cli-babel@^6.8.1:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.18.0.tgz#3f6435fd275172edeff2b634ee7b29ce74318957"
   integrity sha512-7ceC8joNYxY2wES16iIBlbPSxwKDBhYwC8drU3ZEvuPDMwVv1KzxCNu1fvxyFEBWhwaRNTUxSCsEVoTd9nosGA==
@@ -5876,13 +5876,13 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.12.0, ember-cli-babel@^6.16.0,
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-browser-navigation-button-test-helper@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/ember-cli-browser-navigation-button-test-helper/-/ember-cli-browser-navigation-button-test-helper-0.2.0.tgz#9fb456d2bb3e3baee62ee6d8bc7055c8c6e4b51c"
-  integrity sha512-ROS3mo2q+Svqqv82EFEmSiuugsTCMZdkFitkHKTR0MXQGJdJs6h2eLNI8oiZiyvxaPaZIeLh71ODyjz3YY4bMg==
+ember-cli-browser-navigation-button-test-helper@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-browser-navigation-button-test-helper/-/ember-cli-browser-navigation-button-test-helper-0.3.0.tgz#421499f552b599386bb79b77760097555fb3f517"
+  integrity sha512-PHLf+P3LMk/CrIUQ1cWSj4XKFkoD4/TUir5r3EeubQTpZTG/4BKsYVvG2O5bs4K1Q33y2qyC15m6z1Xf0x7qKg==
   dependencies:
-    ember-cli-babel "^7.7.3"
-    ember-router-service-polyfill "^1.0.3"
+    ember-cli-babel "^7.26.6"
+    ember-cli-htmlbars "^6.0.0"
 
 ember-cli-browserstack@^1.0.0:
   version "1.1.0"
@@ -6056,7 +6056,7 @@ ember-cli-htmlbars@^5.1.0, ember-cli-htmlbars@^5.1.2, ember-cli-htmlbars@^5.2.0,
     strip-bom "^4.0.0"
     walk-sync "^2.2.0"
 
-ember-cli-htmlbars@^6.0.1:
+ember-cli-htmlbars@^6.0.0, ember-cli-htmlbars@^6.0.1:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-6.2.0.tgz#18ec48ee1c93f9eed862a64eb24a9d14604f1dfc"
   integrity sha512-j5EGixjGau23HrqRiW/JjoAovg5UBHfjbyN7wX5ekE90knIEqUUj1z/Mo/cTx/J2VepQ2lE6HdXW9LWQ/WdMtw==
@@ -6873,13 +6873,6 @@ ember-router-generator@^2.0.0:
     "@babel/parser" "^7.4.5"
     "@babel/traverse" "^7.4.5"
     recast "^0.18.1"
-
-ember-router-service-polyfill@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ember-router-service-polyfill/-/ember-router-service-polyfill-1.0.3.tgz#506d7fbd7179951410b7ffe8db171540601d88b1"
-  integrity sha512-BDTqRoElVL3eUWBiR9afM0h2LoiXz2YMGrQ3MBGEE+Gpm+ubvLsvFf2Yw24wgAebyinj6Q9aRaZYhYo4fhFA9w==
-  dependencies:
-    ember-cli-babel "^6.8.2"
 
 ember-source-channel-url@^3.0.0:
   version "3.0.0"
