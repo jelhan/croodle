@@ -87,32 +87,38 @@ error:
     poll:
         decryptionFailed:
             title: 'La desencriptació va fallar'
-            description: 'Desencriptant dada de sondeig va fallar. Això és més probablement causat per una clau d''encriptació incorrecta. Per favor doble-comprova el URL va entrar, especialment la part després del signe d''interrogació.'
+            description: 'Desencriptant dada de sondeig va fallar. Això és més probablement
+                causat per una clau d''encriptació incorrecta. Per favor doble-comprova
+                el URL va entrar, especialment la part després del signe d''interrogació.'
         notFound:
             title: 'No hem pogut trobar el sondeig'
-            description: 'El sondeig que estàs buscant no l''hem pogut trobar per diverses raons, incloent:'
+            description: 'El sondeig que estàs buscant no l''hem pogut trobar per
+                diverses raons, incloent:'
             reasons:
                 expired: 'El sondeig ha caducat i ha estat eliminat.'
-                typo: 'Hi ha un error tipogràfic en la URL. Pots tornar a comprovar el que has posat, especialment la part anterior al signe d''interrogació.'
-        savingFailed: 'No hem pogut guardar el sondeig, si us plau, intenta''l de nou en uns segons.'
+                typo: 'Hi ha un error tipogràfic en la URL. Pots tornar a comprovar
+                    el que has posat, especialment la part anterior al signe d''interrogació.'
+        savingFailed: 'No hem pogut guardar el sondeig, si us plau, intenta''l de
+            nou en uns segons.'
     generic:
         unexpected:
-            title: 'Va ocórrer unerror inesperat.'
-            description: 'El sentim. Va ocórrer un error inesperat. Si us plau intenta-ho més tard.'
+            title: 'Va ocórrer un error inesperat'
+            description: 'El sentim. Va ocórrer un error inesperat. Si us plau intenta-ho
+                més tard.'
 index:
     title: 'Croodle simplifica la data i la presa de decisions …<br/>… i protegeix
         les teves dades'
     features:
         title: Funcions
         list:
-            overview: '<strong> Troba una data </strong> o <strong> fer una enquesta
-                </strong> amb tantes persones com vulgui.'
-            privacy: 'Les vostres dades es mantenen privades. Ja en el vostre navegador,
-                serà <strong>xifrat</strong>. Només les persones que reben l''enllaç
-                de l''enquesta saben què és la vostra enquesta.'
+            overview: '<strong> Trobar una data </strong> o <strong> fer una enquesta
+                </strong> a tantes persones com vulguis.'
+            privacy: 'Les vostres dades es mantenen privades. Ja en el vostre navegador
+                web, serà <strong>xifrat</strong>. Només els que rebin l''enllaç de
+                l''enquesta sabran de què es tracta.'
             options: 'Podeu determinar tantes <strong>opcions de resposta</strong>
                 com vulgueu. Podeu triar la vostra data favorita al <strong>calendari</strong>
-                o crear <strong>qualsevol pregunta</ strong>.'
+                o crear <strong>qualsevol pregunta</strong>.'
             answers: 'Podeu utilitzar <strong> opcions de resposta predefinides </strong>,
                 per exemple <i>sí</i>, <i>no</i>, <i>potser</i> o permet <strong>crear
                 respostes propias</strong>.'
@@ -138,8 +144,8 @@ modal:
 options: Opcions
 poll:
     created-date: 'Creat el dia {date}.'
-    expiration-date: 'Expires on {date}.'
-    expiration-date-warning: 'This poll expires {timeToNow} and will be deleted afterwards.'
+    expiration-date: 'Caduca el {date}.'
+    expiration-date-warning: 'Aquesta enquesta caduca {timeToNow} i se suprimirà després.'
     tab-title:
         participation: Assistir
         evaluation: Avaluació
@@ -196,9 +202,9 @@ poll:
                 usePollTimezone: 'Zona horària original'
     share:
         title: 'Comparteix l''enllaç per convidar a altres a l''enquesta.'
-        notice: 'Tothom amb l''enllaç pot veure la seva enquesta. Si conté dades privades,
-            només haureu de passar-lo a través de correu xifrat o xat amb una encriptaciò
-            d''extrem a extrem.'
+        notice: 'Tothom que tingui l''enllaç pot veure la seva enquesta. Si conté
+            dades privades, només les hauríeu de transmetre personalment, mitjançant
+            un correu electrònic xifrat o un xat amb xifratge d''extrem a extrem.'
 pollTypes:
     findADate:
         label: 'Vull trobar una cita. (p. ex., Hora i data per a una cita)'
@@ -240,6 +246,6 @@ errors:
     phone: '{description} ha de ser un número de telèfon vàlid'
     url: '{description} ha de ser un URL vàlid'
     time: '{description} ha de ser un orari vàlid (p. ex. 10:45)'
-    timeNotPartially: 'Temps parcials no estan suportats.'
+    timeNotPartially: 'No s''admeten temps parcials'
     unique: '{description} ha de ser explícita'
     uniqueName: 'Aquest nom ja s''ha usat'
