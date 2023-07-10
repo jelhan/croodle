@@ -106,7 +106,7 @@
   },
   "resolutions": {
     "chart.js": "~2.6.0",
-    "ember-get-config": "0.3.0"
+    "ember-get-config": "0.5.0"
   },
   "changelog": {
     "labels": {
