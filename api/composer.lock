@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a56b623890b1566ddcb45810edb5f6f",
+    "content-hash": "3e695eb9bca9610a095aaaca2d865cb8",
     "packages": [
         {
             "name": "nikic/fast-route",
@@ -471,20 +471,14 @@
         },
         {
             "name": "codeception/phpbuiltinserver",
-            "version": "v1.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tiger-seo/PhpBuiltinServer.git",
-                "reference": "2ae502c527b4a349930c4a61cde776ab2d18f199"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tiger-seo/PhpBuiltinServer/zipball/2ae502c527b4a349930c4a61cde776ab2d18f199",
-                "reference": "2ae502c527b4a349930c4a61cde776ab2d18f199",
-                "shasum": ""
+                "type": "path",
+                "url": "../../PhpBuiltinServer",
+                "reference": "8dafe0d0027142c3b9ce0f69a4b850d5a61d0c38"
             },
             "require": {
-                "codeception/codeception": "^3.0",
+                "codeception/codeception": "^3.0 || ^4.0",
                 "php": ">=5.6.0"
             },
             "require-dev": {
@@ -496,7 +490,6 @@
                     "Codeception": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -510,11 +503,9 @@
             "keywords": [
                 "codeception"
             ],
-            "support": {
-                "issues": "https://github.com/tiger-seo/PhpBuiltinServer/issues",
-                "source": "https://github.com/tiger-seo/PhpBuiltinServer/tree/v1.5.0"
-            },
-            "time": "2019-09-19T09:04:28+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "codeception/phpunit-wrapper",
@@ -4560,7 +4551,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "codeception/phpbuiltinserver": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

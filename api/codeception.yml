@@ -21,6 +21,5 @@ extensions:
             port: 8000
             documentRoot: .
             startDelay: 1
-            phpIni: /etc/php5/apache2/php.ini
 params:
     - .env.testing

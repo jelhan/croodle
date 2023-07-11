@@ -7,11 +7,25 @@
         "flow/jsonpath": "^0.5.0",
         "vlucas/phpdotenv": "^3.6.6",
         "codeception/codeception": "^3.1",
-        "codeception/phpbuiltinserver": "^1.5"
+        "codeception/phpbuiltinserver": "@dev"
     },
     "config": {
         "platform": {
             "php": "7.2"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type":"package",
+            "package": {
+              "name": "codeception/phpbuiltinserver",
+              "version":"dev",
+              "source": {
+                  "url": "https://github.com/jelhan/PhpBuiltinServer.git",
+                  "type": "git",
+                  "reference":"support-codeception-error-level-and-memory-limit-settings"
+                }
+            }
+        }
+    ]
 }
