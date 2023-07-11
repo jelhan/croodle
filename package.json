@@ -42,7 +42,7 @@
     "ember-cli-browserstack": "^1.0.0",
     "ember-cli-bundlesize": "^0.3.0",
     "ember-cli-chart": "^3.3.1",
-    "ember-cli-clipboard": "^0.15.0",
+    "ember-cli-clipboard": "^0.16.0",
     "ember-cli-content-security-policy": "^1.0.0",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-deprecation-workflow": "^1.0.1",
