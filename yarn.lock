@@ -4724,13 +4724,13 @@ charm@^1.0.0:
   dependencies:
     inherits "^2.0.1"
 
-chart.js@^2.9.0, chart.js@~2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.6.0.tgz#308f9a4b0bfed5a154c14f5deb1d9470d22abe71"
-  integrity sha512-rDKea6rpT/g+zOjR1NAwYYLKWVeD4VayQc2Dtp36OI69BASfcxPHhtjQmIEdib3JR1chz0IvD0+AV66ps04lrw==
+chart.js@^2.9.0, chart.js@~2.9.0:
+  version "2.9.4"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.9.4.tgz#0827f9563faffb2dc5c06562f8eb10337d5b9684"
+  integrity sha512-B07aAzxcrikjAPyV+01j7BmOpxtQETxTSlQ26BEYJ+3iUkbNKaOJ/nDbT6JjyqYxseM0ON12COHYdU2cTIjC7A==
   dependencies:
     chartjs-color "^2.1.0"
-    moment "^2.10.6"
+    moment "^2.10.2"
 
 chartjs-color-string@^0.6.0:
   version "0.6.0"
@@ -10827,7 +10827,7 @@ moment-timezone@^0.5.43:
   dependencies:
     moment "^2.29.4"
 
-moment@^2.10.6, moment@^2.19.3, moment@^2.29.4:
+moment@^2.10.2, moment@^2.19.3, moment@^2.29.4:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
