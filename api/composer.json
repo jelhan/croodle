@@ -16,16 +16,9 @@
     },
     "repositories": [
         {
-            "type":"package",
-            "package": {
-              "name": "codeception/phpbuiltinserver",
-              "version":"dev",
-              "source": {
-                  "url": "https://github.com/jelhan/PhpBuiltinServer.git",
-                  "type": "git",
-                  "reference":"support-codeception-error-level-and-memory-limit-settings"
-                }
-            }
+            "type": "vcs",
+            "url": "https://github.com/jelhan/PhpBuiltinServer.git",
+            "reference":"support-codeception-error-level-and-memory-limit-settings"
         }
     ]
 }
