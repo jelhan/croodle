@@ -115,9 +115,6 @@ without `--no-dev` option).
 
 ## Credits
 
-Continous Integration powered by<br>
-<a href="https://travis-ci.com/"><img src="https://travis-ci.com/images/logos/TravisCI-Full-Color.png" height="50"></a>
-
 Cross-browser testing provided by<br>
 <a href="https://www.browserstack.com"><img src="docs/Browserstack-logo.svg" height="50"></a>
 
