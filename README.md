@@ -1,6 +1,6 @@
 # Croodle
 
-[![Build Status](https://travis-ci.org/jelhan/croodle.svg?branch=master)](https://travis-ci.org/jelhan/croodle)
+![Build Status](https://github.com/jelhan/croodle/actions/workflows/test-workflow.yml/badge.svg?branch=master)
 [![Code Climate](https://codeclimate.com/github/jelhan/croodle/badges/gpa.svg)](https://codeclimate.com/github/jelhan/croodle)
 [![devDependency Status](https://david-dm.org/jelhan/croodle/dev-status.svg)](https://david-dm.org/jelhan/croodle?type=dev)
 
