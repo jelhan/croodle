@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a56b623890b1566ddcb45810edb5f6f",
+    "content-hash": "ec0fbf8c3f2a9f6a6ff39e202bf9fe89",
     "packages": [
         {
             "name": "nikic/fast-route",
@@ -471,32 +471,32 @@
         },
         {
             "name": "codeception/phpbuiltinserver",
-            "version": "v1.5.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tiger-seo/PhpBuiltinServer.git",
-                "reference": "2ae502c527b4a349930c4a61cde776ab2d18f199"
+                "url": "https://github.com/jelhan/PhpBuiltinServer.git",
+                "reference": "8dafe0d0027142c3b9ce0f69a4b850d5a61d0c38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tiger-seo/PhpBuiltinServer/zipball/2ae502c527b4a349930c4a61cde776ab2d18f199",
-                "reference": "2ae502c527b4a349930c4a61cde776ab2d18f199",
+                "url": "https://api.github.com/repos/jelhan/PhpBuiltinServer/zipball/8dafe0d0027142c3b9ce0f69a4b850d5a61d0c38",
+                "reference": "8dafe0d0027142c3b9ce0f69a4b850d5a61d0c38",
                 "shasum": ""
             },
             "require": {
-                "codeception/codeception": "^3.0",
+                "codeception/codeception": "^3.0 || ^4.0",
                 "php": ">=5.6.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "5.*"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "Codeception": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -511,10 +511,9 @@
                 "codeception"
             ],
             "support": {
-                "issues": "https://github.com/tiger-seo/PhpBuiltinServer/issues",
-                "source": "https://github.com/tiger-seo/PhpBuiltinServer/tree/v1.5.0"
+                "source": "https://github.com/jelhan/PhpBuiltinServer/tree/master"
             },
-            "time": "2019-09-19T09:04:28+00:00"
+            "time": "2021-10-16T20:41:35+00:00"
         },
         {
             "name": "codeception/phpunit-wrapper",
@@ -4560,7 +4559,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "codeception/phpbuiltinserver": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

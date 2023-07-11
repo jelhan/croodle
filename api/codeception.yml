@@ -9,6 +9,7 @@ settings:
     bootstrap: _bootstrap.php
     colors: true
     memory_limit: 1024M
+    error_level: E_ALL & ~E_DEPRECATED
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
@@ -20,6 +21,5 @@ extensions:
             port: 8000
             documentRoot: .
             startDelay: 1
-            phpIni: /etc/php5/apache2/php.ini
 params:
     - .env.testing
