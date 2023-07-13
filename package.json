@@ -88,7 +88,7 @@
     "open-iconic": "^1.1.1",
     "qunit-dom": "^1.2.0",
     "release-it": "^16.0.0",
-    "release-it-lerna-changelog": "^3.0.0",
+    "release-it-lerna-changelog": "^5.0.0",
     "sass": "^1.19.0",
     "sjcl": "^1.0.8"
   },
