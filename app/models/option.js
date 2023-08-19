@@ -117,26 +117,17 @@ export default class Option extends Fragment.extend(Validations) {
     return moment(value, format, true);
   }
 
-  @computed('date', 'title.length')
   get hasTime() {
-    return moment.isMoment(this.date) &&
+    return DateTime.isDateTime(this.datetime) &&
            this.title.length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
   }
 
-  @computed('date', 'title')
   get time() {
-    const date = this.date;
-    if (!moment.isMoment(date)) {
-      return null;
-    }
-    // verify that value is an ISO 8601 date string containg time
-    // testing length is faster than parsing with moment
-    const value = this.title;
-    if (value.length !== 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length) {
+    if (!DateTime.isDateTime(this.datetime) || !this.hasTime) {
       return null;
     }
 
-    return date.format('HH:mm');
+    return this.datetime.toISOTime().substring(0, 5);
   }
   set time(value) {
     let date = this.date;
@@ -148,16 +139,15 @@ export default class Option extends Fragment.extend(Validations) {
     // set time to undefined if value is false
     if (isEmpty(value)) {
       this.set('title', date.format('YYYY-MM-DD'));
-      return value;
+      return;
     }
 
     if (!moment(value, 'HH:mm', true).isValid()) {
-      return value;
+      return;
     }
 
     const [ hour, minute ] = value.split(':');
     this.set('title', date.hour(hour).minute(minute).toISOString());
-    return value;
   }
 
   init() {
