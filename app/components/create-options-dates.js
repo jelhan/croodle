@@ -4,7 +4,6 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { isArray } from '@ember/array';
 import { isPresent } from '@ember/utils';
-import moment from 'moment';
 import { DateTime } from "luxon";
 
 @classic
@@ -17,12 +16,10 @@ export default class CreateOptionsDates extends Component {
     return this.options
       // should be unique
       .uniqBy('day')
-      // raw dates
-      .map(({ date }) => date)
       // filter out invalid
-      .filter(moment.isMoment)
-      // convert to DateTime used by Luxon
-      .map((dateAsMoment) => DateTime.fromISO(dateAsMoment.toISOString()))
+      .filter(({ isDate }) => isDate)
+      // raw dates
+      .map(({ datetime }) => datetime)
       .toArray();
   }
 
@@ -66,13 +63,13 @@ export default class CreateOptionsDates extends Component {
     });
     newOptions.forEach((newOption) => {
       // options must be insert into options array at correct position
-      let insertBefore = options.find(({ date }) => {
-        if (!moment.isMoment(date)) {
+      let insertBefore = options.find((option) => {
+        if (!option.isDate) {
           // ignore options that do not represent a valid date
           return false;
         }
 
-        return date.isAfter(newOption.date);
+        return option.title > newOption.title;
       });
       let position = isPresent(insertBefore) ? options.indexOf(insertBefore) : options.length;
       options.insertAt(position, newOption);

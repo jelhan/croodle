@@ -84,61 +84,40 @@ export default class Option extends Fragment.extend(Validations) {
     return DateTime.fromISO(title);
   }
 
-  get day() {
+  get isDate() {
     const { datetime } = this;
-
-    if (!datetime) {
-      return null;
-    }
-
-    return datetime.toISODate();
+    return datetime !== null && datetime.isValid;
   }
 
-  @computed('title')
-  get date() {
-    const allowedFormats = [
-      'YYYY-MM-DD',
-      'YYYY-MM-DDTHH:mm:ss.SSSZ'
-    ];
-    const value = this.title;
-    if (isEmpty(value)) {
+  get day() {
+    if (!this.isDate) {
       return null;
     }
 
-    const format = allowedFormats.find((f) => {
-      // if format length does not match value length
-      // string can't be in this format
-      return f.length === value.length && moment(value, f, true).isValid();
-    });
-    if (isEmpty(format)) {
-      return null;
-    }
-
-    return moment(value, format, true);
+    return this.datetime.toISODate();
   }
 
   get hasTime() {
-    return DateTime.isDateTime(this.datetime) &&
-           this.title.length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
+    return this.isDate &&
+           this.title.length >= 'YYYY-MM-DDTHH:mm'.length;
   }
 
   get time() {
-    if (!DateTime.isDateTime(this.datetime) || !this.hasTime) {
+    if (!this.isDate || !this.hasTime) {
       return null;
     }
 
     return this.datetime.toISOTime().substring(0, 5);
   }
   set time(value) {
-    let date = this.date;
     assert(
       'can not set a time if current value is not a valid date',
-      moment.isMoment(date)
+      this.isDate
     );
 
     // set time to undefined if value is false
     if (isEmpty(value)) {
-      this.set('title', date.format('YYYY-MM-DD'));
+      this.set('title', this.day);
       return;
     }
 
@@ -146,8 +125,8 @@ export default class Option extends Fragment.extend(Validations) {
       return;
     }
 
-    const [ hour, minute ] = value.split(':');
-    this.set('title', date.hour(hour).minute(minute).toISOString());
+    const [ hours, minutes ] = value.split(':');
+    this.set('title', this.datetime.set({ hours, minutes }).toISO());
   }
 
   init() {

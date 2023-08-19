@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { setupIntl } from 'ember-intl/test-support';
 import moment from 'moment';
+import { DateTime } from 'luxon';
 
 module('Unit | Model | option', function(hooks) {
   setupTest(hooks);
@@ -10,79 +11,6 @@ module('Unit | Model | option', function(hooks) {
 
   hooks.beforeEach(function() {
     moment.locale('en');
-  });
-
-  test('date property (get)', function(assert) {
-    let option = run(() => this.owner.lookup('service:store').createRecord('option', {
-      title: '2015-01-01'
-    }));
-    assert.ok(
-      moment.isMoment(option.get('date')),
-      'returns a moment instance if title is an ISO 8601 day string'
-    );
-    assert.equal(
-      option.get('date').format('YYYY-MM-DD HH:mm:ss.SSS'),
-      '2015-01-01 00:00:00.000',
-      'string to date conversion is correct for ISO 8601 day string'
-    );
-
-    run(() => {
-      option.set('title', '2015-01-01T11:11:00.000Z');
-    });
-    assert.ok(
-      moment.isMoment(option.get('date')),
-      'returns a moment instance if title is an ISO 8601 datetime string'
-    );
-    assert.equal(
-      option.get('date').toISOString(),
-      '2015-01-01T11:11:00.000Z',
-      'string to date conversion is correct for ISO 8601 datetime string'
-    );
-
-    run(() => {
-      option.set('title', null);
-    });
-    assert.equal(
-      option.get('date'),
-      undefined,
-      'returns undefined if title is empty'
-    );
-
-    run(() => {
-      option.set('title', 'abc');
-    });
-    assert.equal(
-      option.get('date'),
-      undefined,
-      'returns undefined if title is not a valid ISO 8601 date string'
-    );
-
-    run(() => {
-      option.set('title', '2015');
-    });
-    assert.equal(
-      option.get('date'),
-      undefined,
-      'returns undefined if title ISO 8601 string only contains a year'
-    );
-
-    run(() => {
-      option.set('title', '2015-01');
-    });
-    assert.equal(
-      option.get('date'),
-      undefined,
-      'returns undefined if title ISO 8601 string only contains a year and a month'
-    );
-
-    run(() => {
-      option.set('title', '2013W06');
-    });
-    assert.equal(
-      option.get('date'),
-      undefined,
-      'returns undefined if title ISO 8601 string only contains a year and a week'
-    );
   });
 
   test('day property (get)', function(assert) {
@@ -177,7 +105,7 @@ module('Unit | Model | option', function(hooks) {
     });
     assert.equal(
       option.get('title'),
-      moment('2015-01-01T11:00').toISOString(),
+      DateTime.fromISO('2015-01-01T11:00').toISO(),
       'sets title according to time'
     );
 

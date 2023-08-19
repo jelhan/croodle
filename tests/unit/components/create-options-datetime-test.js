@@ -2,6 +2,7 @@ import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import moment from 'moment';
+import { DateTime } from 'luxon';
 import { settled } from '@ember/test-helpers';
 
 module('Unit | Component | create options datetime', function(hooks) {
@@ -85,13 +86,13 @@ module('Unit | Component | create options datetime', function(hooks) {
     );
     assert.deepEqual(
       component.get('groupedDates.firstObject.items').map((item) => {
-        return item.get('date').toISOString();
+        return item.get('title');
       }),
       [a.get('title'), b.get('title')],
       'first dates having same day are grouped together'
     );
     assert.equal(
-      component.get('groupedDates.lastObject.items.firstObject.date').toISOString(),
+      component.get('groupedDates.lastObject.items.firstObject.title'),
       [c.get('title')],
       'last date having another day is in a separate group'
     );
@@ -99,16 +100,16 @@ module('Unit | Component | create options datetime', function(hooks) {
 
   test('bindings are working on grouped datetimes', function(assert) {
     let component = this.owner.factoryFor('component:create-options-datetime').create();
-    let baseDate = moment('2015-01-01T11:11');
+    let baseDate = DateTime.fromISO('2015-01-01T11:11');
 
     component.set('dates', [
       this.store.createFragment('option', {
-        title: baseDate.toISOString()
+        title: baseDate.toISO()
       })
     ]);
     assert.equal(
       component.get('groupedDates.firstObject.items.firstObject.time'),
-      baseDate.format('HH:mm'),
+      baseDate.toISOTime('HH:mm').substr(0, 5),
       'time is correct before'
     );
 
@@ -118,13 +119,13 @@ module('Unit | Component | create options datetime', function(hooks) {
     );
     assert.equal(
       component.get('dates.firstObject.title'),
-      moment(baseDate).hour(0).minute(0).toISOString(),
+      baseDate.set({ hours: 0, minutes: 0 }).toISO(),
       'option is updated after time changed on grouped datetimes'
     );
 
     component.get('dates').pushObject(
       this.store.createFragment('option', {
-        title: baseDate.add(1, 'hour').add(1, 'minute').toISOString(),
+        title: baseDate.plus({ hours: 1, minutes: 1 }).toISO(),
       })
     );
     assert.equal(
@@ -156,10 +157,10 @@ module('Unit | Component | create options datetime', function(hooks) {
   test('adopt times of first day - simple', async function(assert) {
     let poll = this.store.createRecord('poll', {
       options: [
-        { title: moment('2015-01-01T11:11:00.000').toISOString() },
-        { title: moment('2015-01-01T22:22:00.000').toISOString() },
-        { title: moment('2015-01-02').toISOString() },
-        { title: moment('2015-01-03').toISOString() }
+        { title: DateTime.fromISO('2015-01-01T11:11:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-01T22:22:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-02').toISO() },
+        { title: DateTime.fromISO('2015-01-03').toISO() }
       ]
     });
     let component = this.owner.factoryFor('component:create-options-datetime').create({
@@ -171,12 +172,12 @@ module('Unit | Component | create options datetime', function(hooks) {
     assert.deepEqual(
       component.get('dates').map((option) => option.get('title')),
       [
-        moment('2015-01-01T11:11:00.000').toISOString(),
-        moment('2015-01-01T22:22:00.000').toISOString(),
-        moment('2015-01-02T11:11:00.000').toISOString(),
-        moment('2015-01-02T22:22:00.000').toISOString(),
-        moment('2015-01-03T11:11:00.000').toISOString(),
-        moment('2015-01-03T22:22:00.000').toISOString()
+        DateTime.fromISO('2015-01-01T11:11:00.000').toISO(),
+        DateTime.fromISO('2015-01-01T22:22:00.000').toISO(),
+        DateTime.fromISO('2015-01-02T11:11:00.000').toISO(),
+        DateTime.fromISO('2015-01-02T22:22:00.000').toISO(),
+        DateTime.fromISO('2015-01-03T11:11:00.000').toISO(),
+        DateTime.fromISO('2015-01-03T22:22:00.000').toISO()
       ],
       'times adopted correctly'
     );
@@ -185,14 +186,14 @@ module('Unit | Component | create options datetime', function(hooks) {
   test('adopt times of first day - having times on the other days', async function(assert) {
     let poll = this.store.createRecord('poll', {
       options: [
-        { title: moment('2015-01-01T11:11:00.000').toISOString() },
-        { title: moment('2015-01-01T22:22:00.000').toISOString() },
-        { title: moment('2015-01-02T09:11:00.000').toISOString() },
-        { title: moment('2015-01-03T01:11:00.000').toISOString() },
-        { title: moment('2015-01-03T11:11:00.000').toISOString() },
-        { title: moment('2015-01-04T02:11:00.000').toISOString() },
-        { title: moment('2015-01-04T05:11:00.000').toISOString() },
-        { title: moment('2015-01-04T12:11:00.000').toISOString() }
+        { title: DateTime.fromISO('2015-01-01T11:11:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-01T22:22:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-02T09:11:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-03T01:11:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-03T11:11:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-04T02:11:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-04T05:11:00.000').toISO() },
+        { title: DateTime.fromISO('2015-01-04T12:11:00.000').toISO() }
       ]
     });
     let component = this.owner.factoryFor('component:create-options-datetime').create({
@@ -204,14 +205,14 @@ module('Unit | Component | create options datetime', function(hooks) {
     assert.deepEqual(
       component.get('dates').map((option) => option.get('title')),
       [
-        moment('2015-01-01T11:11:00.000').toISOString(),
-        moment('2015-01-01T22:22:00.000').toISOString(),
-        moment('2015-01-02T11:11:00.000').toISOString(),
-        moment('2015-01-02T22:22:00.000').toISOString(),
-        moment('2015-01-03T11:11:00.000').toISOString(),
-        moment('2015-01-03T22:22:00.000').toISOString(),
-        moment('2015-01-04T11:11:00.000').toISOString(),
-        moment('2015-01-04T22:22:00.000').toISOString()
+        DateTime.fromISO('2015-01-01T11:11:00.000').toISO(),
+        DateTime.fromISO('2015-01-01T22:22:00.000').toISO(),
+        DateTime.fromISO('2015-01-02T11:11:00.000').toISO(),
+        DateTime.fromISO('2015-01-02T22:22:00.000').toISO(),
+        DateTime.fromISO('2015-01-03T11:11:00.000').toISO(),
+        DateTime.fromISO('2015-01-03T22:22:00.000').toISO(),
+        DateTime.fromISO('2015-01-04T11:11:00.000').toISO(),
+        DateTime.fromISO('2015-01-04T22:22:00.000').toISO()
       ],
       'times adopted correctly'
     );
