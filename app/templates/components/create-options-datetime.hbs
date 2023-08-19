@@ -27,7 +27,16 @@
           data-test-day={{date.day}}
         >
           <form.element
-            @label={{date.dayFormatted}}
+            {{!
+              TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
+            }}
+            @label={{format-date
+              date.day
+              weekday="long"
+              day="numeric"
+              month="long"
+              year="numeric"
+            }}
             {{!
               show label only if it differ from label before
               Nested-helpers are called first and object-at requires a positive integer
@@ -35,7 +44,12 @@
               Therefore we pass in array length if index is null. Cause index starting
               by zero there can't be any element with an index === array.length.
             }}
-            @invisibleLabel={{eq date.dayFormatted (get (object-at (if index (sub index 1) @dates.length) @dates) "dayFormatted")}}
+            @invisibleLabel={{eq
+              date.day
+              (get
+                (object-at (if index (sub index 1) @dates.length) @dates) "day"
+              )
+            }}
             @model={{date}}
             @property="time"
             class="option"
@@ -47,14 +61,11 @@
                 @placeholder="00:00"
                 @type="time"
                 @value={{el.value}}
-
                 {{! focus input if it's the first one }}
                 {{autofocus enabled=(eq index 0)}}
-
                 {{! run validation for partially filled input on focusout event }}
                 {{on "focusout" (fn this.validateInput date)}}
-
-                {{!--
+                {{!
                   Validation for partially input field must be reset if input is cleared.
                   But `@onChange` is not called and `focusout` event not triggered in that
                   scenario. Need to listen to additional events to ensure that partially
@@ -67,10 +78,9 @@
                   Firefox does not consider partially time input as invalid, Edge prevents
                   partially filling in first place and Desktop Safari as well as IE 11
                   do not support `<input type="time">`.
-                --}}
+                }}
                 {{on "focusin" (fn this.updateInputValidation date)}}
                 {{on "keyup" (fn this.updateInputValidation date)}}
-
                 id={{el.id}}
               />
               <div class="input-group-append">
@@ -81,8 +91,14 @@
                   {{! disable delete button if there is only one option }}
                   disabled={{lte @dates.length 1}}
                 >
-                  <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
-                  <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
+                  <span
+                    class="oi oi-trash"
+                    title={{t "create.options.button.delete.label"}}
+                    aria-hidden="true"
+                  ></span>
+                  <span class="sr-only">{{t
+                      "create.options.button.delete.label"
+                    }}</span>
                 </BsButton>
               </div>
             </div>
@@ -93,8 +109,14 @@
               @size="sm"
               class="add cr-option-menu__button cr-option-menu__add-button float-left"
             >
-              <span class="oi oi-plus" title={{t "create.options.button.add.label"}} aria-hidden="true"></span>
-              <span class="sr-only">{{t "create.options.button.add.label"}}</span>
+              <span
+                class="oi oi-plus"
+                title={{t "create.options.button.add.label"}}
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">{{t
+                  "create.options.button.add.label"
+                }}</span>
             </BsButton>
           </form.element>
         </div>

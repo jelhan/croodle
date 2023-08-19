@@ -6,6 +6,7 @@ import { attr } from '@ember-data/model';
 import { assert } from '@ember/debug';
 import { isEmpty } from '@ember/utils';
 import moment from 'moment';
+import { DateTime } from 'luxon';
 import Fragment from 'ember-data-model-fragments/fragment';
 import { fragmentOwner } from 'ember-data-model-fragments/attributes';
 import {
@@ -73,6 +74,26 @@ export default class Option extends Fragment.extend(Validations) {
   // working based on a property of the model.
   isPartiallyFilled = false;
 
+  get datetime() {
+    const { title } = this;
+
+    if (isEmpty(title)) {
+      return null;
+    }
+
+    return DateTime.fromISO(title);
+  }
+
+  get day() {
+    const { datetime } = this;
+
+    if (!datetime) {
+      return null;
+    }
+
+    return datetime.toISODate();
+  }
+
   @computed('title')
   get date() {
     const allowedFormats = [
@@ -96,46 +117,13 @@ export default class Option extends Fragment.extend(Validations) {
     return moment(value, format, true);
   }
 
-  @computed('date')
-  get day() {
-    const date = this.date;
-    if (!moment.isMoment(date)) {
-      return null;
-    }
-    return date.format('YYYY-MM-DD');
-  }
-
-  @computed('date', 'intl.primaryLocale')
-  get dayFormatted() {
-    let date = this.date;
-    if (!moment.isMoment(date)) {
-      return null;
-    }
-
-    const locale = this.get('intl.primaryLocale');
-    const format = moment.localeData(locale)
-                         .longDateFormat('LLLL')
-                         .replace(
-                           moment.localeData(locale).longDateFormat('LT'), '')
-                         .trim();
-
-    // momentjs object caches the locale on creation
-    if (date.locale() !== locale) {
-      // we clone the date to allow adjusting timezone without changing the object
-      date = date.clone();
-      date.locale(locale);
-    }
-
-    return date.format(format);
-  }
-
-  @computed('title')
+  @computed('date', 'title.length')
   get hasTime() {
     return moment.isMoment(this.date) &&
            this.title.length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
   }
 
-  @computed('date')
+  @computed('date', 'title')
   get time() {
     const date = this.date;
     if (!moment.isMoment(date)) {

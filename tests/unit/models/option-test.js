@@ -123,44 +123,6 @@ module('Unit | Model | option', function(hooks) {
     );
   });
 
-  test('dayFormatted property (get)', function(assert) {
-    let option = run(() => this.owner.lookup('service:store').createRecord('option', {
-      title: '2015-01-01'
-    }));
-    assert.equal(
-      option.get('dayFormatted'),
-      'Thursday, January 1, 2015',
-      'returns formatted date if title is ISO 8601 day string'
-    );
-
-    run(() => {
-      option.set('title', moment('2015-01-01').toISOString());
-    });
-    assert.equal(
-      option.get('dayFormatted'),
-      'Thursday, January 1, 2015',
-      'returns formatted date if title is ISO 8601 datetime string'
-    );
-
-    run(() => {
-      option.set('intl.locale', 'de');
-    });
-    assert.equal(
-      option.get('dayFormatted'),
-      'Donnerstag, 1. Januar 2015',
-      'observes locale changes'
-    );
-
-    run(() => {
-      option.set('title', 'abc');
-    });
-    assert.equal(
-      option.get('dayFormatted'),
-      undefined,
-      'returns undfined if title is not a valid ISO 8601 string'
-    );
-  });
-
   test('hasTime property', function(assert) {
     let option = run(() => this.owner.lookup('service:store').createRecord('option', {
       title: '2015-01-01T11:11:00.000Z'
