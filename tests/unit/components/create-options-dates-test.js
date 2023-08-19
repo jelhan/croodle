@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { isArray } from '@ember/array';
 import moment from 'moment';
+import { DateTime } from 'luxon';
 
 module('Unit | Component | create options dates', function(hooks) {
   setupTest(hooks);
@@ -31,13 +32,11 @@ module('Unit | Component | create options dates', function(hooks) {
       'array length is correct'
     );
     assert.ok(
-      component.selectedDays.every((el) => {
-        return moment.isMoment(el);
-      }),
+      component.selectedDays.every(DateTime.isDateTime),
       'array elements are moment objects'
     );
     assert.deepEqual(
-      component.selectedDays.map((el) => el.format('YYYY-MM-DD')),
+      component.selectedDays.map((day) => day.toISODate()),
       values.slice(0, 2),
       'values are correct'
     );
@@ -65,11 +64,11 @@ module('Unit | Component | create options dates', function(hooks) {
       'array length is correct'
     );
     assert.ok(
-      component.selectedDays.every(moment.isMoment),
+      component.selectedDays.every(DateTime.isDateTime),
       'array elements are moment objects'
     );
     assert.deepEqual(
-      component.selectedDays.map((day) => day.format('YYYY-MM-DD')),
+      component.selectedDays.map((day) => day.toISODate()),
       ['2014-01-01', '2015-02-02', '2016-03-03'],
       'dates are correct'
     );
@@ -82,7 +81,7 @@ module('Unit | Component | create options dates', function(hooks) {
 
     let component = this.owner.factoryFor('component:create-options-dates').create({ options });
     component.actions.daysSelected.bind(component)({
-      moment: values.map((_) => moment(_)),
+      datetime: values.map((_) => DateTime.fromISO(_)),
     });
 
     assert.ok(isArray(options), 'options is still an array');
@@ -118,7 +117,7 @@ module('Unit | Component | create options dates', function(hooks) {
     });
 
     component.actions.daysSelected.bind(component)({
-      moment: merged.map((_) => moment(_)),
+      datetime: merged.map((_) => DateTime.fromISO(_)),
     });
 
     assert.deepEqual(
@@ -144,7 +143,7 @@ module('Unit | Component | create options dates', function(hooks) {
     });
 
     component.actions.daysSelected.bind(component)({
-      moment: reduced.map((_) => moment(_)),
+      datetime: reduced.map((_) => DateTime.fromISO(_)),
     });
 
     assert.deepEqual(

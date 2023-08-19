@@ -6,20 +6,20 @@
     as |el|
   >
     <div
-      class="
-        form-control
-        cr-h-auto
-        cr-pr-validation
-        {{if (eq el.validation "error") "is-invalid"}}
-        {{if (eq el.validation "success") "is-valid"}}
-      "
+      class="form-control cr-h-auto cr-pr-validation
+        {{if (eq el.validation 'error') 'is-invalid'}}
+        {{if (eq el.validation 'success') 'is-valid'}}
+        "
     >
       <div class="row">
         <div class="col-12 col-md-6">
           <InlineDatepicker
             @center={{this.calendarCenter}}
             @selectedDays={{this.selectedDays}}
-            @onCenterChange={{action (mut this.calendarCenter) value="moment"}}
+            @onCenterChange={{action
+              (mut this.calendarCenter)
+              value="datetime"
+            }}
             @onSelect={{action "daysSelected"}}
           />
         </div>
@@ -27,7 +27,10 @@
           <InlineDatepicker
             @center={{this.calendarCenterNext}}
             @selectedDays={{this.selectedDays}}
-            @onCenterChange={{action (mut this.calendarCenter) value="moment"}}
+            @onCenterChange={{action
+              (mut this.calendarCenter)
+              value="datetime"
+            }}
             @onSelect={{action "daysSelected"}}
           />
         </div>
