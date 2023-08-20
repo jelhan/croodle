@@ -28,16 +28,6 @@ export default class PollController extends Controller {
   @readOnly('intl.primaryLocale')
   currentLocale;
 
-  @computed('currentLocale')
-  get momentLongDayFormat() {
-    let currentLocale = this.currentLocale;
-    return moment.localeData(currentLocale)
-      .longDateFormat('LLLL')
-      .replace(
-        moment.localeData(currentLocale).longDateFormat('LT'), '')
-      .trim();
-  }
-
   @readOnly('model')
   poll;
 
@@ -69,7 +59,7 @@ export default class PollController extends Controller {
     return this.timezoneDiffers && !this.timezoneChoosen;
   }
 
-  @computed('useLocalTimezone')
+  @computed('poll.timezone', 'useLocalTimezone')
   get timezone() {
     return this.useLocalTimezone ? undefined : this.poll.timezone;
   }

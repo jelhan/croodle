@@ -14,19 +14,20 @@ import { assign } from '@ember/polyfills';
 import { isArray } from '@ember/array';
 import { assert } from '@ember/debug';
 import moment from 'moment';
+import { DateTime } from 'luxon';
 
 function selectDates(selector) {
   return {
     isDescriptor: true,
     async value(dateOrMoments) {
       assert(
-        'selectDates expects an array of date or moment objects as frist argument',
-        isArray(dateOrMoments) && dateOrMoments.every((dateOrMoment) => dateOrMoment instanceof Date || moment.isMoment(dateOrMoment))
+        'selectDates expects an array of date, moment or DateTime (luxon) objects as frist argument',
+        isArray(dateOrMoments) && dateOrMoments.every((dateOrMoment) => dateOrMoment instanceof Date || moment.isMoment(dateOrMoment) || DateTime.isDateTime(dateOrMoment))
       )
 
       for (let i = 0; i < dateOrMoments.length; i++) {
         let dateOrMoment = dateOrMoments[i];
-        let date = moment.isMoment(dateOrMoment) ? dateOrMoment.toDate() : dateOrMoment;
+        let date = moment.isMoment(dateOrMoment) ? dateOrMoment.toDate() : DateTime.isDateTime(dateOrMoment) ? dateOrMoment.toJSDate() : dateOrMoment;
         await calendarSelect(selector, date);
       }
     }

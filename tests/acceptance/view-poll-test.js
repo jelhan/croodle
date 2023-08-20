@@ -6,6 +6,7 @@ import switchTab from 'croodle/tests/helpers/switch-tab';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
 import moment from 'moment';
+import { DateTime } from 'luxon';
 import { triggerCopySuccess } from 'ember-cli-clipboard/test-support';
 
 module('Acceptance | view poll', function(hooks) {
@@ -82,9 +83,9 @@ module('Acceptance | view poll', function(hooks) {
         // need to parse the date with moment cause Safari's Date.parse()
         // implementation treats a data-time string without explicit
         // time zone as UTC rather than local time
-        { title: moment('2015-12-12T11:11:00').toISOString() },
-        { title: moment('2015-12-12T13:13:00').toISOString() },
-        { title: moment('2016-01-01T11:11:00').toISOString() }
+        { title: DateTime.fromISO('2015-12-12T11:11:00').toISO() },
+        { title: DateTime.fromISO('2015-12-12T13:13:00').toISO() },
+        { title: DateTime.fromISO('2016-01-01T11:11:00').toISO() }
       ],
       timezone
     });
@@ -94,11 +95,11 @@ module('Acceptance | view poll', function(hooks) {
       pageParticipation.options().labels,
       [
         // full date
-        'Saturday, December 12, 2015 11:11 AM',
+        'Saturday, December 12, 2015 at 11:11 AM',
         // only time cause day is repeated
         '1:13 PM',
         // full date cause day changed
-        'Friday, January 1, 2016 11:11 AM',
+        'Friday, January 1, 2016 at 11:11 AM',
       ]
     );
     assert.notOk(
@@ -148,8 +149,8 @@ module('Acceptance | view poll', function(hooks) {
     assert.deepEqual(
       pageParticipation.options().labels,
       [
-        moment.tz('2015-12-12T11:11:00.000Z', timezoneUser).locale('en').format('LLLL'),
-        moment.tz('2016-01-01T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')
+        Intl.DateTimeFormat('en-US', { dateStyle: "full", timeStyle: "short" }).format(new Date('2015-12-12T11:11:00.000Z')),
+        Intl.DateTimeFormat('en-US', { dateStyle: "full", timeStyle: "short" }).format(new Date('2016-01-01T11:11:00.000Z')),
       ]
     );
     assert.dom('[data-test-modal="choose-timezone"]').doesNotExist('modal is closed');
@@ -157,7 +158,7 @@ module('Acceptance | view poll', function(hooks) {
     await switchTab('evaluation');
     assert.deepEqual(
       pageEvaluation.preferedOptions,
-      [moment.tz('2015-12-12T11:11:00.000Z', timezoneUser).locale('en').format('LLLL')]
+      [Intl.DateTimeFormat('en-US', { dateStyle: "full", timeStyle: "short" }).format(new Date('2015-12-12T11:11:00.000Z'))]
     );
   });
 
@@ -202,8 +203,8 @@ module('Acceptance | view poll', function(hooks) {
     assert.deepEqual(
       pageParticipation.options().labels,
       [
-        moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL'),
-        moment.tz('2016-01-01T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')
+        Intl.DateTimeFormat('en-US', { timeZone: timezonePoll, dateStyle: "full", timeStyle: "short" }).format(new Date('2015-12-12T11:11:00.000Z')),
+        Intl.DateTimeFormat('en-US', { timeZone: timezonePoll, dateStyle: "full", timeStyle: "short" }).format(new Date('2016-01-01T11:11:00.000Z')),
       ]
     );
     assert.dom('[data-test-modal="choose-timezone"]').doesNotExist('modal is closed');
@@ -211,7 +212,7 @@ module('Acceptance | view poll', function(hooks) {
     await switchTab('evaluation');
     assert.deepEqual(
       pageEvaluation.preferedOptions,
-      [moment.tz('2015-12-12T11:11:00.000Z', timezonePoll).locale('en').format('LLLL')]
+      [Intl.DateTimeFormat('en-US', { timeZone: timezonePoll, dateStyle: "full", timeStyle: "short" }).format(new Date('2015-12-12T11:11:00.000Z')),]
     );
   });
 

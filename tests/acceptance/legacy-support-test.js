@@ -8,6 +8,7 @@ import pollParticipate from 'croodle/tests/helpers/poll-participate';
 import moment from 'moment';
 import PollParticipationPage from 'croodle/tests/pages/poll/participation';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
+import { DateTime } from 'luxon';
 
 module('Acceptance | legacy support', function(hooks) {
   let yesLabel;
@@ -57,9 +58,9 @@ module('Acceptance | legacy support', function(hooks) {
     assert.deepEqual(
       PollParticipationPage.options().labels,
       [
-        moment('2015-12-24T17:00:00.000Z').format('LLLL'),
-        moment('2015-12-24T19:00:00.000Z').format('LT'),
-        moment('2015-12-31T22:59:00.000Z').format('LLLL')
+        Intl.DateTimeFormat('en-US', { dateStyle: "full", timeStyle: "short" }).format(new Date('2015-12-24T17:00:00.000Z')),
+        Intl.DateTimeFormat('en-US', { timeStyle: "short" }).format(new Date('2015-12-24T19:00:00.000Z')),
+        Intl.DateTimeFormat('en-US', { dateStyle: "full", timeStyle: "short" }).format(new Date('2015-12-31T22:59:00.000Z')),
       ]
     );
     assert.deepEqual(

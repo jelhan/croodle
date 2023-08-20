@@ -47,7 +47,7 @@ export default class CreateOptionsDates extends Component {
       return !newDates.find((newDate) => newDate === option.day);
     });
 
-    // array of moments that aren't represented yet by an option
+    // array of dates that aren't represented yet by an option
     let addedDates = newDates.filter((newDate) => {
       return !options.find((option) => newDate === option.day);
     });
