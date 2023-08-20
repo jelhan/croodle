@@ -5,7 +5,6 @@ import { readOnly } from '@ember/object/computed';
 import { attr } from '@ember-data/model';
 import { assert } from '@ember/debug';
 import { isEmpty } from '@ember/utils';
-import moment from 'moment';
 import { DateTime } from 'luxon';
 import Fragment from 'ember-data-model-fragments/fragment';
 import { fragmentOwner } from 'ember-data-model-fragments/attributes';
@@ -121,12 +120,11 @@ export default class Option extends Fragment.extend(Validations) {
       return;
     }
 
-    if (!moment(value, 'HH:mm', true).isValid()) {
+    const datetime = DateTime.fromISO(value);
+    if (!datetime.isValid) {
       return;
     }
-
-    const [ hours, minutes ] = value.split(':');
-    this.set('title', this.datetime.set({ hours, minutes }).toISO());
+    this.set('title', this.datetime.set({ hours: datetime.hour, minutes: datetime.minute }).toISO());
   }
 
   init() {
