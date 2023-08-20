@@ -9,17 +9,37 @@
           <p class="description">{{poll.description}}</p>
           <p class="dates">
             <span class="creationDate">
+              {{!
+                TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
+              }}
               {{t
                 "poll.created-date"
-                date=(moment-format poll.creationDate "LLLL" locale=this.currentLocale)
+                date=(format-date
+                  weekday="long"
+                  day="numeric"
+                  month="long"
+                  year="numeric"
+                  hour="numeric"
+                  minute="numeric"
+                )
               }}
             </span>
             {{#if poll.expirationDate}}
-              <br>
+              <br />
               <span class="expirationDate">
+                {{!
+                  TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
+                }}
                 {{t
                   "poll.expiration-date"
-                  date=(moment-format poll.expirationDate "LLLL" locale=this.currentLocale)
+                  date=(format-date
+                    weekday="long"
+                    day="numeric"
+                    month="long"
+                    year="numeric"
+                    hour="numeric"
+                    minute="numeric"
+                  )
                 }}
               </span>
             {{/if}}
@@ -40,7 +60,11 @@
               class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
             >
               {{t "poll.link.copy-label"}}&nbsp;
-              <span class="oi oi-clipboard" title={{t "poll.link.copy-label"}} aria-hidden="true"></span>
+              <span
+                class="oi oi-clipboard"
+                title={{t "poll.link.copy-label"}}
+                aria-hidden="true"
+              ></span>
             </CopyButton>
           </p>
           <small class="text-muted">
@@ -56,7 +80,9 @@
           <BsAlert @type="warning" class="expiration-warning">
             {{t
               "poll.expiration-date-warning"
-              timeToNow=(moment-from-now poll.expirationDate locale=this.currentLocale)
+              timeToNow=(moment-from-now
+                poll.expirationDate locale=this.currentLocale
+              )
             }}
           </BsAlert>
         </div>
@@ -65,12 +91,24 @@
 
     <div class="box">
       <ul class="nav nav-tabs" role="tablist">
-        <LinkTo @route="poll.participation" @model={{poll}} @tagName="li" @activeClass="active" class="participation nav-item">
+        <LinkTo
+          @route="poll.participation"
+          @model={{poll}}
+          @tagName="li"
+          @activeClass="active"
+          class="participation nav-item"
+        >
           <LinkTo @route="poll.participation" @model={{poll}} class="nav-link">
             {{t "poll.tab-title.participation"}}
           </LinkTo>
         </LinkTo>
-        <LinkTo @route="poll.evaluation" @model={{poll}} @tagName="li" @activeClass="active" class="evaluation nav-item">
+        <LinkTo
+          @route="poll.evaluation"
+          @model={{poll}}
+          @tagName="li"
+          @activeClass="active"
+          class="evaluation nav-item"
+        >
           <LinkTo @route="poll.evaluation" @model={{poll}} class="nav-link">
             {{t "poll.tab-title.evaluation"}}
           </LinkTo>

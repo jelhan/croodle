@@ -31,7 +31,10 @@
           <th>
             {{#if (and this.isFindADate this.hasTimes)}}
               {{#if option.hasTime}}
-                {{moment-format option.date "LT"}}
+                {{!
+                  TODO: Simplify to timeStyle="short" after upgrading to Ember Intl v6
+                }}
+                {{format-date option.date hour="numeric" minute="numeric"}}
               {{/if}}
             {{else if this.isFindADate}}
               {{!
