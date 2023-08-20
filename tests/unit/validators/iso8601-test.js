@@ -57,42 +57,22 @@ module('Unit | Validator | iso8601', function(hooks) {
     );
   });
 
-  test('valid iso8601 string formats could be defined by options.validFormats', function(assert) {
+  test('other iso8601 strings', function(assert) {
     let validator = this.owner.lookup('validator:iso8601');
-    const buildOptions = validator.buildOptions({
-      validFormats: [
-        'YYYY-MM-DD',
-        'YYYY-MM-DDTHH:mmZ',
-        'YYYY-MM-DDTHH:mm:ssZ'
-      ]
-    }, {});
-    assert.notOk(
-      validator.validate('1945-05-08') === true,
-      'iso 8601 date string is invalid by default'
-    );
-    assert.equal(
-      validator.validate('1945-05-08', buildOptions),
+    assert.strictEqual(
+      validator.validate('1945-05-08'),
       true,
-      'iso 8601 date string is valid if it\'s in validFormats options'
+      'iso 8601 date string is valid'
     );
-    assert.notOk(
-      validator.validate('1945-05-08T23:01Z') === true,
-      'iso 8601 datetime string in UTC is invalid by default'
-    );
-    assert.equal(
-      validator.validate('1945-05-08T23:01Z', buildOptions),
+    assert.strictEqual(
+      validator.validate('1945-05-08T23:01Z'),
       true,
-      'iso 8601 datetime string in UTC is valid if it\'s in validFormats options'
+      'iso 8601 datetime string in UTC is valid'
     );
-    assert.notOk(
-      validator.validate('1945-05-08T23:01:00Z') === true,
+    assert.strictEqual(
+      validator.validate('1945-05-08T23:01:00Z'),
       true,
-      'iso 8601 datetime string with seconds in UTC is invalid by default'
-    );
-    assert.equal(
-      validator.validate('1945-05-08T23:01:00Z', buildOptions),
-      true,
-      'iso 8601 datetime string with seconds in UTC is valid if it\'s in validFormats options'
+      'iso 8601 datetime string with seconds in UTC is valid'
     );
   });
 });

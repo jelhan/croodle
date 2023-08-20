@@ -20,12 +20,6 @@ const Validations = buildValidations({
   title: [
     validator('iso8601', {
       active: readOnly('model.poll.isFindADate'),
-      validFormats: [
-        'YYYY-MM-DD',
-        'YYYY-MM-DDTHH:mmZ',
-        'YYYY-MM-DDTHH:mm:ssZ',
-        'YYYY-MM-DDTHH:mm:ss.SSSZ'
-      ],
     }),
     validator('presence', {
       presence: true,
