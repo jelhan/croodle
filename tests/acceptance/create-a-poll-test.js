@@ -4,7 +4,6 @@ import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';
 import { setupBrowserNavigationButtons, backButton } from 'ember-cli-browser-navigation-button-test-helper/test-support';
-import moment from 'moment';
 import { DateTime } from 'luxon';
 import pageCreateIndex from 'croodle/tests/pages/create/index';
 import pageCreateMeta from 'croodle/tests/pages/create/meta';
@@ -605,10 +604,6 @@ module('Acceptance | create a poll', function(hooks) {
       DateTime.fromISO('2016-01-02'),
       DateTime.fromISO('2016-01-13'),
     ];
-    const dayFormat = moment.localeData().longDateFormat('LLLL')
-                        .replace(
-                          moment.localeData().longDateFormat('LT'), '')
-                        .trim();
 
     setupBrowserNavigationButtons();
 

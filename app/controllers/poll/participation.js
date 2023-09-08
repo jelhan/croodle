@@ -3,13 +3,12 @@ import { inject as service } from '@ember/service';
 import { not, readOnly } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
 import { getOwner } from '@ember/application';
-import { isPresent, isEmpty } from '@ember/utils';
+import { isEmpty } from '@ember/utils';
 import EmberObject, { computed } from '@ember/object';
 import {
     validator, buildValidations
 }
 from 'ember-cp-validations';
-import moment from 'moment';
 import config from 'croodle/config/environment';
 
 const validCollection = function(collection) {

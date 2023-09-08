@@ -5,10 +5,8 @@ import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
 import pollParticipate from 'croodle/tests/helpers/poll-participate';
-import moment from 'moment';
 import PollParticipationPage from 'croodle/tests/pages/poll/participation';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
-import { DateTime } from 'luxon';
 
 module('Acceptance | legacy support', function(hooks) {
   let yesLabel;

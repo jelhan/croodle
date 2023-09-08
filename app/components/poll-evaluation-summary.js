@@ -13,7 +13,7 @@ export default class PollEvaluationSummary extends Component {
   @service
   intl;
 
-  @computed('users.[]')
+  @computed('poll.{answers,isFreeText,options}', 'users.[]')
   get bestOptions() {
     // can not evaluate answer type free text
     if (this.get('poll.isFreeText')) {

@@ -22,7 +22,7 @@ export default class LanguageSelect extends Component {
   @readOnly('intl.primaryLocale')
   current;
 
-  @computed('intl.locales')
+  @computed('intl.{locales,primaryLocale}')
   get locales() {
     let currentLocale = this.intl.primaryLocale;
 
