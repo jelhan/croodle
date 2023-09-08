@@ -9,6 +9,7 @@ import {
 }
 from 'ember-cp-validations';
 import moment from 'moment';
+import { DateTime, Duration } from 'luxon';
 
 const Validations = buildValidations({
   anonymousUser: validator('presence', {
@@ -58,9 +59,8 @@ export default class CreateSettings extends Controller.extend(Validations) {
   set expirationDuration(value) {
     this.set(
       'model.expirationDate',
-      isPresent(value) ? moment().add(moment.duration(value)).toISOString(): ''
+      isPresent(value) ? DateTime.local().plus(Duration.fromISO(value)).toISO() : ''
     );
-    return value;
   }
 
   @computed
@@ -100,8 +100,8 @@ export default class CreateSettings extends Controller.extend(Validations) {
     // set timezone if there is atleast one option with time
     if (
       poll.isFindADate &&
-      poll.options.any(({ title }) => {
-        return !moment(title, 'YYYY-MM-DD', true).isValid();
+      poll.options.any((option) => {
+        return option.hasTime;
       })
     ) {
       this.set('model.timezone', moment.tz.guess());

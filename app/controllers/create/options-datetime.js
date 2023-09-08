@@ -2,7 +2,6 @@ import classic from 'ember-classic-decorator';
 import { action } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
-import moment from 'moment';
 
 @classic
 export default class CreateOptionsDatetimeController extends Controller {
@@ -24,10 +23,10 @@ export default class CreateOptionsDatetimeController extends Controller {
     // remove all days from options which haven't a time but there is atleast
     // one option with time for that day
     const daysWithTime = options.map((option) => {
-      if (moment(option.get('title'), 'YYYY-MM-DD', true).isValid()) {
+      if (!option.hasTime) {
         return null;
       } else {
-        return moment(option.get('title')).format('YYYY-MM-DD');
+        return option.day;
       }
     }).uniq().filter((option) => option !== null);
     const removeObjects = options.filter((option) => {

@@ -5,6 +5,7 @@ import { isPresent, isEmpty } from '@ember/utils';
 import { action, computed } from '@ember/object';
 import { observes } from '@ember-decorators/object';
 import moment from 'moment';
+import { DateTime } from 'luxon';
 
 export default class PollController extends Controller {
   @service
@@ -42,7 +43,7 @@ export default class PollController extends Controller {
     if (isEmpty(expirationDate)) {
       return false;
     }
-    return moment().add(2, 'weeks').isAfter(moment(expirationDate));
+    return DateTime.local().plus({ weeks: 2 }) >= DateTime.fromISO(expirationDate);
   }
 
   /*
