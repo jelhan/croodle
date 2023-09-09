@@ -14,9 +14,6 @@ export default class LanguageSelect extends Component {
   intl;
 
   @service
-  moment;
-
-  @service
   powerCalendar;
 
   @readOnly('intl.primaryLocale')
@@ -39,7 +36,6 @@ export default class LanguageSelect extends Component {
     let locale = this.element.options[this.element.selectedIndex].value;
 
     this.intl.set('locale', locale.includes('-') ? [locale, locale.split('-')[0]] : [locale]);
-    this.moment.changeLocale(locale);
     this.powerCalendar.set('locale', locale);
 
     if (window.localStorage) {
