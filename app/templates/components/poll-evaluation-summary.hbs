@@ -45,8 +45,6 @@
 <p class="last-participation">
   {{t
     "poll.evaluation.lastParticipation"
-    ago=(moment-from-now
-      this.lastParticipationAt locale=this.currentLocale timezone=@timezone
-    )
+    ago=(format-date-relative this.lastParticipationAt)
   }}
 </p>

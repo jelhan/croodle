@@ -82,9 +82,7 @@
           <BsAlert @type="warning" class="expiration-warning">
             {{t
               "poll.expiration-date-warning"
-              timeToNow=(moment-from-now
-                poll.expirationDate locale=this.currentLocale
-              )
+              timeToNow=(format-date-relative poll.expirationDate)
             }}
           </BsAlert>
         </div>
