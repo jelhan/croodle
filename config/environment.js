@@ -34,11 +34,6 @@ module.exports = function(environment) {
       'media-src': "'none'",
     },
     contentSecurityPolicyMeta: true,
-
-    moment: {
-      includeLocales: ['ca', 'de', 'en-gb', 'es', 'fr', 'it', 'nb'],
-      includeTimezone: 'subset'
-    },
   };
 
   if (environment === 'development') {

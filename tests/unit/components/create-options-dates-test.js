@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { isArray } from '@ember/array';
-import moment from 'moment';
 import { DateTime } from 'luxon';
 
 module('Unit | Component | create options dates', function(hooks) {
@@ -65,7 +64,7 @@ module('Unit | Component | create options dates', function(hooks) {
     );
     assert.ok(
       component.selectedDays.every(DateTime.isDateTime),
-      'array elements are moment objects'
+      'array elements are Luxon DateTime objects'
     );
     assert.deepEqual(
       component.selectedDays.map((day) => day.toISODate()),
@@ -90,12 +89,9 @@ module('Unit | Component | create options dates', function(hooks) {
       options.every(({ title }) => typeof title === 'string'),
       'title property of options are strings'
     );
-    assert.ok(
-      options.every(({ title }) => moment(title, 'YYYY-MM-DD', true).isValid()),
-      'title property of options are ISO-8601 date string without time'
-    );
     assert.deepEqual(
-      options.map(({ title }) => title), values.sort(),
+      options.map(({ title }) => title),
+      ['1917-10-25', '1918-11-09'],
       'options having correct value and are sorted'
     );
   });
