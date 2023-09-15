@@ -4,7 +4,6 @@ import Controller from '@ember/controller';
 import { isPresent, isEmpty } from '@ember/utils';
 import { action, computed } from '@ember/object';
 import { observes } from '@ember-decorators/object';
-import moment from 'moment';
 import { DateTime } from 'luxon';
 
 export default class PollController extends Controller {
@@ -52,7 +51,7 @@ export default class PollController extends Controller {
   @computed('poll.timezone')
   get timezoneDiffers() {
     let modelTimezone = this.poll.timezone;
-    return isPresent(modelTimezone) && moment.tz.guess() !== modelTimezone;
+    return isPresent(modelTimezone) && Intl.DateTimeFormat().resolvedOptions().timeZone !== modelTimezone;
   }
 
   @computed('timezoneDiffers', 'timezoneChoosen')

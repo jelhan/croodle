@@ -8,7 +8,6 @@ import {
   validator, buildValidations
 }
 from 'ember-cp-validations';
-import moment from 'moment';
 import { DateTime, Duration } from 'luxon';
 
 const Validations = buildValidations({
@@ -104,7 +103,7 @@ export default class CreateSettings extends Controller.extend(Validations) {
         return option.hasTime;
       })
     ) {
-      this.set('model.timezone', moment.tz.guess());
+      this.set('model.timezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
     }
 
     // save poll
