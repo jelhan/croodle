@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 module('Unit | Controller | poll', function(hooks) {
   setupTest(hooks);
@@ -16,13 +16,13 @@ module('Unit | Controller | poll', function(hooks) {
       'is false if expirationDate is undefined'
     );
 
-    controller.set('model.expirationDate', moment().add(1, 'week').toISOString());
+    controller.set('model.expirationDate', DateTime.local().plus({ weeks: 1 }).toISO());
     assert.ok(
       controller.get('showExpirationWarning'),
       'is true if expirationDate is less than 2 weeks in future'
     );
 
-    controller.set('model.expirationDate', moment().add(1, 'month').toISOString());
+    controller.set('model.expirationDate', DateTime.local().plus({ months: 1 }).toISO());
     assert.notOk(
       controller.get('showExpirationWarning'),
       'is false if expirationDate is more than 2 weeks in future'

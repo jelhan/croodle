@@ -1,7 +1,7 @@
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 module('Unit | Component | create options', function(hooks) {
   setupTest(hooks);
@@ -157,7 +157,7 @@ module('Unit | Component | create options', function(hooks) {
     );
     run(() => {
       let option = this.store.createFragment('option', {
-        title: moment().add('1', 'day').format('YYYY-MM-DD')
+        title: DateTime.local().plus({ days: 1 }).toISODate(),
       });
       poll.get('options').pushObject(option);
       component.get('options').pushObject(option);
@@ -166,18 +166,5 @@ module('Unit | Component | create options', function(hooks) {
       component.get('validations.isValid'),
       'valid if there is atleast one valid date'
     );
-    /*
-    Ember.run(() => {
-      let option = this.store.createFragment('option', {
-        title: moment().add('1', 'day').hour(22).minute(30).seconds(0).milliseconds(0).toISOString()
-      });
-      poll.get('options').pushObject(option);
-      component.get('options').pushObject(option);
-    });
-    assert.notOk(
-      component.get('validations.isValid'),
-      'invalid if there is a option without time for a day with has another option with time specified'
-    );
-    */
   });
 });

@@ -1,7 +1,6 @@
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import moment from 'moment';
 import { DateTime } from 'luxon';
 import { settled } from '@ember/test-helpers';
 
@@ -16,9 +15,9 @@ module('Unit | Component | create options datetime', function(hooks) {
     let component = this.owner.factoryFor('component:create-options-datetime').create();
     let a, b, c, d, e;
     run(() => {
-      a = this.store.createFragment('option', { title: moment('2015-01-01T01:01:00.000').toISOString() });
-      b = this.store.createFragment('option', { title: moment('2015-01-01T11:11:00.000').toISOString() });
-      c = this.store.createFragment('option', { title: moment('2015-02-02T11:11:00.000').toISOString() });
+      a = this.store.createFragment('option', { title: DateTime.fromISO('2015-01-01T01:01:00.000').toISO() });
+      b = this.store.createFragment('option', { title: DateTime.fromISO('2015-01-01T11:11:00.000').toISO() });
+      c = this.store.createFragment('option', { title: DateTime.fromISO('2015-02-02T11:11:00.000').toISO() });
       d = this.store.createFragment('option', { title: '2015-02-02' });
       e = this.store.createFragment('option', { title: '2015-02-03' });
       component.set('dates', [a, b, c, d, e]);
@@ -27,8 +26,8 @@ module('Unit | Component | create options datetime', function(hooks) {
     assert.deepEqual(
       component.get('dates').map((date) => date.get('title')),
       [
-        moment('2015-01-01T01:01:00.000').toISOString(),
-        moment('2015-02-02T11:11:00.000').toISOString(),
+        DateTime.fromISO('2015-01-01T01:01:00.000').toISO(),
+        DateTime.fromISO('2015-02-02T11:11:00.000').toISO(),
         '2015-02-02',
         '2015-02-03'
       ],
@@ -38,8 +37,8 @@ module('Unit | Component | create options datetime', function(hooks) {
     assert.deepEqual(
       component.get('dates').map((date) => date.get('title')),
       [
-        moment('2015-01-01T01:01:00.000').toISOString(),
-        moment('2015-02-02T11:11:00.000').toISOString(),
+        DateTime.fromISO('2015-01-01T01:01:00.000').toISO(),
+        DateTime.fromISO('2015-02-02T11:11:00.000').toISO(),
         '2015-02-03'
       ],
       'date get deleted if there is another date with same day (date does not have a time)'
@@ -50,7 +49,7 @@ module('Unit | Component | create options datetime', function(hooks) {
     assert.deepEqual(
       component.get('dates').map((date) => date.get('title')),
       [
-        moment('2015-01-01T01:01:00.000').toISOString(),
+        DateTime.fromISO('2015-01-01T01:01:00.000').toISO(),
         '2015-02-02',
         '2015-02-03'
       ],
@@ -60,7 +59,7 @@ module('Unit | Component | create options datetime', function(hooks) {
     assert.deepEqual(
       component.get('dates').map((date) => date.get('title')),
       [
-        moment('2015-01-01T01:01:00.000').toISOString(),
+        DateTime.fromISO('2015-01-01T01:01:00.000').toISO(),
         '2015-02-02',
         '2015-02-03'
       ],
@@ -74,9 +73,9 @@ module('Unit | Component | create options datetime', function(hooks) {
     // have to set dates in local time and than convert to ISO 8601 strings
     // because otherwise test could fail caused by timezone
     run(() => {
-      a = this.store.createFragment('option', { title: moment('2015-01-01T01:01:00').toISOString() });
-      b = this.store.createFragment('option', { title: moment('2015-01-01T11:11:00').toISOString() });
-      c = this.store.createFragment('option', { title: moment('2015-02-02T01:01:00').toISOString() });
+      a = this.store.createFragment('option', { title: DateTime.fromISO('2015-01-01T01:01:00').toISO() });
+      b = this.store.createFragment('option', { title: DateTime.fromISO('2015-01-01T11:11:00').toISO() });
+      c = this.store.createFragment('option', { title: DateTime.fromISO('2015-02-02T01:01:00').toISO() });
       component.set('dates', [a, b, c]);
     });
     assert.equal(
@@ -140,7 +139,7 @@ module('Unit | Component | create options datetime', function(hooks) {
     );
 
     component.get('dates').pushObject(
-      this.store.createFragment('option', { title: moment('2015-02-02T01:01').toISOString() })
+      this.store.createFragment('option', { title: DateTime.fromISO('2015-02-02T01:01').toISO() })
     );
     assert.equal(
       component.get('groupedDates.length'),
@@ -223,8 +222,8 @@ module('Unit | Component | create options datetime', function(hooks) {
       options: [
         { title: '2015-01-01' },
         { title: '2015-01-02' },
-        { title: moment('2015-01-03T11:00').toISOString() },
-        { title: moment('2015-01-03T15:00').toISOString() }
+        { title: DateTime.fromISO('2015-01-03T11:00').toISO() },
+        { title: DateTime.fromISO('2015-01-03T15:00').toISO() }
       ]
     });
     let component = this.owner.factoryFor('component:create-options-datetime').create({

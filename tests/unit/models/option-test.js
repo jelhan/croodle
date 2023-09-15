@@ -2,16 +2,11 @@ import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { setupIntl } from 'ember-intl/test-support';
-import moment from 'moment';
 import { DateTime } from 'luxon';
 
 module('Unit | Model | option', function(hooks) {
   setupTest(hooks);
   setupIntl(hooks, 'en');
-
-  hooks.beforeEach(function() {
-    moment.locale('en');
-  });
 
   test('day property (get)', function(assert) {
     let option = run(() => this.owner.lookup('service:store').createRecord('option', {
@@ -28,7 +23,7 @@ module('Unit | Model | option', function(hooks) {
     });
     assert.equal(
       option.get('day'),
-      moment('2015-01-01T11:11:00.000Z').format('YYYY-MM-DD'),
+      DateTime.fromISO('2015-01-01T11:11:00.000Z').toISODate(),
       'returns ISO 8601 day string if title is ISO 8601 datetime string'
     );
 
@@ -72,7 +67,7 @@ module('Unit | Model | option', function(hooks) {
     }));
     assert.equal(
       option.get('time'),
-      moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
+      DateTime.fromISO('2015-01-01T11:11:00.000Z').toFormat('HH:mm'),
       'returns time if title is ISO 8601 datetime string'
     );
 

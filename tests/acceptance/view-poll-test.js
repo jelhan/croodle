@@ -5,7 +5,6 @@ import { setupMirage } from 'ember-cli-mirage/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
-import moment from 'moment';
 import { DateTime } from 'luxon';
 import { triggerCopySuccess } from 'ember-cli-clipboard/test-support';
 
@@ -43,7 +42,7 @@ module('Acceptance | view poll', function(hooks) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let poll = this.server.create('poll', {
       encryptionKey,
-      expirationDate: moment().add(1, 'week')
+      expirationDate: DateTime.local().plus({ weeks: 1 }).toISO(),
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
@@ -74,13 +73,13 @@ module('Acceptance | view poll', function(hooks) {
 
   test('view a poll with dates and times', async function(assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let timezone = moment.tz.guess();
+    let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone ;
     let poll = this.server.create('poll', {
       encryptionKey,
-      expirationDate: moment().add(1, 'year'),
+      expirationDate: DateTime.local().plus({ years: 1 }).toISO(),
       isDateTime: true,
       options: [
-        // need to parse the date with moment cause Safari's Date.parse()
+        // need to parse the date with luxon cause Safari's Date.parse()
         // implementation treats a data-time string without explicit
         // time zone as UTC rather than local time
         { title: DateTime.fromISO('2015-12-12T11:11:00').toISO() },
@@ -110,7 +109,7 @@ module('Acceptance | view poll', function(hooks) {
 
   test('view a poll while timezone differs from the one poll got created in and choose local timezone', async function(assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let timezoneUser = moment.tz.guess();
+    let timezoneUser = Intl.DateTimeFormat().resolvedOptions().timeZone ;
     let timezonePoll = timezoneUser !== 'America/Caracas' ? 'America/Caracas' : 'Europe/Moscow';
     let poll = this.server.create('poll', {
       encryptionKey,
@@ -164,7 +163,7 @@ module('Acceptance | view poll', function(hooks) {
 
   test('view a poll while timezone differs from the one poll got created in and choose poll timezone', async function(assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let timezoneUser = moment.tz.guess();
+    let timezoneUser = Intl.DateTimeFormat().resolvedOptions().timeZone ;
     let timezonePoll = timezoneUser !== 'America/Caracas' ? 'America/Caracas' : 'Europe/Moscow';
     let poll = this.server.create('poll', {
       encryptionKey,

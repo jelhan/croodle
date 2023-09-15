@@ -33,7 +33,7 @@ module('Unit | Component | create options dates', function(hooks) {
     );
     assert.ok(
       component.selectedDays.every(DateTime.isDateTime),
-      'array elements are moment objects'
+      'array elements are luxon DateTime objects'
     );
     assert.deepEqual(
       component.selectedDays.map((day) => day.toISODate()),
@@ -44,9 +44,9 @@ module('Unit | Component | create options dates', function(hooks) {
 
   test('#selectedDays: options representing days with times are mapped correctly', function(assert) {
     let values = [
-      moment('2014-01-01T12:00').toISOString(),
-      moment('2015-02-02T15:00').toISOString(),
-      moment('2015-02-02T15:00').toISOString(),
+      DateTime.fromISO('2014-01-01T12:00').toISO(),
+      DateTime.fromISO('2015-02-02T15:00').toISO(),
+      DateTime.fromISO('2015-02-02T15:00').toISO(),
       '2016-03-03',
     ];
 
@@ -102,9 +102,9 @@ module('Unit | Component | create options dates', function(hooks) {
 
   test('action #daysSelected: existing times are preserved if new day is selected', function(assert) {
     let existing = [
-      moment('2015-01-01T11:11').toISOString(),
-      moment('2015-01-01T22:22').toISOString(),
-      moment('2015-06-06T08:08').toISOString(),
+      DateTime.fromISO('2015-01-01T11:11').toISO(),
+      DateTime.fromISO('2015-01-01T22:22').toISO(),
+      DateTime.fromISO('2015-06-06T08:08').toISO(),
       '2016-01-01'
     ];
     let additional = '2016-06-06';
@@ -129,9 +129,9 @@ module('Unit | Component | create options dates', function(hooks) {
 
   test('action #daysSelected: existing times are preserved if day gets unselected', function(assert) {
     let existing = [
-      moment('2015-01-01T11:11').toISOString(),
-      moment('2015-01-01T22:22').toISOString(),
-      moment('2015-06-06T08:08').toISOString(),
+      DateTime.fromISO('2015-01-01T11:11').toISO(),
+      DateTime.fromISO('2015-01-01T22:22').toISO(),
+      DateTime.fromISO('2015-06-06T08:08').toISO(),
       '2016-01-01'
     ];
     let reduced = existing.slice();
