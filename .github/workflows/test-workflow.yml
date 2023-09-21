@@ -11,7 +11,7 @@ jobs:
     name: lint javascript
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -23,7 +23,7 @@ jobs:
     name: lint ember templates
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -35,7 +35,7 @@ jobs:
     name: test bundlesize
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install php
         uses: shivammathur/setup-php@v2
         with:
@@ -52,7 +52,7 @@ jobs:
     name: test CSP in .htaccess
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -64,7 +64,7 @@ jobs:
     name: test against Chrome
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -84,7 +84,7 @@ jobs:
     name: test against Firefox
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -104,7 +104,7 @@ jobs:
     name: test against additional browser in BrowserStack
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -139,7 +139,7 @@ jobs:
         php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
     steps:
       - name: Checkout repository files
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install php
         uses: shivammathur/setup-php@v2
         with:
