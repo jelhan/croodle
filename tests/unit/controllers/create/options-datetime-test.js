@@ -1,21 +1,22 @@
 import { run } from '@ember/runloop';
-import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 module('Unit | Controller | create/options datetime', function(hooks) {
   setupTest(hooks);
 
-  test('normalize options - remove days without time if there is another option with a time for that day', function(assert) {
-    const dirtyOption = EmberObject.create({ title: '2015-01-01' });
+  test('normalize options - remove days without time if there is another option with a time for that day', function (assert) {
+    const StoreService = this.owner.lookup('service:store');
+
+    const dirtyOption = StoreService.createRecord('option', { title: '2015-01-01' });
     let controller = this.owner.factoryFor('controller:create/options-datetime').create({
       model: {
         options: [
-          EmberObject.create({ title: moment('2015-01-01T12:00').toISOString() }),
+          StoreService.createRecord('option', { title: DateTime.fromISO('2015-01-01T12:00').toISO() }),
           dirtyOption,
-          EmberObject.create({ title: '2017-11-11' }),
-          EmberObject.create({ title: moment('2018-04-04T11:11').toISOString() })
+          StoreService.createRecord('option', { title: '2017-11-11' }),
+          StoreService.createRecord('option', { title: DateTime.fromISO('2018-04-04T11:11').toISO() })
         ]
       }
     });
@@ -31,18 +32,20 @@ module('Unit | Controller | create/options datetime', function(hooks) {
     );
   });
 
-  test('normalize options - sort them', function(assert) {
-    const dateA = moment().hour(5).toISOString();
-    const dateB = moment().hour(10).toISOString();
-    const dateC = moment().hour(22).toISOString();
-    const dateD = moment().add(1, 'day').toISOString();
+  test('normalize options - sort them', function (assert) {
+    const StoreService = this.owner.lookup('service:store');
+
+    const dateA = DateTime.local().set({ hours: 5 }).toISO();
+    const dateB = DateTime.local().set({ hours: 10 }).toISO();
+    const dateC = DateTime.local().set({ hours: 22 }).toISO();
+    const dateD = DateTime.local().plus({ days: 1 }).toISO();
     let controller = this.owner.factoryFor('controller:create/options-datetime').create({
       model: {
         options: [
-          EmberObject.create({ title: dateB }),
-          EmberObject.create({ title: dateA }),
-          EmberObject.create({ title: dateC }),
-          EmberObject.create({ title: dateD })
+          StoreService.createRecord('option', { title: dateB }),
+          StoreService.createRecord('option', { title: dateA }),
+          StoreService.createRecord('option', { title: dateC }),
+          StoreService.createRecord('option', { title: dateD })
         ]
       }
     });

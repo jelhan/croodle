@@ -1,7 +1,7 @@
 import classic from 'ember-classic-decorator';
 import { isEmpty } from '@ember/utils';
 import BaseValidator from 'ember-cp-validations/validators/base';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 @classic
 export default class TimeValidator extends BaseValidator {
@@ -14,15 +14,15 @@ export default class TimeValidator extends BaseValidator {
 
     options.value = value;
 
-    if (options.allowEmpty && isEmpty(value)) {
-      return true;
+    if (isEmpty(value)) {
+      return options.allowEmpty === true ? true : this.createErrorMessage('time', value, options);
     }
 
-    if (!isEmpty(value) && typeof value.trim === 'function') {
+    if (typeof value.trim === 'function') {
       value = value.trim();
     }
 
-    valid = moment(value, 'H:mm', true).isValid();
+    valid = DateTime.fromFormat(value, 'H:mm').isValid;
 
     if (valid && value !== '24:00') {
       return true;

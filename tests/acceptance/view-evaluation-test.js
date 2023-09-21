@@ -3,9 +3,9 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';import switchTab from 'croodle/tests/helpers/switch-tab';
-import moment from 'moment';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
 import { assign } from '@ember/polyfills';
+import { DateTime } from 'luxon';
 
 module('Acceptance | view evaluation', function(hooks) {
   hooks.beforeEach(function() {
@@ -32,7 +32,7 @@ module('Acceptance | view evaluation', function(hooks) {
   test('evaluation is correct for FindADate', async function(assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let user1 = this.server.create('user', {
-      creationDate: '2015-01-01T00:00:00.000Z',
+      creationDate: DateTime.local().minus({ months: 8, weeks: 3 }).toISO(),
       encryptionKey,
       name: 'Maximilian',
       selections: [
@@ -51,7 +51,7 @@ module('Acceptance | view evaluation', function(hooks) {
       ]
     });
     let user2 = this.server.create('user', {
-      creationDate: '2015-08-01T00:00:00.000Z',
+      creationDate: DateTime.local().minus({ months: 3, weeks: 2 }).toISO(),
       encryptionKey,
       name: 'Peter',
       selections: [
@@ -108,7 +108,7 @@ module('Acceptance | view evaluation', function(hooks) {
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
-        ago: moment('2015-08-01T00:00:00.000Z').from()
+        ago: '3 months ago'
       }).toString(),
       'last participation is evaluated correctly'
     );
@@ -118,7 +118,7 @@ module('Acceptance | view evaluation', function(hooks) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let usersData = [
       {
-        creationDate: '2015-01-01T00:00:00.000Z',
+        creationDate: DateTime.local().minus({ weeks: 5 }).toISO(),
         encryptionKey,
         name: 'Maximilian',
         selections: [
@@ -137,7 +137,7 @@ module('Acceptance | view evaluation', function(hooks) {
         ]
       },
       {
-        creationDate: '2015-08-01T00:00:00.000Z',
+        creationDate: DateTime.local().minus({ days: 3 }).toISO(),
         encryptionKey,
         name: 'Peter',
         selections: [
@@ -215,7 +215,7 @@ module('Acceptance | view evaluation', function(hooks) {
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
-        ago: moment('2015-08-01T00:00:00.000Z').from()
+        ago: '3 days ago'
       }).toString(),
       'last participation is evaluated correctly'
     );

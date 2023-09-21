@@ -1,16 +1,8 @@
 {{#let @model as |poll|}}
   {{#if this.isEvaluable}}
-    <PollEvaluationSummary
-      @momentLongDayFormat={{this.momentLongDayFormat}}
-      @poll={{poll}}
-      @timezone={{this.timezone}}
-    />
+    <PollEvaluationSummary @poll={{poll}} @timeZone={{this.timezone}} />
   {{/if}}
 
   <h3>{{t "poll.evaluation.participantTable"}}</h3>
-  <PollEvaluationParticipantsTable
-    @momentLongDayFormat={{this.momentLongDayFormat}}
-    @poll={{poll}}
-    @timezone={{this.timezone}}
-  />
+  <PollEvaluationParticipantsTable @poll={{poll}} @timeZone={{this.timezone}} />
 {{/let}}

@@ -25,12 +25,20 @@
         {{#if this.isFreeText}}
           <form.element
             @controlType="text"
-            @label={{if this.isFindADate
-              (moment-format
+            {{!
+              TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
+            }}
+            @label={{if
+              this.isFindADate
+              (format-date
                 selection.labelValue
-                (if (eq selection.momentFormat "day") this.momentLongDayFormat selection.momentFormat)
-                locale=this.currentLocale
-                timeZone=this.timezone
+                weekday=(if selection.showDate "long" undefined)
+                day=(if selection.showDate "numeric" undefined)
+                month=(if selection.showDate "long" undefined)
+                year=(if selection.showDate "numeric" undefined)
+                hour=(if selection.showTime "numeric" undefined)
+                minute=(if selection.showTime "numeric" undefined)
+                timeZone=(if this.timezone this.timezone undefined)
               )
               selection.labelValue
             }}
@@ -39,12 +47,20 @@
           />
         {{else}}
           <form.element
-            @label={{if this.isFindADate
-              (moment-format
+            {{!
+              TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
+            }}
+            @label={{if
+              this.isFindADate
+              (format-date
                 selection.labelValue
-                (if (eq selection.momentFormat "day") this.momentLongDayFormat selection.momentFormat)
-                locale=this.currentLocale
-                timeZone=this.timezone
+                weekday=(if selection.showDate "long" undefined)
+                day=(if selection.showDate "numeric" undefined)
+                month=(if selection.showDate "long" undefined)
+                year=(if selection.showDate "numeric" undefined)
+                hour=(if selection.showTime "numeric" undefined)
+                minute=(if selection.showTime "numeric" undefined)
+                timeZone=(if this.timezone this.timezone undefined)
               )
               selection.labelValue
             }}
@@ -52,24 +68,30 @@
             @property="value"
             @showValidationOn="change"
             @useIcons={{false}}
-            data-test-form-element={{concat "option-" selection.labelValue}}
+            data-test-form-element={{concat "option-" selection.labelString}}
             as |el|
           >
             {{#each this.possibleAnswers as |possibleAnswer|}}
-              <div class="radio custom-control custom-radio custom-control-inline {{possibleAnswer.type}}">
+              <div
+                class="radio custom-control custom-radio custom-control-inline
+                  {{possibleAnswer.type}}"
+              >
                 <input
                   class="custom-control-input
-                    {{if (eq el.validation "success") "is-valid"}}
-                    {{if (eq el.validation "error") "is-invalid"}}
-                  "
+                    {{if (eq el.validation 'success') 'is-valid'}}
+                    {{if (eq el.validation 'error') 'is-invalid'}}
+                    "
                   type="radio"
                   value={{possibleAnswer.type}}
                   checked={{eq possibleAnswer.type el.value}}
                   onchange={{action (mut el.value) possibleAnswer.type}}
                   id={{concat el.id "_" possibleAnswer.type}}
                   name={{selection.labelValue}}
+                />
+                <label
+                  class="custom-control-label"
+                  for={{concat el.id "_" possibleAnswer.type}}
                 >
-                <label class="custom-control-label" for={{concat el.id "_" possibleAnswer.type}}>
                   {{possibleAnswer.label}}
                 </label>
               </div>
@@ -81,7 +103,10 @@
 
     <div class="row cr-steps-bottom-nav">
       <div class="col-md-8 offset-md-4">
-        <SaveButton @isPending={{form.isSubmitting}} data-test-button="submit" />
+        <SaveButton
+          @isPending={{form.isSubmitting}}
+          data-test-button="submit"
+        />
       </div>
     </div>
   </BsForm>
@@ -94,17 +119,12 @@
   data-test-modal="saving-failed"
   as |modal|
 >
-  <modal.header
-    @closeButton={{false}}
-    @title={{t "modal.save-retry.title"}}
-  />
+  <modal.header @closeButton={{false}} @title={{t "modal.save-retry.title"}} />
   <modal.body>
     <p>{{t "modal.save-retry.text"}}</p>
   </modal.body>
   <modal.footer>
-    <BsButton
-      @onClick={{action modal.close}}
-    >
+    <BsButton @onClick={{action modal.close}}>
       {{t "action.abort"}}
     </BsButton>
     <BsButton

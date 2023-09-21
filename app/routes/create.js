@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import config from 'croodle/config/environment';
 import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
-/* global moment */
+import { DateTime } from 'luxon';
 
 @classic
 export default class CreateRoute extends Route {
@@ -30,7 +30,7 @@ export default class CreateRoute extends Route {
       anonymousUser: false,
       pollType: 'FindADate',
       timezone: null,
-      expirationDate: moment().add(3, 'month').toISOString(),
+      expirationDate: DateTime.local().plus({ months: 3 }).toISO(),
       version: config.APP.version,
     });
   }

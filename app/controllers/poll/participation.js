@@ -3,13 +3,12 @@ import { inject as service } from '@ember/service';
 import { not, readOnly } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
 import { getOwner } from '@ember/application';
-import { isPresent, isEmpty } from '@ember/utils';
+import { isEmpty } from '@ember/utils';
 import EmberObject, { computed } from '@ember/object';
 import {
     validator, buildValidations
 }
 from 'ember-cp-validations';
-import moment from 'moment';
 import config from 'croodle/config/environment';
 
 const validCollection = function(collection) {
@@ -156,8 +155,6 @@ export default Controller.extend(Validations, {
   isFreeText: readOnly('poll.isFreeText'),
   isFindADate: readOnly('poll.isFindADate'),
 
-  momentLongDayFormat: readOnly('pollController.momentLongDayFormat'),
-
   name: '',
 
   options: readOnly('poll.options'),
@@ -165,7 +162,7 @@ export default Controller.extend(Validations, {
   poll: readOnly('model'),
   pollController: controller('poll'),
 
-  possibleAnswers: computed('poll.answers', function() {
+  possibleAnswers: computed('labelTranslation', 'poll.answers', function() {
     return this.get('poll.answers').map((answer) => {
       const owner = getOwner(this);
 
@@ -177,7 +174,7 @@ export default Controller.extend(Validations, {
       if (!isEmpty(answer.get('labelTranslation'))) {
         return AnswerObject.extend({
           intl: service(),
-          label: computed('intl.locale', function() {
+          label: computed('intl.locale', 'labelTranslation', function() {
             return this.intl.t(this.labelTranslation);
           }),
           labelTranslation: answer.get('labelTranslation'),
@@ -192,41 +189,28 @@ export default Controller.extend(Validations, {
 
   savingFailed: false,
 
-  selections: computed('options', 'pollController.dates', function() {
+  selections: computed('forceAnswer', 'isFindADate', 'isFreeText', 'options', 'pollController.dates', 'timezone', function() {
     let options = this.options;
     let isFindADate = this.isFindADate;
-    let lastDate;
+    let lastOption;
 
     return options.map((option) => {
-      let labelValue;
-      let momentFormat;
-      let value = option.get('title');
+      const labelString = option.title;
+      const labelValue = option.isDate ? option.jsDate : option.title;
+      const showDate = isFindADate && (!lastOption || option.get('day') !== lastOption.get('day'));
+      const showTime = isFindADate && option.get('hasTime');
 
-      // format label
-      if (isFindADate) {
-        let hasTime = value.length > 10; // 'YYYY-MM-DD'.length === 10
-        let timezone = this.timezone;
-        let date = isPresent(timezone) ? moment.tz(value, timezone) : moment(value);
-        if (hasTime && lastDate && date.format('YYYY-MM-DD') === lastDate.format('YYYY-MM-DD')) {
-          labelValue = value;
-          // do not repeat dates for different times
-          momentFormat = 'LT';
-        } else {
-          labelValue = value;
-          momentFormat = hasTime ? 'LLLL' : 'day';
-          lastDate = date;
-        }
-      } else {
-        labelValue = value;
-      }
+      lastOption = option;
 
       // https://github.com/offirgolan/ember-cp-validations#basic-usage---objects
       // To lookup validators, container access is required which can cause an issue with Object creation
       // if the object is statically imported. The current fix for this is as follows.
       let owner = getOwner(this);
       return SelectionObject.create(owner.ownerInjection(), {
+        labelString,
         labelValue,
-        momentFormat,
+        showDate,
+        showTime,
 
         // forceAnswer and isFreeText must be included in model
         // cause otherwise validations can't depend on it

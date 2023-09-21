@@ -54,9 +54,9 @@ module('Integration | Component | create options', function(hooks) {
     let poll;
     run(() => {
       poll = this.store.createRecord('poll', {
-        isFindADate: this.get('isFindADate'),
-        isDateTime: this.get('isDateTime'),
-        isMakeAPoll: this.get('isMakeAPoll')
+        isFindADate: this.isFindADate,
+        isDateTime: this.isDateTime,
+        isMakeAPoll: this.isMakeAPoll
       });
     });
     this.set('options', poll.get('options'));
@@ -96,9 +96,9 @@ module('Integration | Component | create options', function(hooks) {
     let poll;
     run(() => {
       poll = this.store.createRecord('poll', {
-        isFindADate: this.get('isFindADate'),
-        isDateTime: this.get('isDateTime'),
-        isMakeAPoll: this.get('isMakeAPoll')
+        isFindADate: this.isFindADate,
+        isDateTime: this.isDateTime,
+        isMakeAPoll: this.isMakeAPoll
       });
     });
     this.set('options', poll.get('options'));

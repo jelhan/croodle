@@ -53,7 +53,7 @@ module('Integration | Component | create options text', function(hooks) {
     );
 
     run(() => {
-      this.get('options').pushObject(
+      this.options.pushObject(
         EmberObject.create({ title: 'baz' })
       );
     });
@@ -79,7 +79,7 @@ module('Integration | Component | create options text', function(hooks) {
 
     await fillIn(findAll('input')[0], 'baz');
     assert.equal(
-      this.get('options')[0].get('title'),
+      this.options[0].get('title'),
       'baz',
       'option was updated'
     );
@@ -93,9 +93,9 @@ module('Integration | Component | create options text', function(hooks) {
     let poll;
     run(() => {
       poll = this.store.createRecord('poll', {
-        isFindADate: this.get('isFindADate'),
-        isDateTime: this.get('isDateTime'),
-        isMakeAPoll: this.get('isMakeAPoll'),
+        isFindADate: this.isFindADate,
+        isDateTime: this.isDateTime,
+        isMakeAPoll: this.isMakeAPoll,
         options: [
           { title: 'foo' },
           { title: 'bar' }
@@ -125,7 +125,7 @@ module('Integration | Component | create options text', function(hooks) {
 
     await fillIn(findAll('.form-group input')[1], 'baz')
     assert.equal(
-      this.get('options').objectAt(1).get('title'),
+      this.options.objectAt(1).get('title'),
       'baz',
       'options are observed for new input field'
     );
@@ -161,7 +161,7 @@ module('Integration | Component | create options text', function(hooks) {
       'correct input field is deleted'
     );
     assert.deepEqual(
-      this.get('options').map((option) => option.get('title')),
+      this.options.map((option) => option.get('title')),
       ['foo', 'baz'],
       'option is updated'
     );

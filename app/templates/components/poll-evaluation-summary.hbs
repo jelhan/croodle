@@ -27,8 +27,7 @@
             @currentLocale={{this.currentLocale}}
             @evaluationBestOption={{evaluationBestOption}}
             @isFindADate={{@poll.isFindADate}}
-            @momentLongDayFormat={{@momentLongDayFormat}}
-            @timezone={{@timezone}}
+            @timeZone={{@timeZone}}
           />
         </li>
       {{/each}}
@@ -38,8 +37,7 @@
       @currentLocale={{this.currentLocale}}
       @evaluationBestOption={{this.bestOptions.firstObject}}
       @isFindADate={{@poll.isFindADate}}
-      @momentLongDayFormat={{@momentLongDayFormat}}
-      @timezone={{@timezone}}
+      @timeZone={{@timeZone}}
     />
   {{/if}}
 </p>
@@ -47,6 +45,6 @@
 <p class="last-participation">
   {{t
     "poll.evaluation.lastParticipation"
-    ago=(moment-from-now this.lastParticipationAt locale=this.currentLocale timezone=@timezone)
+    ago=(format-date-relative this.lastParticipationAt)
   }}
 </p>

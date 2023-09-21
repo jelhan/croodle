@@ -11,7 +11,7 @@ import {
   triggerEvent
 } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 module('Integration | Component | create options datetime', function(hooks) {
   setupRenderingTest(hooks);
@@ -78,7 +78,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     );
     assert.equal(
       find('.days .form-group input').value,
-      moment('2015-01-01T11:11:00.000Z').format('HH:mm'),
+      DateTime.fromISO('2015-01-01T11:11:00.000Z').toFormat('HH:mm'),
       'it has time in option as value'
     );
   });
@@ -93,8 +93,8 @@ module('Integration | Component | create options datetime', function(hooks) {
         isFindADate: true,
         isMakeAPoll: false,
         options: [
-          { title: moment('2015-01-01T10:11').toISOString() },
-          { title: moment('2015-01-01T22:22').toISOString() },
+          { title: DateTime.fromISO('2015-01-01T10:11').toISO() },
+          { title: DateTime.fromISO('2015-01-01T22:22').toISO() },
           { title: '2015-02-02' }
         ]
       }));
@@ -173,8 +173,8 @@ module('Integration | Component | create options datetime', function(hooks) {
         isFindADate: true,
         isMakeAPoll: false,
         options: [
-          { title: moment('2015-01-01T11:11').toISOString() },
-          { title: moment('2015-01-01T22:22').toISOString() }
+          { title: DateTime.fromISO('2015-01-01T11:11').toISO() },
+          { title: DateTime.fromISO('2015-01-01T22:22').toISO() }
         ]
       }));
     });
@@ -208,7 +208,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     );
     assert.equal(
       this.get('poll.options.firstObject.title'),
-      moment('2015-01-01T22:22').toISOString(),
+      DateTime.fromISO('2015-01-01T22:22').toISO(),
       'correct option is deleted'
     );
   });
@@ -221,7 +221,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
         options: [
-          { title: moment().hour(10).minute(0).toISOString() },
+          { title: DateTime.local().set({ hours: 10, minutes: 0 }).toISO() },
           { title: '2015-02-02' },
           { title: '2015-03-03' }
         ]
@@ -254,8 +254,8 @@ module('Integration | Component | create options datetime', function(hooks) {
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
         options: [
-          { title: moment().hour(10).minute(0).toISOString() },
-          { title: moment().hour(22).minute(0).toISOString() },
+          { title: DateTime.local().set({ hours: 10, minutes: 0 }).toISO() },
+          { title: DateTime.local().set({ hours: 22, minutes: 0 }).toISO() },
           { title: '2015-02-02' },
           { title: '2015-03-03' }
         ]
@@ -280,9 +280,9 @@ module('Integration | Component | create options datetime', function(hooks) {
         isFindADate: true,
         isMakeAPoll: false,
         options: [
-          { title: moment().hour(10).minute(0).toISOString() },
-          { title: moment().add(1, 'day').hour(10).minute(0).toISOString() },
-          { title: moment().add(1, 'day').hour(22).minute(0).toISOString() }
+          { title: DateTime.local().set({ hours: 10, minutes: 0 }).toISO() },
+          { title: DateTime.local().plus({ days: 1 }).set({ hours: 10, minutes: 0 }).toISO() },
+          { title: DateTime.local().plus({ days: 1 }).set({ hours: 22, minutes: 0 }).toISO() }
         ]
       }));
     });

@@ -15,9 +15,6 @@ export default class PollEvaluationController extends Controller {
   @service
   intl;
 
-  @readOnly('pollController.momentLongDayFormat')
-  momentLongDayFormat;
-
   @readOnly('model')
   poll;
 
@@ -34,7 +31,7 @@ export default class PollEvaluationController extends Controller {
    * evaluates poll data
    * if free text answers are allowed evaluation is disabled
    */
-  @computed('users.[]')
+  @computed('isEvaluable', 'poll.{answers,forceAnswer,options,users}', 'users.[]')
   get evaluation() {
     if (!this.isEvaluable) {
       return [];

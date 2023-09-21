@@ -2,7 +2,8 @@
   @center={{@center}}
   @selected={{@selectedDays}}
   @onCenterChange={{@onCenterChange}}
-  @onSelect={{@onSelect}} as |calendar|
+  @onSelect={{@onSelect}}
+  as |calendar|
 >
   <nav class="ember-power-calendar-nav">
     <button
@@ -13,7 +14,7 @@
       «
     </button>
     <div class="ember-power-calendar-nav-title">
-      {{moment-format calendar.center "MMMM YYYY"}}
+      {{format-date calendar.center month="long" year="numeric"}}
     </div>
     <button
       type="button"

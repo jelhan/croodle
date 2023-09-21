@@ -2,7 +2,7 @@ import classic from 'ember-classic-decorator';
 import { classNames } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { readOnly, max, mapBy, gt } from '@ember/object/computed';
+import { readOnly, gt } from '@ember/object/computed';
 import Component from '@ember/component';
 import { copy } from '@ember/object/internals';
 import { isEmpty } from '@ember/utils';
@@ -13,7 +13,7 @@ export default class PollEvaluationSummary extends Component {
   @service
   intl;
 
-  @computed('users.[]')
+  @computed('poll.{answers,isFreeText,options}', 'users.[]')
   get bestOptions() {
     // can not evaluate answer type free text
     if (this.get('poll.isFreeText')) {
@@ -82,11 +82,17 @@ export default class PollEvaluationSummary extends Component {
   @gt('bestOptions.length', 1)
   multipleBestOptions;
 
-  @max('participationDates')
-  lastParticipationAt;
+  get lastParticipationAt() {
+    let lastParticipationAt = null;
 
-  @mapBy('users', 'creationDate')
-  participationDates;
+    for (const { creationDate } of this.users.toArray()) {
+      if (creationDate >= lastParticipationAt) {
+        lastParticipationAt = creationDate;
+      }
+    }
+
+    return lastParticipationAt;
+  }
 
   @readOnly('users.length')
   participantsCount;

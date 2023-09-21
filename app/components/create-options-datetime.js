@@ -88,7 +88,7 @@ export default class CreateOptionsDatetime extends Component.extend(modelValidat
           items.slice(1)
         );
         // set title as date without time
-        remainingOption.set('title', remainingOption.get('date').format('YYYY-MM-DD'));
+        remainingOption.set('title', remainingOption.day);
       } else {
         // adopt times of first day
         if (timesForFirstDay.get('length') < items.length) {
@@ -102,9 +102,9 @@ export default class CreateOptionsDatetime extends Component.extend(modelValidat
         timesForFirstDay.forEach((timeOfFirstDate, index) => {
           const target = items[index];
           if (target === undefined) {
-            const basisDate = get(items[0], 'date').clone();
-            let [hour, minute] = timeOfFirstDate.split(':');
-            let dateString = basisDate.hour(hour).minute(minute).toISOString();
+            const basisDate = get(items[0], 'datetime');
+            let [hours, minutes] = timeOfFirstDate.split(':');
+            let dateString = basisDate.set({ hours, minutes }).toISO();
             let fragment = this.store.createFragment('option', {
               title: dateString
             });

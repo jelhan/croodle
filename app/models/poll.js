@@ -72,7 +72,7 @@ export default class Poll extends Model {
   /*
    * computed properties
    */
-  @computed('options.[]')
+  @computed('isMakeAPoll', 'options.[]')
   get hasTimes() {
     if (this.isMakeAPoll) {
       return false;

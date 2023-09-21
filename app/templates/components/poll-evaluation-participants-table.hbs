@@ -1,17 +1,23 @@
 <div class="participants-table">
-  <table
-    class="table"
-    data-test-table-of="participants"
-  >
+  <table class="table" data-test-table-of="participants">
     <thead>
       {{#if this.hasTimes}}
         <tr>
           <th>
-            {{!-- column for name --}}
+            {{! column for name }}
           </th>
           {{#each this.optionsGroupedByDays as |optionGroup|}}
             <th colspan={{optionGroup.items.length}}>
-              {{moment-format optionGroup.value @momentLongDayFormat}}
+              {{!
+                TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
+              }}
+              {{format-date
+                optionGroup.value
+                weekday="long"
+                day="numeric"
+                month="long"
+                year="numeric"
+              }}
             </th>
           {{/each}}
         </tr>
@@ -19,16 +25,28 @@
 
       <tr>
         <th>
-          {{!-- column for name --}}
+          {{! column for name }}
         </th>
         {{#each this.options as |option|}}
           <th>
             {{#if (and this.isFindADate this.hasTimes)}}
               {{#if option.hasTime}}
-                {{moment-format option.date "LT"}}
+                {{!
+                  TODO: Simplify to timeStyle="short" after upgrading to Ember Intl v6
+                }}
+                {{format-date option.date hour="numeric" minute="numeric"}}
               {{/if}}
             {{else if this.isFindADate}}
-              {{moment-format option.date @momentLongDayFormat}}
+              {{!
+                TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
+              }}
+              {{format-date
+                option.jsDate
+                weekday="long"
+                day="numeric"
+                month="long"
+                year="numeric"
+              }}
             {{else}}
               {{option.title}}
             {{/if}}
@@ -40,9 +58,7 @@
     <tbody>
       {{#each this.usersSorted as |user|}}
         <tr data-test-participant={{user.id}}>
-          <td
-            data-test-value-for="name"
-          >
+          <td data-test-value-for="name">
             {{user.name}}
           </td>
           {{#each this.options as |option index|}}

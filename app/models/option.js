@@ -5,7 +5,7 @@ import { readOnly } from '@ember/object/computed';
 import { attr } from '@ember-data/model';
 import { assert } from '@ember/debug';
 import { isEmpty } from '@ember/utils';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import Fragment from 'ember-data-model-fragments/fragment';
 import { fragmentOwner } from 'ember-data-model-fragments/attributes';
 import {
@@ -20,12 +20,6 @@ const Validations = buildValidations({
   title: [
     validator('iso8601', {
       active: readOnly('model.poll.isFindADate'),
-      validFormats: [
-        'YYYY-MM-DD',
-        'YYYY-MM-DDTHH:mmZ',
-        'YYYY-MM-DDTHH:mm:ssZ',
-        'YYYY-MM-DDTHH:mm:ss.SSSZ'
-      ],
     }),
     validator('presence', {
       presence: true,
@@ -73,103 +67,62 @@ export default class Option extends Fragment.extend(Validations) {
   // working based on a property of the model.
   isPartiallyFilled = false;
 
-  @computed('title')
-  get date() {
-    const allowedFormats = [
-      'YYYY-MM-DD',
-      'YYYY-MM-DDTHH:mm:ss.SSSZ'
-    ];
-    const value = this.title;
-    if (isEmpty(value)) {
+  get datetime() {
+    const { title } = this;
+
+    if (isEmpty(title)) {
       return null;
     }
 
-    const format = allowedFormats.find((f) => {
-      // if format length does not match value length
-      // string can't be in this format
-      return f.length === value.length && moment(value, f, true).isValid();
-    });
-    if (isEmpty(format)) {
-      return null;
-    }
-
-    return moment(value, format, true);
+    return DateTime.fromISO(title);
   }
 
-  @computed('date')
+  get isDate() {
+    const { datetime } = this;
+    return datetime !== null && datetime.isValid;
+  }
+
   get day() {
-    const date = this.date;
-    if (!moment.isMoment(date)) {
-      return null;
-    }
-    return date.format('YYYY-MM-DD');
-  }
-
-  @computed('date', 'intl.primaryLocale')
-  get dayFormatted() {
-    let date = this.date;
-    if (!moment.isMoment(date)) {
+    if (!this.isDate) {
       return null;
     }
 
-    const locale = this.get('intl.primaryLocale');
-    const format = moment.localeData(locale)
-                         .longDateFormat('LLLL')
-                         .replace(
-                           moment.localeData(locale).longDateFormat('LT'), '')
-                         .trim();
-
-    // momentjs object caches the locale on creation
-    if (date.locale() !== locale) {
-      // we clone the date to allow adjusting timezone without changing the object
-      date = date.clone();
-      date.locale(locale);
-    }
-
-    return date.format(format);
+    return this.datetime.toISODate();
   }
 
-  @computed('title')
+  get jsDate() {
+    return this.datetime.toJSDate();
+  }
+
   get hasTime() {
-    return moment.isMoment(this.date) &&
-           this.title.length === 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length;
+    return this.isDate &&
+           this.title.length >= 'YYYY-MM-DDTHH:mm'.length;
   }
 
-  @computed('date')
   get time() {
-    const date = this.date;
-    if (!moment.isMoment(date)) {
-      return null;
-    }
-    // verify that value is an ISO 8601 date string containg time
-    // testing length is faster than parsing with moment
-    const value = this.title;
-    if (value.length !== 'YYYY-MM-DDTHH:mm:ss.SSSZ'.length) {
+    if (!this.isDate || !this.hasTime) {
       return null;
     }
 
-    return date.format('HH:mm');
+    return this.datetime.toISOTime().substring(0, 5);
   }
   set time(value) {
-    let date = this.date;
     assert(
       'can not set a time if current value is not a valid date',
-      moment.isMoment(date)
+      this.isDate
     );
 
     // set time to undefined if value is false
     if (isEmpty(value)) {
-      this.set('title', date.format('YYYY-MM-DD'));
-      return value;
+      this.set('title', this.day);
+      return;
     }
 
-    if (!moment(value, 'HH:mm', true).isValid()) {
-      return value;
+    const datetime = DateTime.fromISO(value);
+    if (!datetime.isValid) {
+      return;
     }
-
-    const [ hour, minute ] = value.split(':');
-    this.set('title', date.hour(hour).minute(minute).toISOString());
-    return value;
+    this.set('title', this.datetime.set({ hours: datetime.hour, minutes: datetime.minute }).toISO());
   }
 
   init() {
