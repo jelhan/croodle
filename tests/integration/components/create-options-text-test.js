@@ -93,9 +93,7 @@ module('Integration | Component | create options text', function(hooks) {
     let poll;
     run(() => {
       poll = this.store.createRecord('poll', {
-        isFindADate: this.isFindADate,
-        isDateTime: this.isDateTime,
-        isMakeAPoll: this.isMakeAPoll,
+        pollType: 'MakeAPoll',
         options: [
           { title: 'foo' },
           { title: 'bar' }

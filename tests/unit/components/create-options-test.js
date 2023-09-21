@@ -23,8 +23,7 @@ module('Unit | Component | create options', function(hooks) {
     let poll;
     run(() => {
       poll = this.store.createRecord('poll', {
-        isFindADate: component.get('isFindADate'),
-        isMakeAPoll: component.get('isMakeAPoll')
+        pollType: 'MakeAPoll',
       });
     });
 
@@ -76,8 +75,7 @@ module('Unit | Component | create options', function(hooks) {
     let poll;
     run(() => {
       poll = this.store.createRecord('poll', {
-        isFindADate: component.get('isFindADate'),
-        isMakeAPoll: component.get('isMakeAPoll')
+        pollType: 'FindADate',
       });
     });
 
@@ -147,8 +145,7 @@ module('Unit | Component | create options', function(hooks) {
     let poll;
     run(() => {
       poll = this.store.createRecord('poll', {
-        isFindADate: component.get('isFindADate'),
-        isMakeAPoll: component.get('isMakeAPoll')
+        pollType: 'FindADate',
       });
     });
     assert.notOk(

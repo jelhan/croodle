@@ -34,8 +34,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: '2015-01-01' }
         ]
@@ -62,8 +61,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: '2015-01-01T11:11:00.000Z' }
         ]
@@ -90,8 +88,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: DateTime.fromISO('2015-01-01T10:11').toISO() },
           { title: DateTime.fromISO('2015-01-01T22:22').toISO() },
@@ -170,8 +167,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: DateTime.fromISO('2015-01-01T11:11').toISO() },
           { title: DateTime.fromISO('2015-01-01T22:22').toISO() }
@@ -277,8 +273,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: DateTime.local().set({ hours: 10, minutes: 0 }).toISO() },
           { title: DateTime.local().plus({ days: 1 }).set({ hours: 10, minutes: 0 }).toISO() },
@@ -306,8 +301,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // therefore each option needs to be pushed to poll model to have it as
     // it's owner
     let poll = this.store.createRecord('poll', {
-      isFindADate: true,
-      isMakeAPoll: false
+      pollType: 'FindADate',
     });
     poll.options.pushObjects([
       { title: '2015-01-01' },
