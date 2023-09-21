@@ -88,6 +88,7 @@
     "release-it-lerna-changelog": "^5.0.0",
     "sass": "^1.19.0",
     "sjcl": "^1.0.8",
+    "tracked-built-ins": "^1.0.0",
     "webpack": "^5.0.0"
   },
   "engines": {
