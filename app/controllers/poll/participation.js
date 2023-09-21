@@ -195,7 +195,8 @@ export default Controller.extend(Validations, {
     let lastOption;
 
     return options.map((option) => {
-      const labelValue = option.get('title');
+      const labelString = option.title;
+      const labelValue = option.isDate ? option.jsDate : option.title;
       const showDate = isFindADate && (!lastOption || option.get('day') !== lastOption.get('day'));
       const showTime = isFindADate && option.get('hasTime');
 
@@ -206,6 +207,7 @@ export default Controller.extend(Validations, {
       // if the object is statically imported. The current fix for this is as follows.
       let owner = getOwner(this);
       return SelectionObject.create(owner.ownerInjection(), {
+        labelString,
         labelValue,
         showDate,
         showTime,

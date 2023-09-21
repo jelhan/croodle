@@ -90,6 +90,10 @@ export default class Option extends Fragment.extend(Validations) {
     return this.datetime.toISODate();
   }
 
+  get jsDate() {
+    return this.datetime.toJSDate();
+  }
+
   get hasTime() {
     return this.isDate &&
            this.title.length >= 'YYYY-MM-DDTHH:mm'.length;

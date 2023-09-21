@@ -68,7 +68,7 @@
             @property="value"
             @showValidationOn="change"
             @useIcons={{false}}
-            data-test-form-element={{concat "option-" selection.labelValue}}
+            data-test-form-element={{concat "option-" selection.labelString}}
             as |el|
           >
             {{#each this.possibleAnswers as |possibleAnswer|}}
