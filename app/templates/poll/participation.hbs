@@ -84,9 +84,9 @@
                   type="radio"
                   value={{possibleAnswer.type}}
                   checked={{eq possibleAnswer.type el.value}}
-                  onchange={{action (mut el.value) possibleAnswer.type}}
                   id={{concat el.id "_" possibleAnswer.type}}
                   name={{selection.labelValue}}
+                  {{on "change" (fn el.setValue possibleAnswer.type)}}
                 />
                 <label
                   class="custom-control-label"

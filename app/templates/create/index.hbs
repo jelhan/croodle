@@ -2,7 +2,7 @@
   <BsForm
     @formLayout="horizontal"
     @model={{this}}
-    @onInvalid={{scroll-first-invalid-element-into-view-port }}
+    @onInvalid={{scroll-first-invalid-element-into-view-port}}
     @onSubmit={{action "submit"}}
     novalidate
     as |form|
@@ -18,7 +18,7 @@
       <select
         id={{el.id}}
         class="form-control"
-        {{on "change" (action (mut el.value) value="target.value")}}
+        {{on "change" (pick "target.value" el.setValue)}}
         {{autofocus}}
       >
         <option value="FindADate" selected={{eq el.value "FindADate"}}>

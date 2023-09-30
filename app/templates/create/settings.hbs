@@ -2,7 +2,7 @@
   <BsForm
     @formLayout="horizontal"
     @model={{this}}
-    @onInvalid={{scroll-first-invalid-element-into-view-port }}
+    @onInvalid={{scroll-first-invalid-element-into-view-port}}
     @onSubmit={{action "submit"}}
     novalidate
     as |form|
@@ -22,7 +22,10 @@
         {{autofocus}}
       >
         {{#each this.answerTypes as |answerType|}}
-          <option value={{answerType.id}} selected={{eq el.value answerType.id}}>
+          <option
+            value={{answerType.id}}
+            selected={{eq el.value answerType.id}}
+          >
             {{t answerType.labelTranslation}}
           </option>
         {{/each}}
@@ -39,7 +42,7 @@
     >
       <select
         id={{el.id}}
-        onchange={{action (mut el.value) value="target.value"}}
+        {{on "change" (pick "target.value" el.setValue)}}
         class="custom-select"
       >
         {{#each this.expirationDurations as |duration|}}
@@ -66,7 +69,10 @@
 
     <div class="row cr-steps-bottom-nav">
       <div class="col-6 col-md-8 order-12">
-        <SaveButton @isPending={{form.isSubmitting}} data-test-button="submit" />
+        <SaveButton
+          @isPending={{form.isSubmitting}}
+          data-test-button="submit"
+        />
       </div>
       <div class="col-6 col-md-4 order-1 text-right">
         <BackButton @onClick={{action "previousPage"}} />
