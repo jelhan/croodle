@@ -29,9 +29,10 @@ module('Acceptance | view evaluation', function(hooks) {
     assert.equal(findAll('.tab-content .tab-pane .evaluation-summary').length, 0, 'evaluation summary is not present');
   });
 
-  test('evaluation is correct for FindADate', async function(assert) {
+  test('evaluation is correct for FindADate (date-only)', async function(assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let user1 = this.server.create('user', {
+      id: "1-1",
       creationDate: DateTime.local().minus({ months: 8, weeks: 3 }).toISO(),
       encryptionKey,
       name: 'Maximilian',
@@ -51,6 +52,7 @@ module('Acceptance | view evaluation', function(hooks) {
       ]
     });
     let user2 = this.server.create('user', {
+      id: "1-2",
       creationDate: DateTime.local().minus({ months: 3, weeks: 2 }).toISO(),
       encryptionKey,
       name: 'Peter',
@@ -70,6 +72,7 @@ module('Acceptance | view evaluation', function(hooks) {
       ]
     });
     let poll = this.server.create('poll', {
+      id: '1',
       answers: [
         {
           type: 'yes',
@@ -98,19 +101,199 @@ module('Acceptance | view evaluation', function(hooks) {
     assert.equal(
       find('.participants').textContent.trim(),
       t('poll.evaluation.participants', { count: 2 }).toString(),
-      'participants are counted correctly'
+      'shows number of participants'
     );
     assert.equal(
       find('.best-options strong').textContent.trim(),
       'Friday, January 1, 2016',
-      'options are evaluated correctly'
+      'shows option most participants replied with yes to as best option'
     );
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
         ago: '3 months ago'
       }).toString(),
-      'last participation is evaluated correctly'
+      'shows last participation date'
+    );
+
+    assert.deepEqual(
+      findAll('table thead tr th').map((el) => el.textContent.trim()),
+      ['', 'Saturday, December 12, 2015', 'Friday, January 1, 2016'],
+      'lists dates as table header of parcipants table'
+    );
+
+    assert
+      .dom('[data-test-participant="1-1"] [data-test-value-for="name"]')
+      .hasText('Maximilian', 'shows expected name of first participant in participants table');
+    assert
+      .dom('[data-test-participant="1-2"] [data-test-value-for="name"]')
+      .hasText('Peter', 'shows expected name of second participant in participants table');
+
+    assert
+      .dom('[data-test-participant="1-1"] [data-test-value-for="2015-12-12"]')
+      .hasText('Yes', 'shows expected selection for first option of first participant');
+    assert
+      .dom('[data-test-participant="1-1"] [data-test-value-for="2016-01-01"]')
+      .hasText('Yes', 'shows expected selection for second option of first participant');
+
+
+    assert
+      .dom('[data-test-participant="1-2"] [data-test-value-for="2015-12-12"]')
+      .hasText('No', 'shows expected selection for first option of second participant');
+    assert
+      .dom('[data-test-participant="1-2"] [data-test-value-for="2016-01-01"]')
+      .hasText('Yes', 'shows expected selection for second option of second participant');
+
+    assert.deepEqual(
+      findAll('[data-test-participant] [data-test-value-for="name"]').map((el) => el.textContent.trim()),
+      ['Maximilian', 'Peter'],
+      'Participants are ordered as correctly in participants table'
+    );
+  });
+
+  test('evaluation is correct for FindADate (datetime)', async function(assert) {
+    let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let user1 = this.server.create('user', {
+      id: "1-1",
+      creationDate: DateTime.local().minus({ months: 8, weeks: 3 }).toISO(),
+      encryptionKey,
+      name: 'Maximilian',
+      selections: [
+        {
+          type: 'yes',
+          labelTranslation: 'answerTypes.yes.label',
+          icon: 'glyphicon glyphicon-thumbs-up',
+          label: 'Yes'
+        },
+        {
+          type: 'yes',
+          labelTranslation: 'answerTypes.yes.label',
+          icon: 'glyphicon glyphicon-thumbs-up',
+          label: 'Yes'
+        },
+        {
+          type: 'no',
+          labelTranslation: 'answerTypes.no.label',
+          icon: 'glyphicon glyphicon-thumbs-down',
+          label: 'No'
+        },
+      ]
+    });
+    let user2 = this.server.create('user', {
+      id: "1-2",
+      creationDate: DateTime.local().minus({ months: 3, weeks: 2 }).toISO(),
+      encryptionKey,
+      name: 'Peter',
+      selections: [
+        {
+          type: 'no',
+          labelTranslation: 'answerTypes.no.label',
+          icon: 'glyphicon glyphicon-thumbs-down',
+          label: 'No'
+        },
+        {
+          type: 'yes',
+          labelTranslation: 'answerTypes.yes.label',
+          icon: 'glyphicon glyphicon-thumbs-up',
+          label: 'Yes'
+        },
+        {
+          type: 'yes',
+          labelTranslation: 'answerTypes.yes.label',
+          icon: 'glyphicon glyphicon-thumbs-up',
+          label: 'Yes'
+        }
+      ]
+    });
+    let poll = this.server.create('poll', {
+      id: '1',
+      answers: [
+        {
+          type: 'yes',
+          labelTranslation: 'answerTypes.yes.label',
+          icon: 'glyphicon glyphicon-thumbs-up',
+          label: 'Yes'
+        },
+        {
+          type: 'no',
+          labelTranslation: 'answerTypes.no.label',
+          icon: 'glyphicon glyphicon-thumbs-down',
+          label: 'No'
+        }
+      ],
+      encryptionKey,
+      options: [
+        { title: DateTime.fromISO('2015-12-12T06:06').toISO() },
+        { title: DateTime.fromISO('2015-12-12T12:12').toISO() },
+        { title: DateTime.fromISO('2016-01-01T18:18').toISO() }
+      ],
+      users: [user1, user2]
+    });
+
+    await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
+    assert.equal(currentRouteName(), 'poll.evaluation');
+    assert.equal(findAll('.tab-content .tab-pane .evaluation-summary').length, 1, 'evaluation summary is present');
+    assert.equal(
+      find('.participants').textContent.trim(),
+      t('poll.evaluation.participants', { count: 2 }).toString(),
+      'shows number of participants'
+    );
+    assert.equal(
+      find('.best-options strong').textContent.trim(),
+      'Saturday, December 12, 2015 at 12:12 PM',
+      'shows option most participants replied with yes to as best option'
+    );
+    assert.equal(
+      find('.last-participation').textContent.trim(),
+      t('poll.evaluation.lastParticipation', {
+        ago: '3 months ago'
+      }).toString(),
+      'shows last participation date'
+    );
+
+    assert.deepEqual(
+      findAll('table thead tr:first-child th').map((el) => el.textContent.trim()),
+      ['', 'Saturday, December 12, 2015', 'Friday, January 1, 2016'],
+      'lists days as first row in table header of parcipants table'
+    );
+    assert.deepEqual(
+      findAll('table thead tr:last-child th').map((el) => el.textContent.trim()),
+      ['', '6:06 AM', '12:12 PM', '6:18 PM'],
+      'lists times as second row in table header of parcipants table'
+    );
+
+    assert
+      .dom('[data-test-participant="1-1"] [data-test-value-for="name"]')
+      .hasText('Maximilian', 'shows expected name of first participant in participants table');
+    assert
+      .dom('[data-test-participant="1-2"] [data-test-value-for="name"]')
+      .hasText('Peter', 'shows expected name of second participant in participants table');
+
+    assert
+      .dom(`[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO('2015-12-12T06:06').toISO()}"]`)
+      .hasText('Yes', 'shows expected selection for first option of first participant');
+    assert
+      .dom(`[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO('2015-12-12T12:12').toISO()}"]`)
+      .hasText('Yes', 'shows expected selection for second option of first participant');
+    assert
+      .dom(`[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO('2016-01-01T18:18').toISO()}"]`)
+      .hasText('No', 'shows expected selection for third option of first participant');
+
+
+    assert
+      .dom(`[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO('2015-12-12T06:06').toISO()}"]`)
+      .hasText('No', 'shows expected selection for first option of second participant');
+    assert
+      .dom(`[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO('2015-12-12T12:12').toISO()}"]`)
+      .hasText('Yes', 'shows expected selection for second option of second participant');
+    assert
+      .dom(`[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO('2016-01-01T18:18').toISO()}"]`)
+      .hasText('Yes', 'shows expected selection for third option of second participant');
+
+    assert.deepEqual(
+      findAll('[data-test-participant] [data-test-value-for="name"]').map((el) => el.textContent.trim()),
+      ['Maximilian', 'Peter'],
+      'Participants are ordered as correctly in participants table'
     );
   });
 
