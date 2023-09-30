@@ -28,7 +28,7 @@ module.exports = function(defaults) {
       includePolyfill: true
     },
     'ember-composable-helpers': {
-      only: ['array', 'object-at'],
+      only: ['array', 'object-at', 'pick'],
     },
     'ember-math-helpers': {
       only: ['lte', 'sub'],
