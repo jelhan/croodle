@@ -64,7 +64,7 @@
     "ember-load-initializers": "^2.1.1",
     "ember-math-helpers": "^2.8.1",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-modifier": "^2.1.1",
+    "ember-modifier": "^3.2.7",
     "ember-page-title": "^6.0.0",
     "ember-power-calendar": "^0.19.0",
     "ember-power-calendar-luxon": "^0.4.0",
