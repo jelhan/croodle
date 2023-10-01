@@ -6673,7 +6673,7 @@ ember-auto-import@^1.11.3, ember-auto-import@^1.12.0, ember-auto-import@^1.5.2:
     walk-sync "^0.3.3"
     webpack "^4.43.0"
 
-ember-auto-import@^2.0.0, ember-auto-import@^2.2.3, ember-auto-import@^2.4.0, ember-auto-import@^2.5.0:
+ember-auto-import@^2.0.0, ember-auto-import@^2.2.3, ember-auto-import@^2.4.0, ember-auto-import@^2.6.3:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-2.6.3.tgz#f18d1b93dd10b08ba5496518436f9d56dd4e000a"
   integrity sha512-uLhrRDJYWCRvQ4JQ1e64XlSrqAKSd6PXaJ9ZsZI6Tlms9T4DtQFxNXasqji2ZRJBVrxEoLCRYX3RTldsQ0vNGQ==
@@ -7031,7 +7031,7 @@ ember-cli-htmlbars@^5.2.0, ember-cli-htmlbars@^5.3.1, ember-cli-htmlbars@^5.7.1:
     strip-bom "^4.0.0"
     walk-sync "^2.2.0"
 
-ember-cli-htmlbars@^6.2.0:
+ember-cli-htmlbars@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-6.3.0.tgz#ac85f2bbd09788992ab7f9ca832cd044fb8e5798"
   integrity sha512-N9Y80oZfcfWLsqickMfRd9YByVcTGyhYRnYQ2XVPVrp6jyUyOeRWmEAPh7ERSXpp8Ws4hr/JB9QVQrn/yZa+Ag==
@@ -7699,16 +7699,15 @@ ember-popper-modifier@^2.0.0:
     ember-cli-htmlbars "^6.0.0"
     ember-modifier "^3.1.0"
 
-ember-power-calendar-luxon@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/ember-power-calendar-luxon/-/ember-power-calendar-luxon-0.4.0.tgz#c9023f24663b572538d39406cb025690dc1b872f"
-  integrity sha512-kr3LDa6b9/Di0lpEGI25QdrwR3VzQIG75MYp5QpDU6/6WarBWyWv/Edggfy5Y7WiaJlBC3TUbdSIu6MEG/Be+g==
+ember-power-calendar-luxon@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/ember-power-calendar-luxon/-/ember-power-calendar-luxon-0.5.0.tgz#f35a4781e08902e0a536bbdd7e8dcf3885594698"
+  integrity sha512-yX+ItGi/Qgt/BN1ppk6NQQ18V7rjxtdL7q9QXF9vqQRwBJLelI3ABNl3gDwOznR6f3sVxbT5PEpJiDJgLEJb/A==
   dependencies:
-    broccoli-funnel "^3.0.5"
-    ember-auto-import "^2.5.0"
+    ember-auto-import "^2.6.3"
     ember-cli-babel "^7.26.11"
-    ember-cli-htmlbars "^6.2.0"
-    luxon "^3.3.0"
+    ember-cli-htmlbars "^6.3.0"
+    luxon "^3.4.0"
 
 ember-power-calendar@^0.19.0:
   version "0.19.0"
@@ -11425,10 +11424,10 @@ lru-cache@^7.14.1:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.18.3.tgz#f793896e0fd0e954a59dfdd82f0773808df6aa89"
   integrity sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==
 
-luxon@^3.3.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.4.0.tgz#17cb754efecbf76994f05b2a3f1f91fad7ddfde7"
-  integrity sha512-7eDo4Pt7aGhoCheGFIuq4Xa2fJm4ZpmldpGhjTYBNUYNCN6TIEP6v7chwwwt3KRp7YR+rghbfvjyo3V5y9hgBw==
+luxon@^3.4.0:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.4.3.tgz#8ddf0358a9492267ffec6a13675fbaab5551315d"
+  integrity sha512-tFWBiv3h7z+T/tDaoxA8rqTxy1CHV6gHS//QdaH4pulbq/JuBSGgQspQQqcgnwdAx6pNI7cmvz5Sv/addzHmUg==
 
 macos-release@^3.1.0:
   version "3.2.0"
