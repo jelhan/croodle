@@ -48,7 +48,7 @@
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-deprecation-workflow": "^2.0.0",
     "ember-cli-flash": "^2.0.0",
-    "ember-cli-htmlbars": "^5.7.2",
+    "ember-cli-htmlbars": "^6.0.0",
     "ember-cli-inject-live-reload": "^2.1.0",
     "ember-cli-mirage": "^2.0.0",
     "ember-cli-page-object": "^1.11.0",
