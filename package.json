@@ -64,7 +64,7 @@
     "ember-intl": "^4.2.2",
     "ember-load-initializers": "^2.1.2",
     "ember-math-helpers": "^3.0.0",
-    "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-maybe-import-regenerator": "^1.0.0",
     "ember-modifier": "^3.2.7",
     "ember-page-title": "^6.2.2",
     "ember-power-calendar": "^0.20.0",
