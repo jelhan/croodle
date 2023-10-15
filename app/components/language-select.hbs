@@ -1,5 +1,7 @@
-{{#each-in this.locales as |localeKey localeName|}}
-  <option value={{localeKey}} selected={{eq localeKey this.currentLocale}}>
-    {{localeName}}
-  </option>
-{{/each-in}}
+<select class="language-select" {{on "change" this.handleChange}}>
+  {{#each-in this.locales as |localeKey localeName|}}
+    <option value={{localeKey}} selected={{eq localeKey this.currentLocale}}>
+      {{localeName}}
+    </option>
+  {{/each-in}}
+</select>
