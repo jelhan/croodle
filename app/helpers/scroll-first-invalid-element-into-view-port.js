@@ -19,7 +19,7 @@ function elementIsNotVisible(element) {
       );
 }
 
-function scrollFirstInvalidElementIntoViewPort() {
+export function scrollFirstInvalidElementIntoViewPort() {
   // `schedule('afterRender', function() {})` would be more approperiate but there seems to be a
   // timing issue in Firefox causing the Browser not scrolling up far enough if doing so
   // delaying to next runloop therefore
@@ -33,7 +33,7 @@ function scrollFirstInvalidElementIntoViewPort() {
     // focus first invalid control
     invalidInput.focus({ preventScroll: true });
 
-    // scroll to label or legend of first invalid control if it's visible yet
+    // scroll to label or legend of first invalid control if it's not visible yet
     if (elementIsNotVisible(invalidInput)) {
       // Radio groups have a label and a legend. While the label is per input, the legend is for
       // the whole group. Croodle should bring the legend into view in that case.
@@ -41,11 +41,14 @@ function scrollFirstInvalidElementIntoViewPort() {
       // https://github.com/kaliber5/ember-bootstrap/issues/931
       // As a work-a-round we look the correct label up by a custom convention for the `id` of the
       // inputs and the `for` of the input group `<label>` (which should be a `<legend>`).
-      let label =
+      let scrollTarget =
         document.querySelector(`label[for="${invalidInput.id.substr(0, invalidInput.id.indexOf('_'))}"`) ||
-        document.querySelector(`label[for="${invalidInput.id}"]`);
+        document.querySelector(`label[for="${invalidInput.id}"]`) ||
+        // For polls with type `MakeAPoll` the option inputs do not have a label at all. In that case
+        // we scroll to the input element itself
+        invalidInput;
 
-      label.scrollIntoView({ behavior: 'smooth' });
+      scrollTarget.scrollIntoView({ behavior: 'smooth' });
     }
   });
 }

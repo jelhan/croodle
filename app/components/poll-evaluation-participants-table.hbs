@@ -10,9 +10,14 @@
             <th colspan={{optionGroup.items.length}}>
               {{!
                 TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
+
+                Cannot use optionGroup.value because that's a ISO8601 day string
+                (e.g. "2023-10-01"), which is parsed by browsers in UTC and not
+                locale time zone. Therefore we need parse a JS Date representation
+                of that string, which has been parsed by Luxon in correct timezone.
               }}
               {{format-date
-                optionGroup.value
+                optionGroup.items.0.jsDate
                 weekday="long"
                 day="numeric"
                 month="long"
@@ -34,7 +39,7 @@
                 {{!
                   TODO: Simplify to timeStyle="short" after upgrading to Ember Intl v6
                 }}
-                {{format-date option.date hour="numeric" minute="numeric"}}
+                {{format-date option.jsDate hour="numeric" minute="numeric"}}
               {{/if}}
             {{else if this.isFindADate}}
               {{!
@@ -66,7 +71,7 @@
               <td
                 class={{selection.type}}
                 data-test-is-selection-cell
-                data-test-value-for={{option.value}}
+                data-test-value-for={{option.title}}
               >
                 {{#if selection.labelTranslation}}
                   {{t selection.labelTranslation}}

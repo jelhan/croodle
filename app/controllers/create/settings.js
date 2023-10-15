@@ -4,36 +4,12 @@ import Controller from '@ember/controller';
 import { isPresent } from '@ember/utils';
 import { action, computed } from '@ember/object';
 import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
-import {
-  validator, buildValidations
-}
-from 'ember-cp-validations';
 import { DateTime, Duration } from 'luxon';
 
-const Validations = buildValidations({
-  anonymousUser: validator('presence', {
-    presence: true,
-    dependentKeys: ['model.intl.locale']
-  }),
-  answerType: [
-    validator('presence', {
-      presence: true,
-      dependentKeys: ['model.intl.locale']
-    }),
-    validator('inclusion', {
-      in: ['YesNo', 'YesNoMaybe', 'FreeText'],
-      dependentKeys: ['model.intl.locale']
-    })
-  ],
-  forceAnswer: validator('presence', true)
-});
-
-export default class CreateSettings extends Controller.extend(Validations) {
-  @service
-  encryption;
-
-  @service
-  intl;
+export default class CreateSettings extends Controller {
+  @service encryption;
+  @service intl;
+  @service router;
 
   @alias('model.anonymousUser')
   anonymousUser;
@@ -82,19 +58,15 @@ export default class CreateSettings extends Controller.extend(Validations) {
     let { isFindADate } = this.model;
 
     if (isFindADate) {
-      this.transitionToRoute('create.options-datetime');
+      this.router.transitionTo('create.options-datetime');
     } else {
-      this.transitionToRoute('create.options');
+      this.router.transitionTo('create.options');
     }
   }
 
   @action
   async submit() {
-    if (!this.validations.isValid) {
-      return;
-    }
-
-    let poll = this.model;
+    const { model: poll } = this;
 
     // set timezone if there is atleast one option with time
     if (
@@ -115,31 +87,20 @@ export default class CreateSettings extends Controller.extend(Validations) {
       throw err;
     }
 
-    try {
-      // reload as workaround for bug: duplicated records after save
-      await poll.reload();
+    // reload as workaround for bug: duplicated records after save
+    await poll.reload();
 
-      // redirect to new poll
-      await this.transitionToRoute('poll', poll, {
-        queryParams: {
-          encryptionKey: this.encryption.key,
-        },
-      });
-    } catch(err) {
-      // TODO: show feedback to user
-      throw err;
-    }
+    // redirect to new poll
+    await this.router.transitionTo('poll', poll, {
+      queryParams: {
+        encryptionKey: this.encryption.key,
+      },
+    });
   }
 
   @action
   updateAnswerType(answerType) {
     this.set('model.answerType', answerType);
     this.set('model.answers', answersForAnswerType(answerType));
-  }
-
-  init() {
-    super.init(...arguments);
-
-    this.intl.locale;
   }
 }

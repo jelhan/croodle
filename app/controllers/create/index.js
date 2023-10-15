@@ -1,42 +1,27 @@
-import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
-import { alias } from '@ember/object/computed';
-import Controller from '@ember/controller';
-import {
-  validator, buildValidations
-}
-from 'ember-cp-validations';
+import Controller from "@ember/controller";
+import { inject as service } from "@ember/service";
+import { action } from "@ember/object";
 
-const Validations = buildValidations({
-  pollType: [
-    validator('presence', {
-      presence: true,
-      dependentKeys: ['model.intl.locale']
-    }),
-    validator('inclusion', {
-      in: ['FindADate', 'MakeAPoll'],
-      dependentKeys: ['model.intl.locale']
-    })
-  ]
-});
-
-export default class CreateIndex extends Controller.extend(Validations) {
-  @service
-  intl;
-
-  @alias('model.pollType')
-  pollType;
+export default class CreateIndex extends Controller {
+  @service router;
 
   @action
   submit() {
-    if (this.get('validations.isValid')) {
-      this.transitionToRoute('create.meta');
+    this.router.transitionTo("create.meta");
+  }
+
+  @action
+  handleTransition(transition) {
+    if (transition.from?.name === "create.index") {
+      const { poll, formData } = this.model;
+
+      poll.pollType = formData.pollType;
     }
   }
 
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
 
-    this.intl.locale;
+    this.router.on("routeWillChange", this.handleTransition);
   }
 }

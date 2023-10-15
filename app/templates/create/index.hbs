@@ -1,10 +1,9 @@
 <div class="cr-form-wrapper box">
   <BsForm
     @formLayout="horizontal"
-    @model={{this}}
-    @onInvalid={{scroll-first-invalid-element-into-view-port }}
+    @model={{@model.formData}}
+    @onInvalid={{scroll-first-invalid-element-into-view-port}}
     @onSubmit={{action "submit"}}
-    novalidate
     as |form|
   >
     <form.element
@@ -13,12 +12,14 @@
       @showValidationOn={{array "change" "focusOut"}}
       @useIcons={{false}}
       class="poll-type"
+      data-test-form-element="poll-type"
       as |el|
     >
       <select
         id={{el.id}}
         class="form-control"
-        {{on "change" (action (mut el.value) value="target.value")}}
+        required
+        {{on "change" (pick "target.value" el.setValue)}}
         {{autofocus}}
       >
         <option value="FindADate" selected={{eq el.value "FindADate"}}>

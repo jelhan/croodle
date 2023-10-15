@@ -4,40 +4,48 @@
       {{! show label only on first item }}
       @label={{unless index (t "create.options.options.label")}}
       @model={{option}}
-      @property="title"
+      @property="value"
       class="option"
+      data-test-form-element="option"
+      data-test-option={{index}}
       as |el|
     >
       <div class="input-group">
         <el.control
-          @onChange={{action (mut el.value)}}
-          @value={{el.value}}
-          id={{el.id}}
-
           {{! first control should be focused automatically }}
           {{autofocus enabled=(eq index 0)}}
         />
         <div class="input-group-append">
           <BsButton
-            @onClick={{action "deleteOption" option}}
+            @onClick={{fn @deleteOption option}}
             @type="link"
             class="delete"
             {{! disable delete button if there is only one option }}
             disabled={{lte @options.length 1}}
           >
-            <span class="oi oi-trash" title={{t "create.options.button.delete.label"}} aria-hidden="true"></span>
-            <span class="sr-only">{{t "create.options.button.delete.label"}}</span>
+            <span
+              class="oi oi-trash"
+              title={{t "create.options.button.delete.label"}}
+              aria-hidden="true"
+            ></span>
+            <span class="sr-only">{{t
+                "create.options.button.delete.label"
+              }}</span>
           </BsButton>
         </div>
       </div>
 
       <BsButton
-        @onClick={{fn this.addOption option}}
+        @onClick={{fn @addOption "" index}}
         @type="link"
         @size="sm"
         class="add float-left"
       >
-        <span class="oi oi-plus" title={{t "create.options.button.add.label"}} aria-hidden="true"></span>
+        <span
+          class="oi oi-plus"
+          title={{t "create.options.button.add.label"}}
+          aria-hidden="true"
+        ></span>
         <span class="sr-only">{{t "create.options.button.add.label"}}</span>
       </BsButton>
     </form.element>
