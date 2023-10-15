@@ -22,7 +22,6 @@
     "test:csp-header": "grep \"`ember csp-headers --environment production --silent 2>&1 | sed 's/ $//'`\" public/.htaccess || (echo \"CSP headers in public/.htaccess does not match configuration\" && exit 1)"
   },
   "devDependencies": {
-    "@ember-intl/cp-validations": "^4.0.1",
     "@ember/optional-features": "^2.0.0",
     "@glimmer/component": "^1.0.1",
     "@glimmer/tracking": "^1.0.0",
