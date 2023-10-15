@@ -1,32 +1,32 @@
-<div class="participation cr-form-wrapper">
+<div class='participation cr-form-wrapper'>
   <BsForm
-    @formLayout="horizontal"
+    @formLayout='horizontal'
     @model={{@model.formData}}
-    @onInvalid={{scroll-first-invalid-element-into-view-port}}
+    @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
     @onSubmit={{this.submit}}
     novalidate
     as |form|
   >
     <form.element
-      @controlType="text"
-      @label={{t "poll.input.newUserName.label"}}
-      @property="name"
-      class="name"
-      data-test-form-element="name"
+      @controlType='text'
+      @label={{t 'poll.input.newUserName.label'}}
+      @property='name'
+      class='name'
+      data-test-form-element='name'
       as |el|
     >
       <el.control
-        placeholder={{t "poll.input.newUserName.placeholder"}}
+        placeholder={{t 'poll.input.newUserName.placeholder'}}
         {{autofocus}}
       />
     </form.element>
-    <div class="selections">
+    <div class='selections'>
       {{#each @model.poll.options as |option index|}}
         {{#let
           (if
             (eq
               option.day
-              (get (object-at (sub index 1) @model.poll.options) "day")
+              (get (object-at (sub index 1) @model.poll.options) 'day')
             )
             false
             true
@@ -35,7 +35,7 @@
         }}
           {{#if @model.poll.isFreeText}}
             <form.element
-              @controlType="text"
+              @controlType='text'
               {{!
               TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
             }}
@@ -43,12 +43,12 @@
                 @model.poll.isFindADate
                 (format-date
                   option.jsDate
-                  weekday=(if shouldShowDate "long" undefined)
-                  day=(if shouldShowDate "numeric" undefined)
-                  month=(if shouldShowDate "long" undefined)
-                  year=(if shouldShowDate "numeric" undefined)
-                  hour=(if option.hasTime "numeric" undefined)
-                  minute=(if option.hasTime "numeric" undefined)
+                  weekday=(if shouldShowDate 'long' undefined)
+                  day=(if shouldShowDate 'numeric' undefined)
+                  month=(if shouldShowDate 'long' undefined)
+                  year=(if shouldShowDate 'numeric' undefined)
+                  hour=(if option.hasTime 'numeric' undefined)
+                  minute=(if option.hasTime 'numeric' undefined)
                   timeZone=(if
                     this.pollController.timezone
                     this.pollController.timezone
@@ -58,7 +58,7 @@
                 option.title
               }}
               @model={{object-at index @model.formData.selections}}
-              @property="value"
+              @property='value'
             />
           {{else}}
             <form.element
@@ -69,12 +69,12 @@
                 @model.poll.isFindADate
                 (format-date
                   option.jsDate
-                  weekday=(if shouldShowDate "long" undefined)
-                  day=(if shouldShowDate "numeric" undefined)
-                  month=(if shouldShowDate "long" undefined)
-                  year=(if shouldShowDate "numeric" undefined)
-                  hour=(if option.hasTime "numeric" undefined)
-                  minute=(if option.hasTime "numeric" undefined)
+                  weekday=(if shouldShowDate 'long' undefined)
+                  day=(if shouldShowDate 'numeric' undefined)
+                  month=(if shouldShowDate 'long' undefined)
+                  year=(if shouldShowDate 'numeric' undefined)
+                  hour=(if option.hasTime 'numeric' undefined)
+                  minute=(if option.hasTime 'numeric' undefined)
                   timeZone=(if
                     this.pollController.timezone
                     this.pollController.timezone
@@ -84,32 +84,32 @@
                 option.title
               }}
               @model={{object-at index @model.formData.selections}}
-              @property="value"
-              @showValidationOn="change"
+              @property='value'
+              @showValidationOn='change'
               @useIcons={{false}}
-              data-test-form-element={{concat "option-" option.title}}
+              data-test-form-element={{concat 'option-' option.title}}
               as |el|
             >
               {{#each @model.poll.answers as |answer|}}
                 <div
-                  class="radio custom-control custom-radio custom-control-inline
-                    {{answer.type}}"
+                  class='radio custom-control custom-radio custom-control-inline
+                    {{answer.type}}'
                 >
                   <input
-                    class="custom-control-input
-                      {{if (eq el.validation 'success') 'is-valid'}}
-                      {{if (eq el.validation 'error') 'is-invalid'}}
-                      "
-                    type="radio"
+                    class='custom-control-input
+                      {{if (eq el.validation "success") "is-valid"}}
+                      {{if (eq el.validation "error") "is-invalid"}}
+                      '
+                    type='radio'
                     value={{answer.type}}
                     checked={{eq answer.type el.value}}
-                    id={{concat el.id "_" answer.type}}
+                    id={{concat el.id '_' answer.type}}
                     name={{option.title}}
-                    {{on "change" (fn el.setValue answer.type)}}
+                    {{on 'change' (fn el.setValue answer.type)}}
                   />
                   <label
-                    class="custom-control-label"
-                    for={{concat el.id "_" answer.type}}
+                    class='custom-control-label'
+                    for={{concat el.id '_' answer.type}}
                   >
                     {{t answer.labelTranslation}}
                   </label>
@@ -121,11 +121,11 @@
       {{/each}}
     </div>
 
-    <div class="row cr-steps-bottom-nav">
-      <div class="col-md-8 offset-md-4">
+    <div class='row cr-steps-bottom-nav'>
+      <div class='col-md-8 offset-md-4'>
         <SaveButton
           @isPending={{form.isSubmitting}}
-          data-test-button="submit"
+          data-test-button='submit'
         />
       </div>
     </div>
@@ -136,23 +136,23 @@
   @onHidden={{action (mut this.savingFailed) false}}
   @onSubmit={{this.save}}
   @open={{this.savingFailed}}
-  data-test-modal="saving-failed"
+  data-test-modal='saving-failed'
   as |modal|
 >
-  <modal.header @closeButton={{false}} @title={{t "modal.save-retry.title"}} />
+  <modal.header @closeButton={{false}} @title={{t 'modal.save-retry.title'}} />
   <modal.body>
-    <p>{{t "modal.save-retry.text"}}</p>
+    <p>{{t 'modal.save-retry.text'}}</p>
   </modal.body>
   <modal.footer>
     <BsButton @onClick={{modal.close}}>
-      {{t "action.abort"}}
+      {{t 'action.abort'}}
     </BsButton>
     <BsButton
-      @type="primary"
+      @type='primary'
       @onClick={{modal.submit}}
-      data-test-button="retry"
+      data-test-button='retry'
     >
-      {{t "modal.save-retry.button-retry"}}
+      {{t 'modal.save-retry.button-retry'}}
     </BsButton>
   </modal.footer>
 </BsModal>

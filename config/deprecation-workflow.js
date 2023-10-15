@@ -10,10 +10,6 @@ self.deprecationWorkflow.config = {
       handler: 'silence',
       matchId: 'ember-cli-mirage-config-routes-only-export',
     },
-    {
-      handler: 'silence',
-      matchId: 'argument-less-helper-paren-less-invocation',
-    },
     { handler: 'silence', matchId: 'ember-modifier.function-based-options' },
     { handler: 'silence', matchId: 'ember-cli-mirage.miragejs.import' },
     { handler: 'silence', matchId: 'ember.link-to.tag-name' },
