@@ -59,6 +59,7 @@
               }}
               @model={{object-at index @model.formData.selections}}
               @property="value"
+              data-test-form-element={{concat "option-" option.title}}
             />
           {{else}}
             <form.element

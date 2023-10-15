@@ -14,7 +14,7 @@ self.deprecationWorkflow.config = {
     { handler: 'silence', matchId: 'ember-modifier.function-based-options' },
     { handler: 'silence', matchId: 'ember-cli-mirage.miragejs.import' },
     { handler: 'silence', matchId: 'ember.link-to.tag-name' },
-    { handler: 'silence', matchId: 'ember-cli-page-object.multiple' },
+    { handler: 'throw', matchId: 'ember-cli-page-object.multiple' },
     { handler: 'silence', matchId: 'autotracking.mutation-after-consumption' },
     { handler: 'silence', matchId: 'ember-runtime.deprecate-copy-copyable' },
   ],

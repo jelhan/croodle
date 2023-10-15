@@ -5,7 +5,7 @@
 {{#if @isFindADate}}
   {{! Need to disable block indentation rule cause there shouldn't be a space between date and dot }}
   {{! template-lint-disable block-indentation }}
-  <strong class="best-option-value">
+  <strong data-test-best-option={{@evaluationBestOption.option.title}}>
     {{!
       TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
     }}
@@ -22,7 +22,7 @@
   {{! template-lint-enable block-indentation }}
 {{else}}
   <strong
-    class="best-option-value"
+    data-test-best-option={{@evaluationBestOption.option.title}}
   >{{@evaluationBestOption.option.title}}</strong>.
 {{/if}}
 

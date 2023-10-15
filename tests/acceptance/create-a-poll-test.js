@@ -3,6 +3,7 @@ import {
   currentURL,
   currentRouteName,
   fillIn,
+  find,
   findAll,
   settled,
   visit,
@@ -201,14 +202,20 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       dates.map((date) =>
         Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(date)
       ),
       'options are correctly labeled'
     );
     assert.deepEqual(
-      pagePollParticipation.options().answers,
+      Array.from(
+        find('[data-test-form-element^="option"]').querySelectorAll(
+          '.radio label'
+        )
+      ).map((el) => el.textContent.trim()),
       [
         t('answerTypes.yes.label').toString(),
         t('answerTypes.no.label').toString(),
@@ -352,7 +359,9 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       ['option a', 'option b', 'option c'],
       'options are labeled correctly'
     );
@@ -378,7 +387,7 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
-      pageCreateOptionsDatetime.days().labels,
+      findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       days.map((day) =>
         Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)
       ),
@@ -406,7 +415,9 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
           dateStyle: 'full',
@@ -441,7 +452,7 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
-      pageCreateOptionsDatetime.days().labels,
+      findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
       'time inputs having days as label'
     );
@@ -517,7 +528,9 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
           dateStyle: 'full',
@@ -548,7 +561,7 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
-      pageCreateOptionsDatetime.days().labels,
+      findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
       'time inputs having days as label'
     );
@@ -570,7 +583,9 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
       'options are correctly labeled'
     );
@@ -593,7 +608,7 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
-      pageCreateOptionsDatetime.days().labels,
+      findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
       'time inputs having days as label'
     );
@@ -616,7 +631,9 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
           dateStyle: 'full',
@@ -743,7 +760,9 @@ module('Acceptance | create a poll', function (hooks) {
     await click('button[type="submit"]');
     assert.equal(currentRouteName(), 'poll.participation');
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
           dateStyle: 'full',
@@ -803,7 +822,9 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       ['option a'],
       'options are labeled correctly'
     );
@@ -828,7 +849,7 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
-      pageCreateOptionsDatetime.days().labels,
+      findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       days.map((day) =>
         Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)
       ),
@@ -879,7 +900,9 @@ module('Acceptance | create a poll', function (hooks) {
       'poll description is correct'
     );
     assert.deepEqual(
-      pagePollParticipation.options().labels,
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(days[0]),
         Intl.DateTimeFormat('en-US', {
