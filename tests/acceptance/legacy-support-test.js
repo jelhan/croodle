@@ -54,9 +54,9 @@ module('Acceptance | legacy support', function (hooks) {
         },
       ],
       options: [
-        { title: '2015-12-24T17:00:00.000Z' },
-        { title: '2015-12-24T19:00:00.000Z' },
-        { title: '2015-12-31T22:59:00.000Z' },
+        { title: new Date('2015-12-24T17:00').toISOString() },
+        { title: new Date('2015-12-24T19:00').toISOString() },
+        { title: new Date('2015-12-31T22:59').toISOString() },
       ],
       users: [
         this.server.create('user', {
@@ -104,14 +104,14 @@ module('Acceptance | legacy support', function (hooks) {
       Intl.DateTimeFormat('en-US', {
         dateStyle: 'full',
         timeStyle: 'short',
-      }).format(new Date('2015-12-24T17:00:00.000Z')),
+      }).format(new Date('2015-12-24T17:00')),
       Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(
-        new Date('2015-12-24T19:00:00.000Z')
+        new Date('2015-12-24T19:00')
       ),
       Intl.DateTimeFormat('en-US', {
         dateStyle: 'full',
         timeStyle: 'short',
-      }).format(new Date('2015-12-31T22:59:00.000Z')),
+      }).format(new Date('2015-12-31T22:59')),
     ]);
     assert.deepEqual(PollParticipationPage.options().answers, [
       yesLabel,
