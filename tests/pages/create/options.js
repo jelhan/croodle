@@ -46,14 +46,11 @@ export default create(
     dateHasError: isVisible('.days.has-error'),
     dateError: text('.days .help-block'),
 
-    textOptions: collection({
-      itemScope: '.form-group.option',
-      item: {
-        add: clickable('button.add'),
-        delete: clickable('button.delete'),
-        hasError: hasClass('is-invalid', 'input'),
-        title: fillable('input'),
-      },
+    textOptions: collection('.form-group.option', {
+      add: clickable('button.add'),
+      delete: clickable('button.delete'),
+      hasError: hasClass('is-invalid', 'input'),
+      title: fillable('input'),
     }),
     firstTextOption: {
       scope: '.form-group.option:first',

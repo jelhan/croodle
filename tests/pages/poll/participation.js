@@ -12,11 +12,8 @@ export default PageObject.create(
     description: text('.description'),
     name: fillable('.name input'),
     nameHasFocus: hasFocus('.name input'),
-    options: collection({
-      itemScope: '.selections .form-group',
-      item: {
-        label: text('label'),
-      },
+    options: collection('.selections .form-group', {
+      label: text('label'),
     }),
     title: text('h2.title'),
     // use as .visit({ encryptionKey: ??? })

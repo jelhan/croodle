@@ -48,16 +48,14 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateIndex.visit();
     assert.equal(currentRouteName(), 'create.index');
-    assert.equal(
-      pageCreateIndex.statusBar().active,
-      t('create.formStep.type').toString(),
-      'status bar shows correct item as current path (index)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.type'),
+        'status bar shows correct item as current path (index)'
+      );
     assert.deepEqual(
-      pageCreateIndex
-        .statusBar()
-        .toArray()
-        .map((el) => el.text),
+      findAll('[data-test-form-step]').map((el) => el.textContent.trim()),
       [
         t('create.formStep.type').toString(),
         t('create.formStep.meta').toString(),
@@ -68,10 +66,7 @@ module('Acceptance | create a poll', function (hooks) {
       'status bar has correct items'
     );
     assert.deepEqual(
-      pageCreateIndex
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, true, true, true, true],
       'status bar has correct items disabled (index)'
     );
@@ -82,16 +77,14 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateIndex.next();
     assert.equal(currentRouteName(), 'create.meta');
-    assert.equal(
-      pageCreateMeta.statusBar().active,
-      t('create.formStep.meta').toString(),
-      'status bar shows correct item as current path (meta)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.meta'),
+        'status bar shows correct item as current path (meta)'
+      );
     assert.deepEqual(
-      pageCreateMeta
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, true, true, true],
       'status bar has correct items disabled (meta)'
     );
@@ -99,16 +92,14 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateMeta.title('default poll').next();
     assert.equal(currentRouteName(), 'create.options');
-    assert.equal(
-      pageCreateOptions.statusBar().active,
-      t('create.formStep.options.days').toString(),
-      'status bar shows correct item as current path (options.days)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.options.days'),
+        'status bar shows correct item as current path (options.days)'
+      );
     assert.deepEqual(
-      pageCreateOptions
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, true, true],
       'status bar has correct items disabled (options)'
     );
@@ -116,16 +107,14 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateOptions.selectDates(dates);
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.options-datetime');
-    assert.equal(
-      pageCreateOptionsDatetime.statusBar().active,
-      t('create.formStep.options-datetime').toString(),
-      'status bar shows correct item as current path (options-datetime)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.options-datetime'),
+        'status bar shows correct item as current path (options-datetime)'
+      );
     assert.deepEqual(
-      pageCreateOptionsDatetime
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, false, true],
       'status bar has correct items disabled (options-datetime)'
     );
@@ -136,16 +125,14 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateOptionsDatetime.next();
     assert.equal(currentRouteName(), 'create.settings');
-    assert.equal(
-      pageCreateSettings.statusBar().active,
-      t('create.formStep.settings').toString(),
-      'status bar shows correct item as current path (settings)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.settings'),
+        'status bar shows correct item as current path (settings)'
+      );
     assert.deepEqual(
-      pageCreateSettings
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, false, false],
       'status bar has correct items disabled (settings)'
     );
@@ -227,32 +214,28 @@ module('Acceptance | create a poll', function (hooks) {
 
   test('create a poll for answering a question', async function (assert) {
     await pageCreateIndex.visit();
-    assert.equal(
-      pageCreateIndex.statusBar().active,
-      t('create.formStep.type').toString(),
-      'status bar shows correct item as current path (index)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.type').toString(),
+        'status bar shows correct item as current path (index)'
+      );
     assert.deepEqual(
-      pageCreateIndex
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, true, true, true, true],
       'status bar has correct items disabled'
     );
 
     await pageCreateIndex.pollType('MakeAPoll').next();
     assert.equal(currentRouteName(), 'create.meta');
-    assert.equal(
-      pageCreateMeta.statusBar().active,
-      t('create.formStep.meta').toString(),
-      'status bar shows correct item as current path (meta)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.meta').toString(),
+        'status bar shows correct item as current path (meta)'
+      );
     assert.deepEqual(
-      pageCreateMeta
-        .statusBar()
-        .toArray()
-        .map((el) => el.text),
+      findAll('[data-test-form-step]').map((el) => el.textContent.trim()),
       [
         t('create.formStep.type').toString(),
         t('create.formStep.meta').toString(),
@@ -262,26 +245,21 @@ module('Acceptance | create a poll', function (hooks) {
       'status bar has correct items'
     );
     assert.deepEqual(
-      pageCreateMeta
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, true, true],
       'status bar has correct items disabled (meta)'
     );
 
     await pageCreateMeta.title('default poll').next();
     assert.equal(currentRouteName(), 'create.options');
-    assert.equal(
-      pageCreateOptions.statusBar().active,
-      t('create.formStep.options.text').toString(),
-      'status bar shows correct item as current path (options.text)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.options.text').toString(),
+        'status bar shows correct item as current path (options.text)'
+      );
     assert.deepEqual(
-      pageCreateOptions
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, true],
       'status bar has correct items disabled (options)'
     );
@@ -290,57 +268,52 @@ module('Acceptance | create a poll', function (hooks) {
       'first option input has autofocus'
     );
     assert.equal(
-      pageCreateOptions.textOptions().count,
+      pageCreateOptions.textOptions.length,
       2,
       'there are two input fields as default'
     );
 
     await pageCreateOptions.next();
-    assert.equal(
+    assert.strictEqual(
       currentRouteName(),
       'create.options',
       'validation errors prevents transition'
     );
-    assert.equal(
-      pageCreateOptions.statusBar().active,
-      t('create.formStep.options.text').toString(),
-      'status bar shows correct item as current path (options.text)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.options.text').toString(),
+        'status bar shows correct item as current path (options.text)'
+      );
     assert.ok(
-      pageCreateOptions.textOptions(0).hasError &&
-        pageCreateOptions.textOptions(1).hasError,
+      pageCreateOptions.textOptions.objectAt(0).hasError &&
+        pageCreateOptions.textOptions.objectAt(1).hasError,
       'validation errors are shown after submit'
     );
 
-    await pageCreateOptions.textOptions(0).title('option a');
-    await pageCreateOptions.textOptions(1).title('option c');
-    await pageCreateOptions.textOptions(0).add();
-    assert.equal(pageCreateOptions.textOptions().count, 3, 'option was added');
+    await pageCreateOptions.textOptions.objectAt(0).title('option a');
+    await pageCreateOptions.textOptions.objectAt(1).title('option c');
+    await pageCreateOptions.textOptions.objectAt(0).add();
+    assert.equal(pageCreateOptions.textOptions.length, 3, 'option was added');
 
-    await pageCreateOptions.textOptions(1).title('option b');
-    await pageCreateOptions.textOptions(2).add();
-    assert.equal(pageCreateOptions.textOptions().count, 4, 'option was added');
+    await pageCreateOptions.textOptions.objectAt(1).title('option b');
+    await pageCreateOptions.textOptions.objectAt(2).add();
+    assert.equal(pageCreateOptions.textOptions.length, 4, 'option was added');
 
-    await pageCreateOptions.textOptions(3).title('to be deleted');
-    await pageCreateOptions.textOptions(3).delete();
-    assert.equal(
-      pageCreateOptions.textOptions().count,
-      3,
-      'option got deleted'
-    );
+    await pageCreateOptions.textOptions.objectAt(3).title('to be deleted');
+    await pageCreateOptions.textOptions.objectAt(3).delete();
+    assert.equal(pageCreateOptions.textOptions.length, 3, 'option got deleted');
 
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.settings');
-    assert.equal(
-      pageCreateSettings.statusBar().active,
-      t('create.formStep.settings').toString(),
-      'status bar shows correct item as current path (settings)'
-    );
+    assert
+      .dom('[data-test-form-step].is-active')
+      .hasText(
+        t('create.formStep.settings').toString(),
+        'status bar shows correct item as current path (settings)'
+      );
     assert.deepEqual(
-      pageCreateSettings
-        .statusBar()
-        .toArray()
-        .map((el) => el.isDisabled),
+      findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, false],
       'status bar has correct items disabled (settings)'
     );
@@ -394,10 +367,10 @@ module('Acceptance | create a poll', function (hooks) {
       'time inputs having days as label'
     );
 
-    await pageCreateOptionsDatetime.times(0).time('10:00');
-    await pageCreateOptionsDatetime.times(0).add();
-    await pageCreateOptionsDatetime.times(1).time('18:00');
-    await pageCreateOptionsDatetime.times(2).time('12:00');
+    await pageCreateOptionsDatetime.times.objectAt(0).time('10:00');
+    await pageCreateOptionsDatetime.times.objectAt(0).add();
+    await pageCreateOptionsDatetime.times.objectAt(1).time('18:00');
+    await pageCreateOptionsDatetime.times.objectAt(2).time('12:00');
     await pageCreateOptionsDatetime.next();
     assert.equal(currentRouteName(), 'create.settings');
 
@@ -463,12 +436,12 @@ module('Acceptance | create a poll', function (hooks) {
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
       .hasValue('', 'time input field is empty until user enters a time');
 
-    await pageCreateOptionsDatetime.times(0).time('08:00');
+    await pageCreateOptionsDatetime.times.objectAt(0).time('08:00');
     assert
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
       .hasValue('08:00', 'time input field shows the time entered by the user');
 
-    await pageCreateOptionsDatetime.times(0).delete();
+    await pageCreateOptionsDatetime.times.objectAt(0).delete();
     assert
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
       .hasValue(
@@ -476,8 +449,8 @@ module('Acceptance | create a poll', function (hooks) {
         'deleting clears time input value if there is only one time'
       );
 
-    await pageCreateOptionsDatetime.times(0).time('10:00');
-    await pageCreateOptionsDatetime.times(0).add();
+    await pageCreateOptionsDatetime.times.objectAt(0).time('10:00');
+    await pageCreateOptionsDatetime.times.objectAt(0).add();
     assert
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
       .exists({ count: 2 }, 'user can add a second input field');
@@ -492,14 +465,14 @@ module('Acceptance | create a poll', function (hooks) {
       )
       .hasValue('10:00', 'value existing input field is not changed');
 
-    await pageCreateOptionsDatetime.times(1).time('14:00');
-    await pageCreateOptionsDatetime.times(1).add();
+    await pageCreateOptionsDatetime.times.objectAt(1).time('14:00');
+    await pageCreateOptionsDatetime.times.objectAt(1).add();
     assert
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
       .exists({ count: 3 }, 'user can add a third input field');
 
-    await pageCreateOptionsDatetime.times(2).time('18:00');
-    await pageCreateOptionsDatetime.times(1).delete();
+    await pageCreateOptionsDatetime.times.objectAt(2).time('18:00');
+    await pageCreateOptionsDatetime.times.objectAt(1).delete();
     assert
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
       .exists({ count: 2 }, 'user can delete an input field');
@@ -613,7 +586,7 @@ module('Acceptance | create a poll', function (hooks) {
       'time inputs having days as label'
     );
 
-    await pageCreateOptionsDatetime.times(0).time('22:30');
+    await pageCreateOptionsDatetime.times.objectAt(0).time('22:30');
     await pageCreateOptionsDatetime.next();
     assert.equal(currentRouteName(), 'create.settings');
 
@@ -792,18 +765,14 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateMeta.title('default poll').next();
     assert.equal(currentRouteName(), 'create.options');
     assert.equal(
-      pageCreateOptions.textOptions().count,
+      pageCreateOptions.textOptions.length,
       2,
       'there are two input fields as default'
     );
 
-    await pageCreateOptions.textOptions(0).title('option a');
-    await pageCreateOptions.textOptions(1).delete();
-    assert.equal(
-      pageCreateOptions.textOptions().count,
-      1,
-      'option was deleted'
-    );
+    await pageCreateOptions.textOptions.objectAt(0).title('option a');
+    await pageCreateOptions.textOptions.objectAt(1).delete();
+    assert.equal(pageCreateOptions.textOptions.length, 1, 'option was deleted');
 
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.settings');
@@ -954,8 +923,8 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateMeta.next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.textOptions(0).add();
-    await pageCreateOptions.textOptions(1).title('bar');
+    await pageCreateOptions.textOptions.objectAt(0).add();
+    await pageCreateOptions.textOptions.objectAt(1).title('bar');
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.settings');
 

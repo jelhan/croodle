@@ -17,12 +17,9 @@ export const defaultsForApplication = {
 export const defaultsForCreate = assign({}, defaultsForApplication, {
   back: clickable('button.prev'),
   next: clickable('button[type="submit"]'),
-  statusBar: collection({
-    active: text('.form-steps button.btn-primary'),
-    itemScope: '.form-steps button',
-    item: {
-      isDisabled: property('disabled'),
-      text: text(),
-    },
+  statusBar: collection('.form-steps button', {
+    isDisabled: property('disabled'),
+    text: text(),
   }),
+  activeStep: text('.form-steps button.btn-primary'),
 });

@@ -12,6 +12,7 @@
         }}
         disabled={{formStep.disabled}}
         class="cr-steps-top-nav__button"
+        data-test-form-step={{formStep.route}}
       >
         {{t formStep.label}}
       </BsButton>
@@ -25,6 +26,7 @@
       "default"
     }}
     class="cr-steps-top-nav__button"
+    data-test-form-step="create.index"
   >
     {{t "create.formStep.type"}}
   </BsButton>
@@ -37,6 +39,7 @@
     }}
     disabled={{not this.canEnterMetaStep}}
     class="cr-steps-top-nav__button"
+    data-test-form-step="create.meta"
   >
     {{t "create.formStep.meta"}}
   </BsButton>
@@ -49,6 +52,7 @@
     }}
     disabled={{not this.canEnterOptionsStep}}
     class="cr-steps-top-nav__button"
+    data-test-form-step="create.options"
   >
     {{#if this.isFindADate}}
       {{t "create.formStep.options.days"}}
@@ -66,6 +70,7 @@
       }}
       disabled={{not this.canEnterOptionsDatetimeStep}}
       class="cr-steps-top-nav__button"
+      data-test-form-step="create.options-datetime"
     >
       {{t "create.formStep.options-datetime"}}
     </BsButton>
@@ -79,6 +84,7 @@
     }}
     disabled={{not this.canEnterSettingsStep}}
     class="cr-steps-top-nav__button"
+    data-test-form-step="create.settings"
   >
     {{t "create.formStep.settings"}}
   </BsButton>
