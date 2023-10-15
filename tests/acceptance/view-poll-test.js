@@ -2,6 +2,7 @@ import {
   click,
   currentURL,
   currentRouteName,
+  findAll,
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -62,10 +63,12 @@ module('Acceptance | view poll', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.deepEqual(pageParticipation.options().labels, [
-      'Saturday, December 12, 2015',
-      'Friday, January 1, 2016',
-    ]);
+    assert.deepEqual(
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
+      ['Saturday, December 12, 2015', 'Friday, January 1, 2016']
+    );
   });
 
   test('view a poll with dates and times', async function (assert) {
@@ -87,14 +90,19 @@ module('Acceptance | view poll', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.deepEqual(pageParticipation.options().labels, [
-      // full date
-      'Saturday, December 12, 2015 at 11:11 AM',
-      // only time cause day is repeated
-      '1:13 PM',
-      // full date cause day changed
-      'Friday, January 1, 2016 at 11:11 AM',
-    ]);
+    assert.deepEqual(
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
+      [
+        // full date
+        'Saturday, December 12, 2015 at 11:11 AM',
+        // only time cause day is repeated
+        '1:13 PM',
+        // full date cause day changed
+        'Friday, January 1, 2016 at 11:11 AM',
+      ]
+    );
     assert.notOk(
       pageParticipation.showsExpirationWarning,
       'does not show an expiration warning if poll will not expire in next weeks'
@@ -143,27 +151,35 @@ module('Acceptance | view poll', function (hooks) {
     await click(
       '[data-test-modal="choose-timezone"] [data-test-button="use-local-timezone"]'
     );
-    assert.deepEqual(pageParticipation.options().labels, [
-      Intl.DateTimeFormat('en-US', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2015-12-12T11:11:00.000Z')),
-      Intl.DateTimeFormat('en-US', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2016-01-01T11:11:00.000Z')),
-    ]);
+    assert.deepEqual(
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
+      [
+        Intl.DateTimeFormat('en-US', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2015-12-12T11:11:00.000Z')),
+        Intl.DateTimeFormat('en-US', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2016-01-01T11:11:00.000Z')),
+      ]
+    );
     assert
       .dom('[data-test-modal="choose-timezone"]')
       .doesNotExist('modal is closed');
 
     await switchTab('evaluation');
-    assert.deepEqual(pageEvaluation.preferedOptions, [
-      Intl.DateTimeFormat('en-US', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2015-12-12T11:11:00.000Z')),
-    ]);
+    assert.deepEqual(
+      findAll('[data-test-best-option').map((el) => el.textContent.trim()),
+      [
+        Intl.DateTimeFormat('en-US', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2015-12-12T11:11:00.000Z')),
+      ]
+    );
   });
 
   test('view a poll while timezone differs from the one poll got created in and choose poll timezone', async function (assert) {
@@ -208,30 +224,38 @@ module('Acceptance | view poll', function (hooks) {
     await click(
       '[data-test-modal="choose-timezone"] [data-test-button="use-poll-timezone"]'
     );
-    assert.deepEqual(pageParticipation.options().labels, [
-      Intl.DateTimeFormat('en-US', {
-        timeZone: timezonePoll,
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2015-12-12T11:11:00.000Z')),
-      Intl.DateTimeFormat('en-US', {
-        timeZone: timezonePoll,
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2016-01-01T11:11:00.000Z')),
-    ]);
+    assert.deepEqual(
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
+      [
+        Intl.DateTimeFormat('en-US', {
+          timeZone: timezonePoll,
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2015-12-12T11:11:00.000Z')),
+        Intl.DateTimeFormat('en-US', {
+          timeZone: timezonePoll,
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2016-01-01T11:11:00.000Z')),
+      ]
+    );
     assert
       .dom('[data-test-modal="choose-timezone"]')
       .doesNotExist('modal is closed');
 
     await switchTab('evaluation');
-    assert.deepEqual(pageEvaluation.preferedOptions, [
-      Intl.DateTimeFormat('en-US', {
-        timeZone: timezonePoll,
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2015-12-12T11:11:00.000Z')),
-    ]);
+    assert.deepEqual(
+      findAll('[data-test-best-option').map((el) => el.textContent.trim()),
+      [
+        Intl.DateTimeFormat('en-US', {
+          timeZone: timezonePoll,
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2015-12-12T11:11:00.000Z')),
+      ]
+    );
   });
 
   test('shows error page if poll does not exist', async function (assert) {

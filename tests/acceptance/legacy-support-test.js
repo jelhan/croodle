@@ -1,11 +1,10 @@
-import { currentRouteName, visit } from '@ember/test-helpers';
+import { currentRouteName, find, findAll, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
 import pollParticipate from 'croodle/tests/helpers/poll-participate';
-import PollParticipationPage from 'croodle/tests/pages/poll/participation';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
 
 module('Acceptance | legacy support', function (hooks) {
@@ -100,20 +99,29 @@ module('Acceptance | legacy support', function (hooks) {
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
-    assert.deepEqual(PollParticipationPage.options().labels, [
-      Intl.DateTimeFormat('en-US', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2015-12-24T17:00:00.000Z')),
-      Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(
-        new Date('2015-12-24T19:00:00.000Z')
-      ),
-      Intl.DateTimeFormat('en-US', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      }).format(new Date('2015-12-31T22:59:00.000Z')),
-    ]);
-    assert.deepEqual(PollParticipationPage.options().answers, [
+    assert.deepEqual(
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
+      [
+        Intl.DateTimeFormat('en-US', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2015-12-24T17:00:00.000Z')),
+        Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(
+          new Date('2015-12-24T19:00:00.000Z')
+        ),
+        Intl.DateTimeFormat('en-US', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        }).format(new Date('2015-12-31T22:59:00.000Z')),
+      ]
+    );
+    assert.deepEqual(Array.from(
+        find('[data-test-form-element^="option"]').querySelectorAll(
+          '.radio label'
+        )
+      ).map((el) => el.textContent.trim()), [
       yesLabel,
       maybeLabel,
       noLabel,
@@ -184,11 +192,12 @@ module('Acceptance | legacy support', function (hooks) {
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
-    assert.deepEqual(PollParticipationPage.options().labels, [
-      'apple pie',
-      'pecan pie',
-      'plum pie',
-    ]);
+    assert.deepEqual(
+      findAll(
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+      ).map((el) => el.textContent.trim()),
+      ['apple pie', 'pecan pie', 'plum pie']
+    );
 
     await switchTab('evaluation');
     assert.equal(currentRouteName(), 'poll.evaluation');

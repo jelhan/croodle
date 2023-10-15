@@ -11,9 +11,6 @@ export default create(
         label: text(''),
       }
     ),
-    preferedOptions: text('.best-options .best-option-value', {
-      multiple: true,
-    }),
     participants: collection(
       '[data-test-table-of="participants"] [data-test-participant]',
       {

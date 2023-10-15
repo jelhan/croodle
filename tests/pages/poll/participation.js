@@ -13,12 +13,10 @@ export default PageObject.create(
     name: fillable('.name input'),
     nameHasFocus: hasFocus('.name input'),
     options: collection({
-      answers: text('.selections .form-group:eq(0) .radio', { multiple: true }),
       itemScope: '.selections .form-group',
       item: {
         label: text('label'),
       },
-      labels: text('.selections .form-group > label', { multiple: true }),
     }),
     title: text('h2.title'),
     // use as .visit({ encryptionKey: ??? })

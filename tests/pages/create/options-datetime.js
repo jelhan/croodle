@@ -8,10 +8,6 @@ let { clickable, collection, fillable, hasClass, text } = PageObject;
 
 export default PageObject.create(
   assign({}, defaultsForCreate, {
-    days: collection({
-      itemScope: '.form-group',
-      labels: text('label:not(.sr-only)', { multiple: true }),
-    }),
     times: collection({
       itemScope: '.form-group',
       item: {
