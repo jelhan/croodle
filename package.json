@@ -50,7 +50,7 @@
     "ember-cli-flash": "^2.0.0",
     "ember-cli-htmlbars": "^6.0.0",
     "ember-cli-inject-live-reload": "^2.1.0",
-    "ember-cli-mirage": "^2.0.0",
+    "ember-cli-mirage": "^3.0.0",
     "ember-cli-page-object": "^1.11.0",
     "ember-cli-sass": "^11.0.0",
     "ember-cli-sri": "^2.1.1",
