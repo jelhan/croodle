@@ -14,17 +14,17 @@ export default class PollEvaluationParticipantsTable extends Component {
     }
 
     return new Map(
-      optionsPerDay
-        .entries()
-        .map(([dayString, count]) => [
-          DateTime.fromISO(dayString).toJSDate(),
-          count,
-        ])
+      Array.from(optionsPerDay.entries()).map(([dayString, count]) => [
+        DateTime.fromISO(dayString).toJSDate(),
+        count,
+      ])
     );
   }
 
   get usersSorted() {
     const { poll } = this.args;
-    return poll.users.toArray().sort((a, b) => a.creationDate > b.creationDate ? 1 : -1);
+    return poll.users
+      .toArray()
+      .sort((a, b) => (a.creationDate > b.creationDate ? 1 : -1));
   }
 }
