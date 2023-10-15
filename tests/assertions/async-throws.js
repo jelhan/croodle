@@ -11,18 +11,15 @@ let originalEmberOnError;
 let originalWindowOnError;
 
 function intercept(f = () => {}) {
-  originalLoggerError = Ember.Logger.error;
   originalTestAdapterException = Ember.Test.adapter.exception;
   originalWindowOnError = window.onerror;
   originalEmberOnError = Ember.onerror;
-  Ember.Logger.error = () => {};
   Ember.Test.adapter.exception = () => {};
   Ember.onerror = f;
   window.onerror = () => {};
 }
 
 function restore() {
-  Ember.Logger.error = originalLoggerError;
   Ember.Test.adapter.exception = originalTestAdapterException;
   Ember.onerror = originalEmberOnError;
   window.onerror = originalWindowOnError;

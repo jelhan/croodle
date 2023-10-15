@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { copy } from '@ember/object/internals';
 
 export default class PollEvaluationSummary extends Component {
   @service intl;
@@ -25,7 +24,7 @@ export default class PollEvaluationSummary extends Component {
     }, {});
     let evaluation = options.map((option) => {
       return {
-        answers: copy(answers),
+        answers: { ...answers },
         option,
         score: 0,
       };
