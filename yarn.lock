@@ -1330,7 +1330,7 @@
     "@embroider/shared-internals" "^1.8.3"
     semver "^7.3.5"
 
-"@embroider/addon-shim@^1.0.0", "@embroider/addon-shim@^1.8.3", "@embroider/addon-shim@^1.8.6":
+"@embroider/addon-shim@^1.0.0", "@embroider/addon-shim@^1.8.3", "@embroider/addon-shim@^1.8.4", "@embroider/addon-shim@^1.8.6":
   version "1.8.6"
   resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.8.6.tgz#b676991b4fa32c3a98dc7db7dc6cd655029c3f09"
   integrity sha512-siC9kP78uucEbpDcVyxjkwa76pcs5rVzDVpWO4PDc9EAXRX+pzmUuSTLAK3GztUwx7/PWhz1BenAivqdSvSgfg==
@@ -6931,6 +6931,15 @@ ember-modifier@^3.1.0, ember-modifier@^3.2.7:
     ember-cli-string-utils "^1.1.0"
     ember-cli-typescript "^5.0.0"
     ember-compatibility-helpers "^1.2.5"
+
+ember-modifier@^4.0.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ember-modifier/-/ember-modifier-4.1.0.tgz#cb91efbf8ca4ff4a1a859767afa42dddba5a2bbd"
+  integrity sha512-YFCNpEYj6jdyy3EjslRb2ehNiDvaOrXTilR9+ngq+iUqSHYto2zKV0rleiA1XJQ27ELM1q8RihT29U6Lq5EyqQ==
+  dependencies:
+    "@embroider/addon-shim" "^1.8.4"
+    ember-cli-normalize-entity-name "^1.0.0"
+    ember-cli-string-utils "^1.1.0"
 
 ember-named-blocks-polyfill@^0.2.4:
   version "0.2.5"
