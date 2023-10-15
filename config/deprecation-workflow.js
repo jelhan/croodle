@@ -21,6 +21,5 @@ self.deprecationWorkflow.config = {
     { handler: 'silence', matchId: 'ember-cli-page-object.multiple' },
     { handler: 'silence', matchId: 'autotracking.mutation-after-consumption' },
     { handler: 'silence', matchId: 'ember-runtime.deprecate-copy-copyable' },
-    { handler: 'silence', matchId: 'this-property-fallback' },
   ],
 };
