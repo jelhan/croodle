@@ -22,14 +22,14 @@
     </form.element>
     <div class="selections">
       {{#each this.selections as |selection|}}
-        {{#if this.isFreeText}}
+        {{#if @model.isFreeText}}
           <form.element
             @controlType="text"
             {{!
               TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
             }}
             @label={{if
-              this.isFindADate
+              @model.isFindADate
               (format-date
                 selection.labelValue
                 weekday=(if selection.showDate "long" undefined)
@@ -38,7 +38,11 @@
                 year=(if selection.showDate "numeric" undefined)
                 hour=(if selection.showTime "numeric" undefined)
                 minute=(if selection.showTime "numeric" undefined)
-                timeZone=(if this.timezone this.timezone undefined)
+                timeZone=(if
+                  this.pollController.timezone
+                  this.pollController.timezone
+                  undefined
+                )
               )
               selection.labelValue
             }}
@@ -51,7 +55,7 @@
               TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
             }}
             @label={{if
-              this.isFindADate
+              @model.isFindADate
               (format-date
                 selection.labelValue
                 weekday=(if selection.showDate "long" undefined)
@@ -60,7 +64,11 @@
                 year=(if selection.showDate "numeric" undefined)
                 hour=(if selection.showTime "numeric" undefined)
                 minute=(if selection.showTime "numeric" undefined)
-                timeZone=(if this.timezone this.timezone undefined)
+                timeZone=(if
+                  this.pollController.timezone
+                  this.pollController.timezone
+                  undefined
+                )
               )
               selection.labelValue
             }}
@@ -114,7 +122,7 @@
 
 <BsModal
   @onHidden={{action (mut this.savingFailed) false}}
-  @onSubmit={{action "save"}}
+  @onSubmit={{this.save}}
   @open={{this.savingFailed}}
   data-test-modal="saving-failed"
   as |modal|
@@ -124,12 +132,12 @@
     <p>{{t "modal.save-retry.text"}}</p>
   </modal.body>
   <modal.footer>
-    <BsButton @onClick={{action modal.close}}>
+    <BsButton @onClick={{modal.close}}>
       {{t "action.abort"}}
     </BsButton>
     <BsButton
       @type="primary"
-      @onClick={{action modal.submit}}
+      @onClick={{modal.submit}}
       data-test-button="retry"
     >
       {{t "modal.save-retry.button-retry"}}
