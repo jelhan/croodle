@@ -153,7 +153,8 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Per favore, rispondi a tutte le opzioni.'
-        newUserName: 'Devi inserire un nuovo nome utente.'
+        name:
+          valueMissing: 'Devi inserire un nuovo nome utente.'
     evaluation:
         label: Risultati
         overview: Revisione

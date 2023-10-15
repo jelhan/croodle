@@ -154,7 +154,8 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Veuillez répondre à chaque option.'
-        newUserName: "Vous devez saisir un nom d'utilisateur."
+        name:
+          valueMissing: "Vous devez saisir un nom d'utilisateur."
     evaluation:
         label: Évaluation
         overview: Revue

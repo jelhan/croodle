@@ -1,6 +1,7 @@
 poll:
     error:
-        newUserName: Du må skrive inn et brukernavn
+        name:
+          valueMissing: Du må skrive inn et brukernavn
         newUser:
             everyOptionIsAnswered: Besvar alle alternativene.
     share:

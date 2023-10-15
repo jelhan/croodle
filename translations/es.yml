@@ -154,7 +154,8 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Por favor responde a todas las opciones.'
-        newUserName: 'Tienes que poner un nombre.'
+        name:
+          valueMissing: 'Tienes que poner un nombre.'
     evaluation:
         label: 'Evaluar'
         overview: 'Supervisar'

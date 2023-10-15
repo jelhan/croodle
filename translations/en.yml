@@ -160,7 +160,11 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Please answer every option.'
-        newUserName: 'You have to enter a username.'
+        name:
+          duplicate: 'Someone else already participated with this name. Please use an unqiue name.'
+          valueMissing: 'You have to enter a username.'
+        selection:
+          valueMissing: 'Please provide an answer for this option.'
     evaluation:
         label: Evaluation
         overview: Review

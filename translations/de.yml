@@ -168,7 +168,11 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Bitte beantworte jede Option.'
-        newUserName: 'Du musst einen Benutzernamen angeben.'
+        name:
+          duplicate: 'Jemand anders hat bereits mit diesem Namen an der Umfrage teilgenommen. Bitte gib einen eindeutigen Namen ein.'
+          valueMissing: 'Du musst einen Benutzernamen angeben.'
+        selection:
+          valueMissing: 'Bitte gib eine Antwort für diese Option an.'
     evaluation:
         label: Auswertung
         overview: Übersicht

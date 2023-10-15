@@ -152,7 +152,8 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Responeu totes les opcions.'
-        newUserName: 'Heu d''introduir un nom d''usuari.'
+        name:
+          valueMissing: 'Heu d''introduir un nom d''usuari.'
     evaluation:
         label: Avaluació
         overview: Revisió
