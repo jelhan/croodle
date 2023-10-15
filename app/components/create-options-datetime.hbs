@@ -9,29 +9,29 @@
     @onInvalid={{scroll-first-invalid-element-into-view-port}}
     @onSubmit={{action "submit"}}
     @formLayout="horizontal"
-    @model={{this}}
+    @model={{this.formData}}
     novalidate
     as |form|
   >
     <div class="days">
-      {{#each @dates as |date index|}}
+      {{#each this.formData.options as |option index|}}
         {{!
           show summarized validation state for all times in a day
         }}
         <div
           class={{if
-            (get this.daysValidationState date.day)
-            (concat "label-has-" (get this.daysValidationState date.day))
+            (get this.daysValidationState option.day)
+            (concat "label-has-" (get this.daysValidationState option.day))
             "label-has-no-validation"
           }}
-          data-test-day={{date.day}}
+          data-test-day={{option.day}}
         >
           <form.element
             {{!
               TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
             }}
             @label={{format-date
-              date.jsDate
+              option.jsDate
               weekday="long"
               day="numeric"
               month="long"
@@ -45,26 +45,30 @@
               by zero there can't be any element with an index === array.length.
             }}
             @invisibleLabel={{eq
-              date.day
+              option.day
               (get
-                (object-at (if index (sub index 1) @dates.length) @dates) "day"
+                (object-at
+                  (if index (sub index 1) this.formData.options.length)
+                  this.formData.options
+                )
+                "day"
               )
             }}
-            @model={{date}}
+            @model={{option}}
             @property="time"
             class="option"
             as |el|
           >
             <div class="input-group">
               <el.control
-                @onChange={{fn this.inputChanged date}}
                 @placeholder="00:00"
                 @type="time"
                 @value={{el.value}}
                 {{! focus input if it's the first one }}
                 {{autofocus enabled=(eq index 0)}}
                 {{! run validation for partially filled input on focusout event }}
-                {{on "focusout" (fn this.validateInput date)}}
+                {{on "focusout" (fn this.validateInput option)}}
+                {{on "change" (fn this.validateInput option)}}
                 {{!
                   Validation for partially input field must be reset if input is cleared.
                   But `@onChange` is not called and `focusout` event not triggered in that
@@ -79,35 +83,35 @@
                   partially filling in first place and Desktop Safari as well as IE 11
                   do not support `<input type="time">`.
                 }}
-                {{on "focusin" (fn this.updateInputValidation date)}}
-                {{on "keyup" (fn this.updateInputValidation date)}}
+                {{on "focusin" (fn this.updateInputValidation option)}}
+                {{on "keyup" (fn this.updateInputValidation option)}}
                 id={{el.id}}
               />
               <div class="input-group-append">
                 <BsButton
-                  @onClick={{action "deleteOption" date}}
+                  @onClick={{fn this.formData.deleteOption option}}
                   @type="link"
                   class="delete"
-                  {{! disable delete button if there is only one option }}
-                  disabled={{lte @dates.length 1}}
+                  data-test-action="delete"
                 >
                   <span
                     class="oi oi-trash"
                     title={{t "create.options.button.delete.label"}}
                     aria-hidden="true"
                   ></span>
-                  <span class="sr-only">{{t
-                      "create.options.button.delete.label"
-                    }}</span>
+                  <span class="sr-only">
+                    {{t "create.options.button.delete.label"}}
+                  </span>
                 </BsButton>
               </div>
             </div>
 
             <BsButton
-              @onClick={{fn this.addOption date}}
+              @onClick={{fn this.formData.addOption index option.day}}
               @type="link"
               @size="sm"
               class="add cr-option-menu__button cr-option-menu__add-button float-left"
+              data-test-action="add"
             >
               <span
                 class="oi oi-plus"
@@ -123,12 +127,13 @@
       {{/each}}
     </div>
 
-    {{#if (gt this.groupedDates.length 1)}}
+    {{#if this.formData.hasMultipleDays}}
       <form.element>
         <BsButton
-          @onClick={{action "adoptTimesOfFirstDay"}}
+          @onClick={{this.adoptTimesOfFirstDay}}
           @size="sm"
           class="adopt-times-of-first-day"
+          data-test-action="adopt-times-of-first-day"
         >
           {{t "create.options-datetime.copy-first-line"}}
         </BsButton>

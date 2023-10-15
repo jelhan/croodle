@@ -1,9 +1,21 @@
-import classic from 'ember-classic-decorator';
 import Route from '@ember/routing/route';
+import { tracked } from "@glimmer/tracking";
 
-@classic
+class FormData {
+  @tracked pollType;
+
+  constructor({ pollType }) {
+    this.pollType = pollType;
+  }
+}
+
 export default class IndexRoute extends Route {
   model() {
-    return this.modelFor('create');
+    const { pollType } = this.modelFor('create');
+
+    return {
+      formData: new FormData({ pollType }),
+      poll: this.modelFor('create'),
+    };
   }
 }

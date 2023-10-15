@@ -1,9 +1,9 @@
 <div class="cr-form-wrapper box">
   <BsForm
     @formLayout="horizontal"
-    @model={{this}}
+    @model={{@model.formData}}
     @onInvalid={{scroll-first-invalid-element-into-view-port}}
-    @onSubmit={{action "submit"}}
+    @onSubmit={{this.submit}}
     novalidate
     as |form|
   >
@@ -12,6 +12,7 @@
       @label={{t "create.meta.input.title.label"}}
       @property="title"
       class="title"
+      data-test-form-element="title"
       as |el|
     >
       <el.control
@@ -24,6 +25,7 @@
       @label={{t "create.meta.input.description.label"}}
       @property="description"
       class="description"
+      data-test-form-element="description"
       as |el|
     >
       <el.control

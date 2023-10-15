@@ -3,41 +3,12 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, findAll, blur, fillIn, focus } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import hasComponent from 'croodle/tests/helpers/201-created/raw/has-component';
 
 module('Integration | Component | create options', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function() {
     this.store = this.owner.lookup('service:store');
-  });
-
-  test('renders component', async function(assert) {
-    this.set('options', []);
-    this.set('isDateTime', false);
-    this.set('isFindADate', true);
-    this.set('isMakeAPoll', false);
-    await render(
-      hbs`{{create-options options=options isDateTime=isDateTime isFindADate=isFindADate isMakeAPoll=isMakeAPoll}}`
-    );
-
-    assert.ok(
-      hasComponent(this.owner, assert, 'create-options-dates').ok
-    );
-    assert.notOk(
-      hasComponent(this.owner, assert, 'create-options-text').ok
-    );
-
-    this.set('isDateTime', false);
-    this.set('isFindADate', false);
-    this.set('isMakeAPoll', true);
-
-    assert.notOk(
-      hasComponent(this.owner, assert, 'create-options-dates').ok
-    );
-    assert.ok(
-      hasComponent(this.owner, assert, 'create-options-text').ok
-    );
   });
 
   test('shows validation errors if options are not unique (makeAPoll)', async function(assert) {
