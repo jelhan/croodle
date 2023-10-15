@@ -1,59 +1,67 @@
-import classic from 'ember-classic-decorator';
-import { inject as service } from '@ember/service';
-import { not, readOnly } from '@ember/object/computed';
-import Controller, { inject as controller } from '@ember/controller';
-import { getOwner } from '@ember/application';
-import { isEmpty } from '@ember/utils';
-import EmberObject, { computed } from '@ember/object';
-import {
-    validator, buildValidations
-}
-from 'ember-cp-validations';
-import config from 'croodle/config/environment';
+import classic from "ember-classic-decorator";
+import { inject as service } from "@ember/service";
+import { not, readOnly } from "@ember/object/computed";
+import Controller, { inject as controller } from "@ember/controller";
+import { getOwner } from "@ember/application";
+import { isEmpty } from "@ember/utils";
+import EmberObject, { action, computed } from "@ember/object";
+import { validator, buildValidations } from "ember-cp-validations";
+import config from "croodle/config/environment";
 
-const validCollection = function(collection) {
+const validCollection = function (collection) {
   // return false if any object in collection is inValid
   return !collection.any((object) => {
-    return object.get('validations.isInvalid');
+    return object.get("validations.isInvalid");
   });
 };
 const Validations = buildValidations({
   name: [
-    validator('presence', {
+    validator("presence", {
       presence: true,
-      disabled: readOnly('model.anonymousUser'),
-      dependentKeys: ['model.intl.locale']
+      disabled: readOnly("model.anonymousUser"),
+      dependentKeys: ["model.intl.locale"],
     }),
-    validator('unique', {
-      parent: 'poll',
-      attributeInParent: 'users',
-      dependentKeys: ['model.poll.users.[]', 'model.poll.users.@each.name', 'model.intl.locale'],
-      disable: readOnly('model.anonymousUser'),
-      messageKey: 'errors.uniqueName',
+    validator("unique", {
+      parent: "poll",
+      attributeInParent: "users",
+      dependentKeys: [
+        "model.poll.users.[]",
+        "model.poll.users.@each.name",
+        "model.intl.locale",
+      ],
+      disable: readOnly("model.anonymousUser"),
+      messageKey: "errors.uniqueName",
       ignoreNewRecords: true,
-    })
+    }),
   ],
 
   selections: [
-    validator('collection', true),
+    validator("collection", true),
 
     // all selection objects must be valid
     // if forceAnswer is true in poll settings
     validator(validCollection, {
-      dependentKeys: ['model.forceAnswer', 'model.selections.[]', 'model.selections.@each.value', 'model.intl.locale']
-    })
-  ]
+      dependentKeys: [
+        "model.forceAnswer",
+        "model.selections.[]",
+        "model.selections.@each.value",
+        "model.intl.locale",
+      ],
+    }),
+  ],
 });
 
 const SelectionValidations = buildValidations({
-  value: validator('presence', {
+  value: validator("presence", {
     presence: true,
-    disabled: not('model.forceAnswer'),
-    messageKey: computed('model.isFreeText', function() {
-      return this.get('model.isFreeText') ? 'errors.present' : 'errors.answerRequired';
+    disabled: not("model.forceAnswer"),
+    messageKey: computed("model.isFreeText", function () {
+      return this.get("model.isFreeText")
+        ? "errors.present"
+        : "errors.answerRequired";
     }),
-    dependentKeys: ['model.intl.locale']
-  })
+    dependentKeys: ["model.intl.locale"],
+  }),
 });
 
 @classic
@@ -71,125 +79,74 @@ class SelectionObject extends EmberObject.extend(SelectionValidations) {
   }
 }
 
-export default Controller.extend(Validations, {
-  actions: {
-    async submit() {
-      if (!this.get('validations.isValid')) {
-        return;
-      }
+export default class PollParticipationController extends Controller.extend(
+  Validations
+) {
+  @service encryption;
+  @service intl;
 
-      let poll = this.poll;
-      let selections = this.selections.map(({ value }) => {
-        if (value === null) {
-          return {};
-        }
+  name = "";
+  savingFailed = false;
 
-        if (this.isFreeText) {
-          return {
-            label: value,
-          };
-        }
+  @readOnly("poll.anonymousUser")
+  anonymousUser;
 
-        // map selection to answer if it's not freetext
-        let answer = poll.answers.findBy('type', value);
-        let { icon, label, labelTranslation, type } = answer;
+  @readOnly("intl.locale")
+  currentLocale;
 
-        return {
-          icon,
-          label,
-          labelTranslation,
-          type,
-        };
-      });
-      let user = this.store.createRecord('user', {
-        creationDate: new Date(),
-        name: this.name,
-        poll,
-        selections,
-        version: config.APP.version,
-      });
+  @readOnly("poll.forceAnswer")
+  forceAnswer;
 
-      this.set('newUserRecord', user);
-      await this.actions.save.bind(this)();
-    },
-    async save() {
-      let user = this.newUserRecord;
+  @readOnly("poll.isFreeText")
+  isFreeText;
 
-      try {
-        await user.save();
+  @readOnly("poll.isFindADate")
+  isFindADate;
 
-        this.set('savingFailed', false);
-      } catch (error) {
-        // couldn't save user model
-        this.set('savingFailed', true);
+  @readOnly("poll.options")
+  options;
 
-        return;
-      }
+  @readOnly("model")
+  poll;
 
-      // reset form
-      this.set('name', '');
-      this.selections.forEach((selection) => {
-        selection.set('value', null);
-      });
+  @controller("poll")
+  pollController;
 
-      this.transitionToRoute('poll.evaluation', this.model, {
-        queryParams: { encryptionKey: this.encryption.key }
-      });
-    }
-  },
-
-  anonymousUser: readOnly('poll.anonymousUser'),
-  currentLocale: readOnly('intl.locale'),
-  encryption: service(),
-  forceAnswer: readOnly('poll.forceAnswer'),
-  intl: service(),
-
-  init() {
-    this._super(...arguments);
-
-    // current locale needs to be consumed in order to be observeable
-    // for localization of validation messages
-    this.intl.locale;
-  },
-
-  isFreeText: readOnly('poll.isFreeText'),
-  isFindADate: readOnly('poll.isFindADate'),
-
-  name: '',
-
-  options: readOnly('poll.options'),
-
-  poll: readOnly('model'),
-  pollController: controller('poll'),
-
-  possibleAnswers: computed('labelTranslation', 'poll.answers', function() {
-    return this.get('poll.answers').map((answer) => {
+  @computed("labelTranslation", "poll.answers")
+  get possibleAnswers() {
+    return this.get("poll.answers").map((answer) => {
       const owner = getOwner(this);
 
       const AnswerObject = EmberObject.extend({
-        icon: answer.get('icon'),
-        type: answer.get('type')
+        icon: answer.get("icon"),
+        type: answer.get("type"),
       });
 
-      if (!isEmpty(answer.get('labelTranslation'))) {
+      if (!isEmpty(answer.get("labelTranslation"))) {
         return AnswerObject.extend({
           intl: service(),
-          label: computed('intl.locale', 'labelTranslation', function() {
+          label: computed("intl.locale", "labelTranslation", function () {
             return this.intl.t(this.labelTranslation);
           }),
-          labelTranslation: answer.get('labelTranslation'),
+          labelTranslation: answer.get("labelTranslation"),
         }).create(owner.ownerInjection());
       } else {
         return AnswerObject.extend({
-          label: answer.get('label')
+          label: answer.get("label"),
         });
       }
     });
-  }),
+  }
 
-  savingFailed: false,
-
-  selections: computed('forceAnswer', 'isFindADate', 'isFreeText', 'options', 'pollController.dates', 'timezone', function() {
+  @computed(
+    "forceAnswer",
+    "isFindADate",
+    "isFreeText",
+    "options",
+    "pollController.dates",
+    "timezone"
+  )
+  get selections() {
     let options = this.options;
     let isFindADate = this.isFindADate;
     let lastOption;
@@ -197,8 +154,10 @@ export default Controller.extend(Validations, {
     return options.map((option) => {
       const labelString = option.title;
       const labelValue = option.isDate ? option.jsDate : option.title;
-      const showDate = isFindADate && (!lastOption || option.get('day') !== lastOption.get('day'));
-      const showTime = isFindADate && option.get('hasTime');
+      const showDate =
+        isFindADate &&
+        (!lastOption || option.get("day") !== lastOption.get("day"));
+      const showTime = isFindADate && option.get("hasTime");
 
       lastOption = option;
 
@@ -218,7 +177,83 @@ export default Controller.extend(Validations, {
         isFreeText: this.isFreeText,
       });
     });
-  }),
+  }
 
-  timezone: readOnly('pollController.timezone')
-});
+  @readOnly("pollController.timezone")
+  timezone;
+
+  @action
+  async submit() {
+    if (!this.get("validations.isValid")) {
+      return;
+    }
+
+    let poll = this.poll;
+    let selections = this.selections.map(({ value }) => {
+      if (value === null) {
+        return {};
+      }
+
+      if (this.isFreeText) {
+        return {
+          label: value,
+        };
+      }
+
+      // map selection to answer if it's not freetext
+      let answer = poll.answers.findBy("type", value);
+      let { icon, label, labelTranslation, type } = answer;
+
+      return {
+        icon,
+        label,
+        labelTranslation,
+        type,
+      };
+    });
+    let user = this.store.createRecord("user", {
+      creationDate: new Date(),
+      name: this.name,
+      poll,
+      selections,
+      version: config.APP.version,
+    });
+
+    this.set("newUserRecord", user);
+    await this.actions.save.bind(this)();
+  }
+
+  @action
+  async save() {
+    let user = this.newUserRecord;
+
+    try {
+      await user.save();
+
+      this.set("savingFailed", false);
+    } catch (error) {
+      // couldn't save user model
+      this.set("savingFailed", true);
+
+      return;
+    }
+
+    // reset form
+    this.set("name", "");
+    this.selections.forEach((selection) => {
+      selection.set("value", null);
+    });
+
+    this.transitionToRoute("poll.evaluation", this.model, {
+      queryParams: { encryptionKey: this.encryption.key },
+    });
+  }
+
+  constructor() {
+    super(...arguments);
+
+    // current locale needs to be consumed in order to be observeable
+    // for localization of validation messages
+    this.intl.locale;
+  }
+}
