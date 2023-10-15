@@ -1,15 +1,11 @@
 import { module, test } from 'qunit';
-import { startMirage } from 'croodle/initializers/ember-cli-mirage';
+import { setupTest } from 'ember-qunit';
+import { setupMirage } from 'ember-cli-mirage/test-support';
 import sjcl from 'sjcl';
 
 module('Integration | Mirage api mocking', function (hooks) {
-  hooks.beforeEach(function () {
-    this.server = startMirage();
-  });
-
-  hooks.afterEach(function () {
-    this.server.shutdown();
-  });
+  setupTest(hooks);
+  setupMirage(hooks);
 
   test('poll factory | encrypts properties', function (assert) {
     let encryptionKey = 'abc';
