@@ -7,6 +7,7 @@ import { isEmpty } from "@ember/utils";
 import EmberObject, { action, computed } from "@ember/object";
 import { validator, buildValidations } from "ember-cp-validations";
 import config from "croodle/config/environment";
+import { tracked } from "@glimmer/tracking";
 
 const validCollection = function (collection) {
   // return false if any object in collection is inValid
@@ -18,18 +19,18 @@ const Validations = buildValidations({
   name: [
     validator("presence", {
       presence: true,
-      disabled: readOnly("model.anonymousUser"),
+      disabled: readOnly("model.model.anonymousUser"),
       dependentKeys: ["model.intl.locale"],
     }),
     validator("unique", {
-      parent: "poll",
+      parent: "model",
       attributeInParent: "users",
       dependentKeys: [
-        "model.poll.users.[]",
-        "model.poll.users.@each.name",
+        "model.model.users.[]",
+        "model.model.users.@each.name",
         "model.intl.locale",
       ],
-      disable: readOnly("model.anonymousUser"),
+      disable: readOnly("model.model.anonymousUser"),
       messageKey: "errors.uniqueName",
       ignoreNewRecords: true,
     }),
@@ -42,7 +43,7 @@ const Validations = buildValidations({
     // if forceAnswer is true in poll settings
     validator(validCollection, {
       dependentKeys: [
-        "model.forceAnswer",
+        "model.model.forceAnswer",
         "model.selections.[]",
         "model.selections.@each.value",
         "model.intl.locale",
@@ -56,7 +57,7 @@ const SelectionValidations = buildValidations({
     presence: true,
     disabled: not("model.forceAnswer"),
     messageKey: computed("model.isFreeText", function () {
-      return this.get("model.isFreeText")
+      return this.model.isFreeText
         ? "errors.present"
         : "errors.answerRequired";
     }),
@@ -79,42 +80,21 @@ class SelectionObject extends EmberObject.extend(SelectionValidations) {
   }
 }
 
-export default class PollParticipationController extends Controller.extend(
-  Validations
-) {
+export default class PollParticipationController extends Controller.extend(Validations) {
   @service encryption;
   @service intl;
-
-  name = "";
-  savingFailed = false;
-
-  @readOnly("poll.anonymousUser")
-  anonymousUser;
-
-  @readOnly("intl.locale")
-  currentLocale;
-
-  @readOnly("poll.forceAnswer")
-  forceAnswer;
-
-  @readOnly("poll.isFreeText")
-  isFreeText;
-
-  @readOnly("poll.isFindADate")
-  isFindADate;
-
-  @readOnly("poll.options")
-  options;
-
-  @readOnly("model")
-  poll;
 
   @controller("poll")
   pollController;
 
-  @computed("labelTranslation", "poll.answers")
+  @tracked name = "";
+  @tracked savingFailed = false;
+
+  @computed('intl.locale', 'labelTranslation', 'model')
   get possibleAnswers() {
-    return this.get("poll.answers").map((answer) => {
+    const { answers } = this.model;
+
+    return answers.map((answer) => {
       const owner = getOwner(this);
 
       const AnswerObject = EmberObject.extend({
@@ -138,19 +118,11 @@ export default class PollParticipationController extends Controller.extend(
     });
   }
 
-  @computed(
-    "forceAnswer",
-    "isFindADate",
-    "isFreeText",
-    "options",
-    "pollController.dates",
-    "timezone"
-  )
+  @computed("model", "pollController.dates")
   get selections() {
-    let options = this.options;
-    let isFindADate = this.isFindADate;
-    let lastOption;
+    const { forceAnswer, isFindADate, isFreeText, options } = this.model;
 
+    let lastOption;
     return options.map((option) => {
       const labelString = option.title;
       const labelValue = option.isDate ? option.jsDate : option.title;
@@ -173,14 +145,11 @@ export default class PollParticipationController extends Controller.extend(
 
         // forceAnswer and isFreeText must be included in model
         // cause otherwise validations can't depend on it
-        forceAnswer: this.forceAnswer,
-        isFreeText: this.isFreeText,
+        forceAnswer,
+        isFreeText,
       });
     });
   }
-
-  @readOnly("pollController.timezone")
-  timezone;
 
   @action
   async submit() {
@@ -188,20 +157,21 @@ export default class PollParticipationController extends Controller.extend(
       return;
     }
 
-    let poll = this.poll;
+    const { model: poll } = this;
+    const { answers, isFreeText } = poll;
     let selections = this.selections.map(({ value }) => {
       if (value === null) {
         return {};
       }
 
-      if (this.isFreeText) {
+      if (isFreeText) {
         return {
           label: value,
         };
       }
 
       // map selection to answer if it's not freetext
-      let answer = poll.answers.findBy("type", value);
+      let answer = answers.findBy("type", value);
       let { icon, label, labelTranslation, type } = answer;
 
       return {
@@ -219,27 +189,27 @@ export default class PollParticipationController extends Controller.extend(
       version: config.APP.version,
     });
 
-    this.set("newUserRecord", user);
-    await this.actions.save.bind(this)();
+    this.newUserRecord = user;
+    await this.save(user);
   }
 
   @action
   async save() {
-    let user = this.newUserRecord;
+    const { newUserRecord: user } = this;
 
     try {
       await user.save();
 
-      this.set("savingFailed", false);
+      this.savingFailed = false;
     } catch (error) {
       // couldn't save user model
-      this.set("savingFailed", true);
+      this.savingFailed = true;
 
       return;
     }
 
     // reset form
-    this.set("name", "");
+    this.name = "";
     this.selections.forEach((selection) => {
       selection.set("value", null);
     });
