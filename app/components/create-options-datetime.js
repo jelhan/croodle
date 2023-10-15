@@ -1,10 +1,10 @@
-import Component from "@glimmer/component";
-import { inject as service } from "@ember/service";
-import { action } from "@ember/object";
-import { tracked } from "@glimmer/tracking";
-import { TrackedArray } from "tracked-built-ins";
-import { DateTime } from "luxon";
-import IntlMessage from "../utils/intl-message";
+import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { TrackedArray } from 'tracked-built-ins';
+import { DateTime } from 'luxon';
+import IntlMessage from '../utils/intl-message';
 
 class FormDataOption {
   formData;
@@ -23,7 +23,7 @@ class FormDataOption {
     const { isPartiallyFilled } = this;
     if (isPartiallyFilled) {
       return new IntlMessage(
-        "create.options-datetime.error.partiallyFilledTime"
+        'create.options-datetime.error.partiallyFilledTime'
       );
     }
 
@@ -37,7 +37,7 @@ class FormDataOption {
       .slice(0, optionsForThisDay.indexOf(this))
       .any((option) => option.time == this.time);
     if (isDuplicate) {
-      return new IntlMessage("create.options-datetime.error.duplicatedDate");
+      return new IntlMessage('create.options-datetime.error.duplicatedDate');
     }
 
     return null;
@@ -73,7 +73,7 @@ class FormData {
     const { options } = this;
     const allOptionsAreValid = options.every((option) => option.isValid);
     if (!allOptionsAreValid) {
-      return IntlMessage("create.options-datetime.error.invalidTime");
+      return IntlMessage('create.options-datetime.error.invalidTime');
     }
 
     return null;
@@ -172,7 +172,7 @@ export default class CreateOptionsDatetime extends Component {
 
     if (!successful) {
       this.errorMesage =
-        "create.options-datetime.fix-validation-errors-first-day";
+        'create.options-datetime.fix-validation-errors-first-day';
     }
   }
 
@@ -207,7 +207,7 @@ export default class CreateOptionsDatetime extends Component {
 
   @action
   handleTransition(transition) {
-    if (transition.from?.name === "create.options-datetime") {
+    if (transition.from?.name === 'create.options-datetime') {
       this.args.updateOptions(this.formData.options);
       this.router.off('routeWillChange', this.handleTransition);
     }
@@ -216,6 +216,6 @@ export default class CreateOptionsDatetime extends Component {
   constructor() {
     super(...arguments);
 
-    this.router.on("routeWillChange", this.handleTransition);
+    this.router.on('routeWillChange', this.handleTransition);
   }
 }

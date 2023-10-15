@@ -11,10 +11,8 @@
 /node_modules/
 
 # misc
-/api
 /coverage/
 !.*
-.*/
 .eslintcache
 
 # ember-try

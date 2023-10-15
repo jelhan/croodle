@@ -7,9 +7,10 @@
  * implementation by Aaron Toponce:
  *   https://pthree.org/2014/06/25/cryptographically-secure-passphrases-in-d-note/
  */
-export default function(length) {
+export default function (length) {
   let passphrase = '';
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const randomArray = new Uint32Array(length);
 
   // Make some attempt at preferring a strong CSPRNG first
@@ -22,12 +23,12 @@ export default function(length) {
     window.msCrypto.getRandomValues(randomArray);
   } else {
     // Android browser, IE Mobile, Opera Mobile, older desktop browsers
-    for (let i = length; i--;) {
+    for (let i = length; i--; ) {
       randomArray[i] = Math.floor(Math.random() * Math.pow(2, 32));
     }
   }
 
-  for (let j = length; j--;) {
+  for (let j = length; j--; ) {
     passphrase += possible.charAt(Math.floor(randomArray[j] % possible.length));
   }
 

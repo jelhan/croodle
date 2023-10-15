@@ -5,12 +5,12 @@ module.exports = {
     javascript: {
       pattern: 'assets/*.js',
       limit: '430KB',
-      compression: 'gzip'
+      compression: 'gzip',
     },
     css: {
       pattern: 'assets/*.css',
       limit: '16KB',
-      compression: 'gzip'
-    }
-  }
+      compression: 'gzip',
+    },
+  },
 };

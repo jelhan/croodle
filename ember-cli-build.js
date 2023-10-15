@@ -2,7 +2,7 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
     autoImport: {
       forbidEval: true,
@@ -11,21 +11,27 @@ module.exports = function(defaults) {
           // sjcl requires node's cryto library, which isn't needed
           // in Browser but causes webpack to bundle a portable version
           // which increases the build size by an inacceptable amount
-          crypto: "null",
+          crypto: 'null',
         },
       },
     },
-    'buildInfoOptions': {
-      'metaTemplate': 'version={SEMVER}'
+    buildInfoOptions: {
+      metaTemplate: 'version={SEMVER}',
     },
     'ember-bootstrap': {
       importBootstrapCSS: false,
-      'bootstrapVersion': 4,
-      'importBootstrapFont': false,
-      whitelist: ['bs-alert', 'bs-button', 'bs-button-group', 'bs-form', 'bs-modal'],
+      bootstrapVersion: 4,
+      importBootstrapFont: false,
+      whitelist: [
+        'bs-alert',
+        'bs-button',
+        'bs-button-group',
+        'bs-form',
+        'bs-modal',
+      ],
     },
     'ember-cli-babel': {
-      includePolyfill: true
+      includePolyfill: true,
     },
     'ember-composable-helpers': {
       only: ['array', 'object-at', 'pick'],
@@ -36,7 +42,7 @@ module.exports = function(defaults) {
     autoprefixer: {
       browsers: ['last 2 ios version'],
       cascade: false,
-      sourcemap: true
+      sourcemap: true,
     },
     sassOptions: {
       sourceMapEmbed: true,

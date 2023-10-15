@@ -1,17 +1,17 @@
-import Controller, { inject as controller } from "@ember/controller";
-import { inject as service } from "@ember/service";
-import { action } from "@ember/object";
-import config from "croodle/config/environment";
-import { tracked } from "@glimmer/tracking";
+import Controller, { inject as controller } from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+import config from 'croodle/config/environment';
+import { tracked } from '@glimmer/tracking';
 
 export default class PollParticipationController extends Controller {
   @service encryption;
   @service router;
 
-  @controller("poll")
+  @controller('poll')
   pollController;
 
-  @tracked name = "";
+  @tracked name = '';
   @tracked savingFailed = false;
 
   @action
@@ -31,7 +31,7 @@ export default class PollParticipationController extends Controller {
       }
 
       // map selection to answer if it's not freetext
-      let answer = answers.findBy("type", value);
+      let answer = answers.findBy('type', value);
       let { icon, label, labelTranslation, type } = answer;
 
       return {
@@ -42,7 +42,7 @@ export default class PollParticipationController extends Controller {
       };
     });
 
-    let user = this.store.createRecord("user", {
+    let user = this.store.createRecord('user', {
       creationDate: new Date(),
       name,
       poll,
@@ -70,7 +70,7 @@ export default class PollParticipationController extends Controller {
       return;
     }
 
-    this.router.transitionTo("poll.evaluation", poll.id, {
+    this.router.transitionTo('poll.evaluation', poll.id, {
       queryParams: { encryptionKey: this.encryption.key },
     });
   }

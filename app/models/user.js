@@ -1,8 +1,6 @@
 import classic from 'ember-classic-decorator';
 import Model, { belongsTo, attr } from '@ember-data/model';
-import {
-  fragmentArray
-} from 'ember-data-model-fragments/attributes';
+import { fragmentArray } from 'ember-data-model-fragments/attributes';
 
 @classic
 export default class User extends Model {
@@ -30,7 +28,7 @@ export default class User extends Model {
 
   // Croodle version user got created with
   @attr('string', {
-    encrypted: false
+    encrypted: false,
   })
   version;
 }

@@ -34,7 +34,9 @@ export default class PollController extends Controller {
     if (isEmpty(expirationDate)) {
       return false;
     }
-    return DateTime.local().plus({ weeks: 2 }) >= DateTime.fromISO(expirationDate);
+    return (
+      DateTime.local().plus({ weeks: 2 }) >= DateTime.fromISO(expirationDate)
+    );
   }
 
   /*
@@ -44,7 +46,10 @@ export default class PollController extends Controller {
     const { model: poll } = this;
     const { timezone: pollTimezone } = poll;
 
-    return isPresent(pollTimezone) && Intl.DateTimeFormat().resolvedOptions().timeZone !== pollTimezone;
+    return (
+      isPresent(pollTimezone) &&
+      Intl.DateTimeFormat().resolvedOptions().timeZone !== pollTimezone
+    );
   }
 
   get mustChooseTimezone() {
@@ -85,7 +90,10 @@ export default class PollController extends Controller {
       this.encryptionKey !== this.encryption.key
     ) {
       // work-a-round for url not being updated
-      window.location.hash = window.location.hash.replace(this.encryptionKey, this.encryption.key);
+      window.location.hash = window.location.hash.replace(
+        this.encryptionKey,
+        this.encryption.key
+      );
 
       this.set('encryptionKey', this.encryption.key);
     }

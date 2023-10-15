@@ -27,8 +27,8 @@ export default class PollRoute extends Route {
     if (transition.targetName === 'poll.index') {
       this.transitionTo('poll.participation', poll, {
         queryParams: {
-          encryptionKey: this.encryption.key
-        }
+          encryptionKey: this.encryption.key,
+        },
       });
     }
   }

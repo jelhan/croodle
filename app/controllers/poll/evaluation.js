@@ -53,14 +53,14 @@ export default class PollEvaluationController extends Controller {
     }
 
     // create lookup array
-    evaluation.forEach(function(value, index) {
+    evaluation.forEach(function (value, index) {
       lookup[value.id] = index;
     });
 
     // loop over all users
     poll.users.forEach((user) => {
       // loop over all selections of the user
-      user.selections.forEach(function(selection, optionIndex) {
+      user.selections.forEach(function (selection, optionIndex) {
         let answerIndex;
 
         // get answer index by lookup array

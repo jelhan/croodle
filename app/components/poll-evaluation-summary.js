@@ -27,7 +27,7 @@ export default class PollEvaluationSummary extends Component {
       return {
         answers: copy(answers),
         option,
-        score: 0
+        score: 0,
       };
     });
     let bestOptions = [];
@@ -56,12 +56,8 @@ export default class PollEvaluationSummary extends Component {
 
     let bestScore = evaluation[0].score;
     for (let i = 0; i < evaluation.length; i++) {
-      if (
-        bestScore === evaluation[i].score
-      ) {
-        bestOptions.push(
-          evaluation[i]
-        );
+      if (bestScore === evaluation[i].score) {
+        bestOptions.push(evaluation[i]);
       } else {
         break;
       }

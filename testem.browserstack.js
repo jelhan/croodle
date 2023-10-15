@@ -6,14 +6,9 @@ module.exports = {
   timeout: 1200,
   browser_start_timeout: 2000,
   browser_disconnect_timeout: 300,
-  launch_in_ci: [
-    'BS_MS_Edge',
-    'BS_Safari_Current',
-  ],
+  launch_in_ci: ['BS_MS_Edge', 'BS_Safari_Current'],
 
-  'launch_in_dev': [
-    'Chrome'
-  ],
+  launch_in_dev: ['Chrome'],
 
   launchers: {
     BS_Chrome_Current: {
@@ -106,5 +101,5 @@ module.exports = {
       ],
       protocol: 'browser',
     },
-  }
+  },
 };

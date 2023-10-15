@@ -13,12 +13,18 @@ export default class CreateController extends Controller {
 
   get canEnterOptionsStep() {
     let { title } = this.model;
-    return this.visitedSteps.has('options') &&
-      typeof title === 'string' && title.length >= 2;
+    return (
+      this.visitedSteps.has('options') &&
+      typeof title === 'string' &&
+      title.length >= 2
+    );
   }
 
   get canEnterOptionsDatetimeStep() {
-    return this.visitedSteps.has('options-datetime') && this.model.options.length >= 1;
+    return (
+      this.visitedSteps.has('options-datetime') &&
+      this.model.options.length >= 1
+    );
   }
 
   get canEnterSettingsStep() {

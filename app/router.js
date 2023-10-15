@@ -6,12 +6,12 @@ export default class Router extends EmberRouter {
   rootURL = config.rootURL;
 }
 
-Router.map(function() {
-  this.route('poll', { path: '/poll/:poll_id' }, function() {
+Router.map(function () {
+  this.route('poll', { path: '/poll/:poll_id' }, function () {
     this.route('participation');
     this.route('evaluation');
   });
-  this.route('create', function() {
+  this.route('create', function () {
     this.route('meta');
     this.route('options');
     this.route('options-datetime');

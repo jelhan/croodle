@@ -1,12 +1,6 @@
 import PageObject from 'ember-cli-page-object';
 
-const {
-  clickable,
-  collection,
-  fillable,
-  property,
-  text
-} = PageObject;
+const { clickable, collection, fillable, property, text } = PageObject;
 
 const { assign } = Object;
 
@@ -14,7 +8,7 @@ const { assign } = Object;
  * shared features between all pages
  */
 export const defaultsForApplication = {
-  locale: fillable('.language-select')
+  locale: fillable('.language-select'),
 };
 
 /*
@@ -28,7 +22,7 @@ export const defaultsForCreate = assign({}, defaultsForApplication, {
     itemScope: '.form-steps button',
     item: {
       isDisabled: property('disabled'),
-      text: text()
-    }
-  })
+      text: text(),
+    },
+  }),
 });

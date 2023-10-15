@@ -10,16 +10,16 @@ export default {
     let availableLocales = Object.keys(localesMeta);
     let locale = getLocale(availableLocales);
 
-    intl.set('locale', locale.includes('-') ? [locale, locale.split('-')[0]] : [locale]);
+    intl.set(
+      'locale',
+      locale.includes('-') ? [locale, locale.split('-')[0]] : [locale]
+    );
     powerCalendar.set('local', locale);
-  }
+  },
 };
 
 function getLocale(availableLocales) {
-  let methods = [
-    getSavedLocale,
-    getLocaleByBrowser
-  ];
+  let methods = [getSavedLocale, getLocaleByBrowser];
   let locale;
 
   methods.any((method) => {

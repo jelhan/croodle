@@ -39,16 +39,31 @@ export default class CreateSettings extends Controller {
   set expirationDuration(value) {
     this.model.expirationDate = isPresent(value)
       ? DateTime.local().plus(Duration.fromISO(value)).toISO()
-      : "";
+      : '';
   }
 
   get expirationDurations() {
     return [
-      { id: 'P7D', labelTranslation: 'create.settings.expirationDurations.P7D' },
-      { id: 'P1M', labelTranslation: 'create.settings.expirationDurations.P1M' },
-      { id: 'P3M', labelTranslation: 'create.settings.expirationDurations.P3M' },
-      { id: 'P6M', labelTranslation: 'create.settings.expirationDurations.P6M' },
-      { id: 'P1Y', labelTranslation: 'create.settings.expirationDurations.P1Y' },
+      {
+        id: 'P7D',
+        labelTranslation: 'create.settings.expirationDurations.P7D',
+      },
+      {
+        id: 'P1M',
+        labelTranslation: 'create.settings.expirationDurations.P1M',
+      },
+      {
+        id: 'P3M',
+        labelTranslation: 'create.settings.expirationDurations.P3M',
+      },
+      {
+        id: 'P6M',
+        labelTranslation: 'create.settings.expirationDurations.P6M',
+      },
+      {
+        id: 'P1Y',
+        labelTranslation: 'create.settings.expirationDurations.P1Y',
+      },
       { id: '', labelTranslation: 'create.settings.expirationDurations.never' },
     ];
   }
@@ -82,13 +97,16 @@ export default class CreateSettings extends Controller {
         return option.hasTime;
       })
     ) {
-      this.set('model.timezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
+      this.set(
+        'model.timezone',
+        Intl.DateTimeFormat().resolvedOptions().timeZone
+      );
     }
 
     // save poll
     try {
       await poll.save();
-    } catch(err) {
+    } catch (err) {
       this.flashMessages.danger('error.poll.savingFailed');
 
       throw err;

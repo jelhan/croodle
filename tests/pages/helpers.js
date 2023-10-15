@@ -5,9 +5,9 @@ export function hasFocus(selector, options = {}) {
     isDescriptor: true,
 
     get() {
-      let [ el ] = findElementWithAssert(this, selector, options);
+      let [el] = findElementWithAssert(this, selector, options);
       let document = el.ownerDocument;
       return el === document.activeElement;
-    }
+    },
   };
 }

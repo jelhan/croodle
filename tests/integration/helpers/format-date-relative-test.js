@@ -4,10 +4,10 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { DateTime } from 'luxon';
 
-module('Integration | Helper | format-date-relative', function(hooks) {
+module('Integration | Helper | format-date-relative', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it formats an ISO date to relative duration from now', async function(assert) {
+  test('it formats an ISO date to relative duration from now', async function (assert) {
     this.set('date', DateTime.local().plus({ hours: 6 }));
 
     await render(hbs`{{format-date-relative this.date}}`);
@@ -35,7 +35,7 @@ module('Integration | Helper | format-date-relative', function(hooks) {
     assert.dom(this.element).hasText('in 1 year');
   });
 
-  test('it formats an ISO date to relative duration to now', async function(assert) {
+  test('it formats an ISO date to relative duration to now', async function (assert) {
     this.set('date', DateTime.local().minus({ hours: 6 }));
 
     await render(hbs`{{format-date-relative this.date}}`);

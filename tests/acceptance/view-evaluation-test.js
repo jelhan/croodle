@@ -2,13 +2,14 @@ import { findAll, currentRouteName, find, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { setupIntl, t } from 'ember-intl/test-support';import switchTab from 'croodle/tests/helpers/switch-tab';
+import { setupIntl, t } from 'ember-intl/test-support';
+import switchTab from 'croodle/tests/helpers/switch-tab';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
 import { assign } from '@ember/polyfills';
 import { DateTime } from 'luxon';
 
-module('Acceptance | view evaluation', function(hooks) {
-  hooks.beforeEach(function() {
+module('Acceptance | view evaluation', function (hooks) {
+  hooks.beforeEach(function () {
     window.localStorage.setItem('locale', 'en');
   });
 
@@ -16,23 +17,27 @@ module('Acceptance | view evaluation', function(hooks) {
   setupIntl(hooks);
   setupMirage(hooks);
 
-  test('evaluation summary is not present for poll without participants', async function(assert) {
+  test('evaluation summary is not present for poll without participants', async function (assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let poll = this.server.create('poll', {
-      encryptionKey
+      encryptionKey,
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
 
     await switchTab('evaluation');
-    assert.equal(findAll('.tab-content .tab-pane .evaluation-summary').length, 0, 'evaluation summary is not present');
+    assert.equal(
+      findAll('.tab-content .tab-pane .evaluation-summary').length,
+      0,
+      'evaluation summary is not present'
+    );
   });
 
-  test('evaluation is correct for FindADate (date-only)', async function(assert) {
+  test('evaluation is correct for FindADate (date-only)', async function (assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let user1 = this.server.create('user', {
-      id: "1-1",
+      id: '1-1',
       creationDate: DateTime.local().minus({ months: 8, weeks: 3 }).toISO(),
       encryptionKey,
       name: 'Maximilian',
@@ -41,18 +46,18 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
-        }
-      ]
+          label: 'Yes',
+        },
+      ],
     });
     let user2 = this.server.create('user', {
-      id: "1-2",
+      id: '1-2',
       creationDate: DateTime.local().minus({ months: 3, weeks: 2 }).toISO(),
       encryptionKey,
       name: 'Peter',
@@ -61,15 +66,15 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'no',
           labelTranslation: 'answerTypes.no.label',
           icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
+          label: 'No',
         },
         {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
-        }
-      ]
+          label: 'Yes',
+        },
+      ],
     });
     let poll = this.server.create('poll', {
       id: '1',
@@ -78,26 +83,27 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'no',
           labelTranslation: 'answerTypes.no.label',
           icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
-        }
+          label: 'No',
+        },
       ],
       encryptionKey,
-      options: [
-        { title: '2015-12-12' },
-        { title: '2016-01-01' }
-      ],
-      users: [user1, user2]
+      options: [{ title: '2015-12-12' }, { title: '2016-01-01' }],
+      users: [user1, user2],
     });
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(findAll('.tab-content .tab-pane .evaluation-summary').length, 1, 'evaluation summary is present');
+    assert.equal(
+      findAll('.tab-content .tab-pane .evaluation-summary').length,
+      1,
+      'evaluation summary is present'
+    );
     assert.equal(
       find('.participants').textContent.trim(),
       t('poll.evaluation.participants', { count: 2 }).toString(),
@@ -111,7 +117,7 @@ module('Acceptance | view evaluation', function(hooks) {
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
-        ago: '3 months ago'
+        ago: '3 months ago',
       }).toString(),
       'shows last participation date'
     );
@@ -124,37 +130,56 @@ module('Acceptance | view evaluation', function(hooks) {
 
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="name"]')
-      .hasText('Maximilian', 'shows expected name of first participant in participants table');
+      .hasText(
+        'Maximilian',
+        'shows expected name of first participant in participants table'
+      );
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="name"]')
-      .hasText('Peter', 'shows expected name of second participant in participants table');
+      .hasText(
+        'Peter',
+        'shows expected name of second participant in participants table'
+      );
 
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="2015-12-12"]')
-      .hasText('Yes', 'shows expected selection for first option of first participant');
+      .hasText(
+        'Yes',
+        'shows expected selection for first option of first participant'
+      );
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="2016-01-01"]')
-      .hasText('Yes', 'shows expected selection for second option of first participant');
-
+      .hasText(
+        'Yes',
+        'shows expected selection for second option of first participant'
+      );
 
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="2015-12-12"]')
-      .hasText('No', 'shows expected selection for first option of second participant');
+      .hasText(
+        'No',
+        'shows expected selection for first option of second participant'
+      );
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="2016-01-01"]')
-      .hasText('Yes', 'shows expected selection for second option of second participant');
+      .hasText(
+        'Yes',
+        'shows expected selection for second option of second participant'
+      );
 
     assert.deepEqual(
-      findAll('[data-test-participant] [data-test-value-for="name"]').map((el) => el.textContent.trim()),
+      findAll('[data-test-participant] [data-test-value-for="name"]').map(
+        (el) => el.textContent.trim()
+      ),
       ['Maximilian', 'Peter'],
       'Participants are ordered as correctly in participants table'
     );
   });
 
-  test('evaluation is correct for FindADate (datetime)', async function(assert) {
+  test('evaluation is correct for FindADate (datetime)', async function (assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let user1 = this.server.create('user', {
-      id: "1-1",
+      id: '1-1',
       creationDate: DateTime.local().minus({ months: 8, weeks: 3 }).toISO(),
       encryptionKey,
       name: 'Maximilian',
@@ -163,24 +188,24 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'no',
           labelTranslation: 'answerTypes.no.label',
           icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
+          label: 'No',
         },
-      ]
+      ],
     });
     let user2 = this.server.create('user', {
-      id: "1-2",
+      id: '1-2',
       creationDate: DateTime.local().minus({ months: 3, weeks: 2 }).toISO(),
       encryptionKey,
       name: 'Peter',
@@ -189,21 +214,21 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'no',
           labelTranslation: 'answerTypes.no.label',
           icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
+          label: 'No',
         },
         {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
-        }
-      ]
+          label: 'Yes',
+        },
+      ],
     });
     let poll = this.server.create('poll', {
       id: '1',
@@ -212,27 +237,31 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'no',
           labelTranslation: 'answerTypes.no.label',
           icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
-        }
+          label: 'No',
+        },
       ],
       encryptionKey,
       options: [
         { title: DateTime.fromISO('2015-12-12T06:06').toISO() },
         { title: DateTime.fromISO('2015-12-12T12:12').toISO() },
-        { title: DateTime.fromISO('2016-01-01T18:18').toISO() }
+        { title: DateTime.fromISO('2016-01-01T18:18').toISO() },
       ],
-      users: [user1, user2]
+      users: [user1, user2],
     });
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(findAll('.tab-content .tab-pane .evaluation-summary').length, 1, 'evaluation summary is present');
+    assert.equal(
+      findAll('.tab-content .tab-pane .evaluation-summary').length,
+      1,
+      'evaluation summary is present'
+    );
     assert.equal(
       find('.participants').textContent.trim(),
       t('poll.evaluation.participants', { count: 2 }).toString(),
@@ -246,58 +275,111 @@ module('Acceptance | view evaluation', function(hooks) {
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
-        ago: '3 months ago'
+        ago: '3 months ago',
       }).toString(),
       'shows last participation date'
     );
 
     assert.deepEqual(
-      findAll('table thead tr:first-child th').map((el) => el.textContent.trim()),
+      findAll('table thead tr:first-child th').map((el) =>
+        el.textContent.trim()
+      ),
       ['', 'Saturday, December 12, 2015', 'Friday, January 1, 2016'],
       'lists days as first row in table header of parcipants table'
     );
     assert.deepEqual(
-      findAll('table thead tr:last-child th').map((el) => el.textContent.trim()),
+      findAll('table thead tr:last-child th').map((el) =>
+        el.textContent.trim()
+      ),
       ['', '6:06 AM', '12:12 PM', '6:18 PM'],
       'lists times as second row in table header of parcipants table'
     );
 
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="name"]')
-      .hasText('Maximilian', 'shows expected name of first participant in participants table');
+      .hasText(
+        'Maximilian',
+        'shows expected name of first participant in participants table'
+      );
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="name"]')
-      .hasText('Peter', 'shows expected name of second participant in participants table');
+      .hasText(
+        'Peter',
+        'shows expected name of second participant in participants table'
+      );
 
     assert
-      .dom(`[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO('2015-12-12T06:06').toISO()}"]`)
-      .hasText('Yes', 'shows expected selection for first option of first participant');
+      .dom(
+        `[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO(
+          '2015-12-12T06:06'
+        ).toISO()}"]`
+      )
+      .hasText(
+        'Yes',
+        'shows expected selection for first option of first participant'
+      );
     assert
-      .dom(`[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO('2015-12-12T12:12').toISO()}"]`)
-      .hasText('Yes', 'shows expected selection for second option of first participant');
+      .dom(
+        `[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO(
+          '2015-12-12T12:12'
+        ).toISO()}"]`
+      )
+      .hasText(
+        'Yes',
+        'shows expected selection for second option of first participant'
+      );
     assert
-      .dom(`[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO('2016-01-01T18:18').toISO()}"]`)
-      .hasText('No', 'shows expected selection for third option of first participant');
+      .dom(
+        `[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO(
+          '2016-01-01T18:18'
+        ).toISO()}"]`
+      )
+      .hasText(
+        'No',
+        'shows expected selection for third option of first participant'
+      );
 
-
     assert
-      .dom(`[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO('2015-12-12T06:06').toISO()}"]`)
-      .hasText('No', 'shows expected selection for first option of second participant');
+      .dom(
+        `[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO(
+          '2015-12-12T06:06'
+        ).toISO()}"]`
+      )
+      .hasText(
+        'No',
+        'shows expected selection for first option of second participant'
+      );
     assert
-      .dom(`[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO('2015-12-12T12:12').toISO()}"]`)
-      .hasText('Yes', 'shows expected selection for second option of second participant');
+      .dom(
+        `[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO(
+          '2015-12-12T12:12'
+        ).toISO()}"]`
+      )
+      .hasText(
+        'Yes',
+        'shows expected selection for second option of second participant'
+      );
     assert
-      .dom(`[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO('2016-01-01T18:18').toISO()}"]`)
-      .hasText('Yes', 'shows expected selection for third option of second participant');
+      .dom(
+        `[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO(
+          '2016-01-01T18:18'
+        ).toISO()}"]`
+      )
+      .hasText(
+        'Yes',
+        'shows expected selection for third option of second participant'
+      );
 
     assert.deepEqual(
-      findAll('[data-test-participant] [data-test-value-for="name"]').map((el) => el.textContent.trim()),
+      findAll('[data-test-participant] [data-test-value-for="name"]').map(
+        (el) => el.textContent.trim()
+      ),
       ['Maximilian', 'Peter'],
       'Participants are ordered as correctly in participants table'
     );
   });
 
-  test('evaluation is correct for MakeAPoll', async function(assert) {
+  test('evaluation is correct for MakeAPoll', async function (assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let usersData = [
       {
@@ -309,15 +391,15 @@ module('Acceptance | view evaluation', function(hooks) {
             type: 'yes',
             labelTranslation: 'answerTypes.yes.label',
             icon: 'glyphicon glyphicon-thumbs-up',
-            label: 'Yes'
+            label: 'Yes',
           },
           {
             type: 'yes',
             labelTranslation: 'answerTypes.yes.label',
             icon: 'glyphicon glyphicon-thumbs-up',
-            label: 'Yes'
-          }
-        ]
+            label: 'Yes',
+          },
+        ],
       },
       {
         creationDate: DateTime.local().minus({ days: 3 }).toISO(),
@@ -328,15 +410,15 @@ module('Acceptance | view evaluation', function(hooks) {
             type: 'no',
             labelTranslation: 'answerTypes.no.label',
             icon: 'glyphicon glyphicon-thumbs-down',
-            label: 'No'
+            label: 'No',
           },
           {
             type: 'yes',
             labelTranslation: 'answerTypes.yes.label',
             icon: 'glyphicon glyphicon-thumbs-up',
-            label: 'Yes'
-          }
-        ]
+            label: 'Yes',
+          },
+        ],
       },
     ];
     let pollData = {
@@ -345,27 +427,33 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'no',
           labelTranslation: 'answerTypes.no.label',
           icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
-        }
+          label: 'No',
+        },
       ],
       encryptionKey,
-      options: [
-        { title: 'first option' },
-        { title: 'second option' }
-      ],
+      options: [{ title: 'first option' }, { title: 'second option' }],
       pollType: 'MakeAPoll',
     };
-    let poll = this.server.create('poll', assign(pollData, { users: usersData.map((_) => this.server.create('user', _)) }));
+    let poll = this.server.create(
+      'poll',
+      assign(pollData, {
+        users: usersData.map((_) => this.server.create('user', _)),
+      })
+    );
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(findAll('.tab-content .tab-pane .evaluation-summary').length, 1, 'evaluation summary is present');
+    assert.equal(
+      findAll('.tab-content .tab-pane .evaluation-summary').length,
+      1,
+      'evaluation summary is present'
+    );
     assert.equal(
       find('.participants').textContent.trim(),
       t('poll.evaluation.participants', { count: 2 }).toString(),
@@ -383,11 +471,15 @@ module('Acceptance | view evaluation', function(hooks) {
       'dates are used as table headers'
     );
     assert.deepEqual(
-      PollEvaluationPage.participants.map((_) => _.name), usersData.map((_) => _.name),
+      PollEvaluationPage.participants.map((_) => _.name),
+      usersData.map((_) => _.name),
       'users are listed in participants table with their names'
     );
     usersData.forEach((user) => {
-      let participant = PollEvaluationPage.participants.filterBy('name', user.name)[0];
+      let participant = PollEvaluationPage.participants.filterBy(
+        'name',
+        user.name
+      )[0];
       assert.deepEqual(
         participant.selections.map((_) => _.answer),
         user.selections.map((_) => t(_.labelTranslation).toString()),
@@ -398,13 +490,13 @@ module('Acceptance | view evaluation', function(hooks) {
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
-        ago: '3 days ago'
+        ago: '3 days ago',
       }).toString(),
       'last participation is evaluated correctly'
     );
   });
 
-  test('could open evaluation by tab from poll participation', async function(assert) {
+  test('could open evaluation by tab from poll participation', async function (assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
     let poll = this.server.create('poll', {
       answers: [
@@ -412,20 +504,17 @@ module('Acceptance | view evaluation', function(hooks) {
           type: 'yes',
           labelTranslation: 'answerTypes.yes.label',
           icon: 'glyphicon glyphicon-thumbs-up',
-          label: 'Yes'
+          label: 'Yes',
         },
         {
           type: 'no',
           labelTranslation: 'answerTypes.no.label',
           icon: 'glyphicon glyphicon-thumbs-down',
-          label: 'No'
-        }
+          label: 'No',
+        },
       ],
       encryptionKey,
-      options: [
-        { title: '2015-12-12' },
-        { title: '2016-01-01' }
-      ],
+      options: [{ title: '2015-12-12' }, { title: '2016-01-01' }],
       users: [
         this.server.create('user', {
           creationDate: '2015-01-01T00:00:00.000Z',
@@ -436,15 +525,15 @@ module('Acceptance | view evaluation', function(hooks) {
               type: 'yes',
               labelTranslation: 'answerTypes.yes.label',
               icon: 'glyphicon glyphicon-thumbs-up',
-              label: 'Yes'
+              label: 'Yes',
             },
             {
               type: 'yes',
               labelTranslation: 'answerTypes.yes.label',
               icon: 'glyphicon glyphicon-thumbs-up',
-              label: 'Yes'
-            }
-          ]
+              label: 'Yes',
+            },
+          ],
         }),
         this.server.create('user', {
           creationDate: '2015-08-01T00:00:00.000Z',
@@ -455,17 +544,17 @@ module('Acceptance | view evaluation', function(hooks) {
               type: 'yes',
               labelTranslation: 'answerTypes.yes.label',
               icon: 'glyphicon glyphicon-thumbs-up',
-              label: 'Yes'
+              label: 'Yes',
             },
             {
               id: 'no',
               labelTranslation: 'answerTypes.yes.label',
               icon: 'glyphicon glyphicon-thumbs-up',
-              label: 'Yes'
-            }
-          ]
-        })
-      ]
+              label: 'Yes',
+            },
+          ],
+        }),
+      ],
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);

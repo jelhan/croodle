@@ -1,9 +1,9 @@
-import Component from "@glimmer/component";
-import { inject as service } from "@ember/service";
-import { action } from "@ember/object";
-import { TrackedArray } from "tracked-built-ins";
-import IntlMessage from "../utils/intl-message";
-import { tracked } from "@glimmer/tracking";
+import Component from '@glimmer/component';
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+import { TrackedArray } from 'tracked-built-ins';
+import IntlMessage from '../utils/intl-message';
+import { tracked } from '@glimmer/tracking';
 
 class FormDataOption {
   @tracked value;
@@ -14,7 +14,7 @@ class FormDataOption {
 
     // Every option must have a label
     if (!value) {
-      return new IntlMessage("create.options.error.valueMissing");
+      return new IntlMessage('create.options.error.valueMissing');
     }
 
     // Options must be unique. There must not be another option having the
@@ -23,7 +23,7 @@ class FormDataOption {
       .slice(0, this.formData.options.indexOf(this))
       .some((option) => option.value === this.value);
     if (!isUnique) {
-      return new IntlMessage("create.options.error.duplicatedOption");
+      return new IntlMessage('create.options.error.duplicatedOption');
     }
 
     return null;
@@ -48,11 +48,11 @@ class FormData {
     if (options.length < 1) {
       // UI enforces that there is at least one option if poll type is `MakeAPoll`.
       // This validation error can only happen if poll type is `FindADate`.
-      return new IntlMessage("create.options.error.notEnoughDates");
+      return new IntlMessage('create.options.error.notEnoughDates');
     }
 
     if (options.any((option) => !option.isValid)) {
-      return new IntlMessage("create.options.error.invalidOption");
+      return new IntlMessage('create.options.error.invalidOption');
     }
 
     return null;
@@ -84,7 +84,7 @@ class FormData {
 
     // enforce minimal options amount for poll of type MakeAPoll
     if (this.options.length === 0 && defaultOptionCount > 0) {
-      this.updateOptions(["", ""]);
+      this.updateOptions(['', '']);
     }
   }
 }
@@ -109,15 +109,15 @@ export default class CreateOptionsComponent extends Component {
 
   @action
   handleTransition(transition) {
-    if (transition.from?.name === "create.options") {
+    if (transition.from?.name === 'create.options') {
       this.args.updateOptions(this.formData.options);
-      this.router.off("routeWillChange", this.handleTransition);
+      this.router.off('routeWillChange', this.handleTransition);
     }
   }
 
   constructor() {
     super(...arguments);
 
-    this.router.on("routeWillChange", this.handleTransition);
+    this.router.on('routeWillChange', this.handleTransition);
   }
 }

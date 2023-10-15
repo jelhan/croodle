@@ -40,8 +40,7 @@ export default class Option extends Fragment {
   }
 
   get hasTime() {
-    return this.isDate &&
-           this.title.length >= 'YYYY-MM-DDTHH:mm'.length;
+    return this.isDate && this.title.length >= 'YYYY-MM-DDTHH:mm'.length;
   }
 
   get time() {
@@ -67,6 +66,11 @@ export default class Option extends Fragment {
     if (!datetime.isValid) {
       return;
     }
-    this.set('title', this.datetime.set({ hours: datetime.hour, minutes: datetime.minute }).toISO());
+    this.set(
+      'title',
+      this.datetime
+        .set({ hours: datetime.hour, minutes: datetime.minute })
+        .toISO()
+    );
   }
 }
