@@ -25,7 +25,7 @@ export default class PollRoute extends Route {
 
   redirect(poll, transition) {
     if (transition.targetName === 'poll.index') {
-      this.transitionTo('poll.participation', poll, {
+      this.router.transitionTo('poll.participation', poll, {
         queryParams: {
           encryptionKey: this.encryption.key,
         },
