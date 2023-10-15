@@ -4,8 +4,10 @@
       {{! show label only on first item }}
       @label={{unless index (t "create.options.options.label")}}
       @model={{option}}
-      @property="title"
+      @property="value"
       class="option"
+      data-test-form-element="option"
+      data-test-option={{index}}
       as |el|
     >
       <div class="input-group">
@@ -15,7 +17,7 @@
         />
         <div class="input-group-append">
           <BsButton
-            @onClick={{action "deleteOption" option}}
+            @onClick={{fn @deleteOption option}}
             @type="link"
             class="delete"
             {{! disable delete button if there is only one option }}
@@ -34,7 +36,7 @@
       </div>
 
       <BsButton
-        @onClick={{fn this.addOption option}}
+        @onClick={{fn @addOption "" index}}
         @type="link"
         @size="sm"
         class="add float-left"

@@ -1,16 +1,25 @@
 <div class="cr-form-wrapper box">
   <BsForm
     @formLayout="horizontal"
-    @model={{this}}
+    @model={{this.formData}}
     @onInvalid={{scroll-first-invalid-element-into-view-port}}
-    @onSubmit={{action "submit"}}
+    @onSubmit={{this.handleSubmit}}
     novalidate
     as |form|
   >
-    {{#if this.isMakeAPoll}}
-      <CreateOptionsText @options={{@options}} @form={{form}} />
+    {{#if @isMakeAPoll}}
+      <CreateOptionsText
+        @options={{this.formData.options}}
+        @addOption={{this.formData.addOption}}
+        @deleteOption={{this.formData.deleteOption}}
+        @form={{form}}
+      />
     {{else}}
-      <CreateOptionsDates @options={{@options}} @form={{form}} />
+      <CreateOptionsDates
+        @options={{this.formData.options}}
+        @updateOptions={{this.formData.updateOptions}}
+        @form={{form}}
+      />
     {{/if}}
 
     <div class="row cr-steps-bottom-nav">

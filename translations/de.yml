@@ -34,6 +34,9 @@ create:
             title:
                 label: Titel
                 placeholder: 'Gib deiner Umfrage einen Titel.'
+                validations:
+                  valueMissing: 'Jede Umfrage muss einen Titel haben.'
+                  tooShort: 'Der Titel muss mindestens 2 Buchstaben lang sein.'
             description:
                 label: Beschreibung
                 placeholder: 'Optional: Füge der Umfrage eine Beschreibung hinzu.'
@@ -48,7 +51,10 @@ create:
         dates:
             label: Tage
         error:
-            notEnoughDates: 'Es muss mindestens ein Tag ausgewählt werden'
+            duplicatedOption: 'Es gibt bereits eine Option mit diesem Label.'
+            invalidOption: 'Alle Optionen müssen gültige Werte haben.'
+            notEnoughDates: 'Es muss mindestens ein Tag ausgewählt werden.'
+            valueMissing: 'Jede Option muss ein Label haben. Bitte lösche die Option, sofern sie nicht benötigt wird.'
         defineTimes:
             label: 'Uhrzeiten festlegen?'
         input:
@@ -60,11 +66,14 @@ create:
         more-inputs: 'Weitere Uhrzeiten eingeben'
         copy-first-line: 'Uhrzeiten des ersten Tages für alle anderen übernehmen'
         error:
+            correctTimeFormat: 'Uhrzeiten müssen als Stunden und Minuten getrennt
+                durch einen Doppelpunkt eingegeben werden (z.B. 13:00).'
+            duplicatedDate: 'Eine Option mit der selben Uhrzeit am gleichen Tag existiert bereits.'
+            invalidTime: 'Mindestens eine Uhrzeit ist nicht gültig.'
             notEnoughTimes: 'Es muss mindestens eine gültige Uhrzeit pro Tag festgelegt
                 werden. Falls nur ein einziger Tag ausgewählt wurde, müssen mindestens
                 2 Uhrzeiten festgelegt werden.'
-            correctTimeFormat: 'Uhrzeiten müssen als Stunden und Minuten getrennt
-                durch einen Doppelpunkt eingegeben werden (z.B. 13:00).'
+            partiallyFilledTime: 'Bitte gib eine gültige Uhrzeit in Stunden und Minuten an. Teilweise ausgefüllte Felder werden nicht unterstützt.'
         fix-validation-errors-first-day: 'Alle fehlerhaften Zeiten für den ersten
             Tag müssen korrigiert werden, bevor diese für weitere Tage übernommen
             werden können.'
@@ -254,6 +263,5 @@ errors:
     phone: '{description} muss eine gültige Telefonnummer sein'
     url: '{description} muss eine gültige URL sein'
     time: '{description} muss eine gültige Zeit sein (z.B. 10:45)'
-    timeNotPartially: 'Zeiten müssen vollständig sein'
     unique: '{description} müssen eindeutig sein'
     uniqueName: 'Dieser Name wurde bereits genutzt'

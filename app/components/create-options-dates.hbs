@@ -10,6 +10,7 @@
         {{if (eq el.validation 'error') 'is-invalid'}}
         {{if (eq el.validation 'success') 'is-valid'}}
         "
+      id={{el.id}}
     >
       <div class="row">
         <div class="col-12 col-md-6">
@@ -20,7 +21,7 @@
               (mut this.calendarCenter)
               value="datetime"
             }}
-            @onSelect={{action "daysSelected"}}
+            @onSelect={{this.handleSelectedDaysChange}}
           />
         </div>
         <div class="col-md-6 cr-hide-on-mobile">
@@ -31,7 +32,7 @@
               (mut this.calendarCenter)
               value="datetime"
             }}
-            @onSelect={{action "daysSelected"}}
+            @onSelect={{this.handleSelectedDaysChange}}
           />
         </div>
       </div>

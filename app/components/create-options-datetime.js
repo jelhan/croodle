@@ -1,190 +1,221 @@
-import { inject as service } from '@ember/service';
-import Component from '@ember/component';
-import { isPresent, isEmpty } from '@ember/utils';
-import { action, get } from '@ember/object';
-import {
-  validator, buildValidations
-}
-from 'ember-cp-validations';
-import { raw } from 'ember-awesome-macros';
-import { groupBy } from 'ember-awesome-macros/array';
-import { next } from '@ember/runloop';
+import Component from "@glimmer/component";
+import { inject as service } from "@ember/service";
+import { action } from "@ember/object";
+import { tracked } from "@glimmer/tracking";
+import { TrackedArray } from "tracked-built-ins";
+import { DateTime } from "luxon";
+import IntlMessage from "../utils/intl-message";
 
-let modelValidations = buildValidations({
-  dates: [
-    validator('collection', true),
-    validator('length', {
-      dependentKeys: ['model.datetimes.[]'],
-      min: 1
-    }),
-    validator('valid-collection', {
-      dependentKeys: ['model.datetimes.[]', 'model.datetimes.@each.time']
-    })
-  ]
-});
+class FormDataOption {
+  formData;
 
-export default class CreateOptionsDatetime extends Component.extend(modelValidations) {
-  @service
-  store;
+  // ISO 8601 date string: YYYY-MM-DD
+  day;
 
-  errorMesage = null;
+  // ISO 8601 time string without seconds: HH:mm
+  @tracked time;
 
-  // group dates by day
-  @groupBy('dates', raw('day'))
-  groupedDates;
+  // helper property set by modifiers to track if input element is invalid
+  // because user only entered the time partly (e.g. "10:--").
+  @tracked isPartiallyFilled = false;
 
-  get datesForFirstDay() {
-    // dates are sorted
-    let firstDay = this.groupedDates[0];
-    return firstDay.items;
+  get timeValidation() {
+    const { isPartiallyFilled } = this;
+    if (isPartiallyFilled) {
+      return new IntlMessage(
+        "create.options-datetime.error.partiallyFilledTime"
+      );
+    }
+
+    // The same time must not be entered twice for a day.
+    // It should show a validation error if the same time has been entered for
+    // the same day already before. Only the second input field containing the
+    // duplicated time should show the validation error.
+    const { formData, day } = this;
+    const optionsForThisDay = formData.optionsGroupedByDay[day];
+    const isDuplicate = optionsForThisDay
+      .slice(0, optionsForThisDay.indexOf(this))
+      .any((option) => option.time == this.time);
+    if (isDuplicate) {
+      return new IntlMessage("create.options-datetime.error.duplicatedDate");
+    }
+
+    return null;
   }
 
-  get timesForFirstDay() {
-    return this.datesForFirstDay.map((date) => date.time).filter((time) => isPresent(time));
+  get datetime() {
+    const { day, time } = this;
+    const isoString = time === null ? day : `${day}T${time}`;
+    return DateTime.fromISO(isoString);
+  }
+
+  get jsDate() {
+    const { datetime } = this;
+    return datetime.toJSDate();
+  }
+
+  get isValid() {
+    const { timeValidation } = this;
+    return timeValidation === null;
+  }
+
+  constructor(formData, { day, time }) {
+    this.formData = formData;
+    this.day = day;
+    this.time = time;
+  }
+}
+
+class FormData {
+  @tracked options;
+
+  get optionsValidation() {
+    const { options } = this;
+    const allOptionsAreValid = options.every((option) => option.isValid);
+    if (!allOptionsAreValid) {
+      return IntlMessage("create.options-datetime.error.invalidTime");
+    }
+
+    return null;
+  }
+
+  get optionsGroupedByDay() {
+    const { options } = this;
+    const groupedOptions = {};
+
+    for (const option of options) {
+      const { day } = option;
+
+      if (!groupedOptions[day]) {
+        groupedOptions[day] = [];
+      }
+
+      groupedOptions[day].push(option);
+    }
+
+    return groupedOptions;
+  }
+
+  get hasMultipleDays() {
+    return Object.keys(this.optionsGroupedByDay).length > 1;
   }
 
   @action
-  addOption(afterOption) {
-    let options = this.dates;
-    let dayString = afterOption.get('day');
-    let fragment = this.store.createFragment('option', {
-      title: dayString
-    });
-    let position = options.indexOf(afterOption) + 1;
-    options.insertAt(
-      position,
-      fragment
+  addOption(position, day) {
+    this.options.splice(
+      position + 1,
+      0,
+      new FormDataOption(this, { day, time: null })
     );
+  }
 
-    next(() => {
-      this.notifyPropertyChange('_nestedChildViews');
-    });
+  /*
+   * removes target option if it's not the only date for this day
+   * otherwise it deletes time for this date
+   */
+  @action
+  deleteOption(option) {
+    const optionsForThisDay = this.optionsGroupedByDay[option.day];
+
+    if (optionsForThisDay.length > 1) {
+      this.options.splice(this.options.indexOf(option), 1);
+    } else {
+      option.time = null;
+    }
   }
 
   @action
   adoptTimesOfFirstDay() {
-    const dates = this.dates;
-    const datesForFirstDay = this.datesForFirstDay;
-    const timesForFirstDay = this.timesForFirstDay;
-    const datesWithoutFirstDay = this.groupedDates.slice(1);
+    const { optionsGroupedByDay } = this;
+    const days = Object.keys(optionsGroupedByDay).sort();
+    const firstDay = days[0];
+    const optionsForFirstDay = optionsGroupedByDay[firstDay];
 
-    /* validate if times on firstDay are valid */
-    const datesForFirstDayAreValid = datesForFirstDay.every((date) => {
-      // ignore dates where time is null
-      return isEmpty(date.get('time')) || date.get('validations.isValid');
-    });
-
-    if (!datesForFirstDayAreValid) {
-      this.set('errorMessage', 'create.options-datetime.fix-validation-errors-first-day');
-      return;
+    const timesForFirstDayAreValid = optionsForFirstDay.every(
+      (option) => option.isValid
+    );
+    if (!timesForFirstDayAreValid) {
+      return false;
     }
 
-    datesWithoutFirstDay.forEach(({ items }) => {
-      if (isEmpty(timesForFirstDay)) {
-        // there aren't any times on first day
-        const remainingOption = items[0];
-        // remove all times but the first one
-        dates.removeObjects(
-          items.slice(1)
-        );
-        // set title as date without time
-        remainingOption.set('title', remainingOption.day);
-      } else {
-        // adopt times of first day
-        if (timesForFirstDay.get('length') < items.length) {
-          // remove excess options
-          dates.removeObjects(
-            items.slice(timesForFirstDay.get('length'))
-          );
-        }
-        // set times according to first day
-        let targetPosition;
-        timesForFirstDay.forEach((timeOfFirstDate, index) => {
-          const target = items[index];
-          if (target === undefined) {
-            const basisDate = get(items[0], 'datetime');
-            let [hours, minutes] = timeOfFirstDate.split(':');
-            let dateString = basisDate.set({ hours, minutes }).toISO();
-            let fragment = this.store.createFragment('option', {
-              title: dateString
-            });
-            dates.insertAt(
-              targetPosition,
-              fragment
-            );
-            targetPosition++;
-          } else {
-            target.set('time', timeOfFirstDate);
-            targetPosition = dates.indexOf(target) + 1;
-          }
-        });
-      }
-    });
+    const timesForFirstDay = optionsForFirstDay.map((option) => option.time);
+
+    this.options = new TrackedArray(
+      days
+        .map((day) =>
+          timesForFirstDay.map(
+            (time) => new FormDataOption(this, { day, time })
+          )
+        )
+        .flat()
+    );
   }
 
-  /*
-    * removes target option if it's not the only date for this day
-    * otherwise it deletes time for this date
-    */
+  constructor(options) {
+    this.options = new TrackedArray(
+      options.map(({ day, time }) => new FormDataOption(this, { day, time }))
+    );
+  }
+}
+
+export default class CreateOptionsDatetime extends Component {
+  @service router;
+
+  formData = new FormData(this.args.dates);
+
+  @tracked errorMesage = null;
+
   @action
-  deleteOption(target) {
-    let position = this.dates.indexOf(target);
-    let datesForThisDay = this.groupedDates.find((group) => {
-      return group.value === target.get('day');
-    }).items;
-    if (datesForThisDay.length > 1) {
-      this.dates.removeAt(position);
-    } else {
-      target.set('time', null);
+  adoptTimesOfFirstDay() {
+    const { formData } = this;
+    const successful = formData.adoptTimesOfFirstDay();
+
+    if (!successful) {
+      this.errorMesage =
+        "create.options-datetime.fix-validation-errors-first-day";
     }
   }
 
   @action
   previousPage() {
-    this.onPrevPage();
+    this.args.onPrevPage();
   }
 
   @action
   submit() {
-    if (this.get('validations.isValid')) {
-      this.onNextPage();
-    } else {
-      this.set('shouldShowErrors', true);
-    }
-  }
-
-  @action
-  inputChanged(date, value) {
-    // update property, which is normally done by default
-    date.set('time', value);
-
-    // reset partially filled state
-    date.set('isPartiallyFilled', false);
-
-    // reset error message
-    this.set('errorMessage', null);
+    this.args.onNextPage();
   }
 
   // validate input field for being partially filled
   @action
-  validateInput(date, event) {
-    let element = event.target;
+  validateInput(option, event) {
+    const element = event.target;
 
     // update partially filled time validation error
-    if (!element.checkValidity()) {
-      date.set('isPartiallyFilled', true);
-    } else {
-      date.set('isPartiallyFilled', false);
-    }
+    option.isPartiallyFilled = !element.checkValidity();
   }
 
   // remove partially filled validation error if user fixed it
   @action
-  updateInputValidation(date, event) {
-    let element = event.target;
+  updateInputValidation(option, event) {
+    const element = event.target;
 
-    if (element.checkValidity() && date.isPartiallyFilled) {
-      date.set('isPartiallyFilled', false);
+    if (element.checkValidity() && option.isPartiallyFilled) {
+      option.isPartiallyFilled = false;
     }
+  }
+
+  @action
+  handleTransition(transition) {
+    if (transition.from?.name === "create.options-datetime") {
+      this.args.updateOptions(this.formData.options);
+      this.router.off('routeWillChange', this.handleTransition);
+    }
+  }
+
+  constructor() {
+    super(...arguments);
+
+    this.router.on("routeWillChange", this.handleTransition);
   }
 }

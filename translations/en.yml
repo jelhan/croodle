@@ -34,6 +34,9 @@ create:
             title:
                 label: Title
                 placeholder: 'Add a poll title.'
+                validations:
+                  valueMissing: 'A form must have a title.'
+                  tooShort: 'Form title must have at least 2 characters.'
             description:
                 label: Description
                 placeholder: 'Optional: add a description to the poll.'
@@ -48,7 +51,10 @@ create:
         dates:
             label: Days
         error:
-            notEnoughDates: 'At least one day must be selected'
+            duplicatedOption: 'An option with this label already exists.'
+            invalidOption: 'All options must be valid.'
+            notEnoughDates: 'At least one day must be selected.'
+            valueMissing: 'Every option must have a label. Please delete it if the option is not needed.'
         defineTimes:
             label: 'Determine time?'
         input:
@@ -60,10 +66,13 @@ create:
         more-inputs: 'Enter other times'
         copy-first-line: 'Copy and paste times of first day to all other'
         error:
-            notEnoughTimes: 'It must be determined at least one valid time per day.
-                If only one day is chosen, at least 2 dates must be determined.'
             correctTimeFormat: 'Dates have to be entered as hour and minute divided
                 by an colon (e.g.  13:00).'
+            duplicatedDate: 'An option for the same time at the same day already exists.'
+            invalidTime: 'At least one time is invalid.'
+            notEnoughTimes: 'It must be determined at least one valid time per day.
+                If only one day is chosen, at least 2 dates must be determined.'
+            partiallyFilledTime: 'Please enter a valid time with hours and minutes. Partially filled inputs are not supported.'
         fix-validation-errors-first-day: 'You have to fix all validation errors on
             the first day before copying.'
     settings:
