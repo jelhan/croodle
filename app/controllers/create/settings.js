@@ -1,8 +1,7 @@
-import { inject as service } from '@ember/service';
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
 import { DateTime, Duration } from 'luxon';
 
@@ -11,13 +10,20 @@ export default class CreateSettings extends Controller {
   @service intl;
   @service router;
 
-  @alias('model.anonymousUser')
-  anonymousUser;
+  get anonymousUser() {
+    return this.model.anonymousUser;
+  }
+  set anonymousUser(value) {
+    this.model.anonymousUser = value;
+  }
 
-  @alias('model.answerType')
-  answerType;
+  get answerType() {
+    return this.model.answerType;
+  }
+  set answerType(value) {
+    this.model.answerType = value;
+  }
 
-  @computed
   get answerTypes() {
     return [
       { id: 'YesNo', labelTranslation: 'answerTypes.yesNo.label' },
@@ -26,19 +32,16 @@ export default class CreateSettings extends Controller {
     ];
   }
 
-  @computed('model.expirationDate')
   get expirationDuration() {
     // TODO: must be calculated based on model.expirationDate
     return 'P3M';
   }
   set expirationDuration(value) {
-    this.set(
-      'model.expirationDate',
-      isPresent(value) ? DateTime.local().plus(Duration.fromISO(value)).toISO() : ''
-    );
+    this.model.expirationDate = isPresent(value)
+      ? DateTime.local().plus(Duration.fromISO(value)).toISO()
+      : "";
   }
 
-  @computed
   get expirationDurations() {
     return [
       { id: 'P7D', labelTranslation: 'create.settings.expirationDurations.P7D' },
@@ -50,8 +53,12 @@ export default class CreateSettings extends Controller {
     ];
   }
 
-  @alias('model.forceAnswer')
-  forceAnswer;
+  get forceAnswer() {
+    return this.model.forceAnswer;
+  }
+  set forceAnswer(value) {
+    this.model.forceAnswer = value;
+  }
 
   @action
   previousPage() {
