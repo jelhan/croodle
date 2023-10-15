@@ -1,9 +1,9 @@
 <div class="participation cr-form-wrapper">
   <BsForm
     @formLayout="horizontal"
-    @model={{this}}
+    @model={{@model.formData}}
     @onInvalid={{scroll-first-invalid-element-into-view-port}}
-    @onSubmit={{action "submit"}}
+    @onSubmit={{this.submit}}
     novalidate
     as |form|
   >
@@ -21,83 +21,103 @@
       />
     </form.element>
     <div class="selections">
-      {{#each this.selections as |selection|}}
-        {{#if this.isFreeText}}
-          <form.element
-            @controlType="text"
-            {{!
+      {{#each @model.poll.options as |option index|}}
+        {{#let
+          (if
+            (eq
+              option.day
+              (get (object-at (sub index 1) @model.poll.options) "day")
+            )
+            false
+            true
+          )
+          as |shouldShowDate|
+        }}
+          {{#if @model.poll.isFreeText}}
+            <form.element
+              @controlType="text"
+              {{!
               TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
             }}
-            @label={{if
-              this.isFindADate
-              (format-date
-                selection.labelValue
-                weekday=(if selection.showDate "long" undefined)
-                day=(if selection.showDate "numeric" undefined)
-                month=(if selection.showDate "long" undefined)
-                year=(if selection.showDate "numeric" undefined)
-                hour=(if selection.showTime "numeric" undefined)
-                minute=(if selection.showTime "numeric" undefined)
-                timeZone=(if this.timezone this.timezone undefined)
-              )
-              selection.labelValue
-            }}
-            @model={{selection}}
-            @property="value"
-          />
-        {{else}}
-          <form.element
-            {{!
+              @label={{if
+                @model.poll.isFindADate
+                (format-date
+                  option.jsDate
+                  weekday=(if shouldShowDate "long" undefined)
+                  day=(if shouldShowDate "numeric" undefined)
+                  month=(if shouldShowDate "long" undefined)
+                  year=(if shouldShowDate "numeric" undefined)
+                  hour=(if option.hasTime "numeric" undefined)
+                  minute=(if option.hasTime "numeric" undefined)
+                  timeZone=(if
+                    this.pollController.timezone
+                    this.pollController.timezone
+                    undefined
+                  )
+                )
+                option.title
+              }}
+              @model={{object-at index @model.formData.selections}}
+              @property="value"
+            />
+          {{else}}
+            <form.element
+              {{!
               TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
             }}
-            @label={{if
-              this.isFindADate
-              (format-date
-                selection.labelValue
-                weekday=(if selection.showDate "long" undefined)
-                day=(if selection.showDate "numeric" undefined)
-                month=(if selection.showDate "long" undefined)
-                year=(if selection.showDate "numeric" undefined)
-                hour=(if selection.showTime "numeric" undefined)
-                minute=(if selection.showTime "numeric" undefined)
-                timeZone=(if this.timezone this.timezone undefined)
-              )
-              selection.labelValue
-            }}
-            @model={{selection}}
-            @property="value"
-            @showValidationOn="change"
-            @useIcons={{false}}
-            data-test-form-element={{concat "option-" selection.labelString}}
-            as |el|
-          >
-            {{#each this.possibleAnswers as |possibleAnswer|}}
-              <div
-                class="radio custom-control custom-radio custom-control-inline
-                  {{possibleAnswer.type}}"
-              >
-                <input
-                  class="custom-control-input
-                    {{if (eq el.validation 'success') 'is-valid'}}
-                    {{if (eq el.validation 'error') 'is-invalid'}}
-                    "
-                  type="radio"
-                  value={{possibleAnswer.type}}
-                  checked={{eq possibleAnswer.type el.value}}
-                  id={{concat el.id "_" possibleAnswer.type}}
-                  name={{selection.labelValue}}
-                  {{on "change" (fn el.setValue possibleAnswer.type)}}
-                />
-                <label
-                  class="custom-control-label"
-                  for={{concat el.id "_" possibleAnswer.type}}
+              @label={{if
+                @model.poll.isFindADate
+                (format-date
+                  option.jsDate
+                  weekday=(if shouldShowDate "long" undefined)
+                  day=(if shouldShowDate "numeric" undefined)
+                  month=(if shouldShowDate "long" undefined)
+                  year=(if shouldShowDate "numeric" undefined)
+                  hour=(if option.hasTime "numeric" undefined)
+                  minute=(if option.hasTime "numeric" undefined)
+                  timeZone=(if
+                    this.pollController.timezone
+                    this.pollController.timezone
+                    undefined
+                  )
+                )
+                option.title
+              }}
+              @model={{object-at index @model.formData.selections}}
+              @property="value"
+              @showValidationOn="change"
+              @useIcons={{false}}
+              data-test-form-element={{concat "option-" option.title}}
+              as |el|
+            >
+              {{#each @model.poll.answers as |answer|}}
+                <div
+                  class="radio custom-control custom-radio custom-control-inline
+                    {{answer.type}}"
                 >
-                  {{possibleAnswer.label}}
-                </label>
-              </div>
-            {{/each}}
-          </form.element>
-        {{/if}}
+                  <input
+                    class="custom-control-input
+                      {{if (eq el.validation 'success') 'is-valid'}}
+                      {{if (eq el.validation 'error') 'is-invalid'}}
+                      "
+                    type="radio"
+                    value={{answer.type}}
+                    checked={{eq answer.type el.value}}
+                    id={{concat el.id "_" answer.type}}
+                    name={{option.title}}
+                    {{on "change" (fn el.setValue answer.type)}}
+                  />
+                  <label
+                    class="custom-control-label"
+                    for={{concat el.id "_" answer.type}}
+                  >
+                    {{t answer.labelTranslation}}
+                  </label>
+                </div>
+              {{/each}}
+            </form.element>
+          {{/if}}
+        {{/let}}
       {{/each}}
     </div>
 
@@ -114,7 +134,7 @@
 
 <BsModal
   @onHidden={{action (mut this.savingFailed) false}}
-  @onSubmit={{action "save"}}
+  @onSubmit={{this.save}}
   @open={{this.savingFailed}}
   data-test-modal="saving-failed"
   as |modal|
@@ -124,12 +144,12 @@
     <p>{{t "modal.save-retry.text"}}</p>
   </modal.body>
   <modal.footer>
-    <BsButton @onClick={{action modal.close}}>
+    <BsButton @onClick={{modal.close}}>
       {{t "action.abort"}}
     </BsButton>
     <BsButton
       @type="primary"
-      @onClick={{action modal.submit}}
+      @onClick={{modal.submit}}
       data-test-button="retry"
     >
       {{t "modal.save-retry.button-retry"}}

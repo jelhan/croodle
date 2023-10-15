@@ -2,6 +2,7 @@
   @isFindADate={{@model.isFindADate}}
   @isMakeAPoll={{@model.isMakeAPoll}}
   @options={{@model.options}}
-  @onPrevPage={{action "previousPage"}}
-  @onNextPage={{action "nextPage"}}
+  @onPrevPage={{this.previousPage}}
+  @onNextPage={{this.nextPage}}
+  @updateOptions={{this.updateOptions}}
 />

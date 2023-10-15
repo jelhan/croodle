@@ -1,44 +1,36 @@
-import { inject as service } from '@ember/service';
-import { readOnly } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 import { isPresent, isEmpty } from '@ember/utils';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import { observes } from '@ember-decorators/object';
 import { DateTime } from 'luxon';
+import { tracked } from '@glimmer/tracking';
 
 export default class PollController extends Controller {
-  @service
-  encryption;
-
-  @service
-  flashMessages;
-
-  @service
-  intl;
-
-  @service
-  router;
+  @service encryption;
+  @service flashMessages;
+  @service intl;
+  @service router;
 
   queryParams = ['encryptionKey'];
-
   encryptionKey = '';
-  timezoneChoosen = false;
-  useLocalTimezone = false;
 
-  @readOnly('intl.primaryLocale')
-  currentLocale;
+  @tracked timezoneChoosen = false;
+  @tracked shouldUseLocalTimezone = false;
 
-  @readOnly('model')
-  poll;
-
-  @computed('router.currentURL', 'encryptionKey')
   get pollUrl() {
+    // consume information, which may cause a change to the URL to ensure
+    // getter is invalided if needed
+    this.router.currentURL;
+    this.encryptionKey;
+
     return window.location.href;
   }
 
-  @computed('poll.expirationDate')
   get showExpirationWarning() {
-    let expirationDate = this.poll.expirationDate;
+    const { model: poll } = this;
+    const { expirationDate } = poll;
+
     if (isEmpty(expirationDate)) {
       return false;
     }
@@ -48,20 +40,21 @@ export default class PollController extends Controller {
   /*
    * return true if current timezone differs from timezone poll got created with
    */
-  @computed('poll.timezone')
   get timezoneDiffers() {
-    let modelTimezone = this.poll.timezone;
-    return isPresent(modelTimezone) && Intl.DateTimeFormat().resolvedOptions().timeZone !== modelTimezone;
+    const { model: poll } = this;
+    const { timezone: pollTimezone } = poll;
+
+    return isPresent(pollTimezone) && Intl.DateTimeFormat().resolvedOptions().timeZone !== pollTimezone;
   }
 
-  @computed('timezoneDiffers', 'timezoneChoosen')
   get mustChooseTimezone() {
     return this.timezoneDiffers && !this.timezoneChoosen;
   }
 
-  @computed('poll.timezone', 'useLocalTimezone')
   get timezone() {
-    return this.useLocalTimezone ? undefined : this.poll.timezone;
+    const { model: poll, shouldUseLocalTimezone } = this;
+
+    return shouldUseLocalTimezone ? undefined : poll.timezone;
   }
 
   @action
@@ -80,8 +73,8 @@ export default class PollController extends Controller {
 
   @action
   useLocalTimezone() {
-    this.set('useLocalTimezone', true);
-    this.set('timezoneChoosen', true);
+    this.shouldUseLocalTimezone = true;
+    this.timezoneChoosen = true;
   }
 
   // TODO: Remove this code. It's spooky.

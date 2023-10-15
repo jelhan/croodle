@@ -34,6 +34,9 @@ create:
             title:
                 label: Titel
                 placeholder: 'Gib deiner Umfrage einen Titel.'
+                validations:
+                  valueMissing: 'Jede Umfrage muss einen Titel haben.'
+                  tooShort: 'Der Titel muss mindestens 2 Buchstaben lang sein.'
             description:
                 label: Beschreibung
                 placeholder: 'Optional: Füge der Umfrage eine Beschreibung hinzu.'
@@ -48,7 +51,10 @@ create:
         dates:
             label: Tage
         error:
-            notEnoughDates: 'Es muss mindestens ein Tag ausgewählt werden'
+            duplicatedOption: 'Es gibt bereits eine Option mit diesem Label.'
+            invalidOption: 'Alle Optionen müssen gültige Werte haben.'
+            notEnoughDates: 'Es muss mindestens ein Tag ausgewählt werden.'
+            valueMissing: 'Jede Option muss ein Label haben. Bitte lösche die Option, sofern sie nicht benötigt wird.'
         defineTimes:
             label: 'Uhrzeiten festlegen?'
         input:
@@ -60,11 +66,14 @@ create:
         more-inputs: 'Weitere Uhrzeiten eingeben'
         copy-first-line: 'Uhrzeiten des ersten Tages für alle anderen übernehmen'
         error:
+            correctTimeFormat: 'Uhrzeiten müssen als Stunden und Minuten getrennt
+                durch einen Doppelpunkt eingegeben werden (z.B. 13:00).'
+            duplicatedDate: 'Eine Option mit der selben Uhrzeit am gleichen Tag existiert bereits.'
+            invalidTime: 'Mindestens eine Uhrzeit ist nicht gültig.'
             notEnoughTimes: 'Es muss mindestens eine gültige Uhrzeit pro Tag festgelegt
                 werden. Falls nur ein einziger Tag ausgewählt wurde, müssen mindestens
                 2 Uhrzeiten festgelegt werden.'
-            correctTimeFormat: 'Uhrzeiten müssen als Stunden und Minuten getrennt
-                durch einen Doppelpunkt eingegeben werden (z.B. 13:00).'
+            partiallyFilledTime: 'Bitte gib eine gültige Uhrzeit in Stunden und Minuten an. Teilweise ausgefüllte Felder werden nicht unterstützt.'
         fix-validation-errors-first-day: 'Alle fehlerhaften Zeiten für den ersten
             Tag müssen korrigiert werden, bevor diese für weitere Tage übernommen
             werden können.'
@@ -159,7 +168,11 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Bitte beantworte jede Option.'
-        newUserName: 'Du musst einen Benutzernamen angeben.'
+        name:
+          duplicate: 'Jemand anders hat bereits mit diesem Namen an der Umfrage teilgenommen. Bitte gib einen eindeutigen Namen ein.'
+          valueMissing: 'Du musst einen Benutzernamen angeben.'
+        selection:
+          valueMissing: 'Bitte gib eine Antwort für diese Option an.'
     evaluation:
         label: Auswertung
         overview: Übersicht
@@ -219,41 +232,3 @@ pollTypes:
     makeAPoll:
         label: 'Ich möchte eine Frage beantworten. (z.B. Wozu schmeckt Kaffe am Besten?)'
 times: Zeiten
-errors:
-    description: 'Dieses Feld'
-    inclusion: '{description} ist nicht Teil der Liste'
-    exclusion: '{description} ist reserviert'
-    invalid: '{description} hat keinen gültigen Wert'
-    confirmation: '{description} doesn''t match {attribute}'
-    accepted: '{description} muss aktzeptiert werden'
-    empty: '{description} darf nicht leer sein'
-    blank: '{description} darf nicht leer sein'
-    present: '{description} muss leer sein'
-    answerRequired: 'Eine Antwort muss ausgewählt sein'
-    collection: '{description} muss eine Sammlung sein'
-    singular: '{description} darf keine Sammlung sein'
-    tooLong: '{description} ist zu lang (maximal {max} Zeichen)'
-    tooShort: '{description} ist zu kurz (mindestens {min} Zeichen)'
-    before: '{description} muss vor dem {date} sein'
-    after: '{description} muss nach dem {date} sein'
-    wrongDateFormat: '{description} muss im Format {date} sein'
-    wrongLength: '{description} hat die falsche Länge, es müssen {is} Zeichen sein'
-    notANumber: '{description} ist keine Zahl'
-    notAnInteger: '{description} muss eine ganze Zahl sein'
-    greaterThan: '{description} muss größer als {count} sein'
-    greaterThanOrEqualTo: '{description} muss größer oder gleich {count} sein'
-    equalTo: '{description} muss {count} sein'
-    lessThan: '{description} muss weniger als {count} sein'
-    lessThanOrEqualTo: '{description} muss weniger oder gleich {count} sein'
-    otherThan: '{description} darf nicht {count} sein'
-    odd: '{description} muss ungerade sein'
-    even: '{description} muss gerade sein'
-    positive: '{description} muss positiv sein'
-    date: '{description} muss ein gültiges datum sein'
-    email: '{description} muss eine gültige E-Mail-Adresse sein'
-    phone: '{description} muss eine gültige Telefonnummer sein'
-    url: '{description} muss eine gültige URL sein'
-    time: '{description} muss eine gültige Zeit sein (z.B. 10:45)'
-    timeNotPartially: 'Zeiten müssen vollständig sein'
-    unique: '{description} müssen eindeutig sein'
-    uniqueName: 'Dieser Name wurde bereits genutzt'

@@ -1,47 +1,29 @@
-import { inject as service } from '@ember/service';
-import { alias } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
-import { action, computed } from '@ember/object';
+import { action } from '@ember/object';
 import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
-import {
-  validator, buildValidations
-}
-from 'ember-cp-validations';
 import { DateTime, Duration } from 'luxon';
 
-const Validations = buildValidations({
-  anonymousUser: validator('presence', {
-    presence: true,
-    dependentKeys: ['model.intl.locale']
-  }),
-  answerType: [
-    validator('presence', {
-      presence: true,
-      dependentKeys: ['model.intl.locale']
-    }),
-    validator('inclusion', {
-      in: ['YesNo', 'YesNoMaybe', 'FreeText'],
-      dependentKeys: ['model.intl.locale']
-    })
-  ],
-  forceAnswer: validator('presence', true)
-});
+export default class CreateSettings extends Controller {
+  @service encryption;
+  @service intl;
+  @service router;
 
-export default class CreateSettings extends Controller.extend(Validations) {
-  @service
-  encryption;
+  get anonymousUser() {
+    return this.model.anonymousUser;
+  }
+  set anonymousUser(value) {
+    this.model.anonymousUser = value;
+  }
 
-  @service
-  intl;
+  get answerType() {
+    return this.model.answerType;
+  }
+  set answerType(value) {
+    this.model.answerType = value;
+  }
 
-  @alias('model.anonymousUser')
-  anonymousUser;
-
-  @alias('model.answerType')
-  answerType;
-
-  @computed
   get answerTypes() {
     return [
       { id: 'YesNo', labelTranslation: 'answerTypes.yesNo.label' },
@@ -50,19 +32,16 @@ export default class CreateSettings extends Controller.extend(Validations) {
     ];
   }
 
-  @computed('model.expirationDate')
   get expirationDuration() {
     // TODO: must be calculated based on model.expirationDate
     return 'P3M';
   }
   set expirationDuration(value) {
-    this.set(
-      'model.expirationDate',
-      isPresent(value) ? DateTime.local().plus(Duration.fromISO(value)).toISO() : ''
-    );
+    this.model.expirationDate = isPresent(value)
+      ? DateTime.local().plus(Duration.fromISO(value)).toISO()
+      : "";
   }
 
-  @computed
   get expirationDurations() {
     return [
       { id: 'P7D', labelTranslation: 'create.settings.expirationDurations.P7D' },
@@ -74,27 +53,27 @@ export default class CreateSettings extends Controller.extend(Validations) {
     ];
   }
 
-  @alias('model.forceAnswer')
-  forceAnswer;
+  get forceAnswer() {
+    return this.model.forceAnswer;
+  }
+  set forceAnswer(value) {
+    this.model.forceAnswer = value;
+  }
 
   @action
   previousPage() {
     let { isFindADate } = this.model;
 
     if (isFindADate) {
-      this.transitionToRoute('create.options-datetime');
+      this.router.transitionTo('create.options-datetime');
     } else {
-      this.transitionToRoute('create.options');
+      this.router.transitionTo('create.options');
     }
   }
 
   @action
   async submit() {
-    if (!this.validations.isValid) {
-      return;
-    }
-
-    let poll = this.model;
+    const { model: poll } = this;
 
     // set timezone if there is atleast one option with time
     if (
@@ -115,31 +94,20 @@ export default class CreateSettings extends Controller.extend(Validations) {
       throw err;
     }
 
-    try {
-      // reload as workaround for bug: duplicated records after save
-      await poll.reload();
+    // reload as workaround for bug: duplicated records after save
+    await poll.reload();
 
-      // redirect to new poll
-      await this.transitionToRoute('poll', poll, {
-        queryParams: {
-          encryptionKey: this.encryption.key,
-        },
-      });
-    } catch(err) {
-      // TODO: show feedback to user
-      throw err;
-    }
+    // redirect to new poll
+    await this.router.transitionTo('poll', poll, {
+      queryParams: {
+        encryptionKey: this.encryption.key,
+      },
+    });
   }
 
   @action
   updateAnswerType(answerType) {
     this.set('model.answerType', answerType);
     this.set('model.answers', answersForAnswerType(answerType));
-  }
-
-  init() {
-    super.init(...arguments);
-
-    this.intl.locale;
   }
 }

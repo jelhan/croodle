@@ -1,54 +1,42 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
-import { readOnly, not, gt, and } from '@ember/object/computed';
 import Controller, { inject as controller } from '@ember/controller';
+import { inject as service } from '@ember/service';
 
-@classic
 export default class PollEvaluationController extends Controller {
-  @readOnly('intl.primaryLocale')
-  currentLocale;
+  @service intl;
 
-  @readOnly('poll.hasTimes')
-  hasTimes;
+  @controller('poll') pollController;
 
-  @service
-  intl;
+  get isEvaluable() {
+    const { model: poll } = this;
+    const { isFreeText, users } = poll;
+    const hasUsers = users.length > 0;
 
-  @readOnly('model')
-  poll;
-
-  @controller('poll')
-  pollController;
-
-  @readOnly('pollController.timezone')
-  timezone;
-
-  @readOnly('poll.users')
-  users;
+    return hasUsers && !isFreeText;
+  }
 
   /*
    * evaluates poll data
    * if free text answers are allowed evaluation is disabled
    */
-  @computed('isEvaluable', 'poll.{answers,forceAnswer,options,users}', 'users.[]')
   get evaluation() {
     if (!this.isEvaluable) {
       return [];
     }
+
+    const { model: poll } = this;
 
     let evaluation = [];
     let options = [];
     let lookup = [];
 
     // init options array
-    this.poll.options.forEach((option, index) => {
+    poll.options.forEach((option, index) => {
       options[index] = 0;
     });
 
     // init array of evalutation objects
     // create object for every possible answer
-    this.poll.answers.forEach((answer) => {
+    poll.answers.forEach((answer) => {
       evaluation.push({
         id: answer.label,
         label: answer.label,
@@ -56,7 +44,7 @@ export default class PollEvaluationController extends Controller {
       });
     });
     // create object for no answer if answers are not forced
-    if (!this.poll.forceAnswer) {
+    if (!poll.forceAnswer) {
       evaluation.push({
         id: null,
         label: 'no answer',
@@ -70,7 +58,7 @@ export default class PollEvaluationController extends Controller {
     });
 
     // loop over all users
-    this.poll.users.forEach((user) => {
+    poll.users.forEach((user) => {
       // loop over all selections of the user
       user.selections.forEach(function(selection, optionIndex) {
         let answerIndex;
@@ -93,13 +81,4 @@ export default class PollEvaluationController extends Controller {
 
     return evaluation;
   }
-
-  @gt('poll.users.length', 0)
-  hasUsers;
-
-  @not('poll.isFreeText')
-  isNotFreeText;
-
-  @and('hasUsers', 'isNotFreeText')
-  isEvaluable;
 }

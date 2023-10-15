@@ -1,5 +1,6 @@
 <CreateOptionsDatetime
-  @dates={{this.options}}
-  @onNextPage={{action "nextPage"}}
-  @onPrevPage={{action "previousPage"}}
+  @dates={{@model.options}}
+  @onNextPage={{this.nextPage}}
+  @onPrevPage={{this.previousPage}}
+  @updateOptions={{this.updateOptions}}
 />

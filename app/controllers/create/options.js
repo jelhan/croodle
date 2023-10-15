@@ -1,24 +1,30 @@
-import classic from 'ember-classic-decorator';
-import { action } from '@ember/object';
-import { alias } from '@ember/object/computed';
-import Controller from '@ember/controller';
+import Controller from "@ember/controller";
+import { inject as service } from "@ember/service";
+import { action } from "@ember/object";
 
-@classic
 export default class CreateOptionsController extends Controller {
+  @service router;
+
   @action
   nextPage() {
-    if (this.isFindADate) {
-      this.transitionToRoute('create.options-datetime');
+    const { isFindADate } = this.model;
+
+    if (isFindADate) {
+      this.router.transitionTo("create.options-datetime");
     } else {
-      this.transitionToRoute('create.settings');
+      this.router.transitionTo("create.settings");
     }
   }
 
   @action
   previousPage() {
-    this.transitionToRoute('create.meta');
+    this.router.transitionTo("create.meta");
   }
 
-  @alias('model.isFindADate')
-  isFindADate;
+  @action
+  updateOptions(newOptions) {
+    this.model.options = newOptions.map(({ value }) =>
+      this.store.createFragment("option", { title: value })
+    );
+  }
 }

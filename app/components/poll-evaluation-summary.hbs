@@ -3,7 +3,7 @@
 </h2>
 
 <p class="participants">
-  {{t "poll.evaluation.participants" count=this.participantsCount}}
+  {{t "poll.evaluation.participants" count=@poll.users.length}}
 </p>
 
 <p class="best-options">
@@ -19,12 +19,11 @@
     }}
   {{/if}}
 
-  {{#if this.multipleBestOptions}}
+  {{#if (get this.bestOptions.length 1)}}
     <ul>
       {{#each this.bestOptions as |evaluationBestOption|}}
         <li>
           <PollEvaluationSummaryOption
-            @currentLocale={{this.currentLocale}}
             @evaluationBestOption={{evaluationBestOption}}
             @isFindADate={{@poll.isFindADate}}
             @timeZone={{@timeZone}}
@@ -34,7 +33,6 @@
     </ul>
   {{else}}
     <PollEvaluationSummaryOption
-      @currentLocale={{this.currentLocale}}
       @evaluationBestOption={{this.bestOptions.firstObject}}
       @isFindADate={{@poll.isFindADate}}
       @timeZone={{@timeZone}}

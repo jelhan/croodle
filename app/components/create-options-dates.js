@@ -1,91 +1,84 @@
-import classic from 'ember-classic-decorator';
-import { action, computed } from '@ember/object';
-import { inject as service } from '@ember/service';
-import Component from '@ember/component';
-import { isArray } from '@ember/array';
-import { isPresent } from '@ember/utils';
+import Component from "@glimmer/component";
+import { action } from "@ember/object";
+import { isArray } from "@ember/array";
 import { DateTime } from "luxon";
+import { tracked } from "@glimmer/tracking";
 
-@classic
 export default class CreateOptionsDates extends Component {
-  @service('store')
-  store;
+  @tracked calendarCenter =
+    this.selectedDays.length >= 1 ? this.selectedDays[0] : DateTime.local();
 
-  @computed('options.[]')
   get selectedDays() {
-    return this.options
-      // should be unique
-      .uniqBy('day')
-      // filter out invalid
-      .filter(({ isDate }) => isDate)
-      // raw dates
-      .map(({ datetime }) => datetime)
-      .toArray();
+    // Options may contain the same date multiple times with different ime
+    // Must filter out those duplicates as otherwise unselect would only
+    // remove one entry but not all duplicates.
+    return this.args.options
+      .map(({ value }) => DateTime.fromISO(value).toISODate())
+      .uniq()
+      .map((isoDate) => DateTime.fromISO(isoDate));
   }
 
-  @computed('calendarCenter')
   get calendarCenterNext() {
     return this.calendarCenter.plus({ months: 1 });
   }
 
   @action
-  daysSelected({ datetime: newDatesAsLuxonDateTime }) {
-    let { options } = this;
-
+  handleSelectedDaysChange({ datetime: newDatesAsLuxonDateTime }) {
     if (!isArray(newDatesAsLuxonDateTime)) {
       // special case: all options are unselected
-      options.clear();
+      this.args.updateOptions([]);
       return;
     }
 
-    const newDates = newDatesAsLuxonDateTime.map((dateAsLuxonDateTime) => {
-      return dateAsLuxonDateTime.toISODate();
+    // A date has either been added or removed. If it has been removed, we must
+    // remove all options for that date. It may be multiple options with
+    // different times at that date.
+
+    // If any date received as an input argument is _not_ yet in the list of
+    // dates, it has been added.
+    const dateAdded = newDatesAsLuxonDateTime.find((newDateAsLuxonDateTime) => {
+      return !this.selectedDays.some(
+        (selectedDay) =>
+          selectedDay.toISODate() === newDateAsLuxonDateTime.toISODate()
+      );
     });
 
-    // array of options that represent days missing in updated selection
-    let removedOptions = options.filter((option) => {
-      return !newDates.find((newDate) => newDate === option.day);
+    if (dateAdded) {
+      this.args.updateOptions(
+        [
+          ...this.args.options.map(({ value }) => value),
+          dateAdded.toISODate(),
+        ].sort()
+      );
+      return;
+    }
+
+    // If no date has been added, one date must have been removed. It has been
+    // removed if there is one date in current selectedDays but not in the new
+    // dates received as input argument to the function.
+    const dateRemoved = this.selectedDays.find((selectedDay) => {
+      return !newDatesAsLuxonDateTime.some(
+        (newDateAsLuxonDateTime) =>
+          newDateAsLuxonDateTime.toISODate() === selectedDay.toISODate()
+      );
     });
 
-    // array of dates that aren't represented yet by an option
-    let addedDates = newDates.filter((newDate) => {
-      return !options.find((option) => newDate === option.day);
-    });
+    if (dateRemoved) {
+      this.args.updateOptions(this.args.options.filter(
+          ({ value }) =>
+            DateTime.fromISO(value).toISODate() !== dateRemoved.toISODate()
+        ).map(({ value }) => value),
+      );
+      return;
+    }
 
-    // remove options that represent deselected days
-    options.removeObjects(removedOptions);
-
-    // add options for newly selected days
-    let newOptions = addedDates.map((newDate) => {
-      return this.store.createFragment('option', {
-        title: newDate,
-      })
-    });
-    newOptions.forEach((newOption) => {
-      // options must be insert into options array at correct position
-      let insertBefore = options.find((option) => {
-        if (!option.isDate) {
-          // ignore options that do not represent a valid date
-          return false;
-        }
-
-        return option.title > newOption.title;
-      });
-      let position = isPresent(insertBefore) ? options.indexOf(insertBefore) : options.length;
-      options.insertAt(position, newOption);
-    });
+    throw new Error(
+      "No date has been added or removed. This cannot be the case. Something spooky is going on."
+    );
   }
 
   @action
   updateCalenderCenter(diff) {
-    this.calendarCenter.add(diff, 'months');
-    this.notifyPropertyChange('calenderCenter');
-  }
-
-  init() {
-    super.init(arguments);
-
-    let { selectedDays } = this;
-    this.set('calendarCenter', selectedDays.length >= 1 ? selectedDays[0] : DateTime.local());
+    this.calendarCenter = this.calendarCenter.add(diff, "months");
   }
 }

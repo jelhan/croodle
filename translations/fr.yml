@@ -34,6 +34,9 @@ create:
             title:
                 label: Titre
                 placeholder: 'Ajoutez un titre de sondage.'
+                validations:
+                    valueMissing: 'A form must have a title.'
+                    tooShort: 'Form title must have at least 2 characters.'
             description:
                 label: Description
                 placeholder: 'Facultatif : ajoutez une description au sondage.'
@@ -48,7 +51,10 @@ create:
         dates:
             label: Jours
         error:
+            duplicatedOption: 'An option with this label already exists.'
+            invalidOption: 'All options must be valid.'
             notEnoughDates: 'Au moins un jour doit être sélectionné'
+            valueMissing: 'Every option must have a label. Please delete it if the option is not needed.'
         defineTimes:
             label: 'Déterminer le temps ?'
         input:
@@ -61,10 +67,13 @@ create:
         copy-first-line: 'Copiez et collez les horaires du premier jour sur tous les
             autres'
         error:
-            notEnoughTimes: 'Il doit être déterminé au moins une fois par jour. Si
-                un seul jour est choisi, au moins 2 dates doivent être déterminées.'
             correctTimeFormat: 'Les dates doivent être saisies en heures et minutes
                 séparé par deux points (example.  13:00).'
+            duplicatedDate: 'An option for the same time at the same day already exists.'
+            invalidTime: 'At least one time is invalid.'
+            notEnoughTimes: 'Il doit être déterminé au moins une fois par jour. Si
+                un seul jour est choisi, au moins 2 dates doivent être déterminées.'
+            partiallyFilledTime: 'Please enter a valid time with hours and minutes. Partially filled inputs are not supported.'
         fix-validation-errors-first-day: 'Vous devez corriger toutes les erreurs de
             validation du premier jour avant la copie.'
     settings:
@@ -154,7 +163,11 @@ poll:
     error:
         newUser:
             everyOptionIsAnswered: 'Veuillez répondre à chaque option.'
-        newUserName: "Vous devez saisir un nom d'utilisateur."
+        name:
+            duplicate: 'Someone else already participated with this name. Please use an unqiue name.'
+            valueMissing: "Vous devez saisir un nom d'utilisateur."
+        selection:
+            valueMissing: 'Please provide an answer for this option.'
     evaluation:
         label: Évaluation
         overview: Revue
@@ -215,41 +228,3 @@ pollTypes:
         label: 'Je veux répondre à une question. (ex. Où le café a-t-il le meilleur
             goût?)'
 times: Heures
-errors:
-    answerRequired: 'Une réponse doit être sélectionnée'
-    timeNotPartially: 'Les temps partiels ne sont pas pris en charge'
-    uniqueName: 'Ce nom a déjà été utilisé'
-    description: 'Ce champ'
-    inclusion: '{description} ne fait pas partie de la liste'
-    exclusion: '{description} est réservé'
-    invalid: "{description} n'a pas de valeur applicable"
-    confirmation: '{description} ne correspond pas {attribute}'
-    accepted: '{description} doit être accepté'
-    empty: '{description} ne doit pas être vide'
-    blank: '{description} ne doit pas être vide'
-    present: '{description} doit être vide'
-    collection: '{description} doit être une collection'
-    singular: '{description} ne doit pas être une collection'
-    tooLong: '{description} est trop long (max. {max} caractères)'
-    tooShort: '{description} est trop court (au moins {min} caractères)'
-    before: '{description} doit être avant {date}'
-    after: '{description} doit être après {date}'
-    wrongDateFormat: '{description} doit être {date}'
-    wrongLength: '{description} a la mauvaise longueur, il doit avoir {is} caractères'
-    notANumber: "{description} n'est pas un nombre"
-    notAnInteger: '{description} doit être un nombre entier'
-    greaterThan: '{description} doit être plus grand que {count}'
-    greaterThanOrEqualTo: '{description} doit être égal ou supérieur à {count}'
-    equalTo: '{description} doit être à {count}'
-    lessThan: '{description} doit être supérieur à {count}'
-    lessThanOrEqualTo: '{description} doit être égal ou inférieur à {count}'
-    otherThan: '{description} ne doit pas être {count}'
-    odd: '{description} doit être inégal'
-    even: '{description} doit être égal'
-    positive: '{description} doit être positif'
-    date: '{description} Doit être une date valide'
-    email: '{description} doit être une adresse courriel valide'
-    phone: '{description} doit être un numéro de téléphone valide'
-    url: '{description} doit être une URL valide'
-    time: '{description} doit être une heure valide (ex. 10:45)'
-    unique: '{description} doit être explicite'
