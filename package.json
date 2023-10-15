@@ -88,7 +88,7 @@
     "open-iconic": "^1.1.1",
     "prettier": "^2.5.1",
     "qunit": "^2.17.2",
-    "qunit-dom": "^1.6.0",
+    "qunit-dom": "^3.0.0",
     "release-it": "^16.0.0",
     "release-it-lerna-changelog": "^5.0.0",
     "sass": "^1.19.0",
