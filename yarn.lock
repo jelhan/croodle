@@ -7117,13 +7117,6 @@ ember-tracked-storage-polyfill@^1.0.0:
     ember-cli-babel "^7.26.3"
     ember-cli-htmlbars "^5.7.1"
 
-ember-transition-helper@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ember-transition-helper/-/ember-transition-helper-1.0.0.tgz#a0cdefc1080c2c37944f8f0a23de514eae617769"
-  integrity sha512-n6JwGbZjh01CcdcKUuUm5M8olJbTsV2O8Uq4eu/hCiT5kpaA3lU68+ppNn3F2nbojJFnWcToHu8lq5YLzD+iJw==
-  dependencies:
-    ember-cli-babel "^6.6.0"
-
 ember-truth-helpers@^3.0.0, ember-truth-helpers@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-3.1.1.tgz#434715926d72bcc63b8a115dec09745fda4474dc"
