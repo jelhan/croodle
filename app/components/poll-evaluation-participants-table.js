@@ -6,7 +6,7 @@ export default class PollEvaluationParticipantsTable extends Component {
     const { poll } = this.args;
 
     const optionsPerDay = new Map();
-    for (const option of poll.options) {
+    for (const option of poll.options.toArray()) {
       optionsPerDay.set(
         option.day,
         optionsPerDay.has(option.day) ? optionsPerDay.get(option.day) + 1 : 0
@@ -17,7 +17,7 @@ export default class PollEvaluationParticipantsTable extends Component {
       optionsPerDay
         .entries()
         .map(([dayString, count]) => [
-          DateTime.fromIso(dayString).toJsDate(),
+          DateTime.fromISO(dayString).toJSDate(),
           count,
         ])
     );
