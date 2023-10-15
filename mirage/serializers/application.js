@@ -1,4 +1,4 @@
-import { RestSerializer } from 'ember-cli-mirage';
+import { RestSerializer } from 'miragejs';
 import { dasherize, pluralize } from 'ember-cli-mirage/utils/inflector';
 
 export default RestSerializer.extend({
