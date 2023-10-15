@@ -1,9 +1,0 @@
-{
-  "extends": [
-    "config:base"
-  ],
-  "ignorePaths": [
-    "lib/**"
-  ],
-  "rangeStrategy": "update-lockfile"
-}
