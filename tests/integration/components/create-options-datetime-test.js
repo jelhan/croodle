@@ -33,7 +33,7 @@ module('Integration | Component | create options datetime', function (hooks) {
         })
       );
     });
-    await render(hbs`{{create-options-datetime dates=poll.options}}`);
+    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
 
     assert.equal(
       findAll('.days .form-group input').length,
@@ -61,7 +61,7 @@ module('Integration | Component | create options datetime', function (hooks) {
         })
       );
     });
-    await render(hbs`{{create-options-datetime dates=poll.options}}`);
+    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
 
     assert.equal(
       findAll('.days .form-group input').length,
@@ -93,7 +93,7 @@ module('Integration | Component | create options datetime', function (hooks) {
         })
       );
     });
-    await render(hbs`{{create-options-datetime dates=poll.options}}`);
+    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
 
     assert.equal(
       findAll('.days label').length,
@@ -138,7 +138,7 @@ module('Integration | Component | create options datetime', function (hooks) {
         })
       );
     });
-    await render(hbs`{{create-options-datetime dates=poll.options}}`);
+    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
 
     assert.equal(
       findAll('.days .form-group input').length,

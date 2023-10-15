@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 export default class PollRoute extends Route {
   @service encryption;
   @service router;
+  @service store;
 
   @action
   error(error) {
@@ -25,7 +26,7 @@ export default class PollRoute extends Route {
 
   redirect(poll, transition) {
     if (transition.targetName === 'poll.index') {
-      this.transitionTo('poll.participation', poll, {
+      this.router.transitionTo('poll.participation', poll, {
         queryParams: {
           encryptionKey: this.encryption.key,
         },

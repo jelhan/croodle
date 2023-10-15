@@ -7,18 +7,19 @@ import { DateTime } from 'luxon';
 
 @classic
 export default class CreateRoute extends Route {
+  @service encryption;
+  @service router;
+  @service store;
+
   beforeModel(transition) {
     // enforce that wizzard is started at create.index
     if (transition.targetName !== 'create.index') {
-      this.transitionTo('create.index');
+      this.router.transitionTo('create.index');
     }
 
     // set encryption key
     this.encryption.generateKey();
   }
-
-  @service
-  encryption;
 
   model() {
     // create empty poll

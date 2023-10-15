@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 
 export default class CreateOptionsController extends Controller {
   @service router;
+  @service store;
 
   @action
   nextPage() {
