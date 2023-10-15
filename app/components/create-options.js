@@ -112,7 +112,7 @@ export default class CreateOptionsComponent extends Component {
   handleTransition(transition) {
     if (transition.from?.name === "create.options") {
       this.args.updateOptions(this.formData.options);
-      this.router.off('routeWillChange', this.handleTransition);
+      this.router.off("routeWillChange", this.handleTransition);
     }
   }
 
@@ -120,5 +120,8 @@ export default class CreateOptionsComponent extends Component {
     super(...arguments);
 
     this.router.on("routeWillChange", this.handleTransition);
+    registerDestructor(this, () => {
+      this.router.off("routeWillChange", this.handleTransition);
+    });
   }
 }
