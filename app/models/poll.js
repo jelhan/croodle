@@ -1,10 +1,6 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { equal } from '@ember/object/computed';
 import Model, { hasMany, attr } from '@ember-data/model';
 import { fragmentArray } from 'ember-data-model-fragments/attributes';
 
-@classic
 export default class Poll extends Model {
   /*
    * relationships
@@ -72,7 +68,6 @@ export default class Poll extends Model {
   /*
    * computed properties
    */
-  @computed('isMakeAPoll', 'options.[]')
   get hasTimes() {
     if (this.isMakeAPoll) {
       return false;
@@ -84,12 +79,15 @@ export default class Poll extends Model {
     });
   }
 
-  @equal('pollType', 'FindADate')
-  isFindADate;
+  get isFindADate() {
+    return this.pollType === 'FindADate';
+  }
 
-  @equal('answerType', 'FreeText')
-  isFreeText;
+  get isFreeText() {
+    return this.answerType === 'FreeText';
+  }
 
-  @equal('pollType', 'MakeAPoll')
-  isMakeAPoll;
+  get isMakeAPoll() {
+    return this.pollType === 'MakeAPoll';
+  }
 }

@@ -1,13 +1,13 @@
 <div class="participants-table">
   <table class="table" data-test-table-of="participants">
     <thead>
-      {{#if this.hasTimes}}
+      {{#if @poll.hasTimes}}
         <tr>
           <th>
             {{! column for name }}
           </th>
-          {{#each this.optionsGroupedByDays as |optionGroup|}}
-            <th colspan={{optionGroup.items.length}}>
+          {{#each-in this.optionsPerDay as |jsDate count|}}
+            <th colspan={{count}}>
               {{!
                 TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
 
@@ -17,14 +17,14 @@
                 of that string, which has been parsed by Luxon in correct timezone.
               }}
               {{format-date
-                optionGroup.items.0.jsDate
+                jsDate
                 weekday="long"
                 day="numeric"
                 month="long"
                 year="numeric"
               }}
             </th>
-          {{/each}}
+          {{/each-in}}
         </tr>
       {{/if}}
 
@@ -32,16 +32,16 @@
         <th>
           {{! column for name }}
         </th>
-        {{#each this.options as |option|}}
+        {{#each @poll.options as |option|}}
           <th>
-            {{#if (and this.isFindADate this.hasTimes)}}
+            {{#if (and @poll.isFindADate @poll.hasTimes)}}
               {{#if option.hasTime}}
                 {{!
                   TODO: Simplify to timeStyle="short" after upgrading to Ember Intl v6
                 }}
                 {{format-date option.jsDate hour="numeric" minute="numeric"}}
               {{/if}}
-            {{else if this.isFindADate}}
+            {{else if @poll.isFindADate}}
               {{!
                 TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
               }}
@@ -66,7 +66,7 @@
           <td data-test-value-for="name">
             {{user.name}}
           </td>
-          {{#each this.options as |option index|}}
+          {{#each @poll.options as |option index|}}
             {{#let (object-at index user.selections) as |selection|}}
               <td
                 class={{selection.type}}

@@ -26,8 +26,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: '2015-01-01' }
         ]
@@ -54,8 +53,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: '2015-01-01T11:11:00.000Z' }
         ]
@@ -82,8 +80,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: DateTime.fromISO('2015-01-01T10:11').toISO() },
           { title: DateTime.fromISO('2015-01-01T22:22').toISO() },
@@ -162,8 +159,7 @@ module('Integration | Component | create options datetime', function(hooks) {
     // it's owner
     run(() => {
       this.set('poll', this.store.createRecord('poll', {
-        isFindADate: true,
-        isMakeAPoll: false,
+        pollType: 'FindADate',
         options: [
           { title: DateTime.fromISO('2015-01-01T11:11').toISO() },
           { title: DateTime.fromISO('2015-01-01T22:22').toISO() }
