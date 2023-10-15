@@ -1,48 +1,50 @@
-<h2>
-  {{t "poll.evaluation.label"}}
-</h2>
+<div class="evaluation-summary">
+  <h2>
+    {{t "poll.evaluation.label"}}
+  </h2>
 
-<p class="participants">
-  {{t "poll.evaluation.participants" count=@poll.users.length}}
-</p>
+  <p class="participants">
+    {{t "poll.evaluation.participants" count=@poll.users.length}}
+  </p>
 
-<p class="best-options">
-  {{#if @poll.isFindADate}}
+  <p class="best-options">
+    {{#if @poll.isFindADate}}
+      {{t
+        "poll.evaluation.bestOption.label.findADate"
+        count=this.bestOptions.length
+      }}
+    {{else}}
+      {{t
+        "poll.evaluation.bestOption.label.makeAPoll"
+        count=this.bestOptions.length
+      }}
+    {{/if}}
+
+    {{#if (get this.bestOptions.length 1)}}
+      <ul>
+        {{#each this.bestOptions as |evaluationBestOption|}}
+          <li>
+            <PollEvaluationSummaryOption
+              @evaluationBestOption={{evaluationBestOption}}
+              @isFindADate={{@poll.isFindADate}}
+              @timeZone={{@timeZone}}
+            />
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <PollEvaluationSummaryOption
+        @evaluationBestOption={{this.bestOptions.firstObject}}
+        @isFindADate={{@poll.isFindADate}}
+        @timeZone={{@timeZone}}
+      />
+    {{/if}}
+  </p>
+
+  <p class="last-participation">
     {{t
-      "poll.evaluation.bestOption.label.findADate"
-      count=this.bestOptions.length
+      "poll.evaluation.lastParticipation"
+      ago=(format-date-relative this.lastParticipationAt)
     }}
-  {{else}}
-    {{t
-      "poll.evaluation.bestOption.label.makeAPoll"
-      count=this.bestOptions.length
-    }}
-  {{/if}}
-
-  {{#if (get this.bestOptions.length 1)}}
-    <ul>
-      {{#each this.bestOptions as |evaluationBestOption|}}
-        <li>
-          <PollEvaluationSummaryOption
-            @evaluationBestOption={{evaluationBestOption}}
-            @isFindADate={{@poll.isFindADate}}
-            @timeZone={{@timeZone}}
-          />
-        </li>
-      {{/each}}
-    </ul>
-  {{else}}
-    <PollEvaluationSummaryOption
-      @evaluationBestOption={{this.bestOptions.firstObject}}
-      @isFindADate={{@poll.isFindADate}}
-      @timeZone={{@timeZone}}
-    />
-  {{/if}}
-</p>
-
-<p class="last-participation">
-  {{t
-    "poll.evaluation.lastParticipation"
-    ago=(format-date-relative this.lastParticipationAt)
-  }}
-</p>
+  </p>
+</div>

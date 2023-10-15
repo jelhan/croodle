@@ -1,15 +1,12 @@
-import Component from '@ember/component';
-import { classNames } from '@ember-decorators/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { copy } from '@ember/object/internals';
 
-@classNames('evaluation-summary')
 export default class PollEvaluationSummary extends Component {
-  @service
-  intl;
+  @service intl;
 
   get bestOptions() {
-    const { poll } = this;
+    const { poll } = this.args;
     const { isFreeText, options, users } = poll;
 
     // can not evaluate answer type free text
@@ -74,7 +71,7 @@ export default class PollEvaluationSummary extends Component {
   }
 
   get lastParticipationAt() {
-    const { users } = this.poll;
+    const { users } = this.args.poll;
 
     let lastParticipationAt = null;
 

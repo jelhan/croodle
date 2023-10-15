@@ -1,18 +1,11 @@
-import classic from 'ember-classic-decorator';
-import { classNames, tagName } from '@ember-decorators/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import Component from '@ember/component';
 import localesMeta from 'croodle/locales/meta';
+import { action } from '@ember/object';
 
-@classic
-@tagName('select')
-@classNames('language-select')
 export default class LanguageSelect extends Component {
-  @service
-  intl;
-
-  @service
-  powerCalendar;
+  @service intl;
+  @service powerCalendar;
 
   get currentLocale() {
     return this.intl.primaryLocale;
@@ -22,11 +15,12 @@ export default class LanguageSelect extends Component {
     return localesMeta;
   }
 
-  change(event) {
+  @action
+  handleChange(event) {
     const locale = event.target.value;
 
-    this.intl.set('locale', locale.includes('-') ? [locale, locale.split('-')[0]] : [locale]);
-    this.powerCalendar.set('locale', locale);
+    this.intl.locale = locale.includes('-') ? [locale, locale.split('-')[0]] : [locale];
+    this.powerCalendar.locale = locale;
 
     if (window.localStorage) {
       window.localStorage.setItem('locale', locale);
