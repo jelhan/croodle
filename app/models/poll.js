@@ -1,10 +1,6 @@
-import classic from 'ember-classic-decorator';
-import { computed } from '@ember/object';
-import { equal } from '@ember/object/computed';
 import Model, { hasMany, attr } from '@ember-data/model';
 import { fragmentArray } from 'ember-data-model-fragments/attributes';
 
-@classic
 export default class Poll extends Model {
   /*
    * relationships

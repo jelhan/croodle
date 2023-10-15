@@ -1,35 +1,32 @@
-import classic from 'ember-classic-decorator';
-import { classNames } from '@ember-decorators/component';
-import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
-import { readOnly, gt } from '@ember/object/computed';
 import Component from '@ember/component';
+import { classNames } from '@ember-decorators/component';
+import { inject as service } from '@ember/service';
 import { copy } from '@ember/object/internals';
-import { isEmpty } from '@ember/utils';
 
-@classic
 @classNames('evaluation-summary')
 export default class PollEvaluationSummary extends Component {
   @service
   intl;
 
-  @computed('poll.{answers,isFreeText,options}', 'users.[]')
   get bestOptions() {
+    const { poll } = this;
+    const { isFreeText, options, users } = poll;
+
     // can not evaluate answer type free text
-    if (this.get('poll.isFreeText')) {
+    if (isFreeText) {
       return undefined;
     }
 
     // can not evaluate a poll without users
-    if (isEmpty(this.users)) {
+    if (users.length < 1) {
       return undefined;
     }
 
-    let answers = this.poll.answers.reduce((answers, answer) => {
+    let answers = poll.answers.reduce((answers, answer) => {
       answers[answer.get('type')] = 0;
       return answers;
     }, {});
-    let evaluation = this.poll.options.map((option) => {
+    let evaluation = options.map((option) => {
       return {
         answers: copy(answers),
         option,
@@ -38,7 +35,7 @@ export default class PollEvaluationSummary extends Component {
     });
     let bestOptions = [];
 
-    this.users.forEach((user) => {
+    users.forEach((user) => {
       user.selections.forEach(({ type }, i) => {
         evaluation[i].answers[type]++;
 
@@ -76,16 +73,12 @@ export default class PollEvaluationSummary extends Component {
     return bestOptions;
   }
 
-  @readOnly('intl.primaryLocale')
-  currentLocale;
-
-  @gt('bestOptions.length', 1)
-  multipleBestOptions;
-
   get lastParticipationAt() {
+    const { users } = this.poll;
+
     let lastParticipationAt = null;
 
-    for (const { creationDate } of this.users.toArray()) {
+    for (const { creationDate } of users.toArray()) {
       if (creationDate >= lastParticipationAt) {
         lastParticipationAt = creationDate;
       }
@@ -93,10 +86,4 @@ export default class PollEvaluationSummary extends Component {
 
     return lastParticipationAt;
   }
-
-  @readOnly('users.length')
-  participantsCount;
-
-  @readOnly('poll.users')
-  users;
 }

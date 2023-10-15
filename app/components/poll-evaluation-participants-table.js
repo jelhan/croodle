@@ -1,29 +1,30 @@
-import classic from 'ember-classic-decorator';
-import { readOnly } from '@ember/object/computed';
-import Component from '@ember/component';
-import { raw } from 'ember-awesome-macros';
-import { groupBy, sort } from 'ember-awesome-macros/array';
+import Component from "@glimmer/component";
+import { DateTime } from "luxon";
 
-@classic
 export default class PollEvaluationParticipantsTable extends Component {
-  @readOnly('poll.hasTimes')
-  hasTimes;
+  get optionsPerDay() {
+    const { poll } = this.args;
 
-  @readOnly('poll.isFindADate')
-  isFindADate;
+    const optionsPerDay = new Map();
+    for (const option of poll.options) {
+      optionsPerDay.set(
+        option.day,
+        optionsPerDay.has(option.day) ? optionsPerDay.get(option.day) + 1 : 0
+      );
+    }
 
-  @readOnly('poll.isFreeText')
-  isFreeText;
+    return new Map(
+      optionsPerDay
+        .entries()
+        .map(([dayString, count]) => [
+          DateTime.fromIso(dayString).toJsDate(),
+          count,
+        ])
+    );
+  }
 
-  @readOnly('poll.options')
-  options;
-
-  @groupBy('options', raw('day'))
-  optionsGroupedByDays;
-
-  @readOnly('poll.users')
-  users;
-
-  @sort('users', ['creationDate'])
-  usersSorted;
+  get usersSorted() {
+    const { poll } = this.args;
+    return poll.users.toArray().sort((a, b) => a.creationDate > b.creationDate ? 1 : -1);
+  }
 }

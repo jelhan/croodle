@@ -1,11 +1,8 @@
-import classic from "ember-classic-decorator";
-import { action } from "@ember/object";
-import { alias } from "@ember/object/computed";
 import Controller from "@ember/controller";
+import { action } from "@ember/object";
 import { DateTime } from 'luxon';
 import { inject as service } from '@ember/service';
 
-@classic
 export default class CreateOptionsDatetimeController extends Controller {
   @service router;
 
@@ -28,7 +25,4 @@ export default class CreateOptionsDatetimeController extends Controller {
         return this.store.createFragment("option", { title: isoString });
       });
   }
-
-  @alias("model.options")
-  options;
 }
