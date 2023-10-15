@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 export default class CreateRoute extends Route {
   @service encryption;
   @service router;
+  @service store;
 
   beforeModel(transition) {
     // enforce that wizzard is started at create.index

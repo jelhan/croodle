@@ -6,7 +6,6 @@ self.deprecationWorkflow.config = {
       handler: 'silence',
       matchId: 'deprecated-run-loop-and-computed-dot-access',
     },
-    { handler: 'silence', matchId: 'implicit-injections' },
     {
       handler: 'silence',
       matchId: 'ember-cli-mirage-config-routes-only-export',

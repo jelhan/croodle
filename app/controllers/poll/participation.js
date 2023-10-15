@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 export default class PollParticipationController extends Controller {
   @service encryption;
   @service router;
+  @service store;
 
   @controller('poll')
   pollController;

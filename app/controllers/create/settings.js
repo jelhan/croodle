@@ -7,6 +7,7 @@ import { DateTime, Duration } from 'luxon';
 
 export default class CreateSettings extends Controller {
   @service encryption;
+  @service flashMessages;
   @service intl;
   @service router;
 
