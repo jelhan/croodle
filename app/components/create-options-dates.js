@@ -1,8 +1,8 @@
-import Component from "@glimmer/component";
-import { action } from "@ember/object";
-import { isArray } from "@ember/array";
-import { DateTime } from "luxon";
-import { tracked } from "@glimmer/tracking";
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { isArray } from '@ember/array';
+import { DateTime } from 'luxon';
+import { tracked } from '@glimmer/tracking';
 
 export default class CreateOptionsDates extends Component {
   @tracked calendarCenter =
@@ -64,21 +64,24 @@ export default class CreateOptionsDates extends Component {
     });
 
     if (dateRemoved) {
-      this.args.updateOptions(this.args.options.filter(
-          ({ value }) =>
-            DateTime.fromISO(value).toISODate() !== dateRemoved.toISODate()
-        ).map(({ value }) => value),
+      this.args.updateOptions(
+        this.args.options
+          .filter(
+            ({ value }) =>
+              DateTime.fromISO(value).toISODate() !== dateRemoved.toISODate()
+          )
+          .map(({ value }) => value)
       );
       return;
     }
 
     throw new Error(
-      "No date has been added or removed. This cannot be the case. Something spooky is going on."
+      'No date has been added or removed. This cannot be the case. Something spooky is going on.'
     );
   }
 
   @action
   updateCalenderCenter(diff) {
-    this.calendarCenter = this.calendarCenter.add(diff, "months");
+    this.calendarCenter = this.calendarCenter.add(diff, 'months');
   }
 }

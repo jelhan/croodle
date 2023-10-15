@@ -5,7 +5,7 @@ import {
   fillable,
   hasClass,
   isVisible,
-  text
+  text,
 } from 'ember-cli-page-object';
 import { defaultsForCreate } from 'croodle/tests/pages/defaults';
 import { hasFocus } from 'croodle/tests/pages/helpers';
@@ -21,35 +21,44 @@ function selectDates(selector) {
     async value(dateOrDateTimes) {
       assert(
         'selectDates expects an array of date or DateTime (luxon) objects as frist argument',
-        isArray(dateOrDateTimes) && dateOrDateTimes.every((dateOrDateTime) => dateOrDateTime instanceof Date || DateTime.isDateTime(dateOrDateTime))
-      )
+        isArray(dateOrDateTimes) &&
+          dateOrDateTimes.every(
+            (dateOrDateTime) =>
+              dateOrDateTime instanceof Date ||
+              DateTime.isDateTime(dateOrDateTime)
+          )
+      );
 
       for (let i = 0; i < dateOrDateTimes.length; i++) {
         let dateOrDateTime = dateOrDateTimes[i];
-        let date = DateTime.isDateTime(dateOrDateTime) ? dateOrDateTime.toJSDate() : dateOrDateTime;
+        let date = DateTime.isDateTime(dateOrDateTime)
+          ? dateOrDateTime.toJSDate()
+          : dateOrDateTime;
         await calendarSelect(selector, date);
       }
-    }
+    },
   };
 }
 
-export default create(assign({}, defaultsForCreate, {
-  selectDates: selectDates('[data-test-form-element-for="days"]'),
-  dateHasError: isVisible('.days.has-error'),
-  dateError: text('.days .help-block'),
+export default create(
+  assign({}, defaultsForCreate, {
+    selectDates: selectDates('[data-test-form-element-for="days"]'),
+    dateHasError: isVisible('.days.has-error'),
+    dateError: text('.days .help-block'),
 
-  textOptions: collection({
-    itemScope: '.form-group.option',
-    item: {
-      add: clickable('button.add'),
-      delete: clickable('button.delete'),
-      hasError: hasClass('is-invalid', 'input'),
-      title: fillable('input')
-    }
-  }),
-  firstTextOption: {
-    scope: '.form-group.option:first',
+    textOptions: collection({
+      itemScope: '.form-group.option',
+      item: {
+        add: clickable('button.add'),
+        delete: clickable('button.delete'),
+        hasError: hasClass('is-invalid', 'input'),
+        title: fillable('input'),
+      },
+    }),
+    firstTextOption: {
+      scope: '.form-group.option:first',
 
-    inputHasFocus: hasFocus('input')
-  }
-}));
+      inputHasFocus: hasFocus('input'),
+    },
+  })
+);

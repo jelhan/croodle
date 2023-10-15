@@ -1,12 +1,8 @@
-import {
-  create,
-  isVisible,
-  text
-} from 'ember-cli-page-object';
+import { create, isVisible, text } from 'ember-cli-page-object';
 import { currentURL } from '@ember/test-helpers';
 
-const urlMatches = function(regExp) {
-  return function() {
+const urlMatches = function (regExp) {
+  return function () {
     return regExp.test(currentURL());
   };
 };
@@ -14,7 +10,9 @@ const urlMatches = function(regExp) {
 export const definition = {
   showsExpirationWarning: isVisible('.expiration-warning'),
   url: text('.poll-link .link code'),
-  urlIsValid: urlMatches(/^\/poll\/[a-zA-Z0-9]{10}\/participation\?encryptionKey=[a-zA-Z0-9]{40}$/)
+  urlIsValid: urlMatches(
+    /^\/poll\/[a-zA-Z0-9]{10}\/participation\?encryptionKey=[a-zA-Z0-9]{40}$/
+  ),
 };
 
 export default create(definition);

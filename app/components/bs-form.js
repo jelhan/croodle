@@ -1,8 +1,8 @@
-import BaseBsForm from "ember-bootstrap/components/bs-form";
-import IntlMessage from "../utils/intl-message";
+import BaseBsForm from 'ember-bootstrap/components/bs-form';
+import IntlMessage from '../utils/intl-message';
 
 export default class BsForm extends BaseBsForm {
-  "__ember-bootstrap_subclass" = true;
+  '__ember-bootstrap_subclass' = true;
 
   get hasValidator() {
     return true;

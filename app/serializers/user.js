@@ -14,17 +14,17 @@ export default class UserSerializer extends ApplicationSerializer {
      *   and selection property "type" where named "id"
      */
     if (!isEmpty(resourceHash.selections[0].value)) {
-      resourceHash.selections.forEach(function(selection, index) {
+      resourceHash.selections.forEach(function (selection, index) {
         if (typeof selection.value === 'string') {
           resourceHash.selections[index] = {
-            label: selection.value
+            label: selection.value,
           };
         } else {
           resourceHash.selections[index] = {
             icon: selection.value.icon,
             label: selection.value.label,
             labelTranslation: selection.value.labelTranslation,
-            type: selection.value.id
+            type: selection.value.id,
           };
         }
       });

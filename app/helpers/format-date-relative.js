@@ -2,7 +2,6 @@ import Helper from '@ember/component/helper';
 import { DateTime } from 'luxon';
 import { inject as service } from '@ember/service';
 
-
 export default class FormatDateRelativeHelper extends Helper {
   @service intl;
 

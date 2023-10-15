@@ -6,8 +6,7 @@ export default class ApplicationAdapter extends RESTAdapter {
   encryption;
 
   // set namespace to api.php in same subdirectory
-  namespace =
-    window.location.pathname
+  namespace = window.location.pathname
     // remove index.html if it's there
     .replace(/index.html$/, '')
     // remove tests prefix which is added by testem (starting with a number)
@@ -19,5 +18,5 @@ export default class ApplicationAdapter extends RESTAdapter {
     // add api.php
     .concat('/api/index.php')
     // remove leading slash
-    .replace(/^\//g, '')
+    .replace(/^\//g, '');
 }

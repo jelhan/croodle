@@ -7,24 +7,29 @@ function elementIsNotVisible(element) {
   let windowHeight = window.innerHeight;
 
   // an element is not visible if
-  return false ||
-      // it's above the current view port
-      elementPosition.top <= 0 ||
-      // it's below the current view port
-      elementPosition.bottom >= windowHeight ||
-      // it's in current view port but hidden by fixed navigation
-      (
-        getComputedStyle(document.querySelector('.cr-steps-bottom-nav')).position === 'fixed' &&
-        elementPosition.bottom >= windowHeight - document.querySelector('.cr-steps-bottom-nav').offsetHeight
-      );
+  return (
+    false ||
+    // it's above the current view port
+    elementPosition.top <= 0 ||
+    // it's below the current view port
+    elementPosition.bottom >= windowHeight ||
+    // it's in current view port but hidden by fixed navigation
+    (getComputedStyle(document.querySelector('.cr-steps-bottom-nav'))
+      .position === 'fixed' &&
+      elementPosition.bottom >=
+        windowHeight -
+          document.querySelector('.cr-steps-bottom-nav').offsetHeight)
+  );
 }
 
 export function scrollFirstInvalidElementIntoViewPort() {
   // `schedule('afterRender', function() {})` would be more approperiate but there seems to be a
   // timing issue in Firefox causing the Browser not scrolling up far enough if doing so
   // delaying to next runloop therefore
-  next(function() {
-    let invalidInput = document.querySelector('.form-control.is-invalid, .custom-control-input.is-invalid');
+  next(function () {
+    let invalidInput = document.querySelector(
+      '.form-control.is-invalid, .custom-control-input.is-invalid'
+    );
     assert(
       'Atleast one form control must be marked as invalid if form submission was rejected as invalid',
       invalidInput
@@ -42,7 +47,12 @@ export function scrollFirstInvalidElementIntoViewPort() {
       // As a work-a-round we look the correct label up by a custom convention for the `id` of the
       // inputs and the `for` of the input group `<label>` (which should be a `<legend>`).
       let scrollTarget =
-        document.querySelector(`label[for="${invalidInput.id.substr(0, invalidInput.id.indexOf('_'))}"`) ||
+        document.querySelector(
+          `label[for="${invalidInput.id.substr(
+            0,
+            invalidInput.id.indexOf('_')
+          )}"`
+        ) ||
         document.querySelector(`label[for="${invalidInput.id}"]`) ||
         // For polls with type `MakeAPoll` the option inputs do not have a label at all. In that case
         // we scroll to the input element itself
@@ -53,6 +63,6 @@ export function scrollFirstInvalidElementIntoViewPort() {
   });
 }
 
-export default helper(function() {
+export default helper(function () {
   return scrollFirstInvalidElementIntoViewPort;
 });

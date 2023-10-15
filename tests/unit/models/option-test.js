@@ -4,14 +4,16 @@ import { setupTest } from 'ember-qunit';
 import { setupIntl } from 'ember-intl/test-support';
 import { DateTime } from 'luxon';
 
-module('Unit | Model | option', function(hooks) {
+module('Unit | Model | option', function (hooks) {
   setupTest(hooks);
   setupIntl(hooks, 'en');
 
-  test('day property (get)', function(assert) {
-    let option = run(() => this.owner.lookup('service:store').createRecord('option', {
-      title: '2015-01-01'
-    }));
+  test('day property (get)', function (assert) {
+    let option = run(() =>
+      this.owner.lookup('service:store').createRecord('option', {
+        title: '2015-01-01',
+      })
+    );
     assert.equal(
       option.get('day'),
       '2015-01-01',
@@ -46,10 +48,12 @@ module('Unit | Model | option', function(hooks) {
     );
   });
 
-  test('hasTime property', function(assert) {
-    let option = run(() => this.owner.lookup('service:store').createRecord('option', {
-      title: '2015-01-01T11:11:00.000Z'
-    }));
+  test('hasTime property', function (assert) {
+    let option = run(() =>
+      this.owner.lookup('service:store').createRecord('option', {
+        title: '2015-01-01T11:11:00.000Z',
+      })
+    );
     assert.ok(option.get('hasTime'));
     run(() => {
       option.set('title', '2015-01-01');
@@ -61,10 +65,12 @@ module('Unit | Model | option', function(hooks) {
     assert.notOk(option.get('hasTime'));
   });
 
-  test('time property (get)', function(assert) {
-    let option = run(() => this.owner.lookup('service:store').createRecord('option', {
-      title: '2015-01-01T11:11:00.000Z'
-    }));
+  test('time property (get)', function (assert) {
+    let option = run(() =>
+      this.owner.lookup('service:store').createRecord('option', {
+        title: '2015-01-01T11:11:00.000Z',
+      })
+    );
     assert.equal(
       option.get('time'),
       DateTime.fromISO('2015-01-01T11:11:00.000Z').toFormat('HH:mm'),
@@ -90,10 +96,12 @@ module('Unit | Model | option', function(hooks) {
     );
   });
 
-  test('time property (set)', function(assert) {
-    let option = run(() => this.owner.lookup('service:store').createRecord('option', {
-      title: '2015-01-01'
-    }));
+  test('time property (set)', function (assert) {
+    let option = run(() =>
+      this.owner.lookup('service:store').createRecord('option', {
+        title: '2015-01-01',
+      })
+    );
 
     run(() => {
       option.set('time', '11:00');
@@ -126,11 +134,8 @@ module('Unit | Model | option', function(hooks) {
     run(() => {
       option.set('title', 'abc');
     });
-    assert.throws(
-      () => {
-        option.set('time', '11:11');
-      },
-      'throws if attempt to set a time if title is not a date string'
-    );
+    assert.throws(() => {
+      option.set('time', '11:11');
+    }, 'throws if attempt to set a time if title is not a date string');
   });
 });

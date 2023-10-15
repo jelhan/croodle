@@ -1,4 +1,5 @@
-<select class="language-select" {{on "change" this.handleChange}}>
+{{! template-lint-disable require-input-label }}
+<select class='language-select' {{on 'change' this.handleChange}}>
   {{#each-in this.locales as |localeKey localeName|}}
     <option value={{localeKey}} selected={{eq localeKey this.currentLocale}}>
       {{localeName}}

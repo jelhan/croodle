@@ -15,9 +15,7 @@ header.style.color = '#B33A3A';
 var icon = document.createElement('span');
 icon.className = 'oi oi-warning';
 header.appendChild(icon);
-header.appendChild(
-  document.createTextNode('Your Browser is not supported!')
-);
+header.appendChild(document.createTextNode('Your Browser is not supported!'));
 header.appendChild(icon.cloneNode());
 container.appendChild(header);
 

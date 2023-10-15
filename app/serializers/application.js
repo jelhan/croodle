@@ -27,13 +27,13 @@ export default class ApplicationSerializer extends RESTSerializer {
    * implement decryption
    */
   normalize(modelClass, resourceHash, prop) {
-
     // run before serialization of attribute hash
-    modelClass.eachAttribute(function(key, attributes) {
-      if (
-        attributes.options.encrypted !== false
-      ) {
-        if (typeof resourceHash[key] !== 'undefined' && resourceHash[key] !== null) {
+    modelClass.eachAttribute(function (key, attributes) {
+      if (attributes.options.encrypted !== false) {
+        if (
+          typeof resourceHash[key] !== 'undefined' &&
+          resourceHash[key] !== null
+        ) {
           resourceHash[key] = this.encryption.decrypt(resourceHash[key]);
         }
       }
@@ -63,9 +63,7 @@ export default class ApplicationSerializer extends RESTSerializer {
     }
 
     // encrypt after serialization of attribute hash
-    if (
-      attribute.options.encrypted !== false
-    ) {
+    if (attribute.options.encrypted !== false) {
       json[key] = this.encryption.encrypt(json[key]);
     }
   }

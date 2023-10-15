@@ -1,10 +1,10 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-module('Unit | Model | poll', function(hooks) {
+module('Unit | Model | poll', function (hooks) {
   setupTest(hooks);
 
-  test('#hasTimes: true if all options have times', function(assert) {
+  test('#hasTimes: true if all options have times', function (assert) {
     let store = this.owner.lookup('service:store');
     let poll = store.createRecord('poll', {
       pollType: 'FindADate',
@@ -17,43 +17,34 @@ module('Unit | Model | poll', function(hooks) {
     assert.ok(poll.hasTimes);
   });
 
-  test('#hasTimes: true if at least one option has times', function(assert) {
+  test('#hasTimes: true if at least one option has times', function (assert) {
     let store = this.owner.lookup('service:store');
     let poll = store.createRecord('poll', {
-      options: [
-        { title: '2019-01-01T00:00:00.000Z' },
-        { title: '2019-01-02' },
-      ],
+      options: [{ title: '2019-01-01T00:00:00.000Z' }, { title: '2019-01-02' }],
       pollType: 'FindADate',
     });
     assert.ok(poll.hasTimes);
   });
 
-  test('#hasTimes: false if no option has times', function(assert) {
+  test('#hasTimes: false if no option has times', function (assert) {
     let store = this.owner.lookup('service:store');
     let poll = store.createRecord('poll', {
-      options: [
-        { title: '2019-01-01' },
-        { title: '2019-01-02' },
-      ],
+      options: [{ title: '2019-01-01' }, { title: '2019-01-02' }],
       pollType: 'FindADate',
     });
     assert.notOk(poll.hasTimes);
   });
 
-  test('#hasTimes: false if poll is not FindADate', function(assert) {
+  test('#hasTimes: false if poll is not FindADate', function (assert) {
     let store = this.owner.lookup('service:store');
     let poll = store.createRecord('poll', {
-      options: [
-        { title: 'abc' },
-        { title: 'def' },
-      ],
+      options: [{ title: 'abc' }, { title: 'def' }],
       pollType: 'MakeAPoll',
     });
     assert.notOk(poll.hasTimes);
   });
 
-  test('#isFindADate', function(assert) {
+  test('#isFindADate', function (assert) {
     let store = this.owner.lookup('service:store');
     let poll = store.createRecord('poll', {
       pollType: 'FindADate',
@@ -63,7 +54,7 @@ module('Unit | Model | poll', function(hooks) {
     assert.notOk(poll.isMakeAPoll);
   });
 
-  test('#isFreeText', function(assert) {
+  test('#isFreeText', function (assert) {
     let store = this.owner.lookup('service:store');
     let poll = store.createRecord('poll', {
       answerType: 'FreeText',
@@ -78,7 +69,7 @@ module('Unit | Model | poll', function(hooks) {
     assert.notOk(poll.isFreeText);
   });
 
-  test('#isMakeAPoll', function(assert) {
+  test('#isMakeAPoll', function (assert) {
     let store = this.owner.lookup('service:store');
     let poll = store.createRecord('poll', {
       pollType: 'MakeAPoll',

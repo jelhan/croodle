@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'croodle',
     environment,
@@ -15,8 +15,8 @@ module.exports = function(environment) {
         Array: true,
         Date: false,
         String: false,
-        Function: true
-      }
+        Function: true,
+      },
     },
 
     APP: {

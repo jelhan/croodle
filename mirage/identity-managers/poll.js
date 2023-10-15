@@ -51,6 +51,6 @@ export default class {
    * @public
    */
   reset() {
-    this._ids =  {};
+    this._ids = {};
   }
 }

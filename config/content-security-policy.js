@@ -8,7 +8,7 @@ module.exports = function () {
       'script-src': ["'self'"],
       'font-src': ["'self'"],
       'connect-src': ["'self'"],
-      'img-src': ["'self'", "data:"],
+      'img-src': ["'self'", 'data:'],
       'style-src': ["'self'"],
       'media-src': ["'none'"],
     },

@@ -9,14 +9,14 @@ export default Factory.extend({
       type: 'yes',
       labelTranslation: 'answerTypes.yes.label',
       icon: 'glyphicon glyphicon-thumbs-up',
-      label: 'Ja'
+      label: 'Ja',
     },
     {
       type: 'no',
       labelTranslation: 'answerTypes.no.label',
       icon: 'glyphicon glyphicon-thumbs-down',
-      label: 'Nein'
-    }
+      label: 'Nein',
+    },
   ],
   answerType: 'YesNo',
   creationDate: '2015-04-01T11:11:11.111Z',
@@ -27,11 +27,11 @@ export default Factory.extend({
   isDateTime: false,
   options: [
     {
-      title: '2017-12-24'
+      title: '2017-12-24',
     },
     {
-      title: '2018-01-01'
-    }
+      title: '2018-01-01',
+    },
   ],
   pollType: 'FindADate',
   title: 'default title',
@@ -50,8 +50,8 @@ export default Factory.extend({
       'options',
       'pollType',
       'timezone',
-      'title'
+      'title',
     ];
     encrypt(propertiesToEncrypt, poll, server);
-  }
+  },
 });

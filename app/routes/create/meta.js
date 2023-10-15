@@ -10,7 +10,9 @@ class FormData {
     const { title } = this;
 
     if (!title) {
-      return new IntlMessage('create.meta.input.title.validations.valueMissing');
+      return new IntlMessage(
+        'create.meta.input.title.validations.valueMissing'
+      );
     }
 
     if (title.length < 2) {

@@ -22,11 +22,7 @@ function pollHasUsersCount(assert, count, message) {
   if (isEmpty(message)) {
     message = 'poll has expected count of users';
   }
-  assert.equal(
-    findAll('.user').length,
-    count,
-    message
-  );
+  assert.equal(findAll('.user').length, count, message);
 }
 
 export default pollHasUser;

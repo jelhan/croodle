@@ -1,23 +1,23 @@
-import { inject as service } from "@ember/service";
-import { action } from "@ember/object";
-import Controller from "@ember/controller";
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+import Controller from '@ember/controller';
 
 export default class CreateMetaController extends Controller {
   @service router;
 
   @action
   previousPage() {
-    this.router.transitionTo("create.index");
+    this.router.transitionTo('create.index');
   }
 
   @action
   submit() {
-    this.router.transitionTo("create.options");
+    this.router.transitionTo('create.options');
   }
 
   @action
   handleTransition(transition) {
-    if (transition.from?.name === "create.meta") {
+    if (transition.from?.name === 'create.meta') {
       const { poll, formData } = this.model;
 
       poll.title = formData.title;
@@ -28,6 +28,6 @@ export default class CreateMetaController extends Controller {
   constructor() {
     super(...arguments);
 
-    this.router.on("routeWillChange", this.handleTransition);
+    this.router.on('routeWillChange', this.handleTransition);
   }
 }

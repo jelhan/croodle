@@ -9,19 +9,20 @@ import { isArray } from '@ember/array';
 import { get } from '@ember/object';
 import sjcl from 'sjcl';
 
-export default function(propertiesToEncrypt, model) {
+export default function (propertiesToEncrypt, model) {
   assert('first argument must be an array', isArray(propertiesToEncrypt));
-  assert('model must have an encryptionKey property which isn\'t empty', isPresent(get(model, 'encryptionKey')));
+  assert(
+    "model must have an encryptionKey property which isn't empty",
+    isPresent(model.encryptionKey)
+  );
 
-  let passphrase = get(model, 'encryptionKey');
+  let passphrase = model.encryptionKey;
   let data = {
-    encryptionKey: undefined
+    encryptionKey: undefined,
   };
 
   propertiesToEncrypt.forEach((propertyToEncrypt) => {
-    let value = JSON.stringify(
-      get(model, propertyToEncrypt)
-    );
+    let value = JSON.stringify(get(model, propertyToEncrypt));
     data[propertyToEncrypt] = sjcl.encrypt(passphrase, value);
   });
 

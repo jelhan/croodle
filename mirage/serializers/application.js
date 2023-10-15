@@ -11,12 +11,13 @@ export default RestSerializer.extend({
   normalize(payload) {
     let [type] = Object.keys(payload);
     let attrs = payload[type];
-    let { belongsToAssociations, hasManyAssociations } = this.registry.schema._registry[type].class.prototype;
+    let { belongsToAssociations, hasManyAssociations } =
+      this.registry.schema._registry[type].class.prototype;
 
     let jsonApiPayload = {
       data: {
-        type: pluralize(type)
-      }
+        type: pluralize(type),
+      },
     };
 
     Object.keys(attrs).forEach((key) => {
@@ -32,8 +33,12 @@ export default RestSerializer.extend({
           jsonApiPayload.data.relationships = {};
         }
 
-        let association = belongsToAssociations.hasOwnProperty(key) ? belongsToAssociations[key] : hasManyAssociations[key];
-        let associationType = belongsToAssociations.hasOwnProperty(key) ? 'belongsTo' : 'hasMany';
+        let association = belongsToAssociations.hasOwnProperty(key)
+          ? belongsToAssociations[key]
+          : hasManyAssociations[key];
+        let associationType = belongsToAssociations.hasOwnProperty(key)
+          ? 'belongsTo'
+          : 'hasMany';
         let associationModel = association.modelName;
         let relationshipObject = {};
 
@@ -41,7 +46,7 @@ export default RestSerializer.extend({
           case 'belongsTo':
             relationshipObject.data = {
               type: associationModel,
-              id: attrs[key]
+              id: attrs[key],
             };
             break;
           case 'hasMany':
@@ -49,7 +54,7 @@ export default RestSerializer.extend({
             attrs[key].forEach((value) => {
               relationshipObject.data.push({
                 type: associationModel,
-                id: value
+                id: value,
               });
             });
             break;
@@ -68,5 +73,5 @@ export default RestSerializer.extend({
 
     return jsonApiPayload;
   },
-  serializeIds: 'always'
+  serializeIds: 'always',
 });

@@ -47,14 +47,14 @@ export default async function asyncThrows(f, expectedErrorMessage) {
       result,
       expected: expectedErrorMessage,
       actual: errorText,
-      message: `Expected to see error '${expectedErrorMessage}'`
+      message: `Expected to see error '${expectedErrorMessage}'`,
     });
   } else {
     this.pushResult({
       result: false,
       expected: '',
       actual: errorText,
-      message: `You're using asyncThrows but you didn't add text to the assertion. Add some text as the second argument so the actual exception being thrown is what you expect it is.`
+      message: `You're using asyncThrows but you didn't add text to the assertion. Add some text as the second argument so the actual exception being thrown is what you expect it is.`,
     });
   }
 

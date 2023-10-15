@@ -1,46 +1,46 @@
 {{#let @model as |poll|}}
   {{page-title poll.title}}
 
-  <div id="poll">
-    <div class="row">
-      <div class="col-sm-6 col-lg-5">
-        <div class="box meta-data">
-          <h2 class="title">{{poll.title}}</h2>
-          <p class="description">{{poll.description}}</p>
-          <p class="dates">
-            <span class="creationDate">
+  <div id='poll'>
+    <div class='row'>
+      <div class='col-sm-6 col-lg-5'>
+        <div class='box meta-data'>
+          <h2 class='title'>{{poll.title}}</h2>
+          <p class='description'>{{poll.description}}</p>
+          <p class='dates'>
+            <span class='creationDate'>
               {{!
                 TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
               }}
               {{t
-                "poll.created-date"
+                'poll.created-date'
                 date=(format-date
                   poll.creationDate
-                  weekday="long"
-                  day="numeric"
-                  month="long"
-                  year="numeric"
-                  hour="numeric"
-                  minute="numeric"
+                  weekday='long'
+                  day='numeric'
+                  month='long'
+                  year='numeric'
+                  hour='numeric'
+                  minute='numeric'
                 )
               }}
             </span>
             {{#if poll.expirationDate}}
               <br />
-              <span class="expirationDate">
+              <span class='expirationDate'>
                 {{!
                   TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
                 }}
                 {{t
-                  "poll.expiration-date"
+                  'poll.expiration-date'
                   date=(format-date
                     poll.expirationDate
-                    weekday="long"
-                    day="numeric"
-                    month="long"
-                    year="numeric"
-                    hour="numeric"
-                    minute="numeric"
+                    weekday='long'
+                    day='numeric'
+                    month='long'
+                    year='numeric'
+                    hour='numeric'
+                    minute='numeric'
                   )
                 }}
               </span>
@@ -48,40 +48,40 @@
           </p>
         </div>
       </div>
-      <div class="col-sm-6 col-lg-6 offset-lg-1">
-        <div class="box poll-link cr-poll-link">
-          <p>{{t "poll.share.title"}}</p>
-          <p class="link cr-poll-link__link">
+      <div class='col-sm-6 col-lg-6 offset-lg-1'>
+        <div class='box poll-link cr-poll-link'>
+          <p>{{t 'poll.share.title'}}</p>
+          <p class='link cr-poll-link__link'>
             <small>
-              <code class="cr-poll-link__url">{{this.pollUrl}}</code>
+              <code class='cr-poll-link__url'>{{this.pollUrl}}</code>
             </small>
             <CopyButton
               @clipboardText={{this.pollUrl}}
-              @error={{action "linkAction" "selected"}}
-              @success={{action "linkAction" "copied"}}
-              class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
+              @error={{action 'linkAction' 'selected'}}
+              @success={{action 'linkAction' 'copied'}}
+              class='btn btn-secondary cr-poll-link__copy-btn btn-sm'
             >
-              {{t "poll.link.copy-label"}}&nbsp;
+              {{t 'poll.link.copy-label'}}&nbsp;
               <span
-                class="oi oi-clipboard"
-                title={{t "poll.link.copy-label"}}
-                aria-hidden="true"
+                class='oi oi-clipboard'
+                title={{t 'poll.link.copy-label'}}
+                aria-hidden='true'
               ></span>
             </CopyButton>
           </p>
-          <small class="text-muted">
-            {{t "poll.share.notice"}}
+          <small class='text-muted'>
+            {{t 'poll.share.notice'}}
           </small>
         </div>
       </div>
     </div>
 
     {{#if this.showExpirationWarning}}
-      <div class="row">
-        <div class="col-xs-12">
-          <BsAlert @type="warning" class="expiration-warning">
+      <div class='row'>
+        <div class='col-xs-12'>
+          <BsAlert @type='warning' class='expiration-warning'>
             {{t
-              "poll.expiration-date-warning"
+              'poll.expiration-date-warning'
               timeToNow=(format-date-relative poll.expirationDate)
             }}
           </BsAlert>
@@ -89,34 +89,39 @@
       </div>
     {{/if}}
 
-    <div class="box">
-      <ul class="nav nav-tabs" role="tablist">
+    <div class='box'>
+      <ul class='nav nav-tabs' role='tablist'>
+        {{! template-lint-disable no-unknown-arguments-for-builtin-components }}
+        {{!
+          TODO: Refactor to current Bootstrap markup, which uses a regular
+          `<a></a>` element within a `<li class="nav-item"></li>`.
+        }}
         <LinkTo
-          @route="poll.participation"
+          @route='poll.participation'
           @model={{poll}}
-          @tagName="li"
-          @activeClass="active"
-          class="participation nav-item"
+          @tagName='li'
+          @activeClass='active'
+          class='participation nav-item'
         >
-          <LinkTo @route="poll.participation" @model={{poll}} class="nav-link">
-            {{t "poll.tab-title.participation"}}
+          <LinkTo @route='poll.participation' @model={{poll}} class='nav-link'>
+            {{t 'poll.tab-title.participation'}}
           </LinkTo>
         </LinkTo>
         <LinkTo
-          @route="poll.evaluation"
+          @route='poll.evaluation'
           @model={{poll}}
-          @tagName="li"
-          @activeClass="active"
-          class="evaluation nav-item"
+          @tagName='li'
+          @activeClass='active'
+          class='evaluation nav-item'
         >
-          <LinkTo @route="poll.evaluation" @model={{poll}} class="nav-link">
-            {{t "poll.tab-title.evaluation"}}
+          <LinkTo @route='poll.evaluation' @model={{poll}} class='nav-link'>
+            {{t 'poll.tab-title.evaluation'}}
           </LinkTo>
         </LinkTo>
       </ul>
 
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active">
+      <div class='tab-content'>
+        <div role='tabpanel' class='tab-pane active'>
           {{outlet}}
         </div>
       </div>
@@ -125,32 +130,32 @@
 {{/let}}
 
 <BsModal
-  @title={{t "poll.modal.timezoneDiffers.title"}}
+  @title={{t 'poll.modal.timezoneDiffers.title'}}
   @open={{this.mustChooseTimezone}}
   @footer={{false}}
   @closeButton={{false}}
   @keyboard={{false}}
   @autoClose={{false}}
-  data-test-modal="choose-timezone"
+  data-test-modal='choose-timezone'
   as |modal|
 >
   <modal.body>
     <p>
-      {{t "poll.modal.timezoneDiffers.body"}}
+      {{t 'poll.modal.timezoneDiffers.body'}}
     </p>
   </modal.body>
   <modal.footer>
     <BsButton
       @onClick={{this.useLocalTimezone}}
-      data-test-button="use-local-timezone"
+      data-test-button='use-local-timezone'
     >
-      {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
+      {{t 'poll.modal.timezoneDiffers.button.useLocalTimezone'}}
     </BsButton>
     <BsButton
       @onClick={{action (mut this.timezoneChoosen) true}}
-      data-test-button="use-poll-timezone"
+      data-test-button='use-poll-timezone'
     >
-      {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}
-    </BsButton>>
+      {{t 'poll.modal.timezoneDiffers.button.usePollTimezone'}}
+    </BsButton>
   </modal.footer>
 </BsModal>

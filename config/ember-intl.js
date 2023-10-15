@@ -1,6 +1,6 @@
 /*jshint node:true*/
 
-module.exports = function(/* environment */) {
+module.exports = function (/* environment */) {
   return {
     /**
      * The locales that the application needs to support.
@@ -27,7 +27,7 @@ module.exports = function(/* environment */) {
      * @type {String?}
      * @default "null"
      */
-    fallbackLocale: "en",
+    fallbackLocale: 'en',
 
     /**
      * Path where translations are kept.  This is relative to the project root.
@@ -120,6 +120,6 @@ module.exports = function(/* environment */) {
      */
     requiresTranslation(/* key, locale */) {
       return true;
-    }
+    },
   };
 };

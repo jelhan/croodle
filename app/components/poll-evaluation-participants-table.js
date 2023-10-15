@@ -1,5 +1,5 @@
-import Component from "@glimmer/component";
-import { DateTime } from "luxon";
+import Component from '@glimmer/component';
+import { DateTime } from 'luxon';
 
 export default class PollEvaluationParticipantsTable extends Component {
   get optionsPerDay() {

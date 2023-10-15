@@ -29,13 +29,13 @@ export default class Poll extends Model {
 
   // polls description
   @attr('string', {
-    defaultValue: ''
+    defaultValue: '',
   })
   description;
 
   // ISO 8601 date + time string in UTC
   @attr('string', {
-    includePlainOnCreate: 'serverExpirationDate'
+    includePlainOnCreate: 'serverExpirationDate',
   })
   expirationDate;
 
@@ -61,7 +61,7 @@ export default class Poll extends Model {
 
   // Croodle version poll got created with
   @attr('string', {
-    encrypted: false
+    encrypted: false,
   })
   version;
 
