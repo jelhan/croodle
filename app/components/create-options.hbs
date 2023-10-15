@@ -1,6 +1,6 @@
-<div class='cr-form-wrapper box'>
+<div class="cr-form-wrapper box">
   <BsForm
-    @formLayout='horizontal'
+    @formLayout="horizontal"
     @model={{this.formData}}
     @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
     @onSubmit={{this.handleSubmit}}
@@ -22,12 +22,12 @@
       />
     {{/if}}
 
-    <div class='row cr-steps-bottom-nav'>
-      <div class='col-6 col-md-8 order-12'>
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-6 col-md-8 order-12">
         <NextButton />
       </div>
-      <div class='col-6 col-md-4 order-1 text-right'>
-        <BackButton @onClick={{action 'previousPage'}} />
+      <div class="col-6 col-md-4 order-1 text-right">
+        <BackButton @onClick={{action "previousPage"}} />
       </div>
     </div>
   </BsForm>

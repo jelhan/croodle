@@ -1,6 +1,6 @@
-<div class='cr-form-wrapper box'>
+<div class="cr-form-wrapper box">
   {{#if this.errorMessage}}
-    <BsAlert type='warning'>
+    <BsAlert type="warning">
       {{t this.errorMessage}}
     </BsAlert>
   {{/if}}
@@ -8,12 +8,12 @@
   <BsForm
     @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
     @onSubmit={{this.submit}}
-    @formLayout='horizontal'
+    @formLayout="horizontal"
     @model={{this.formData}}
     novalidate
     as |form|
   >
-    <div class='days'>
+    <div class="days">
       {{#each this.formData.options as |option index|}}
         {{!
           show summarized validation state for all times in a day
@@ -21,8 +21,8 @@
         <div
           class={{if
             (get this.daysValidationState option.day)
-            (concat 'label-has-' (get this.daysValidationState option.day))
-            'label-has-no-validation'
+            (concat "label-has-" (get this.daysValidationState option.day))
+            "label-has-no-validation"
           }}
           data-test-day={{option.day}}
         >
@@ -32,10 +32,10 @@
             }}
             @label={{format-date
               option.jsDate
-              weekday='long'
-              day='numeric'
-              month='long'
-              year='numeric'
+              weekday="long"
+              day="numeric"
+              month="long"
+              year="numeric"
             }}
             {{!
               show label only if it differ from label before
@@ -51,24 +51,24 @@
                   (if index (sub index 1) this.formData.options.length)
                   this.formData.options
                 )
-                'day'
+                "day"
               )
             }}
             @model={{option}}
-            @property='time'
-            class='option'
+            @property="time"
+            class="option"
             as |el|
           >
-            <div class='input-group'>
+            <div class="input-group">
               <el.control
-                @placeholder='00:00'
-                @type='time'
+                @placeholder="00:00"
+                @type="time"
                 @value={{el.value}}
                 {{! focus input if it's the first one }}
                 {{autofocus enabled=(eq index 0)}}
                 {{! run validation for partially filled input on focusout event }}
-                {{on 'focusout' (fn this.validateInput option)}}
-                {{on 'change' (fn this.validateInput option)}}
+                {{on "focusout" (fn this.validateInput option)}}
+                {{on "change" (fn this.validateInput option)}}
                 {{!
                   Validation for partially input field must be reset if input is cleared.
                   But `@onChange` is not called and `focusout` event not triggered in that
@@ -83,24 +83,24 @@
                   partially filling in first place and Desktop Safari as well as IE 11
                   do not support `<input type="time">`.
                 }}
-                {{on 'focusin' (fn this.updateInputValidation option)}}
-                {{on 'keyup' (fn this.updateInputValidation option)}}
+                {{on "focusin" (fn this.updateInputValidation option)}}
+                {{on "keyup" (fn this.updateInputValidation option)}}
                 id={{el.id}}
               />
-              <div class='input-group-append'>
+              <div class="input-group-append">
                 <BsButton
                   @onClick={{fn this.formData.deleteOption option}}
-                  @type='link'
-                  class='delete'
-                  data-test-action='delete'
+                  @type="link"
+                  class="delete"
+                  data-test-action="delete"
                 >
                   <span
-                    class='oi oi-trash'
-                    title={{t 'create.options.button.delete.label'}}
-                    aria-hidden='true'
+                    class="oi oi-trash"
+                    title={{t "create.options.button.delete.label"}}
+                    aria-hidden="true"
                   ></span>
-                  <span class='sr-only'>
-                    {{t 'create.options.button.delete.label'}}
+                  <span class="sr-only">
+                    {{t "create.options.button.delete.label"}}
                   </span>
                 </BsButton>
               </div>
@@ -108,18 +108,18 @@
 
             <BsButton
               @onClick={{fn this.formData.addOption index option.day}}
-              @type='link'
-              @size='sm'
-              class='add cr-option-menu__button cr-option-menu__add-button float-left'
-              data-test-action='add'
+              @type="link"
+              @size="sm"
+              class="add cr-option-menu__button cr-option-menu__add-button float-left"
+              data-test-action="add"
             >
               <span
-                class='oi oi-plus'
-                title={{t 'create.options.button.add.label'}}
-                aria-hidden='true'
+                class="oi oi-plus"
+                title={{t "create.options.button.add.label"}}
+                aria-hidden="true"
               ></span>
-              <span class='sr-only'>{{t
-                  'create.options.button.add.label'
+              <span class="sr-only">{{t
+                  "create.options.button.add.label"
                 }}</span>
             </BsButton>
           </form.element>
@@ -131,21 +131,21 @@
       <form.element>
         <BsButton
           @onClick={{this.adoptTimesOfFirstDay}}
-          @size='sm'
-          class='adopt-times-of-first-day'
-          data-test-action='adopt-times-of-first-day'
+          @size="sm"
+          class="adopt-times-of-first-day"
+          data-test-action="adopt-times-of-first-day"
         >
-          {{t 'create.options-datetime.copy-first-line'}}
+          {{t "create.options-datetime.copy-first-line"}}
         </BsButton>
       </form.element>
     {{/if}}
 
-    <div class='row cr-steps-bottom-nav'>
-      <div class='col-6 col-md-8 order-12'>
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-6 col-md-8 order-12">
         <NextButton />
       </div>
-      <div class='col-6 col-md-4 order-1 text-right'>
-        <BackButton @onClick={{action 'previousPage'}} />
+      <div class="col-6 col-md-4 order-1 text-right">
+        <BackButton @onClick={{action "previousPage"}} />
       </div>
     </div>
   </BsForm>
