@@ -1,9 +1,12 @@
 poll:
     error:
         name:
-          valueMissing: Du må skrive inn et brukernavn
+            duplicate: 'Someone else already participated with this name. Please use an unqiue name.'
+            valueMissing: Du må skrive inn et brukernavn
         newUser:
             everyOptionIsAnswered: Besvar alle alternativene.
+        selection:
+            valueMissing: 'Please provide an answer for this option.'
     share:
         notice: Alle med lenken kan se avstemmingen din. Hvis den inneholder privat
             data, bør du sende den per kryptert e-post eller sludring med ende-til-ende-
@@ -65,43 +68,6 @@ index:
         title: Funksjoner
     link:
         have-a-try: Prøv det nå
-errors:
-    tooShort: '{description} er for kort (minst {min} tegn)'
-    greaterThan: '{description} må være større enn {count}'
-    unique: '{description} må være eksplisitt'
-    time: '{description} må være en gyldig tid (f.eks. 10:45)'
-    url: '{description} må være en gyldig nettadresse'
-    phone: '{description} må være et gyldig telefonnummer'
-    email: '{description} må være en gyldig e-postadresse'
-    date: '{description} må være en gyldig dato'
-    positive: '{description} må være positiv'
-    even: '{description} må være lik'
-    odd: '{description} kan ikke være lik'
-    otherThan: '{description} kan ikke være {count}'
-    lessThanOrEqualTo: '{description} må være lik eller mindre enn {count}'
-    lessThan: '{description} må være mer enn {count}'
-    equalTo: '{description} må være {count}'
-    greaterThanOrEqualTo: '{description} må være lik eller større enn {count}'
-    notAnInteger: '{description} må være et heltall'
-    notANumber: '{description} er ikke et tall'
-    after: '{description} må være etter {date}'
-    before: '{description} må være før {date}'
-    confirmation: '{description} samsvarer ikke med {attribute}'
-    exclusion: '{description} er reservert'
-    uniqueName: Dette navnet er allerede i bruk
-    tooLong: '{description} er for lang (maks. {max} tegn)'
-    singular: '{description} kan ikke være en samling'
-    collection: '{description} må være en samling'
-    present: '{description} må være tom'
-    blank: '{description} kan ikke være tom'
-    empty: '{description} kan ikke være tom'
-    accepted: '{description} må godtas'
-    inclusion: '{description} er ikke en del av listen'
-    description: Dette feltet
-    answerRequired: Et svar må velges
-    invalid: '{description} har ikke en gyldig verdi'
-    wrongLength: '{description} har feil lengde, den må være {is} tegn'
-    wrongDateFormat: '{description} må være i {date}-format'
 pollTypes:
     makeAPoll:
         label: Jeg ønsker å besvare spørsmålet. (f.eks. «Hvor svarer kaffen best?»)
@@ -163,8 +129,11 @@ create:
         error:
             correctTimeFormat: Dager må skrives inn som time og minutter, inndelt
                 med kolon (f.eks. 13:00).
+            duplicatedDate: 'An option for the same time at the same day already exists.'
+            invalidTime: 'At least one time is invalid.'
             notEnoughTimes: Det må bestemmes minst én gyldig tid per dag. Hvis kun
                 én dag er valg, må minst to dager bestemmes.
+            partiallyFilledTime: 'Please enter a valid time with hours and minutes. Partially filled inputs are not supported.'
         copy-first-line: Kopier og lim inn tider for første dag til alle andre
         more-inputs: Skriv inn andre tider
         datetimes:
@@ -176,7 +145,10 @@ create:
         defineTimes:
             label: Bestem tid?
         error:
-            notEnoughDates: Minst én dag må velges
+            duplicatedOption: 'An option with this label already exists.'
+            invalidOption: 'All options must be valid.'
+            notEnoughDates: 'Minst én dag må velges'
+            valueMissing: 'Every option must have a label. Please delete it if the option is not needed.'
         dates:
             label: Dager
         options:
@@ -194,6 +166,9 @@ create:
             title:
                 placeholder: Legg til en avstemmingstittel.
                 label: Tittel
+                validations:
+                    valueMissing: 'A form must have a title.'
+                    tooShort: 'Form title must have at least 2 characters.'
     index:
         input:
             pollType:

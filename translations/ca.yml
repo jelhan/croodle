@@ -34,6 +34,9 @@ create:
             title:
                 label: Títol
                 placeholder: 'Afegiu un títol d''enquesta.'
+                validations:
+                    valueMissing: 'A form must have a title.'
+                    tooShort: 'Form title must have at least 2 characters.'
             description:
                 label: Descripció
                 placeholder: 'Opcional: afegiu una descripció a l''enquesta.'
@@ -48,7 +51,10 @@ create:
         dates:
             label: Díes
         error:
+            duplicatedOption: 'An option with this label already exists.'
+            invalidOption: 'All options must be valid.'
             notEnoughDates: 'Cal seleccionar un dia com a mínim'
+            valueMissing: 'Every option must have a label. Please delete it if the option is not needed.'
         defineTimes:
             label: 'Determineu l''orari?'
         input:
@@ -60,10 +66,13 @@ create:
         more-inputs: 'Introduïu un altre orari'
         copy-first-line: 'Copieu i enganxeu els oraris del primer dia a tots els altres'
         error:
-            notEnoughTimes: 'S''ha de determinar com a mínim un orari vàlid per dia.
-                Si només es va triar un dia, cal determinar almenys 2 dates.'
             correctTimeFormat: 'Les dates s''han d''introduir com a hora i minut dividides
                 per dos punts (p. ex.  13:00).'
+            duplicatedDate: 'An option for the same time at the same day already exists.'
+            invalidTime: 'At least one time is invalid.'
+            notEnoughTimes: 'S''ha de determinar com a mínim un orari vàlid per dia.
+                Si només es va triar un dia, cal determinar almenys 2 dates.'
+            partiallyFilledTime: 'Please enter a valid time with hours and minutes. Partially filled inputs are not supported.'
         fix-validation-errors-first-day: 'Heu de corregir tots els errors de validació
             el primer dia abans de copiar.'
     settings:
@@ -153,7 +162,10 @@ poll:
         newUser:
             everyOptionIsAnswered: 'Responeu totes les opcions.'
         name:
-          valueMissing: 'Heu d''introduir un nom d''usuari.'
+            duplicate: 'Someone else already participated with this name. Please use an unqiue name.'
+            valueMissing: 'Heu d''introduir un nom d''usuari.'
+        selection:
+            valueMissing: 'Please provide an answer for this option.'
     evaluation:
         label: Avaluació
         overview: Revisió
@@ -212,41 +224,3 @@ pollTypes:
     makeAPoll:
         label: 'Vull respondre una pregunta. (p. ex., On és millor el cafè?)'
 times: Oraris
-errors:
-    description: 'Aquest camp'
-    inclusion: '{description} no forma part de la llista'
-    exclusion: '{description} està reservat'
-    invalid: '{description} no té un valor aplicable'
-    confirmation: '{description} no coincideix {attribute}'
-    accepted: '{description} ha de ser acceptat'
-    empty: '{description} no ha d''estar buit'
-    blank: '{description} no ha d''estar buit'
-    present: '{description} ha d''estar buit'
-    answerRequired: 'Cal seleccionar una resposta'
-    collection: '{description} ha de ser una col·lecció'
-    singular: '{description} no ha de ser una col·lecció'
-    tooLong: '{description} és massa llarg (máxim {max} caràcters)'
-    tooShort: '{description} és massa curt (almenys {min} caràcters)'
-    before: '{description} ha de ser abans {date}'
-    after: '{description} ha de ser despŕes {date}'
-    wrongDateFormat: '{description} ha d''estar entre {date}'
-    wrongLength: '{description} té la longitud equivocada, ha de ser {is} caràcters'
-    notANumber: '{description} no és un número'
-    notAnInteger: '{description} ha de ser un número sencer'
-    greaterThan: '{description} ha de ser més gran que {count}'
-    greaterThanOrEqualTo: '{description} ha de ser igual o major que {count}'
-    equalTo: '{description} ha de ser {count}'
-    lessThan: '{description} ha de ser més que {count}'
-    lessThanOrEqualTo: '{description} ha de ser igual o menor que {count}'
-    otherThan: '{description} no pot ser {count}'
-    odd: '{description} ha de ser diferent'
-    even: '{description} ha de ser igual'
-    positive: '{description} ha de ser positiu'
-    date: '{description} ha de ser una data valida'
-    email: '{description} ha de ser una adreça vàlida de correu electrònic'
-    phone: '{description} ha de ser un número de telèfon vàlid'
-    url: '{description} ha de ser un URL vàlid'
-    time: '{description} ha de ser un orari vàlid (p. ex. 10:45)'
-    timeNotPartially: 'No s''admeten temps parcials'
-    unique: '{description} ha de ser explícita'
-    uniqueName: 'Aquest nom ja s''ha usat'

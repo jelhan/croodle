@@ -34,6 +34,9 @@ create:
             title:
                 label: Título
                 placeholder: 'Añade el título de la encuesta.'
+                validations:
+                    valueMissing: 'A form must have a title.'
+                    tooShort: 'Form title must have at least 2 characters.'
             description:
                 label: Descripción
                 placeholder: 'Opcional: Añade una descripción a la encuesta.'
@@ -48,7 +51,10 @@ create:
         dates:
             label: Días
         error:
+            duplicatedOption: 'An option with this label already exists.'
+            invalidOption: 'All options must be valid.'
             notEnoughDates: 'Debes elegir almenos un día'
+            valueMissing: 'Every option must have a label. Please delete it if the option is not needed.'
         defineTimes:
             label: '¿Establecer horarios?'
         input:
@@ -60,11 +66,14 @@ create:
         more-inputs: 'Añadir más horarios'
         copy-first-line: 'Utilizar el horario de la primera línea para todas las demás'
         error:
+            correctTimeFormat: 'Las horas y minutos del horario deben estar separadas
+                por el caracter dospuntos (p.ej. 13:00).'
+            duplicatedDate: 'An option for the same time at the same day already exists.'
+            invalidTime: 'At least one time is invalid.'
             notEnoughTimes: 'Ha de establecerse almenos un horario correcto para cada
                 día. Si se ha elegido únicamente un día, hay que indicar almenos dos
                 horarios.'
-            correctTimeFormat: 'Las horas y minutos del horario deben estar separadas
-                por el caracter dospuntos (p.ej. 13:00).'
+            partiallyFilledTime: 'Please enter a valid time with hours and minutes. Partially filled inputs are not supported.'
         fix-validation-errors-first-day: 'Tienes quee corregir todos los errores antes
             de copiar.'
     settings:
@@ -155,7 +164,10 @@ poll:
         newUser:
             everyOptionIsAnswered: 'Por favor responde a todas las opciones.'
         name:
-          valueMissing: 'Tienes que poner un nombre.'
+            duplicate: 'Someone else already participated with this name. Please use an unqiue name.'
+            valueMissing: 'Tienes que poner un nombre.'
+        selection:
+            valueMissing: 'Please provide an answer for this option.'
     evaluation:
         label: 'Evaluar'
         overview: 'Supervisar'
@@ -214,41 +226,3 @@ pollTypes:
     makeAPoll:
         label: 'Querría responder a una pregunta (p. ej. ¿con que tomas el café?)'
 times: Horarios
-errors:
-    description: 'Este campo'
-    inclusion: '{description} no está en la lista'
-    exclusion: '{description} está reservada'
-    invalid: '{description} no es válida'
-    confirmation: '{description} no encaja con {attribute}'
-    accepted: '{description} debe ser aceptado/a'
-    empty: '{description} no puede estar vacio'
-    blank: '{description} no puede estar en blanco'
-    present: '{description} debe estar en blanco'
-    answerRequired: 'Hay que escoger una respuesta'
-    collection: '{description} tiene que ser una colección'
-    singular: '{description} no puede ser una colección'
-    tooLong: '{description} es demasiado largo/a (el máximo son {max} caractéres)'
-    tooShort: '{description} es muy corto/a (el mínimo son {min} caractéres)'
-    before: '{description} debe de ser antes de {date}'
-    after: '{description} debe de ser después de {date}'
-    wrongDateFormat: '{description} tiene que estar en el formato de {date}'
-    wrongLength: '{description} tiene una longitud erronea (debería de ser {is} caractéres)'
-    notANumber: '{description} no es un número'
-    notAnInteger: '{description} debe de ser un número entero'
-    greaterThan: '{description} debe de ser mayor que {count}'
-    greaterThanOrEqualTo: '{description} debe de ser mayour o igual que {count}'
-    equalTo: '{description} debe de ser igual que {count}'
-    lessThan: '{description} debe de ser menor que {count}'
-    lessThanOrEqualTo: '{description} debe de ser menor o igual que {count}'
-    otherThan: '{description} debe de ser distinto de {count}'
-    odd: '{description} debe de ser impar'
-    even: '{description} debe de ser par'
-    positive: '{description} debe de ser positivo'
-    date: '{description} debe de ser una fecha válida'
-    email: '{description} debe de ser una dirección de correo electrónico valida'
-    phone: '{description} debe de ser un número de teléfono valido'
-    url: '{description} debe de ser una URL valida'
-    time: '{description} debe de ser un horario valido (p.ej. 10:45)'
-    timeNotPartially: 'Los tiempos parciales no están soportados, no pueden utilizarse'
-    unique: '{description} deben ser explícitas'
-    uniqueName: 'Este nombre ya está usado'
