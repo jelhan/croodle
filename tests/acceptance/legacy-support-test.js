@@ -117,15 +117,14 @@ module('Acceptance | legacy support', function (hooks) {
         }).format(new Date('2015-12-31T22:59:00.000Z')),
       ]
     );
-    assert.deepEqual(Array.from(
+    assert.deepEqual(
+      Array.from(
         find('[data-test-form-element^="option"]').querySelectorAll(
           '.radio label'
         )
-      ).map((el) => el.textContent.trim()), [
-      yesLabel,
-      maybeLabel,
-      noLabel,
-    ]);
+      ).map((el) => el.textContent.trim()),
+      [yesLabel, maybeLabel, noLabel]
+    );
 
     await switchTab('evaluation');
     assert.equal(currentRouteName(), 'poll.evaluation');

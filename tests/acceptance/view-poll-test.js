@@ -10,7 +10,6 @@ import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
-import pageEvaluation from 'croodle/tests/pages/poll/evaluation';
 import { DateTime } from 'luxon';
 import { triggerCopySuccess } from 'ember-cli-clipboard/test-support';
 
@@ -172,7 +171,7 @@ module('Acceptance | view poll', function (hooks) {
 
     await switchTab('evaluation');
     assert.deepEqual(
-      findAll('[data-test-best-option').map((el) => el.textContent.trim()),
+      findAll('[data-test-best-option]').map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
           dateStyle: 'full',
@@ -247,7 +246,7 @@ module('Acceptance | view poll', function (hooks) {
 
     await switchTab('evaluation');
     assert.deepEqual(
-      findAll('[data-test-best-option').map((el) => el.textContent.trim()),
+      findAll('[data-test-best-option]').map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
           timeZone: timezonePoll,
