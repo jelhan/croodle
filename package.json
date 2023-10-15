@@ -55,7 +55,7 @@
     "ember-cli-sass": "^10.0.0",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-terser": "^4.0.2",
-    "ember-composable-helpers": "^4.0.0",
+    "ember-composable-helpers": "^5.0.0",
     "ember-data": "~3.28.6",
     "ember-data-model-fragments": "^6.0.0",
     "ember-decorators": "^6.1.1",
