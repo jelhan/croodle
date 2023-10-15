@@ -75,7 +75,7 @@
     "ember-template-lint": "^3.15.0",
     "ember-test-selectors": "^5.0.0",
     "ember-transition-helper": "^1.0.0",
-    "ember-truth-helpers": "^3.0.0",
+    "ember-truth-helpers": "^4.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-ember": "^10.5.8",
