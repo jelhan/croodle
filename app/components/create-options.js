@@ -4,7 +4,6 @@ import { action } from "@ember/object";
 import { TrackedArray } from "tracked-built-ins";
 import IntlMessage from "../utils/intl-message";
 import { tracked } from "@glimmer/tracking";
-import { registerDestructor } from '@ember/destroyable';
 
 class FormDataOption {
   @tracked value;
@@ -120,8 +119,5 @@ export default class CreateOptionsComponent extends Component {
     super(...arguments);
 
     this.router.on("routeWillChange", this.handleTransition);
-    registerDestructor(this, () => {
-      this.router.off("routeWillChange", this.handleTransition);
-    });
   }
 }
