@@ -1,6 +1,6 @@
-import { RestSerializer } from 'ember-cli-mirage';
+import { RestSerializer } from 'miragejs';
 import { dasherize } from '@ember/string';
-import { pluralize } from 'ember-cli-mirage/utils/inflector';
+import { pluralize } from 'ember-inflector';
 
 export default RestSerializer.extend({
   keyForForeignKey(relationshipName) {

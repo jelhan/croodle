@@ -1,5 +1,5 @@
 /* eslint-disable ember/avoid-leaking-state-in-ember-objects */
-import { Factory } from 'ember-cli-mirage';
+import { Factory } from 'miragejs';
 import encrypt from '../utils/encrypt';
 
 export default Factory.extend({
