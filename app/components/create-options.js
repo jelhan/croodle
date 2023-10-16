@@ -78,14 +78,12 @@ class FormData {
   }
 
   constructor({ options }, { defaultOptionCount }) {
-    this.options = new TrackedArray(
-      options.map(({ title }) => new FormDataOption(this, title))
-    );
+    const normalizedOptions =
+      options.length === 0 && defaultOptionCount > 0 ? ['', ''] : options;
 
-    // enforce minimal options amount for poll of type MakeAPoll
-    if (this.options.length === 0 && defaultOptionCount > 0) {
-      this.updateOptions(['', '']);
-    }
+    this.options = new TrackedArray(
+      normalizedOptions.map(({ title }) => new FormDataOption(this, title))
+    );
   }
 }
 
