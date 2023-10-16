@@ -8,7 +8,15 @@ Croodle is an end-to-end encrypted web application to schedule a date or to do a
 
 This is an alpha version. Changes could brake backward compatibility. It is also not well tested and some features are missing. It is not meant for productive use yet.
 
+<<<<<<< HEAD
 Croodle is inspired by [PrivateBin](https://github.com/PrivateBin/PrivateBin) and, of course, by Doodle.
+=======
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/)
+* [Yarn](https://yarnpkg.com/)
+* [Ember CLI](https://cli.emberjs.com/release/)
+* [Google Chrome](https://google.com/chrome/)
+>>>>>>> e9ac386 (v3.28.6...v4.4.1)
 
 ## Security notice
 
