@@ -4,7 +4,7 @@
   {{#each this.formSteps as |formStep|}}
     {{#unless formStep.hidden}}
       <BsButton
-        @onClick={{fn this.router.transitionTo formStep.route}}
+        @onClick={{fn this.transitionTo formStep.route}}
         @type={{if
           (eq this.router.currentRouteName formStep.route)
           "primary is-active"
@@ -19,7 +19,7 @@
     {{/unless}}
   {{/each}}
   <BsButton
-    @onClick={{fn this.router.transitionTo "create.index"}}
+    @onClick={{fn this.transitionTo "create.index"}}
     @type={{if
       (eq this.router.currentRouteName "create.index")
       "primary is-active"
@@ -31,7 +31,7 @@
     {{t "create.formStep.type"}}
   </BsButton>
   <BsButton
-    @onClick={{fn this.router.transitionTo "create.meta"}}
+    @onClick={{fn this.transitionTo "create.meta"}}
     @type={{if
       (eq this.router.currentRouteName "create.meta")
       "primary is-active"
@@ -44,7 +44,7 @@
     {{t "create.formStep.meta"}}
   </BsButton>
   <BsButton
-    @onClick={{fn this.router.transitionTo "create.options"}}
+    @onClick={{fn this.transitionTo "create.options"}}
     @type={{if
       (eq this.router.currentRouteName "create.options")
       "primary is-active"
@@ -62,7 +62,7 @@
   </BsButton>
   {{#if this.isFindADate}}
     <BsButton
-      @onClick={{fn this.router.transitionTo "create.options-datetime"}}
+      @onClick={{fn this.transitionTo "create.options-datetime"}}
       @type={{if
         (eq this.router.currentRouteName "create.options-datetime")
         "primary is-active"
@@ -76,7 +76,7 @@
     </BsButton>
   {{/if}}
   <BsButton
-    @onClick={{fn this.router.transitionTo "create.settings"}}
+    @onClick={{fn this.transitionTo "create.settings"}}
     @type={{if
       (eq this.router.currentRouteName "create.settings")
       "primary is-active"
