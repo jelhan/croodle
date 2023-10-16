@@ -5,7 +5,6 @@
 
 import Ember from 'ember';
 
-let originalLoggerError;
 let originalTestAdapterException;
 let originalEmberOnError;
 let originalWindowOnError;
