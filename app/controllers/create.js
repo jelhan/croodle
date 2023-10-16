@@ -48,6 +48,10 @@ export default class CreateController extends Controller {
     this.visitedSteps.add(step);
   }
 
+  @action transitionTo(route) {
+    this.router.transitionTo(route);
+  }
+
   listenForStepChanges() {
     this.set('visitedSteps', new TrackedSet());
 
