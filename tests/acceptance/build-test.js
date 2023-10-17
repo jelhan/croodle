@@ -11,14 +11,14 @@ module('Acceptance | build', function (hooks) {
     // head is not available through `find()`, `assert.dom()` or `this.element.querySelector()`
     // cause they are scoped to `#ember-testing-container`.
     let buildInfoEl = document.head.querySelector(
-      'head meta[name="build-info"]'
+      'head meta[name="build-info"]',
     );
     assert.ok(buildInfoEl, 'tag exists');
 
     let content = buildInfoEl.content;
     assert.ok(
       /^version=\d[\d.]+\d(-(alpha|beta|rc).\d)?(\+[\da-z]{8})?$/.test(content),
-      `${content} is valid version string`
+      `${content} is valid version string`,
     );
   });
 
@@ -29,7 +29,7 @@ module('Acceptance | build', function (hooks) {
     // and therefore don't have access to head
     assert.ok(
       document.head.querySelector('meta[http-equiv="Content-Security-Policy"]'),
-      'CSP meta tag exists'
+      'CSP meta tag exists',
     );
 
     // this only covers dynamically created elements not the ones defined in `app/index.html` cause
@@ -37,9 +37,9 @@ module('Acceptance | build', function (hooks) {
     ['link', 'script', 'style'].forEach((type) => {
       assert.notOk(
         document.head.querySelector(
-          `${type} meta[http-equiv="Content-Security-Policy"]`
+          `${type} meta[http-equiv="Content-Security-Policy"]`,
         ),
-        'CSP meta tag does not have a silbing of type ${type}'
+        'CSP meta tag does not have a silbing of type ${type}',
       );
     });
   });

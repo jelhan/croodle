@@ -12,7 +12,7 @@ function pollHasUser(assert, name, selections) {
       assert.equal(
         elBase.querySelector(`td:nth-child(${index + 2})`).textContent.trim(),
         selection.toString(),
-        `selection ${index} is as expected`
+        `selection ${index} is as expected`,
       );
     });
   }

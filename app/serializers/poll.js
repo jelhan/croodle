@@ -3,7 +3,7 @@ import { isEmpty } from '@ember/utils';
 import ApplicationSerializer from './application';
 
 export default class PollSerializer extends ApplicationSerializer.extend(
-  EmbeddedRecordsMixin
+  EmbeddedRecordsMixin,
 ) {
   attrs = {
     users: {

@@ -61,7 +61,7 @@ class FormData {
     this.nameIsRequired = nameIsRequired;
     this.namesTaken = namesTaken;
     this.selections = new TrackedArray(
-      options.map(() => new FormDataSelections(selectionIsRequired))
+      options.map(() => new FormDataSelections(selectionIsRequired)),
     );
   }
 }

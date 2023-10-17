@@ -53,7 +53,7 @@ export default class Option extends Fragment {
   set time(value) {
     assert(
       'can not set a time if current value is not a valid date',
-      this.isDate
+      this.isDate,
     );
 
     // set time to undefined if value is false
@@ -70,7 +70,7 @@ export default class Option extends Fragment {
       'title',
       this.datetime
         .set({ hours: datetime.hour, minutes: datetime.minute })
-        .toISO()
+        .toISO(),
     );
   }
 }

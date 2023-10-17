@@ -20,5 +20,5 @@ export default PageObject.create(
 
       inputHasFocus: hasFocus('input'),
     },
-  })
+  }),
 );

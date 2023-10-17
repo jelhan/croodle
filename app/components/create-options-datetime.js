@@ -23,7 +23,7 @@ class FormDataOption {
     const { isPartiallyFilled } = this;
     if (isPartiallyFilled) {
       return new IntlMessage(
-        'create.options-datetime.error.partiallyFilledTime'
+        'create.options-datetime.error.partiallyFilledTime',
       );
     }
 
@@ -105,7 +105,7 @@ class FormData {
     this.options.splice(
       position + 1,
       0,
-      new FormDataOption(this, { day, time: null })
+      new FormDataOption(this, { day, time: null }),
     );
   }
 
@@ -132,7 +132,7 @@ class FormData {
     const optionsForFirstDay = optionsGroupedByDay[firstDay];
 
     const timesForFirstDayAreValid = optionsForFirstDay.every(
-      (option) => option.isValid
+      (option) => option.isValid,
     );
     if (!timesForFirstDayAreValid) {
       return false;
@@ -144,16 +144,16 @@ class FormData {
       days
         .map((day) =>
           timesForFirstDay.map(
-            (time) => new FormDataOption(this, { day, time })
-          )
+            (time) => new FormDataOption(this, { day, time }),
+          ),
         )
-        .flat()
+        .flat(),
     );
   }
 
   constructor(options) {
     this.options = new TrackedArray(
-      options.map(({ day, time }) => new FormDataOption(this, { day, time }))
+      options.map(({ day, time }) => new FormDataOption(this, { day, time })),
     );
   }
 }

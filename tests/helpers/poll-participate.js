@@ -15,13 +15,13 @@ export default async function (name, selections) {
           `.participation .selections .form-group:nth-child(${
             index + 1
           }) input`,
-          selection
+          selection,
         );
       } else {
         await click(
           `.participation .selections .form-group:nth-child(${
             index + 1
-          }) .${selection}.radio input`
+          }) .${selection}.radio input`,
         );
       }
     }

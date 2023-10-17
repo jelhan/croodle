@@ -11,5 +11,5 @@ export default PageObject.create(
     pollType: fillable('.poll-type select'),
     pollTypeHasFocus: hasFocus('.poll-type select'),
     visit: visitable('/create'),
-  })
+  }),
 );

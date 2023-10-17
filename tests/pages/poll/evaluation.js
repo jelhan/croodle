@@ -9,7 +9,7 @@ export default create(
       '[data-test-table-of="participants"] thead tr:last-child th:not(:first-child)',
       {
         label: text(''),
-      }
+      },
     ),
     participants: collection(
       '[data-test-table-of="participants"] [data-test-participant]',
@@ -19,7 +19,7 @@ export default create(
           answer: text(''),
           option: attribute('data-test-value-for', ''),
         }),
-      }
+      },
     ),
-  })
+  }),
 );

@@ -11,5 +11,5 @@ export default PageObject.create(
     description: fillable('.description textarea'),
     title: fillable('.title input'),
     titleHasFocus: hasFocus('.title input'),
-  })
+  }),
 );

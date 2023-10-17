@@ -61,7 +61,7 @@ class FormData {
   @action
   updateOptions(values) {
     this.options = new TrackedArray(
-      values.map((value) => new FormDataOption(this, value))
+      values.map((value) => new FormDataOption(this, value)),
     );
   }
 
@@ -82,7 +82,7 @@ class FormData {
       options.length === 0 && defaultOptionCount > 0 ? ['', ''] : options;
 
     this.options = new TrackedArray(
-      normalizedOptions.map(({ title }) => new FormDataOption(this, title))
+      normalizedOptions.map(({ title }) => new FormDataOption(this, title)),
     );
   }
 }
@@ -92,7 +92,7 @@ export default class CreateOptionsComponent extends Component {
 
   formData = new FormData(
     { options: this.args.options },
-    { defaultOptionCount: this.args.isMakeAPoll ? 2 : 0 }
+    { defaultOptionCount: this.args.isMakeAPoll ? 2 : 0 },
   );
 
   @action

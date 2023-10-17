@@ -30,7 +30,7 @@ module('Integration | Component | create options datetime', function (hooks) {
         this.store.createRecord('poll', {
           pollType: 'FindADate',
           options: [{ title: '2015-01-01' }],
-        })
+        }),
       );
     });
     await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
@@ -38,12 +38,12 @@ module('Integration | Component | create options datetime', function (hooks) {
     assert.equal(
       findAll('.days .form-group input').length,
       1,
-      'there is one input field'
+      'there is one input field',
     );
     assert.equal(
       find('.days .form-group input').value,
       '',
-      'value is an empty string'
+      'value is an empty string',
     );
   });
 
@@ -58,7 +58,7 @@ module('Integration | Component | create options datetime', function (hooks) {
         this.store.createRecord('poll', {
           pollType: 'FindADate',
           options: [{ title: '2015-01-01T11:11:00.000Z' }],
-        })
+        }),
       );
     });
     await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
@@ -66,12 +66,12 @@ module('Integration | Component | create options datetime', function (hooks) {
     assert.equal(
       findAll('.days .form-group input').length,
       1,
-      'there is one input field'
+      'there is one input field',
     );
     assert.equal(
       find('.days .form-group input').value,
       DateTime.fromISO('2015-01-01T11:11:00.000Z').toFormat('HH:mm'),
-      'it has time in option as value'
+      'it has time in option as value',
     );
   });
 
@@ -90,7 +90,7 @@ module('Integration | Component | create options datetime', function (hooks) {
             { title: DateTime.fromISO('2015-01-01T22:22').toISO() },
             { title: '2015-02-02' },
           ],
-        })
+        }),
       );
     });
     await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
@@ -98,30 +98,30 @@ module('Integration | Component | create options datetime', function (hooks) {
     assert.equal(
       findAll('.days label').length,
       3,
-      'every form-group has a label'
+      'every form-group has a label',
     );
     assert.equal(
       findAll('.days label:not(.sr-only)').length,
       2,
-      'there are two not hidden labels for two different dates'
+      'there are two not hidden labels for two different dates',
     );
     assert.notOk(
       findAll('.days .form-group')[0]
         .querySelector('label')
         .classList.contains('sr-only'),
-      'the first label is shown'
+      'the first label is shown',
     );
     assert.ok(
       findAll('.days .form-group')[1]
         .querySelector('label')
         .classList.contains('sr-only'),
-      'the repeated label on second form-group is hidden by sr-only class'
+      'the repeated label on second form-group is hidden by sr-only class',
     );
     assert.notOk(
       findAll('.days .form-group')[2]
         .querySelector('label')
         .classList.contains('sr-only'),
-      'the new label on third form-group is shown'
+      'the new label on third form-group is shown',
     );
   });
 
@@ -135,7 +135,7 @@ module('Integration | Component | create options datetime', function (hooks) {
         'poll',
         this.store.createRecord('poll', {
           options: [{ title: '2015-01-01' }, { title: '2015-02-02' }],
-        })
+        }),
       );
     });
     await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
@@ -143,25 +143,25 @@ module('Integration | Component | create options datetime', function (hooks) {
     assert.equal(
       findAll('.days .form-group input').length,
       2,
-      'there are two input fields before'
+      'there are two input fields before',
     );
 
     await click(findAll('.days .form-group')[0].querySelector('.add'));
     assert.equal(
       findAll('.days .form-group input').length,
       3,
-      'another input field is added'
+      'another input field is added',
     );
     assert.equal(
       findAll('.days .form-group')[1].querySelector('label').textContent,
       findAll('.days .form-group')[0].querySelector('label').textContent,
-      'new input has correct label'
+      'new input has correct label',
     );
     assert.ok(
       findAll('.days .form-group')[1]
         .querySelector('label')
         .classList.contains('sr-only'),
-      "label ofnew input is hidden cause it's repeated"
+      "label ofnew input is hidden cause it's repeated",
     );
   });
 
@@ -179,7 +179,7 @@ module('Integration | Component | create options datetime', function (hooks) {
             { title: DateTime.fromISO('2015-01-01T11:11').toISO() },
             { title: DateTime.fromISO('2015-01-01T22:22').toISO() },
           ],
-        })
+        }),
       );
     });
     await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
@@ -187,23 +187,23 @@ module('Integration | Component | create options datetime', function (hooks) {
     assert.equal(
       findAll('.days input').length,
       2,
-      'there are two input fields before'
+      'there are two input fields before',
     );
     assert.ok(
       findAll('.delete').every((el) => el.disabled === false),
-      'options are deleteable'
+      'options are deleteable',
     );
 
     await click(findAll('.days .form-group')[0].querySelector('.delete'));
     assert.equal(
       findAll('.days .form-group input').length,
       1,
-      'one input field is removed after deletion'
+      'one input field is removed after deletion',
     );
     assert.equal(
       find('.days .form-group input').value,
       '22:22',
-      'correct input field is deleted'
+      'correct input field is deleted',
     );
   });
 });

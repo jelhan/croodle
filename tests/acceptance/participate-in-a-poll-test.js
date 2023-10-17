@@ -41,7 +41,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.equal(
       currentRouteName(),
       'poll.participation',
-      'poll is redirected to poll.participation'
+      'poll is redirected to poll.participation',
     );
 
     await pollParticipate('Max Meiner', ['yes', 'no']);
@@ -49,22 +49,22 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.equal(
       currentURL().split('?')[1],
       `encryptionKey=${encryptionKey}`,
-      'encryption key is part of query params'
+      'encryption key is part of query params',
     );
     assert.equal(
       PollEvaluationPage.participants.length,
       1,
-      'user is added to participants table'
+      'user is added to participants table',
     );
     let participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Max Meiner'
+      'Max Meiner',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       [yesLabel, noLabel],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
 
     await click('.nav .participation');
@@ -74,7 +74,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       findAll('input[type="radio"]')
         .toArray()
         .some((el) => el.checked),
-      'radios are cleared'
+      'radios are cleared',
     );
 
     await pollParticipate('Peter Müller', ['yes', 'yes']);
@@ -82,17 +82,17 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.equal(
       PollEvaluationPage.participants.length,
       2,
-      'user is added to participants table'
+      'user is added to participants table',
     );
     participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Peter Müller'
+      'Peter Müller',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       [yesLabel, yesLabel],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
   });
 
@@ -112,18 +112,18 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.equal(
       PollEvaluationPage.participants.length,
       1,
-      'user is added to participants table'
+      'user is added to participants table',
     );
 
     let participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Max Manus'
+      'Max Manus',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       ['answer 1', 'answer 2'],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
   });
 
@@ -135,7 +135,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     });
 
     await visit(
-      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
     );
     assert.equal(currentRouteName(), 'poll.participation');
 
@@ -144,18 +144,18 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.equal(
       PollEvaluationPage.participants.length,
       1,
-      'user is added to participants table'
+      'user is added to participants table',
     );
 
     let participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Karl Käfer'
+      'Karl Käfer',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       [yesLabel, ''],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
   });
 
@@ -167,7 +167,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     });
 
     await visit(
-      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
     );
     assert.equal(currentRouteName(), 'poll.participation');
 
@@ -176,7 +176,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.equal(
       PollEvaluationPage.participants.length,
       1,
-      'user is added to participants table'
+      'user is added to participants table',
     );
 
     let participant = PollEvaluationPage.participants.filterBy('name', '')[0];
@@ -184,7 +184,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       [yesLabel, noLabel],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
   });
 
@@ -197,13 +197,13 @@ module('Acceptance | participate in a poll', function (hooks) {
     this.server.post('/users', undefined, 503);
 
     await visit(
-      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
     );
     assert.equal(currentRouteName(), 'poll.participation');
     assert
       .dom('[data-test-modal="saving-failed"] .modal-content')
       .isNotVisible(
-        'failed saving notification is not shown before attempt to save'
+        'failed saving notification is not shown before attempt to save',
       );
 
     await pollParticipate('John Doe', ['yes', 'no']);
@@ -217,24 +217,24 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert
       .dom('[data-test-modal="saving-failed"] .modal-content')
       .isNotVisible(
-        'Notification is hidden after another save attempt was successful'
+        'Notification is hidden after another save attempt was successful',
       );
     assert.equal(currentRouteName(), 'poll.evaluation');
     assert.equal(
       PollEvaluationPage.participants.length,
       1,
-      'user is added to participants table'
+      'user is added to participants table',
     );
 
     let participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'John Doe'
+      'John Doe',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       [yesLabel, noLabel],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
   });
 
@@ -256,7 +256,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     });
 
     await visit(
-      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+      `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
     );
     pollParticipate('John Doe', ['yes', 'no']);
 
@@ -265,7 +265,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     });
     assert.ok(
       true,
-      'loading spinner shown cause otherwise there would have been a timeout'
+      'loading spinner shown cause otherwise there would have been a timeout',
     );
 
     // resolve promise for test to finish
@@ -281,7 +281,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       });
 
       await visit(
-        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
       );
       await click('button[type="submit"]');
 
@@ -306,7 +306,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       assert.equal(
         currentRouteName(),
         'poll.participation',
-        'invalid form prevents a transition'
+        'invalid form prevents a transition',
       );
     });
 
@@ -318,7 +318,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       });
 
       await visit(
-        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
       );
       await click('button[type="submit"]');
 
@@ -342,7 +342,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       assert.equal(
         currentRouteName(),
         'poll.participation',
-        'invalid form prevents a transition'
+        'invalid form prevents a transition',
       );
     });
 
@@ -354,7 +354,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       });
 
       await visit(
-        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
       );
       await click('button[type="submit"]');
 
@@ -379,7 +379,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       assert.equal(
         currentRouteName(),
         'poll.participation',
-        'invalid form prevents a transition'
+        'invalid form prevents a transition',
       );
     });
 
@@ -401,7 +401,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       });
 
       await visit(
-        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`
+        `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
       );
       pollParticipate('John Doe', ['yes', 'no']);
 

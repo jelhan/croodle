@@ -56,7 +56,7 @@ module('Integration | Component | create options', function (hooks) {
     assert
       .dom('.form-group .invalid-feedback')
       .doesNotExist(
-        'there is no validation error anymore after a unique value is entered'
+        'there is no validation error anymore after a unique value is entered',
       );
     assert
       .dom('.form-group .is-invalid')

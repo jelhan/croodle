@@ -9,7 +9,7 @@ export default class PollEvaluationParticipantsTable extends Component {
     for (const option of poll.options.toArray()) {
       optionsPerDay.set(
         option.day,
-        optionsPerDay.has(option.day) ? optionsPerDay.get(option.day) + 1 : 0
+        optionsPerDay.has(option.day) ? optionsPerDay.get(option.day) + 1 : 0,
       );
     }
 
@@ -17,7 +17,7 @@ export default class PollEvaluationParticipantsTable extends Component {
       Array.from(optionsPerDay.entries()).map(([dayString, count]) => [
         DateTime.fromISO(dayString).toJSDate(),
         count,
-      ])
+      ]),
     );
   }
 

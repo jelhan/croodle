@@ -92,7 +92,7 @@ export default class PollController extends Controller {
       // work-a-round for url not being updated
       window.location.hash = window.location.hash.replace(
         this.encryptionKey,
-        this.encryption.key
+        this.encryption.key,
       );
 
       this.set('encryptionKey', this.encryption.key);

@@ -12,5 +12,5 @@ export default PageObject.create(
     availableAnswersHasFocus: hasFocus('.answer-type select'),
     save: defaultsForCreate.next,
     visit: visitable('/create/settings'),
-  })
+  }),
 );
