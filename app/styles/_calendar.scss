@@ -2,8 +2,10 @@
 
 .ember-power-calendar {
   @include ember-power-calendar(30px);
+
   width: 100%;
 }
+
 .ember-power-calendar .ember-power-calendar-day,
 .ember-power-calendar .ember-power-calendar-weekday {
   max-width: none;
@@ -12,6 +14,7 @@
   height: auto;
   margin: 1px;
 }
+
 .ember-power-calendar .ember-power-calendar-weekdays,
 .ember-power-calendar .ember-power-calendar-week {
   height: 3em;

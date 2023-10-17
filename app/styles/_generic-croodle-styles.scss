@@ -5,6 +5,7 @@
 .cr-logo {
   font-size: $font-size-base;
   margin-bottom: 0;
+
   // This is needed for cases when the h1 does not contain a link, like when JS
   // is disabled.
   color: $body-bg;
@@ -20,6 +21,7 @@
 
 .cr-hide-on-mobile {
   display: none;
+
   @include media-breakpoint-up(md) {
     display: block;
   }
@@ -32,5 +34,5 @@
 // adds the same padding-right as .is-valid / .is-invalid validation feedback
 // classes provided by Bootstrap do
 .cr-pr-validation {
-  padding-right: calc(1.5em + .74rem);
+  padding-right: calc(1.5em + 0.74rem);
 }
