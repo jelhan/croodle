@@ -12,12 +12,12 @@ module('Unit | Model | option', function (hooks) {
     let option = run(() =>
       this.owner.lookup('service:store').createRecord('option', {
         title: '2015-01-01',
-      })
+      }),
     );
     assert.equal(
       option.get('day'),
       '2015-01-01',
-      'returns ISO 8601 day string if title is ISO 8601 day string'
+      'returns ISO 8601 day string if title is ISO 8601 day string',
     );
 
     run(() => {
@@ -26,7 +26,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('day'),
       DateTime.fromISO('2015-01-01T11:11:00.000Z').toISODate(),
-      'returns ISO 8601 day string if title is ISO 8601 datetime string'
+      'returns ISO 8601 day string if title is ISO 8601 datetime string',
     );
 
     run(() => {
@@ -35,7 +35,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('day'),
       undefined,
-      'returns undefined if title is not a valid ISO 8601 string'
+      'returns undefined if title is not a valid ISO 8601 string',
     );
 
     run(() => {
@@ -44,7 +44,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('day'),
       undefined,
-      'returns undefined if title is null'
+      'returns undefined if title is null',
     );
   });
 
@@ -52,7 +52,7 @@ module('Unit | Model | option', function (hooks) {
     let option = run(() =>
       this.owner.lookup('service:store').createRecord('option', {
         title: '2015-01-01T11:11:00.000Z',
-      })
+      }),
     );
     assert.ok(option.get('hasTime'));
     run(() => {
@@ -69,12 +69,12 @@ module('Unit | Model | option', function (hooks) {
     let option = run(() =>
       this.owner.lookup('service:store').createRecord('option', {
         title: '2015-01-01T11:11:00.000Z',
-      })
+      }),
     );
     assert.equal(
       option.get('time'),
       DateTime.fromISO('2015-01-01T11:11:00.000Z').toFormat('HH:mm'),
-      'returns time if title is ISO 8601 datetime string'
+      'returns time if title is ISO 8601 datetime string',
     );
 
     run(() => {
@@ -83,7 +83,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('time'),
       undefined,
-      'returns undefined if title is ISO 8601 day string'
+      'returns undefined if title is ISO 8601 day string',
     );
 
     run(() => {
@@ -92,7 +92,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('time'),
       undefined,
-      'returns undefined if title is not an ISO 8601 date string'
+      'returns undefined if title is not an ISO 8601 date string',
     );
   });
 
@@ -100,7 +100,7 @@ module('Unit | Model | option', function (hooks) {
     let option = run(() =>
       this.owner.lookup('service:store').createRecord('option', {
         title: '2015-01-01',
-      })
+      }),
     );
 
     run(() => {
@@ -109,7 +109,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('title'),
       DateTime.fromISO('2015-01-01T11:00').toISO(),
-      'sets title according to time'
+      'sets title according to time',
     );
 
     run(() => {
@@ -118,7 +118,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('title'),
       '2015-01-01',
-      'removes time from option if value is false'
+      'removes time from option if value is false',
     );
 
     const before = option.get('title');
@@ -128,7 +128,7 @@ module('Unit | Model | option', function (hooks) {
     assert.equal(
       option.get('title'),
       before,
-      'does not set title if time is invalid'
+      'does not set title if time is invalid',
     );
 
     run(() => {

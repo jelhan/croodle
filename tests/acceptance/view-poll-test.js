@@ -30,7 +30,7 @@ module('Acceptance | view poll', function (hooks) {
     assert.equal(
       pageParticipation.url,
       window.location.href,
-      'share link is shown'
+      'share link is shown',
     );
 
     await triggerCopySuccess();
@@ -64,9 +64,9 @@ module('Acceptance | view poll', function (hooks) {
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
-      ['Saturday, December 12, 2015', 'Friday, January 1, 2016']
+      ['Saturday, December 12, 2015', 'Friday, January 1, 2016'],
     );
   });
 
@@ -91,7 +91,7 @@ module('Acceptance | view poll', function (hooks) {
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         // full date
@@ -100,11 +100,11 @@ module('Acceptance | view poll', function (hooks) {
         '1:13 PM',
         // full date cause day changed
         'Friday, January 1, 2016 at 11:11 AM',
-      ]
+      ],
     );
     assert.notOk(
       pageParticipation.showsExpirationWarning,
-      'does not show an expiration warning if poll will not expire in next weeks'
+      'does not show an expiration warning if poll will not expire in next weeks',
     );
   });
 
@@ -148,11 +148,11 @@ module('Acceptance | view poll', function (hooks) {
       .exists('user is asked which timezone should be used');
 
     await click(
-      '[data-test-modal="choose-timezone"] [data-test-button="use-local-timezone"]'
+      '[data-test-modal="choose-timezone"] [data-test-button="use-local-timezone"]',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
@@ -163,7 +163,7 @@ module('Acceptance | view poll', function (hooks) {
           dateStyle: 'full',
           timeStyle: 'short',
         }).format(new Date('2016-01-01T11:11:00.000Z')),
-      ]
+      ],
     );
     assert
       .dom('[data-test-modal="choose-timezone"]')
@@ -177,7 +177,7 @@ module('Acceptance | view poll', function (hooks) {
           dateStyle: 'full',
           timeStyle: 'short',
         }).format(new Date('2015-12-12T11:11:00.000Z')),
-      ]
+      ],
     );
   });
 
@@ -221,11 +221,11 @@ module('Acceptance | view poll', function (hooks) {
       .exists('user is asked which timezone should be used');
 
     await click(
-      '[data-test-modal="choose-timezone"] [data-test-button="use-poll-timezone"]'
+      '[data-test-modal="choose-timezone"] [data-test-button="use-poll-timezone"]',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
@@ -238,7 +238,7 @@ module('Acceptance | view poll', function (hooks) {
           dateStyle: 'full',
           timeStyle: 'short',
         }).format(new Date('2016-01-01T11:11:00.000Z')),
-      ]
+      ],
     );
     assert
       .dom('[data-test-modal="choose-timezone"]')
@@ -253,7 +253,7 @@ module('Acceptance | view poll', function (hooks) {
           dateStyle: 'full',
           timeStyle: 'short',
         }).format(new Date('2015-12-12T11:11:00.000Z')),
-      ]
+      ],
     );
   });
 
@@ -265,12 +265,12 @@ module('Acceptance | view poll', function (hooks) {
     assert.equal(
       currentURL(),
       `/poll/${pollId}?encryptionKey=${encryptionKey}`,
-      'shows URL entered by user'
+      'shows URL entered by user',
     );
     assert.equal(
       currentRouteName(),
       'poll_error',
-      'shows error substate of poll route'
+      'shows error substate of poll route',
     );
     assert
       .dom('[data-test-error-type]')
@@ -285,12 +285,12 @@ module('Acceptance | view poll', function (hooks) {
     assert.equal(
       currentURL(),
       `/poll/${poll.id}?encryptionKey=${encryptionKey}`,
-      'shows URL entered by user'
+      'shows URL entered by user',
     );
     assert.equal(
       currentRouteName(),
       'poll_error',
-      'shows error substate of poll route'
+      'shows error substate of poll route',
     );
     assert
       .dom('[data-test-error-type]')
@@ -308,12 +308,12 @@ module('Acceptance | view poll', function (hooks) {
     assert.equal(
       currentURL(),
       `/poll/${pollId}?encryptionKey=${encryptionKey}`,
-      'shows URL entered by user'
+      'shows URL entered by user',
     );
     assert.equal(
       currentRouteName(),
       'poll_error',
-      'shows error substate of poll route'
+      'shows error substate of poll route',
     );
     assert
       .dom('[data-test-error-type]')

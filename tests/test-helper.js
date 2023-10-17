@@ -11,9 +11,9 @@ document.addEventListener(
     throw new Error(
       'Content-Security-Policy violation detected: ' +
         `Violated directive: ${violatedDirective}. ` +
-        `Blocked URI: ${blockedURI}`
+        `Blocked URI: ${blockedURI}`,
     );
-  }
+  },
 );
 
 setApplication(Application.create(config.APP));

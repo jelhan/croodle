@@ -10,7 +10,7 @@ export default class BsForm extends BaseBsForm {
 
   async validate(model) {
     const isInvalid = Object.getOwnPropertyNames(
-      Object.getPrototypeOf(model)
+      Object.getPrototypeOf(model),
     ).any((potentialValidationKey) => {
       // Validation getters must be named `propertyValidation` by our convention
       if (!potentialValidationKey.endsWith('Validation')) {

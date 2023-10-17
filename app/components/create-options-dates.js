@@ -39,7 +39,7 @@ export default class CreateOptionsDates extends Component {
     const dateAdded = newDatesAsLuxonDateTime.find((newDateAsLuxonDateTime) => {
       return !this.selectedDays.some(
         (selectedDay) =>
-          selectedDay.toISODate() === newDateAsLuxonDateTime.toISODate()
+          selectedDay.toISODate() === newDateAsLuxonDateTime.toISODate(),
       );
     });
 
@@ -48,7 +48,7 @@ export default class CreateOptionsDates extends Component {
         [
           ...this.args.options.map(({ value }) => value),
           dateAdded.toISODate(),
-        ].sort()
+        ].sort(),
       );
       return;
     }
@@ -59,7 +59,7 @@ export default class CreateOptionsDates extends Component {
     const dateRemoved = this.selectedDays.find((selectedDay) => {
       return !newDatesAsLuxonDateTime.some(
         (newDateAsLuxonDateTime) =>
-          newDateAsLuxonDateTime.toISODate() === selectedDay.toISODate()
+          newDateAsLuxonDateTime.toISODate() === selectedDay.toISODate(),
       );
     });
 
@@ -68,15 +68,15 @@ export default class CreateOptionsDates extends Component {
         this.args.options
           .filter(
             ({ value }) =>
-              DateTime.fromISO(value).toISODate() !== dateRemoved.toISODate()
+              DateTime.fromISO(value).toISODate() !== dateRemoved.toISODate(),
           )
-          .map(({ value }) => value)
+          .map(({ value }) => value),
       );
       return;
     }
 
     throw new Error(
-      'No date has been added or removed. This cannot be the case. Something spooky is going on.'
+      'No date has been added or removed. This cannot be the case. Something spooky is going on.',
     );
   }
 

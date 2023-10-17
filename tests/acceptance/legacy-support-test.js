@@ -101,7 +101,7 @@ module('Acceptance | legacy support', function (hooks) {
     assert.equal(currentRouteName(), 'poll.participation');
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
@@ -109,21 +109,21 @@ module('Acceptance | legacy support', function (hooks) {
           timeStyle: 'short',
         }).format(new Date('2015-12-24T17:00')),
         Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(
-          new Date('2015-12-24T19:00')
+          new Date('2015-12-24T19:00'),
         ),
         Intl.DateTimeFormat('en-US', {
           dateStyle: 'full',
           timeStyle: 'short',
         }).format(new Date('2015-12-31T22:59')),
-      ]
+      ],
     );
     assert.deepEqual(
       Array.from(
         find('[data-test-form-element^="option"]').querySelectorAll(
-          '.radio label'
-        )
+          '.radio label',
+        ),
       ).map((el) => el.textContent.trim()),
-      [yesLabel, maybeLabel, noLabel]
+      [yesLabel, maybeLabel, noLabel],
     );
 
     await switchTab('evaluation');
@@ -131,13 +131,13 @@ module('Acceptance | legacy support', function (hooks) {
 
     let participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Fritz Bauer'
+      'Fritz Bauer',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       [yesLabel, noLabel, noLabel],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
 
     await switchTab('participation');
@@ -148,13 +148,13 @@ module('Acceptance | legacy support', function (hooks) {
 
     participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Hermann Langbein'
+      'Hermann Langbein',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       [yesLabel, maybeLabel, yesLabel],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
   });
 
@@ -193,9 +193,9 @@ module('Acceptance | legacy support', function (hooks) {
     assert.equal(currentRouteName(), 'poll.participation');
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
-      ['apple pie', 'pecan pie', 'plum pie']
+      ['apple pie', 'pecan pie', 'plum pie'],
     );
 
     await switchTab('evaluation');
@@ -203,13 +203,13 @@ module('Acceptance | legacy support', function (hooks) {
 
     let participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Paul Levi'
+      'Paul Levi',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       ['would be great!', 'no way', 'if I had to'],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
 
     await switchTab('participation');
@@ -224,13 +224,13 @@ module('Acceptance | legacy support', function (hooks) {
 
     participant = PollEvaluationPage.participants.filterBy(
       'name',
-      'Hermann Langbein'
+      'Hermann Langbein',
     )[0];
     assert.ok(participant, 'user exists in participants table');
     assert.deepEqual(
       participant.selections.map((_) => _.answer),
       ["I don't care", 'would be awesome', "can't imagine anything better"],
-      'participants table shows correct answers for new participant'
+      'participants table shows correct answers for new participant',
     );
   });
 });

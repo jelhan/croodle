@@ -17,7 +17,7 @@ module('Integration | Mirage api mocking', function (hooks) {
     assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, poll.title)), 'foo');
     assert.equal(
       JSON.parse(sjcl.decrypt(encryptionKey, poll.description)),
-      'bar'
+      'bar',
     );
   });
 

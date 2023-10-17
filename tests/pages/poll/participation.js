@@ -18,5 +18,5 @@ export default PageObject.create(
     title: text('h2.title'),
     // use as .visit({ encryptionKey: ??? })
     visit: visitable('/poll/participation'),
-  })
+  }),
 );

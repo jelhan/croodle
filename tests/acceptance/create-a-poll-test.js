@@ -52,7 +52,7 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.type'),
-        'status bar shows correct item as current path (index)'
+        'status bar shows correct item as current path (index)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.textContent.trim()),
@@ -63,16 +63,16 @@ module('Acceptance | create a poll', function (hooks) {
         t('create.formStep.options-datetime').toString(),
         t('create.formStep.settings').toString(),
       ],
-      'status bar has correct items'
+      'status bar has correct items',
     );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, true, true, true, true],
-      'status bar has correct items disabled (index)'
+      'status bar has correct items disabled (index)',
     );
     assert.ok(
       pageCreateIndex.pollTypeHasFocus,
-      'poll type selection has autofocus'
+      'poll type selection has autofocus',
     );
 
     await pageCreateIndex.next();
@@ -81,12 +81,12 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.meta'),
-        'status bar shows correct item as current path (meta)'
+        'status bar shows correct item as current path (meta)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, true, true, true],
-      'status bar has correct items disabled (meta)'
+      'status bar has correct items disabled (meta)',
     );
     assert.ok(pageCreateMeta.titleHasFocus, 'title input has autofocus');
 
@@ -96,12 +96,12 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.options.days'),
-        'status bar shows correct item as current path (options.days)'
+        'status bar shows correct item as current path (options.days)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, true, true],
-      'status bar has correct items disabled (options)'
+      'status bar has correct items disabled (options)',
     );
 
     await pageCreateOptions.selectDates(dates);
@@ -111,16 +111,16 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.options-datetime'),
-        'status bar shows correct item as current path (options-datetime)'
+        'status bar shows correct item as current path (options-datetime)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, false, true],
-      'status bar has correct items disabled (options-datetime)'
+      'status bar has correct items disabled (options-datetime)',
     );
     assert.ok(
       pageCreateOptionsDatetime.firstTime.inputHasFocus,
-      'first time input has autofocus'
+      'first time input has autofocus',
     );
 
     await pageCreateOptionsDatetime.next();
@@ -129,16 +129,16 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.settings'),
-        'status bar shows correct item as current path (settings)'
+        'status bar shows correct item as current path (settings)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, false, false],
-      'status bar has correct items disabled (settings)'
+      'status bar has correct items disabled (settings)',
     );
     assert.ok(
       pageCreateSettings.availableAnswersHasFocus,
-      'available answers selection has autofocus'
+      'available answers selection has autofocus',
     );
 
     // simulate temporary server error
@@ -176,38 +176,38 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(currentRouteName(), 'poll.participation');
     assert.true(
       pagePollParticipation.urlIsValid(),
-      `poll url ${currentURL()} is valid`
+      `poll url ${currentURL()} is valid`,
     );
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       '',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       dates.map((date) =>
-        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(date)
+        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(date),
       ),
-      'options are correctly labeled'
+      'options are correctly labeled',
     );
     assert.deepEqual(
       Array.from(
         find('[data-test-form-element^="option"]').querySelectorAll(
-          '.radio label'
-        )
+          '.radio label',
+        ),
       ).map((el) => el.textContent.trim()),
       [
         t('answerTypes.yes.label').toString(),
         t('answerTypes.no.label').toString(),
       ],
-      'answers are correctly labeled'
+      'answers are correctly labeled',
     );
     assert.ok(pagePollParticipation.nameHasFocus, 'name input has autofocus');
   });
@@ -218,12 +218,12 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.type').toString(),
-        'status bar shows correct item as current path (index)'
+        'status bar shows correct item as current path (index)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, true, true, true, true],
-      'status bar has correct items disabled'
+      'status bar has correct items disabled',
     );
 
     await pageCreateIndex.pollType('MakeAPoll').next();
@@ -232,7 +232,7 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.meta').toString(),
-        'status bar shows correct item as current path (meta)'
+        'status bar shows correct item as current path (meta)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.textContent.trim()),
@@ -242,12 +242,12 @@ module('Acceptance | create a poll', function (hooks) {
         t('create.formStep.options.text').toString(),
         t('create.formStep.settings').toString(),
       ],
-      'status bar has correct items'
+      'status bar has correct items',
     );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, true, true],
-      'status bar has correct items disabled (meta)'
+      'status bar has correct items disabled (meta)',
     );
 
     await pageCreateMeta.title('default poll').next();
@@ -256,39 +256,39 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.options.text').toString(),
-        'status bar shows correct item as current path (options.text)'
+        'status bar shows correct item as current path (options.text)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, true],
-      'status bar has correct items disabled (options)'
+      'status bar has correct items disabled (options)',
     );
     assert.ok(
       pageCreateOptions.firstTextOption.inputHasFocus,
-      'first option input has autofocus'
+      'first option input has autofocus',
     );
     assert.equal(
       pageCreateOptions.textOptions.length,
       2,
-      'there are two input fields as default'
+      'there are two input fields as default',
     );
 
     await pageCreateOptions.next();
     assert.strictEqual(
       currentRouteName(),
       'create.options',
-      'validation errors prevents transition'
+      'validation errors prevents transition',
     );
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.options.text').toString(),
-        'status bar shows correct item as current path (options.text)'
+        'status bar shows correct item as current path (options.text)',
       );
     assert.ok(
       pageCreateOptions.textOptions.objectAt(0).hasError &&
         pageCreateOptions.textOptions.objectAt(1).hasError,
-      'validation errors are shown after submit'
+      'validation errors are shown after submit',
     );
 
     await pageCreateOptions.textOptions.objectAt(0).title('option a');
@@ -310,12 +310,12 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-form-step].is-active')
       .hasText(
         t('create.formStep.settings').toString(),
-        'status bar shows correct item as current path (settings)'
+        'status bar shows correct item as current path (settings)',
       );
     assert.deepEqual(
       findAll('[data-test-form-step]').map((el) => el.disabled),
       [false, false, false, false],
-      'status bar has correct items disabled (settings)'
+      'status bar has correct items disabled (settings)',
     );
 
     await pageCreateSettings.save();
@@ -324,19 +324,19 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       '',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       ['option a', 'option b', 'option c'],
-      'options are labeled correctly'
+      'options are labeled correctly',
     );
   });
 
@@ -362,9 +362,9 @@ module('Acceptance | create a poll', function (hooks) {
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       days.map((day) =>
-        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)
+        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day),
       ),
-      'time inputs having days as label'
+      'time inputs having days as label',
     );
 
     await pageCreateOptionsDatetime.times.objectAt(0).time('10:00');
@@ -380,16 +380,16 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       'a sample description',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
@@ -397,14 +397,14 @@ module('Acceptance | create a poll', function (hooks) {
           timeStyle: 'short',
         }).format(days[0].set({ hour: 10, minutes: 0 })),
         Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(
-          days[0].set({ hours: 18, minutes: 0 })
+          days[0].set({ hours: 18, minutes: 0 }),
         ),
         Intl.DateTimeFormat('en-US', {
           dateStyle: 'full',
           timeStyle: 'short',
         }).format(days[1].set({ hour: 12, minutes: 0 })),
       ],
-      'options are correctly labeled'
+      'options are correctly labeled',
     );
   });
 
@@ -427,7 +427,7 @@ module('Acceptance | create a poll', function (hooks) {
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
-      'time inputs having days as label'
+      'time inputs having days as label',
     );
     assert
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
@@ -446,7 +446,7 @@ module('Acceptance | create a poll', function (hooks) {
       .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
       .hasValue(
         '',
-        'deleting clears time input value if there is only one time'
+        'deleting clears time input value if there is only one time',
       );
 
     await pageCreateOptionsDatetime.times.objectAt(0).time('10:00');
@@ -456,12 +456,12 @@ module('Acceptance | create a poll', function (hooks) {
       .exists({ count: 2 }, 'user can add a second input field');
     assert
       .dom(
-        findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[1]
+        findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[1],
       )
       .hasValue('', 'newly crated second input field is empty');
     assert
       .dom(
-        findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[0]
+        findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[0],
       )
       .hasValue('10:00', 'value existing input field is not changed');
 
@@ -478,10 +478,10 @@ module('Acceptance | create a poll', function (hooks) {
       .exists({ count: 2 }, 'user can delete an input field');
     assert.deepEqual(
       findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`).map(
-        (el) => el.value
+        (el) => el.value,
       ),
       ['10:00', '18:00'],
-      'correct input field is deleted'
+      'correct input field is deleted',
     );
 
     await pageCreateOptionsDatetime.next();
@@ -493,16 +493,16 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       'a sample description',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
@@ -510,10 +510,10 @@ module('Acceptance | create a poll', function (hooks) {
           timeStyle: 'short',
         }).format(day.set({ hours: 10, minutes: 0 })),
         Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(
-          day.set({ hours: 18, minutes: 0 })
+          day.set({ hours: 18, minutes: 0 }),
         ),
       ],
-      'options are correctly labeled'
+      'options are correctly labeled',
     );
   });
 
@@ -536,7 +536,7 @@ module('Acceptance | create a poll', function (hooks) {
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
-      'time inputs having days as label'
+      'time inputs having days as label',
     );
 
     await pageCreateOptionsDatetime.next();
@@ -548,19 +548,19 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       'a sample description',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
-      'options are correctly labeled'
+      'options are correctly labeled',
     );
   });
 
@@ -583,7 +583,7 @@ module('Acceptance | create a poll', function (hooks) {
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
-      'time inputs having days as label'
+      'time inputs having days as label',
     );
 
     await pageCreateOptionsDatetime.times.objectAt(0).time('22:30');
@@ -596,16 +596,16 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       'a sample description',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
@@ -613,7 +613,7 @@ module('Acceptance | create a poll', function (hooks) {
           timeStyle: 'short',
         }).format(day.set({ hours: 22, minutes: 30 })),
       ],
-      'options are correctly labeled'
+      'options are correctly labeled',
     );
   });
 
@@ -629,7 +629,7 @@ module('Acceptance | create a poll', function (hooks) {
 
     await fillIn(
       '[data-test-form-element="title"] input[type="text"]',
-      'example poll for to test time adopting workflow'
+      'example poll for to test time adopting workflow',
     );
     await click('button[type="submit"]');
     assert.equal(currentRouteName(), 'create.options');
@@ -640,26 +640,26 @@ module('Acceptance | create a poll', function (hooks) {
 
     for (let i = 1; i <= 3; i++) {
       await click(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`
+        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`,
       );
     }
     assert
       .dom(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`
+        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`,
       )
       .exists({ count: 4 }, 'assumption: user created 4 time inputs');
 
     for (const [index, inputEl] of findAll(
-      `[data-test-day="${days[0].toISODate()}"] input[type="time"]`
+      `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
     ).entries()) {
       await fillIn(inputEl, `${(index * 6).toString().padStart(2, '0')}:00`);
     }
     assert.deepEqual(
       findAll(
-        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`
+        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
       ).map((el) => el.value),
       ['00:00', '06:00', '12:00', '18:00'],
-      'assumption: all 4 time inputs for first day are filled'
+      'assumption: all 4 time inputs for first day are filled',
     );
     assert
       .dom(`[data-test-day="${days[1].toISODate()}"] input[type="time"]`)
@@ -669,62 +669,62 @@ module('Acceptance | create a poll', function (hooks) {
     await click('button[data-test-action="adopt-times-of-first-day"]');
     assert.deepEqual(
       findAll(
-        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`
+        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`,
       ).map((el) => el.value),
       ['00:00', '06:00', '12:00', '18:00'],
-      'all 4 times from first day have been added to second day'
+      'all 4 times from first day have been added to second day',
     );
 
     await click(
       findAll(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="delete"]`
-      )[2]
+        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="delete"]`,
+      )[2],
     );
     assert.deepEqual(
       findAll(
-        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`
+        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
       ).map((el) => el.value),
       ['00:00', '06:00', '18:00'],
-      'assumption: one time has been deleted from first day'
+      'assumption: one time has been deleted from first day',
     );
 
     await click('button[data-test-action="adopt-times-of-first-day"]');
     assert.deepEqual(
       findAll(
-        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`
+        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`,
       ).map((el) => el.value),
       ['00:00', '06:00', '18:00'],
-      'second day has been updated with changed times from first day'
+      'second day has been updated with changed times from first day',
     );
 
     await fillIn(
       findAll(`[data-test-day="${days[0].toISODate()}"] input[type="time"]`)[0],
-      '03:00'
+      '03:00',
     );
     await click(
       findAll(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`
-      )[2]
+        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`,
+      )[2],
     );
     await fillIn(
       findAll(`[data-test-day="${days[0].toISODate()}"] input[type="time"]`)[3],
-      '22:00'
+      '22:00',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`
+        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
       ).map((el) => el.value),
       ['03:00', '06:00', '18:00', '22:00'],
-      'assumption: a fourth time has been added to the first day again'
+      'assumption: a fourth time has been added to the first day again',
     );
 
     await click('button[data-test-action="adopt-times-of-first-day"]');
     assert.deepEqual(
       findAll(
-        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`
+        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`,
       ).map((el) => el.value),
       ['03:00', '06:00', '18:00', '22:00'],
-      'second day has been updated with times from first day as expected'
+      'second day has been updated with times from first day as expected',
     );
 
     await click('button[type="submit"]');
@@ -734,7 +734,7 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(currentRouteName(), 'poll.participation');
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', {
@@ -752,7 +752,7 @@ module('Acceptance | create a poll', function (hooks) {
         '6:00 PM',
         '10:00 PM',
       ],
-      'options are correctly labeled'
+      'options are correctly labeled',
     );
   });
 
@@ -767,7 +767,7 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pageCreateOptions.textOptions.length,
       2,
-      'there are two input fields as default'
+      'there are two input fields as default',
     );
 
     await pageCreateOptions.textOptions.objectAt(0).title('option a');
@@ -783,19 +783,19 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       '',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       ['option a'],
-      'options are labeled correctly'
+      'options are labeled correctly',
     );
   });
 
@@ -820,9 +820,9 @@ module('Acceptance | create a poll', function (hooks) {
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       days.map((day) =>
-        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)
+        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day),
       ),
-      'time inputs having days as label'
+      'time inputs having days as label',
     );
 
     await fillIn('[data-test-day="2016-01-13"] input[type="time"]', '10:00');
@@ -834,10 +834,10 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(currentRouteName(), 'create.options');
     assert.deepEqual(
       findAll('.ember-power-calendar-day--selected').map(
-        (el) => el.dataset.date
+        (el) => el.dataset.date,
       ),
       days.map((day) => day.toISODate()),
-      'days are still present after back button is used'
+      'days are still present after back button is used',
     );
 
     await pageCreateOptions.next();
@@ -849,7 +849,7 @@ module('Acceptance | create a poll', function (hooks) {
       .dom('[data-test-day="2016-01-13"] input[type="time"]')
       .hasValue(
         '10:00',
-        'time input is prefilled with the time user entered before using back button'
+        'time input is prefilled with the time user entered before using back button',
       );
 
     await pageCreateOptionsDatetime.next();
@@ -861,16 +861,16 @@ module('Acceptance | create a poll', function (hooks) {
     assert.equal(
       pagePollParticipation.title,
       'default poll',
-      'poll title is correct'
+      'poll title is correct',
     );
     assert.equal(
       pagePollParticipation.description,
       'a sample description',
-      'poll description is correct'
+      'poll description is correct',
     );
     assert.deepEqual(
       findAll(
-        `[data-test-form-element^="option"] label:not(.custom-control-label)`
+        `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
         Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(days[0]),
@@ -879,7 +879,7 @@ module('Acceptance | create a poll', function (hooks) {
           timeStyle: 'short',
         }).format(days[1].set({ hours: 10, minutes: 0 })),
       ],
-      'options are correctly labeled'
+      'options are correctly labeled',
     );
   });
 
@@ -947,32 +947,32 @@ module('Acceptance | create a poll', function (hooks) {
       assert.strictEqual(
         currentURL(),
         '/create/meta',
-        'assumption: user can go to next step after selecting poll type'
+        'assumption: user can go to next step after selecting poll type',
       );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/meta',
-        'validation error prevents the user from going to option input before entering a title'
+        'validation error prevents the user from going to option input before entering a title',
       );
       assert
         .dom('[data-test-form-element="title"] input')
         .hasClass(
           'is-invalid',
-          'input field for poll type is shown as invalid'
+          'input field for poll type is shown as invalid',
         );
       assert
         .dom('[data-test-form-element="title"] .invalid-feedback')
         .hasText(
           t('create.meta.input.title.validations.valueMissing'),
-          'shows a validation error for missing value'
+          'shows a validation error for missing value',
         );
       assert
         .dom('[data-test-form-element="description"] textarea')
         .hasClass(
           'is-valid',
-          'textarea for entering description is shown as valid even if user has not entered a value'
+          'textarea for entering description is shown as valid even if user has not entered a value',
         );
 
       await fillIn('[data-test-form-element="title"] input', 'A');
@@ -980,96 +980,96 @@ module('Acceptance | create a poll', function (hooks) {
         .dom('[data-test-form-element="title"] input')
         .hasClass(
           'is-invalid',
-          'input field for poll type is still shown as invalid after user entered a too short title'
+          'input field for poll type is still shown as invalid after user entered a too short title',
         );
       assert
         .dom('[data-test-form-element="title"] .invalid-feedback')
         .hasText(
           t('create.meta.input.title.validations.tooShort'),
-          'validation error message is updated to reflect too short value'
+          'validation error message is updated to reflect too short value',
         );
 
       await fillIn(
         '[data-test-form-element="title"] input',
-        'When to have our next hackathon?'
+        'When to have our next hackathon?',
       );
       assert
         .dom('[data-test-form-element="title"] input')
         .hasClass(
           'is-valid',
-          'input field for poll type is shown as valid after user entered a title'
+          'input field for poll type is shown as valid after user entered a title',
         );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/options',
-        'assumption: user can go to next step after filling in poll title'
+        'assumption: user can go to next step after filling in poll title',
       );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/options',
-        'user can not skip options step without selecting at least one day'
+        'user can not skip options step without selecting at least one day',
       );
       assert
         .dom('[data-test-form-element-for="days"] .form-control')
         .hasClass(
           'is-invalid',
-          'shows calendar for date selection as invalid if user has selected no day'
+          'shows calendar for date selection as invalid if user has selected no day',
         );
       assert
         .dom('[data-test-form-element-for="days"] .invalid-feedback')
         .hasText(
           t('create.options.error.notEnoughDates'),
-          'shows validation error that at least one day needs to be selected'
+          'shows validation error that at least one day needs to be selected',
         );
 
       await calendarSelect(
         '[data-test-form-element-for="days"]',
-        day.toJSDate()
+        day.toJSDate(),
       );
       assert
         .dom('[data-test-form-element-for="days"] .form-control')
         .hasClass(
           'is-valid',
-          'shows calendar for date selection as valid after user selected a date'
+          'shows calendar for date selection as valid after user selected a date',
         );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/options-datetime',
-        'user can process to next step after selecting at least one day'
+        'user can process to next step after selecting at least one day',
       );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/settings',
-        'user can skip time input for dates without entering any time'
+        'user can skip time input for dates without entering any time',
       );
 
       await click('button[data-test-action="back"]');
       assert.strictEqual(
         currentURL(),
         '/create/options-datetime',
-        'assumption: user can go back to time input step'
+        'assumption: user can go back to time input step',
       );
 
       await click(
-        `[data-test-day="${day.toISODate()}"] button[data-test-action="add"]`
+        `[data-test-day="${day.toISODate()}"] button[data-test-action="add"]`,
       );
       assert
         .dom(`[data-test-day="${day.toISODate()}"] input[type="time"]`)
         .exists(
           { count: 2 },
-          'assumption: user can add another time for the day'
+          'assumption: user can add another time for the day',
         );
 
       for (const el of findAll(
-        `[data-test-day="${day.toISODate()}"] input[type="time"]`
+        `[data-test-day="${day.toISODate()}"] input[type="time"]`,
       )) {
         await fillIn(el, '10:00');
       }
@@ -1077,67 +1077,67 @@ module('Acceptance | create a poll', function (hooks) {
       assert.strictEqual(
         currentURL(),
         '/create/options-datetime',
-        'user can not go to next step when entering duplicated times for the same day'
+        'user can not go to next step when entering duplicated times for the same day',
       );
       assert
         .dom(
-          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[0]
+          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[0],
         )
         .hasClass('is-valid', 'first input is shown as valid');
       assert
         .dom(
-          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[1]
+          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[1],
         )
         .hasClass(
           'is-invalid',
-          'second input with same time is shown as invalid'
+          'second input with same time is shown as invalid',
         );
       assert
         .dom(`[data-test-day="${day.toISODate()}"] .invalid-feedback`)
         .exists(
           { count: 1 },
-          'assumption: only one input has invalid feedback'
+          'assumption: only one input has invalid feedback',
         );
       assert
         .dom(`[data-test-day="${day.toISODate()}"] .invalid-feedback`)
         .hasText(
           t('create.options-datetime.error.duplicatedDate'),
-          'validation error message tells that times must be unique'
+          'validation error message tells that times must be unique',
         );
 
       await fillIn(
         findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[1],
-        '12:00'
+        '12:00',
       );
       assert
         .dom(
-          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[0]
+          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[0],
         )
         .hasClass(
           'is-valid',
-          'first input is still shown as valid when user changes value of another input'
+          'first input is still shown as valid when user changes value of another input',
         );
       assert
         .dom(
-          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[1]
+          findAll(`[data-test-day="${day.toISODate()}"] input[type="time"]`)[1],
         )
         .hasClass(
           'is-valid',
-          'second input is shown as valid after user filled in another time'
+          'second input is shown as valid after user filled in another time',
         );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/settings',
-        'user can skip time input for dates without entering any time'
+        'user can skip time input for dates without entering any time',
       );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentRouteName(),
         'poll.participation',
-        'user can finish the poll creation without changing any value on settings step'
+        'user can finish the poll creation without changing any value on settings step',
       );
     });
 
@@ -1148,32 +1148,32 @@ module('Acceptance | create a poll', function (hooks) {
       assert.strictEqual(
         currentURL(),
         '/create/meta',
-        'assumption: user can go to next step after selecting poll type'
+        'assumption: user can go to next step after selecting poll type',
       );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/meta',
-        'validation error prevents the user from going to option input before entering a title'
+        'validation error prevents the user from going to option input before entering a title',
       );
       assert
         .dom('[data-test-form-element="title"] input')
         .hasClass(
           'is-invalid',
-          'input field for poll type is shown as invalid'
+          'input field for poll type is shown as invalid',
         );
       assert
         .dom('[data-test-form-element="title"] .invalid-feedback')
         .hasText(
           t('create.meta.input.title.validations.valueMissing'),
-          'shows a validation error for missing value'
+          'shows a validation error for missing value',
         );
       assert
         .dom('[data-test-form-element="description"] textarea')
         .hasClass(
           'is-valid',
-          'textarea for entering description is shown as valid even if user has not entered a value'
+          'textarea for entering description is shown as valid even if user has not entered a value',
         );
 
       await fillIn('[data-test-form-element="title"] input', 'A');
@@ -1181,44 +1181,44 @@ module('Acceptance | create a poll', function (hooks) {
         .dom('[data-test-form-element="title"] input')
         .hasClass(
           'is-invalid',
-          'input field for poll type is still shown as invalid after user entered a too short title'
+          'input field for poll type is still shown as invalid after user entered a too short title',
         );
       assert
         .dom('[data-test-form-element="title"] .invalid-feedback')
         .hasText(
           t('create.meta.input.title.validations.tooShort'),
-          'validation error message is updated to reflect too short value'
+          'validation error message is updated to reflect too short value',
         );
 
       await fillIn(
         '[data-test-form-element="title"] input',
-        'What dessert should we have?'
+        'What dessert should we have?',
       );
       assert
         .dom('[data-test-form-element="title"] input')
         .hasClass(
           'is-valid',
-          'input field for poll type is shown as valid after user entered a title'
+          'input field for poll type is shown as valid after user entered a title',
         );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/options',
-        'assumption: user can go to next step after filling in poll title'
+        'assumption: user can go to next step after filling in poll title',
       );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/options',
-        'user can not skip options step without filling out at least one option'
+        'user can not skip options step without filling out at least one option',
       );
       assert
         .dom('[data-test-form-element="option"] input[type="text"]')
         .exists(
           { count: 2 },
-          'assumption: two input fields for options exists'
+          'assumption: two input fields for options exists',
         );
       assert
         .dom('[data-test-form-element="option"][data-test-option="0"] input')
@@ -1228,92 +1228,92 @@ module('Acceptance | create a poll', function (hooks) {
         .hasClass('is-invalid', 'input field for second option is invalid');
       assert
         .dom(
-          '[data-test-form-element="option"][data-test-option="0"] .invalid-feedback'
+          '[data-test-form-element="option"][data-test-option="0"] .invalid-feedback',
         )
         .hasText(
           t('create.options.error.valueMissing'),
-          'shown value missing validation error for first input'
+          'shown value missing validation error for first input',
         );
       assert
         .dom(
-          '[data-test-form-element="option"][data-test-option="1"] .invalid-feedback'
+          '[data-test-form-element="option"][data-test-option="1"] .invalid-feedback',
         )
         .hasText(
           t('create.options.error.valueMissing'),
-          'shown value missing validation error for first input'
+          'shown value missing validation error for first input',
         );
 
       await fillIn(
         '[data-test-form-element="option"][data-test-option="0"] input',
-        'Cheesecake'
+        'Cheesecake',
       );
       assert
         .dom('[data-test-form-element="option"][data-test-option="0"] input')
         .hasClass(
           'is-valid',
-          'input field for first option is valid after user entered a label'
+          'input field for first option is valid after user entered a label',
         );
       assert
         .dom('[data-test-form-element="option"][data-test-option="1"] input')
         .hasClass(
           'is-invalid',
-          'input field for second option is still invalid'
+          'input field for second option is still invalid',
         );
 
       await fillIn(
         '[data-test-form-element="option"][data-test-option="1"] input',
-        'Cheesecake'
+        'Cheesecake',
       );
       assert
         .dom('[data-test-form-element="option"][data-test-option="0"] input')
         .hasClass(
           'is-valid',
-          'input field for first option is valid after user entered a value'
+          'input field for first option is valid after user entered a value',
         );
       assert
         .dom('[data-test-form-element="option"][data-test-option="1"] input')
         .hasClass(
           'is-invalid',
-          'input field for second option is still invalid if entering duplicated error'
+          'input field for second option is still invalid if entering duplicated error',
         );
       assert
         .dom(
-          '[data-test-form-element="option"][data-test-option="1"] .invalid-feedback'
+          '[data-test-form-element="option"][data-test-option="1"] .invalid-feedback',
         )
         .hasText(
           t('create.options.error.duplicatedOption'),
-          'validation error message is updated to duplicated label'
+          'validation error message is updated to duplicated label',
         );
 
       await fillIn(
         '[data-test-form-element="option"][data-test-option="1"] input',
-        'Muffin'
+        'Muffin',
       );
       assert
         .dom('[data-test-form-element="option"][data-test-option="0"] input')
         .hasClass(
           'is-valid',
-          'input field for first option is valid after user entered a value'
+          'input field for first option is valid after user entered a value',
         );
       assert
         .dom('[data-test-form-element="option"][data-test-option="1"] input')
         .hasClass(
           'is-valid',
-          'input field for second option is valid after filling in a unique value'
+          'input field for second option is valid after filling in a unique value',
         );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentURL(),
         '/create/settings',
-        'user can move to next step after entering valid values for the options'
+        'user can move to next step after entering valid values for the options',
       );
 
       await click('button[type="submit"]');
       assert.strictEqual(
         currentRouteName(),
         'poll.participation',
-        'user can finish the poll creation without changing any value on settings step'
+        'user can finish the poll creation without changing any value on settings step',
       );
     });
   });

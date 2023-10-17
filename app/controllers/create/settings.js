@@ -100,7 +100,7 @@ export default class CreateSettings extends Controller {
     ) {
       this.set(
         'model.timezone',
-        Intl.DateTimeFormat().resolvedOptions().timeZone
+        Intl.DateTimeFormat().resolvedOptions().timeZone,
       );
     }
 
