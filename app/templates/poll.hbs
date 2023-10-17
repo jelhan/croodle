@@ -56,9 +56,9 @@
               <code class="cr-poll-link__url">{{this.pollUrl}}</code>
             </small>
             <CopyButton
-              @clipboardText={{this.pollUrl}}
-              @error={{action "linkAction" "selected"}}
-              @success={{action "linkAction" "copied"}}
+              @text={{this.pollUrl}}
+              @onError={{fn this.linkAction "selected"}}
+              @onSuccess={{fn this.linkAction "copied"}}
               class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
             >
               {{t "poll.link.copy-label"}}&nbsp;
