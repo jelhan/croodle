@@ -38,7 +38,7 @@ jobs:
           node-version: 18
           cache: npm
       - name: Install node modules
-        run: npm run install
+        run: npm ci
       - name: Run tests
         run: npm run test:bundlesize
 
@@ -52,7 +52,7 @@ jobs:
           node-version: 18
           cache: npm
       - name: Install node modules
-        run: npm run install
+        run: npm ci
       - name: Run tests
         run: npm run test:csp-header
 
@@ -66,7 +66,7 @@ jobs:
           node-version: 18
           cache: npm
       - name: Install node modules
-        run: npm run install
+        run: npm ci
       - name: Install chrome browser
         run: |
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -88,7 +88,7 @@ jobs:
           node-version: 18
           cache: npm
       - name: Install node modules
-        run: npm run install
+        run: npm ci
       - name: Setup firefox
         uses: browser-actions/setup-firefox@latest
         with:
@@ -110,7 +110,7 @@ jobs:
           node-version: 18
           cache: npm
       - name: Install node modules
-        run: npm run install
+        run: npm ci
       - name: Build with test environment
         env:
           CI: true
