@@ -17,11 +17,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: yarn
+          cache: npm
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
   test-bundlesize:
     name: test bundlesize
@@ -36,11 +36,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: yarn
+          cache: npm
       - name: Install node modules
-        run: yarn install
+        run: npm ci
       - name: Run tests
-        run: yarn test:bundlesize
+        run: npm run test:bundlesize
 
   test-csp-header:
     name: test CSP in .htaccess
@@ -50,11 +50,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: yarn
+          cache: npm
       - name: Install node modules
-        run: yarn install
+        run: npm ci
       - name: Run tests
-        run: yarn test:csp-header
+        run: npm run test:csp-header
 
   test-chrome:
     name: test against Chrome
@@ -64,9 +64,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: yarn
+          cache: npm
       - name: Install node modules
-        run: yarn install
+        run: npm ci
       - name: Install chrome browser
         run: |
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -74,9 +74,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: yarn build --environment test
+        run: npm run build --environment test
       - name: run tests in chrome
-        run: yarn test:ember --launch Chrome --path dist
+        run: npm run test:ember --launch Chrome --path dist
 
   test-firefox:
     name: test against Firefox
@@ -86,9 +86,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: yarn
+          cache: npm
       - name: Install node modules
-        run: yarn install
+        run: npm ci
       - name: Setup firefox
         uses: browser-actions/setup-firefox@latest
         with:
@@ -96,9 +96,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: yarn build --environment test
+        run: npm run build --environment test
       - name: run tests in firefox
-        run: yarn test:ember --launch Firefox --path dist
+        run: npm run test:ember --launch Firefox --path dist
 
   test-browserstack:
     name: test against additional browser in BrowserStack
@@ -108,13 +108,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: yarn
+          cache: npm
       - name: Install node modules
-        run: yarn install
+        run: npm ci
       - name: Build with test environment
         env:
           CI: true
-        run: yarn build --environment test
+        run: npm run build --environment test
       - name: 'BrowserStack Env Setup'
         uses: 'browserstack/github-actions/setup-env@master'
         with:
@@ -127,7 +127,7 @@ jobs:
           local-logging-level: 'all-logs'
           local-identifier: 'random'
       - name: 'Running test on BrowserStack'
-        run: yarn test:ember --config-file testem.browserstack.js --path dist
+        run: npm run test:ember --config-file testem.browserstack.js --path dist
       - name: 'BrowserStackLocal Stop'
         uses: browserstack/github-actions/setup-local@master
         with:
