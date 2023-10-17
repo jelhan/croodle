@@ -34,7 +34,7 @@
       </ul>
     {{else}}
       <PollEvaluationSummaryOption
-        @evaluationBestOption={{this.bestOptions.firstObject}}
+        @evaluationBestOption={{get this.bestOptions 0}}
         @isFindADate={{@poll.isFindADate}}
         @timeZone={{@timeZone}}
       />
