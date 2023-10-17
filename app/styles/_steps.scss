@@ -2,7 +2,6 @@ $steps-border-width: 5px;
 
 .cr-steps-top-nav {
   margin-bottom: map-get($spacers, 5);
-
   flex-direction: column;
   width: 100%;
 
@@ -25,14 +24,18 @@ $steps-border-width: 5px;
       border-left: 0;
       border-right: 0;
     }
+
     &:not(:disabled) {
       border-left-color: gray("300");
+
       @include media-breakpoint-up(md) {
         border-bottom: $steps-border-width solid gray("300");
       }
     }
+
     &.is-active {
       border-left-color: theme-color-level("primary", 2);
+
       @include media-breakpoint-up(md) {
         border-bottom: $steps-border-width solid theme-color-level("primary", 2);
       }
@@ -44,6 +47,7 @@ $bottom-nav-height: 5.5em;
 
 .cr-form-wrapper {
   padding-bottom: $bottom-nav-height;
+
   @include media-breakpoint-up(md) {
     padding-bottom: 0;
   }
@@ -78,19 +82,23 @@ $bottom-nav-height: 5.5em;
     display: flex;
     flex-direction: row;
     align-items: center;
+
     @include media-breakpoint-up(md) {
       width: auto;
     }
   }
+
   &__prev-button .cr-steps-bottom-nav__label {
     margin-left: map-get($spacers, 3);
   }
+
   &__next-button .cr-steps-bottom-nav__label {
     margin-right: map-get($spacers, 3);
   }
 
   &__next-button {
     justify-content: flex-end;
+
     @include media-breakpoint-up(md) {
       justify-content: normal;
     }

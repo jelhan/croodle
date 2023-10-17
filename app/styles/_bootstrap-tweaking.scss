@@ -19,6 +19,7 @@
   border: $custom-select-border-width solid gray("500");
 }
 
-h3, .h3 {
+h3,
+.h3 {
   margin-top: map-get($spacers, 5);
 }

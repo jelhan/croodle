@@ -7,13 +7,14 @@
     table {
       overflow: scroll;
 
-      th, td {
+      th,
+      td {
         white-space: nowrap;
       }
 
       thead {
         // position sticky on thead is not supported by Chrome and Edge
-        position: -webkit-sticky;
+        position: sticky;
         position: sticky;
         top: 0;
         z-index: 100;
@@ -33,7 +34,7 @@
           th,
           td {
             &:first-child {
-              position: -webkit-sticky;
+              position: sticky;
               position: sticky;
               left: 0;
               z-index: 200;
