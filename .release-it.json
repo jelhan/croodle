@@ -14,5 +14,8 @@
   },
   "npm": {
     "publish": false
+  },
+  "plugins": {
+    "@release-it-plugins/lerna-changelog": {}
   }
 }
