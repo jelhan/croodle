@@ -12,7 +12,7 @@ module.exports = function (environment) {
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
       },
       EXTEND_PROTOTYPES: {
-        Array: true,
+        Array: false,
         Date: false,
         String: false,
         Function: true,
