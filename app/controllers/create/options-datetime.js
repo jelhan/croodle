@@ -21,7 +21,7 @@ export default class CreateOptionsDatetimeController extends Controller {
   updateOptions(options) {
     this.model.options = options
       .map(({ day, time }) =>
-        time ? DateTime.fromISO(`${day}T${time}`).toISO() : day
+        time ? DateTime.fromISO(`${day}T${time}`).toISO() : day,
       )
       .sort()
       .map((isoString) => {

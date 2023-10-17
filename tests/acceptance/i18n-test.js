@@ -14,7 +14,7 @@ module('Acceptance | i18n', function (hooks) {
     assert.equal(
       find('.language-select').value,
       'de',
-      'picks up locale in locale storage'
+      'picks up locale in locale storage',
     );
 
     await fillIn('.language-select', 'en');
@@ -22,7 +22,7 @@ module('Acceptance | i18n', function (hooks) {
     assert.equal(
       window.localStorage.getItem('locale'),
       'en',
-      'persisted in localeStorage'
+      'persisted in localeStorage',
     );
   });
 });

@@ -30,7 +30,7 @@ module('Acceptance | view evaluation', function (hooks) {
     assert.equal(
       findAll('.tab-content .tab-pane .evaluation-summary').length,
       0,
-      'evaluation summary is not present'
+      'evaluation summary is not present',
     );
   });
 
@@ -102,77 +102,77 @@ module('Acceptance | view evaluation', function (hooks) {
     assert.equal(
       findAll('.tab-content .tab-pane .evaluation-summary').length,
       1,
-      'evaluation summary is present'
+      'evaluation summary is present',
     );
     assert.equal(
       find('.participants').textContent.trim(),
       t('poll.evaluation.participants', { count: 2 }).toString(),
-      'shows number of participants'
+      'shows number of participants',
     );
     assert.equal(
       find('.best-options strong').textContent.trim(),
       'Friday, January 1, 2016',
-      'shows option most participants replied with yes to as best option'
+      'shows option most participants replied with yes to as best option',
     );
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
         ago: '3 months ago',
       }).toString(),
-      'shows last participation date'
+      'shows last participation date',
     );
 
     assert.deepEqual(
       findAll('table thead tr th').map((el) => el.textContent.trim()),
       ['', 'Saturday, December 12, 2015', 'Friday, January 1, 2016'],
-      'lists dates as table header of parcipants table'
+      'lists dates as table header of parcipants table',
     );
 
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="name"]')
       .hasText(
         'Maximilian',
-        'shows expected name of first participant in participants table'
+        'shows expected name of first participant in participants table',
       );
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="name"]')
       .hasText(
         'Peter',
-        'shows expected name of second participant in participants table'
+        'shows expected name of second participant in participants table',
       );
 
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="2015-12-12"]')
       .hasText(
         'Yes',
-        'shows expected selection for first option of first participant'
+        'shows expected selection for first option of first participant',
       );
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="2016-01-01"]')
       .hasText(
         'Yes',
-        'shows expected selection for second option of first participant'
+        'shows expected selection for second option of first participant',
       );
 
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="2015-12-12"]')
       .hasText(
         'No',
-        'shows expected selection for first option of second participant'
+        'shows expected selection for first option of second participant',
       );
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="2016-01-01"]')
       .hasText(
         'Yes',
-        'shows expected selection for second option of second participant'
+        'shows expected selection for second option of second participant',
       );
 
     assert.deepEqual(
       findAll('[data-test-participant] [data-test-value-for="name"]').map(
-        (el) => el.textContent.trim()
+        (el) => el.textContent.trim(),
       ),
       ['Maximilian', 'Peter'],
-      'Participants are ordered as correctly in participants table'
+      'Participants are ordered as correctly in participants table',
     );
   });
 
@@ -260,122 +260,122 @@ module('Acceptance | view evaluation', function (hooks) {
     assert.equal(
       findAll('.tab-content .tab-pane .evaluation-summary').length,
       1,
-      'evaluation summary is present'
+      'evaluation summary is present',
     );
     assert.equal(
       find('.participants').textContent.trim(),
       t('poll.evaluation.participants', { count: 2 }).toString(),
-      'shows number of participants'
+      'shows number of participants',
     );
     assert.equal(
       find('.best-options strong').textContent.trim(),
       'Saturday, December 12, 2015 at 12:12 PM',
-      'shows option most participants replied with yes to as best option'
+      'shows option most participants replied with yes to as best option',
     );
     assert.equal(
       find('.last-participation').textContent.trim(),
       t('poll.evaluation.lastParticipation', {
         ago: '3 months ago',
       }).toString(),
-      'shows last participation date'
+      'shows last participation date',
     );
 
     assert.deepEqual(
       findAll('table thead tr:first-child th').map((el) =>
-        el.textContent.trim()
+        el.textContent.trim(),
       ),
       ['', 'Saturday, December 12, 2015', 'Friday, January 1, 2016'],
-      'lists days as first row in table header of parcipants table'
+      'lists days as first row in table header of parcipants table',
     );
     assert.deepEqual(
       findAll('table thead tr:last-child th').map((el) =>
-        el.textContent.trim()
+        el.textContent.trim(),
       ),
       ['', '6:06 AM', '12:12 PM', '6:18 PM'],
-      'lists times as second row in table header of parcipants table'
+      'lists times as second row in table header of parcipants table',
     );
 
     assert
       .dom('[data-test-participant="1-1"] [data-test-value-for="name"]')
       .hasText(
         'Maximilian',
-        'shows expected name of first participant in participants table'
+        'shows expected name of first participant in participants table',
       );
     assert
       .dom('[data-test-participant="1-2"] [data-test-value-for="name"]')
       .hasText(
         'Peter',
-        'shows expected name of second participant in participants table'
+        'shows expected name of second participant in participants table',
       );
 
     assert
       .dom(
         `[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO(
-          '2015-12-12T06:06'
-        ).toISO()}"]`
+          '2015-12-12T06:06',
+        ).toISO()}"]`,
       )
       .hasText(
         'Yes',
-        'shows expected selection for first option of first participant'
+        'shows expected selection for first option of first participant',
       );
     assert
       .dom(
         `[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO(
-          '2015-12-12T12:12'
-        ).toISO()}"]`
+          '2015-12-12T12:12',
+        ).toISO()}"]`,
       )
       .hasText(
         'Yes',
-        'shows expected selection for second option of first participant'
+        'shows expected selection for second option of first participant',
       );
     assert
       .dom(
         `[data-test-participant="1-1"] [data-test-value-for="${DateTime.fromISO(
-          '2016-01-01T18:18'
-        ).toISO()}"]`
+          '2016-01-01T18:18',
+        ).toISO()}"]`,
       )
       .hasText(
         'No',
-        'shows expected selection for third option of first participant'
+        'shows expected selection for third option of first participant',
       );
 
     assert
       .dom(
         `[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO(
-          '2015-12-12T06:06'
-        ).toISO()}"]`
+          '2015-12-12T06:06',
+        ).toISO()}"]`,
       )
       .hasText(
         'No',
-        'shows expected selection for first option of second participant'
+        'shows expected selection for first option of second participant',
       );
     assert
       .dom(
         `[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO(
-          '2015-12-12T12:12'
-        ).toISO()}"]`
+          '2015-12-12T12:12',
+        ).toISO()}"]`,
       )
       .hasText(
         'Yes',
-        'shows expected selection for second option of second participant'
+        'shows expected selection for second option of second participant',
       );
     assert
       .dom(
         `[data-test-participant="1-2"] [data-test-value-for="${DateTime.fromISO(
-          '2016-01-01T18:18'
-        ).toISO()}"]`
+          '2016-01-01T18:18',
+        ).toISO()}"]`,
       )
       .hasText(
         'Yes',
-        'shows expected selection for third option of second participant'
+        'shows expected selection for third option of second participant',
       );
 
     assert.deepEqual(
       findAll('[data-test-participant] [data-test-value-for="name"]').map(
-        (el) => el.textContent.trim()
+        (el) => el.textContent.trim(),
       ),
       ['Maximilian', 'Peter'],
-      'Participants are ordered as correctly in participants table'
+      'Participants are ordered as correctly in participants table',
     );
   });
 
@@ -444,7 +444,7 @@ module('Acceptance | view evaluation', function (hooks) {
       'poll',
       assign(pollData, {
         users: usersData.map((_) => this.server.create('user', _)),
-      })
+      }),
     );
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
@@ -452,38 +452,38 @@ module('Acceptance | view evaluation', function (hooks) {
     assert.equal(
       findAll('.tab-content .tab-pane .evaluation-summary').length,
       1,
-      'evaluation summary is present'
+      'evaluation summary is present',
     );
     assert.equal(
       find('.participants').textContent.trim(),
       t('poll.evaluation.participants', { count: 2 }).toString(),
-      'participants are counted correctly'
+      'participants are counted correctly',
     );
     assert.equal(
       find('.best-options strong').textContent.trim(),
       'second option',
-      'options are evaluated correctly'
+      'options are evaluated correctly',
     );
 
     assert.deepEqual(
       PollEvaluationPage.options.map((_) => _.label),
       ['first option', 'second option'],
-      'dates are used as table headers'
+      'dates are used as table headers',
     );
     assert.deepEqual(
       PollEvaluationPage.participants.map((_) => _.name),
       usersData.map((_) => _.name),
-      'users are listed in participants table with their names'
+      'users are listed in participants table with their names',
     );
     usersData.forEach((user) => {
       let participant = PollEvaluationPage.participants.filterBy(
         'name',
-        user.name
+        user.name,
       )[0];
       assert.deepEqual(
         participant.selections.map((_) => _.answer),
         user.selections.map((_) => t(_.labelTranslation).toString()),
-        `answers are shown for user ${user.name} in participants table`
+        `answers are shown for user ${user.name} in participants table`,
       );
     });
 
@@ -492,7 +492,7 @@ module('Acceptance | view evaluation', function (hooks) {
       t('poll.evaluation.lastParticipation', {
         ago: '3 days ago',
       }).toString(),
-      'last participation is evaluated correctly'
+      'last participation is evaluated correctly',
     );
   });
 
@@ -565,7 +565,7 @@ module('Acceptance | view evaluation', function (hooks) {
     assert.equal(
       find('.tab-pane h2').textContent.trim(),
       t('poll.evaluation.label').toString(),
-      'headline is there'
+      'headline is there',
     );
   });
 });

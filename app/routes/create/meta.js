@@ -11,7 +11,7 @@ class FormData {
 
     if (!title) {
       return new IntlMessage(
-        'create.meta.input.title.validations.valueMissing'
+        'create.meta.input.title.validations.valueMissing',
       );
     }
 

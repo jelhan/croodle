@@ -13,7 +13,7 @@ export default function (propertiesToEncrypt, model) {
   assert('first argument must be an array', isArray(propertiesToEncrypt));
   assert(
     "model must have an encryptionKey property which isn't empty",
-    isPresent(model.encryptionKey)
+    isPresent(model.encryptionKey),
   );
 
   let passphrase = model.encryptionKey;

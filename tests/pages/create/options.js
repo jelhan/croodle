@@ -25,8 +25,8 @@ function selectDates(selector) {
           dateOrDateTimes.every(
             (dateOrDateTime) =>
               dateOrDateTime instanceof Date ||
-              DateTime.isDateTime(dateOrDateTime)
-          )
+              DateTime.isDateTime(dateOrDateTime),
+          ),
       );
 
       for (let i = 0; i < dateOrDateTimes.length; i++) {
@@ -57,5 +57,5 @@ export default create(
 
       inputHasFocus: hasFocus('input'),
     },
-  })
+  }),
 );

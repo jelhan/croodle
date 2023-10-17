@@ -12,7 +12,7 @@ export default {
 
     intl.set(
       'locale',
-      locale.includes('-') ? [locale, locale.split('-')[0]] : [locale]
+      locale.includes('-') ? [locale, locale.split('-')[0]] : [locale],
     );
     powerCalendar.set('local', locale);
   },

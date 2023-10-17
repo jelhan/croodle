@@ -28,11 +28,11 @@ export function scrollFirstInvalidElementIntoViewPort() {
   // delaying to next runloop therefore
   next(function () {
     let invalidInput = document.querySelector(
-      '.form-control.is-invalid, .custom-control-input.is-invalid'
+      '.form-control.is-invalid, .custom-control-input.is-invalid',
     );
     assert(
       'Atleast one form control must be marked as invalid if form submission was rejected as invalid',
-      invalidInput
+      invalidInput,
     );
 
     // focus first invalid control
@@ -50,8 +50,8 @@ export function scrollFirstInvalidElementIntoViewPort() {
         document.querySelector(
           `label[for="${invalidInput.id.substr(
             0,
-            invalidInput.id.indexOf('_')
-          )}"`
+            invalidInput.id.indexOf('_'),
+          )}"`,
         ) ||
         document.querySelector(`label[for="${invalidInput.id}"]`) ||
         // For polls with type `MakeAPoll` the option inputs do not have a label at all. In that case

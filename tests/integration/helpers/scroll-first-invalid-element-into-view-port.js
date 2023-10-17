@@ -16,5 +16,5 @@ module(
 
       assert.equal(this.element.textContent.trim(), '1234');
     });
-  }
+  },
 );

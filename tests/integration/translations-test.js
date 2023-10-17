@@ -11,7 +11,7 @@ module('Integration | translations', function (hooks) {
     intl.locales.forEach((locale) => {
       assert.ok(
         Object.keys(localesMeta).includes(locale),
-        `locales meta data is present for ${locale}`
+        `locales meta data is present for ${locale}`,
       );
     });
   });

@@ -25,7 +25,7 @@ export default class CreateOptionsController extends Controller {
   @action
   updateOptions(newOptions) {
     this.model.options = newOptions.map(({ value }) =>
-      this.store.createFragment('option', { title: value })
+      this.store.createFragment('option', { title: value }),
     );
   }
 }
