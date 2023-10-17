@@ -8,5 +8,5 @@
   "ignorePaths": [
     "lib/**"
   ],
-  "postUpdateOptions": ["yarnDedupeHighest"]
+  "postUpdateOptions": ["npmDedupe"]
 }

@@ -115,9 +115,6 @@
       "lib/inject-app-version-in-meta-tag"
     ]
   },
-  "resolutions": {
-    "ember-get-config": "2.1.1"
-  },
   "changelog": {
     "labels": {
       "breaking": ":boom: Breaking Change",

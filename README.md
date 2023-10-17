@@ -8,15 +8,7 @@ Croodle is an end-to-end encrypted web application to schedule a date or to do a
 
 This is an alpha version. Changes could brake backward compatibility. It is also not well tested and some features are missing. It is not meant for productive use yet.
 
-<<<<<<< HEAD
 Croodle is inspired by [PrivateBin](https://github.com/PrivateBin/PrivateBin) and, of course, by Doodle.
-=======
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/)
-* [Yarn](https://yarnpkg.com/)
-* [Ember CLI](https://cli.emberjs.com/release/)
-* [Google Chrome](https://google.com/chrome/)
->>>>>>> e9ac386 (v3.28.6...v4.4.1)
 
 ## Security notice
 
@@ -39,14 +31,14 @@ Due to security reasons you should have TLS encryption enabled and provide a val
 
 Production builds are provided as github [release assets](https://github.com/jelhan/croodle/releases).
 
-If you like to build yourself you have to install [node](https://nodejs.org/), [yarn](https://yarnpkg.com/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before. It's recommended using [volta](https://volta.sh/) to ensure a compatible and tested node version is used.
+If you like to build yourself you have to install [node](https://nodejs.org/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before. It's recommended using [volta](https://volta.sh/) to ensure a compatible and tested node version is used.
 
 ```shell
 git clone git@github.com:jelhan/croodle.git
 cd croodle
-yarn install
+npm install
 cd api/ && composer install --no-dev && cd ..
-yarn build --prod
+npm run build
 ```
 
 Afterwards copy all files in `/dist` folder to your werbserver.

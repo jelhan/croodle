@@ -32,14 +32,14 @@ Once the prep work is completed, the actual release is straight forward:
 * First ensure that you have installed the project dependencies:
   
   ```sh
-  yarn install
+  npm ci
   ```
 
 * Second, do your release:
 
   ```sh
   export GITHUB_AUTH="github-personal-access-token"
-  yarn release
+  npm run release
   ```
 
 [release-it](https://github.com/release-it/release-it/) manages the actual
