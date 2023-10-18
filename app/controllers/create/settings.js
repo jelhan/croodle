@@ -94,7 +94,7 @@ export default class CreateSettings extends Controller {
     // set timezone if there is atleast one option with time
     if (
       poll.isFindADate &&
-      poll.options.any((option) => {
+      poll.options.toArray().some((option) => {
         return option.hasTime;
       })
     ) {

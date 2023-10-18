@@ -71,9 +71,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     assert.equal(currentRouteName(), 'poll.participation');
     assert.equal(find('.name input').value, '', 'input for name is cleared');
     assert.notOk(
-      findAll('input[type="radio"]')
-        .toArray()
-        .some((el) => el.checked),
+      findAll('input[type="radio"]').some((el) => el.checked),
       'radios are cleared',
     );
 

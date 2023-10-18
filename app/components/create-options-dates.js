@@ -12,10 +12,14 @@ export default class CreateOptionsDates extends Component {
     // Options may contain the same date multiple times with different ime
     // Must filter out those duplicates as otherwise unselect would only
     // remove one entry but not all duplicates.
-    return this.args.options
-      .map(({ value }) => DateTime.fromISO(value).toISODate())
-      .uniq()
-      .map((isoDate) => DateTime.fromISO(isoDate));
+    return Array.from(
+      // using Set to remove duplicate values
+      new Set(
+        this.args.options.map(({ value }) =>
+          DateTime.fromISO(value).toISODate(),
+        ),
+      ),
+    ).map((isoDate) => DateTime.fromISO(isoDate));
   }
 
   get calendarCenterNext() {

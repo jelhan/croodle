@@ -7,6 +7,6 @@ export default class PollErrorController extends Controller {
   }
 
   get notFound() {
-    return this.model.errors.firstObject.status === '404';
+    return this.model.errors[0].status === '404';
   }
 }
