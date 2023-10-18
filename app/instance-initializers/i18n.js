@@ -19,34 +19,27 @@ export default {
 };
 
 function getLocale(availableLocales) {
-  let methods = [getSavedLocale, getLocaleByBrowser];
-  let locale;
-
-  methods.any((method) => {
-    let preferredLocales = method();
-    let match;
+  for (const method of [getSavedLocale, getLocaleByBrowser]) {
+    const preferredLocales = method();
 
     if (isEmpty(preferredLocales)) {
-      return false;
+      continue;
     }
 
-    match = preferredLocales.find((preferredLocale) => {
-      return availableLocales.indexOf(preferredLocale) !== -1;
-    });
+    const supportedPreferredLocale = preferredLocales.find(
+      (preferredLocale) => {
+        return availableLocales.indexOf(preferredLocale) !== -1;
+      },
+    );
 
-    if (isEmpty(match)) {
-      return false;
+    if (isEmpty(supportedPreferredLocale)) {
+      continue;
     }
 
-    locale = match;
-    return true;
-  });
-
-  if (locale) {
-    return locale;
-  } else {
-    return 'en';
+    return supportedPreferredLocale;
   }
+
+  return 'en';
 }
 
 function getLocaleByBrowser() {

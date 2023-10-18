@@ -51,7 +51,7 @@ class FormData {
       return new IntlMessage('create.options.error.notEnoughDates');
     }
 
-    if (options.any((option) => !option.isValid)) {
+    if (options.some((option) => !option.isValid)) {
       return new IntlMessage('create.options.error.invalidOption');
     }
 

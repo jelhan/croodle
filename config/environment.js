@@ -8,7 +8,7 @@ module.exports = function (environment) {
     locationType: 'hash',
     EmberENV: {
       EXTEND_PROTOTYPES: {
-        Array: true,
+        Array: false,
         Date: false,
         String: false,
         Function: true,

@@ -73,7 +73,7 @@ export default class Poll extends Model {
       return false;
     }
 
-    return this.options.any((option) => {
+    return this.options.toArray().some((option) => {
       let dayStringLength = 10; // 'YYYY-MM-DD'.length
       return option.title.length > dayStringLength;
     });

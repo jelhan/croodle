@@ -35,7 +35,7 @@ class FormDataOption {
     const optionsForThisDay = formData.optionsGroupedByDay[day];
     const isDuplicate = optionsForThisDay
       .slice(0, optionsForThisDay.indexOf(this))
-      .any((option) => option.time == this.time);
+      .some((option) => option.time == this.time);
     if (isDuplicate) {
       return new IntlMessage('create.options-datetime.error.duplicatedDate');
     }
