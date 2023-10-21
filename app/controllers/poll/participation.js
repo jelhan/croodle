@@ -32,7 +32,7 @@ export default class PollParticipationController extends Controller {
       }
 
       // map selection to answer if it's not freetext
-      let answer = answers.findBy('type', value);
+      let answer = answers.find(({ type }) => type === value);
       let { icon, label, labelTranslation, type } = answer;
 
       return {

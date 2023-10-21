@@ -18,7 +18,7 @@
       <select
         id={{el.id}}
         class="custom-select"
-        {{on "change" (action "updateAnswerType" value="target.value")}}
+        {{on "change" (action el.setValue value="target.value")}}
         {{autofocus}}
       >
         {{#each this.answerTypes as |answerType|}}

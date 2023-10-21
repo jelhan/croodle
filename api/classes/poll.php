@@ -6,7 +6,6 @@ require_once 'user.php';
 class Poll extends model {
   const ENCRYPTED_PROPERTIES = [
     'anonymousUser',
-    'answers',
     'answerType',
     'creationDate',
     'description',
