@@ -53,8 +53,9 @@ create:
     error:
       duplicatedOption: "An option with this label already exists."
       invalidOption: "All options must be valid."
-      notEnoughDates: "Devi selezionare almeno un giorno"
-      valueMissing: "Every option must have a label. Please delete it if the option is not needed."
+      notEnoughDates: "Devi selezionare almeno un giorno."
+      valueMissing: "Every option must have a label. Please delete it if the
+        option is not needed."
     defineTimes:
       label: "Specificare l'orario?"
     input:
@@ -73,7 +74,8 @@ create:
       notEnoughTimes: "Devi indicare almeno un orario valido per ciascun giorno.
         Se hai impostato un solo giorno, devi indicare un minimo di due orari
         validi."
-      partiallyFilledTime: "Please enter a valid time with hours and minutes. Partially filled inputs are not supported."
+      partiallyFilledTime: "Please enter a valid time with hours and minutes.
+        Partially filled inputs are not supported."
     fix-validation-errors-first-day:
       "Devi risolvere tutti gli errori di convalida
       nel primo giorno prima della copia."
@@ -169,7 +171,8 @@ poll:
     newUser:
       everyOptionIsAnswered: "Per favore, rispondi a tutte le opzioni."
     name:
-      duplicate: "Someone else already participated with this name. Please use an unqiue name."
+      duplicate: "Someone else already participated with this name. Please use
+        an unqiue name."
       valueMissing: "Devi inserire un nuovo nome utente."
     selection:
       valueMissing: "Please provide an answer for this option."
