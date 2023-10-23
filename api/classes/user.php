@@ -9,7 +9,7 @@ class User extends Model {
     'name',
     'selections'
   ];
-  
+
   const PLAIN_PROPERTIES = [
     'poll',
     'version'
@@ -17,15 +17,15 @@ class User extends Model {
 
   protected function generateNewId() {
     $userDir = $this->getDir();
-    
+
     // check if user folder exists
     if (!file_exists($userDir)) {
       return $this->get('poll') . '_0';
     }
-    
+
     // get all files in user folder
     $files = scandir($userDir);
-    
+
     // get highest existing id
     $highestId = 0;
     foreach ($files as $f) {
@@ -50,9 +50,9 @@ class User extends Model {
     }
 
     if (!Poll::isValidId($pollId)) {
-      throw new Exception('cound not get a valid id when getPollDir was called');
+      throw new Exception('Could not get a valid id when getPollDir was called');
     }
-    
+
     return DATA_FOLDER . $pollId . '/';
   }
 
@@ -69,7 +69,7 @@ class User extends Model {
 
   public static function isValidId($id) {
     $parts = explode('_', $id);
-    
+
     return count($parts) === 2 &&
            Poll::isValidId($parts[0]) &&
            intval($parts[1]) == $parts[1];

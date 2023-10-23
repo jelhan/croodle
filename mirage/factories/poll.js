@@ -4,20 +4,6 @@ import encrypt from '../utils/encrypt';
 
 export default Factory.extend({
   anonymousUser: false,
-  answers: [
-    {
-      type: 'yes',
-      labelTranslation: 'answerTypes.yes.label',
-      icon: 'glyphicon glyphicon-thumbs-up',
-      label: 'Ja',
-    },
-    {
-      type: 'no',
-      labelTranslation: 'answerTypes.no.label',
-      icon: 'glyphicon glyphicon-thumbs-down',
-      label: 'Nein',
-    },
-  ],
   answerType: 'YesNo',
   creationDate: '2015-04-01T11:11:11.111Z',
   description: 'default description',
@@ -41,7 +27,6 @@ export default Factory.extend({
   afterCreate(poll, server) {
     let propertiesToEncrypt = [
       'anonymousUser',
-      'answers',
       'answerType',
       'creationDate',
       'description',

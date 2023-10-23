@@ -31,6 +31,7 @@ module('Acceptance | legacy support', function (hooks) {
 
     let poll = this.server.create('poll', {
       encryptionKey,
+      answerType: 'YesNoMaybe',
       // property 'id' of answers has been renamed to 'type' in v0.4.0
       answers: [
         {

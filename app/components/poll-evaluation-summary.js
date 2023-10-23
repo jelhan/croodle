@@ -19,7 +19,7 @@ export default class PollEvaluationSummary extends Component {
     }
 
     let answers = poll.answers.reduce((answers, answer) => {
-      answers[answer.get('type')] = 0;
+      answers[answer.type] = 0;
       return answers;
     }, {});
     let evaluation = options.map((option) => {
