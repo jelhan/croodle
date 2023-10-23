@@ -4,7 +4,6 @@ $pollId = substr(md5(__FILE__), 0, 10);
 $pollJson = <<<EOD
 {
   "anonymousUser": "{\"iv\":\"gVHZSXyMm10Fn+kDooa7uw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"GJsQQYA7TdAa+v3Rvg==\"}",
-  "answers": "{\"iv\":\"aK1JcI3viLPIlOO45K+ePA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"Bx4SRcww+hJ46NIiVcWBUZHADADX/XPsxXMx4XzMQZWqu6M0690D4oTflSRJoqxe0egxdfMOUxuWhmACG/UYXSYJQjcSg+QTq6KJbaXG+SvsCMZ7iz12a/uf9lXyiag4IbLldgL4vE3LfZO6oih/o/yG4hechjNdSkqUa2IvsRbXWB2aHen6a5Ch5WjqWrr4xRRrukPvf7aumilT2Cf0LswHJ2fwYNilylV0h9oegKYp+qWphm4SL8x2ogRemSCt7u7ByEOwZV0w6D9bz9RvGLTRRLJaLIm/VlE3k7R6Hz1vyps=\"}",
   "answerType": "{\"iv\":\"ILkAzgUfAGNUtLr7CbEJEQ==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"nMOp+QApQGgP9dwefNpi\"}",
   "creationDate": "{\"iv\":\"6tWbieK03uXUR+E0AMbs0A==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"YkkLVBkFyx4xFldZ7qnDESG0teHJmXaPMUB05p9L0xUIMg==\"}",
   "description": "{\"iv\":\"fWvHh47So4WBNfEHXrwLiA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"5W7nauOakSoFD52V\"}",
@@ -20,7 +19,15 @@ $pollJson = <<<EOD
 }
 EOD;
 $userJson = <<<EOD
-{"user":{"name":"{\"iv\":\"kizIqK7FPNmRuQB7VHsMOw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"UsYMzrww3HKR8vl2TKVE\"}","selections":"{\"iv\":\"hRmiZagEhQVhw2cg6UJNrg==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"2zIPGpiSC6wJHRoAMYBFPXx3qmlZg0Z/Jt/15mY+sHPLCqoAn97TKGN6KIvl/5gmgCFqLQFNo6uppCTUhljoV5y2kMtGvm0g3+NdpcejWGOeMACDPcp1mpXII87ZTfC6WrtxcWCB6UGYN8EynOdndFTGp+WVZnXCCya7YPThk/QRwoHoPWS6+TJFT9WeHV4i4kUIg2K3kdz3Op7S/c7l7KbOc8GsyjZzv0bRDnAm68/+FlJyZnvfMfU8vTxExsIsd0pBy4JBV4hg9SlCPectb5BAvBCULLDPA08prf262RUmVKJ+M3P1+5KkBQcnQwnUW/fzAQ7lqA==\"}","creationDate":"{\"iv\":\"xqdDY/A7MHLeAsoU9S/j+A==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"TQOhbjveZbvdiyYpxfwNyu5pi1PLia9FApJJRmr3QoyrWA==\"}","version":"v0.3.0+0ae62f31","poll":"' . $pollId . '"}}
+{
+  "user": {
+    "name": "{\"iv\":\"kizIqK7FPNmRuQB7VHsMOw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"UsYMzrww3HKR8vl2TKVE\"}",
+    "selections": "{\"iv\":\"hRmiZagEhQVhw2cg6UJNrg==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"2zIPGpiSC6wJHRoAMYBFPXx3qmlZg0Z/Jt/15mY+sHPLCqoAn97TKGN6KIvl/5gmgCFqLQFNo6uppCTUhljoV5y2kMtGvm0g3+NdpcejWGOeMACDPcp1mpXII87ZTfC6WrtxcWCB6UGYN8EynOdndFTGp+WVZnXCCya7YPThk/QRwoHoPWS6+TJFT9WeHV4i4kUIg2K3kdz3Op7S/c7l7KbOc8GsyjZzv0bRDnAm68/+FlJyZnvfMfU8vTxExsIsd0pBy4JBV4hg9SlCPectb5BAvBCULLDPA08prf262RUmVKJ+M3P1+5KkBQcnQwnUW/fzAQ7lqA==\"}",
+    "creationDate": "{\"iv\":\"xqdDY/A7MHLeAsoU9S/j+A==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"TQOhbjveZbvdiyYpxfwNyu5pi1PLia9FApJJRmr3QoyrWA==\"}",
+    "version": "v0.3.0+0ae62f31",
+    "poll": "$pollId"
+  }
+}
 EOD;
 
 $pollDir = 'tests/_tmp/data/' . $pollId . '/';

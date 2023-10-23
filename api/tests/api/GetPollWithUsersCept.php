@@ -5,7 +5,6 @@ $expirationDate = date("Y-m-dTH:i:s.000Z", strtotime("+3 month"));
 $pollJson = <<<EOD
 {
   "anonymousUser": "{\"iv\":\"gVHZSXyMm10Fn+kDooa7uw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"GJsQQYA7TdAa+v3Rvg==\"}",
-  "answers": "{\"iv\":\"aK1JcI3viLPIlOO45K+ePA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"Bx4SRcww+hJ46NIiVcWBUZHADADX/XPsxXMx4XzMQZWqu6M0690D4oTflSRJoqxe0egxdfMOUxuWhmACG/UYXSYJQjcSg+QTq6KJbaXG+SvsCMZ7iz12a/uf9lXyiag4IbLldgL4vE3LfZO6oih/o/yG4hechjNdSkqUa2IvsRbXWB2aHen6a5Ch5WjqWrr4xRRrukPvf7aumilT2Cf0LswHJ2fwYNilylV0h9oegKYp+qWphm4SL8x2ogRemSCt7u7ByEOwZV0w6D9bz9RvGLTRRLJaLIm/VlE3k7R6Hz1vyps=\"}",
   "answerType": "{\"iv\":\"ILkAzgUfAGNUtLr7CbEJEQ==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"nMOp+QApQGgP9dwefNpi\"}",
   "creationDate": "{\"iv\":\"6tWbieK03uXUR+E0AMbs0A==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"YkkLVBkFyx4xFldZ7qnDESG0teHJmXaPMUB05p9L0xUIMg==\"}",
   "description": "{\"iv\":\"fWvHh47So4WBNfEHXrwLiA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"5W7nauOakSoFD52V\"}",

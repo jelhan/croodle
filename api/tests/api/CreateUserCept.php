@@ -4,7 +4,6 @@ $pollId = substr(md5(__FILE__), 0, 10);
 $pollJson = <<<EOD
 {
   "anonymousUser": "{\"iv\":\"SOqei2Y7QZt1PFR6IXR4qg==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"WAg0oSjCiMAO+JqzIg==\"}",
-  "answers": "{\"iv\":\"WRdAwEa0DF+E83ginLYtPw==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"Oaer31ct2PXkmXkzJ1EXRPM3LMf6vGfzMZqjODwey4f7EhqSCUhYov+N7AZKCAAXYVS4WR84kKizxXBK2PQBSFrlB3Bll74ED9ZzRJSJD00otMG9BbgUR90aFws+1jMBP5vpti9+POsii85zLbDPkNg/Th/C4Ufv5YWwg/4ZV0bFMyOgfdjtOWaG5YAMTGUIkz9U9+VCesYJQaTb497qTD/Wmtz8J/2pUxdL5/b5xkdh2DJ4/N5q0Kz/CEbaoKwbexnQDlSr3ldlIhs7UmBjC9gkpgG2l9fu6a0VZFBE8hvzYrw=\"}",
   "answerType": "{\"iv\":\"z1V+GmSWJxSng0bXxnYNRA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"ZDf5sBxR6rO+DdO/yFmk\"}",
   "creationDate": "{\"iv\":\"DBKid4Yiyr61GVLigJj20w==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"ORRPzySTa6vt7GQrJOGBvNZXXq4p/ANinfanE/51DbcDNw==\"}",
   "description": "{\"iv\":\"aohDHKaO7c7Fl5vIueBkcA==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"3gtpUTAyVK4=\",\"ct\":\"+ygmsnYAsEBLZRUV\"}",
@@ -26,7 +25,7 @@ $userJson = <<<EOD
     "selections": "{\"iv\":\"hRmiZagEhQVhw2cg6UJNrg==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"2zIPGpiSC6wJHRoAMYBFPXx3qmlZg0Z/Jt/15mY+sHPLCqoAn97TKGN6KIvl/5gmgCFqLQFNo6uppCTUhljoV5y2kMtGvm0g3+NdpcejWGOeMACDPcp1mpXII87ZTfC6WrtxcWCB6UGYN8EynOdndFTGp+WVZnXCCya7YPThk/QRwoHoPWS6+TJFT9WeHV4i4kUIg2K3kdz3Op7S/c7l7KbOc8GsyjZzv0bRDnAm68/+FlJyZnvfMfU8vTxExsIsd0pBy4JBV4hg9SlCPectb5BAvBCULLDPA08prf262RUmVKJ+M3P1+5KkBQcnQwnUW/fzAQ7lqA==\"}",
     "creationDate": "{\"iv\":\"xqdDY/A7MHLeAsoU9S/j+A==\",\"v\":1,\"iter\":1000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"salt\":\"mhO9ROu+dr4=\",\"ct\":\"TQOhbjveZbvdiyYpxfwNyu5pi1PLia9FApJJRmr3QoyrWA==\"}",
     "version": "v0.3.0+0ae62f31",
-    "poll": "' . $pollId . '"
+    "poll": "$pollId"
   }
 }
 EOD;
