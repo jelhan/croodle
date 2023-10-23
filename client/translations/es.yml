@@ -35,8 +35,8 @@ create:
         label: Título
         placeholder: "Añade el título de la encuesta."
         validations:
-          valueMissing: "A form must have a title."
-          tooShort: "Form title must have at least 2 characters."
+          valueMissing: "Un formulario debe tener un título."
+          tooShort: "El título del formulario debe tener al menos 2 caracteres."
       description:
         label: Descripción
         placeholder: "Opcional: Añade una descripción a la encuesta."
@@ -51,10 +51,11 @@ create:
     dates:
       label: Días
     error:
-      duplicatedOption: "An option with this label already exists."
-      invalidOption: "All options must be valid."
-      notEnoughDates: "Debes elegir almenos un día"
-      valueMissing: "Every option must have a label. Please delete it if the option is not needed."
+      duplicatedOption: "Ya existe una opción con esta etiqueta."
+      invalidOption: "Todas las opciones deben ser válidas."
+      notEnoughDates: "Debe elegirse al menos un día."
+      valueMissing: "Cada opción debe tener una etiqueta. Por favor, elimínela
+        si la opción no es necesaria."
     defineTimes:
       label: "¿Establecer horarios?"
     input:
@@ -68,12 +69,13 @@ create:
     error:
       correctTimeFormat: "Las horas y minutos del horario deben estar separadas
         por el caracter dospuntos (p.ej. 13:00)."
-      duplicatedDate: "An option for the same time at the same day already exists."
-      invalidTime: "At least one time is invalid."
+      duplicatedDate: "Ya existe una opción para el mismo día a la misma hora."
+      invalidTime: "Al menos una vez no es válido."
       notEnoughTimes: "Ha de establecerse almenos un horario correcto para cada
         día. Si se ha elegido únicamente un día, hay que indicar almenos dos
         horarios."
-      partiallyFilledTime: "Please enter a valid time with hours and minutes. Partially filled inputs are not supported."
+      partiallyFilledTime: "Por favor, introduzca una hora válida con horas
+        y minutos. No se admiten entradas parcialmente rellenadas."
     fix-validation-errors-first-day:
       "Tienes quee corregir todos los errores antes
       de copiar."
@@ -171,10 +173,11 @@ poll:
     newUser:
       everyOptionIsAnswered: "Por favor responde a todas las opciones."
     name:
-      duplicate: "Someone else already participated with this name. Please use an unqiue name."
+      duplicate: "Otra persona ya ha participado con este nombre. Por favor,
+        utiliza un nombre diferente."
       valueMissing: "Tienes que poner un nombre."
     selection:
-      valueMissing: "Please provide an answer for this option."
+      valueMissing: "Por favor, responda a esta opción."
   evaluation:
     label: "Evaluar"
     overview: "Supervisar"
