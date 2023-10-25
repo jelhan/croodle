@@ -1,5 +1,6 @@
 import Model, { hasMany, attr } from '@ember-data/model';
 import { fragmentArray } from 'ember-data-model-fragments/attributes';
+import answersForAnswerType from '../utils/answers-for-answer-type';
 
 export default class Poll extends Model {
   /*
@@ -14,10 +15,6 @@ export default class Poll extends Model {
   // Is participation without user name possibile?
   @attr('boolean')
   anonymousUser;
-
-  // array of possible answers
-  @fragmentArray('answer')
-  answers;
 
   // YesNo, YesNoMaybe or Freetext
   @attr('string')
@@ -68,6 +65,11 @@ export default class Poll extends Model {
   /*
    * computed properties
    */
+  get answers() {
+    const { answerType } = this;
+    return answersForAnswerType(answerType);
+  }
+
   get hasTimes() {
     if (this.isMakeAPoll) {
       return false;

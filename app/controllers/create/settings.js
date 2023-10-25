@@ -2,7 +2,6 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
 import { action } from '@ember/object';
-import answersForAnswerType from 'croodle/utils/answers-for-answer-type';
 import { DateTime, Duration } from 'luxon';
 
 export default class CreateSettings extends Controller {
@@ -122,11 +121,5 @@ export default class CreateSettings extends Controller {
         encryptionKey: this.encryption.key,
       },
     });
-  }
-
-  @action
-  updateAnswerType(answerType) {
-    this.set('model.answerType', answerType);
-    this.set('model.answers', answersForAnswerType(answerType));
   }
 }
