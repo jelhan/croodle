@@ -70,7 +70,7 @@ export default class PollEvaluationSummary extends Component {
 
     let lastParticipationAt = null;
 
-    for (const { creationDate } of users.toArray()) {
+    for (const { creationDate } of users) {
       if (creationDate >= lastParticipationAt) {
         lastParticipationAt = creationDate;
       }

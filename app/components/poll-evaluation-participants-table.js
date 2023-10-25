@@ -23,8 +23,8 @@ export default class PollEvaluationParticipantsTable extends Component {
 
   get usersSorted() {
     const { poll } = this.args;
-    return poll.users
-      .toArray()
-      .sort((a, b) => (a.creationDate > b.creationDate ? 1 : -1));
+    return Array.from(poll.users).sort((a, b) =>
+      a.creationDate > b.creationDate ? 1 : -1,
+    );
   }
 }

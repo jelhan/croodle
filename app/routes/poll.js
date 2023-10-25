@@ -1,4 +1,5 @@
 import Route from '@ember/routing/route';
+import Poll from '../native-models/poll';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
@@ -16,12 +17,15 @@ export default class PollRoute extends Route {
     return true;
   }
 
-  model(params) {
+  model({ encryptionKey, poll_id: id }) {
+    // TODO: remote as soon as logic to save a new user is
+    //       migrated away from Ember Data as well.
+    //
     // get encryption key from query parameter in singleton
     // before it's used by serializer to decrypt payload
-    this.set('encryption.key', params.encryptionKey);
+    this.set('encryption.key', encryptionKey);
 
-    return this.store.find('poll', params.poll_id);
+    return Poll.load(id, encryptionKey);
   }
 
   redirect(poll, transition) {
