@@ -4,7 +4,6 @@ import { action } from '@ember/object';
 
 export default class CreateOptionsController extends Controller {
   @service router;
-  @service store;
 
   @action
   nextPage() {
@@ -24,8 +23,8 @@ export default class CreateOptionsController extends Controller {
 
   @action
   updateOptions(newOptions) {
-    this.model.options = newOptions.map(({ value }) =>
-      this.store.createFragment('option', { title: value }),
-    );
+    this.model.options = newOptions.map(({ value }) => {
+      return { title: value };
+    });
   }
 }

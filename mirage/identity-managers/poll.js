@@ -1,4 +1,4 @@
-import generateRandomString from 'croodle/utils/generate-passphrase';
+import { generatePassphrase } from '../../utils/encryption';
 
 export default class {
   constructor() {
@@ -17,7 +17,7 @@ export default class {
     let id;
 
     while (id === undefined) {
-      let randomString = generateRandomString(10);
+      let randomString = generatePassphrase().substring(0, 10);
       if (this._ids[randomString] === undefined) {
         id = randomString;
       }

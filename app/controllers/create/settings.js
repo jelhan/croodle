@@ -3,9 +3,10 @@ import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
 import { action } from '@ember/object';
 import { DateTime, Duration } from 'luxon';
+import Poll from '../../native-models/poll';
+import { generatePassphrase } from '../../utils/encryption';
 
 export default class CreateSettings extends Controller {
-  @service encryption;
   @service flashMessages;
   @service intl;
   @service router;
@@ -88,38 +89,24 @@ export default class CreateSettings extends Controller {
 
   @action
   async submit() {
-    const { model: poll } = this;
+    const { model } = this;
 
-    // set timezone if there is atleast one option with time
-    if (
-      poll.isFindADate &&
-      poll.options.toArray().some((option) => {
-        return option.hasTime;
-      })
-    ) {
-      this.set(
-        'model.timezone',
-        Intl.DateTimeFormat().resolvedOptions().timeZone,
-      );
-    }
-
-    // save poll
     try {
-      await poll.save();
+      const encryptionKey = generatePassphrase();
+
+      // save poll
+      const poll = await Poll.create(model, encryptionKey);
+
+      // redirect to new poll
+      await this.router.transitionTo('poll', poll.id, {
+        queryParams: {
+          encryptionKey,
+        },
+      });
     } catch (err) {
       this.flashMessages.danger('error.poll.savingFailed');
 
       throw err;
     }
-
-    // reload as workaround for bug: duplicated records after save
-    await poll.reload();
-
-    // redirect to new poll
-    await this.router.transitionTo('poll', poll, {
-      queryParams: {
-        encryptionKey: this.encryption.key,
-      },
-    });
   }
 }

@@ -5,7 +5,6 @@ import { inject as service } from '@ember/service';
 
 export default class CreateOptionsDatetimeController extends Controller {
   @service router;
-  @service store;
 
   @action
   nextPage() {
@@ -25,7 +24,7 @@ export default class CreateOptionsDatetimeController extends Controller {
       )
       .sort()
       .map((isoString) => {
-        return this.store.createFragment('option', { title: isoString });
+        return { title: isoString };
       });
   }
 }

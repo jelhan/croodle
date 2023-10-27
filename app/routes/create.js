@@ -1,12 +1,21 @@
-import classic from 'ember-classic-decorator';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
-import config from 'croodle/config/environment';
 import { DateTime } from 'luxon';
+import { tracked } from '@glimmer/tracking';
+import { TrackedArray } from 'tracked-built-ins';
 
-@classic
+class FormData {
+  @tracked anonymousUser = false;
+  @tracked answerType = 'YesNo';
+  @tracked description = '';
+  @tracked expirationDate = DateTime.local().plus({ months: 3 }).toISO();
+  @tracked forceAnswer = true;
+  @tracked options = new TrackedArray();
+  @tracked pollType = 'FindADate';
+  @tracked title = '';
+}
+
 export default class CreateRoute extends Route {
-  @service encryption;
   @service router;
   @service store;
 
@@ -15,23 +24,10 @@ export default class CreateRoute extends Route {
     if (transition.targetName !== 'create.index') {
       this.router.transitionTo('create.index');
     }
-
-    // set encryption key
-    this.encryption.generateKey();
   }
 
   model() {
-    // create empty poll
-    return this.store.createRecord('poll', {
-      answerType: 'YesNo',
-      creationDate: new Date(),
-      forceAnswer: true,
-      anonymousUser: false,
-      pollType: 'FindADate',
-      timezone: null,
-      expirationDate: DateTime.local().plus({ months: 3 }).toISO(),
-      version: config.APP.version,
-    });
+    return new FormData();
   }
 
   activate() {

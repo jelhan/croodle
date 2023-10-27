@@ -2,9 +2,10 @@ import Option from './option';
 import User from './user';
 import { TrackedArray } from 'tracked-built-ins';
 import { NotFoundError, apiUrl } from '../utils/api';
-import { decrypt } from '../utils/encryption';
+import { decrypt, encrypt } from '../utils/encryption';
 import answersForAnswerType from '../utils/answers-for-answer-type';
 import fetch from 'fetch';
+import config from 'croodle/config/environment';
 
 const DAY_STRING_LENGTH = 10; // 'YYYY-MM-DD'.length
 
@@ -148,6 +149,70 @@ export default class Poll {
         });
       }),
       version: payload.poll.version,
+    });
+  }
+
+  static async create(
+    {
+      anonymousUser,
+      answerType,
+      description,
+      expirationDate,
+      forceAnswer,
+      options,
+      pollType,
+      title,
+    },
+    passphrase,
+  ) {
+    const creationDate = new Date().toISOString();
+    const version = config.APP.version;
+    const timezone =
+      pollType === 'FindADate' &&
+      options.some(({ title }) => {
+        return title >= 'YYYY-MM-DDTHH:mm'.length;
+      })
+        ? Intl.DateTimeFormat().resolvedOptions().timeZone
+        : null;
+
+    const payload = {
+      poll: {
+        anonymousUser: encrypt(anonymousUser, passphrase),
+        answerType: encrypt(answerType, passphrase),
+        creationDate: encrypt(creationDate, passphrase),
+        description: encrypt(description, passphrase),
+        expirationDate: encrypt(expirationDate, passphrase),
+        forceAnswer: encrypt(forceAnswer, passphrase),
+        options: encrypt(options, passphrase),
+        pollType: encrypt(pollType, passphrase),
+        serverExpirationDate: expirationDate,
+        timezone: encrypt(timezone, passphrase),
+        title: encrypt(title, passphrase),
+        version,
+      },
+    };
+
+    const response = await fetch(apiUrl('polls'), {
+      body: JSON.stringify(payload),
+      method: 'POST',
+    });
+    const responseDocument = await response.json();
+    const { id } = responseDocument.poll;
+
+    return new Poll({
+      anonymousUser,
+      answerType,
+      creationDate,
+      description,
+      expirationDate,
+      forceAnswer,
+      id,
+      options,
+      pollType,
+      timezone,
+      title,
+      users: [],
+      version,
     });
   }
 }

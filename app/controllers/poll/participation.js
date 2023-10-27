@@ -5,7 +5,6 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class PollParticipationController extends Controller {
-  @service encryption;
   @service router;
   @service store;
 
@@ -69,7 +68,7 @@ export default class PollParticipationController extends Controller {
     }
 
     this.router.transitionTo('poll.evaluation', poll.id, {
-      queryParams: { encryptionKey: this.encryption.key },
+      queryParams: { encryptionKey },
     });
   }
 }
