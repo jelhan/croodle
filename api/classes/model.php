@@ -177,11 +177,6 @@ class Model {
     }
 
     $data = self::convertFromStorage($storageObject);
-
-    if(method_exists($model, 'restoreLegacySupportHook')) {
-      $model->restoreLegacySupportHook($data);
-    }
-
     $properties = array_merge(
       static::ENCRYPTED_PROPERTIES,
       static::PLAIN_PROPERTIES,
