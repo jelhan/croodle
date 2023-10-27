@@ -16,4 +16,6 @@ function apiUrl(path) {
   return `${baseUrl}/${path}`;
 }
 
-export { apiUrl };
+class NotFoundError extends Error {}
+
+export { apiUrl, NotFoundError };

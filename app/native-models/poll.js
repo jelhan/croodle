@@ -1,9 +1,10 @@
 import Option from './option';
 import User from './user';
 import { TrackedArray } from 'tracked-built-ins';
-import { apiUrl } from '../utils/api';
+import { NotFoundError, apiUrl } from '../utils/api';
 import { decrypt } from '../utils/encryption';
 import answersForAnswerType from '../utils/answers-for-answer-type';
+import fetch from 'fetch';
 
 const DAY_STRING_LENGTH = 10; // 'YYYY-MM-DD'.length
 
@@ -105,13 +106,25 @@ export default class Poll {
   }
 
   static async load(id, passphrase) {
-    const url = apiUrl(`/polls/${id}`);
+    const url = apiUrl(`polls/${id}`);
 
     // TODO: Handle network connectivity error
     const response = await fetch(url);
 
     // TODO: Handle 404 error
     const payload = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new NotFoundError(
+          `A poll with ID ${id} could not be found at the server.`,
+        );
+      } else {
+        throw new Error(
+          `Unexpected server-side error. Server responsed with ${response.status} (${response.statusText})`,
+        );
+      }
+    }
 
     return new Poll({
       anonymousUser: decrypt(payload.poll.anonymousUser, passphrase),
@@ -128,6 +141,7 @@ export default class Poll {
       users: payload.poll.users.map((user) => {
         return new User({
           creationDate: decrypt(user.creationDate, passphrase),
+          id: user.id,
           name: decrypt(user.name, passphrase),
           selections: decrypt(user.selections, passphrase),
           version: user.version,

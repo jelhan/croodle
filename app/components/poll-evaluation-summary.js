@@ -71,7 +71,7 @@ export default class PollEvaluationSummary extends Component {
     let lastParticipationAt = null;
 
     for (const { creationDate } of users) {
-      if (creationDate >= lastParticipationAt) {
+      if (lastParticipationAt === null || creationDate >= lastParticipationAt) {
         lastParticipationAt = creationDate;
       }
     }

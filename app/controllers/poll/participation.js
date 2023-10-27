@@ -2,7 +2,6 @@ import Controller, { inject as controller } from '@ember/controller';
 import User from '../../native-models/user';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import config from 'croodle/config/environment';
 import { tracked } from '@glimmer/tracking';
 
 export default class PollParticipationController extends Controller {
@@ -46,7 +45,7 @@ export default class PollParticipationController extends Controller {
 
     this.newUserRecord = {
       name,
-      poll: poll.id,
+      poll,
       selections,
     };
     await this.save();
