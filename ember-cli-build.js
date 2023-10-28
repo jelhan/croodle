@@ -31,7 +31,7 @@ module.exports = function (defaults) {
       ],
     },
     'ember-cli-babel': {
-      includePolyfill: true,
+      enableTypeScriptTransform: true,
     },
     'ember-composable-helpers': {
       only: ['array', 'object-at', 'pick'],
