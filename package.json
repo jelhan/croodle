@@ -72,7 +72,7 @@
     "ember-power-calendar-luxon": "^0.5.0",
     "ember-qunit": "^7.0.0",
     "ember-resolver": "^11.0.1",
-    "ember-source": "~4.12.0",
+    "ember-source": "~5.3.0",
     "ember-template-lint": "^5.11.2",
     "ember-test-selectors": "^6.0.0",
     "ember-truth-helpers": "^4.0.0",
