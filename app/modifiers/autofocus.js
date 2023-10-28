@@ -1,13 +1,20 @@
-import { modifier } from 'ember-modifier';
+import Modifier from 'ember-modifier';
 
-export default modifier(function autofocus(
-  element,
-  params,
-  { enabled = true },
-) {
-  if (!enabled) {
-    return;
+export default class AutofocusModifier extends Modifier {
+  isInstalled = false;
+
+  modify(element, positional, { enabled = true }) {
+    // element should be only autofocused on initial render
+    // not when `enabled` option is invalidated
+    if (this.isInstalled) {
+      return;
+    }
+    this.isInstalled = true;
+
+    if (!enabled) {
+      return;
+    }
+
+    element.focus();
   }
-
-  element.focus();
-});
+}

@@ -14,117 +14,110 @@
     as |form|
   >
     <div class="days">
-      {{#each this.formData.options as |option index|}}
-        {{!
-          show summarized validation state for all times in a day
-        }}
-        <div
-          class={{if
-            (get this.daysValidationState option.day)
-            (concat "label-has-" (get this.daysValidationState option.day))
-            "label-has-no-validation"
+      {{#each-in this.formData.datetimes as |date timeOptions|}}
+        {{#each timeOptions as |timeOption indexInTimeOptions|}}
+          {{!
+            show summarized validation state for all times in a day
           }}
-          data-test-day={{option.day}}
-        >
-          <form.element
-            {{!
-              TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
-            }}
-            @label={{format-date
-              option.jsDate
-              weekday="long"
-              day="numeric"
-              month="long"
-              year="numeric"
-            }}
-            {{!
-              show label only if it differ from label before
-              Nested-helpers are called first and object-at requires a positive integer
-              but returns undefined if an element with the passed in index does not exist.
-              Therefore we pass in array length if index is null. Cause index starting
-              by zero there can't be any element with an index === array.length.
-            }}
-            @invisibleLabel={{eq
-              option.day
-              (get
-                (object-at
-                  (if index (sub index 1) this.formData.options.length)
-                  this.formData.options
-                )
-                "day"
-              )
-            }}
-            @model={{option}}
-            @property="time"
-            class="option"
-            as |el|
-          >
-            <div class="input-group">
-              <el.control
-                @placeholder="00:00"
-                @type="time"
-                @value={{el.value}}
-                {{! focus input if it's the first one }}
-                {{autofocus enabled=(eq index 0)}}
-                {{! run validation for partially filled input on focusout event }}
-                {{on "focusout" (fn this.validateInput option)}}
-                {{on "change" (fn this.validateInput option)}}
-                {{!
-                  Validation for partially input field must be reset if input is cleared.
-                  But `@onChange` is not called and `focusout` event not triggered in that
-                  scenario. Need to listen to additional events to ensure that partially
-                  input validation is updated as soon as user fixed a partially input.
-                  The `keyup` events captures all scenarios in which the input is cleared
-                  using keyboard. `focusin` event is triggered if user clicks the clears
-                  button provided by native input. As a fallback validation is rerun on
-                  `focusout`.
-                  As the time of implementation this was only affecting Chrome cause
-                  Firefox does not consider partially time input as invalid, Edge prevents
-                  partially filling in first place and Desktop Safari as well as IE 11
-                  do not support `<input type="time">`.
-                }}
-                {{on "focusin" (fn this.updateInputValidation option)}}
-                {{on "keyup" (fn this.updateInputValidation option)}}
-                id={{el.id}}
-              />
-              <div class="input-group-append">
-                <BsButton
-                  @onClick={{fn this.formData.deleteOption option}}
-                  @type="link"
-                  class="delete"
-                  data-test-action="delete"
-                >
-                  <span
-                    class="oi oi-trash"
-                    title={{t "create.options.button.delete.label"}}
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">
-                    {{t "create.options.button.delete.label"}}
-                  </span>
-                </BsButton>
-              </div>
-            </div>
 
-            <BsButton
-              @onClick={{fn this.formData.addOption index option.day}}
-              @type="link"
-              @size="sm"
-              class="add cr-option-menu__button cr-option-menu__add-button float-left"
-              data-test-action="add"
+          <div
+            {{!
+              TODO: daysValidationState is not defined!
+            }}
+            class={{if
+              (get this.daysValidationState date)
+              (concat "label-has-" (get this.daysValidationState date))
+              "label-has-no-validation"
+            }}
+            data-test-day={{date}}
+          >
+            <form.element
+              {{!
+                TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
+              }}
+              @label={{format-date
+                timeOption.jsDate
+                weekday="long"
+                day="numeric"
+                month="long"
+                year="numeric"
+              }}
+              {{!
+                show label only for the first time of this date
+              }}
+              @invisibleLabel={{gt indexInTimeOptions 0}}
+              @model={{timeOption}}
+              @property="time"
+              class="option"
+              as |el|
             >
-              <span
-                class="oi oi-plus"
-                title={{t "create.options.button.add.label"}}
-                aria-hidden="true"
-              ></span>
-              <span class="sr-only">{{t
-                  "create.options.button.add.label"
-                }}</span>
-            </BsButton>
-          </form.element>
-        </div>
-      {{/each}}
+              <div class="input-group">
+                <el.control
+                  @placeholder="00:00"
+                  @type="time"
+                  @value={{el.value}}
+                  {{! focus input if it's the first one }}
+                  {{autofocus enabled=timeOption.isFirstTimeOnFirstDate}}
+                  {{! run validation for partially filled input on focusout event }}
+                  {{on "focusout" (fn this.validateInput timeOption)}}
+                  {{on "change" (fn this.validateInput timeOption)}}
+                  {{!
+                    Validation for partially input field must be reset if input is cleared.
+                    But `@onChange` is not called and `focusout` event not triggered in that
+                    scenario. Need to listen to additional events to ensure that partially
+                    input validation is updated as soon as user fixed a partially input.
+                    The `keyup` events captures all scenarios in which the input is cleared
+                    using keyboard. `focusin` event is triggered if user clicks the clears
+                    button provided by native input. As a fallback validation is rerun on
+                    `focusout`.
+                    As the time of implementation this was only affecting Chrome cause
+                    Firefox does not consider partially time input as invalid, Edge prevents
+                    partially filling in first place and Desktop Safari as well as IE 11
+                    do not support `<input type="time">`.
+                  }}
+                  {{on "focusin" (fn this.updateInputValidation timeOption)}}
+                  {{on "keyup" (fn this.updateInputValidation timeOption)}}
+                  id={{el.id}}
+                />
+                <div class="input-group-append">
+                  <BsButton
+                    @onClick={{fn this.formData.deleteOption timeOption}}
+                    @type="link"
+                    class="delete"
+                    data-test-action="delete"
+                  >
+                    <span
+                      class="oi oi-trash"
+                      title={{t "create.options.button.delete.label"}}
+                      aria-hidden="true"
+                    ></span>
+                    <span class="sr-only">
+                      {{t "create.options.button.delete.label"}}
+                    </span>
+                  </BsButton>
+                </div>
+              </div>
+
+              <BsButton
+                @onClick={{fn this.formData.addOption date}}
+                @type="link"
+                @size="sm"
+                class="add cr-option-menu__button cr-option-menu__add-button float-left"
+                data-test-action="add"
+              >
+                <span
+                  class="oi oi-plus"
+                  title={{t "create.options.button.add.label"}}
+                  aria-hidden="true"
+                ></span>
+                <span class="sr-only">{{t
+                    "create.options.button.add.label"
+                  }}</span>
+              </BsButton>
+            </form.element>
+          </div>
+        {{/each}}
+      {{/each-in}}
     </div>
 
     {{#if this.formData.hasMultipleDays}}
@@ -145,7 +138,7 @@
         <NextButton />
       </div>
       <div class="col-6 col-md-4 order-1 text-right">
-        <BackButton @onClick={{action "previousPage"}} />
+        <BackButton @onClick={{this.previousPage}} />
       </div>
     </div>
   </BsForm>

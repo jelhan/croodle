@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
+import { TrackedSet } from 'tracked-built-ins/.';
 
 export default class CreateOptionsController extends Controller {
   @service router;
@@ -8,9 +9,9 @@ export default class CreateOptionsController extends Controller {
 
   @action
   nextPage() {
-    const { isFindADate } = this.model;
+    const { pollType } = this.model;
 
-    if (isFindADate) {
+    if (pollType === 'FindADate') {
       this.router.transitionTo('create.options-datetime');
     } else {
       this.router.transitionTo('create.settings');
@@ -24,8 +25,13 @@ export default class CreateOptionsController extends Controller {
 
   @action
   updateOptions(newOptions) {
-    this.model.options = newOptions.map(({ value }) =>
-      this.store.createFragment('option', { title: value }),
-    );
+    const { pollType } = this.model;
+    const options = newOptions.map(({ value }) => value);
+
+    if (pollType === 'FindADate') {
+      this.model.dateOptions = new TrackedSet(options.sort());
+    } else {
+      this.model.freetextOptions = new TrackedSet(options);
+    }
   }
 }
