@@ -91,33 +91,26 @@
 
     <div class="box">
       <ul class="nav nav-tabs" role="tablist">
-        {{! template-lint-disable no-link-to-tagname no-unknown-arguments-for-builtin-components }}
-        {{!
-          TODO: Refactor to current Bootstrap markup, which uses a regular
-          `<a></a>` element within a `<li class="nav-item"></li>`.
-        }}
-        <LinkTo
-          @route="poll.participation"
-          @model={{poll}}
-          @tagName="li"
-          @activeClass="active"
-          class="participation nav-item"
-        >
-          <LinkTo @route="poll.participation" @model={{poll}} class="nav-link">
+        <li class="nav-item">
+          <LinkTo
+            @route="poll.participation"
+            @model={{poll.id}}
+            class="nav-link"
+            data-test-link="participation"
+          >
             {{t "poll.tab-title.participation"}}
           </LinkTo>
-        </LinkTo>
-        <LinkTo
-          @route="poll.evaluation"
-          @model={{poll}}
-          @tagName="li"
-          @activeClass="active"
-          class="evaluation nav-item"
-        >
-          <LinkTo @route="poll.evaluation" @model={{poll}} class="nav-link">
+        </li>
+        <li class="nav-item">
+          <LinkTo
+            @route="poll.evaluation"
+            @model={{poll.id}}
+            class="nav-link"
+            data-test-link="evaluation"
+          >
             {{t "poll.tab-title.evaluation"}}
           </LinkTo>
-        </LinkTo>
+        </li>
       </ul>
 
       <div class="tab-content">

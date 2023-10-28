@@ -67,7 +67,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       'participants table shows correct answers for new participant',
     );
 
-    await click('.nav .participation');
+    await click('.nav [data-test-link="participation"]');
     assert.equal(currentRouteName(), 'poll.participation');
     assert.equal(find('.name input').value, '', 'input for name is cleared');
     assert.notOk(
