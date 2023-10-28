@@ -6,7 +6,7 @@ export default class PollEvaluationParticipantsTable extends Component {
     const { poll } = this.args;
 
     const optionsPerDay = new Map();
-    for (const option of poll.options.toArray()) {
+    for (const option of poll.options) {
       optionsPerDay.set(
         option.day,
         optionsPerDay.has(option.day) ? optionsPerDay.get(option.day) + 1 : 0,
@@ -23,8 +23,8 @@ export default class PollEvaluationParticipantsTable extends Component {
 
   get usersSorted() {
     const { poll } = this.args;
-    return poll.users
-      .toArray()
-      .sort((a, b) => (a.creationDate > b.creationDate ? 1 : -1));
+    return Array.from(poll.users).sort((a, b) =>
+      a.creationDate > b.creationDate ? 1 : -1,
+    );
   }
 }

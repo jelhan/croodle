@@ -27,7 +27,7 @@ class FormDataSelections {
 }
 
 class FormData {
-  @tracked name;
+  @tracked name = null;
   nameIsRequired;
   namesTaken;
   selections;

@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import sjcl from 'sjcl';
+import { NotFoundError } from '../utils/api';
 
 export default class PollErrorController extends Controller {
   get decryptionFailed() {
@@ -7,6 +8,6 @@ export default class PollErrorController extends Controller {
   }
 
   get notFound() {
-    return this.model.errors[0].status === '404';
+    return this.model instanceof NotFoundError;
   }
 }

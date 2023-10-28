@@ -1,13 +1,11 @@
 import Controller, { inject as controller } from '@ember/controller';
+import User from '../../models/user';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import config from 'croodle/config/environment';
 import { tracked } from '@glimmer/tracking';
 
 export default class PollParticipationController extends Controller {
-  @service encryption;
   @service router;
-  @service store;
 
   @controller('poll')
   pollController;
@@ -43,25 +41,22 @@ export default class PollParticipationController extends Controller {
       };
     });
 
-    let user = this.store.createRecord('user', {
-      creationDate: new Date(),
+    this.newUserRecord = {
       name,
       poll,
       selections,
-      version: config.APP.version,
-    });
-
-    this.newUserRecord = user;
-    await this.save(user);
+    };
+    await this.save();
   }
 
   @action
   async save() {
     const { model, newUserRecord: user } = this;
     const { poll } = model;
+    const { encryptionKey } = this.router.currentRoute.parent.queryParams;
 
     try {
-      await user.save();
+      await User.create(user, encryptionKey);
 
       this.savingFailed = false;
     } catch (error) {
@@ -72,7 +67,7 @@ export default class PollParticipationController extends Controller {
     }
 
     this.router.transitionTo('poll.evaluation', poll.id, {
-      queryParams: { encryptionKey: this.encryption.key },
+      queryParams: { encryptionKey },
     });
   }
 }

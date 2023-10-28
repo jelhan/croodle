@@ -3,13 +3,13 @@ import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
 import { action } from '@ember/object';
 import { DateTime, Duration } from 'luxon';
+import Poll from '../../models/poll';
+import { generatePassphrase } from '../../utils/encryption';
 
 export default class CreateSettings extends Controller {
-  @service encryption;
   @service flashMessages;
   @service intl;
   @service router;
-  @service store;
 
   get anonymousUser() {
     return this.model.anonymousUser;
@@ -102,8 +102,9 @@ export default class CreateSettings extends Controller {
       pollType,
       title,
     } = model;
-    let options = [];
 
+    // calculate options
+    let options = [];
     if (pollType === 'FindADate') {
       // merge date with times
       for (const date of dateOptions) {
@@ -129,47 +130,38 @@ export default class CreateSettings extends Controller {
       options.push(...freetextOptions);
     }
 
-    const poll = this.store.createRecord('poll', {
-      anonymousUser,
-      answerType,
-      creationDate: new Date().toISOString(),
-      description,
-      expirationDate,
-      forceAnswer,
-      options: options.map((option) =>
-        this.store.createFragment('option', { title: option }),
-      ),
-      pollType,
-      title,
-    });
-
-    // set timezone if there is atleast one option with time
-    if (
-      pollType === 'FindADate' &&
-      Array.from(timesForDateOptions.values()).some((timesForDateOptions) => {
-        return timesForDateOptions.size > 0;
-      })
-    ) {
-      poll.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    }
-
     // save poll
     try {
-      await poll.save();
+      const encryptionKey = generatePassphrase();
+
+      // save poll
+      const poll = await Poll.create(
+        {
+          anonymousUser,
+          answerType,
+          creationDate: new Date().toISOString(),
+          description,
+          expirationDate,
+          forceAnswer,
+          options: options.map((option) => {
+            return { title: option };
+          }),
+          pollType,
+          title,
+        },
+        encryptionKey,
+      );
+
+      // redirect to new poll
+      await this.router.transitionTo('poll', poll.id, {
+        queryParams: {
+          encryptionKey,
+        },
+      });
     } catch (err) {
       this.flashMessages.danger('error.poll.savingFailed');
 
       throw err;
     }
-
-    // reload as workaround for bug: duplicated records after save
-    await poll.reload();
-
-    // redirect to new poll
-    await this.router.transitionTo('poll', poll, {
-      queryParams: {
-        encryptionKey: this.encryption.key,
-      },
-    });
   }
 }

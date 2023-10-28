@@ -2,12 +2,10 @@ import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { isPresent, isEmpty } from '@ember/utils';
 import { action } from '@ember/object';
-import { observes } from '@ember-decorators/object';
 import { DateTime } from 'luxon';
 import { tracked } from '@glimmer/tracking';
 
 export default class PollController extends Controller {
-  @service encryption;
   @service flashMessages;
   @service intl;
   @service router;
@@ -80,22 +78,5 @@ export default class PollController extends Controller {
   useLocalTimezone() {
     this.shouldUseLocalTimezone = true;
     this.timezoneChoosen = true;
-  }
-
-  // TODO: Remove this code. It's spooky.
-  @observes('encryptionKey')
-  preventEncryptionKeyChanges() {
-    if (
-      !isEmpty(this.encryption.key) &&
-      this.encryptionKey !== this.encryption.key
-    ) {
-      // work-a-round for url not being updated
-      window.location.hash = window.location.hash.replace(
-        this.encryptionKey,
-        this.encryption.key,
-      );
-
-      this.set('encryptionKey', this.encryption.key);
-    }
   }
 }

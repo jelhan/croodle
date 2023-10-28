@@ -5,7 +5,6 @@ import { TrackedSet } from 'tracked-built-ins/.';
 
 export default class CreateOptionsController extends Controller {
   @service router;
-  @service store;
 
   @action
   nextPage() {
