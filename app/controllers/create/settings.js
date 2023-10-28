@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
 import { action } from '@ember/object';
 import { DateTime, Duration } from 'luxon';
-import Poll from '../../native-models/poll';
+import Poll from '../../models/poll';
 import { generatePassphrase } from '../../utils/encryption';
 
 export default class CreateSettings extends Controller {

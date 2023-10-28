@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import Poll from '../native-models/poll';
+import Poll from '../models/poll';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
