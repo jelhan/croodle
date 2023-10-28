@@ -78,9 +78,9 @@ export default class CreateSettings extends Controller {
 
   @action
   previousPage() {
-    let { isFindADate } = this.model;
+    let { pollType } = this.model;
 
-    if (isFindADate) {
+    if (pollType === 'FindADate') {
       this.router.transitionTo('create.options-datetime');
     } else {
       this.router.transitionTo('create.options');
@@ -90,12 +90,67 @@ export default class CreateSettings extends Controller {
   @action
   async submit() {
     const { model } = this;
+    const {
+      anonymousUser,
+      answerType,
+      description,
+      expirationDate,
+      forceAnswer,
+      freetextOptions,
+      dateOptions,
+      timesForDateOptions,
+      pollType,
+      title,
+    } = model;
 
+    // calculate options
+    let options = [];
+    if (pollType === 'FindADate') {
+      // merge date with times
+      for (const date of dateOptions) {
+        if (timesForDateOptions.has(date)) {
+          for (const time of timesForDateOptions.get(date)) {
+            const [hour, minute] = time.split(':');
+            options.push(
+              DateTime.fromISO(date)
+                .set({
+                  hour,
+                  minute,
+                  second: 0,
+                  millisecond: 0,
+                })
+                .toISO(),
+            );
+          }
+        } else {
+          options.push(date);
+        }
+      }
+    } else {
+      options.push(...freetextOptions);
+    }
+
+    // save poll
     try {
       const encryptionKey = generatePassphrase();
 
       // save poll
-      const poll = await Poll.create(model, encryptionKey);
+      const poll = await Poll.create(
+        {
+          anonymousUser,
+          answerType,
+          creationDate: new Date().toISOString(),
+          description,
+          expirationDate,
+          forceAnswer,
+          options: options.map((option) => {
+            return { title: option };
+          }),
+          pollType,
+          title,
+        },
+        encryptionKey,
+      );
 
       // redirect to new poll
       await this.router.transitionTo('poll', poll.id, {

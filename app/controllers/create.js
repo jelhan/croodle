@@ -23,12 +23,16 @@ export default class CreateController extends Controller {
   get canEnterOptionsDatetimeStep() {
     return (
       this.visitedSteps.has('options-datetime') &&
-      this.model.options.length >= 1
+      this.model.dateOptions.size >= 1
     );
   }
 
   get canEnterSettingsStep() {
-    return this.visitedSteps.has('settings') && this.model.options.length >= 1;
+    const { model, visitedSteps } = this;
+    const { dateOptions, freetextOptions, pollType } = model;
+    const options = pollType === 'FindADate' ? dateOptions : freetextOptions;
+
+    return visitedSteps.has('settings') && options.size >= 1;
   }
 
   get isFindADate() {

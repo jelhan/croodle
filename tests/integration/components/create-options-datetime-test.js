@@ -1,9 +1,7 @@
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, find, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { DateTime } from 'luxon';
 
 module('Integration | Component | create options datetime', function (hooks) {
   setupRenderingTest(hooks);
@@ -20,20 +18,11 @@ module('Integration | Component | create options datetime', function (hooks) {
    */
 
   test('it generates input field for options iso 8601 date string (without time)', async function (assert) {
-    // validation is based on validation of every option fragment
-    // which validates according to poll model it belongs to
-    // therefore each option needs to be pushed to poll model to have it as
-    // it's owner
-    run(() => {
-      this.set(
-        'poll',
-        this.store.createRecord('poll', {
-          pollType: 'FindADate',
-          options: [{ title: '2015-01-01' }],
-        }),
-      );
-    });
-    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
+    this.set('dates', new Set(['2015-01-01']));
+    this.set('times', new Map());
+    await render(
+      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
+    );
 
     assert.equal(
       findAll('.days .form-group input').length,
@@ -48,20 +37,11 @@ module('Integration | Component | create options datetime', function (hooks) {
   });
 
   test('it generates input field for options iso 8601 datetime string (with time)', async function (assert) {
-    // validation is based on validation of every option fragment
-    // which validates according to poll model it belongs to
-    // therefore each option needs to be pushed to poll model to have it as
-    // it's owner
-    run(() => {
-      this.set(
-        'poll',
-        this.store.createRecord('poll', {
-          pollType: 'FindADate',
-          options: [{ title: '2015-01-01T11:11:00.000Z' }],
-        }),
-      );
-    });
-    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
+    this.set('dates', new Set(['2015-01-01']));
+    this.set('times', new Map([['2015-01-01', new Set(['11:11'])]]));
+    await render(
+      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
+    );
 
     assert.equal(
       findAll('.days .form-group input').length,
@@ -70,30 +50,17 @@ module('Integration | Component | create options datetime', function (hooks) {
     );
     assert.equal(
       find('.days .form-group input').value,
-      DateTime.fromISO('2015-01-01T11:11:00.000Z').toFormat('HH:mm'),
+      '11:11',
       'it has time in option as value',
     );
   });
 
   test('it hides repeated labels', async function (assert) {
-    // validation is based on validation of every option fragment
-    // which validates according to poll model it belongs to
-    // therefore each option needs to be pushed to poll model to have it as
-    // it's owner
-    run(() => {
-      this.set(
-        'poll',
-        this.store.createRecord('poll', {
-          pollType: 'FindADate',
-          options: [
-            { title: DateTime.fromISO('2015-01-01T10:11').toISO() },
-            { title: DateTime.fromISO('2015-01-01T22:22').toISO() },
-            { title: '2015-02-02' },
-          ],
-        }),
-      );
-    });
-    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
+    this.set('dates', new Set(['2015-01-01', '2015-02-02']));
+    this.set('times', new Map([['2015-01-01', new Set(['11:11', '22:22'])]]));
+    await render(
+      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
+    );
 
     assert.equal(
       findAll('.days label').length,
@@ -126,19 +93,11 @@ module('Integration | Component | create options datetime', function (hooks) {
   });
 
   test('allows to add another option', async function (assert) {
-    // validation is based on validation of every option fragment
-    // which validates according to poll model it belongs to
-    // therefore each option needs to be pushed to poll model to have it as
-    // it's owner
-    run(() => {
-      this.set(
-        'poll',
-        this.store.createRecord('poll', {
-          options: [{ title: '2015-01-01' }, { title: '2015-02-02' }],
-        }),
-      );
-    });
-    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
+    this.set('dates', new Set(['2015-01-01', '2015-02-02']));
+    this.set('times', new Map());
+    await render(
+      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
+    );
 
     assert.equal(
       findAll('.days .form-group input').length,
@@ -166,23 +125,11 @@ module('Integration | Component | create options datetime', function (hooks) {
   });
 
   test('allows to delete an option', async function (assert) {
-    // validation is based on validation of every option fragment
-    // which validates according to poll model it belongs to
-    // therefore each option needs to be pushed to poll model to have it as
-    // it's owner
-    run(() => {
-      this.set(
-        'poll',
-        this.store.createRecord('poll', {
-          pollType: 'FindADate',
-          options: [
-            { title: DateTime.fromISO('2015-01-01T11:11').toISO() },
-            { title: DateTime.fromISO('2015-01-01T22:22').toISO() },
-          ],
-        }),
-      );
-    });
-    await render(hbs`<CreateOptionsDatetime @dates={{this.poll.options}} />`);
+    this.set('dates', new Set(['2015-01-01']));
+    this.set('times', new Map([['2015-01-01', new Set(['11:11', '22:22'])]]));
+    await render(
+      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
+    );
 
     assert.equal(
       findAll('.days input').length,

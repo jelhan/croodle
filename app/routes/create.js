@@ -2,15 +2,17 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import { DateTime } from 'luxon';
 import { tracked } from '@glimmer/tracking';
-import { TrackedArray } from 'tracked-built-ins';
+import { TrackedSet } from 'tracked-built-ins';
 
-class FormData {
+class PollData {
   @tracked anonymousUser = false;
   @tracked answerType = 'YesNo';
   @tracked description = '';
   @tracked expirationDate = DateTime.local().plus({ months: 3 }).toISO();
   @tracked forceAnswer = true;
-  @tracked options = new TrackedArray();
+  @tracked freetextOptions = new TrackedSet();
+  @tracked dateOptions = new TrackedSet();
+  @tracked timesForDateOptions = new Map();
   @tracked pollType = 'FindADate';
   @tracked title = '';
 }
@@ -27,7 +29,7 @@ export default class CreateRoute extends Route {
   }
 
   model() {
-    return new FormData();
+    return new PollData();
   }
 
   activate() {

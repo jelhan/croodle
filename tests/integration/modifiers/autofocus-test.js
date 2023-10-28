@@ -25,4 +25,12 @@ module('Integration | Modifier | autofocus', function (hooks) {
 
     assert.dom('input').isNotFocused();
   });
+
+  test('it does not focus the element if `enabled` changes', async function (assert) {
+    this.set('enabled', false);
+
+    await render(hbs`<input {{autofocus enabled=this.enabled}} />`);
+    this.set('enabled', true);
+    assert.dom('input').isNotFocused();
+  });
 });

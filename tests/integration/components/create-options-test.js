@@ -1,8 +1,8 @@
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, findAll, blur, fillIn, focus } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { TrackedSet } from 'tracked-built-ins';
 
 module('Integration | Component | create options', function (hooks) {
   setupRenderingTest(hooks);
@@ -14,25 +14,14 @@ module('Integration | Component | create options', function (hooks) {
   test('shows validation errors if options are not unique (makeAPoll)', async function (assert) {
     assert.expect(5);
 
-    // validation is based on validation of every option fragment
-    // which validates according to poll model it belongs to
-    // therefore each option needs to be pushed to poll model to have it as
-    // it's owner
-    let poll;
-    run(() => {
-      poll = this.store.createRecord('poll', {
-        pollType: 'MakeAPoll',
-      });
-    });
-    this.set('poll', poll);
-    this.set('options', poll.get('options'));
+    this.set('options', new TrackedSet());
 
     await render(hbs`
       <CreateOptions
         @options={{this.options}}
         @isDateTime={{false}}
-        @isFindADate={{this.poll.isFindADate}}
-        @isMakeAPoll={{this.poll.isMakeAPoll}}
+        @isFindADate={{false}}
+        @isMakeAPoll={{true}}
       />
     `);
 
@@ -64,25 +53,14 @@ module('Integration | Component | create options', function (hooks) {
   });
 
   test('shows validation errors if option is empty (makeAPoll)', async function (assert) {
-    // validation is based on validation of every option fragment
-    // which validates according to poll model it belongs to
-    // therefore each option needs to be pushed to poll model to have it as
-    // it's owner
-    let poll;
-    run(() => {
-      poll = this.store.createRecord('poll', {
-        pollType: 'MakeAPoll',
-      });
-    });
-    this.set('poll', poll);
-    this.set('options', poll.get('options'));
+    this.set('options', new TrackedSet());
 
     await render(hbs`
       <CreateOptions
         @options={{this.options}}
         @isDateTime={{false}}
-        @isFindADate={{this.poll.isFindADate}}
-        @isMakeAPoll={{this.poll.isMakeAPoll}}
+        @isFindADate={{false}}
+        @isMakeAPoll={{true}}
       />
     `);
 
