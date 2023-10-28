@@ -10,7 +10,6 @@ import {
 import { defaultsForCreate } from 'croodle/tests/pages/defaults';
 import { hasFocus } from 'croodle/tests/pages/helpers';
 import { calendarSelect } from 'ember-power-calendar/test-support';
-import { assign } from '@ember/polyfills';
 import { isArray } from '@ember/array';
 import { assert } from '@ember/debug';
 import { DateTime } from 'luxon';
@@ -41,7 +40,7 @@ function selectDates(selector) {
 }
 
 export default create(
-  assign({}, defaultsForCreate, {
+  Object.assign({}, defaultsForCreate, {
     selectDates: selectDates('[data-test-form-element-for="days"]'),
     dateHasError: isVisible('.days.has-error'),
     dateError: text('.days .help-block'),

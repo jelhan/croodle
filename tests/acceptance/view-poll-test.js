@@ -8,7 +8,6 @@ import {
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import switchTab from 'croodle/tests/helpers/switch-tab';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import { DateTime } from 'luxon';
 import { triggerCopySuccess } from 'ember-cli-clipboard/test-support';
@@ -169,7 +168,7 @@ module('Acceptance | view poll', function (hooks) {
       .dom('[data-test-modal="choose-timezone"]')
       .doesNotExist('modal is closed');
 
-    await switchTab('evaluation');
+    await click('.nav [data-test-link="evaluation"]');
     assert.deepEqual(
       findAll('[data-test-best-option]').map((el) => el.textContent.trim()),
       [
@@ -244,7 +243,7 @@ module('Acceptance | view poll', function (hooks) {
       .dom('[data-test-modal="choose-timezone"]')
       .doesNotExist('modal is closed');
 
-    await switchTab('evaluation');
+    await click('.nav [data-test-link="evaluation"]');
     assert.deepEqual(
       findAll('[data-test-best-option]').map((el) => el.textContent.trim()),
       [

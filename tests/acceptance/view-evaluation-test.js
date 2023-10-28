@@ -1,11 +1,15 @@
-import { findAll, currentRouteName, find, visit } from '@ember/test-helpers';
+import {
+  findAll,
+  click,
+  currentRouteName,
+  find,
+  visit,
+} from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';
-import switchTab from 'croodle/tests/helpers/switch-tab';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
-import { assign } from '@ember/polyfills';
 import { DateTime } from 'luxon';
 
 module('Acceptance | view evaluation', function (hooks) {
@@ -26,7 +30,7 @@ module('Acceptance | view evaluation', function (hooks) {
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
 
-    await switchTab('evaluation');
+    await click('.nav [data-test-link="evaluation"]');
     assert.equal(
       findAll('.tab-content .tab-pane .evaluation-summary').length,
       0,
@@ -440,12 +444,10 @@ module('Acceptance | view evaluation', function (hooks) {
       options: [{ title: 'first option' }, { title: 'second option' }],
       pollType: 'MakeAPoll',
     };
-    let poll = this.server.create(
-      'poll',
-      assign(pollData, {
-        users: usersData.map((_) => this.server.create('user', _)),
-      }),
-    );
+    let poll = this.server.create('poll', {
+      ...pollData,
+      users: usersData.map((_) => this.server.create('user', _)),
+    });
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.evaluation');
@@ -560,7 +562,7 @@ module('Acceptance | view evaluation', function (hooks) {
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.participation');
 
-    await switchTab('evaluation');
+    await click('.nav [data-test-link="evaluation"]');
     assert.equal(currentRouteName(), 'poll.evaluation');
     assert.equal(
       find('.tab-pane h2').textContent.trim(),

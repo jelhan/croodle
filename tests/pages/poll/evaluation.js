@@ -1,10 +1,9 @@
 import { attribute, collection, create, text } from 'ember-cli-page-object';
 import { definition as Poll } from 'croodle/tests/pages/poll';
 import { defaultsForApplication } from 'croodle/tests/pages/defaults';
-import { assign } from '@ember/polyfills';
 
 export default create(
-  assign({}, defaultsForApplication, Poll, {
+  Object.assign({}, defaultsForApplication, Poll, {
     options: collection(
       '[data-test-table-of="participants"] thead tr:last-child th:not(:first-child)',
       {
