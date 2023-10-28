@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { DateTime } from 'luxon';
 import { inject as service } from '@ember/service';
 
 export default class CreateOptionsDatetimeController extends Controller {
@@ -18,14 +17,7 @@ export default class CreateOptionsDatetimeController extends Controller {
   }
 
   @action
-  updateOptions(options) {
-    this.model.options = options
-      .map(({ day, time }) =>
-        time ? DateTime.fromISO(`${day}T${time}`).toISO() : day,
-      )
-      .sort()
-      .map((isoString) => {
-        return this.store.createFragment('option', { title: isoString });
-      });
+  updateOptions(datetimes) {
+    this.model.timesForDateOptions = new Map(datetimes.entries());
   }
 }

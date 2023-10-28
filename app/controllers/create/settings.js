@@ -9,6 +9,7 @@ export default class CreateSettings extends Controller {
   @service flashMessages;
   @service intl;
   @service router;
+  @service store;
 
   get anonymousUser() {
     return this.model.anonymousUser;
@@ -77,9 +78,9 @@ export default class CreateSettings extends Controller {
 
   @action
   previousPage() {
-    let { isFindADate } = this.model;
+    let { pollType } = this.model;
 
-    if (isFindADate) {
+    if (pollType === 'FindADate') {
       this.router.transitionTo('create.options-datetime');
     } else {
       this.router.transitionTo('create.options');
@@ -88,19 +89,68 @@ export default class CreateSettings extends Controller {
 
   @action
   async submit() {
-    const { model: poll } = this;
+    const { model } = this;
+    const {
+      anonymousUser,
+      answerType,
+      description,
+      expirationDate,
+      forceAnswer,
+      freetextOptions,
+      dateOptions,
+      timesForDateOptions,
+      pollType,
+      title,
+    } = model;
+    let options = [];
+
+    if (pollType === 'FindADate') {
+      // merge date with times
+      for (const date of dateOptions) {
+        if (timesForDateOptions.has(date)) {
+          for (const time of timesForDateOptions.get(date)) {
+            const [hour, minute] = time.split(':');
+            options.push(
+              DateTime.fromISO(date)
+                .set({
+                  hour,
+                  minute,
+                  second: 0,
+                  millisecond: 0,
+                })
+                .toISO(),
+            );
+          }
+        } else {
+          options.push(date);
+        }
+      }
+    } else {
+      options.push(...freetextOptions);
+    }
+
+    const poll = this.store.createRecord('poll', {
+      anonymousUser,
+      answerType,
+      creationDate: new Date().toISOString(),
+      description,
+      expirationDate,
+      forceAnswer,
+      options: options.map((option) =>
+        this.store.createFragment('option', { title: option }),
+      ),
+      pollType,
+      title,
+    });
 
     // set timezone if there is atleast one option with time
     if (
-      poll.isFindADate &&
-      poll.options.toArray().some((option) => {
-        return option.hasTime;
+      pollType === 'FindADate' &&
+      Array.from(timesForDateOptions.values()).some((timesForDateOptions) => {
+        return timesForDateOptions.size > 0;
       })
     ) {
-      this.set(
-        'model.timezone',
-        Intl.DateTimeFormat().resolvedOptions().timeZone,
-      );
+      poll.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
 
     // save poll

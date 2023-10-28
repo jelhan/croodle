@@ -923,7 +923,7 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateMeta.next();
     assert.equal(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.textOptions.objectAt(0).add();
+    await pageCreateOptions.textOptions.objectAt(0).title('foo');
     await pageCreateOptions.textOptions.objectAt(1).title('bar');
     await pageCreateOptions.next();
     assert.equal(currentRouteName(), 'create.settings');

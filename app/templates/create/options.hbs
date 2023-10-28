@@ -1,7 +1,11 @@
 <CreateOptions
-  @isFindADate={{@model.isFindADate}}
-  @isMakeAPoll={{@model.isMakeAPoll}}
-  @options={{@model.options}}
+  @isFindADate={{eq @model.pollType "FindADate"}}
+  @isMakeAPoll={{eq @model.pollType "MakeAPoll"}}
+  @options={{if
+    (eq @model.pollType "FindADate")
+    @model.dateOptions
+    @model.freetextOptions
+  }}
   @onPrevPage={{this.previousPage}}
   @onNextPage={{this.nextPage}}
   @updateOptions={{this.updateOptions}}

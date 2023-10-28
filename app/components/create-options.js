@@ -79,10 +79,12 @@ class FormData {
 
   constructor({ options }, { defaultOptionCount }) {
     const normalizedOptions =
-      options.length === 0 && defaultOptionCount > 0 ? ['', ''] : options;
+      options.size === 0 && defaultOptionCount > 0
+        ? ['', '']
+        : Array.from(options);
 
     this.options = new TrackedArray(
-      normalizedOptions.map(({ title }) => new FormDataOption(this, title)),
+      normalizedOptions.map((value) => new FormDataOption(this, value)),
     );
   }
 }
