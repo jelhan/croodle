@@ -8,9 +8,7 @@ const baseUrl = window.location.pathname
   // remove leading and trailing slash
   .replace(/\/$/, '')
   // add api/index.php
-  .concat('/api/index.php')
-  // remove leading slash
-  .replace(/^\//g, '');
+  .concat('/api/index.php');
 
 function apiUrl(path) {
   return `${baseUrl}/${path}`;
