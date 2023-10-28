@@ -5,7 +5,6 @@ import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';
 import switchTab from 'croodle/tests/helpers/switch-tab';
 import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
-import { assign } from '@ember/polyfills';
 import { DateTime } from 'luxon';
 
 module('Acceptance | view evaluation', function (hooks) {
@@ -440,12 +439,10 @@ module('Acceptance | view evaluation', function (hooks) {
       options: [{ title: 'first option' }, { title: 'second option' }],
       pollType: 'MakeAPoll',
     };
-    let poll = this.server.create(
-      'poll',
-      assign(pollData, {
-        users: usersData.map((_) => this.server.create('user', _)),
-      }),
-    );
+    let poll = this.server.create('poll', {
+      ...pollData,
+      users: usersData.map((_) => this.server.create('user', _)),
+    });
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
     assert.equal(currentRouteName(), 'poll.evaluation');
