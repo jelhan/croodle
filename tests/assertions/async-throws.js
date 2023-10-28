@@ -37,7 +37,7 @@ export default async function asyncThrows(f, expectedErrorMessage) {
   let errorText = (loggedErrorArgs || []).join(' ');
 
   if (expectedErrorMessage) {
-    let result = errorText.match(expectedErrorMessage);
+    let result = errorText.includes(expectedErrorMessage);
 
     this.pushResult({
       result,

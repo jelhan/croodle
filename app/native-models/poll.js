@@ -112,9 +112,6 @@ export default class Poll {
     // TODO: Handle network connectivity error
     const response = await fetch(url);
 
-    // TODO: Handle 404 error
-    const payload = await response.json();
-
     if (!response.ok) {
       if (response.status === 404) {
         throw new NotFoundError(
@@ -126,6 +123,9 @@ export default class Poll {
         );
       }
     }
+
+    // TODO: Handle malformed server response
+    const payload = await response.json();
 
     return new Poll({
       anonymousUser: decrypt(payload.poll.anonymousUser, passphrase),
@@ -192,10 +192,17 @@ export default class Poll {
       },
     };
 
+    // TODO: Handle network connectivity issue
     const response = await fetch(apiUrl('polls'), {
       body: JSON.stringify(payload),
       method: 'POST',
     });
+
+    if (!response.ok) {
+      throw new Error(
+        `Unexpected server-side error. Server responded with ${response.status} (${response.statusText})`,
+      );
+    }
     const responseDocument = await response.json();
     const { id } = responseDocument.poll;
 

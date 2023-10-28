@@ -4,8 +4,7 @@ import Controller from '@ember/controller';
 import { TrackedSet } from 'tracked-built-ins';
 
 export default class CreateController extends Controller {
-  @service
-  router;
+  @service router;
 
   get canEnterMetaStep() {
     return this.visitedSteps.has('meta') && this.model.pollType;

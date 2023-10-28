@@ -19,7 +19,6 @@ class PollData {
 
 export default class CreateRoute extends Route {
   @service router;
-  @service store;
 
   beforeModel(transition) {
     // enforce that wizzard is started at create.index

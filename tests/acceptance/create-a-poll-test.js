@@ -142,11 +142,12 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     // simulate temporary server error
+    this.server.logging = true;
     this.server.post('/polls', undefined, 503);
 
     await assert.asyncThrows(async () => {
       await pageCreateSettings.save();
-    }, 'Ember Data Request POST /api/index.php/polls returned a 503');
+    }, 'Unexpected server-side error. Server responded with 503 (Service Unavailable)');
     assert.equal(currentRouteName(), 'create.settings');
 
     // simulate server is available again

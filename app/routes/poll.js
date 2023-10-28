@@ -5,7 +5,6 @@ import { inject as service } from '@ember/service';
 
 export default class PollRoute extends Route {
   @service router;
-  @service store;
 
   @action
   error(error) {
