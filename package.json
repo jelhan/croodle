@@ -101,7 +101,7 @@
     "webpack": "^5.88.2"
   },
   "engines": {
-    "node": "18.* || >=20"
+    "node": ">=20"
   },
   "ember": {
     "edition": "octane"
@@ -123,6 +123,6 @@
     }
   },
   "volta": {
-    "node": "18.18.2"
+    "node": "20.9.0"
   }
 }
