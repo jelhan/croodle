@@ -32,7 +32,7 @@ function elementIsNotVisible(element: Element) {
   );
 }
 
-export function scrollFirstInvalidElementIntoViewPort() {
+const scrollFirstInvalidElementIntoViewPort = helper(() => {
   // `schedule('afterRender', function() {})` would be more approperiate but there seems to be a
   // timing issue in Firefox causing the Browser not scrolling up far enough if doing so
   // delaying to next runloop therefore
@@ -71,8 +71,12 @@ export function scrollFirstInvalidElementIntoViewPort() {
       scrollTarget.scrollIntoView({ behavior: 'smooth' });
     }
   });
-}
-
-export default helper(function () {
-  return scrollFirstInvalidElementIntoViewPort;
 });
+
+export default scrollFirstInvalidElementIntoViewPort;
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    'scroll-first-invalid-element-into-view-port': typeof scrollFirstInvalidElementIntoViewPort;
+  }
+}

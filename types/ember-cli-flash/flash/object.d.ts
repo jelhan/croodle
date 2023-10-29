@@ -8,6 +8,7 @@ declare module 'ember-cli-flash/flash/object' {
     exitTimer: number;
     isExitable: boolean;
     initializedTime: number;
+    message: string;
     destroyMessage(): void;
     exitMessage(): void;
     preventExit(): void;

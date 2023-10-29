@@ -1,20 +1,20 @@
-{{page-title 'Croodle'}}
+{{page-title "Croodle"}}
 
-<nav class='cr-navbar navbar navbar-dark'>
-  <h1 class='cr-logo'>
-    <LinkTo @route='index' class='navbar-brand'>
+<nav class="cr-navbar navbar navbar-dark">
+  <h1 class="cr-logo">
+    <LinkTo @route="index" class="navbar-brand">
       Croodle
     </LinkTo>
   </h1>
-  <div class='collapse' id='headerNavbar'>
-    <form class='form-inline my-2 my-lg-0'>
-      <LanguageSelect class='custom-select custom-select-sm' />
+  <div class="collapse" id="headerNavbar">
+    <form class="form-inline my-2 my-lg-0">
+      <LanguageSelect />
     </form>
   </div>
 </nav>
 
-<main class='container cr-main'>
-  <div id='messages'>
+<main class="container cr-main">
+  <div id="messages">
     {{#each this.flashMessages.queue as |flash|}}
       <FlashMessage @flash={{flash}}>
         {{t flash.message}}

@@ -85,4 +85,9 @@ export default class PollController extends Controller {
     this.shouldUseLocalTimezone = true;
     this.timezoneChoosen = true;
   }
+
+  @action
+  usePollTimezone() {
+    this.timezoneChoosen = true;
+  }
 }

@@ -35,3 +35,9 @@ export default class PollEvaluationParticipantsTable extends Component<PollEvalu
     );
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PollEvaluationParticipantsTable: typeof PollEvaluationParticipantsTable;
+  }
+}

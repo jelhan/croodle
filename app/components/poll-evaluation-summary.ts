@@ -97,3 +97,9 @@ export default class PollEvaluationSummary extends Component<PollEvaluationSumma
     return lastParticipationAt;
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PollEvaluationSummary: typeof PollEvaluationSummary;
+  }
+}

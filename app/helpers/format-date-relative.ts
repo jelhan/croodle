@@ -9,19 +9,27 @@ export interface FormatDateRelativeHelperSignature {
   Args: {
     Positional: Positional;
   };
+  Return: string;
 }
 
-export default class FormatDateRelativeHelper extends Helper {
+export default class FormatDateRelative extends Helper<FormatDateRelativeHelperSignature> {
   @service declare intl: IntlService;
 
-  compute([date]: Positional) {
-    if (date instanceof Date) {
-      date = date.toISOString();
-    }
+  compute([dateOrIsoString]: Positional) {
+    const isoString =
+      dateOrIsoString instanceof Date
+        ? dateOrIsoString.toISOString()
+        : dateOrIsoString;
 
-    return DateTime.fromISO(date).toRelative({
+    return DateTime.fromISO(isoString).toRelative({
       locale: this.intl.primaryLocale,
       padding: 1000,
-    });
+    })!;
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    'format-date-relative': typeof FormatDateRelative;
   }
 }
