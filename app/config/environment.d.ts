@@ -8,7 +8,9 @@ declare const config: {
   podModulePrefix: string;
   locationType: 'history' | 'hash' | 'none';
   rootURL: string;
-  APP: Record<string, unknown>;
+  APP: {
+    version: string;
+  };
 };
 
 export default config;

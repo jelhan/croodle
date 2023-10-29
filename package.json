@@ -131,5 +131,9 @@
   },
   "volta": {
     "node": "18.18.2"
+  },
+  "dependencies": {
+    "@types/luxon": "^3.3.3",
+    "@types/sjcl": "^1.0.32"
   }
 }

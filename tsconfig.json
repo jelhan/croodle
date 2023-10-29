@@ -8,6 +8,9 @@
     "paths": {
       "croodle/tests/*": ["tests/*"],
       "croodle/*": ["app/*"],
+      "fetch": [
+        "node_modules/ember-fetch"
+      ],
       "*": ["types/*"]
     }
   }

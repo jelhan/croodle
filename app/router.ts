@@ -17,5 +17,4 @@ Router.map(function () {
     this.route('options-datetime');
     this.route('settings');
   });
-  this.route('404');
 });
