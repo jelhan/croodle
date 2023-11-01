@@ -34,7 +34,7 @@ module.exports = function (defaults) {
       enableTypeScriptTransform: true,
     },
     'ember-composable-helpers': {
-      only: ['array', 'object-at', 'pick'],
+      only: ['array', 'pick'],
     },
     'ember-math-helpers': {
       only: ['lte', 'sub'],

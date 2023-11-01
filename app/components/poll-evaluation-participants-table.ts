@@ -12,11 +12,19 @@ export default class PollEvaluationParticipantsTable extends Component<PollEvalu
   get optionsPerDay() {
     const { poll } = this.args;
 
-    const optionsPerDay = new Map();
+    const optionsPerDay: Map<string, number> = new Map();
     for (const option of poll.options) {
+      if (!option.day) {
+        throw new Error(
+          `Excepts all options to have a valid ISO8601 date string when using optionsPerDay getter`,
+        );
+      }
+
       optionsPerDay.set(
         option.day,
-        optionsPerDay.has(option.day) ? optionsPerDay.get(option.day) + 1 : 0,
+        optionsPerDay.has(option.day)
+          ? (optionsPerDay.get(option.day) as number) + 1
+          : 0,
       );
     }
 

@@ -9,49 +9,67 @@ import type Poll from 'croodle/models/poll';
 export interface PollEvaluationSummarySignature {
   Args: {
     poll: Poll;
+    timeZone: string | undefined;
   };
+}
+
+export interface BestOption {
+  answers: Record<'yes' | 'no' | 'maybe', number>;
+  option: Option;
+  score: number;
 }
 
 export default class PollEvaluationSummary extends Component<PollEvaluationSummarySignature> {
   @service declare intl: IntlService;
 
-  get bestOptions() {
+  get bestOptions(): BestOption[] | null {
     const { poll } = this.args;
     const { isFreeText, options, users } = poll;
 
     // can not evaluate answer type free text
     if (isFreeText) {
-      return undefined;
+      return null;
     }
 
     // can not evaluate a poll without users
     if (users.length < 1) {
-      return undefined;
+      return null;
     }
 
     const answers = poll.answers.reduce(
-      (answers: Record<string, number>, answer: Answer) => {
+      (answers, answer: Answer) => {
         answers[answer.type] = 0;
         return answers;
       },
-      {},
+      {} as Record<'yes' | 'no' | 'maybe', number>,
     );
-    const evaluation: {
-      answers: Record<string, number>;
-      option: Option;
-      score: number;
-    }[] = options.map((option: Option) => {
+    const evaluation: BestOption[] = options.map((option: Option) => {
       return {
         answers: { ...answers },
         option,
         score: 0,
       };
     });
-    const bestOptions = [];
 
     users.forEach((user: User) => {
       user.selections.forEach(({ type }, i) => {
-        evaluation[i]!.answers[type]++;
+        if (!type) {
+          // type may be undefined if poll does not force an answer to all options
+          return;
+        }
+
+        const evaluationForOption = evaluation[i];
+        if (evaluationForOption === undefined) {
+          throw new Error(
+            'Mismatch between number of options in poll and selections for user',
+          );
+        }
+        if (type !== 'yes' && type !== 'no' && type !== 'maybe') {
+          throw new Error(
+            `Encountered not supported type of user selection: ${type}`,
+          );
+        }
+        evaluationForOption.answers[type]++;
 
         switch (type) {
           case 'yes':
@@ -71,10 +89,11 @@ export default class PollEvaluationSummary extends Component<PollEvaluationSumma
 
     evaluation.sort((a, b) => b.score - a.score);
 
+    const bestOptions = [];
     const bestScore = evaluation[0]!.score;
-    for (let i = 0; i < evaluation.length; i++) {
-      if (bestScore === evaluation[i]!.score) {
-        bestOptions.push(evaluation[i]);
+    for (const evaluationForOption of evaluation) {
+      if (evaluationForOption.score === bestScore) {
+        bestOptions.push(evaluationForOption);
       } else {
         break;
       }

@@ -3,7 +3,7 @@ import { assert } from '@ember/debug';
 export type Answer = {
   labelTranslation: string;
   icon: string;
-  type: string;
+  type: 'yes' | 'no' | 'maybe';
 };
 
 export default function (
