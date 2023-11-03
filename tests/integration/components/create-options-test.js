@@ -3,9 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, findAll, blur, fillIn, focus } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { TrackedSet } from 'tracked-built-ins';
+import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | create options', function (hooks) {
   setupRenderingTest(hooks);
+  setupIntl(hooks);
 
   hooks.beforeEach(function () {
     this.store = this.owner.lookup('service:store');
