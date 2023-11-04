@@ -47,7 +47,7 @@ module('Acceptance | create a poll', function (hooks) {
     ];
 
     await pageCreateIndex.visit();
-    assert.equal(currentRouteName(), 'create.index');
+    assert.strictEqual(currentRouteName(), 'create.index');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -76,7 +76,7 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateIndex.next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -91,7 +91,7 @@ module('Acceptance | create a poll', function (hooks) {
     assert.ok(pageCreateMeta.titleHasFocus, 'title input has autofocus');
 
     await pageCreateMeta.title('default poll').next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -106,7 +106,7 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateOptions.selectDates(dates);
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -124,7 +124,7 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateOptionsDatetime.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -148,7 +148,7 @@ module('Acceptance | create a poll', function (hooks) {
     await assert.asyncThrows(async () => {
       await pageCreateSettings.save();
     }, 'Unexpected server-side error. Server responded with 503 (Service Unavailable)');
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     // simulate server is available again
     // defer creation for testing loading spinner
@@ -174,17 +174,17 @@ module('Acceptance | create a poll', function (hooks) {
     resolveSubmission(resolveSubmissionWith);
     await settled();
 
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(
       pagePollParticipation.urlIsValid(),
       `poll url ${currentURL()} is valid`,
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       '',
       'poll description is correct',
@@ -228,7 +228,7 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateIndex.pollType('MakeAPoll').next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -252,7 +252,7 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateMeta.title('default poll').next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -268,7 +268,7 @@ module('Acceptance | create a poll', function (hooks) {
       pageCreateOptions.firstTextOption.inputHasFocus,
       'first option input has autofocus',
     );
-    assert.equal(
+    assert.strictEqual(
       pageCreateOptions.textOptions.length,
       2,
       'there are two input fields as default',
@@ -287,26 +287,41 @@ module('Acceptance | create a poll', function (hooks) {
         'status bar shows correct item as current path (options.text)',
       );
     assert.ok(
-      pageCreateOptions.textOptions.objectAt(0).hasError &&
-        pageCreateOptions.textOptions.objectAt(1).hasError,
-      'validation errors are shown after submit',
+      pageCreateOptions.textOptions.objectAt(0).hasError,
+      'validation error is shown after submit for first text option',
+    );
+    assert.ok(
+      pageCreateOptions.textOptions.objectAt(1).hasError,
+      'validation error is shown after submit for second text option',
     );
 
     await pageCreateOptions.textOptions.objectAt(0).title('option a');
     await pageCreateOptions.textOptions.objectAt(1).title('option c');
     await pageCreateOptions.textOptions.objectAt(0).add();
-    assert.equal(pageCreateOptions.textOptions.length, 3, 'option was added');
+    assert.strictEqual(
+      pageCreateOptions.textOptions.length,
+      3,
+      'option was added',
+    );
 
     await pageCreateOptions.textOptions.objectAt(1).title('option b');
     await pageCreateOptions.textOptions.objectAt(2).add();
-    assert.equal(pageCreateOptions.textOptions.length, 4, 'option was added');
+    assert.strictEqual(
+      pageCreateOptions.textOptions.length,
+      4,
+      'option was added',
+    );
 
     await pageCreateOptions.textOptions.objectAt(3).title('to be deleted');
     await pageCreateOptions.textOptions.objectAt(3).delete();
-    assert.equal(pageCreateOptions.textOptions.length, 3, 'option got deleted');
+    assert.strictEqual(
+      pageCreateOptions.textOptions.length,
+      3,
+      'option got deleted',
+    );
 
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
     assert
       .dom('[data-test-form-step].is-active')
       .hasText(
@@ -320,14 +335,14 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateSettings.save();
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(pagePollParticipation.urlIsValid(), 'poll url is valid');
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       '',
       'poll description is correct',
@@ -349,17 +364,17 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateIndex.visit();
     await pageCreateIndex.next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta
       .title('default poll')
       .description('a sample description')
       .next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates(days);
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       days.map((day) =>
@@ -373,17 +388,17 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateOptionsDatetime.times.objectAt(1).time('18:00');
     await pageCreateOptionsDatetime.times.objectAt(2).time('12:00');
     await pageCreateOptionsDatetime.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.save();
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(pagePollParticipation.urlIsValid(), 'poll url is valid');
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       'a sample description',
       'poll description is correct',
@@ -414,17 +429,17 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateIndex.visit();
     await pageCreateIndex.next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta
       .title('default poll')
       .description('a sample description')
       .next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates([day]);
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
@@ -486,17 +501,17 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateOptionsDatetime.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.save();
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(pagePollParticipation.urlIsValid(), 'poll url is valid');
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       'a sample description',
       'poll description is correct',
@@ -523,17 +538,17 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateIndex.visit();
     await pageCreateIndex.next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta
       .title('default poll')
       .description('a sample description')
       .next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates([day]);
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
@@ -541,17 +556,17 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateOptionsDatetime.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.save();
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(pagePollParticipation.urlIsValid(), 'poll url is valid');
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       'a sample description',
       'poll description is correct',
@@ -570,17 +585,17 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateIndex.visit();
     await pageCreateIndex.next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta
       .title('default poll')
       .description('a sample description')
       .next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates([day]);
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       [Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day)],
@@ -589,17 +604,17 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateOptionsDatetime.times.objectAt(0).time('22:30');
     await pageCreateOptionsDatetime.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.save();
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(pagePollParticipation.urlIsValid(), 'poll url is valid');
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       'a sample description',
       'poll description is correct',
@@ -626,18 +641,18 @@ module('Acceptance | create a poll', function (hooks) {
 
     await visit('/create');
     await click('button[type="submit"]');
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await fillIn(
       '[data-test-form-element="title"] input[type="text"]',
       'example poll for to test time adopting workflow',
     );
     await click('button[type="submit"]');
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates(days);
     await click('button[type="submit"]');
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
 
     for (let i = 1; i <= 3; i++) {
       await click(
@@ -729,10 +744,10 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await click('button[type="submit"]');
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await click('button[type="submit"]');
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.deepEqual(
       findAll(
         `[data-test-form-element^="option"] label:not(.custom-control-label)`,
@@ -761,11 +776,11 @@ module('Acceptance | create a poll', function (hooks) {
     await pageCreateIndex.visit();
 
     await pageCreateIndex.pollType('MakeAPoll').next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta.title('default poll').next();
-    assert.equal(currentRouteName(), 'create.options');
-    assert.equal(
+    assert.strictEqual(currentRouteName(), 'create.options');
+    assert.strictEqual(
       pageCreateOptions.textOptions.length,
       2,
       'there are two input fields as default',
@@ -773,20 +788,24 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateOptions.textOptions.objectAt(0).title('option a');
     await pageCreateOptions.textOptions.objectAt(1).delete();
-    assert.equal(pageCreateOptions.textOptions.length, 1, 'option was deleted');
+    assert.strictEqual(
+      pageCreateOptions.textOptions.length,
+      1,
+      'option was deleted',
+    );
 
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.save();
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(pagePollParticipation.urlIsValid(), 'poll url is valid');
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       '',
       'poll description is correct',
@@ -807,17 +826,17 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateIndex.visit();
     await pageCreateIndex.next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta
       .title('default poll')
       .description('a sample description')
       .next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates(days);
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
       days.map((day) =>
@@ -832,7 +851,7 @@ module('Acceptance | create a poll', function (hooks) {
       .hasValue('10:00', 'time input has the value entered by the user');
 
     await backButton();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
     assert.deepEqual(
       findAll('.ember-power-calendar-day--selected').map(
         (el) => el.dataset.date,
@@ -842,7 +861,7 @@ module('Acceptance | create a poll', function (hooks) {
     );
 
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert
       .dom('[data-test-day="2016-01-02"] input[type="time"]')
       .hasValue('', 'time input the user has not touched is still empty');
@@ -854,17 +873,17 @@ module('Acceptance | create a poll', function (hooks) {
       );
 
     await pageCreateOptionsDatetime.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.save();
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert.true(pagePollParticipation.urlIsValid(), 'poll url is valid');
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.title,
       'default poll',
       'poll title is correct',
     );
-    assert.equal(
+    assert.strictEqual(
       pagePollParticipation.description,
       'a sample description',
       'poll description is correct',
@@ -886,60 +905,60 @@ module('Acceptance | create a poll', function (hooks) {
 
   test('Start at first step is enforced', async function (assert) {
     await pageCreateSettings.visit();
-    assert.equal(currentRouteName(), 'create.index');
+    assert.strictEqual(currentRouteName(), 'create.index');
   });
 
   test('back button', async function (assert) {
     await pageCreateIndex.visit();
-    assert.equal(currentRouteName(), 'create.index');
+    assert.strictEqual(currentRouteName(), 'create.index');
 
     await pageCreateIndex.next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta.title('foo').next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.selectDates([new Date()]);
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
 
     await pageCreateOptionsDatetime.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.back();
-    assert.equal(currentRouteName(), 'create.options-datetime');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
 
     await pageCreateOptionsDatetime.back();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.back();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta.back();
-    assert.equal(currentRouteName(), 'create.index');
+    assert.strictEqual(currentRouteName(), 'create.index');
 
     await pageCreateIndex.pollType('MakeAPoll').next();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta.next();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.textOptions.objectAt(0).title('foo');
     await pageCreateOptions.textOptions.objectAt(1).title('bar');
     await pageCreateOptions.next();
-    assert.equal(currentRouteName(), 'create.settings');
+    assert.strictEqual(currentRouteName(), 'create.settings');
 
     await pageCreateSettings.back();
-    assert.equal(currentRouteName(), 'create.options');
+    assert.strictEqual(currentRouteName(), 'create.options');
 
     await pageCreateOptions.back();
-    assert.equal(currentRouteName(), 'create.meta');
+    assert.strictEqual(currentRouteName(), 'create.meta');
 
     await pageCreateMeta.back();
-    assert.equal(currentRouteName(), 'create.index');
+    assert.strictEqual(currentRouteName(), 'create.index');
   });
 
-  module('validation', async function () {
+  module('validation', function () {
     test('validates user input when creating a poll with dates and times', async function (assert) {
       const day = DateTime.now();
 

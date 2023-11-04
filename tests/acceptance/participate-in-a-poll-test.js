@@ -1,6 +1,5 @@
 import {
   click,
-  find,
   findAll,
   currentURL,
   currentRouteName,
@@ -38,20 +37,20 @@ module('Acceptance | participate in a poll', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.equal(
+    assert.strictEqual(
       currentRouteName(),
       'poll.participation',
       'poll is redirected to poll.participation',
     );
 
     await pollParticipate('Max Meiner', ['yes', 'no']);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert.strictEqual(
       currentURL().split('?')[1],
       `encryptionKey=${encryptionKey}`,
       'encryption key is part of query params',
     );
-    assert.equal(
+    assert.strictEqual(
       PollEvaluationPage.participants.length,
       1,
       'user is added to participants table',
@@ -68,16 +67,16 @@ module('Acceptance | participate in a poll', function (hooks) {
     );
 
     await click('.nav [data-test-link="participation"]');
-    assert.equal(currentRouteName(), 'poll.participation');
-    assert.equal(find('.name input').value, '', 'input for name is cleared');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
+    assert.dom('.name input').hasNoValue('input for name is cleared');
     assert.notOk(
       findAll('input[type="radio"]').some((el) => el.checked),
       'radios are cleared',
     );
 
     await pollParticipate('Peter Müller', ['yes', 'yes']);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert.strictEqual(
       PollEvaluationPage.participants.length,
       2,
       'user is added to participants table',
@@ -103,11 +102,11 @@ module('Acceptance | participate in a poll', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
 
     await pollParticipate('Max Manus', ['answer 1', 'answer 2']);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert.strictEqual(
       PollEvaluationPage.participants.length,
       1,
       'user is added to participants table',
@@ -135,11 +134,11 @@ module('Acceptance | participate in a poll', function (hooks) {
     await visit(
       `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
     );
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
 
     await pollParticipate('Karl Käfer', ['yes', null]);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert.strictEqual(
       PollEvaluationPage.participants.length,
       1,
       'user is added to participants table',
@@ -167,11 +166,11 @@ module('Acceptance | participate in a poll', function (hooks) {
     await visit(
       `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
     );
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
 
     await pollParticipate(null, ['yes', 'no']);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert.strictEqual(
       PollEvaluationPage.participants.length,
       1,
       'user is added to participants table',
@@ -197,7 +196,7 @@ module('Acceptance | participate in a poll', function (hooks) {
     await visit(
       `/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
     );
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
     assert
       .dom('[data-test-modal="saving-failed"] .modal-content')
       .isNotVisible(
@@ -217,8 +216,8 @@ module('Acceptance | participate in a poll', function (hooks) {
       .isNotVisible(
         'Notification is hidden after another save attempt was successful',
       );
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert.strictEqual(
       PollEvaluationPage.participants.length,
       1,
       'user is added to participants table',
@@ -301,7 +300,7 @@ module('Acceptance | participate in a poll', function (hooks) {
 
       assert.dom('[data-test-form-element="name"] input').isFocused();
 
-      assert.equal(
+      assert.strictEqual(
         currentRouteName(),
         'poll.participation',
         'invalid form prevents a transition',
@@ -337,7 +336,7 @@ module('Acceptance | participate in a poll', function (hooks) {
       assert
         .dom('[data-test-form-element="option-2017-12-24"] input[id$="yes"]')
         .isFocused();
-      assert.equal(
+      assert.strictEqual(
         currentRouteName(),
         'poll.participation',
         'invalid form prevents a transition',
@@ -374,7 +373,7 @@ module('Acceptance | participate in a poll', function (hooks) {
 
       assert.dom('[data-test-form-element="name"] input').isFocused();
 
-      assert.equal(
+      assert.strictEqual(
         currentRouteName(),
         'poll.participation',
         'invalid form prevents a transition',

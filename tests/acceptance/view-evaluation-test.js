@@ -1,10 +1,4 @@
-import {
-  findAll,
-  click,
-  currentRouteName,
-  find,
-  visit,
-} from '@ember/test-helpers';
+import { findAll, click, currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
@@ -28,14 +22,12 @@ module('Acceptance | view evaluation', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
 
     await click('.nav [data-test-link="evaluation"]');
-    assert.equal(
-      findAll('.tab-content .tab-pane .evaluation-summary').length,
-      0,
-      'evaluation summary is not present',
-    );
+    assert
+      .dom('.tab-content .tab-pane .evaluation-summary')
+      .doesNotExist('evaluation summary is not present');
   });
 
   test('evaluation is correct for FindADate (date-only)', async function (assert) {
@@ -102,24 +94,23 @@ module('Acceptance | view evaluation', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
-      findAll('.tab-content .tab-pane .evaluation-summary').length,
-      1,
-      'evaluation summary is present',
-    );
-    assert.equal(
-      find('.participants').textContent.trim(),
-      t('poll.evaluation.participants', { count: 2 }).toString(),
-      'shows number of participants',
-    );
-    assert.equal(
-      find('.best-options strong').textContent.trim(),
-      'Friday, January 1, 2016',
-      'shows option most participants replied with yes to as best option',
-    );
-    assert.equal(
-      find('.last-participation').textContent.trim(),
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert
+      .dom('.tab-content .tab-pane .evaluation-summary')
+      .exists({ count: 1 }, 'evaluation summary is present');
+    assert
+      .dom('.participants')
+      .hasText(
+        t('poll.evaluation.participants', { count: 2 }).toString(),
+        'shows number of participants',
+      );
+    assert
+      .dom('.best-options strong')
+      .hasText(
+        'Friday, January 1, 2016',
+        'shows option most participants replied with yes to as best option',
+      );
+    assert.dom('.last-participation').hasText(
       t('poll.evaluation.lastParticipation', {
         ago: '3 months ago',
       }).toString(),
@@ -260,24 +251,23 @@ module('Acceptance | view evaluation', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
-      findAll('.tab-content .tab-pane .evaluation-summary').length,
-      1,
-      'evaluation summary is present',
-    );
-    assert.equal(
-      find('.participants').textContent.trim(),
-      t('poll.evaluation.participants', { count: 2 }).toString(),
-      'shows number of participants',
-    );
-    assert.equal(
-      find('.best-options strong').textContent.trim(),
-      'Saturday, December 12, 2015 at 12:12 PM',
-      'shows option most participants replied with yes to as best option',
-    );
-    assert.equal(
-      find('.last-participation').textContent.trim(),
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert
+      .dom('.tab-content .tab-pane .evaluation-summary')
+      .exists({ count: 1 }, 'evaluation summary is present');
+    assert
+      .dom('.participants')
+      .hasText(
+        t('poll.evaluation.participants', { count: 2 }).toString(),
+        'shows number of participants',
+      );
+    assert
+      .dom('.best-options strong')
+      .hasText(
+        'Saturday, December 12, 2015 at 12:12 PM',
+        'shows option most participants replied with yes to as best option',
+      );
+    assert.dom('.last-participation').hasText(
       t('poll.evaluation.lastParticipation', {
         ago: '3 months ago',
       }).toString(),
@@ -450,22 +440,19 @@ module('Acceptance | view evaluation', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}/evaluation?encryptionKey=${encryptionKey}`);
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
-      findAll('.tab-content .tab-pane .evaluation-summary').length,
-      1,
-      'evaluation summary is present',
-    );
-    assert.equal(
-      find('.participants').textContent.trim(),
-      t('poll.evaluation.participants', { count: 2 }).toString(),
-      'participants are counted correctly',
-    );
-    assert.equal(
-      find('.best-options strong').textContent.trim(),
-      'second option',
-      'options are evaluated correctly',
-    );
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert
+      .dom('.tab-content .tab-pane .evaluation-summary')
+      .exists({ count: 1 }, 'evaluation summary is present');
+    assert
+      .dom('.participants')
+      .hasText(
+        t('poll.evaluation.participants', { count: 2 }).toString(),
+        'participants are counted correctly',
+      );
+    assert
+      .dom('.best-options strong')
+      .hasText('second option', 'options are evaluated correctly');
 
     assert.deepEqual(
       PollEvaluationPage.options.map((_) => _.label),
@@ -489,8 +476,7 @@ module('Acceptance | view evaluation', function (hooks) {
       );
     });
 
-    assert.equal(
-      find('.last-participation').textContent.trim(),
+    assert.dom('.last-participation').hasText(
       t('poll.evaluation.lastParticipation', {
         ago: '3 days ago',
       }).toString(),
@@ -560,14 +546,12 @@ module('Acceptance | view evaluation', function (hooks) {
     });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.equal(currentRouteName(), 'poll.participation');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
 
     await click('.nav [data-test-link="evaluation"]');
-    assert.equal(currentRouteName(), 'poll.evaluation');
-    assert.equal(
-      find('.tab-pane h2').textContent.trim(),
-      t('poll.evaluation.label').toString(),
-      'headline is there',
-    );
+    assert.strictEqual(currentRouteName(), 'poll.evaluation');
+    assert
+      .dom('.tab-pane h2')
+      .hasText(t('poll.evaluation.label').toString(), 'headline is there');
   });
 });

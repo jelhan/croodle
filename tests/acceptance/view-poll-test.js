@@ -24,7 +24,7 @@ module('Acceptance | view poll', function (hooks) {
     let pollUrl = `/poll/${poll.id}?encryptionKey=${encryptionKey}`;
 
     await visit(pollUrl);
-    assert.equal(
+    assert.strictEqual(
       pageParticipation.url,
       window.location.href,
       'share link is shown',
@@ -259,12 +259,12 @@ module('Acceptance | view poll', function (hooks) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
     await visit(`/poll/${pollId}?encryptionKey=${encryptionKey}`);
-    assert.equal(
+    assert.strictEqual(
       currentURL(),
       `/poll/${pollId}?encryptionKey=${encryptionKey}`,
       'shows URL entered by user',
     );
-    assert.equal(
+    assert.strictEqual(
       currentRouteName(),
       'poll_error',
       'shows error substate of poll route',
@@ -279,12 +279,12 @@ module('Acceptance | view poll', function (hooks) {
     let poll = this.server.create('poll', { encryptionKey: 'anotherkey' });
 
     await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.equal(
+    assert.strictEqual(
       currentURL(),
       `/poll/${poll.id}?encryptionKey=${encryptionKey}`,
       'shows URL entered by user',
     );
-    assert.equal(
+    assert.strictEqual(
       currentRouteName(),
       'poll_error',
       'shows error substate of poll route',
@@ -302,12 +302,12 @@ module('Acceptance | view poll', function (hooks) {
     this.server.get('polls/:id', () => {}, 500);
 
     await visit(`/poll/${pollId}?encryptionKey=${encryptionKey}`);
-    assert.equal(
+    assert.strictEqual(
       currentURL(),
       `/poll/${pollId}?encryptionKey=${encryptionKey}`,
       'shows URL entered by user',
     );
-    assert.equal(
+    assert.strictEqual(
       currentRouteName(),
       'poll_error',
       'shows error substate of poll route',
