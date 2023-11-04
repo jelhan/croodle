@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "^7.2",
+        "php": "^8.0",
         "slim/slim": "^3.5"
     },
     "require-dev": {
