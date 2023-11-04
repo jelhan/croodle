@@ -1,23 +1,6 @@
 {{page-title (t "create.title")}}
 
 <BsButtonGroup @justified={{true}} class="cr-steps-top-nav form-steps">
-  {{#each this.formSteps as |formStep|}}
-    {{#unless formStep.hidden}}
-      <BsButton
-        @onClick={{fn this.transitionTo formStep.route}}
-        @type={{if
-          (eq this.router.currentRouteName formStep.route)
-          "primary is-active"
-          "default"
-        }}
-        disabled={{formStep.disabled}}
-        class="cr-steps-top-nav__button"
-        data-test-form-step={{formStep.route}}
-      >
-        {{t formStep.label}}
-      </BsButton>
-    {{/unless}}
-  {{/each}}
   <BsButton
     @onClick={{fn this.transitionTo "create.index"}}
     @type={{if

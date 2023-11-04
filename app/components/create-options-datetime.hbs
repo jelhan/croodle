@@ -1,6 +1,6 @@
 <div class="cr-form-wrapper box">
   {{#if this.errorMessage}}
-    <BsAlert type="warning">
+    <BsAlert @type="warning">
       {{t this.errorMessage}}
     </BsAlert>
   {{/if}}
@@ -15,33 +15,15 @@
   >
     <div class="days">
       {{#each-in this.formData.datetimes as |date timeOptions|}}
+        {{!--
+          @glint-ignore
+          Types for value returned by `{{#each-in}}` are broken if used
+          with a `Map`. https://github.com/typed-ember/glint/issues/645
+        --}}
         {{#each timeOptions as |timeOption indexInTimeOptions|}}
-          {{!
-            show summarized validation state for all times in a day
-          }}
-
-          <div
-            {{!
-              TODO: daysValidationState is not defined!
-            }}
-            class={{if
-              (get this.daysValidationState date)
-              (concat "label-has-" (get this.daysValidationState date))
-              "label-has-no-validation"
-            }}
-            data-test-day={{date}}
-          >
+          <div data-test-day={{date}}>
             <form.element
-              {{!
-                TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
-              }}
-              @label={{format-date
-                timeOption.jsDate
-                weekday="long"
-                day="numeric"
-                month="long"
-                year="numeric"
-              }}
+              @label={{format-date timeOption.jsDate dateStyle="full"}}
               {{!
                 show label only for the first time of this date
               }}

@@ -20,7 +20,7 @@
       }}
     {{/if}}
 
-    {{#if (get this.bestOptions.length 1)}}
+    {{#if (gt this.bestOptions.length 1)}}
       <ul>
         {{#each this.bestOptions as |evaluationBestOption|}}
           <li>
@@ -34,6 +34,11 @@
       </ul>
     {{else}}
       <PollEvaluationSummaryOption
+        {{!
+          @glint-ignore
+          We can be sure that `this.bestOptions` contains at least one item
+          as a poll must always have at least one option.
+        }}
         @evaluationBestOption={{get this.bestOptions 0}}
         @isFindADate={{@poll.isFindADate}}
         @timeZone={{@timeZone}}
@@ -42,9 +47,16 @@
   </p>
 
   <p class="last-participation">
-    {{t
-      "poll.evaluation.lastParticipation"
-      ago=(format-date-relative this.lastParticipationAt)
-    }}
+    {{#if this.lastParticipationAt}}
+      {{t
+        "poll.evaluation.lastParticipation"
+        ago=(format-date-relative this.lastParticipationAt)
+      }}
+    {{else}}
+      {{!
+        No need for the else block as user cannot enter evaluation page if
+        no one participated in the poll yet.
+      }}
+    {{/if}}
   </p>
 </div>

@@ -1,5 +1,5 @@
-{{#let @form as |form|}}
-  <form.element
+{{#let @formElement as |FormElement|}}
+  <FormElement
     @label={{t "create.options.dates.label"}}
     @property="options"
     data-test-form-element-for="days"
@@ -17,10 +17,7 @@
           <InlineDatepicker
             @center={{this.calendarCenter}}
             @selectedDays={{this.selectedDays}}
-            @onCenterChange={{action
-              (mut this.calendarCenter)
-              value="datetime"
-            }}
+            @onCenterChange={{fn this.handleCalenderCenterChange 0}}
             @onSelect={{this.handleSelectedDaysChange}}
           />
         </div>
@@ -28,14 +25,11 @@
           <InlineDatepicker
             @center={{this.calendarCenterNext}}
             @selectedDays={{this.selectedDays}}
-            @onCenterChange={{action
-              (mut this.calendarCenter)
-              value="datetime"
-            }}
+            @onCenterChange={{fn this.handleCalenderCenterChange -1}}
             @onSelect={{this.handleSelectedDaysChange}}
           />
         </div>
       </div>
     </div>
-  </form.element>
+  </FormElement>
 {{/let}}

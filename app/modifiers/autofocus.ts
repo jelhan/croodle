@@ -1,11 +1,11 @@
 import Modifier from 'ember-modifier';
 
 type Named = {
-  enabled: boolean;
+  enabled?: boolean;
 };
 
 interface AutofocusModifierSignature {
-  Element: HTMLInputElement;
+  Element: HTMLInputElement | HTMLSelectElement;
   Args: {
     Named: Named;
   };
@@ -27,5 +27,11 @@ export default class AutofocusModifier extends Modifier<AutofocusModifierSignatu
     }
 
     element.focus();
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    autofocus: typeof AutofocusModifier;
   }
 }

@@ -24,10 +24,7 @@
       {{#each @model.poll.options as |option index|}}
         {{#let
           (if
-            (eq
-              option.day
-              (get (object-at (sub index 1) @model.poll.options) "day")
-            )
+            (eq option.day (get (get @model.poll.options (sub index 1)) "day"))
             false
             true
           )
@@ -57,7 +54,7 @@
                 )
                 option.title
               }}
-              @model={{object-at index @model.formData.selections}}
+              @model={{get @model.formData.selections index}}
               @property="value"
               data-test-form-element={{concat "option-" option.title}}
             />
@@ -84,7 +81,7 @@
                 )
                 option.title
               }}
-              @model={{object-at index @model.formData.selections}}
+              @model={{get @model.formData.selections index}}
               @property="value"
               @showValidationOn="change"
               @useIcons={{false}}

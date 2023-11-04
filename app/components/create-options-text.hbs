@@ -1,6 +1,6 @@
-{{#let @form as |form|}}
+{{#let @formElement as |FormElement|}}
   {{#each @options as |option index|}}
-    <form.element
+    <FormElement
       {{! show label only on first item }}
       @label={{unless index (t "create.options.options.label")}}
       @model={{option}}
@@ -48,6 +48,6 @@
         ></span>
         <span class="sr-only">{{t "create.options.button.add.label"}}</span>
       </BsButton>
-    </form.element>
+    </FormElement>
   {{/each}}
 {{/let}}

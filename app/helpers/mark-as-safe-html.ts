@@ -9,8 +9,14 @@ export interface MarkAsSafeHtmlHelperSignature {
   };
 }
 
-export default helper<MarkAsSafeHtmlHelperSignature>(function markAsSafeHtml([
-  html,
-]) {
+const markAsSafeHtml = helper<MarkAsSafeHtmlHelperSignature>(([html]) => {
   return htmlSafe(html);
 });
+
+export default markAsSafeHtml;
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    'mark-as-safe-html': typeof markAsSafeHtml;
+  }
+}

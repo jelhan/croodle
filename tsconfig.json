@@ -13,5 +13,8 @@
       ],
       "*": ["types/*"]
     }
+  },
+  "glint": {
+    "environment": "ember-loose"
   }
 }

@@ -10,8 +10,6 @@ import { setupApplicationTest } from 'ember-qunit';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import { DateTime } from 'luxon';
-import { triggerCopySuccess } from 'ember-cli-clipboard/test-support';
-
 module('Acceptance | view poll', function (hooks) {
   hooks.beforeEach(function () {
     window.localStorage.setItem('locale', 'en');
@@ -32,7 +30,7 @@ module('Acceptance | view poll', function (hooks) {
       'share link is shown',
     );
 
-    await triggerCopySuccess();
+    await click('.copy-btn');
     /*
      * Can't test if link is actually copied to clipboard due to api
      * restrictions. Due to security it's not allowed to read from clipboard.

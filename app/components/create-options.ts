@@ -104,7 +104,7 @@ export interface CreateOptionsSignature {
   };
 }
 
-export default class CreateOptionsComponent extends Component<CreateOptionsSignature> {
+export default class CreateOptions extends Component<CreateOptionsSignature> {
   @service declare router: RouterService;
 
   formData = new FormData(
@@ -134,5 +134,11 @@ export default class CreateOptionsComponent extends Component<CreateOptionsSigna
     super(owner, args);
 
     this.router.on('routeWillChange', this.handleTransition);
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    CreateOptions: typeof CreateOptions;
   }
 }

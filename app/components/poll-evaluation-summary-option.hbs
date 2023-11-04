@@ -2,24 +2,20 @@
   There must not be a line break between option text and "</strong>." cause otherwise
   we will see a space between option string and following dot.
 }}
-{{#if @isFindADate}}
-  {{! Need to disable block indentation rule cause there shouldn't be a space between date and dot }}
-  {{! template-lint-disable block-indentation }}
+{{!
+  Checking `@evaluationBestOption.option.jsDate` is the same as checking `@isFindADate`.
+  If poll type is `FindADate` we can be sure that every option is a valid ISO861
+  string. Therefore `Option.jsDate` must be `true` by design. But Glint / TypeScript
+  does not understand that. Therefore we need to use the less readable form.
+}}
+{{#if @evaluationBestOption.option.jsDate}}
   <strong data-test-best-option={{@evaluationBestOption.option.title}}>
-    {{!
-      TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
-    }}
     {{format-date
       @evaluationBestOption.option.jsDate
-      weekday="long"
-      day="numeric"
-      month="long"
-      year="numeric"
-      hour=(if @evaluationBestOption.option.hasTime "numeric" undefined)
-      minute=(if @evaluationBestOption.option.hasTime "numeric" undefined)
+      dateStyle="full"
+      timeStyle=(if @evaluationBestOption.option.hasTime "short" undefined)
       timeZone=(if @timeZone @timeZone undefined)
     }}</strong>.
-  {{! template-lint-enable block-indentation }}
 {{else}}
   <strong
     data-test-best-option={{@evaluationBestOption.option.title}}

@@ -27,7 +27,7 @@ export default class Option {
   }
 
   get day() {
-    if (!this.datetime) {
+    if (this.datetime === null) {
       return null;
     }
 
@@ -35,7 +35,7 @@ export default class Option {
   }
 
   get jsDate() {
-    if (!this.datetime) {
+    if (this.datetime === null) {
       return null;
     }
 

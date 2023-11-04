@@ -12,13 +12,13 @@
         @options={{this.formData.options}}
         @addOption={{this.formData.addOption}}
         @deleteOption={{this.formData.deleteOption}}
-        @form={{form}}
+        @formElement={{form.element}}
       />
     {{else}}
       <CreateOptionsDates
         @options={{this.formData.options}}
         @updateOptions={{this.formData.updateOptions}}
-        @form={{form}}
+        @formElement={{form.element}}
       />
     {{/if}}
 
@@ -27,7 +27,7 @@
         <NextButton />
       </div>
       <div class="col-6 col-md-4 order-1 text-right">
-        <BackButton @onClick={{action "previousPage"}} />
+        <BackButton @onClick={{this.previousPage}} />
       </div>
     </div>
   </BsForm>
