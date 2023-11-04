@@ -131,7 +131,7 @@
 </div>
 
 <BsModal
-  @onHidden={{action (mut this.savingFailed) false}}
+  @onHidden={{this.resetSavingStatus}}
   @onSubmit={{this.save}}
   @open={{this.savingFailed}}
   data-test-modal="saving-failed"
