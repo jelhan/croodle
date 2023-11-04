@@ -70,4 +70,9 @@ export default class PollParticipationController extends Controller {
       queryParams: { encryptionKey },
     });
   }
+
+  @action
+  resetSavingStatus() {
+    this.savingFailed = false;
+  }
 }
