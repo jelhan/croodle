@@ -3,7 +3,7 @@ import templateOnlyComponent from '@ember/component/template-only';
 interface NextButtonSignature {
   Args: {
     Named: {
-      isPending: true;
+      isPending?: boolean;
     };
   };
   Element: HTMLButtonElement;

@@ -6,6 +6,7 @@ declare module '@glint/environment-ember-loose/registry' {
       Args: {
         Named: {
           onClick?: () => void;
+          size?: 'sm' | 'md' | 'lg';
           type?: string;
         };
       };

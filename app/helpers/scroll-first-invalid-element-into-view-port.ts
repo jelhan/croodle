@@ -33,44 +33,46 @@ function elementIsNotVisible(element: Element) {
 }
 
 const scrollFirstInvalidElementIntoViewPort = helper(() => {
-  // `schedule('afterRender', function() {})` would be more approperiate but there seems to be a
-  // timing issue in Firefox causing the Browser not scrolling up far enough if doing so
-  // delaying to next runloop therefore
-  next(function () {
-    const invalidInput = document.querySelector(
-      '.form-control.is-invalid, .custom-control-input.is-invalid',
-    ) as HTMLInputElement;
-    assert(
-      'Atleast one form control must be marked as invalid if form submission was rejected as invalid',
-      invalidInput,
-    );
+  return () => {
+    // `schedule('afterRender', function() {})` would be more approperiate but there seems to be a
+    // timing issue in Firefox causing the Browser not scrolling up far enough if doing so
+    // delaying to next runloop therefore
+    next(function () {
+      const invalidInput = document.querySelector(
+        '.form-control.is-invalid, .custom-control-input.is-invalid',
+      ) as HTMLInputElement;
+      assert(
+        'Atleast one form control must be marked as invalid if form submission was rejected as invalid',
+        invalidInput,
+      );
 
-    // focus first invalid control
-    invalidInput.focus({ preventScroll: true });
+      // focus first invalid control
+      invalidInput.focus({ preventScroll: true });
 
-    // scroll to label or legend of first invalid control if it's not visible yet
-    if (elementIsNotVisible(invalidInput)) {
-      // Radio groups have a label and a legend. While the label is per input, the legend is for
-      // the whole group. Croodle should bring the legend into view in that case.
-      // Due to a bug in Ember Bootstrap it renders a `<label>` instead of a `<legend>`:
-      // https://github.com/kaliber5/ember-bootstrap/issues/931
-      // As a work-a-round we look the correct label up by a custom convention for the `id` of the
-      // inputs and the `for` of the input group `<label>` (which should be a `<legend>`).
-      const scrollTarget =
-        document.querySelector(
-          `label[for="${invalidInput.id.substr(
-            0,
-            invalidInput.id.indexOf('_'),
-          )}"`,
-        ) ||
-        document.querySelector(`label[for="${invalidInput.id}"]`) ||
-        // For polls with type `MakeAPoll` the option inputs do not have a label at all. In that case
-        // we scroll to the input element itself
-        invalidInput;
+      // scroll to label or legend of first invalid control if it's not visible yet
+      if (elementIsNotVisible(invalidInput)) {
+        // Radio groups have a label and a legend. While the label is per input, the legend is for
+        // the whole group. Croodle should bring the legend into view in that case.
+        // Due to a bug in Ember Bootstrap it renders a `<label>` instead of a `<legend>`:
+        // https://github.com/kaliber5/ember-bootstrap/issues/931
+        // As a work-a-round we look the correct label up by a custom convention for the `id` of the
+        // inputs and the `for` of the input group `<label>` (which should be a `<legend>`).
+        const scrollTarget =
+          document.querySelector(
+            `label[for="${invalidInput.id.substr(
+              0,
+              invalidInput.id.indexOf('_'),
+            )}"`,
+          ) ||
+          document.querySelector(`label[for="${invalidInput.id}"]`) ||
+          // For polls with type `MakeAPoll` the option inputs do not have a label at all. In that case
+          // we scroll to the input element itself
+          invalidInput;
 
-      scrollTarget.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
+        scrollTarget.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  };
 });
 
 export default scrollFirstInvalidElementIntoViewPort;

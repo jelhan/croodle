@@ -102,6 +102,19 @@ class FormData {
     return this.datetimes.size > 1;
   }
 
+  get validationStatePerDate() {
+    const validationState: Map<string, boolean> = new Map();
+
+    for (const [date, timeOptions] of this.datetimes.entries()) {
+      validationState.set(
+        date,
+        Array.from(timeOptions).every((time) => time.isValid),
+      );
+    }
+
+    return validationState;
+  }
+
   @action
   addOption(date: string) {
     this.datetimes
@@ -215,7 +228,7 @@ export default class CreateOptionsDatetime extends Component<CreateOptoinsDateti
 
   // validate input field for being partially filled
   @action
-  validateInput(option: FormDataTimeOption, event: InputEvent) {
+  validateInput(option: FormDataTimeOption, event: Event) {
     const element = event.target as HTMLInputElement;
 
     // update partially filled time validation error
@@ -224,7 +237,7 @@ export default class CreateOptionsDatetime extends Component<CreateOptoinsDateti
 
   // remove partially filled validation error if user fixed it
   @action
-  updateInputValidation(option: FormDataTimeOption, event: InputEvent) {
+  updateInputValidation(option: FormDataTimeOption, event: Event) {
     const element = event.target as HTMLInputElement;
 
     if (element.checkValidity() && option.isPartiallyFilled) {
