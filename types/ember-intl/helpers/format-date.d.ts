@@ -10,7 +10,7 @@ declare module '@glint/environment-ember-loose/registry' {
     'format-date': HelperLike<{
       Args: {
         Positional: [Date | string];
-        Named: Record<string, unknown>;
+        Named: Intl.DateTimeFormatOptions;
       };
       Return: string;
     }>;

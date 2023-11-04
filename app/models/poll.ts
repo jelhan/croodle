@@ -182,7 +182,7 @@ export default class Poll {
       id: payload.poll.id,
       options: decrypt(payload.poll.options, passphrase) as OptionInput,
       pollType: decrypt(payload.poll.pollType, passphrase) as PollType,
-      timezone: decrypt(payload.poll.timezone, passphrase) as string,
+      timezone: decrypt(payload.poll.timezone, passphrase) as string | null,
       title: decrypt(payload.poll.title, passphrase) as string,
       users: payload.poll.users.map((user) => {
         return new User({

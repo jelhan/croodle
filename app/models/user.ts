@@ -8,7 +8,7 @@ import type Poll from './poll';
 type UserInput = {
   creationDate: string;
   id: string;
-  name: string;
+  name: string | null;
   selections: SelectionInput[];
   version: string;
 };
@@ -20,7 +20,7 @@ export default class User {
   id: string;
 
   // user name
-  name: string;
+  name: string | null;
 
   // array of users selections
   // must be in same order as options property of poll
@@ -42,7 +42,7 @@ export default class User {
       name,
       poll,
       selections,
-    }: { name: string; poll: Poll; selections: SelectionInput[] },
+    }: { name: string | null; poll: Poll; selections: SelectionInput[] },
     passphrase: string,
   ) {
     const creationDate = new Date().toISOString();

@@ -63,7 +63,7 @@ export default class PollController extends Controller {
   get timezone() {
     const { model: poll, shouldUseLocalTimezone } = this;
 
-    return shouldUseLocalTimezone ? undefined : poll.timezone;
+    return shouldUseLocalTimezone || !poll.timezone ? undefined : poll.timezone;
   }
 
   @action

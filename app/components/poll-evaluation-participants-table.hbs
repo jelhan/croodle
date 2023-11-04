@@ -14,21 +14,7 @@
               is not sure about it.
             }}
             <th colspan={{count}}>
-              {{!
-                TODO: Simplify to dateStyle="full" after upgrading to Ember Intl v6
-
-                Cannot use optionGroup.value because that's a ISO8601 day string
-                (e.g. "2023-10-01"), which is parsed by browsers in UTC and not
-                locale time zone. Therefore we need parse a JS Date representation
-                of that string, which has been parsed by Luxon in correct timezone.
-              }}
-              {{format-date
-                jsDate
-                weekday="long"
-                day="numeric"
-                month="long"
-                year="numeric"
-              }}
+              {{format-date jsDate dateStyle="full" timeZone=@timeZone}}
             </th>
           {{/each-in}}
         </tr>
@@ -49,7 +35,11 @@
                   But TypeScript does not support narrowing through a chain of getters
                   currently.
                 }}
-                {{format-date option.jsDate timeStyle="short"}}
+                {{! @glint-ignore }}{{! prettier-ignore  }}
+                {{format-date option.jsDate
+                  timeStyle="short"
+                  timeZone=@timeZone
+                }}
               {{/if}}
             {{else if @poll.isFindADate}}
               {{!
@@ -59,7 +49,7 @@
                 But TypeScript does not support narrowing through a chain of getters
                 currently.
               }}
-              {{format-date option.jsDate dateStyle="full"}}
+              {{format-date option.jsDate dateStyle="full" timeZone=@timeZone}}
             {{else}}
               {{option.title}}
             {{/if}}

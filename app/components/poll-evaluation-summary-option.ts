@@ -6,7 +6,7 @@ interface PollEvaluationSummaryOptionSignature {
     Named: {
       evaluationBestOption: BestOption;
       isFindADate: boolean;
-      timeZone: string | null | undefined;
+      timeZone: string | undefined;
     };
   };
   Element: HTMLButtonElement;

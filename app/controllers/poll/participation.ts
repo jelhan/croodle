@@ -3,15 +3,27 @@ import User from '../../models/user';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import type RouterService from '@ember/routing/router-service';
+import type PollController from '../poll';
+import type { PollParticipationRouteModel } from 'croodle/routes/poll/participation';
+import type Poll from 'croodle/models/poll';
+import type { SelectionInput } from 'croodle/models/selection';
 
 export default class PollParticipationController extends Controller {
-  @service router;
+  @service declare router: RouterService;
 
-  @controller('poll')
-  pollController;
+  @controller('poll') declare pollController: PollController;
+
+  declare model: PollParticipationRouteModel;
 
   @tracked name = '';
   @tracked savingFailed = false;
+
+  newUserData: {
+    name: string | null;
+    poll: Poll;
+    selections: SelectionInput[];
+  } | null = null;
 
   @action
   async submit() {
@@ -30,18 +42,21 @@ export default class PollParticipationController extends Controller {
       }
 
       // map selection to answer if it's not freetext
-      let answer = answers.find(({ type }) => type === value);
-      let { icon, label, labelTranslation, type } = answer;
+      const answer = answers.find(({ type }) => type === value);
+      if (!answer) {
+        throw new Error('Mapping selection to answer failed');
+      }
+
+      const { icon, labelTranslation, type } = answer;
 
       return {
         icon,
-        label,
         labelTranslation,
         type,
       };
     });
 
-    this.newUserRecord = {
+    this.newUserData = {
       name,
       poll,
       selections,
@@ -51,12 +66,24 @@ export default class PollParticipationController extends Controller {
 
   @action
   async save() {
-    const { model, newUserRecord: user } = this;
+    const { model, newUserData: userData } = this;
     const { poll } = model;
-    const { encryptionKey } = this.router.currentRoute.parent.queryParams;
+    // As know that the route is `poll.participation`, which means that there
+    // is a parent `poll` for sure.
+    const { encryptionKey } = this.router.currentRoute.parent!.queryParams;
+
+    if (!userData) {
+      throw new Error(
+        'save method called before submit method has set the user data',
+      );
+    }
+
+    if (!encryptionKey) {
+      throw new Error('Can not lookup encryption key');
+    }
 
     try {
-      await User.create(user, encryptionKey);
+      await User.create(userData, encryptionKey);
 
       this.savingFailed = false;
     } catch (error) {
