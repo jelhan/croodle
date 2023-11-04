@@ -14,8 +14,11 @@ module('Integration | Mirage api mocking', function (hooks) {
       encryptionKey,
       title: 'foo',
     });
-    assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, poll.title)), 'foo');
-    assert.equal(
+    assert.strictEqual(
+      JSON.parse(sjcl.decrypt(encryptionKey, poll.title)),
+      'foo',
+    );
+    assert.strictEqual(
       JSON.parse(sjcl.decrypt(encryptionKey, poll.description)),
       'bar',
     );
@@ -27,6 +30,9 @@ module('Integration | Mirage api mocking', function (hooks) {
       encryptionKey,
       name: 'foo',
     });
-    assert.equal(JSON.parse(sjcl.decrypt(encryptionKey, user.name)), 'foo');
+    assert.strictEqual(
+      JSON.parse(sjcl.decrypt(encryptionKey, user.name)),
+      'foo',
+    );
   });
 });

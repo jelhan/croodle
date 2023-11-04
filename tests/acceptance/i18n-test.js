@@ -1,4 +1,4 @@
-import { fillIn, find, visit } from '@ember/test-helpers';
+import { fillIn, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
@@ -11,15 +11,13 @@ module('Acceptance | i18n', function (hooks) {
 
   test('locale is saved in localStorage', async function (assert) {
     await visit('/');
-    assert.equal(
-      find('.language-select').value,
-      'de',
-      'picks up locale in locale storage',
-    );
+    assert
+      .dom('.language-select')
+      .hasValue('de', 'picks up locale in locale storage');
 
     await fillIn('.language-select', 'en');
-    assert.equal(find('.language-select').value, 'en');
-    assert.equal(
+    assert.dom('.language-select').hasValue('en', 'shows changed locale');
+    assert.strictEqual(
       window.localStorage.getItem('locale'),
       'en',
       'persisted in localeStorage',

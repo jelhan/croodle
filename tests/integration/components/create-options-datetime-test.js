@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, find, findAll } from '@ember/test-helpers';
+import { render, click, findAll } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupIntl } from 'ember-intl/test-support';
 
@@ -26,16 +26,12 @@ module('Integration | Component | create options datetime', function (hooks) {
       hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
     );
 
-    assert.equal(
-      findAll('.days .form-group input').length,
-      1,
-      'there is one input field',
-    );
-    assert.equal(
-      find('.days .form-group input').value,
-      '',
-      'value is an empty string',
-    );
+    assert
+      .dom('.days .form-group input')
+      .exists({ count: 1 }, 'there is one input field');
+    assert
+      .dom('.days .form-group input')
+      .hasNoValue('value is an empty string');
   });
 
   test('it generates input field for options iso 8601 datetime string (with time)', async function (assert) {
@@ -45,16 +41,12 @@ module('Integration | Component | create options datetime', function (hooks) {
       hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
     );
 
-    assert.equal(
-      findAll('.days .form-group input').length,
-      1,
-      'there is one input field',
-    );
-    assert.equal(
-      find('.days .form-group input').value,
-      '11:11',
-      'it has time in option as value',
-    );
+    assert
+      .dom('.days .form-group input')
+      .exists({ count: 1 }, 'there is one input field');
+    assert
+      .dom('.days .form-group input')
+      .hasValue('11:11', 'it has time in option as value');
   });
 
   test('it hides repeated labels', async function (assert) {
@@ -64,16 +56,15 @@ module('Integration | Component | create options datetime', function (hooks) {
       hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
     );
 
-    assert.equal(
-      findAll('.days label').length,
-      3,
-      'every form-group has a label',
-    );
-    assert.equal(
-      findAll('.days label:not(.sr-only)').length,
-      2,
-      'there are two not hidden labels for two different dates',
-    );
+    assert
+      .dom('.days label')
+      .exists({ count: 3 }, 'every form-group has a label');
+    assert
+      .dom('.days label:not(.sr-only)')
+      .exists(
+        { count: 2 },
+        'there are two not hidden labels for two different dates',
+      );
     assert.notOk(
       findAll('.days .form-group')[0]
         .querySelector('label')
@@ -101,19 +92,15 @@ module('Integration | Component | create options datetime', function (hooks) {
       hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
     );
 
-    assert.equal(
-      findAll('.days .form-group input').length,
-      2,
-      'there are two input fields before',
-    );
+    assert
+      .dom('.days .form-group input')
+      .exists({ count: 2 }, 'there are two input fields before');
 
     await click(findAll('.days .form-group')[0].querySelector('.add'));
-    assert.equal(
-      findAll('.days .form-group input').length,
-      3,
-      'another input field is added',
-    );
-    assert.equal(
+    assert
+      .dom('.days .form-group input')
+      .exists({ count: 3 }, 'another input field is added');
+    assert.strictEqual(
       findAll('.days .form-group')[1].querySelector('label').textContent,
       findAll('.days .form-group')[0].querySelector('label').textContent,
       'new input has correct label',
@@ -133,26 +120,20 @@ module('Integration | Component | create options datetime', function (hooks) {
       hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
     );
 
-    assert.equal(
-      findAll('.days input').length,
-      2,
-      'there are two input fields before',
-    );
+    assert
+      .dom('.days input')
+      .exists({ count: 2 }, 'there are two input fields before');
     assert.ok(
       findAll('.delete').every((el) => el.disabled === false),
       'options are deleteable',
     );
 
     await click(findAll('.days .form-group')[0].querySelector('.delete'));
-    assert.equal(
-      findAll('.days .form-group input').length,
-      1,
-      'one input field is removed after deletion',
-    );
-    assert.equal(
-      find('.days .form-group input').value,
-      '22:22',
-      'correct input field is deleted',
-    );
+    assert
+      .dom('.days .form-group input')
+      .exists({ count: 1 }, 'one input field is removed after deletion');
+    assert
+      .dom('.days .form-group input')
+      .hasValue('22:22', 'correct input field is deleted');
   });
 });

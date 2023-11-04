@@ -14,8 +14,6 @@ module('Integration | Component | create options', function (hooks) {
   });
 
   test('shows validation errors if options are not unique (makeAPoll)', async function (assert) {
-    assert.expect(5);
-
     this.set('options', new TrackedSet());
 
     await render(hbs`
@@ -66,7 +64,7 @@ module('Integration | Component | create options', function (hooks) {
       />
     `);
 
-    assert.equal(findAll('.form-group.has-error').length, 0);
+    assert.dom('.form-group.has-error').doesNotExist();
 
     await focus(findAll('input')[0]);
     await blur(findAll('input')[0]);
