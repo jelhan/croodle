@@ -21,7 +21,7 @@ export default Factory.extend({
   ],
   pollType: 'FindADate',
   title: 'default title',
-  timezone: '',
+  timezone: null,
   version: 'v0.3',
 
   afterCreate(poll, server) {

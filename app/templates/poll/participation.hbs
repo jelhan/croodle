@@ -31,26 +31,18 @@
           as |shouldShowDate|
         }}
           {{#if @model.poll.isFreeText}}
+            {{! prettier-ignore }}
             <form.element
               @controlType="text"
               {{!
-              TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
-            }}
-              @label={{if
-                @model.poll.isFindADate
-                (format-date
-                  option.jsDate
-                  weekday=(if shouldShowDate "long" undefined)
-                  day=(if shouldShowDate "numeric" undefined)
-                  month=(if shouldShowDate "long" undefined)
-                  year=(if shouldShowDate "numeric" undefined)
-                  hour=(if option.hasTime "numeric" undefined)
-                  minute=(if option.hasTime "numeric" undefined)
-                  timeZone=(if
-                    this.pollController.timezone
-                    this.pollController.timezone
-                    undefined
-                  )
+                @glint-ignore
+                We know that jsDate is not null if `poll.isFindADate` is `true`.
+                But Glint does not understand that.
+              }}
+              @label={{if @model.poll.isFindADate (format-date option.jsDate
+                  dateStyle=(if shouldShowDate "full" undefined)
+                  timeStyle=(if option.hasTime "short" undefined)
+                  timeZone=this.pollController.timezone
                 )
                 option.title
               }}
@@ -59,25 +51,17 @@
               data-test-form-element={{concat "option-" option.title}}
             />
           {{else}}
+            {{! prettier-ignore }}
             <form.element
               {{!
-              TODO: Simplify date formating to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
-            }}
-              @label={{if
-                @model.poll.isFindADate
-                (format-date
-                  option.jsDate
-                  weekday=(if shouldShowDate "long" undefined)
-                  day=(if shouldShowDate "numeric" undefined)
-                  month=(if shouldShowDate "long" undefined)
-                  year=(if shouldShowDate "numeric" undefined)
-                  hour=(if option.hasTime "numeric" undefined)
-                  minute=(if option.hasTime "numeric" undefined)
-                  timeZone=(if
-                    this.pollController.timezone
-                    this.pollController.timezone
-                    undefined
-                  )
+                @glint-ignore
+                We know that jsDate is not null if `poll.isFindADate` is `true`.
+                But Glint does not understand that.
+              }}
+              @label={{if @model.poll.isFindADate (format-date option.jsDate
+                  dateStyle=(if shouldShowDate "full" undefined)
+                  timeStyle=(if option.hasTime "short" undefined)
+                  timeZone=this.pollController.timezone
                 )
                 option.title
               }}

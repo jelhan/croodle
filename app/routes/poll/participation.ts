@@ -78,13 +78,15 @@ class FormData {
   }
 }
 
-export default class ParticipationRoute extends Route {
+export default class PollParticipationRoute extends Route {
   model() {
     const poll = this.modelFor('poll') as Poll;
     const { anonymousUser, forceAnswer, options, users } = poll;
     const formData = new FormData(options, {
       nameIsRequired: !anonymousUser,
-      namesTaken: users.map(({ name }) => name),
+      namesTaken: users
+        .map(({ name }) => name)
+        .filter((_) => _ !== null) as string[],
       selectionIsRequired: forceAnswer,
     });
 
@@ -94,3 +96,8 @@ export default class ParticipationRoute extends Route {
     };
   }
 }
+
+type Resolved<P> = P extends Promise<infer T> ? T : P;
+export type PollParticipationRouteModel = Resolved<
+  ReturnType<PollParticipationRoute['model']>
+>;

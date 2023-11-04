@@ -5,12 +5,14 @@ declare module '@glint/environment-ember-loose/registry' {
     BsModal: ComponentLike<{
       Args: {
         Named: {
-          autoClose: boolean;
-          closeButton: boolean;
-          footer: boolean;
-          keyboard: boolean;
+          autoClose?: boolean;
+          closeButton?: boolean;
+          footer?: boolean;
+          keyboard?: boolean;
+          onHidden?: () => void;
+          onSubmit?: () => void;
           open: boolean;
-          title: string;
+          title?: string;
         };
       };
       Blocks: {
@@ -21,11 +23,19 @@ declare module '@glint/environment-ember-loose/registry' {
                 default: [];
               };
             }>;
+            close: () => void;
+            header: ComponentLike<{
+              Args: {
+                closeButton: boolean;
+                title: string;
+              };
+            }>;
             footer: ComponentLike<{
               Blocks: {
                 default: [];
               };
             }>;
+            submit: () => void;
           },
         ];
       };

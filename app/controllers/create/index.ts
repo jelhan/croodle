@@ -3,12 +3,12 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import type RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
-import type { CreateRouteIndexModel } from 'croodle/routes/create/index';
+import type { CreateIndexRouteModel } from 'croodle/routes/create/index';
 
 export default class CreateIndex extends Controller {
   @service declare router: RouterService;
 
-  declare model: CreateRouteIndexModel;
+  declare model: CreateIndexRouteModel;
 
   @action
   submit() {

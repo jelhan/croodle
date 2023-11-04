@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 export interface PollEvaluationParticipantsTableSignature {
   Args: {
     poll: Poll;
+    timeZone: string | undefined;
   };
 }
 

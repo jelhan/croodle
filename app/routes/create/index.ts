@@ -23,6 +23,6 @@ export default class CreateIndexRoute extends Route {
 }
 
 type Resolved<P> = P extends Promise<infer T> ? T : P;
-export type CreateRouteIndexModel = Resolved<
+export type CreateIndexRouteModel = Resolved<
   ReturnType<CreateIndexRoute['model']>
 >;
