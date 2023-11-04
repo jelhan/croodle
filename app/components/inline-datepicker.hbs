@@ -1,4 +1,3 @@
-{{! @glint-nocheck: not typesafe yet }}
 <PowerCalendarMultiple
   @center={{@center}}
   @selected={{@selectedDays}}
@@ -10,7 +9,7 @@
     <button
       type="button"
       class="ember-power-calendar-nav-control"
-      onclick={{action calendar.actions.moveCenter -1 "month"}}
+      {{on "click" (fn calendar.actions.moveCenter -1 "month")}}
     >
       «
     </button>
@@ -20,7 +19,7 @@
     <button
       type="button"
       class="ember-power-calendar-nav-control"
-      onclick={{action calendar.actions.moveCenter 1 "month"}}
+      {{on "click" (fn calendar.actions.moveCenter 1 "month")}}
     >
       »
     </button>

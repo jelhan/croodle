@@ -6,7 +6,7 @@ type BsFormComponent = ComponentLike<{
     Named: {
       formLayout: 'horizontal' | 'vertical';
       model: unknown;
-      onInvalid: () => void;
+      onInvalid?: () => void;
       onSubmit: () => void;
     };
   };
@@ -14,6 +14,7 @@ type BsFormComponent = ComponentLike<{
     default: [
       {
         element: BsFormElementComponent;
+        isSubmitting: boolean;
       },
     ];
   };

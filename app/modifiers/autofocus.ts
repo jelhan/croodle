@@ -1,11 +1,11 @@
 import Modifier from 'ember-modifier';
 
 type Named = {
-  enabled: boolean;
+  enabled?: boolean;
 };
 
 interface AutofocusModifierSignature {
-  Element: HTMLInputElement;
+  Element: HTMLInputElement | HTMLSelectElement;
   Args: {
     Named: Named;
   };

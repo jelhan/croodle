@@ -1,7 +1,7 @@
 import templateOnlyComponent from '@ember/component/template-only';
 
 interface BackButtonSignature {
-  Args: { onClick: () => void };
+  Args: { onClick?: () => void };
   Element: HTMLButtonElement;
 }
 

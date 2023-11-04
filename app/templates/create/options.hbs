@@ -1,6 +1,4 @@
-{{! @glint-nocheck: not typesafe yet }}
 <CreateOptions
-  @isFindADate={{eq @model.pollType "FindADate"}}
   @isMakeAPoll={{eq @model.pollType "MakeAPoll"}}
   @options={{if
     (eq @model.pollType "FindADate")

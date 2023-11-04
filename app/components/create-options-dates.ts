@@ -3,12 +3,13 @@ import { action } from '@ember/object';
 import { isArray } from '@ember/array';
 import { DateTime } from 'luxon';
 import { tracked } from '@glimmer/tracking';
-import type { TrackedSet } from 'tracked-built-ins';
 import type { FormDataOption } from './create-options';
+import type BsFormElementComponent from 'ember-bootstrap/components/bs-form/element';
 
 export interface CreateOptionsDatesSignature {
   Args: {
-    options: TrackedSet<FormDataOption>;
+    formElement: BsFormElementComponent;
+    options: Array<FormDataOption>;
     updateOptions: (options: string[]) => void;
   };
 }
@@ -20,7 +21,7 @@ export default class CreateOptionsDates extends Component<CreateOptionsDatesSign
       : DateTime.local();
 
   get selectedDays(): DateTime[] {
-    return Array.from(this.args.options).map(
+    return this.args.options.map(
       ({ value }) => DateTime.fromISO(value) as DateTime,
     );
   }
@@ -44,5 +45,19 @@ export default class CreateOptionsDates extends Component<CreateOptionsDatesSign
     this.args.updateOptions(
       newDatesAsLuxonDateTime.map((datetime) => datetime.toISODate() as string),
     );
+  }
+
+  @action
+  handleCalenderCenterChange(
+    offset: number,
+    { datetime }: { datetime: DateTime },
+  ) {
+    this.calendarCenter = datetime.plus({ months: offset });
+  }
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    CreateOptionsDates: typeof CreateOptionsDates;
   }
 }

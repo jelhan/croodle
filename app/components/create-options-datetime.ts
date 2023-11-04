@@ -279,3 +279,9 @@ export default class CreateOptionsDatetime extends Component<CreateOptoinsDateti
     this.router.on('routeWillChange', this.handleTransition);
   }
 }
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    CreateOptionsDatetime: typeof CreateOptionsDatetime;
+  }
+}
