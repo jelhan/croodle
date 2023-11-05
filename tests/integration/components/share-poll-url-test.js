@@ -3,17 +3,11 @@ import { setupRenderingTest } from 'croodle/tests/helpers';
 import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import sinon from 'sinon';
-import type IntlService from 'ember-intl/services/intl';
+import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | share-poll-url', function (hooks) {
   setupRenderingTest(hooks);
-
-  hooks.beforeEach(function () {
-    // Using setupIntl() here causes a strange type error. This is just a
-    // workaround until Ember Intl has fixed their types.
-    const intlService = this.owner.lookup('service:intl') as IntlService;
-    intlService.locale = 'en';
-  });
+  setupIntl(hooks);
 
   test('it shows poll url', async function (assert) {
     sinon.stub(this.owner.lookup('service:router'), 'currentURL').value('/foo');

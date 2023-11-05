@@ -14,13 +14,5 @@
 </nav>
 
 <main class="container cr-main">
-  <div id="messages">
-    {{#each this.flashMessages.queue as |flash|}}
-      <FlashMessage @flash={{flash}}>
-        {{t flash.message}}
-      </FlashMessage>
-    {{/each}}
-  </div>
-
   {{outlet}}
 </main>

@@ -8,11 +8,9 @@ import { generatePassphrase } from '../../utils/encryption';
 import type RouterService from '@ember/routing/router-service';
 import type { CreateSettingsRouteModel } from 'croodle/routes/create/settings';
 import type IntlService from 'ember-intl/services/intl';
-import type FlashMessagesService from 'ember-cli-flash/services/flash-messages';
 import { tracked } from '@glimmer/tracking';
 
 export default class CreateSettings extends Controller {
-  @service declare flashMessages: FlashMessagesService;
   @service declare intl: IntlService;
   @service declare router: RouterService;
 

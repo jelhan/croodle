@@ -17,7 +17,11 @@
         aria-hidden="true"
       ></span>
 
-      <BsTooltip @placement="bottom" @triggerEvents="click">
+      <BsTooltip
+        @placement="bottom"
+        @triggerEvents="click"
+        data-test-tooltip="copied"
+      >
         {{t "poll.link.copied"}}
       </BsTooltip>
     </CopyButton>

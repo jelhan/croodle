@@ -13,6 +13,7 @@ declare module '@glint/environment-ember-loose/registry' {
       Blocks: {
         default: [];
       };
+      Element: HTMLElement;
     }>;
   }
 }

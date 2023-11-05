@@ -32,13 +32,9 @@ module('Acceptance | view poll', function (hooks) {
       );
 
     await click('.copy-btn');
-    /*
-     * Can't test if link is actually copied to clipboard due to api
-     * restrictions. Due to security it's not allowed to read from clipboard.
-     *
-     * Can't test if flash message is shown due to
-     * https://github.com/poteto/ember-cli-flash/issues/202
-     */
+    assert
+      .dom('[data-test-tooltip="copied"]')
+      .isVisible('shows success message that URL has been copied');
   });
 
   test('shows a warning if poll is about to be expired', async function (assert) {
