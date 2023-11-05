@@ -31,9 +31,8 @@ poll:
     expiration-date-warning: Denne avstemmingen utløper {timeToNow} og vil slettes
         etterpå.
     link:
-        selected: Lenke valgt. Trykk Command+C for å kopiere.
         copy-label: Kopier lenke til utklippstavle
-        copied: Lenke kopiert til utklippstavle.
+        copied: Kopiert
     input:
         showEvaluation:
             show: Vis

@@ -1,0 +1,32 @@
+<div class="box poll-link cr-poll-link">
+  <p>{{t "poll.share.title"}}</p>
+  <p class="link cr-poll-link__link">
+    <small>
+      <code class="cr-poll-link__url" data-test-poll-url>{{this.pollUrl}}</code>
+    </small>
+    <CopyButton
+      @text={{this.pollUrl}}
+      @onSuccess={{this.showCopySuccessMessage}}
+      class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
+      data-test-button="copy-link"
+    >
+      {{t "poll.link.copy-label"}}&nbsp;
+      <span
+        class="oi oi-clipboard"
+        title={{t "poll.link.copy-label"}}
+        aria-hidden="true"
+      ></span>
+
+      <BsTooltip
+        @placement="bottom"
+        @triggerEvents="click"
+        data-test-tooltip="copied"
+      >
+        {{t "poll.link.copied"}}
+      </BsTooltip>
+    </CopyButton>
+  </p>
+  <small class="text-muted">
+    {{t "poll.share.notice"}}
+  </small>
+</div>

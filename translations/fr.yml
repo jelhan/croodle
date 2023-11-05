@@ -206,9 +206,8 @@ poll:
             hide: Caché
             show: Affiché
     link:
-        copied: 'Lien copié dans le presse-papiers.'
+        copied: 'Copié!'
         copy-label: 'Copier le lien dans le presse-papiers'
-        selected: 'Lien sélectionné. Appuyez sur Commande+C pour copier.'
     modal:
         timezoneDiffers:
             title: 'Dans quels fuseaux horaires les dates doivent-elles être présentées ?'

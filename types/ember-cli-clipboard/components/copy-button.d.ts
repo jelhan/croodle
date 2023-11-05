@@ -5,8 +5,8 @@ declare module '@glint/environment-ember-loose/registry' {
     CopyButton: ComponentLike<{
       Args: {
         Named: {
-          onError: () => void;
-          onSuccess: () => void;
+          onError?: () => void;
+          onSuccess?: () => void;
           text: string;
         };
       };

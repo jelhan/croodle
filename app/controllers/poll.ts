@@ -4,13 +4,11 @@ import { isPresent, isEmpty } from '@ember/utils';
 import { action } from '@ember/object';
 import { DateTime } from 'luxon';
 import { tracked } from '@glimmer/tracking';
-import type FlashMessagesService from 'ember-cli-flash/services/flash-messages';
 import type IntlService from 'ember-intl/services/intl';
 import type RouterService from '@ember/routing/router-service';
 import type { PollRouteModel } from 'croodle/routes/poll';
 
 export default class PollController extends Controller {
-  @service declare flashMessages: FlashMessagesService;
   @service declare intl: IntlService;
   @service declare router: RouterService;
 
@@ -21,15 +19,6 @@ export default class PollController extends Controller {
 
   @tracked timezoneChoosen = false;
   @tracked shouldUseLocalTimezone = false;
-
-  get pollUrl() {
-    // consume information, which may cause a change to the URL to ensure
-    // getter is invalided if needed
-    this.router.currentURL;
-    this.encryptionKey;
-
-    return window.location.href;
-  }
 
   get showExpirationWarning() {
     const { model: poll } = this;
@@ -64,20 +53,6 @@ export default class PollController extends Controller {
     const { model: poll, shouldUseLocalTimezone } = this;
 
     return shouldUseLocalTimezone || !poll.timezone ? undefined : poll.timezone;
-  }
-
-  @action
-  linkAction(type: 'copied' | 'selected') {
-    const flashMessages = this.flashMessages;
-    switch (type) {
-      case 'copied':
-        flashMessages.success(`poll.link.copied`);
-        break;
-
-      case 'selected':
-        flashMessages.info(`poll.link.selected`);
-        break;
-    }
   }
 
   @action

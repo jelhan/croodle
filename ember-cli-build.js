@@ -28,6 +28,7 @@ module.exports = function (defaults) {
         'bs-button-group',
         'bs-form',
         'bs-modal',
+        'bs-tooltip',
       ],
     },
     'ember-cli-babel': {

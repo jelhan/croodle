@@ -49,31 +49,7 @@
         </div>
       </div>
       <div class="col-sm-6 col-lg-6 offset-lg-1">
-        <div class="box poll-link cr-poll-link">
-          <p>{{t "poll.share.title"}}</p>
-          <p class="link cr-poll-link__link">
-            <small>
-              <code class="cr-poll-link__url">{{this.pollUrl}}</code>
-            </small>
-            <CopyButton
-              @text={{this.pollUrl}}
-              @onError={{fn this.linkAction "selected"}}
-              @onSuccess={{fn this.linkAction "copied"}}
-              class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
-              data-test-button="copy-link"
-            >
-              {{t "poll.link.copy-label"}}&nbsp;
-              <span
-                class="oi oi-clipboard"
-                title={{t "poll.link.copy-label"}}
-                aria-hidden="true"
-              ></span>
-            </CopyButton>
-          </p>
-          <small class="text-muted">
-            {{t "poll.share.notice"}}
-          </small>
-        </div>
+        <SharePollUrl />
       </div>
     </div>
 

@@ -206,9 +206,8 @@ poll:
             hide: Esconder
             show: Mostrar
     link:
-        copied: 'Enlace copiado al portapapeles.'
+        copied: 'Copiado!'
         copy-label: 'Copiar enlace al portapapeles'
-        selected: 'Enlace seleccionado. Presiona Comando+C para copiarlo.'
     modal:
         timezoneDiffers:
             title: '¿Que zona horaria deseas utilizar para mostrar los datos?'

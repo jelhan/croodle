@@ -204,9 +204,8 @@ poll:
             hide: Hide
             show: Show
     link:
-        copied: 'Link copied to clipboard.'
+        copied: 'Copied!'
         copy-label: 'Copy link to clipboard'
-        selected: 'Link selected. Press Command+C to copy.'
     modal:
         timezoneDiffers:
             title: 'In which time zones should the dates be presented?'

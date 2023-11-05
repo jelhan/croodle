@@ -1,17 +1,19 @@
 import { ComponentLike } from '@glint/template';
-import type FlashObject from 'ember-cli-flash/flash/object';
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    FlashMessage: ComponentLike<{
+    BsTooltip: ComponentLike<{
       Args: {
         Named: {
-          flash: FlashObject;
+          placement?: 'top' | 'bottom' | 'left' | 'right';
+          triggerEvents?: string | string[];
+          visible?: boolean;
         };
       };
       Blocks: {
         default: [];
       };
+      Element: HTMLElement;
     }>;
   }
 }
