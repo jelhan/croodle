@@ -108,8 +108,10 @@ error:
                 expired: 'Le sondage a expiré et a été supprimé.'
                 typo: "Il y a une faute de frappe dans l'URL. Vous voudrez peut-être\
                     \ revérifier - en particulier la partie avant le point d'interrogation."
-        savingFailed: "Le sondage n'a pas pu être enregistré. Veuillez réessayer dans\
-            \ quelques secondes."
+        savingFailed:
+            title: "Saving failed"
+            description: "Le sondage n'a pas pu être enregistré. Veuillez réessayer dans\
+                \ quelques secondes."
     generic:
         unexpected:
             title: "Une erreur inattendue s'est produite"

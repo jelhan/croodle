@@ -15,6 +15,7 @@ type BsFormComponent = ComponentLike<{
       {
         element: BsFormElementComponent;
         isSubmitting: boolean;
+        submit: () => void;
       },
     ];
   };

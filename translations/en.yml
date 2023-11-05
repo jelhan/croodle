@@ -107,7 +107,10 @@ error:
                 expired: 'The poll is expired and has been deleted.'
                 typo: 'There is a typo in the URL. You may want to double-check it
                     – especially the part before the question mark.'
-        savingFailed: 'The poll could not be saved. Please try again in a few seconds.'
+        savingFailed:
+            title: 'Saving failed'
+            description: 'The poll could not be saved. Please check your network connection
+                and try again. Please contact the site administrator if the problem persists.'
     generic:
         unexpected:
             title: 'An unexpected error occured'

@@ -1,11 +1,22 @@
 <BsButton
   @type="primary"
+  {{!
+    Due to a bug in Ember, conditional modifiers cannot be used with the "on"
+    modifier. Need to always apply the modifier and fallback to a noop function
+    (returned by noop helper) instead of only applying the modifier when needed.
+    See https://github.com/emberjs/ember.js/issues/19869.
+  }}
+  {{on "click" (if @onClick @onClick (noop))}}
   class="cr-steps-bottom-nav__button cr-steps-bottom-nav__next-button next"
   type="submit"
   ...attributes
 >
   <span class="cr-steps-bottom-nav__label">
-    {{t "action.save"}}
+    {{#if (has-block)}}
+      {{yield}}
+    {{else}}
+      {{t "action.save"}}
+    {{/if}}
   </span>
 
   {{#if @isPending}}

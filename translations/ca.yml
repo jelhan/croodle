@@ -107,8 +107,10 @@ error:
                 expired: 'El sondeig ha caducat i ha estat eliminat.'
                 typo: 'Hi ha un error tipogràfic en la URL. Pots tornar a comprovar
                     el que has posat, especialment la part anterior al signe d''interrogació.'
-        savingFailed: 'No hem pogut guardar el sondeig, si us plau, intenta''l de
-            nou en uns segons.'
+        savingFailed:
+            title: 'Saving failed'
+            description: 'No hem pogut guardar el sondeig, si us plau, intenta''l de
+                nou en uns segons.'
     generic:
         unexpected:
             title: 'Va ocórrer un error inesperat'

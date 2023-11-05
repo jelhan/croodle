@@ -4,7 +4,11 @@ interface SaveButtonSignature {
   Args: {
     Named: {
       isPending: boolean;
+      onClick?: () => void;
     };
+  };
+  Blocks: {
+    default: [];
   };
   Element: HTMLButtonElement;
 }

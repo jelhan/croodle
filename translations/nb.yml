@@ -87,7 +87,9 @@ error:
                     delen før spørsmålstegnet.
                 expired: Avstemmingen er utløpt, og har blitt slettet.
             title: Kunne ikke finne avstemming
-        savingFailed: Kunne ikke lagre avstemming. Prøv igjen om noen sekunder.
+        savingFailed:
+            title: Saving failed
+            description: Kunne ikke lagre avstemming. Prøv igjen om noen sekunder.
         decryptionFailed:
             description: Dekryptering av avstemmingsdata mislyktes. Dette skjer antageligvis
                 fordi krypteringsnøkkelen ikke er riktig. Dobbeltsjekk nettadressen

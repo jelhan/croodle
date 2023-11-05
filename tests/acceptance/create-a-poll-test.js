@@ -26,6 +26,7 @@ import pageCreateSettings from 'croodle/tests/pages/create/settings';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 import asyncThrowsAssertion from '../assertions/async-throws';
 import { calendarSelect } from 'ember-power-calendar/test-support';
+import sinon from 'sinon';
 
 module('Acceptance | create a poll', function (hooks) {
   hooks.beforeEach(function () {
@@ -141,25 +142,16 @@ module('Acceptance | create a poll', function (hooks) {
       'available answers selection has autofocus',
     );
 
-    // simulate temporary server error
-    this.server.logging = true;
-    this.server.post('/polls', undefined, 503);
-
-    await assert.asyncThrows(async () => {
-      await pageCreateSettings.save();
-    }, 'Unexpected server-side error. Server responded with 503 (Service Unavailable)');
-    assert.strictEqual(currentRouteName(), 'create.settings');
-
     // simulate server is available again
     // defer creation for testing loading spinner
     let resolveSubmission;
-    let resolveSubmissionWith;
     this.server.post('/polls', function (schema) {
       return new Promise((resolve) => {
-        let attrs = this.normalizedRequestAttrs();
-
-        resolveSubmission = resolve;
-        resolveSubmissionWith = schema.polls.create(attrs);
+        resolveSubmission = () => {
+          const attrs = this.normalizedRequestAttrs();
+          const poll = schema.polls.create(attrs);
+          resolve(poll);
+        };
       });
     });
 
@@ -171,7 +163,7 @@ module('Acceptance | create a poll', function (hooks) {
     });
     assert.ok(true, 'loading spinner is shown');
 
-    resolveSubmission(resolveSubmissionWith);
+    resolveSubmission();
     await settled();
 
     assert.strictEqual(currentRouteName(), 'poll.participation');
@@ -956,6 +948,170 @@ module('Acceptance | create a poll', function (hooks) {
 
     await pageCreateMeta.back();
     assert.strictEqual(currentRouteName(), 'create.index');
+  });
+
+  test('informs user if saving fails', async function (assert) {
+    const reportErrorFake = sinon.replace(window, 'reportError', sinon.fake());
+
+    await pageCreateIndex.visit();
+    assert.strictEqual(
+      currentRouteName(),
+      'create.index',
+      'assumption: can open start page of poll creation',
+    );
+
+    await pageCreateIndex.next();
+    assert.strictEqual(
+      currentRouteName(),
+      'create.meta',
+      'assumption: can go to title and description input step',
+    );
+
+    await pageCreateMeta.title('foo').next();
+    assert.strictEqual(
+      currentRouteName(),
+      'create.options',
+      'assumption: can go to options input step',
+    );
+
+    await pageCreateOptions.selectDates([new Date()]);
+    await pageCreateOptions.next();
+    assert.strictEqual(
+      currentRouteName(),
+      'create.options-datetime',
+      'assumption: can go to times input for dates after selecting one day',
+    );
+
+    await pageCreateOptionsDatetime.next();
+    assert.strictEqual(
+      currentRouteName(),
+      'create.settings',
+      'assumption: can go to settings page',
+    );
+
+    // simulate temporary server error
+    this.server.logging = true;
+    this.server.post('/polls', undefined, 503);
+
+    await click('form button[type="submit"]');
+    assert.strictEqual(
+      currentRouteName(),
+      'create.settings',
+      'user stays at settings route if saving fails',
+    );
+    assert
+      .dom('[data-test-modal="saving-failed"]')
+      .isVisible(
+        'modal is shown informing the user that saving the poll failed',
+      );
+    assert
+      .dom('[data-test-modal="saving-failed"] .modal-header')
+      .hasText(
+        t('error.poll.savingFailed.title'),
+        'modal has a meaningful title',
+      );
+    assert
+      .dom('[data-test-modal="saving-failed"] .modal-body')
+      .hasText(
+        t('error.poll.savingFailed.description'),
+        'modal has a meaningful body',
+      );
+    assert
+      .dom('[data-test-modal="saving-failed"] .modal-footer button')
+      .exists({ count: 2 }, 'modal has two buttons');
+    assert
+      .dom(
+        '[data-test-modal="saving-failed"] .modal-footer button[data-test-button="abort"]',
+      )
+      .hasText(t('action.abort'), 'abort button has meaningful text');
+    assert
+      .dom(
+        '[data-test-modal="saving-failed"] .modal-footer button[data-test-button="retry"]',
+      )
+      .hasText(
+        t('modal.save-retry.button-retry'),
+        'retry button has meaningful text',
+      );
+    assert.ok(reportErrorFake.calledOnce, 'error is reported to console');
+    assert.ok(
+      reportErrorFake.firstCall.args[0] instanceof Error,
+      'reported error is an instance of Error',
+    );
+    assert.strictEqual(
+      reportErrorFake.firstCall.args[0].message,
+      'Unexpected server-side error. Server responded with 503 (Service Unavailable)',
+      'reported error has meaningful error message',
+    );
+
+    await click(
+      '[data-test-modal="saving-failed"] button[data-test-button="retry"]',
+    );
+    assert.strictEqual(
+      currentRouteName(),
+      'create.settings',
+      'user stays at settings route if saving failed even on retry',
+    );
+    assert
+      .dom('[data-test-modal="saving-failed"]')
+      .isVisible('modal is still shown if retry fails');
+    assert.ok(
+      reportErrorFake.calledTwice,
+      'error is reported to console on failed retry',
+    );
+
+    await click(
+      '[data-test-modal="saving-failed"] button[data-test-button="abort"]',
+    );
+    assert
+      .dom('[data-test-modal="saving-failed"]')
+      .isNotVisible('user can close the modal that saving failed');
+    assert.strictEqual(
+      currentRouteName(),
+      'create.settings',
+      'user stays at settings route if closing the modal',
+    );
+
+    await click('form button[type="submit"]');
+    assert
+      .dom('[data-test-modal="saving-failed"]')
+      .isVisible('modal is visible again if saving fails again');
+    assert.ok(
+      reportErrorFake.calledThrice,
+      'error is reported to console on failed retry',
+    );
+
+    // simulate server is available again
+    // defer creation for testing loading spinner
+    let resolveSubmission;
+    this.server.post('/polls', function (schema) {
+      return new Promise((resolve) => {
+        resolveSubmission = () => {
+          const attrs = this.normalizedRequestAttrs();
+          const poll = schema.polls.create(attrs);
+          resolve(poll);
+        };
+      });
+    });
+
+    click('[data-test-modal="saving-failed"] button[data-test-button="retry"]');
+
+    // shows loading spinner while saving
+    await waitFor(
+      '[data-test-modal="saving-failed"] button[data-test-button="retry"] .spinner-border',
+      {
+        timeoutMessage: 'timeout while waiting for loading spinner to appear',
+      },
+    );
+    assert.ok(true, 'loading spinner is shown');
+
+    resolveSubmission();
+    await settled();
+
+    assert.strictEqual(
+      currentRouteName(),
+      'poll.participation',
+      'user is transitioned to poll participation page after successful retry',
+    );
   });
 
   module('validation', function () {
