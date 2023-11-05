@@ -9,6 +9,7 @@ declare module '@glint/environment-ember-loose/registry' {
           closeButton?: boolean;
           footer?: boolean;
           keyboard?: boolean;
+          onHide?: () => void;
           onHidden?: () => void;
           onSubmit?: () => void;
           open: boolean;

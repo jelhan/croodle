@@ -108,8 +108,10 @@ error:
                 expired: 'Il sondaggio è scaduto ed è stato rimosso.'
                 typo: 'L''URL è errato. Prova a ricontrollarlo, specialmente la parte
                     prima del punto interrogativo.'
-        savingFailed: 'Non è stato possible salvare il sondaggio. Riprova tra qualche
-            secondo.'
+        savingFailed:
+            title: "Saving failed"
+            description: 'Non è stato possible salvare il sondaggio. Riprova tra qualche
+                secondo.'
     generic:
         unexpected:
             title: 'Si è verificato un errore inaspettato'

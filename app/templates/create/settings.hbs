@@ -3,7 +3,7 @@
     @formLayout="horizontal"
     @model={{this}}
     @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
-    @onSubmit={{this.submit}}
+    @onSubmit={{this.createPoll}}
     novalidate
     as |form|
   >
@@ -78,5 +78,36 @@
         <BackButton @onClick={{this.previousPage}} />
       </div>
     </div>
+
+    <BsModal
+      @onHidden={{this.resetSavingPollFailedState}}
+      @onSubmit={{form.submit}}
+      @open={{this.savingPollFailed}}
+      data-test-modal="saving-failed"
+      as |modal|
+    >
+      <modal.header
+        @closeButton={{false}}
+        @title={{t "error.poll.savingFailed.title"}}
+      />
+      <modal.body>
+        <p>
+          {{t "error.poll.savingFailed.description"}}
+        </p>
+      </modal.body>
+      <modal.footer>
+        <BsButton @onClick={{modal.close}} data-test-button="abort">
+          {{t "action.abort"}}
+        </BsButton>
+        <SaveButton
+          @isPending={{form.isSubmitting}}
+          @onClick={{modal.submit}}
+          data-test-button="retry"
+          type="button"
+        >
+          {{t "modal.save-retry.button-retry"}}
+        </SaveButton>
+      </modal.footer>
+    </BsModal>
   </BsForm>
 </div>

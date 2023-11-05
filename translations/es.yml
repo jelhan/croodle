@@ -109,8 +109,10 @@ error:
                 expired: 'La encuesta ha expirado y ha sido borrada.'
                 typo: 'Hay un error al teclear la URL. Por favor, comprueba que la
                     has escrito bien, sobre todo la parte anterior al signo de interrogación.'
-        savingFailed: 'La encuesta no pude ser guardada. Por favor prueba de nuevo
-            en unos segundos.'
+        savingFailed:
+            title: 'Saving failed'
+            description: 'La encuesta no pude ser guardada. Por favor prueba de nuevo
+                en unos segundos.'
     generic:
         unexpected:
             title: 'Ocurrió un error inesperado'

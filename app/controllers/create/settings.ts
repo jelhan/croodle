@@ -9,6 +9,7 @@ import type RouterService from '@ember/routing/router-service';
 import type { CreateSettingsRouteModel } from 'croodle/routes/create/settings';
 import type IntlService from 'ember-intl/services/intl';
 import type FlashMessagesService from 'ember-cli-flash/services/flash-messages';
+import { tracked } from '@glimmer/tracking';
 
 export default class CreateSettings extends Controller {
   @service declare flashMessages: FlashMessagesService;
@@ -16,6 +17,8 @@ export default class CreateSettings extends Controller {
   @service declare router: RouterService;
 
   declare model: CreateSettingsRouteModel;
+
+  @tracked savingPollFailed = false;
 
   get anonymousUser() {
     return this.model.anonymousUser;
@@ -94,7 +97,7 @@ export default class CreateSettings extends Controller {
   }
 
   @action
-  async submit() {
+  async createPoll() {
     const { model } = this;
     const {
       anonymousUser,
@@ -158,15 +161,20 @@ export default class CreateSettings extends Controller {
       );
 
       // redirect to new poll
-      await this.router.transitionTo('poll', poll.id, {
+      await this.router.transitionTo('poll.participation', poll.id, {
         queryParams: {
           encryptionKey,
         },
       });
     } catch (err) {
-      this.flashMessages.danger('error.poll.savingFailed');
+      this.savingPollFailed = true;
 
-      throw err;
+      reportError(err);
     }
+  }
+
+  @action
+  resetSavingPollFailedState() {
+    this.savingPollFailed = false;
   }
 }

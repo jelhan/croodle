@@ -112,8 +112,11 @@ error:
                 typo: 'Die URL ist fehlerhaft. Bitte prüfe, dass die URL vollständig
                     und korrekt ist. Achte dabei insbesondere auf den Teil vor dem
                     Fragezeichen.'
-        savingFailed: 'Die Umfrage konnte nicht gespeichert werden. Bitte versuche
-            es in einigen Sekunden erneut.'
+        savingFailed:
+            title: 'Speichern fehlgeschlagen'
+            description: 'Die Umfrage konnte nicht gespeichert werden. Bitte prüfe deine
+                Internetverbindung und versuche es erneut. Sollte der Fehler weiterhin
+                auftreten, wende dich bitte an den Administrator der Seite.'
     generic:
         unexpected:
             title: 'Ein unerwarteter Fehler ist aufgetreten'
