@@ -10,7 +10,7 @@ module('Integration | Helper | mark-as-safe-html', function (hooks) {
   test('it renders', async function (assert) {
     this.set('inputValue', '1234');
 
-    await render(hbs`{{mark-as-safe-html "<p>foo</p>"}}`);
+    await render(hbs`{{mark-as-safe-html '<p>foo</p>'}}`);
 
     assert.dom('p').exists();
     assert.dom('p').hasText('foo');
