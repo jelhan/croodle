@@ -49,7 +49,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^8.2.1",
     "ember-auto-import": "^2.6.3",
-    "ember-bootstrap": "^5.0.0",
+    "ember-bootstrap": "^6.0.0-2",
     "ember-cli": "~5.4.0",
     "ember-cli-app-version": "^6.0.1",
     "ember-cli-babel": "^8.0.0",
@@ -72,7 +72,7 @@
     "ember-composable-helpers": "^5.0.0",
     "ember-decorators": "^6.1.1",
     "ember-fetch": "^8.1.2",
-    "ember-intl": "^6.0.0",
+    "ember-intl": "^6.1.2",
     "ember-load-initializers": "^2.1.2",
     "ember-math-helpers": "^4.0.0",
     "ember-modifier": "^4.1.0",
@@ -111,6 +111,9 @@
     "tracked-built-ins": "^3.3.0",
     "typescript": "^5.2.2",
     "webpack": "^5.88.2"
+  },
+  "overrides": {
+    "ember-element-helper": "^0.8.5"
   },
   "engines": {
     "node": ">=20"

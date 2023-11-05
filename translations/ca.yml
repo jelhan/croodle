@@ -204,9 +204,8 @@ poll:
             hide: Ocultar
             show: Mostra
     link:
-        copied: 'Enllaç copiat al porta-retalls.'
+        copied: 'Copiat!'
         copy-label: 'Copia l''enllaç al porta-retalls'
-        selected: 'Enllaç seleccionat. Premeu Command + C per copiar.'
     modal:
         timezoneDiffers:
             title: 'En quines zones horàries s''han de presentar les dates?'

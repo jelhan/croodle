@@ -24,11 +24,12 @@ module('Acceptance | view poll', function (hooks) {
     let pollUrl = `/poll/${poll.id}?encryptionKey=${encryptionKey}`;
 
     await visit(pollUrl);
-    assert.strictEqual(
-      pageParticipation.url,
-      window.location.href,
-      'share link is shown',
-    );
+    assert
+      .dom('[data-test-poll-url]')
+      .containsText(
+        `#/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
+        'share link is shown',
+      );
 
     await click('.copy-btn');
     /*

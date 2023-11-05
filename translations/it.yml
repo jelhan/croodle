@@ -205,9 +205,8 @@ poll:
             hide: Nascondi
             show: Mostra
     link:
-        copied: 'Il link è stato copiato.'
+        copied: 'Copiato!'
         copy-label: 'Copia il link negli appunti'
-        selected: 'Link selezionato. Preme Command+C per copiarlo.'
     modal:
         timezoneDiffers:
             title: 'In quale fuso orario devono essere presentate le date?'

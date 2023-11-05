@@ -2,18 +2,17 @@ import { ComponentLike } from '@glint/template';
 
 declare module '@glint/environment-ember-loose/registry' {
   export default interface Registry {
-    CopyButton: ComponentLike<{
+    BsTooltip: ComponentLike<{
       Args: {
         Named: {
-          onError?: () => void;
-          onSuccess?: () => void;
-          text: string;
+          placement?: 'top' | 'bottom' | 'left' | 'right';
+          triggerEvents?: string | string[];
+          visible?: boolean;
         };
       };
       Blocks: {
         default: [];
       };
-      Element: HTMLButtonElement;
     }>;
   }
 }

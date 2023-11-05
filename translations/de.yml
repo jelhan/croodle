@@ -212,9 +212,8 @@ poll:
             hide: Verbergen
             show: Anzeigen
     link:
-        copied: 'Link in die Zwischenablage kopiert.'
+        copied: 'Kopiert!'
         copy-label: 'Kopiere Link in die Zwischenablage'
-        selected: 'Link markiert. Drücke Steuerung + C zum Kopieren.'
     modal:
         timezoneDiffers:
             title: 'In welcher Zeitzone sollen die Daten angezeigt werden?'
