@@ -1,229 +1,235 @@
 action:
-    abort: Cancella
-    back: Indietro
-    next: Avanti
-    save: Salva
+  abort: Cancella
+  back: Indietro
+  next: Avanti
+  save: Salva
 answerTypes:
-    yes:
-        label: Sì
-    no:
-        label: No
-    maybe:
-        label: 'Può essere'
-    freeText:
-        label: 'Testo libero'
-    yesNo:
-        label: 'Si, No'
-    yesNoMaybe:
-        label: 'Si, No, Può essere'
+  yes:
+    label: Sì
+  no:
+    label: No
+  maybe:
+    label: "Può essere"
+  freeText:
+    label: "Testo libero"
+  yesNo:
+    label: "Si, No"
+  yesNoMaybe:
+    label: "Si, No, Può essere"
 create:
-    index:
-        input:
-            pollType:
-                label: 'Qual è lo scopo del tuo sondaggio?'
-    formStep:
-        type: 'Tipo di sondaggio'
-        meta: 'Titolo e descrizione'
-        options:
-            days: Giorni
-            text: Opzioni
-        options-datetime: Orari
-        settings: Impostazioni
-    meta:
-        input:
-            title:
-                label: Titolo
-                placeholder: 'Aggiungi un titolo al sondaggio.'
-                validations:
-                    valueMissing: 'A form must have a title.'
-                    tooShort: 'Form title must have at least 2 characters.'
-            description:
-                label: Descrizione
-                placeholder: 'Opzionale: aggiungere una descrizione del sondaggio.'
+  index:
+    input:
+      pollType:
+        label: "Qual è lo scopo del tuo sondaggio?"
+  formStep:
+    type: "Tipo di sondaggio"
+    meta: "Titolo e descrizione"
     options:
-        button:
-            add:
-                label: 'Aggiungere un''altra opzione dopo questo'
-            delete:
-                label: 'Elimina questa opzione'
-        options:
-            label: 'Opzioni di risposta'
-        dates:
-            label: Giorni
-        error:
-            duplicatedOption: 'An option with this label already exists.'
-            invalidOption: 'All options must be valid.'
-            notEnoughDates: 'Devi selezionare almeno un giorno'
-            valueMissing: 'Every option must have a label. Please delete it if the option is not needed.'
-        defineTimes:
-            label: 'Specificare l''orario?'
-        input:
-            moreOptions:
-                label: 'Aggiungi altre opzioni di risposta'
-    options-datetime:
-        datetimes:
-            label: Orari
-        more-inputs: 'Inserisci altri orari'
-        copy-first-line: 'Usa lo stesso orario per tutti i giorni'
-        error:
-            correctTimeFormat: 'Le date devono essere immesse come ora e minuto divise
-                da due punti (e.g.  13:00).'
-            duplicatedDate: 'An option for the same time at the same day already exists.'
-            invalidTime: 'At least one time is invalid.'
-            notEnoughTimes: 'Devi indicare almeno un orario valido per ciascun giorno.
-                Se hai impostato un solo giorno, devi indicare un minimo di due orari
-                validi.'
-            partiallyFilledTime: 'Please enter a valid time with hours and minutes. Partially filled inputs are not supported.'
-        fix-validation-errors-first-day: 'Devi risolvere tutti gli errori di convalida
-            nel primo giorno prima della copia.'
-    settings:
-        answerType:
-            label: 'Quali risposte dovrebbero essere disponibili?'
-        anonymousUser:
-            label: 'Consenti di partecipare in maniera anonima al sondaggio?'
-        expirationDate:
-            label: 'Quando scadrà il tuo sondaggio?'
-        expirationDurations:
-            P7D: 'Tra una settimana'
-            P1M: 'Tra un mese'
-            P3M: 'Tra 3 mesi'
-            P6M: 'Tra 6 mesi'
-            P1Y: 'Tra un anno'
-            never: Mai
-        forceAnswer:
-            label: 'Forzare una risposta per ogni opzione?'
-    title: 'Crea un sondaggio'
+      days: Giorni
+      text: Opzioni
+    options-datetime: Orari
+    settings: Impostazioni
+  meta:
+    input:
+      title:
+        label: Titolo
+        placeholder: "Aggiungi un titolo al sondaggio."
+        validations:
+          valueMissing: "A form must have a title."
+          tooShort: "Form title must have at least 2 characters."
+      description:
+        label: Descrizione
+        placeholder: "Opzionale: aggiungere una descrizione del sondaggio."
+  options:
+    button:
+      add:
+        label: "Aggiungere un'altra opzione dopo questo"
+      delete:
+        label: "Elimina questa opzione"
+    options:
+      label: "Opzioni di risposta"
+    dates:
+      label: Giorni
+    error:
+      duplicatedOption: "An option with this label already exists."
+      invalidOption: "All options must be valid."
+      notEnoughDates: "Devi selezionare almeno un giorno"
+      valueMissing: "Every option must have a label. Please delete it if the option is not needed."
+    defineTimes:
+      label: "Specificare l'orario?"
+    input:
+      moreOptions:
+        label: "Aggiungi altre opzioni di risposta"
+  options-datetime:
+    datetimes:
+      label: Orari
+    more-inputs: "Inserisci altri orari"
+    copy-first-line: "Usa lo stesso orario per tutti i giorni"
+    error:
+      correctTimeFormat: "Le date devono essere immesse come ora e minuto divise
+        da due punti (e.g.  13:00)."
+      duplicatedDate: "An option for the same time at the same day already exists."
+      invalidTime: "At least one time is invalid."
+      notEnoughTimes: "Devi indicare almeno un orario valido per ciascun giorno.
+        Se hai impostato un solo giorno, devi indicare un minimo di due orari
+        validi."
+      partiallyFilledTime: "Please enter a valid time with hours and minutes. Partially filled inputs are not supported."
+    fix-validation-errors-first-day:
+      "Devi risolvere tutti gli errori di convalida
+      nel primo giorno prima della copia."
+  settings:
+    answerType:
+      label: "Quali risposte dovrebbero essere disponibili?"
+    anonymousUser:
+      label: "Consenti di partecipare in maniera anonima al sondaggio?"
+    expirationDate:
+      label: "Quando scadrà il tuo sondaggio?"
+    expirationDurations:
+      P7D: "Tra una settimana"
+      P1M: "Tra un mese"
+      P3M: "Tra 3 mesi"
+      P6M: "Tra 6 mesi"
+      P1Y: "Tra un anno"
+      never: Mai
+    forceAnswer:
+      label: "Forzare una risposta per ogni opzione?"
+  title: "Crea un sondaggio"
 error:
-    poll:
-        decryptionFailed:
-            title: 'Decifratura fallita'
-            description: 'La decifratura è fallita. Questo errore è probabilmente
-                dovuto ad una chiave crittografica non corretta. Controlla la URL
-                che hai inserito, ed in particolare la parte che segue il punto interrogativo.'
-        notFound:
-            title: 'Il sondaggio non è stato trovato'
-            description: 'Il sondaggio che stai cercando non esiste. Questo potrebbe
-                essere accaduto per diversi motivi:'
-            reasons:
-                expired: 'Il sondaggio è scaduto ed è stato rimosso.'
-                typo: 'L''URL è errato. Prova a ricontrollarlo, specialmente la parte
-                    prima del punto interrogativo.'
-        savingFailed:
-            title: "Saving failed"
-            description: 'Non è stato possible salvare il sondaggio. Riprova tra qualche
-                secondo.'
-    generic:
-        unexpected:
-            title: 'Si è verificato un errore inaspettato'
-            description: 'Siamo spiacenti, ma si è verificato un errore inaspettato.
-                Per favore, riprova più tardi.'
+  poll:
+    decryptionFailed:
+      title: "Decifratura fallita"
+      description: "La decifratura è fallita. Questo errore è probabilmente
+        dovuto ad una chiave crittografica non corretta. Controlla la URL
+        che hai inserito, ed in particolare la parte che segue il punto interrogativo."
+    notFound:
+      title: "Il sondaggio non è stato trovato"
+      description: "Il sondaggio che stai cercando non esiste. Questo potrebbe
+        essere accaduto per diversi motivi:"
+      reasons:
+        expired: "Il sondaggio è scaduto ed è stato rimosso."
+        typo: "L'URL è errato. Prova a ricontrollarlo, specialmente la parte
+          prima del punto interrogativo."
+    savingFailed:
+      title: "Saving failed"
+      description:
+        "Non è stato possible salvare il sondaggio. Riprova tra qualche
+        secondo."
+  generic:
+    unexpected:
+      title: "Si è verificato un errore inaspettato"
+      description: "Siamo spiacenti, ma si è verificato un errore inaspettato.
+        Per favore, riprova più tardi."
 index:
-    title: 'Croodle semplifica la scelta delle date e il processo decisionale …<br/>…
-        e protegge i tuoi dati'
-    features:
-        title: funzioni
-        list:
-            overview: '<strong>Stabilisci una data</strong> o <strong>fai un sondaggio</strong>
-                con tanti partecipanti.'
-            privacy: 'I tuoi dati rimangono privati. Saranno <strong>cifrati</strong>
-                a partire dal browser. Solo le persone che ricevono il collegamento
-                del sondaggio potranno conoscerne i dettagli.'
-            options: 'Potrai determinare quante <strong>opzioni di ristposta</strong>
-                ne vuoi. Potrai scegliere la tua data preferita nel <strong>calendario</strong>
-                o creare <strong>qualsiasi domanda</strong>.'
-            answers: 'Potrai utilizare delle <strong>risposte predefinite</strong>,
-                ad esempio <i>si</i>, <i>no</i>, <i>può essere</i> o creare le <strong>tue
-                proprie risposte</strong>.'
-            evaluation: 'Avrai una panoramica attualizzata <strong>delle risposte
-                preferite</strong>.'
-    link:
-        have-a-try: 'Provalo subito'
-    hoster:
-        title: 'Installa il tuo prorio Croodle:'
-        text: 'Non devi per forza fidarti di questo Croodle. Croodle è un software
-            libero che puoi installare in locale. Ti servono solamente pochi MB di
-            spazio su disco, PHP, e supporto per SSL. Codice sorgente e documentazione
-            sono disponibili qui: {gitHubLink}.'
+  title:
+    "Croodle semplifica la scelta delle date e il processo decisionale …<br/>…
+    e protegge i tuoi dati"
+  features:
+    title: funzioni
+    list:
+      overview:
+        "<strong>Stabilisci una data</strong> o <strong>fai un sondaggio</strong>
+        con tanti partecipanti."
+      privacy: "I tuoi dati rimangono privati. Saranno <strong>cifrati</strong>
+        a partire dal browser. Solo le persone che ricevono il collegamento
+        del sondaggio potranno conoscerne i dettagli."
+      options: "Potrai determinare quante <strong>opzioni di ristposta</strong>
+        ne vuoi. Potrai scegliere la tua data preferita nel <strong>calendario</strong>
+        o creare <strong>qualsiasi domanda</strong>."
+      answers: "Potrai utilizare delle <strong>risposte predefinite</strong>,
+        ad esempio <i>si</i>, <i>no</i>, <i>può essere</i> o creare le <strong>tue
+        proprie risposte</strong>."
+      evaluation: "Avrai una panoramica attualizzata <strong>delle risposte
+        preferite</strong>."
+  link:
+    have-a-try: "Provalo subito"
+  hoster:
+    title: "Installa il tuo prorio Croodle:"
+    text: "Non devi per forza fidarti di questo Croodle. Croodle è un software
+      libero che puoi installare in locale. Ti servono solamente pochi MB di
+      spazio su disco, PHP, e supporto per SSL. Codice sorgente e documentazione
+      sono disponibili qui: {gitHubLink}."
 modal:
-    save-retry:
-        title: 'Salvataggio fallito.'
-        text: '<p> Impossibile salvare le tue risposte. Per favore controlla la tua
-            connessione Internet e prova di nuovo.</p><p>Se questo non funziona, prova
-            a riavviare il server, e attendi un minuto prima di tentare di nuovo.
-            Puoi lasciare aperta la pagina.</p><p>Se i problemi persistono, contatta
-            l''amministratore di questo sito.</p>'
-        button-retry: Riprova
+  save-retry:
+    title: "Salvataggio fallito."
+    text: "<p> Impossibile salvare le tue risposte. Per favore controlla la tua
+      connessione Internet e prova di nuovo.</p><p>Se questo non funziona, prova
+      a riavviare il server, e attendi un minuto prima di tentare di nuovo.
+      Puoi lasciare aperta la pagina.</p><p>Se i problemi persistono, contatta
+      l'amministratore di questo sito.</p>"
+    button-retry: Riprova
 options: Opzioni
 poll:
-    created-date: 'Creato il {date}.'
-    expiration-date: 'Scade il {date}.'
-    expiration-date-warning: 'Questo sondaggio scadrà {timeToNow}, e verrà cancellato.'
-    tab-title:
-        participation: Partecipa
-        evaluation: Risultati
-    error:
-        newUser:
-            everyOptionIsAnswered: 'Per favore, rispondi a tutte le opzioni.'
-        name:
-            duplicate: 'Someone else already participated with this name. Please use an unqiue name.'
-            valueMissing: 'Devi inserire un nuovo nome utente.'
-        selection:
-            valueMissing: 'Please provide an answer for this option.'
-    evaluation:
-        label: Risultati
-        overview: Revisione
-        participantTable: 'Partecipanti e le loro risposte'
-        bestOption:
-            label:
-                findADate: '{count, plural, =1 {La data preferita è} other {Le date
-                    preferite sono}}'
-                makeAPoll: '{count, plural, =1 {L''opzione preferita è} other {Le
-                    opzioni preferite sono}}'
-        bestOptionParticipants:
-            findADate:
-                yes: '{count, plural, =1 {Una persona è disponibile.} other {# persone
-                    sono disponibili.}}'
-                maybe: '{count, plural, =1 {Una persona forse è disponibile.} other
-                    {# persone forse sono disponibili.}}'
-                no: '{count, plural, =1 {Una persona non è disponibile.} other {#
-                    persone non sono disponibili.}}'
-            makeAPoll:
-                yes: '{count, plural, =1 {Una persona preferisce questa opzione.}
-                    other {# persone preferiscono questa opzione.}}'
-                maybe: '{count, plural, =1 {Una persona forse preferisce questa opzione.}
-                    other {# persone forse preferiscono questa opzione.}}'
-                no: '{count, plural, =1 {Ad una persona non piace questa opzione.}
-                    other {A # persone non piace questa opzione.}}'
-        lastParticipation: 'L''ultima persona ha partecipato fa {ago}.'
-        participants: '{count, plural, =1 {Una persona ha partecipato al sondaggio.}
-            other {# persone hanno partecipato al sondaggio.}}'
-    input:
-        newUserName:
-            label: Nome
-            placeholder: 'Il tuo nome'
-        showEvaluation:
-            hide: Nascondi
-            show: Mostra
-    link:
-        copied: 'Copiato!'
-        copy-label: 'Copia il link negli appunti'
-    modal:
-        timezoneDiffers:
-            title: 'In quale fuso orario devono essere presentate le date?'
-            body: 'Il sondaggio è stato creato per un fuso orario diverso dal tuo.
-                In quali orari devono essere presentate le date?'
-            button:
-                useLocalTimezone: 'Il mio fuso orario'
-                usePollTimezone: 'Fuso orario originale'
-    share:
-        title: 'Condividi il link e invita altre persone al sondaggio.'
-        notice: 'Tutti quelli che hanno il collegamento possono accedere al tuo sondaggio.
-            Se il sondaggio contiene dati sensibili, inoltralo unicamente tramite
-            posta elettronica cifrata o chat cifrato dall''inizio alla fine.'
+  created-date: "Creato il {date}."
+  expiration-date: "Scade il {date}."
+  expiration-date-warning: "Questo sondaggio scadrà {timeToNow}, e verrà cancellato."
+  tab-title:
+    participation: Partecipa
+    evaluation: Risultati
+  error:
+    newUser:
+      everyOptionIsAnswered: "Per favore, rispondi a tutte le opzioni."
+    name:
+      duplicate: "Someone else already participated with this name. Please use an unqiue name."
+      valueMissing: "Devi inserire un nuovo nome utente."
+    selection:
+      valueMissing: "Please provide an answer for this option."
+  evaluation:
+    label: Risultati
+    overview: Revisione
+    participantTable: "Partecipanti e le loro risposte"
+    bestOption:
+      label:
+        findADate: "{count, plural, =1 {La data preferita è} other {Le date
+          preferite sono}}"
+        makeAPoll: "{count, plural, =1 {L'opzione preferita è} other {Le
+          opzioni preferite sono}}"
+    bestOptionParticipants:
+      findADate:
+        yes: "{count, plural, =1 {Una persona è disponibile.} other {# persone
+          sono disponibili.}}"
+        maybe: "{count, plural, =1 {Una persona forse è disponibile.} other
+          {# persone forse sono disponibili.}}"
+        no: "{count, plural, =1 {Una persona non è disponibile.} other {#
+          persone non sono disponibili.}}"
+      makeAPoll:
+        yes: "{count, plural, =1 {Una persona preferisce questa opzione.}
+          other {# persone preferiscono questa opzione.}}"
+        maybe:
+          "{count, plural, =1 {Una persona forse preferisce questa opzione.}
+          other {# persone forse preferiscono questa opzione.}}"
+        no: "{count, plural, =1 {Ad una persona non piace questa opzione.}
+          other {A # persone non piace questa opzione.}}"
+    lastParticipation: "L'ultima persona ha partecipato fa {ago}."
+    participants: "{count, plural, =1 {Una persona ha partecipato al sondaggio.}
+      other {# persone hanno partecipato al sondaggio.}}"
+  input:
+    newUserName:
+      label: Nome
+      placeholder: "Il tuo nome"
+    showEvaluation:
+      hide: Nascondi
+      show: Mostra
+  link:
+    copied: "Copiato!"
+    copy-label: "Copia il link negli appunti"
+  modal:
+    timezoneDiffers:
+      title: "In quale fuso orario devono essere presentate le date?"
+      body: "Il sondaggio è stato creato per un fuso orario diverso dal tuo.
+        In quali orari devono essere presentate le date?"
+      button:
+        useLocalTimezone: "Il mio fuso orario"
+        usePollTimezone: "Fuso orario originale"
+  share:
+    title: "Condividi il link e invita altre persone al sondaggio."
+    notice:
+      "Tutti quelli che hanno il collegamento possono accedere al tuo sondaggio.
+      Se il sondaggio contiene dati sensibili, inoltralo unicamente tramite
+      posta elettronica cifrata o chat cifrato dall'inizio alla fine."
 pollTypes:
-    findADate:
-        label: 'Voglio trovare una data. (ad es. orario e data per un appuntamento)'
-    makeAPoll:
-        label: 'Voglio rispondere a una domanda. (ad es. Dove si prende meglio il
-            caffè?)'
+  findADate:
+    label: "Voglio trovare una data. (ad es. orario e data per un appuntamento)"
+  makeAPoll:
+    label: "Voglio rispondere a una domanda. (ad es. Dove si prende meglio il
+      caffè?)"
 times: Orari

@@ -20,6 +20,8 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "lint:types": "glint",
+    "lint:yml": "prettier **/*.yml --check",
+    "lint:yml:fix": "prettier **/*.yml --write",
     "release": "release-it",
     "start": "ember serve",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
