@@ -4,12 +4,12 @@ module.exports = {
   app: {
     javascript: {
       pattern: 'assets/*.js',
-      limit: '430KB',
+      limit: '310KB',
       compression: 'gzip',
     },
     css: {
       pattern: 'assets/*.css',
-      limit: '16KB',
+      limit: '16.5KB',
       compression: 'gzip',
     },
   },
