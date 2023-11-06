@@ -1,227 +1,234 @@
 action:
-    abort: Cancel·la
-    back: Enrere
-    next: Següent
-    save: Desa
+  abort: Cancel·la
+  back: Enrere
+  next: Següent
+  save: Desa
 answerTypes:
-    yes:
-        label: Si
-    no:
-        label: No
-    maybe:
-        label: Potser
-    freeText:
-        label: 'Text lliure'
-    yesNo:
-        label: 'Si, No'
-    yesNoMaybe:
-        label: 'Si, No, Potser'
+  yes:
+    label: Si
+  no:
+    label: No
+  maybe:
+    label: Potser
+  freeText:
+    label: "Text lliure"
+  yesNo:
+    label: "Si, No"
+  yesNoMaybe:
+    label: "Si, No, Potser"
 create:
-    index:
-        input:
-            pollType:
-                label: 'Quin és el propòsit de la vostra enquesta?'
-    formStep:
-        type: 'Tipus d''enquesta'
-        meta: 'Títol i descripció'
-        options:
-            days: Dies
-            text: Opcions
-        options-datetime: Oraris
-        settings: Configuració
-    meta:
-        input:
-            title:
-                label: Títol
-                placeholder: 'Afegiu un títol d''enquesta.'
-                validations:
-                    valueMissing: 'A form must have a title.'
-                    tooShort: 'Form title must have at least 2 characters.'
-            description:
-                label: Descripció
-                placeholder: 'Opcional: afegiu una descripció a l''enquesta.'
+  index:
+    input:
+      pollType:
+        label: "Quin és el propòsit de la vostra enquesta?"
+  formStep:
+    type: "Tipus d'enquesta"
+    meta: "Títol i descripció"
     options:
-        button:
-            add:
-                label: 'Afegiu una altra opció després d''això'
-            delete:
-                label: 'Suprimeix aquesta opció'
-        options:
-            label: 'Opcions de resposta'
-        dates:
-            label: Díes
-        error:
-            duplicatedOption: 'An option with this label already exists.'
-            invalidOption: 'All options must be valid.'
-            notEnoughDates: 'Cal seleccionar un dia com a mínim'
-            valueMissing: 'Every option must have a label. Please delete it if the option is not needed.'
-        defineTimes:
-            label: 'Determineu l''orari?'
-        input:
-            moreOptions:
-                label: 'Afegiu altres opcions de resposta'
-    options-datetime:
-        datetimes:
-            label: Oraris
-        more-inputs: 'Introduïu un altre orari'
-        copy-first-line: 'Copieu i enganxeu els oraris del primer dia a tots els altres'
-        error:
-            correctTimeFormat: 'Les dates s''han d''introduir com a hora i minut dividides
-                per dos punts (p. ex.  13:00).'
-            duplicatedDate: 'An option for the same time at the same day already exists.'
-            invalidTime: 'At least one time is invalid.'
-            notEnoughTimes: 'S''ha de determinar com a mínim un orari vàlid per dia.
-                Si només es va triar un dia, cal determinar almenys 2 dates.'
-            partiallyFilledTime: 'Please enter a valid time with hours and minutes. Partially filled inputs are not supported.'
-        fix-validation-errors-first-day: 'Heu de corregir tots els errors de validació
-            el primer dia abans de copiar.'
-    settings:
-        answerType:
-            label: 'Quines respostes haurian d''estar disponibles?'
-        anonymousUser:
-            label: 'Permet als assistents anònims l''enquesta?'
-        expirationDate:
-            label: 'Quan hauria de caducar i suprimir la vostra enquesta?'
-        expirationDurations:
-            P7D: 'En una setmana'
-            P1M: 'En un mes'
-            P3M: 'En tres mesos'
-            P6M: 'En mig any'
-            P1Y: 'En un any'
-            never: Mai
-        forceAnswer:
-            label: 'Força una resposta per a cada opció?'
-    title: 'Crea una enquesta'
+      days: Dies
+      text: Opcions
+    options-datetime: Oraris
+    settings: Configuració
+  meta:
+    input:
+      title:
+        label: Títol
+        placeholder: "Afegiu un títol d'enquesta."
+        validations:
+          valueMissing: "A form must have a title."
+          tooShort: "Form title must have at least 2 characters."
+      description:
+        label: Descripció
+        placeholder: "Opcional: afegiu una descripció a l'enquesta."
+  options:
+    button:
+      add:
+        label: "Afegiu una altra opció després d'això"
+      delete:
+        label: "Suprimeix aquesta opció"
+    options:
+      label: "Opcions de resposta"
+    dates:
+      label: Díes
+    error:
+      duplicatedOption: "An option with this label already exists."
+      invalidOption: "All options must be valid."
+      notEnoughDates: "Cal seleccionar un dia com a mínim"
+      valueMissing: "Every option must have a label. Please delete it if the option is not needed."
+    defineTimes:
+      label: "Determineu l'orari?"
+    input:
+      moreOptions:
+        label: "Afegiu altres opcions de resposta"
+  options-datetime:
+    datetimes:
+      label: Oraris
+    more-inputs: "Introduïu un altre orari"
+    copy-first-line: "Copieu i enganxeu els oraris del primer dia a tots els altres"
+    error:
+      correctTimeFormat:
+        "Les dates s'han d'introduir com a hora i minut dividides
+        per dos punts (p. ex.  13:00)."
+      duplicatedDate: "An option for the same time at the same day already exists."
+      invalidTime: "At least one time is invalid."
+      notEnoughTimes: "S'ha de determinar com a mínim un orari vàlid per dia.
+        Si només es va triar un dia, cal determinar almenys 2 dates."
+      partiallyFilledTime: "Please enter a valid time with hours and minutes. Partially filled inputs are not supported."
+    fix-validation-errors-first-day:
+      "Heu de corregir tots els errors de validació
+      el primer dia abans de copiar."
+  settings:
+    answerType:
+      label: "Quines respostes haurian d'estar disponibles?"
+    anonymousUser:
+      label: "Permet als assistents anònims l'enquesta?"
+    expirationDate:
+      label: "Quan hauria de caducar i suprimir la vostra enquesta?"
+    expirationDurations:
+      P7D: "En una setmana"
+      P1M: "En un mes"
+      P3M: "En tres mesos"
+      P6M: "En mig any"
+      P1Y: "En un any"
+      never: Mai
+    forceAnswer:
+      label: "Força una resposta per a cada opció?"
+  title: "Crea una enquesta"
 error:
-    poll:
-        decryptionFailed:
-            title: 'La desencriptació va fallar'
-            description: 'Desencriptant dada de sondeig va fallar. Això és més probablement
-                causat per una clau d''encriptació incorrecta. Per favor doble-comprova
-                el URL va entrar, especialment la part després del signe d''interrogació.'
-        notFound:
-            title: 'No hem pogut trobar el sondeig'
-            description: 'El sondeig que estàs buscant no l''hem pogut trobar per
-                diverses raons, incloent:'
-            reasons:
-                expired: 'El sondeig ha caducat i ha estat eliminat.'
-                typo: 'Hi ha un error tipogràfic en la URL. Pots tornar a comprovar
-                    el que has posat, especialment la part anterior al signe d''interrogació.'
-        savingFailed:
-            title: 'Saving failed'
-            description: 'No hem pogut guardar el sondeig, si us plau, intenta''l de
-                nou en uns segons.'
-    generic:
-        unexpected:
-            title: 'Va ocórrer un error inesperat'
-            description: 'El sentim. Va ocórrer un error inesperat. Si us plau intenta-ho
-                més tard.'
+  poll:
+    decryptionFailed:
+      title: "La desencriptació va fallar"
+      description:
+        "Desencriptant dada de sondeig va fallar. Això és més probablement
+        causat per una clau d'encriptació incorrecta. Per favor doble-comprova
+        el URL va entrar, especialment la part després del signe d'interrogació."
+    notFound:
+      title: "No hem pogut trobar el sondeig"
+      description: "El sondeig que estàs buscant no l'hem pogut trobar per
+        diverses raons, incloent:"
+      reasons:
+        expired: "El sondeig ha caducat i ha estat eliminat."
+        typo: "Hi ha un error tipogràfic en la URL. Pots tornar a comprovar
+          el que has posat, especialment la part anterior al signe d'interrogació."
+    savingFailed:
+      title: "Saving failed"
+      description: "No hem pogut guardar el sondeig, si us plau, intenta'l de
+        nou en uns segons."
+  generic:
+    unexpected:
+      title: "Va ocórrer un error inesperat"
+      description:
+        "El sentim. Va ocórrer un error inesperat. Si us plau intenta-ho
+        més tard."
 index:
-    title: 'Croodle simplifica la data i la presa de decisions …<br/>… i protegeix
-        les teves dades'
-    features:
-        title: Funcions
-        list:
-            overview: '<strong> Trobar una data </strong> o <strong> fer una enquesta
-                </strong> a tantes persones com vulguis.'
-            privacy: 'Les vostres dades es mantenen privades. Ja en el vostre navegador
-                web, serà <strong>xifrat</strong>. Només els que rebin l''enllaç de
-                l''enquesta sabran de què es tracta.'
-            options: 'Podeu determinar tantes <strong>opcions de resposta</strong>
-                com vulgueu. Podeu triar la vostra data favorita al <strong>calendari</strong>
-                o crear <strong>qualsevol pregunta</strong>.'
-            answers: 'Podeu utilitzar <strong> opcions de resposta predefinides </strong>,
-                per exemple <i>sí</i>, <i>no</i>, <i>potser</i> o permet <strong>crear
-                respostes propias</strong>.'
-            evaluation: 'Podeu consultar una revisió automàtica actualitzada de les
-                <strong>respostes preferides</strong>.'
-    link:
-        have-a-try: 'Prova-ho ara'
-    hoster:
-        title: 'Hoste el vostre Croodle:'
-        text: 'No has de confiar en aquest Croodle. Croodle és un programari lliure
-            i el podeu instal·lar al vostre propi servidor. Només necessiteu un servidor
-            amb un espai de uns quans mega bytes, PHP i xifratge SSL. El programari
-            i consells per a la instal·lació estan aquí: {gitHubLink}.'
+  title: "Croodle simplifica la data i la presa de decisions …<br/>… i protegeix
+    les teves dades"
+  features:
+    title: Funcions
+    list:
+      overview: "<strong> Trobar una data </strong> o <strong> fer una enquesta
+        </strong> a tantes persones com vulguis."
+      privacy:
+        "Les vostres dades es mantenen privades. Ja en el vostre navegador
+        web, serà <strong>xifrat</strong>. Només els que rebin l'enllaç de
+        l'enquesta sabran de què es tracta."
+      options: "Podeu determinar tantes <strong>opcions de resposta</strong>
+        com vulgueu. Podeu triar la vostra data favorita al <strong>calendari</strong>
+        o crear <strong>qualsevol pregunta</strong>."
+      answers:
+        "Podeu utilitzar <strong> opcions de resposta predefinides </strong>,
+        per exemple <i>sí</i>, <i>no</i>, <i>potser</i> o permet <strong>crear
+        respostes propias</strong>."
+      evaluation: "Podeu consultar una revisió automàtica actualitzada de les
+        <strong>respostes preferides</strong>."
+  link:
+    have-a-try: "Prova-ho ara"
+  hoster:
+    title: "Hoste el vostre Croodle:"
+    text: "No has de confiar en aquest Croodle. Croodle és un programari lliure
+      i el podeu instal·lar al vostre propi servidor. Només necessiteu un servidor
+      amb un espai de uns quans mega bytes, PHP i xifratge SSL. El programari
+      i consells per a la instal·lació estan aquí: {gitHubLink}."
 modal:
-    save-retry:
-        title: 'S''ha produït un error en desar.'
-        text: '<p> No s''ha pogut desar la teva assistència. Comproveu la vostra connexió
-            a Internet i torneu-ho a provar.</p><p>Si això no funciona, és possible
-            que es produeixi una desconexiò temporal del servidor. Espereu uns minuts
-            abans d''entrenar-hi. Podeu deixar la pàgina oberta.</p><p>Si els problemes
-            continuen, poseu-vos en contacte amb l''administrador d''aquest lloc.</p>'
-        button-retry: 'Torna-ho a provar'
+  save-retry:
+    title: "S'ha produït un error en desar."
+    text:
+      "<p> No s'ha pogut desar la teva assistència. Comproveu la vostra connexió
+      a Internet i torneu-ho a provar.</p><p>Si això no funciona, és possible
+      que es produeixi una desconexiò temporal del servidor. Espereu uns minuts
+      abans d'entrenar-hi. Podeu deixar la pàgina oberta.</p><p>Si els problemes
+      continuen, poseu-vos en contacte amb l'administrador d'aquest lloc.</p>"
+    button-retry: "Torna-ho a provar"
 options: Opcions
 poll:
-    created-date: 'Creat el dia {date}.'
-    expiration-date: 'Caduca el {date}.'
-    expiration-date-warning: 'Aquesta enquesta caduca {timeToNow} i se suprimirà després.'
-    tab-title:
-        participation: Assistir
-        evaluation: Avaluació
-    error:
-        newUser:
-            everyOptionIsAnswered: 'Responeu totes les opcions.'
-        name:
-            duplicate: 'Someone else already participated with this name. Please use an unqiue name.'
-            valueMissing: 'Heu d''introduir un nom d''usuari.'
-        selection:
-            valueMissing: 'Please provide an answer for this option.'
-    evaluation:
-        label: Avaluació
-        overview: Revisió
-        participantTable: 'Assistents i les seves respostes'
-        bestOption:
-            label:
-                findADate: '{count, plural, =1 {La data preferida és} other {Les dates
-                    preferides són}}'
-                makeAPoll: '{count, plural, =1 {L''opció preferida és} other {Les
-                    opcions preferides són}}'
-        bestOptionParticipants:
-            findADate:
-                yes: '{count, plural, =1 {Una persona té temps.} other {# persones
-                    tenen temps.}}'
-                maybe: '{count, plural, =1 {Una persona potser té temps.} other {#
-                    persones potser tinguin temps.}}'
-                no: '{count, plural, =1 {Una persona no té temps.} other {# persones
-                    no tenen temps.}}'
-            makeAPoll:
-                yes: '{count, plural, =1 {Una persona li agrada aquesta opció.} other
-                    {# persones els agrada aquesta opció.}}'
-                maybe: '{count, plural, =1 {Una persona potser li agrada aquesta opció.}
-                    other { Hi pot haver # persones com aquesta opció.}}'
-                no: '{count, plural, =1 {Una persona no li agrada aquesta opció} other
-                    {# persones no els agrada aquesta opció.}}'
-        lastParticipation: 'L''última persona va assistir fa {ago}.'
-        participants: '{count, plural, =1 {Una persona va participar a l''enquesta.}
-            other {# persones van participar en l''enquesta. }}'
-    input:
-        newUserName:
-            label: Nom
-            placeholder: 'El teu nom'
-        showEvaluation:
-            hide: Ocultar
-            show: Mostra
-    link:
-        copied: 'Copiat!'
-        copy-label: 'Copia l''enllaç al porta-retalls'
-    modal:
-        timezoneDiffers:
-            title: 'En quines zones horàries s''han de presentar les dates?'
-            body: 'L''enquesta es va crear per a una zona horària diferent de la vostra
-                hora local. En quines zones horàries s''han de presentar les dates?'
-            button:
-                useLocalTimezone: 'La meva zona horària'
-                usePollTimezone: 'Zona horària original'
-    share:
-        title: 'Comparteix l''enllaç per convidar a altres a l''enquesta.'
-        notice: 'Tothom que tingui l''enllaç pot veure la seva enquesta. Si conté
-            dades privades, només les hauríeu de transmetre personalment, mitjançant
-            un correu electrònic xifrat o un xat amb xifratge d''extrem a extrem.'
+  created-date: "Creat el dia {date}."
+  expiration-date: "Caduca el {date}."
+  expiration-date-warning: "Aquesta enquesta caduca {timeToNow} i se suprimirà després."
+  tab-title:
+    participation: Assistir
+    evaluation: Avaluació
+  error:
+    newUser:
+      everyOptionIsAnswered: "Responeu totes les opcions."
+    name:
+      duplicate: "Someone else already participated with this name. Please use an unqiue name."
+      valueMissing: "Heu d'introduir un nom d'usuari."
+    selection:
+      valueMissing: "Please provide an answer for this option."
+  evaluation:
+    label: Avaluació
+    overview: Revisió
+    participantTable: "Assistents i les seves respostes"
+    bestOption:
+      label:
+        findADate: "{count, plural, =1 {La data preferida és} other {Les dates
+          preferides són}}"
+        makeAPoll: "{count, plural, =1 {L'opció preferida és} other {Les
+          opcions preferides són}}"
+    bestOptionParticipants:
+      findADate:
+        yes: "{count, plural, =1 {Una persona té temps.} other {# persones
+          tenen temps.}}"
+        maybe: "{count, plural, =1 {Una persona potser té temps.} other {#
+          persones potser tinguin temps.}}"
+        no: "{count, plural, =1 {Una persona no té temps.} other {# persones
+          no tenen temps.}}"
+      makeAPoll:
+        yes: "{count, plural, =1 {Una persona li agrada aquesta opció.} other
+          {# persones els agrada aquesta opció.}}"
+        maybe: "{count, plural, =1 {Una persona potser li agrada aquesta opció.}
+          other { Hi pot haver # persones com aquesta opció.}}"
+        no: "{count, plural, =1 {Una persona no li agrada aquesta opció} other
+          {# persones no els agrada aquesta opció.}}"
+    lastParticipation: "L'última persona va assistir fa {ago}."
+    participants: "{count, plural, =1 {Una persona va participar a l'enquesta.}
+      other {# persones van participar en l'enquesta. }}"
+  input:
+    newUserName:
+      label: Nom
+      placeholder: "El teu nom"
+    showEvaluation:
+      hide: Ocultar
+      show: Mostra
+  link:
+    copied: "Copiat!"
+    copy-label: "Copia l'enllaç al porta-retalls"
+  modal:
+    timezoneDiffers:
+      title: "En quines zones horàries s'han de presentar les dates?"
+      body: "L'enquesta es va crear per a una zona horària diferent de la vostra
+        hora local. En quines zones horàries s'han de presentar les dates?"
+      button:
+        useLocalTimezone: "La meva zona horària"
+        usePollTimezone: "Zona horària original"
+  share:
+    title: "Comparteix l'enllaç per convidar a altres a l'enquesta."
+    notice: "Tothom que tingui l'enllaç pot veure la seva enquesta. Si conté
+      dades privades, només les hauríeu de transmetre personalment, mitjançant
+      un correu electrònic xifrat o un xat amb xifratge d'extrem a extrem."
 pollTypes:
-    findADate:
-        label: 'Vull trobar una cita. (p. ex., Hora i data per a una cita)'
-    makeAPoll:
-        label: 'Vull respondre una pregunta. (p. ex., On és millor el cafè?)'
+  findADate:
+    label: "Vull trobar una cita. (p. ex., Hora i data per a una cita)"
+  makeAPoll:
+    label: "Vull respondre una pregunta. (p. ex., On és millor el cafè?)"
 times: Oraris
