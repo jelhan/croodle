@@ -7,7 +7,12 @@
     ":automergeStableNonMajor",
     ":maintainLockFilesWeekly"
   ],
-  "ignorePaths": [
-    "lib/**"
+  "ignorePaths": ["lib/**"],
+  "packageRules": [
+    {
+      "matchManagers": ["composer"],
+      "matchPackageNames": ["php"],
+      "enabled": false
+    }
   ]
 }
