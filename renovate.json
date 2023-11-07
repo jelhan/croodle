@@ -2,7 +2,10 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    ":maintainLockFilesWeekly",
+    "config:js-app",
+    ":automergeBranch",
+    ":automergeStableNonMajor",
+    ":maintainLockFilesWeekly"
   ],
   "ignorePaths": [
     "lib/**"
