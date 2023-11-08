@@ -44,7 +44,7 @@
     "@types/luxon": "3.3.4",
     "@types/qunit": "2.19.8",
     "@types/rsvp": "4.0.7",
-    "@types/sjcl": "1.0.32",
+    "@types/sjcl": "1.0.33",
     "@typescript-eslint/eslint-plugin": "6.9.0",
     "@typescript-eslint/parser": "6.9.0",
     "bootstrap": "4.6.2",
