@@ -22,7 +22,7 @@ module.exports = function (defaults) {
       importBootstrapCSS: false,
       bootstrapVersion: 4,
       importBootstrapFont: false,
-      whitelist: [
+      include: [
         'bs-alert',
         'bs-button',
         'bs-button-group',
