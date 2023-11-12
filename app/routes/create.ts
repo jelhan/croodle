@@ -28,7 +28,7 @@ export default class CreateRoute extends Route {
 
   beforeModel(transition: Transition) {
     // enforce that wizzard is started at create.index
-    if (transition.to.name !== 'create.index') {
+    if (transition.to?.name !== 'create.index') {
       this.router.transitionTo('create.index');
     }
   }

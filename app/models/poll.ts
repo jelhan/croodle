@@ -220,7 +220,7 @@ export default class Poll {
     passphrase: string,
   ) {
     const creationDate = new Date().toISOString();
-    const version = config.APP.version;
+    const version = config.APP['version'] as string;
     const timezone =
       pollType === 'FindADate' &&
       options.some(({ title }) => {

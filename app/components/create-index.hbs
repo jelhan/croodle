@@ -1,0 +1,42 @@
+<div class="cr-form-wrapper box">
+  <BsForm
+    @formLayout="horizontal"
+    @model={{@formData}}
+    @onSubmit={{this.submit}}
+    as |form|
+  >
+    <form.element
+      @label={{t "create.index.input.pollType.label"}}
+      @property="pollType"
+      @showValidationOn={{array "change" "focusOut"}}
+      @useIcons={{false}}
+      class="poll-type"
+      data-test-form-element="poll-type"
+      as |el|
+    >
+      <select
+        id={{el.id}}
+        class="form-control"
+        required
+        {{on "change" (pick "target.value" el.setValue)}}
+        {{autofocus}}
+      >
+        <option value="FindADate" selected={{eq el.value "FindADate"}}>
+          {{t "pollTypes.findADate.label"}}
+        </option>
+        <option value="MakeAPoll" selected={{eq el.value "MakeAPoll"}}>
+          {{t "pollTypes.makeAPoll.label"}}
+        </option>
+      </select>
+    </form.element>
+
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-6 col-md-8 order-12">
+        <NextButton />
+      </div>
+      <div class="col-6 col-md-4 order-1 text-right">
+        <BackButton disabled />
+      </div>
+    </div>
+  </BsForm>
+</div>

@@ -46,7 +46,7 @@ export default class User {
     passphrase: string,
   ) {
     const creationDate = new Date().toISOString();
-    const version = config.APP.version;
+    const version = config.APP['version'] as string;
 
     const payload = {
       user: {
