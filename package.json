@@ -41,7 +41,7 @@
     "@glint/template": "1.2.1",
     "@release-it-plugins/lerna-changelog": "6.0.0",
     "@tsconfig/ember": "3.0.2",
-    "@types/luxon": "3.3.4",
+    "@types/luxon": "3.3.5",
     "@types/qunit": "2.19.8",
     "@types/rsvp": "4.0.7",
     "@types/sjcl": "1.0.33",
