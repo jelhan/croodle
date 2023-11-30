@@ -13,6 +13,13 @@
       "matchManagers": ["composer"],
       "matchPackageNames": ["php"],
       "enabled": false
+    },
+    {
+      "groupName": "Ember Power Calendar",
+      "matchPackageNames": [
+        "ember-power-calendar",
+        "ember-power-calendar-luxon"
+      ]
     }
   ]
 }
