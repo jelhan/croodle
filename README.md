@@ -1,8 +1,7 @@
 # Croodle
 
-![Build Status](https://github.com/jelhan/croodle/actions/workflows/test-workflow.yml/badge.svg?branch=master)
+[![Build Status](https://github.com/jelhan/croodle/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/jelhan/croodle/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Code Climate](https://codeclimate.com/github/jelhan/croodle/badges/gpa.svg)](https://codeclimate.com/github/jelhan/croodle)
-[![devDependency Status](https://david-dm.org/jelhan/croodle/dev-status.svg)](https://david-dm.org/jelhan/croodle?type=dev)
 
 Croodle is an end-to-end encrypted web application to schedule a date or to do a poll on a any topic. All data like title, description, number and labels of options, available answers and names of users and their selections are encrypted/decrypted in the browser using strong 256-bit AES encryption.
 
