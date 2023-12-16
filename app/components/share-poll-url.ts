@@ -14,6 +14,10 @@ export default class SharePollUrlComponent extends Component {
     // directory from which Croodle is served.
     const relativeUrl = this.router.currentURL;
 
+    if (!relativeUrl) {
+      throw new Error('Relative URL is `null`. Cannot calculate poll URL.');
+    }
+
     // The URL under which Croodle is served, is not known at
     // build-time. But we can construct it ourself, by parsing
     // window.location.href and replacing the hash part.

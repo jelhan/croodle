@@ -18,7 +18,7 @@ export default class PollRoute extends Route {
   }
 
   redirect(poll: Poll, transition: Transition) {
-    if (transition.to.name === 'poll.index') {
+    if (transition.to?.name === 'poll.index') {
       const { encryptionKey } = this.paramsFor(this.routeName) as {
         encryptionKey: string;
       };

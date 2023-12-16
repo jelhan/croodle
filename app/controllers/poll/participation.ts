@@ -70,7 +70,9 @@ export default class PollParticipationController extends Controller {
     const { poll } = model;
     // As know that the route is `poll.participation`, which means that there
     // is a parent `poll` for sure.
-    const { encryptionKey } = this.router.currentRoute.parent!.queryParams;
+    const { encryptionKey } = this.router.currentRoute?.parent?.queryParams as {
+      encryptionKey: string;
+    };
 
     if (!userData) {
       throw new Error(
