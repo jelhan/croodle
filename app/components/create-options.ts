@@ -5,6 +5,7 @@ import { TrackedArray, TrackedSet } from 'tracked-built-ins';
 import IntlMessage from '../utils/intl-message';
 import { tracked } from '@glimmer/tracking';
 import type RouterService from '@ember/routing/router-service';
+import type { CreateOptionsRouteModel } from '../routes/create/options';
 import type Transition from '@ember/routing/transition';
 
 export class FormDataOption {
@@ -96,11 +97,7 @@ class FormData {
 
 export interface CreateOptionsSignature {
   Args: {
-    isMakeAPoll: boolean;
-    options: TrackedSet<string>;
-    onNextPage: () => void;
-    onPrevPage: () => void;
-    updateOptions: (options: { value: string }[]) => void;
+    poll: CreateOptionsRouteModel;
   };
 }
 
@@ -108,31 +105,58 @@ export default class CreateOptions extends Component<CreateOptionsSignature> {
   @service declare router: RouterService;
 
   formData = new FormData(
-    { options: this.args.options },
-    { defaultOptionCount: this.args.isMakeAPoll ? 2 : 0 },
+    { options: this.options },
+    { defaultOptionCount: this.args.poll.pollType === 'MakeAPoll' ? 2 : 0 },
   );
+
+  get options() {
+    const { poll } = this.args;
+    const { dateOptions, freetextOptions, pollType } = poll;
+
+    return pollType === 'FindADate' ? dateOptions : freetextOptions;
+  }
 
   @action
   previousPage() {
-    this.args.onPrevPage();
+    this.router.transitionTo('create.meta');
   }
 
   @action
-  handleSubmit() {
-    this.args.onNextPage();
+  submit() {
+    const { pollType } = this.args.poll;
+
+    if (pollType === 'FindADate') {
+      this.router.transitionTo('create.options-datetime');
+    } else {
+      this.router.transitionTo('create.settings');
+    }
   }
 
-  @action
-  handleTransition(transition: Transition) {
+  @action handleTransition(transition: Transition) {
     if (transition.from?.name === 'create.options') {
-      this.args.updateOptions(this.formData.options);
+      this.updatePoll();
       this.router.off('routeWillChange', this.handleTransition);
+    }
+  }
+
+  updatePoll() {
+    const { poll } = this.args;
+    const { pollType } = poll;
+    const { options } = this.formData;
+    const pollOptions = options.map(({ value }) => value);
+
+    if (pollType === 'FindADate') {
+      poll.dateOptions = new TrackedSet(pollOptions.sort());
+    } else {
+      poll.freetextOptions = new TrackedSet(pollOptions);
     }
   }
 
   constructor(owner: unknown, args: CreateOptionsSignature['Args']) {
     super(owner, args);
 
+    // Cannot use a destructor because that one runs _after_ the other component
+    // rendered by the next route is initialized.
     this.router.on('routeWillChange', this.handleTransition);
   }
 }
