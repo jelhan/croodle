@@ -14,14 +14,12 @@ module('Integration | Component | create options', function (hooks) {
   });
 
   test('shows validation errors if options are not unique (makeAPoll)', async function (assert) {
-    this.set('options', new TrackedSet());
+    this.set('poll', {
+      pollType: 'MakeAPoll',
+      freetextOptions: new TrackedSet(),
+    });
 
-    await render(hbs`<CreateOptions
-  @options={{this.options}}
-  @isDateTime={{false}}
-  @isFindADate={{false}}
-  @isMakeAPoll={{true}}
-/>`);
+    await render(hbs`<CreateOptions @poll={{this.poll}} />`);
 
     assert
       .dom('.form-group')
@@ -51,14 +49,12 @@ module('Integration | Component | create options', function (hooks) {
   });
 
   test('shows validation errors if option is empty (makeAPoll)', async function (assert) {
-    this.set('options', new TrackedSet());
+    this.set('poll', {
+      pollType: 'MakeAPoll',
+      freetextOptions: new TrackedSet(),
+    });
 
-    await render(hbs`<CreateOptions
-  @options={{this.options}}
-  @isDateTime={{false}}
-  @isFindADate={{false}}
-  @isMakeAPoll={{true}}
-/>`);
+    await render(hbs`<CreateOptions @poll={{this.poll}} />`);
 
     assert.dom('.form-group.has-error').doesNotExist();
 

@@ -3,11 +3,11 @@
     @formLayout="horizontal"
     @model={{this.formData}}
     @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
-    @onSubmit={{this.handleSubmit}}
+    @onSubmit={{this.submit}}
     novalidate
     as |form|
   >
-    {{#if @isMakeAPoll}}
+    {{#if (eq @poll.pollType "MakeAPoll")}}
       <CreateOptionsText
         @options={{this.formData.options}}
         @addOption={{this.formData.addOption}}
