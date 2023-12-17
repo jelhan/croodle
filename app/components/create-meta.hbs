@@ -1,0 +1,45 @@
+<div class="cr-form-wrapper box">
+  <BsForm
+    @formLayout="horizontal"
+    @model={{@formData}}
+    @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
+    @onSubmit={{this.submit}}
+    novalidate
+    as |form|
+  >
+    <form.element
+      @controlType="text"
+      @label={{t "create.meta.input.title.label"}}
+      @property="title"
+      class="title"
+      data-test-form-element="title"
+      as |el|
+    >
+      <el.control
+        placeholder={{t "create.meta.input.title.placeholder"}}
+        {{autofocus}}
+      />
+    </form.element>
+    <form.element
+      @controlType="textarea"
+      @label={{t "create.meta.input.description.label"}}
+      @property="description"
+      class="description"
+      data-test-form-element="description"
+      as |el|
+    >
+      <el.control
+        placeholder={{t "create.meta.input.description.placeholder"}}
+      />
+    </form.element>
+
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-6 col-md-8 order-12">
+        <NextButton />
+      </div>
+      <div class="col-6 col-md-4 order-1 text-right">
+        <BackButton @onClick={{this.previousPage}} />
+      </div>
+    </div>
+  </BsForm>
+</div>

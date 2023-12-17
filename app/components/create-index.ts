@@ -5,14 +5,14 @@ import { registerDestructor } from '@ember/destroyable';
 import type RouterService from '@ember/routing/router-service';
 import type { CreateIndexRouteModel } from '../routes/create/index';
 
-export interface CreateOptionsIndexSignature {
+export interface CreateIndexSignature {
   Args: {
     formData: CreateIndexRouteModel['formData'];
     poll: CreateIndexRouteModel['poll'];
   };
 }
 
-export default class CreateIndexComponent extends Component<CreateOptionsIndexSignature> {
+export default class CreateIndexComponent extends Component<CreateIndexSignature> {
   @service declare router: RouterService;
 
   @action
@@ -20,7 +20,7 @@ export default class CreateIndexComponent extends Component<CreateOptionsIndexSi
     this.router.transitionTo('create.meta');
   }
 
-  constructor(owner: unknown, args: CreateOptionsIndexSignature['Args']) {
+  constructor(owner: unknown, args: CreateIndexSignature['Args']) {
     super(owner, args);
 
     registerDestructor(this, () => {
