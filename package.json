@@ -40,7 +40,7 @@
     "@glint/environment-ember-loose": "1.2.1",
     "@glint/template": "1.2.1",
     "@release-it-plugins/lerna-changelog": "6.0.0",
-    "@tsconfig/ember": "3.0.2",
+    "@tsconfig/ember": "3.0.3",
     "@types/ember": "4.0.10",
     "@types/ember__application": "4.0.10",
     "@types/ember__array": "4.0.9",
