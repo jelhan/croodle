@@ -7,6 +7,7 @@ import { DateTime } from 'luxon';
 import IntlMessage from '../utils/intl-message';
 import type RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
+import type { CreateOptionsDatetimeRouteModel } from 'croodle/routes/create/options-datetime';
 
 class FormDataTimeOption {
   formData;
@@ -190,18 +191,17 @@ class FormData {
 
 export interface CreateOptoinsDatetimeSignature {
   Args: {
-    dates: TrackedSet<string>;
-    onNextPage: () => void;
-    onPrevPage: () => void;
-    times: Map<string, Set<string>>;
-    updateOptions: (datetimes: Map<string, Set<string>>) => void;
+    poll: CreateOptionsDatetimeRouteModel;
   };
 }
 
 export default class CreateOptionsDatetime extends Component<CreateOptoinsDatetimeSignature> {
   @service declare router: RouterService;
 
-  formData = new FormData({ dates: this.args.dates, times: this.args.times });
+  formData = new FormData({
+    dates: this.args.poll.dateOptions,
+    times: this.args.poll.timesForDateOptions,
+  });
 
   @tracked errorMessage: string | null = null;
 
@@ -218,12 +218,12 @@ export default class CreateOptionsDatetime extends Component<CreateOptoinsDateti
 
   @action
   previousPage() {
-    this.args.onPrevPage();
+    this.router.transitionTo('create.options');
   }
 
   @action
   submit() {
-    this.args.onNextPage();
+    this.router.transitionTo('create.settings');
   }
 
   // validate input field for being partially filled
@@ -248,26 +248,24 @@ export default class CreateOptionsDatetime extends Component<CreateOptoinsDateti
   @action
   handleTransition(transition: Transition) {
     if (transition.from?.name === 'create.options-datetime') {
-      this.args.updateOptions(
-        new Map(
-          // FormData.datetimes Map has a Set of FormDataTime object as values
-          // We need to transform it to a Set of plain time strings
-          Array.from(this.formData.datetimes.entries())
-            .map(([key, timeOptions]): [string, Set<string>] => {
-              return [
-                key,
-                new Set(
-                  Array.from(timeOptions)
-                    .map(({ time }: FormDataTimeOption) => time)
-                    // There might be FormDataTime objects without a time, which
-                    // we need to filter out
-                    .filter((time) => time !== null),
-                ) as Set<string>,
-              ];
-            })
-            // There might be dates without any time, which we need to filter out
-            .filter(([, times]) => times.size > 0),
-        ),
+      this.args.poll.timesForDateOptions = new Map(
+        // FormData.datetimes Map has a Set of FormDataTime object as values
+        // We need to transform it to a Set of plain time strings
+        Array.from(this.formData.datetimes.entries())
+          .map(([key, timeOptions]): [string, Set<string>] => {
+            return [
+              key,
+              new Set(
+                Array.from(timeOptions)
+                  .map(({ time }: FormDataTimeOption) => time)
+                  // There might be FormDataTime objects without a time, which
+                  // we need to filter out
+                  .filter((time) => time !== null),
+              ) as Set<string>,
+            ];
+          })
+          // There might be dates without any time, which we need to filter out
+          .filter(([, times]) => times.size > 0),
       );
       this.router.off('routeWillChange', this.handleTransition);
     }

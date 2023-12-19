@@ -20,11 +20,11 @@ module('Integration | Component | create options datetime', function (hooks) {
    */
 
   test('it generates input field for options iso 8601 date string (without time)', async function (assert) {
-    this.set('dates', new Set(['2015-01-01']));
-    this.set('times', new Map());
-    await render(
-      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
-    );
+    this.set('poll', {
+      dateOptions: new Set(['2015-01-01']),
+      timesForDateOptions: new Map(),
+    });
+    await render(hbs`<CreateOptionsDatetime @poll={{this.poll}} />`);
 
     assert
       .dom('.days .form-group input')
@@ -35,11 +35,11 @@ module('Integration | Component | create options datetime', function (hooks) {
   });
 
   test('it generates input field for options iso 8601 datetime string (with time)', async function (assert) {
-    this.set('dates', new Set(['2015-01-01']));
-    this.set('times', new Map([['2015-01-01', new Set(['11:11'])]]));
-    await render(
-      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
-    );
+    this.set('poll', {
+      dateOptions: new Set(['2015-01-01']),
+      timesForDateOptions: new Map([['2015-01-01', new Set(['11:11'])]]),
+    });
+    await render(hbs`<CreateOptionsDatetime @poll={{this.poll}} />`);
 
     assert
       .dom('.days .form-group input')
@@ -50,11 +50,13 @@ module('Integration | Component | create options datetime', function (hooks) {
   });
 
   test('it hides repeated labels', async function (assert) {
-    this.set('dates', new Set(['2015-01-01', '2015-02-02']));
-    this.set('times', new Map([['2015-01-01', new Set(['11:11', '22:22'])]]));
-    await render(
-      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
-    );
+    this.set('poll', {
+      dateOptions: new Set(['2015-01-01', '2015-02-02']),
+      timesForDateOptions: new Map([
+        ['2015-01-01', new Set(['11:11', '22:22'])],
+      ]),
+    });
+    await render(hbs`<CreateOptionsDatetime @poll={{this.poll}} />`);
 
     assert
       .dom('.days label')
@@ -86,11 +88,11 @@ module('Integration | Component | create options datetime', function (hooks) {
   });
 
   test('allows to add another option', async function (assert) {
-    this.set('dates', new Set(['2015-01-01', '2015-02-02']));
-    this.set('times', new Map());
-    await render(
-      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
-    );
+    this.set('poll', {
+      dateOptions: new Set(['2015-01-01', '2015-02-02']),
+      timesForDateOptions: new Map(),
+    });
+    await render(hbs`<CreateOptionsDatetime @poll={{this.poll}} />`);
 
     assert
       .dom('.days .form-group input')
@@ -114,11 +116,13 @@ module('Integration | Component | create options datetime', function (hooks) {
   });
 
   test('allows to delete an option', async function (assert) {
-    this.set('dates', new Set(['2015-01-01']));
-    this.set('times', new Map([['2015-01-01', new Set(['11:11', '22:22'])]]));
-    await render(
-      hbs`<CreateOptionsDatetime @dates={{this.dates}} @times={{this.times}} />`,
-    );
+    this.set('poll', {
+      dateOptions: new Set(['2015-01-01']),
+      timesForDateOptions: new Map([
+        ['2015-01-01', new Set(['11:11', '22:22'])],
+      ]),
+    });
+    await render(hbs`<CreateOptionsDatetime @poll={{this.poll}} />`);
 
     assert
       .dom('.days input')
