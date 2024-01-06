@@ -5,7 +5,6 @@ import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';
 import { start } from 'ember-qunit';
 import setupSinon from 'ember-sinon-qunit';
-import { waitForPromise } from '@ember/test-waiters';
 
 document.addEventListener(
   'securitypolicyviolation',
@@ -17,14 +16,6 @@ document.addEventListener(
     );
   },
 );
-
-// Integrate native fetch with Ember test helpers settled state
-const nativeFetch = globalThis.fetch;
-globalThis.fetch = function () {
-  const fetchPromise = nativeFetch(...arguments);
-  waitForPromise(fetchPromise);
-  return fetchPromise;
-};
 
 setApplication(Application.create(config.APP));
 
