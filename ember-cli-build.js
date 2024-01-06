@@ -22,23 +22,9 @@ module.exports = function (defaults) {
       importBootstrapCSS: false,
       bootstrapVersion: 4,
       importBootstrapFont: false,
-      include: [
-        'bs-alert',
-        'bs-button',
-        'bs-button-group',
-        'bs-form',
-        'bs-modal',
-        'bs-tooltip',
-      ],
     },
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
-    },
-    'ember-composable-helpers': {
-      only: ['array', 'pick'],
-    },
-    'ember-math-helpers': {
-      only: ['lte', 'sub'],
     },
     autoprefixer: {
       browsers: ['last 2 ios version'],
