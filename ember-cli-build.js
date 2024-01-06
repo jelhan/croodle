@@ -59,6 +59,11 @@ module.exports = function (defaults) {
     packagerOptions: {
       webpackConfig: {
         devtool: 'source-map',
+        resolve: {
+          fallback: {
+            crypto: false,
+          },
+        },
       },
     },
   });
