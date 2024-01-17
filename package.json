@@ -46,7 +46,7 @@
     "@types/ember__array": "4.0.10",
     "@types/ember__component": "4.0.22",
     "@types/ember__controller": "4.0.12",
-    "@types/ember__debug": "4.0.7",
+    "@types/ember__debug": "4.0.8",
     "@types/ember__destroyable": "4.0.4",
     "@types/ember__engine": "4.0.10",
     "@types/ember__error": "4.0.5",
