@@ -12,7 +12,7 @@
           "isBaseBlueprint": true,
           "options": [
             "--ci-provider=github",
-           "--embroider",
+            "--embroider",
             "--typescript"
           ]
         }
