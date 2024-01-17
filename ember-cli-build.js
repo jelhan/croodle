@@ -1,6 +1,7 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const SubresourceIntegrityPlugin = require('./lib/webpack-subresource-integrity-for-embroider-plugin');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
@@ -59,8 +60,11 @@ module.exports = function (defaults) {
     packagerOptions: {
       webpackConfig: {
         devtool: 'source-map',
+        plugins: [new SubresourceIntegrityPlugin()],
         resolve: {
           fallback: {
+            // SJCL supports node.js as well using node's crypto module.
+            // We don't want it to be included in the bundle.
             crypto: false,
           },
         },
