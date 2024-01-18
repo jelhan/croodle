@@ -53,7 +53,7 @@
     "@types/ember__helper": "4.0.7",
     "@types/ember__modifier": "4.0.9",
     "@types/ember__object": "4.0.12",
-    "@types/ember__owner": "4.0.8",
+    "@types/ember__owner": "4.0.9",
     "@types/ember__polyfills": "4.0.5",
     "@types/ember__routing": "4.0.19",
     "@types/ember__runloop": "4.0.8",
