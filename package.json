@@ -64,7 +64,7 @@
     "@types/ember__utils": "4.0.7",
     "@types/luxon": "3.4.1",
     "@types/qunit": "2.19.10",
-    "@types/rsvp": "4.0.8",
+    "@types/rsvp": "4.0.9",
     "@types/sjcl": "1.0.34",
     "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "6.19.0",
