@@ -136,7 +136,7 @@
     "webpack": "5.90.0"
   },
   "overrides": {
-    "@glimmer/validator": "0.87.1",
+    "@glimmer/validator": "0.88.1",
     "ember-element-helper": "0.8.5"
   },
   "engines": {
