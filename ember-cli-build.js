@@ -1,20 +1,10 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const SubresourceIntegrityPlugin = require('webpack-subresource-integrity-embroider');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
-    autoImport: {
-      forbidEval: true,
-      webpack: {
-        externals: {
-          // sjcl requires node's cryto library, which isn't needed
-          // in Browser but causes webpack to bundle a portable version
-          // which increases the build size by an inacceptable amount
-          crypto: 'null',
-        },
-      },
-    },
     buildInfoOptions: {
       metaTemplate: 'version={SEMVER}',
     },
@@ -22,23 +12,9 @@ module.exports = function (defaults) {
       importBootstrapCSS: false,
       bootstrapVersion: 4,
       importBootstrapFont: false,
-      include: [
-        'bs-alert',
-        'bs-button',
-        'bs-button-group',
-        'bs-form',
-        'bs-modal',
-        'bs-tooltip',
-      ],
     },
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
-    },
-    'ember-composable-helpers': {
-      only: ['array', 'pick'],
-    },
-    'ember-math-helpers': {
-      only: ['lte', 'sub'],
     },
     autoprefixer: {
       browsers: ['last 2 ios version'],
@@ -51,21 +27,37 @@ module.exports = function (defaults) {
     },
   });
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
-
   app.import('node_modules/open-iconic/font/fonts/open-iconic.ttf');
   app.import('node_modules/open-iconic/font/fonts/open-iconic.woff');
 
-  return app.toTree();
+  const { Webpack } = require('@embroider/webpack');
+  return require('@embroider/compat').compatBuild(app, Webpack, {
+    staticAddonTestSupportTrees: true,
+    staticAddonTrees: true,
+    staticHelpers: true,
+    staticModifiers: true,
+    staticComponents: true,
+    // `ember-cli-deprecation-workflow` does not support `staticEmberSource = true`
+    // yet. See https://github.com/mixonic/ember-cli-deprecation-workflow/issues/156
+    // for details.
+    staticEmberSource: false,
+    skipBabel: [
+      {
+        package: 'qunit',
+      },
+    ],
+    packagerOptions: {
+      webpackConfig: {
+        devtool: 'source-map',
+        plugins: [new SubresourceIntegrityPlugin()],
+        resolve: {
+          fallback: {
+            // SJCL supports node.js as well using node's crypto module.
+            // We don't want it to be included in the bundle.
+            crypto: false,
+          },
+        },
+      },
+    },
+  });
 };
