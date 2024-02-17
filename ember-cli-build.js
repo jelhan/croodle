@@ -5,17 +5,6 @@ const SubresourceIntegrityPlugin = require('webpack-subresource-integrity-embroi
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
-    autoImport: {
-      forbidEval: true,
-      webpack: {
-        externals: {
-          // sjcl requires node's cryto library, which isn't needed
-          // in Browser but causes webpack to bundle a portable version
-          // which increases the build size by an inacceptable amount
-          crypto: 'null',
-        },
-      },
-    },
     buildInfoOptions: {
       metaTemplate: 'version={SEMVER}',
     },
