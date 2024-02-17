@@ -9,38 +9,20 @@
           <p class="description">{{poll.description}}</p>
           <p class="dates">
             <span class="creationDate">
-              {{!
-                TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
-              }}
               {{t
                 "poll.created-date"
                 date=(format-date
-                  poll.creationDate
-                  weekday="long"
-                  day="numeric"
-                  month="long"
-                  year="numeric"
-                  hour="numeric"
-                  minute="numeric"
+                  poll.creationDate dateStyle="full" timeStyle="short"
                 )
               }}
             </span>
             {{#if poll.expirationDate}}
               <br />
               <span class="expirationDate">
-                {{!
-                  TODO: Simplify to dateStyle="full" and timeStyle="short" after upgrading to Ember Intl v6
-                }}
                 {{t
                   "poll.expiration-date"
                   date=(format-date
-                    poll.expirationDate
-                    weekday="long"
-                    day="numeric"
-                    month="long"
-                    year="numeric"
-                    hour="numeric"
-                    minute="numeric"
+                    poll.expirationDate dateStyle="full" timeStyle="short"
                   )
                 }}
               </span>
