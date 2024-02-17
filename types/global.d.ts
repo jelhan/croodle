@@ -1,3 +1,4 @@
+import 'ember-source/types';
 import '@glint/environment-ember-loose';
 import type EmberMathRegistry from 'ember-math-helpers/template-registry';
 import type EmberTruthRegistry from 'ember-truth-helpers/template-registry';
