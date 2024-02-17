@@ -135,7 +135,7 @@
     "tracked-built-ins": "3.3.0",
     "typescript": "5.3.3",
     "webpack": "5.90.2",
-    "webpack-subresource-integrity-embroider": "0.1.1"
+    "webpack-subresource-integrity-embroider": "0.1.2"
   },
   "overrides": {
     "@glimmer/validator": "0.88.1",
