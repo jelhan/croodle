@@ -1,7 +1,7 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const SubresourceIntegrityPlugin = require('./lib/webpack-subresource-integrity-for-embroider-plugin');
+const SubresourceIntegrityPlugin = require('webpack-subresource-integrity-embroider');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
