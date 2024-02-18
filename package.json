@@ -124,7 +124,7 @@
     "prettier": "3.2.5",
     "qunit": "2.20.1",
     "qunit-dom": "3.0.0",
-    "release-it": "17.0.5",
+    "release-it": "17.1.0",
     "sass": "1.71.0",
     "sinon": "17.0.1",
     "sjcl": "1.0.8",
