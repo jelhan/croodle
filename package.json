@@ -30,7 +30,7 @@
     "test:csp-header": "grep \"`ember csp-headers --environment production --silent 2>&1 | sed 's/ $//'`\" public/.htaccess || (echo \"CSP headers in public/.htaccess does not match configuration\" && exit 1)"
   },
   "devDependencies": {
-    "@babel/core": "7.24.0",
+    "@babel/core": "7.24.1",
     "@ember/optional-features": "2.1.0",
     "@ember/string": "3.1.1",
     "@ember/test-helpers": "3.3.0",
