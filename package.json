@@ -133,7 +133,7 @@
     "stylelint-config-standard-scss": "13.0.0",
     "stylelint-prettier": "5.0.0",
     "tracked-built-ins": "3.3.0",
-    "typescript": "5.4.2",
+    "typescript": "5.4.3",
     "webpack": "5.90.3",
     "webpack-subresource-integrity-embroider": "0.1.3"
   },
