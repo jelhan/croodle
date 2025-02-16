@@ -139,7 +139,7 @@
   },
   "overrides": {
     "@glimmer/validator": "0.88.1",
-    "ember-element-helper": "0.8.5"
+    "ember-element-helper": "0.8.6"
   },
   "engines": {
     "node": ">=20"
