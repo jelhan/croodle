@@ -112,6 +112,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - name: Install php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: mbstring, zip
       - name: Install node modules
         run: npm ci
       - name: Build with test environment
