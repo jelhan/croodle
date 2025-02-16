@@ -104,11 +104,6 @@ directory to `/api` and execute `./vendor/bin/codecept run`. You have
 to install composer development requirements before (`composer install`
 without `--no-dev` option).
 
-## Credits
-
-Cross-browser testing provided by<br>
-<a href="https://www.browserstack.com"><img src="docs/Browserstack-logo.svg" height="50"></a>
-
 ## License
 
 Croodle is [MIT Licensed](https://github.com/jelhan/croodle/blob/master/LICENSE).
