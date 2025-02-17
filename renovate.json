@@ -20,6 +20,10 @@
         "ember-power-calendar",
         "ember-power-calendar-luxon"
       ]
+    },
+    {
+      "groupName": "GLint",
+      "matchPackageNames": ["@glint/*"]
     }
   ]
 }
