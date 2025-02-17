@@ -82,6 +82,7 @@ jobs:
   test-firefox:
     name: test against Firefox
     runs-on: ubuntu-latest
+    needs: test-chrome
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -93,7 +94,7 @@ jobs:
       - name: Setup firefox
         uses: browser-actions/setup-firefox@latest
         with:
-          firefox-version: 102.0.1
+          firefox-version: latest-esr
       - name: Build with test environment
         env:
           CI: true
@@ -101,45 +102,36 @@ jobs:
       - name: run tests in firefox
         run: npm run test:ember --launch Firefox --path dist
 
-  test-browserstack:
-    name: test against additional browser in BrowserStack
-    runs-on: ubuntu-latest
+  test-safari:
+    name: test against Safari
+    runs-on: macos-latest
+    needs: test-chrome
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+      - name: Install php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: mbstring, zip
       - name: Install node modules
         run: npm ci
       - name: Build with test environment
         env:
           CI: true
         run: npm run build --environment test
-      - name: 'BrowserStack Env Setup'
-        uses: 'browserstack/github-actions/setup-env@master'
-        with:
-          username: 'jeldrikhanschke1'
-          access-key: 'xaM9Uxurv2GyxFLKQXgj'
-      - name: 'Start BrowserStackLocal Tunnel'
-        uses: 'browserstack/github-actions/setup-local@master'
-        with:
-          local-testing: 'start'
-          local-logging-level: 'all-logs'
-          local-identifier: 'random'
-      - name: 'Running test on BrowserStack'
-        run: npm run test:ember --config-file testem.browserstack.js --path dist
-      - name: 'BrowserStackLocal Stop'
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: stop
+      - name: run tests in chrome
+        run: npm run test:ember --launch Safari --path dist
 
   test-backend:
     name: Test php backend
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2']
+        php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
     steps:
       - name: Checkout repository files
         uses: actions/checkout@v4
