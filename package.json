@@ -89,7 +89,7 @@
     "ember-cli-deprecation-workflow": "2.2.0",
     "ember-cli-htmlbars": "6.3.0",
     "ember-cli-inject-live-reload": "https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c",
-    "ember-cli-mirage": "3.0.3",
+    "ember-cli-mirage": "3.0.4",
     "ember-cli-page-object": "2.3.0",
     "ember-cli-sass": "11.0.1",
     "ember-composable-helpers": "5.0.0",
