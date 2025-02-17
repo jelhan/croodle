@@ -161,11 +161,7 @@ declare module 'ember-power-calendar/utils' {
 
   export function isBefore(date1: Date, date2: Date): boolean;
 
-  export function isSame(
-    date1: Date,
-    date2: Date,
-    unit: string,
-  ): boolean;
+  export function isSame(date1: Date, date2: Date, unit: string): boolean;
 
   export function isBetween(
     date: Date,
@@ -187,22 +183,15 @@ declare module 'ember-power-calendar/utils' {
     date: Date[];
   }): NormalizeMultipleActionValue;
 
-  export function normalizeCalendarDay(
-    day: PowerCalendarDay,
-  ): PowerCalendarDay;
+  export function normalizeCalendarDay(day: PowerCalendarDay): PowerCalendarDay;
 
-  export function withLocale(
-    locale: string,
-    fn: () => unknown,
-  ): unknown;
+  export function withLocale(locale: string, fn: () => unknown): unknown;
 
   export function normalizeCalendarValue(value: {
     date: Date;
   }): NormalizeCalendarValue;
 
-  export function normalizeDuration(
-    value: unknown,
-  ): number | null | undefined;
+  export function normalizeDuration(value: unknown): number | null | undefined;
 
   export function getDefaultLocale(): string;
 
