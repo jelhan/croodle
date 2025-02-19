@@ -95,7 +95,7 @@
     "eslint-plugin-n": "16.6.2",
     "eslint-plugin-prettier": "5.2.3",
     "eslint-plugin-qunit": "8.1.2",
-    "fs-extra": "11.2.0",
+    "fs-extra": "11.3.0",
     "lerna-changelog": "2.2.0",
     "loader.js": "4.7.0",
     "miragejs": "0.1.48",
