@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, findAll, blur, fillIn, focus } from '@ember/test-helpers';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import { TrackedSet } from 'tracked-built-ins';
 import { setupIntl } from 'ember-intl/test-support';
 

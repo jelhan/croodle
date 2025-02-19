@@ -3,7 +3,7 @@
     position: relative;
     word-wrap: break-word;
     background: gray("200");
-    padding: map-get($spacers, 3) map-get($spacers, 3) 3em map-get($spacers, 3);
+    padding: map-get($spacers, 3) map-get($spacers, 3) 3em;
   }
 
   &__url {
