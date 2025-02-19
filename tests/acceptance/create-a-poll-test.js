@@ -25,7 +25,7 @@ import pageCreateOptionsDatetime from 'croodle/tests/pages/create/options-dateti
 import pageCreateSettings from 'croodle/tests/pages/create/settings';
 import pagePollParticipation from 'croodle/tests/pages/poll/participation';
 import asyncThrowsAssertion from '../assertions/async-throws';
-import { calendarSelect } from 'ember-power-calendar/test-support';
+import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import sinon from 'sinon';
 
 module('Acceptance | create a poll', function (hooks) {
