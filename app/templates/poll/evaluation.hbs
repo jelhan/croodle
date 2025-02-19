@@ -2,13 +2,13 @@
   {{#if this.isEvaluable}}
     <PollEvaluationSummary
       @poll={{poll}}
-      @timeZone={{this.pollController.timezone}}
+      @timeZone={{this.pollSettings.timeZone}}
     />
   {{/if}}
 
   <h3>{{t "poll.evaluation.participantTable"}}</h3>
   <PollEvaluationParticipantsTable
     @poll={{poll}}
-    @timeZone={{this.pollController.timezone}}
+    @timeZone={{this.pollSettings.timeZone}}
   />
 {{/let}}

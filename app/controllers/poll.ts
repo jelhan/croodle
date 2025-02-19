@@ -1,15 +1,16 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { isPresent, isEmpty } from '@ember/utils';
+import { isEmpty } from '@ember/utils';
 import { action } from '@ember/object';
 import { DateTime } from 'luxon';
-import { tracked } from '@glimmer/tracking';
 import type IntlService from 'ember-intl/services/intl';
 import type RouterService from '@ember/routing/router-service';
 import type { PollRouteModel } from 'croodle/routes/poll';
+import type PollSettingsService from 'croodle/services/poll-settings';
 
 export default class PollController extends Controller {
   @service declare intl: IntlService;
+  @service('poll-settings') declare pollSettingsService: PollSettingsService;
   @service declare router: RouterService;
 
   declare model: PollRouteModel;
@@ -17,8 +18,9 @@ export default class PollController extends Controller {
   queryParams = ['encryptionKey'];
   encryptionKey = '';
 
-  @tracked timezoneChoosen = false;
-  @tracked shouldUseLocalTimezone = false;
+  get pollSettings() {
+    return this.pollSettingsService.getSettings(this.model);
+  }
 
   get showExpirationWarning() {
     const { model: poll } = this;
@@ -32,37 +34,13 @@ export default class PollController extends Controller {
     );
   }
 
-  /*
-   * return true if current timezone differs from timezone poll got created with
-   */
-  get timezoneDiffers() {
-    const { model: poll } = this;
-    const { timezone: pollTimezone } = poll;
-
-    return (
-      isPresent(pollTimezone) &&
-      Intl.DateTimeFormat().resolvedOptions().timeZone !== pollTimezone
-    );
-  }
-
-  get mustChooseTimezone() {
-    return this.timezoneDiffers && !this.timezoneChoosen;
-  }
-
-  get timezone() {
-    const { model: poll, shouldUseLocalTimezone } = this;
-
-    return shouldUseLocalTimezone || !poll.timezone ? undefined : poll.timezone;
-  }
-
   @action
   useLocalTimezone() {
-    this.shouldUseLocalTimezone = true;
-    this.timezoneChoosen = true;
+    this.pollSettings.shouldUseLocalTimeZone = true;
   }
 
   @action
   usePollTimezone() {
-    this.timezoneChoosen = true;
+    this.pollSettings.shouldUseLocalTimeZone = false;
   }
 }
