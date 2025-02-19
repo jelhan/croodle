@@ -1,0 +1,72 @@
+<BsButtonGroup @justified={{true}} class="cr-steps-top-nav form-steps">
+  <BsButton
+    @onClick={{fn this.transitionTo "create.index"}}
+    @type={{if
+      (eq this.router.currentRouteName "create.index")
+      "primary is-active"
+      "default"
+    }}
+    class="cr-steps-top-nav__button"
+    data-test-form-step="create.index"
+  >
+    {{t "create.formStep.type"}}
+  </BsButton>
+  <BsButton
+    @onClick={{fn this.transitionTo "create.meta"}}
+    @type={{if
+      (eq this.router.currentRouteName "create.meta")
+      "primary is-active"
+      "default"
+    }}
+    disabled={{not this.canEnterMetaStep}}
+    class="cr-steps-top-nav__button"
+    data-test-form-step="create.meta"
+  >
+    {{t "create.formStep.meta"}}
+  </BsButton>
+  <BsButton
+    @onClick={{fn this.transitionTo "create.options"}}
+    @type={{if
+      (eq this.router.currentRouteName "create.options")
+      "primary is-active"
+      "default"
+    }}
+    disabled={{not this.canEnterOptionsStep}}
+    class="cr-steps-top-nav__button"
+    data-test-form-step="create.options"
+  >
+    {{#if this.isFindADate}}
+      {{t "create.formStep.options.days"}}
+    {{else}}
+      {{t "create.formStep.options.text"}}
+    {{/if}}
+  </BsButton>
+  {{#if this.isFindADate}}
+    <BsButton
+      @onClick={{fn this.transitionTo "create.options-datetime"}}
+      @type={{if
+        (eq this.router.currentRouteName "create.options-datetime")
+        "primary is-active"
+        "default"
+      }}
+      disabled={{not this.canEnterOptionsDatetimeStep}}
+      class="cr-steps-top-nav__button"
+      data-test-form-step="create.options-datetime"
+    >
+      {{t "create.formStep.options-datetime"}}
+    </BsButton>
+  {{/if}}
+  <BsButton
+    @onClick={{fn this.transitionTo "create.settings"}}
+    @type={{if
+      (eq this.router.currentRouteName "create.settings")
+      "primary is-active"
+      "default"
+    }}
+    disabled={{not this.canEnterSettingsStep}}
+    class="cr-steps-top-nav__button"
+    data-test-form-step="create.settings"
+  >
+    {{t "create.formStep.settings"}}
+  </BsButton>
+</BsButtonGroup>
