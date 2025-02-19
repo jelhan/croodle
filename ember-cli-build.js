@@ -55,7 +55,10 @@ module.exports = function (defaults) {
           // Avoid duplicated instances of Luxon in build
           // https://github.com/cibernox/ember-power-calendar-luxon/issues/46
           alias: {
-            luxon: path.resolve(__dirname, 'node_modules/luxon/build/node/luxon.js'),
+            luxon: path.resolve(
+              __dirname,
+              'node_modules/luxon/build/node/luxon.js',
+            ),
           },
           fallback: {
             // SJCL supports node.js as well using node's crypto module.
