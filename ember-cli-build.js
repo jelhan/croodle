@@ -2,6 +2,7 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity-embroider');
+const path = require('path');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
@@ -51,6 +52,11 @@ module.exports = function (defaults) {
         devtool: 'source-map',
         plugins: [new SubresourceIntegrityPlugin()],
         resolve: {
+          // Avoid duplicated instances of Luxon in build
+          // https://github.com/cibernox/ember-power-calendar-luxon/issues/46
+          alias: {
+            luxon: path.resolve(__dirname, 'node_modules/luxon/build/node/luxon.js'),
+          },
           fallback: {
             // SJCL supports node.js as well using node's crypto module.
             // We don't want it to be included in the bundle.
