@@ -1,18 +1,17 @@
-import Controller, { inject as controller } from '@ember/controller';
+import Controller from '@ember/controller';
 import User from '../../models/user';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import type RouterService from '@ember/routing/router-service';
-import type PollController from '../poll';
 import type { PollParticipationRouteModel } from 'croodle/routes/poll/participation';
 import type Poll from 'croodle/models/poll';
 import type { SelectionInput } from 'croodle/models/selection';
+import type PollSettingsService from 'croodle/services/poll-settings';
 
 export default class PollParticipationController extends Controller {
+  @service('poll-settings') declare pollSettingsService: PollSettingsService;
   @service declare router: RouterService;
-
-  @controller('poll') declare pollController: PollController;
 
   declare model: PollParticipationRouteModel;
 
@@ -24,6 +23,10 @@ export default class PollParticipationController extends Controller {
     poll: Poll;
     selections: SelectionInput[];
   } | null = null;
+
+  get pollSettings() {
+    return this.pollSettingsService.getSettings(this.model.poll);
+  }
 
   @action
   async submit() {

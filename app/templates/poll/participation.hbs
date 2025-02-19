@@ -42,7 +42,7 @@
               @label={{if @model.poll.isFindADate (format-date option.jsDate
                   dateStyle=(if shouldShowDate "full" undefined)
                   timeStyle=(if option.hasTime "short" undefined)
-                  timeZone=this.pollController.timezone
+                  timeZone=this.pollSettings.timeZone
                 )
                 option.title
               }}
@@ -61,7 +61,7 @@
               @label={{if @model.poll.isFindADate (format-date option.jsDate
                   dateStyle=(if shouldShowDate "full" undefined)
                   timeStyle=(if option.hasTime "short" undefined)
-                  timeZone=this.pollController.timezone
+                  timeZone=this.pollSettings.timeZone
                 )
                 option.title
               }}
