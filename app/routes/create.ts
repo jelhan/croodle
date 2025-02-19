@@ -5,7 +5,6 @@ import type Transition from '@ember/routing/transition';
 import { DateTime } from 'luxon';
 import { tracked } from '@glimmer/tracking';
 import { TrackedSet } from 'tracked-built-ins';
-import type CreateController from 'croodle/controllers/create';
 import type { AnswerType, PollType } from 'croodle/models/poll';
 
 class PollData {
@@ -35,16 +34,6 @@ export default class CreateRoute extends Route {
 
   model() {
     return new PollData();
-  }
-
-  activate() {
-    const controller = this.controllerFor(this.routeName) as CreateController;
-    controller.listenForStepChanges();
-  }
-
-  deactivate() {
-    const controller = this.controllerFor(this.routeName) as CreateController;
-    controller.clearListenerForStepChanges();
   }
 }
 
