@@ -42,7 +42,7 @@
     "@glint/core": "1.5.2",
     "@glint/environment-ember-loose": "1.5.2",
     "@glint/template": "1.5.2",
-    "@release-it-plugins/lerna-changelog": "6.1.0",
+    "@release-it-plugins/lerna-changelog": "7.0.0",
     "@tsconfig/ember": "3.0.9",
     "@types/luxon": "3.4.2",
     "@types/qunit": "2.19.10",
