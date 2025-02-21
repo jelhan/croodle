@@ -113,7 +113,7 @@
     "stylelint-prettier": "5.0.3",
     "tracked-built-ins": "3.4.0",
     "typescript": "5.7.3",
-    "webpack": "5.94.0",
+    "webpack": "5.98.0",
     "webpack-subresource-integrity-embroider": "0.2.3"
   },
   "overrides": {
