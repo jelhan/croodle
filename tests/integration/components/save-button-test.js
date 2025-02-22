@@ -6,7 +6,7 @@ import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | save-button', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks);
+  setupIntl(hooks, 'en');
 
   test('it renders a button', async function (assert) {
     await render(hbs`<NextButton />`);

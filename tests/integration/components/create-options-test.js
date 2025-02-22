@@ -7,7 +7,7 @@ import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | create options', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks);
+  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function () {
     this.store = this.owner.lookup('service:store');
