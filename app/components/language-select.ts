@@ -19,10 +19,9 @@ export default class LanguageSelect extends Component {
   handleChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const locale = selectElement.value as keyof typeof this.locales;
+    const fallbackLocale = locale.includes('-') ? locale.split('-')[0] : null;
 
-    this.intl.locale = locale.includes('-')
-      ? [locale, locale.split('-')[0] as string]
-      : [locale];
+    this.intl.setLocale(fallbackLocale ? [locale, fallbackLocale] : [locale]);
     this.powerCalendar.locale = locale;
 
     if (window.localStorage) {
