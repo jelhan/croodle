@@ -37,6 +37,13 @@ const scrollFirstInvalidElementIntoViewPort = helper(() => {
     // `schedule('afterRender', function() {})` would be more approperiate but there seems to be a
     // timing issue in Firefox causing the Browser not scrolling up far enough if doing so
     // delaying to next runloop therefore
+    //
+    // This should be refactored at a later point in time to an utility function. At that point
+    // we may consider refactoring it to use a wrapper such as Ember Lifeline easing usage of the
+    // Ember's runloop API. Due to the specifics of this use case - especially calling only native
+    // browser APIs and no Ember code - typical pitfalls of Ember's runloop do not apply in this case.
+    //
+    // eslint-disable-next-line ember/no-runloop
     next(function () {
       const invalidInput = document.querySelector(
         '.form-control.is-invalid, .custom-control-input.is-invalid',
