@@ -6,7 +6,7 @@ import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | inline-datepicker', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks);
+  setupIntl(hooks, 'en');
 
   test('it renders an ember-power-calendar', async function (assert) {
     this.set('noop', () => {});

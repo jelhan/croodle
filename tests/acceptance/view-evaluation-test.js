@@ -12,7 +12,7 @@ module('Acceptance | view evaluation', function (hooks) {
   });
 
   setupApplicationTest(hooks);
-  setupIntl(hooks);
+  setupIntl(hooks, 'en');
   setupMirage(hooks);
 
   test('evaluation summary is not present for poll without participants', async function (assert) {

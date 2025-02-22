@@ -7,7 +7,7 @@ import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | share-poll-url', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks);
+  setupIntl(hooks, 'en');
 
   test('it shows poll url', async function (assert) {
     sinon.stub(this.owner.lookup('service:router'), 'currentURL').value('/foo');

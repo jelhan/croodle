@@ -22,7 +22,7 @@ module('Acceptance | participate in a poll', function (hooks) {
   });
 
   setupApplicationTest(hooks);
-  setupIntl(hooks);
+  setupIntl(hooks, 'en');
   setupMirage(hooks);
 
   hooks.beforeEach(function () {

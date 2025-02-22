@@ -145,10 +145,10 @@ index:
     have-a-try: "Prova-ho ara"
   hoster:
     title: "Hoste el vostre Croodle:"
-    text: "No has de confiar en aquest Croodle. Croodle és un programari lliure
+    text: 'No has de confiar en aquest Croodle. Croodle és un programari lliure
       i el podeu instal·lar al vostre propi servidor. Només necessiteu un servidor
       amb un espai de uns quans mega bytes, PHP i xifratge SSL. El programari
-      i consells per a la instal·lació estan aquí: {gitHubLink}."
+      i consells per a la instal·lació estan aquí: <a href="https://github.com/jelhan/croodle">GitHub</a>.'
 modal:
   save-retry:
     title: "S'ha produït un error en desar."

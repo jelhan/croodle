@@ -50,11 +50,9 @@ export default class ApplicationRoute extends Route {
     // Set locale
     const supportedLocales = Object.keys(localesMeta);
     const locale = getLocale(supportedLocales);
+    const fallbackLocale = locale.includes('-') ? locale.split('-')[0] : null;
 
-    this.intl.set(
-      'locale',
-      locale.includes('-') ? [locale, locale.split('-')[0]] : [locale],
-    );
+    this.intl.setLocale(fallbackLocale ? [locale, fallbackLocale] : [locale]);
     this.powerCalendar.set('locale', locale);
   }
 }

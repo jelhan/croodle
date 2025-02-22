@@ -35,7 +35,7 @@ module('Acceptance | create a poll', function (hooks) {
 
   setupApplicationTest(hooks);
   setupMirage(hooks);
-  setupIntl(hooks);
+  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function (assert) {
     assert.asyncThrows = asyncThrowsAssertion;
