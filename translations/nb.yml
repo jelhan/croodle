@@ -46,10 +46,10 @@ index:
   title: Croodle forenkler datovalg og avgjørelser …<br/>… og beskytter din data
   hoster:
     text:
-      "Du trenger ikke å stole på denne Croodle-en. Croodle er fri programvare
+      'Du trenger ikke å stole på denne Croodle-en. Croodle er fri programvare
       og du kan installere det på din egen tjener. Du trenger kun noen megabyte
       tjenerplass, PHP og SSL-kryptering. Programvare og tips for installasjon
-      er å finne her: <a href=\"https://github.com/jelhan/croodle\">GitHub</a>."
+      er å finne her: <a href="https://github.com/jelhan/croodle">GitHub</a>.'
     title: "Vertstjen din egen Croodle:"
   features:
     list:

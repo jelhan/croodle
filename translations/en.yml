@@ -141,10 +141,10 @@ index:
     have-a-try: "Try it now"
   hoster:
     title: "Host your own Croodle:"
-    text: "You don’t have to trust this Croodle. Croodle is a free software and
+    text: 'You don’t have to trust this Croodle. Croodle is a free software and
       you can install it on your own server. You only need some mega byte server
       space, PHP and SSL-encryption. The software and tips for installation
-      are here: <a href=\"https://github.com/jelhan/croodle\">GitHub</a>."
+      are here: <a href="https://github.com/jelhan/croodle">GitHub</a>.'
 modal:
   save-retry:
     title: "Saving failed."

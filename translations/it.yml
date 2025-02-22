@@ -144,10 +144,10 @@ index:
     have-a-try: "Provalo subito"
   hoster:
     title: "Installa il tuo prorio Croodle:"
-    text: "Non devi per forza fidarti di questo Croodle. Croodle è un software
+    text: 'Non devi per forza fidarti di questo Croodle. Croodle è un software
       libero che puoi installare in locale. Ti servono solamente pochi MB di
       spazio su disco, PHP, e supporto per SSL. Codice sorgente e documentazione
-      sono disponibili qui: <a href=\"https://github.com/jelhan/croodle\">GitHub</a>."
+      sono disponibili qui: <a href="https://github.com/jelhan/croodle">GitHub</a>.'
 modal:
   save-retry:
     title: "Salvataggio fallito."
