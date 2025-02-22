@@ -150,7 +150,7 @@ index:
       "Vous n’avez pas à faire confiance à ce Croodle. Croodle est un logiciel
       libre et vous pouvez l’installer sur votre propre serveur. Vous n’avez
       besoin que d’un espace serveur, PHP et chiffrement SSL. Le logiciel et
-      les conseils d’installation sont ici : {gitHubLink}."
+      les conseils d’installation sont ici : <a href=\"https://github.com/jelhan/croodle\">GitHub</a>."
 modal:
   save-retry:
     title: "Erreur de sauvegarde."
