@@ -34,7 +34,7 @@
     "@ember/optional-features": "2.2.0",
     "@ember/string": "4.0.1",
     "@ember/test-helpers": "5.1.0",
-    "@embroider/compat": "3.8.2",
+    "@embroider/compat": "3.8.3",
     "@embroider/core": "3.5.2",
     "@embroider/webpack": "4.1.0",
     "@glimmer/component": "1.1.2",
