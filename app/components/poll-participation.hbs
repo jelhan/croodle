@@ -1,0 +1,140 @@
+<div class="participation cr-form-wrapper">
+  <BsForm
+    @formLayout="horizontal"
+    @model={{this.formData}}
+    @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
+    @onSubmit={{this.submit}}
+    novalidate
+    as |form|
+  >
+    <form.element
+      @controlType="text"
+      @label={{t "poll.input.newUserName.label"}}
+      @property="name"
+      class="name"
+      data-test-form-element="name"
+      as |el|
+    >
+      <el.control
+        placeholder={{t "poll.input.newUserName.placeholder"}}
+        {{autofocus}}
+      />
+    </form.element>
+    <div class="selections">
+      {{#each @poll.options as |option index|}}
+        {{#let
+          (if
+            (eq option.day (get (get @poll.options (sub index 1)) "day"))
+            false
+            true
+          )
+          as |shouldShowDate|
+        }}
+          {{#if @poll.isFreeText}}
+            {{! prettier-ignore }}
+            <form.element
+              @controlType="text"
+              {{!
+                @glint-ignore
+                We know that jsDate is not null if `poll.isFindADate` is `true`.
+                But Glint does not understand that.
+              }}
+              @label={{if @poll.isFindADate (format-date option.jsDate
+                  dateStyle=(if shouldShowDate "full" undefined)
+                  timeStyle=(if option.hasTime "short" undefined)
+                  timeZone=this.pollSettings.timeZone
+                )
+                option.title
+              }}
+              @model={{get this.formData.selections index}}
+              @property="value"
+              data-test-form-element={{concat "option-" option.title}}
+            />
+          {{else}}
+            {{! prettier-ignore }}
+            <form.element
+              {{!
+                @glint-ignore
+                We know that jsDate is not null if `poll.isFindADate` is `true`.
+                But Glint does not understand that.
+              }}
+              @label={{if @poll.isFindADate (format-date option.jsDate
+                  dateStyle=(if shouldShowDate "full" undefined)
+                  timeStyle=(if option.hasTime "short" undefined)
+                  timeZone=this.pollSettings.timeZone
+                )
+                option.title
+              }}
+              @model={{get this.formData.selections index}}
+              @property="value"
+              @showValidationOn="change"
+              @useIcons={{false}}
+              data-test-form-element={{concat "option-" option.title}}
+              as |el|
+            >
+              {{#each @poll.answers as |answer|}}
+                <div
+                  class="radio custom-control custom-radio custom-control-inline
+                    {{answer.type}}"
+                >
+                  <input
+                    class="custom-control-input
+                      {{if (eq el.validation 'success') 'is-valid'}}
+                      {{if (eq el.validation 'error') 'is-invalid'}}
+                      "
+                    type="radio"
+                    value={{answer.type}}
+                    checked={{eq answer.type el.value}}
+                    id={{concat el.id "_" answer.type}}
+                    name={{option.title}}
+                    {{on "change" (fn el.setValue answer.type)}}
+                  />
+                  <label
+                    class="custom-control-label"
+                    for={{concat el.id "_" answer.type}}
+                  >
+                    {{t answer.labelTranslation}}
+                  </label>
+                </div>
+              {{/each}}
+            </form.element>
+          {{/if}}
+        {{/let}}
+      {{/each}}
+    </div>
+
+    <div class="row cr-steps-bottom-nav">
+      <div class="col-md-8 offset-md-4">
+        <SaveButton
+          @isPending={{form.isSubmitting}}
+          data-test-button="submit"
+        />
+      </div>
+    </div>
+  </BsForm>
+</div>
+
+<BsModal
+  @onHidden={{this.resetSavingStatus}}
+  @onSubmit={{this.save}}
+  @open={{this.savingFailed}}
+  data-test-modal="saving-failed"
+  as |modal|
+>
+  <modal.header @closeButton={{false}} @title={{t "modal.save-retry.title"}} />
+  <modal.body>
+    <p>{{t "modal.save-retry.text"}}</p>
+  </modal.body>
+  <modal.footer>
+    <BsButton @onClick={{modal.close}}>
+      {{t "action.abort"}}
+    </BsButton>
+    <BsButton
+      @type="primary"
+      @onClick={{modal.submit}}
+      data-test-button="retry"
+    >
+      {{t "modal.save-retry.button-retry"}}
+    </BsButton>
+  </modal.footer>
+</BsModal>
