@@ -1,0 +1,32 @@
+<div class="box">
+  {{#if this.decryptionFailed}}
+    <h2 data-test-error-type="decryption-failed">
+      {{t "error.poll.decryptionFailed.title"}}
+    </h2>
+    <p>
+      {{t "error.poll.decryptionFailed.description"}}
+    </p>
+  {{else if this.notFound}}
+    <h2 data-test-error-type="not-found">
+      {{t "error.poll.notFound.title"}}
+    </h2>
+    <p>
+      {{t "error.poll.notFound.description"}}
+    </p>
+    <ul>
+      <li>
+        {{t "error.poll.notFound.reasons.expired"}}
+      </li>
+      <li>
+        {{t "error.poll.notFound.reasons.typo"}}
+      </li>
+    </ul>
+  {{else}}
+    <h2 data-test-error-type="unexpected">
+      {{t "error.generic.unexpected.title"}}
+    </h2>
+    <p>
+      {{t "error.generic.unexpected.description"}}
+    </p>
+  {{/if}}
+</div>

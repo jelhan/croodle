@@ -17,4 +17,5 @@ Router.map(function () {
     this.route('options-datetime');
     this.route('settings');
   });
+  this.route('poll-error');
 });
