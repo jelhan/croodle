@@ -15,7 +15,12 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    // We refactored away from controllers to components and do not
+    // want new controllers to be added again unless needed for query
+    // parameter handling.
+    'ember/no-controllers': 'error',
+  },
   overrides: [
     // ts files
     {
