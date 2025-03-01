@@ -3,16 +3,91 @@ import User from '../models/user';
 import type { PollParticipationRouteModel } from 'croodle/routes/poll/participation';
 import type RouterService from '@ember/routing/router-service';
 import type Poll from 'croodle/models/poll';
+import type Option from 'croodle/models/option';
 import type { SelectionInput } from 'croodle/models/selection';
 import type PollSettingsService from 'croodle/services/poll-settings';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { TrackedArray } from 'tracked-built-ins';
+import IntlMessage from 'croodle/utils/intl-message';
+
+class FormDataSelections {
+  @tracked value = null;
+  valueIsRequired;
+
+  get valueValidation() {
+    const { value, valueIsRequired } = this;
+
+    if (!value && valueIsRequired) {
+      return new IntlMessage('poll.error.selection.valueMissing');
+    }
+
+    return null;
+  }
+
+  get isValid() {
+    return this.valueValidation === null;
+  }
+
+  constructor(valueIsRequired: boolean) {
+    this.valueIsRequired = valueIsRequired;
+  }
+}
+
+class FormData {
+  @tracked name: null | string = null;
+  nameIsRequired;
+  namesTaken;
+  selections;
+
+  get nameValidation() {
+    const { name, nameIsRequired, namesTaken } = this;
+
+    if (!name && nameIsRequired) {
+      return new IntlMessage('poll.error.name.valueMissing');
+    }
+
+    if (name && namesTaken.includes(name)) {
+      return new IntlMessage('poll.error.name.duplicate');
+    }
+
+    return null;
+  }
+
+  get selectionsValidation() {
+    const isValid = this.selections.every((selection) => selection.isValid);
+
+    if (!isValid) {
+      return new IntlMessage('poll.error.newUser.everyOptionIsAnswered');
+    }
+
+    return null;
+  }
+
+  constructor(
+    options: Option[],
+    {
+      nameIsRequired,
+      namesTaken,
+      selectionIsRequired,
+    }: {
+      nameIsRequired: boolean;
+      namesTaken: string[];
+      selectionIsRequired: boolean;
+    },
+  ) {
+    this.nameIsRequired = nameIsRequired;
+    this.namesTaken = namesTaken;
+    this.selections = new TrackedArray(
+      options.map(() => new FormDataSelections(selectionIsRequired)),
+    );
+  }
+}
 
 export interface PollParticipationSignature {
   // The arguments accepted by the component
   Args: {
-    formData: PollParticipationRouteModel['formData'];
     poll: PollParticipationRouteModel['poll'];
   };
   // Any blocks yielded by the component
@@ -30,6 +105,14 @@ export default class PollParticipation extends Component<PollParticipationSignat
   @tracked name = '';
   @tracked savingFailed = false;
 
+  formData = new FormData(this.args.poll.options, {
+    nameIsRequired: !this.args.poll.anonymousUser,
+    namesTaken: this.args.poll.users
+      .map(({ name }) => name)
+      .filter((_) => _ !== null) as string[],
+    selectionIsRequired: this.args.poll.forceAnswer,
+  });
+
   newUserData: {
     name: string | null;
     poll: Poll;
@@ -44,7 +127,8 @@ export default class PollParticipation extends Component<PollParticipationSignat
 
   @action
   async submit() {
-    const { formData, poll } = this.args;
+    const { args, formData } = this;
+    const { poll } = args;
     const { name } = formData;
     const { answers, isFreeText } = poll;
     const selections = formData.selections.map(({ value }) => {

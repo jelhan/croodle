@@ -1,7 +1,7 @@
 <div class="participation cr-form-wrapper">
   <BsForm
     @formLayout="horizontal"
-    @model={{@formData}}
+    @model={{this.formData}}
     @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
     @onSubmit={{this.submit}}
     novalidate
@@ -46,7 +46,7 @@
                 )
                 option.title
               }}
-              @model={{get @formData.selections index}}
+              @model={{get this.formData.selections index}}
               @property="value"
               data-test-form-element={{concat "option-" option.title}}
             />
@@ -65,7 +65,7 @@
                 )
                 option.title
               }}
-              @model={{get @formData.selections index}}
+              @model={{get this.formData.selections index}}
               @property="value"
               @showValidationOn="change"
               @useIcons={{false}}
