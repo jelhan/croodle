@@ -25,21 +25,18 @@ export default RestSerializer.extend({
       if (key === 'id') {
         // records id
         jsonApiPayload.data.id = attrs.id;
-      } else if (
-        belongsToAssociations.hasOwnProperty(key) ||
-        hasManyAssociations.hasOwnProperty(key)
-      ) {
+      } else if (key in belongsToAssociations || key in hasManyAssociations) {
         // relationship
-        if (!jsonApiPayload.data.hasOwnProperty('relationships')) {
+        if (!('relationships' in jsonApiPayload.data)) {
           jsonApiPayload.data.relationships = {};
         }
 
-        let association = belongsToAssociations.hasOwnProperty(key)
-          ? belongsToAssociations[key]
-          : hasManyAssociations[key];
-        let associationType = belongsToAssociations.hasOwnProperty(key)
-          ? 'belongsTo'
-          : 'hasMany';
+        let association =
+          key in belongsToAssociations
+            ? belongsToAssociations[key]
+            : hasManyAssociations[key];
+        let associationType =
+          key in belongsToAssociations ? 'belongsTo' : 'hasMany';
         let associationModel = association.modelName;
         let relationshipObject = {};
 
@@ -64,7 +61,7 @@ export default RestSerializer.extend({
         jsonApiPayload.data.relationships[key] = relationshipObject;
       } else {
         // attribute
-        if (!jsonApiPayload.data.hasOwnProperty('attributes')) {
+        if (!('attributes' in jsonApiPayload.data)) {
           jsonApiPayload.data.attributes = {};
         }
 

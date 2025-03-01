@@ -20,13 +20,6 @@ module.exports = {
     // want new controllers to be added again unless needed for query
     // parameter handling.
     'ember/no-controllers': 'error',
-    // Croodle is not compliant with some of the recommended rules yet.
-    // We should refactor the code step by step and enable them as soon
-    // as the code is compliant.
-    'ember/classic-decorator-no-classic-methods': 'warn',
-    'ember/no-controller-access-in-routes': 'warn',
-    'ember/no-observers': 'warn',
-    'no-prototype-builtins': 'warn',
   },
   overrides: [
     // ts files
