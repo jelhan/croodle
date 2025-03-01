@@ -12,7 +12,8 @@ import { action } from '@ember/object';
 export interface PollParticipationSignature {
   // The arguments accepted by the component
   Args: {
-    model: PollParticipationRouteModel;
+    formData: PollParticipationRouteModel['formData'];
+    poll: PollParticipationRouteModel['poll'];
   };
   // Any blocks yielded by the component
   Blocks: {
@@ -36,12 +37,14 @@ export default class PollParticipation extends Component<PollParticipationSignat
   } | null = null;
 
   get pollSettings() {
-    return this.pollSettingsService.getSettings(this.args.model.poll);
+    const { poll } = this.args;
+
+    return this.pollSettingsService.getSettings(poll);
   }
 
   @action
   async submit() {
-    const { formData, poll } = this.args.model;
+    const { formData, poll } = this.args;
     const { name } = formData;
     const { answers, isFreeText } = poll;
     const selections = formData.selections.map(({ value }) => {
@@ -81,7 +84,7 @@ export default class PollParticipation extends Component<PollParticipationSignat
   @action
   async save() {
     const { newUserData: userData } = this;
-    const { poll } = this.args.model;
+    const { poll } = this.args;
     // As know that the route is `poll.participation`, which means that there
     // is a parent `poll` for sure.
     const { encryptionKey } = this.router.currentRoute?.parent?.queryParams as {

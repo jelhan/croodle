@@ -1,7 +1,7 @@
 <div class="participation cr-form-wrapper">
   <BsForm
     @formLayout="horizontal"
-    @model={{@model.formData}}
+    @model={{@formData}}
     @onInvalid={{(scroll-first-invalid-element-into-view-port)}}
     @onSubmit={{this.submit}}
     novalidate
@@ -21,16 +21,16 @@
       />
     </form.element>
     <div class="selections">
-      {{#each @model.poll.options as |option index|}}
+      {{#each @poll.options as |option index|}}
         {{#let
           (if
-            (eq option.day (get (get @model.poll.options (sub index 1)) "day"))
+            (eq option.day (get (get @poll.options (sub index 1)) "day"))
             false
             true
           )
           as |shouldShowDate|
         }}
-          {{#if @model.poll.isFreeText}}
+          {{#if @poll.isFreeText}}
             {{! prettier-ignore }}
             <form.element
               @controlType="text"
@@ -39,14 +39,14 @@
                 We know that jsDate is not null if `poll.isFindADate` is `true`.
                 But Glint does not understand that.
               }}
-              @label={{if @model.poll.isFindADate (format-date option.jsDate
+              @label={{if @poll.isFindADate (format-date option.jsDate
                   dateStyle=(if shouldShowDate "full" undefined)
                   timeStyle=(if option.hasTime "short" undefined)
                   timeZone=this.pollSettings.timeZone
                 )
                 option.title
               }}
-              @model={{get @model.formData.selections index}}
+              @model={{get @formData.selections index}}
               @property="value"
               data-test-form-element={{concat "option-" option.title}}
             />
@@ -58,21 +58,21 @@
                 We know that jsDate is not null if `poll.isFindADate` is `true`.
                 But Glint does not understand that.
               }}
-              @label={{if @model.poll.isFindADate (format-date option.jsDate
+              @label={{if @poll.isFindADate (format-date option.jsDate
                   dateStyle=(if shouldShowDate "full" undefined)
                   timeStyle=(if option.hasTime "short" undefined)
                   timeZone=this.pollSettings.timeZone
                 )
                 option.title
               }}
-              @model={{get @model.formData.selections index}}
+              @model={{get @formData.selections index}}
               @property="value"
               @showValidationOn="change"
               @useIcons={{false}}
               data-test-form-element={{concat "option-" option.title}}
               as |el|
             >
-              {{#each @model.poll.answers as |answer|}}
+              {{#each @poll.answers as |answer|}}
                 <div
                   class="radio custom-control custom-radio custom-control-inline
                     {{answer.type}}"
