@@ -16,6 +16,10 @@ module.exports = {
     browser: true,
   },
   rules: {
+    // We refactored away from controllers to components and do not
+    // want new controllers to be added again unless needed for query
+    // parameter handling.
+    'ember/no-controllers': 'error',
     // Croodle is not compliant with some of the recommended rules yet.
     // We should refactor the code step by step and enable them as soon
     // as the code is compliant.
