@@ -1,5 +1,5 @@
 import { RestSerializer } from 'miragejs';
-import { dasherize } from '@ember/string';
+import { dasherize } from '../utils/ember-string';
 import { pluralize } from 'ember-inflector';
 
 export default RestSerializer.extend({
