@@ -3,11 +3,7 @@ import type { PollRouteModel } from '../poll';
 
 export default class PollParticipationRoute extends Route {
   model() {
-    const poll = this.modelFor('poll') as PollRouteModel;
-
-    return {
-      poll,
-    };
+    return this.modelFor('poll') as PollRouteModel;
   }
 }
 

@@ -88,7 +88,7 @@ class FormData {
 export interface PollParticipationSignature {
   // The arguments accepted by the component
   Args: {
-    poll: PollParticipationRouteModel['poll'];
+    poll: PollParticipationRouteModel;
   };
   // Any blocks yielded by the component
   Blocks: {
