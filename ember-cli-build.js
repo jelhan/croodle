@@ -17,6 +17,9 @@ module.exports = function (defaults) {
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
     },
+    'ember-fetch': {
+      nativePromise: true,
+    },
     autoprefixer: {
       browsers: ['last 2 ios version'],
       cascade: false,
@@ -38,10 +41,7 @@ module.exports = function (defaults) {
     staticHelpers: true,
     staticModifiers: true,
     staticComponents: true,
-    // `ember-cli-deprecation-workflow` does not support `staticEmberSource = true`
-    // yet. See https://github.com/mixonic/ember-cli-deprecation-workflow/issues/156
-    // for details.
-    staticEmberSource: false,
+    staticEmberSource: true,
     skipBabel: [
       {
         package: 'qunit',
