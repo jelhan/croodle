@@ -1,0 +1,111 @@
+{{page-title @poll.title}}
+
+<div id="poll">
+  <div class="row">
+    <div class="col-sm-6 col-lg-5">
+      <div class="box meta-data">
+        <h2 class="title">{{@poll.title}}</h2>
+        <p class="description">{{@poll.description}}</p>
+        <p class="dates">
+          <span class="creationDate">
+            {{t
+              "poll.created-date"
+              date=(format-date
+                @poll.creationDate dateStyle="full" timeStyle="short"
+              )
+            }}
+          </span>
+          {{#if @poll.expirationDate}}
+            <br />
+            <span class="expirationDate">
+              {{t
+                "poll.expiration-date"
+                date=(format-date
+                  @poll.expirationDate dateStyle="full" timeStyle="short"
+                )
+              }}
+            </span>
+          {{/if}}
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-6 offset-lg-1">
+      <SharePollUrl />
+    </div>
+  </div>
+
+  {{#if this.showExpirationWarning}}
+    <div class="row">
+      <div class="col-xs-12">
+        <BsAlert @type="warning" class="expiration-warning">
+          {{t
+            "poll.expiration-date-warning"
+            timeToNow=(format-date-relative @poll.expirationDate)
+          }}
+        </BsAlert>
+      </div>
+    </div>
+  {{/if}}
+
+  <div class="box">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <LinkTo
+          @route="poll.participation"
+          @model={{@poll.id}}
+          class="nav-link"
+          data-test-link="participation"
+        >
+          {{t "poll.tab-title.participation"}}
+        </LinkTo>
+      </li>
+      <li class="nav-item">
+        <LinkTo
+          @route="poll.evaluation"
+          @model={{@poll.id}}
+          class="nav-link"
+          data-test-link="evaluation"
+        >
+          {{t "poll.tab-title.evaluation"}}
+        </LinkTo>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active">
+        {{yield}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<BsModal
+  @title={{t "poll.modal.timezoneDiffers.title"}}
+  @open={{this.pollSettings.mustChooseTimeZone}}
+  @footer={{false}}
+  @closeButton={{false}}
+  @keyboard={{false}}
+  @autoClose={{false}}
+  data-test-modal="choose-timezone"
+  as |modal|
+>
+  <modal.body>
+    <p>
+      {{t "poll.modal.timezoneDiffers.body"}}
+    </p>
+  </modal.body>
+  <modal.footer>
+    <BsButton
+      @onClick={{this.useLocalTimezone}}
+      data-test-button="use-local-timezone"
+    >
+      {{t "poll.modal.timezoneDiffers.button.useLocalTimezone"}}
+    </BsButton>
+    <BsButton
+      @onClick={{this.usePollTimezone}}
+      data-test-button="use-poll-timezone"
+    >
+      {{t "poll.modal.timezoneDiffers.button.usePollTimezone"}}
+    </BsButton>
+  </modal.footer>
+</BsModal>
