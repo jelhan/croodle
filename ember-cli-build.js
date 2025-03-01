@@ -17,6 +17,9 @@ module.exports = function (defaults) {
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
     },
+    'ember-fetch': {
+      nativePromise: true,
+    },
     autoprefixer: {
       browsers: ['last 2 ios version'],
       cascade: false,
