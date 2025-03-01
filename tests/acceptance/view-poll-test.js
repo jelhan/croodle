@@ -37,15 +37,39 @@ module('Acceptance | view poll', function (hooks) {
       .isVisible('shows success message that URL has been copied');
   });
 
-  test('shows a warning if poll is about to be expired', async function (assert) {
-    let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    let poll = this.server.create('poll', {
-      encryptionKey,
-      expirationDate: DateTime.local().plus({ weeks: 1 }).toISO(),
+  module('expiration warning', function () {
+    test('shows a warning if poll expires in the next  weeks', async function (assert) {
+      let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let poll = this.server.create('poll', {
+        encryptionKey,
+        expirationDate: DateTime.local().plus({ weeks: 1 }).toISO(),
+      });
+
+      await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
+      assert.ok(pageParticipation.showsExpirationWarning);
     });
 
-    await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
-    assert.ok(pageParticipation.showsExpirationWarning);
+    test('does not show a warning if expiration date is more than two weeks in the future', async function (assert) {
+      let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let poll = this.server.create('poll', {
+        encryptionKey,
+        expirationDate: DateTime.local().plus({ weeks: 3 }).toISO(),
+      });
+
+      await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
+      assert.notOk(pageParticipation.showsExpirationWarning);
+    });
+
+    test('does not show a warning if expiration date is not set', async function (assert) {
+      let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      let poll = this.server.create('poll', {
+        encryptionKey,
+        expirationDate: null,
+      });
+
+      await visit(`/poll/${poll.id}?encryptionKey=${encryptionKey}`);
+      assert.notOk(pageParticipation.showsExpirationWarning);
+    });
   });
 
   test('view a poll with dates', async function (assert) {
