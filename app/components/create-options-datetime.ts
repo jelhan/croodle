@@ -142,7 +142,7 @@ class FormData {
   adoptTimesOfFirstDay() {
     const timeOptionsForFirstDay = Array.from(
       Array.from(this.datetimes.values())[0]!,
-    ) as FormDataTimeOption[];
+    );
     const timesForFirstDayAreValid = timeOptionsForFirstDay.every(
       (timeOption) => timeOption.isValid,
     );
@@ -245,36 +245,35 @@ export default class CreateOptionsDatetime extends Component<CreateOptoinsDateti
     }
   }
 
-  @action
-  handleTransition(transition: Transition) {
-    if (transition.from?.name === 'create.options-datetime') {
-      this.args.poll.timesForDateOptions = new Map(
-        // FormData.datetimes Map has a Set of FormDataTime object as values
-        // We need to transform it to a Set of plain time strings
-        Array.from(this.formData.datetimes.entries())
-          .map(([key, timeOptions]): [string, Set<string>] => {
-            return [
-              key,
-              new Set(
-                Array.from(timeOptions)
-                  .map(({ time }: FormDataTimeOption) => time)
-                  // There might be FormDataTime objects without a time, which
-                  // we need to filter out
-                  .filter((time) => time !== null),
-              ) as Set<string>,
-            ];
-          })
-          // There might be dates without any time, which we need to filter out
-          .filter(([, times]) => times.size > 0),
-      );
-      this.router.off('routeWillChange', this.handleTransition);
-    }
-  }
-
   constructor(owner: unknown, args: CreateOptoinsDatetimeSignature['Args']) {
     super(owner, args);
 
-    this.router.on('routeWillChange', this.handleTransition);
+    const handleTransition = (transition: Transition) => {
+      if (transition.from?.name === 'create.options-datetime') {
+        this.args.poll.timesForDateOptions = new Map(
+          // FormData.datetimes Map has a Set of FormDataTime object as values
+          // We need to transform it to a Set of plain time strings
+          Array.from(this.formData.datetimes.entries())
+            .map(([key, timeOptions]): [string, Set<string>] => {
+              return [
+                key,
+                new Set(
+                  Array.from(timeOptions)
+                    .map(({ time }: FormDataTimeOption) => time)
+                    // There might be FormDataTime objects without a time, which
+                    // we need to filter out
+                    .filter((time) => time !== null),
+                ),
+              ];
+            })
+            // There might be dates without any time, which we need to filter out
+            .filter(([, times]) => times.size > 0),
+        );
+        this.router.off('routeWillChange', handleTransition);
+      }
+    };
+
+    this.router.on('routeWillChange', handleTransition);
   }
 }
 

@@ -109,7 +109,7 @@ export default class PollParticipation extends Component<PollParticipationSignat
     nameIsRequired: !this.args.poll.anonymousUser,
     namesTaken: this.args.poll.users
       .map(({ name }) => name)
-      .filter((_) => _ !== null) as string[],
+      .filter((_) => _ !== null),
     selectionIsRequired: this.args.poll.forceAnswer,
   });
 
@@ -189,7 +189,7 @@ export default class PollParticipation extends Component<PollParticipationSignat
       await User.create(userData, encryptionKey);
 
       this.savingFailed = false;
-    } catch (error) {
+    } catch {
       // couldn't save user model
       this.savingFailed = true;
 

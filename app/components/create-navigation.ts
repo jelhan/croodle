@@ -25,10 +25,22 @@ export default class CreateNavigation extends Component<CreateNavigationSignatur
   constructor(owner: unknown, args: CreateNavigationSignature['Args']) {
     super(owner, args);
 
-    this.router.on('routeDidChange', this.updateVisitedSteps);
+    const updateVisitedSteps = () => {
+      const { currentRouteName } = this.router;
+
+      // currentRouteName might not be defined in some edge cases
+      if (!currentRouteName) {
+        return;
+      }
+
+      const step = currentRouteName.split('.').pop();
+      this.visitedSteps.add(step);
+    };
+
+    this.router.on('routeDidChange', updateVisitedSteps);
 
     registerDestructor(this, () =>
-      this.router.off('routeDidChange', this.updateVisitedSteps),
+      this.router.off('routeDidChange', updateVisitedSteps),
     );
   }
 
@@ -76,19 +88,6 @@ export default class CreateNavigation extends Component<CreateNavigationSignatur
   @action
   transitionTo(route: string) {
     this.router.transitionTo(route);
-  }
-
-  @action
-  updateVisitedSteps() {
-    const { currentRouteName } = this.router;
-
-    // currentRouteName might not be defined in some edge cases
-    if (!currentRouteName) {
-      return;
-    }
-
-    const step = currentRouteName.split('.').pop();
-    this.visitedSteps.add(step);
   }
 }
 

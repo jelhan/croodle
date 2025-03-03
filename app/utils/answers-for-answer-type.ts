@@ -1,5 +1,3 @@
-import { assert } from '@ember/debug';
-
 export type Answer = {
   labelTranslation: string;
   icon: string;
@@ -45,8 +43,5 @@ export default function (
 
     case 'FreeText':
       return [];
-
-    default:
-      assert(`answer type ${answerType} is not supported`);
   }
 }

@@ -132,13 +132,6 @@ export default class CreateOptions extends Component<CreateOptionsSignature> {
     }
   }
 
-  @action handleTransition(transition: Transition) {
-    if (transition.from?.name === 'create.options') {
-      this.updatePoll();
-      this.router.off('routeWillChange', this.handleTransition);
-    }
-  }
-
   updatePoll() {
     const { poll } = this.args;
     const { pollType } = poll;
@@ -155,9 +148,16 @@ export default class CreateOptions extends Component<CreateOptionsSignature> {
   constructor(owner: unknown, args: CreateOptionsSignature['Args']) {
     super(owner, args);
 
+    const handleTransition = (transition: Transition) => {
+      if (transition.from?.name === 'create.options') {
+        this.updatePoll();
+        this.router.off('routeWillChange', handleTransition);
+      }
+    };
+
     // Cannot use a destructor because that one runs _after_ the other component
     // rendered by the next route is initialized.
-    this.router.on('routeWillChange', this.handleTransition);
+    this.router.on('routeWillChange', handleTransition);
   }
 }
 
