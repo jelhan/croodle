@@ -18,10 +18,8 @@ function elementIsNotVisible(element: Element) {
 
   // check if element is within current view port button hidden behind
   // fixed bottom navigation bar
-  const bottomNavEl = document.querySelector(
-    '.cr-steps-bottom-nav',
-  ) as HTMLElement | null;
-  if (!bottomNavEl) {
+  const bottomNavEl = document.querySelector('.cr-steps-bottom-nav');
+  if (!(bottomNavEl instanceof HTMLElement)) {
     // bottom navigation bar can not overlay element if it does not exist
     return false;
   }

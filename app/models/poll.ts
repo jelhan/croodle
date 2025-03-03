@@ -257,7 +257,9 @@ export default class Poll {
         `Unexpected server-side error. Server responded with ${response.status} (${response.statusText})`,
       );
     }
-    const responseDocument = await response.json();
+    const responseDocument = (await response.json()) as {
+      poll: { id: string };
+    };
     const { id } = responseDocument.poll;
 
     return new Poll({

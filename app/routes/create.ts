@@ -13,7 +13,7 @@ class PollData {
   @tracked description: string = '';
   @tracked expirationDate: string = DateTime.local()
     .plus({ months: 3 })
-    .toISO() as string;
+    .toISO();
   @tracked forceAnswer: boolean = true;
   @tracked freetextOptions: TrackedSet<string> = new TrackedSet();
   @tracked dateOptions: TrackedSet<string> = new TrackedSet();

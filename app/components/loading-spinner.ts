@@ -1,8 +1,6 @@
 import templateOnlyComponent from '@ember/component/template-only';
 
-interface LoadingSpinnerSignature {}
-
-const LoadingSpinner = templateOnlyComponent<LoadingSpinnerSignature>();
+const LoadingSpinner = templateOnlyComponent();
 
 export default LoadingSpinner;
 

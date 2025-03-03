@@ -70,7 +70,9 @@ export default class User {
       );
     }
 
-    const responseDocument = await response.json();
+    const responseDocument = (await response.json()) as {
+      user: { id: string };
+    };
     const { id } = responseDocument.user;
     const user = new User({ creationDate, id, name, selections, version });
     poll.users.push(user);

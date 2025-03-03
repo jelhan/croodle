@@ -50,7 +50,7 @@ export default class CreateSettingsComponent extends Component<CreateSettingsSig
   }
   set expirationDuration(value) {
     this.args.poll.expirationDate = isPresent(value)
-      ? (DateTime.local().plus(Duration.fromISO(value)).toISO() as string)
+      ? DateTime.local().plus(Duration.fromISO(value)).toISO()
       : '';
   }
 
