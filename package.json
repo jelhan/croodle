@@ -120,7 +120,7 @@
     "webpack-subresource-integrity-embroider": "0.2.4"
   },
   "overrides": {
-    "@glimmer/validator": "0.94.6",
+    "@glimmer/validator": "0.94.7",
     "ember-element-helper": "0.8.6"
   },
   "engines": {
