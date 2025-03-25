@@ -108,7 +108,7 @@
     "qunit-dom": "3.4.0",
     "release-it": "17.11.0",
     "sass": "1.86.0",
-    "sinon": "19.0.5",
+    "sinon": "20.0.0",
     "sjcl": "1.0.8",
     "stylelint": "16.16.0",
     "stylelint-config-standard-scss": "14.0.0",
