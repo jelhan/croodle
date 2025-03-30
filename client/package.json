@@ -24,7 +24,7 @@
     "lint:yml:fix": "prettier **/*.yml --write",
     "release": "release-it",
     "start": "ember serve",
-    "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\" --prefixColors auto",
+    "test": "concurrently \"npm:test:*(!bundlesize)\" --names \"test:\" --prefixColors auto && npm run test:bundlesize",
     "test:ember": "ember test",
     "test:bundlesize": "ember bundlesize:test",
     "test:csp-header": "grep \"`ember csp-headers --environment production --silent 2>&1 | sed 's/ $//'`\" public/.htaccess || (echo \"CSP headers in public/.htaccess does not match configuration\" && exit 1)"
@@ -44,7 +44,6 @@
     "@glint/environment-ember-loose": "1.5.2",
     "@glint/environment-ember-template-imports": "1.5.2",
     "@glint/template": "1.5.2",
-    "@release-it-plugins/lerna-changelog": "7.0.0",
     "@tsconfig/ember": "3.0.10",
     "@types/eslint__js": "9.14.0",
     "@types/luxon": "3.4.2",
@@ -106,7 +105,6 @@
     "prettier-plugin-ember-template-tag": "2.0.4",
     "qunit": "2.24.1",
     "qunit-dom": "3.4.0",
-    "release-it": "17.11.0",
     "sass": "1.86.0",
     "sinon": "20.0.0",
     "sjcl": "1.0.8",
@@ -119,13 +117,6 @@
     "webpack": "5.98.0",
     "webpack-subresource-integrity-embroider": "0.2.4"
   },
-  "overrides": {
-    "@glimmer/validator": "0.94.8",
-    "ember-element-helper": "0.8.6"
-  },
-  "engines": {
-    "node": ">= 20"
-  },
   "ember": {
     "edition": "octane"
   },
@@ -134,18 +125,5 @@
       "lib/include-api-in-build",
       "lib/inject-app-version-in-meta-tag"
     ]
-  },
-  "changelog": {
-    "labels": {
-      "breaking": ":boom: Breaking Change",
-      "enhancement": ":rocket: Enhancement",
-      "bug": ":bug: Bug Fix",
-      "documentation": ":memo: Documentation",
-      "i18n": ":abc: Internalization",
-      "internal": ":house: Internal"
-    }
-  },
-  "volta": {
-    "node": "22.14.0"
   }
 }

@@ -41,7 +41,7 @@ jobs:
       - name: Install node modules
         run: npm ci
       - name: Run tests
-        run: npm run test:bundlesize
+        run: npm run --workspace client test:bundlesize
 
   test-csp-header:
     name: test CSP in .htaccess
@@ -55,7 +55,7 @@ jobs:
       - name: Install node modules
         run: npm ci
       - name: Run tests
-        run: npm run test:csp-header
+        run: npm run --workspace client test:csp-header
 
   test-chrome:
     name: test against Chrome
@@ -75,9 +75,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: npm run build --environment test
+        run: npm run --workspace client build --environment test
       - name: run tests in chrome
-        run: npm run test:ember --launch Chrome --path dist
+        run: npm run --workspace client test:ember --launch Chrome --path dist
 
   test-firefox:
     name: test against Firefox
@@ -98,9 +98,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: npm run build --environment test
+        run: npm run --workspace client build --environment test
       - name: run tests in firefox
-        run: npm run test:ember --launch Firefox --path dist
+        run: npm run --workspace client test:ember --launch Firefox --path dist
 
   test-safari:
     name: test against Safari
@@ -122,9 +122,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: npm run build --environment test
+        run: npm run --workspace client build --environment test
       - name: run tests in chrome
-        run: npm run test:ember --launch Safari --path dist
+        run: npm run --workspace client test:ember --launch Safari --path dist
 
   test-backend:
     name: Test php backend

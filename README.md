@@ -43,7 +43,7 @@ cd client/ && npm install
 npm run build
 ```
 
-Afterwards copy all files in `/client/dist` folder to your werbserver.
+Afterwards copy all files in `/dist` folder to your werbserver.
 
 ### Configuration
 

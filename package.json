@@ -1,0 +1,39 @@
+{
+  "name": "croodle",
+  "workspaces": [
+    "client"
+  ],
+  "scripts": {
+    "build": "npm run --workspace client build -- --output-path=../dist",
+    "lint": "concurrently \"npm:lint:*\" --names \"lint:\" --prefixColors auto",
+    "lint:client": "npm run --workspace client lint",
+    "test": "concurrently \"npm:test:*\" --names \"test:\" --prefixColors auto",
+    "test:api": "cd api && ./vendor/bin/codecept run",
+    "test:client": "npm run --workspace client test"
+  },
+  "devDependencies": {
+    "@release-it-plugins/lerna-changelog": "7.0.0",
+    "concurrently": "9.1.2",
+    "release-it": "17.11.0"
+  },
+  "overrides": {
+    "@glimmer/validator": "0.94.8",
+    "ember-element-helper": "0.8.6"
+  },
+  "engines": {
+    "node": ">= 20"
+  },
+  "changelog": {
+    "labels": {
+      "breaking": ":boom: Breaking Change",
+      "enhancement": ":rocket: Enhancement",
+      "bug": ":bug: Bug Fix",
+      "documentation": ":memo: Documentation",
+      "i18n": ":abc: Internalization",
+      "internal": ":house: Internal"
+    }
+  },
+  "volta": {
+    "node": "22.14.0"
+  }
+}
