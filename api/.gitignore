@@ -1,0 +1,7 @@
+# compiled output
+/tests/_output/
+/tests/_tmp/
+/tests/_support/_generated/
+
+# dependencies
+/vendor/

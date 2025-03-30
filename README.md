@@ -33,14 +33,17 @@ Production builds are provided as github [release assets](https://github.com/jel
 If you like to build yourself you have to install [node](https://nodejs.org/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before. It's recommended using [volta](https://volta.sh/) to ensure a compatible and tested node version is used.
 
 ```shell
-git clone git@github.com:jelhan/croodle.git
-cd croodle
-npm install
+# Clone repository
+git clone git@github.com:jelhan/croodle.git && cd croodle
+# Install API dependencies
 cd api/ && composer install --no-dev && cd ..
+# Install client dependencies
+cd client/ && npm install
+# Build the client
 npm run build
 ```
 
-Afterwards copy all files in `/dist` folder to your werbserver.
+Afterwards copy all files in `/client/dist` folder to your werbserver.
 
 ### Configuration
 
@@ -68,7 +71,7 @@ If you like to test against the real API, you should run the API
 using php built-in web server locally:
 
 ```sh
-php -S 127.0.0.1:8080 -t dist/
+php -S 127.0.0.1:8080 -t client/dist/
 ```
 
 Afterwards start ember-cli development server using `--proxy` option:
@@ -82,7 +85,7 @@ created polls over rebuild, configure api to use a non default folder
 to save your polls:
 
 ```sh
-CROODLE__DATA_DIR=/tmp/croodle_data php -S 127.0.0.1:8080 -t dist/
+CROODLE__DATA_DIR=/tmp/croodle_data php -S 127.0.0.1:8080 -t client/dist/
 ```
 
 ## Running tests

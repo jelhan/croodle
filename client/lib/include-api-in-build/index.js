@@ -3,7 +3,7 @@
 const { copy, ensureDir, unlink } = require('fs-extra');
 const { exec } = require('child_process');
 
-const apiPath = 'api/';
+const apiPath = '../api/';
 const targets = [
   'composer.json',
   'composer.lock',
