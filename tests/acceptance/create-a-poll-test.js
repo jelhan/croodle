@@ -42,10 +42,10 @@ module('Acceptance | create a poll', function (hooks) {
   });
 
   test('create a default poll', async function (assert) {
-    const dates = [
-      DateTime.now().plus({ days: 1 }),
-      DateTime.now().plus({ weeks: 1 }),
-    ];
+    sinon.useFakeTimers({
+      now: new Date('2025-03-01'),
+      shouldAdvanceTime: true,
+    });
 
     await pageCreateIndex.visit();
     assert.strictEqual(currentRouteName(), 'create.index');
@@ -105,7 +105,10 @@ module('Acceptance | create a poll', function (hooks) {
       'status bar has correct items disabled (options)',
     );
 
-    await pageCreateOptions.selectDates(dates);
+    await pageCreateOptions.selectDates([
+      new Date('2025-03-02'),
+      new Date('2025-03-07'),
+    ]);
     await pageCreateOptions.next();
     assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert
@@ -185,9 +188,7 @@ module('Acceptance | create a poll', function (hooks) {
       findAll(
         `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
-      dates.map((date) =>
-        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(date),
-      ),
+      ['Sunday, March 2, 2025', 'Friday, March 7, 2025'],
       'options are correctly labeled',
     );
     assert.deepEqual(
@@ -349,10 +350,10 @@ module('Acceptance | create a poll', function (hooks) {
   });
 
   test('create a poll with times and description', async function (assert) {
-    const days = [
-      DateTime.now().plus({ days: 1 }),
-      DateTime.now().plus({ weeks: 1 }),
-    ];
+    sinon.useFakeTimers({
+      now: new Date('2025-03-01T11:22'),
+      shouldAdvanceTime: true,
+    });
 
     await pageCreateIndex.visit();
     await pageCreateIndex.next();
@@ -364,14 +365,15 @@ module('Acceptance | create a poll', function (hooks) {
       .next();
     assert.strictEqual(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.selectDates(days);
+    await pageCreateOptions.selectDates([
+      new Date('2025-03-11'),
+      new Date('2025-03-23'),
+    ]);
     await pageCreateOptions.next();
     assert.strictEqual(currentRouteName(), 'create.options-datetime');
     assert.deepEqual(
       findAll('[data-test-day] label').map((el) => el.textContent.trim()),
-      days.map((day) =>
-        Intl.DateTimeFormat('en-US', { dateStyle: 'full' }).format(day),
-      ),
+      ['Tuesday, March 11, 2025', 'Sunday, March 23, 2025'],
       'time inputs having days as label',
     );
 
@@ -400,17 +402,9 @@ module('Acceptance | create a poll', function (hooks) {
         `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
-        Intl.DateTimeFormat('en-US', {
-          dateStyle: 'full',
-          timeStyle: 'short',
-        }).format(days[0].set({ hour: 10, minutes: 0 })),
-        Intl.DateTimeFormat('en-US', { timeStyle: 'short' }).format(
-          days[0].set({ hours: 18, minutes: 0 }),
-        ),
-        Intl.DateTimeFormat('en-US', {
-          dateStyle: 'full',
-          timeStyle: 'short',
-        }).format(days[1].set({ hour: 12, minutes: 0 })),
+        'Tuesday, March 11, 2025 at 10:00 AM',
+        '6:00 PM',
+        'Sunday, March 23, 2025 at 12:00 PM',
       ],
       'options are correctly labeled',
     );
@@ -626,10 +620,10 @@ module('Acceptance | create a poll', function (hooks) {
   });
 
   test('create a poll with times by adopting times of first day', async function (assert) {
-    const days = [
-      DateTime.now().plus({ days: 1 }),
-      DateTime.now().plus({ weeks: 1 }),
-    ];
+    sinon.useFakeTimers({
+      now: new Date('2025-04-01T05:30'),
+      shouldAdvanceTime: true,
+    });
 
     await visit('/create');
     await click('button[type="submit"]');
@@ -642,95 +636,94 @@ module('Acceptance | create a poll', function (hooks) {
     await click('button[type="submit"]');
     assert.strictEqual(currentRouteName(), 'create.options');
 
-    await pageCreateOptions.selectDates(days);
+    await pageCreateOptions.selectDates([
+      new Date('2025-04-15'),
+      new Date('2025-04-27'),
+    ]);
     await click('button[type="submit"]');
     assert.strictEqual(currentRouteName(), 'create.options-datetime');
 
     for (let i = 1; i <= 3; i++) {
       await click(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`,
+        `[data-test-day="2025-04-15"] button[data-test-action="add"]`,
       );
     }
     assert
-      .dom(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`,
-      )
+      .dom(`[data-test-day="2025-04-15"] button[data-test-action="add"]`)
       .exists({ count: 4 }, 'assumption: user created 4 time inputs');
 
     for (const [index, inputEl] of findAll(
-      `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
+      `[data-test-day="2025-04-15"] input[type="time"]`,
     ).entries()) {
       await fillIn(inputEl, `${(index * 6).toString().padStart(2, '0')}:00`);
     }
     assert.deepEqual(
-      findAll(
-        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
-      ).map((el) => el.value),
+      findAll(`[data-test-day="2025-04-15"] input[type="time"]`).map(
+        (el) => el.value,
+      ),
       ['00:00', '06:00', '12:00', '18:00'],
       'assumption: all 4 time inputs for first day are filled',
     );
     assert
-      .dom(`[data-test-day="${days[1].toISODate()}"] input[type="time"]`)
+      .dom(`[data-test-day="2025-04-27"] input[type="time"]`)
       .exists({ count: 1 }, 'only one time input exists for second day')
       .hasValue('', 'time input for second day is empty');
 
     await click('button[data-test-action="adopt-times-of-first-day"]');
     assert.deepEqual(
-      findAll(
-        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`,
-      ).map((el) => el.value),
+      findAll(`[data-test-day="2025-04-27"] input[type="time"]`).map(
+        (el) => el.value,
+      ),
       ['00:00', '06:00', '12:00', '18:00'],
       'all 4 times from first day have been added to second day',
     );
 
     await click(
       findAll(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="delete"]`,
+        `[data-test-day="2025-04-15"] button[data-test-action="delete"]`,
       )[2],
     );
     assert.deepEqual(
-      findAll(
-        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
-      ).map((el) => el.value),
+      findAll(`[data-test-day="2025-04-15"] input[type="time"]`).map(
+        (el) => el.value,
+      ),
       ['00:00', '06:00', '18:00'],
       'assumption: one time has been deleted from first day',
     );
 
     await click('button[data-test-action="adopt-times-of-first-day"]');
     assert.deepEqual(
-      findAll(
-        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`,
-      ).map((el) => el.value),
+      findAll(`[data-test-day="2025-04-27"] input[type="time"]`).map(
+        (el) => el.value,
+      ),
       ['00:00', '06:00', '18:00'],
       'second day has been updated with changed times from first day',
     );
 
     await fillIn(
-      findAll(`[data-test-day="${days[0].toISODate()}"] input[type="time"]`)[0],
+      findAll(`[data-test-day="2025-04-15"] input[type="time"]`)[0],
       '03:00',
     );
     await click(
-      findAll(
-        `[data-test-day="${days[0].toISODate()}"] button[data-test-action="add"]`,
-      )[2],
+      findAll(`[data-test-day="2025-04-15"] button[data-test-action="add"]`)[2],
     );
     await fillIn(
-      findAll(`[data-test-day="${days[0].toISODate()}"] input[type="time"]`)[3],
+      findAll(`[data-test-day="2025-04-15"] input[type="time"]`)[3],
       '22:00',
     );
     assert.deepEqual(
-      findAll(
-        `[data-test-day="${days[0].toISODate()}"] input[type="time"]`,
-      ).map((el) => el.value),
+      findAll(`[data-test-day="2025-04-15"] input[type="time"]`).map(
+        (el) => el.value,
+      ),
       ['03:00', '06:00', '18:00', '22:00'],
       'assumption: a fourth time has been added to the first day again',
     );
 
     await click('button[data-test-action="adopt-times-of-first-day"]');
     assert.deepEqual(
-      findAll(
-        `[data-test-day="${days[1].toISODate()}"] input[type="time"]`,
-      ).map((el) => el.value),
+      findAll(`[data-test-day="2025-04-27"] input[type="time"]`).map(
+        (el) => el.value,
+      ),
       ['03:00', '06:00', '18:00', '22:00'],
       'second day has been updated with times from first day as expected',
     );
@@ -745,17 +738,11 @@ module('Acceptance | create a poll', function (hooks) {
         `[data-test-form-element^="option"] label:not(.custom-control-label)`,
       ).map((el) => el.textContent.trim()),
       [
-        Intl.DateTimeFormat('en-US', {
-          dateStyle: 'full',
-          timeStyle: 'short',
-        }).format(days[0].set({ hour: 3, minutes: 0 })),
+        'Tuesday, April 15, 2025 at 3:00 AM',
         '6:00 AM',
         '6:00 PM',
         '10:00 PM',
-        Intl.DateTimeFormat('en-US', {
-          dateStyle: 'full',
-          timeStyle: 'short',
-        }).format(days[1].set({ hour: 3, minutes: 0 })),
+        'Sunday, April 27, 2025 at 3:00 AM',
         '6:00 AM',
         '6:00 PM',
         '10:00 PM',
