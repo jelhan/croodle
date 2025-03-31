@@ -30,7 +30,7 @@ Due to security reasons you should have TLS encryption enabled and provide a val
 
 Production builds are provided as github [release assets](https://github.com/jelhan/croodle/releases).
 
-If you like to build yourself you have to install [node](https://nodejs.org/), [ember-cli](http://www.ember-cli.com/) and [composer](https://getcomposer.org/) before. It's recommended using [volta](https://volta.sh/) to ensure a compatible and tested node version is used.
+If you like to build Croodle yourself, you have to install [node](https://nodejs.org/), [pnpm](https://pnpm.io/) and [composer](https://getcomposer.org/) before. It's recommended using [volta](https://volta.sh/) to ensure compatible and tested versions of node and pnpm are used.
 
 ```shell
 # Clone repository
@@ -38,9 +38,9 @@ git clone git@github.com:jelhan/croodle.git && cd croodle
 # Install API dependencies
 cd api/ && composer install --no-dev && cd ..
 # Install client dependencies
-cd client/ && npm install
+cd client/ && pnpm install
 # Build the client
-npm run build
+pnpm run build
 ```
 
 Afterwards copy all files in `/dist` folder to your werbserver.
@@ -60,7 +60,7 @@ Have a look at `api/config.default.php` for available options.
 
 ## Development
 
-`ember serve` generates a development build of Croodle and starts
+`pnpm run start` generates a development build of Croodle and starts
 a server listening on `http://localhost:4200` which is serving it.
 If source files are changing, a rebuild and reload is triggered.
 
@@ -74,10 +74,10 @@ using php built-in web server locally:
 php -S 127.0.0.1:8080 -t client/dist/
 ```
 
-Afterwards start ember-cli development server using `--proxy` option:
+Afterwards start the client's development server using `--proxy` option:
 
 ```sh
-ember server --proxy http://127.0.0.1:8080
+pnpm run start -- --proxy http://127.0.0.1:8080
 ```
 
 Ember-cli clears dist folder on each rebuild. If you like to keep

@@ -1,15 +1,12 @@
 {
-  "name": "croodle",
-  "workspaces": [
-    "client"
-  ],
   "scripts": {
-    "build": "npm run --workspace client build -- --output-path=../dist",
-    "lint": "concurrently \"npm:lint:*\" --names \"lint:\" --prefixColors auto",
-    "lint:client": "npm run --workspace client lint",
-    "test": "concurrently \"npm:test:*\" --names \"test:\" --prefixColors auto",
+    "build": "pnpm run --workspace client build -- --output-path=../dist",
+    "lint": "concurrently \"pnpm:lint:*\" --names \"lint:\" --prefixColors auto",
+    "lint:client": "pnpm run --workspace client lint",
+    "start": "pnpm run --workspace client start",
+    "test": "concurrently \"pnpm:test:*\" --names \"test:\" --prefixColors auto",
     "test:api": "cd api && ./vendor/bin/codecept run",
-    "test:client": "npm run --workspace client test"
+    "test:client": "pnpm run --workspace client test"
   },
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "7.0.0",
