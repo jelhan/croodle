@@ -1,12 +1,12 @@
 {
   "scripts": {
-    "build": "pnpm run --filter croodle build -- --output-path=../dist",
+    "build": "pnpm run --filter client build -- --output-path=../dist",
     "lint": "concurrently \"pnpm:lint:*\" --names \"lint:\" --prefixColors auto",
-    "lint:client": "pnpm run --filter croodle lint",
-    "start": "pnpm run --filter croodle start",
+    "lint:client": "pnpm run --filter client lint",
+    "start": "pnpm run --filter client start",
     "test": "concurrently \"pnpm:test:*\" --names \"test:\" --prefixColors auto",
     "test:api": "cd api && ./vendor/bin/codecept run",
-    "test:client": "pnpm run --filter croodle test"
+    "test:client": "pnpm run --filter client test"
   },
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "7.0.0",

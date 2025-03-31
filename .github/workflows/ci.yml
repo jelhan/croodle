@@ -51,7 +51,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: pnpm run --filter croodle test:bundlesize
+        run: pnpm run --filter client test:bundlesize
 
   test-csp-header:
     name: test CSP in .htaccess
@@ -70,7 +70,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: pnpm run --filter croodle test:csp-header
+        run: pnpm run --filter client test:csp-header
 
   test-chrome:
     name: test against Chrome
@@ -95,9 +95,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: pnpm run --filter croodle build --environment test
+        run: pnpm run --filter client build --environment test
       - name: run tests in chrome
-        run: pnpm run --filter croodle test:ember --launch Chrome --path dist
+        run: pnpm run --filter client test:ember --launch Chrome --path dist
 
   test-firefox:
     name: test against Firefox
@@ -123,9 +123,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: pnpm run --filter croodle build --environment test
+        run: pnpm run --filter client build --environment test
       - name: run tests in firefox
-        run: pnpm run --filter croodle test:ember --launch Firefox --path dist
+        run: pnpm run --filter client test:ember --launch Firefox --path dist
 
   test-safari:
     name: test against Safari
@@ -152,9 +152,9 @@ jobs:
       - name: Build with test environment
         env:
           CI: true
-        run: pnpm run --filter croodle build --environment test
+        run: pnpm run --filter client build --environment test
       - name: run tests in chrome
-        run: pnpm run --filter croodle test:ember --launch Safari --path dist
+        run: pnpm run --filter client test:ember --launch Safari --path dist
 
   test-backend:
     name: Test php backend
