@@ -51,7 +51,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: pnpm run --workspace client test:bundlesize
+        run: pnpm run --filter croodle test:bundlesize
 
   test-csp-header:
     name: test CSP in .htaccess
@@ -70,7 +70,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: pnpm run --workspace client test:csp-header
+        run: pnpm run --filter croodle test:csp-header
 
   test-chrome:
     name: test against Chrome
