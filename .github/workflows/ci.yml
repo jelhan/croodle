@@ -15,14 +15,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
   test-bundlesize:
     name: test bundlesize
@@ -34,46 +39,61 @@ jobs:
         with:
           php-version: '7.4'
           extensions: mbstring, zip
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
       - name: Install node modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: npm run test:bundlesize
+        run: pnpm run test:bundlesize
 
   test-csp-header:
     name: test CSP in .htaccess
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
       - name: Install node modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: npm run test:csp-header
+        run: pnpm run test:csp-header
 
   test-chrome:
     name: test against Chrome
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
       - name: Install node modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Install chrome browser
         run: |
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install ./google-chrome-stable_current_amd64.deb
       - name: run tests in Chrome
-        run: npm run test:ember
+        run: pnpm run test:ember
 
   test-firefox:
     name: test against Firefox
@@ -81,18 +101,23 @@ jobs:
     needs: test-chrome
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
       - name: Install node modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: Setup firefox
         uses: browser-actions/setup-firefox@latest
         with:
           firefox-version: latest-esr
       - name: run tests in Firefox
-        run: npm run test:ember -- --config-file testem.firefox.js
+        run: pnpm run test:ember -- --config-file testem.firefox.js
 
   test-safari:
     name: test against Safari
@@ -100,19 +125,24 @@ jobs:
     needs: test-chrome
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: pnpm
       - name: Install php
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.3
           extensions: mbstring, zip
       - name: Install node modules
-        run: npm ci
+        run: pnpm install --frozen-lockfile
       - name: run tests in Safari
-        run: npm run test:ember -- --config-file testem.safari.js
+        run: pnpm run test:ember -- --config-file testem.safari.js
 
   test-backend:
     name: Test php backend

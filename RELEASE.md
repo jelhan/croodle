@@ -32,14 +32,14 @@ Once the prep work is completed, the actual release is straight forward:
 * First ensure that you have installed the project dependencies:
   
   ```sh
-  npm ci
+  pnpm install --frozen-lockfile
   ```
 
 * Second, do your release:
 
   ```sh
   export GITHUB_AUTH="github-personal-access-token"
-  npm run release
+  pnpm run release
   ```
 
 [release-it](https://github.com/release-it/release-it/) manages the actual
