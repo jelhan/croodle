@@ -43,6 +43,10 @@ jobs:
         with:
           php-version: '7.4'
           extensions: mbstring, zip
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
       - name: Install Node
         uses: actions/setup-node@v4
         with:
@@ -92,12 +96,8 @@ jobs:
         run: |
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install ./google-chrome-stable_current_amd64.deb
-      - name: Build with test environment
-        env:
-          CI: true
-        run: pnpm run --filter client build --environment test
-      - name: run tests in chrome
-        run: pnpm run --filter client test:ember --launch Chrome --path dist
+      - name: run tests in Chrome
+        run: pnpm run --filter client test:ember
 
   test-firefox:
     name: test against Firefox
@@ -120,12 +120,8 @@ jobs:
         uses: browser-actions/setup-firefox@latest
         with:
           firefox-version: latest-esr
-      - name: Build with test environment
-        env:
-          CI: true
-        run: pnpm run --filter client build --environment test
-      - name: run tests in firefox
-        run: pnpm run --filter client test:ember --launch Firefox --path dist
+      - name: run tests in Firefox
+        run: pnpm run --filter client test:ember -- --config-file testem.firefox.js
 
   test-safari:
     name: test against Safari
@@ -149,12 +145,8 @@ jobs:
           extensions: mbstring, zip
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build with test environment
-        env:
-          CI: true
-        run: pnpm run --filter client build --environment test
-      - name: run tests in chrome
-        run: pnpm run --filter client test:ember --launch Safari --path dist
+      - name: run tests in Safari
+        run: pnpm run --filter client test:ember -- --config-file testem.safari.js
 
   test-backend:
     name: Test php backend
