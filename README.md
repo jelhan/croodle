@@ -35,11 +35,9 @@ If you like to build Croodle yourself, you have to install [node](https://nodejs
 ```shell
 # Clone repository
 git clone git@github.com:jelhan/croodle.git && cd croodle
-# Install API dependencies
-cd api/ && composer install --no-dev && cd ..
-# Install client dependencies
-cd client/ && pnpm install
-# Build the client
+# Install dependencies
+pnpm install
+# Build croodle
 pnpm run build
 ```
 
