@@ -30,85 +30,18 @@ module.exports = {
     },
   },
   launchers: {
-    SL_chrome: {
-      exe: 'ember',
-      args: [
-        'sauce:launch',
-        '-b',
-        'chrome',
-        '-p',
-        'Windows 10',
-        '--vi',
-        'public',
-        '--at',
-        '--no-ct',
-        '--u',
-      ],
+    // Allow safari to proceed without user intervention. See https://github.com/testem/testem/issues/1387
+    Safari: {
       protocol: 'browser',
-    },
-    SL_firefox: {
-      exe: 'ember',
+      exe: 'osascript',
       args: [
-        'sauce:launch',
-        '-b',
-        'firefox',
-        '-p',
-        'Windows 10',
-        '--vi',
-        'public',
-        '--at',
-        '--no-ct',
-        '--u',
+        '-e',
+        `tell application "Safari"
+          activate
+          open location "<url>"
+         end tell
+         delay 3000`,
       ],
-      protocol: 'browser',
-    },
-    SL_edge: {
-      exe: 'ember',
-      args: [
-        'sauce:launch',
-        '-b',
-        'microsoftedge',
-        '--vi',
-        'public',
-        '--at',
-        '--no-ct',
-        '--u',
-      ],
-      protocol: 'browser',
-    },
-    SL_ie: {
-      exe: 'ember',
-      args: [
-        'sauce:launch',
-        '-b',
-        'internet explorer',
-        '-v',
-        '11',
-        '-p',
-        'Windows 10',
-        '--vi',
-        'public',
-        '--at',
-        '--no-ct',
-        '--u',
-      ],
-      protocol: 'browser',
-    },
-    SL_safari: {
-      exe: 'ember',
-      args: [
-        'sauce:launch',
-        '-b',
-        'safari',
-        '-v',
-        'latest',
-        '--vi',
-        'public',
-        '--at',
-        '--no-ct',
-        '--u',
-      ],
-      protocol: 'browser',
     },
   },
 };
