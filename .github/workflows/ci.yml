@@ -182,10 +182,17 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
+      - name: Install php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, zip
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Install Playwright Browsers
         run: pnpm --filter tests exec playwright install --with-deps
+      - name: Build Croodle
+        run: pnpm run build
       - name: Run Playwright tests
         run: pnpm run test:e2e
       - uses: actions/upload-artifact@v4
