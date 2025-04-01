@@ -3,10 +3,11 @@
     "build": "pnpm run --filter client build -- --output-path=../dist",
     "lint": "concurrently \"pnpm:lint:*\" --names \"lint:\" --prefixColors auto",
     "lint:client": "pnpm run --filter client lint",
-    "start": "pnpm run --filter client start",
+    "start": "php -S 127.0.0.1:8000 -t dist/",
     "test": "concurrently \"pnpm:test:*\" --names \"test:\" --prefixColors auto",
     "test:api": "cd api && ./vendor/bin/codecept run",
-    "test:client": "pnpm run --filter client test"
+    "test:client": "pnpm run --filter client test",
+    "test:e2e": "pnpm run --filter tests test"
   },
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "7.0.0",
