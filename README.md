@@ -33,10 +33,13 @@ Production builds are provided as github [release assets](https://github.com/jel
 If you like to build Croodle yourself, you have to install [node](https://nodejs.org/), [pnpm](https://pnpm.io/) and [composer](https://getcomposer.org/) before. It's recommended using [volta](https://volta.sh/) to ensure compatible and tested versions of node and pnpm are used.
 
 ```shell
-git clone git@github.com:jelhan/croodle.git
-cd croodle
-pnpm install
+# Clone repository
+git clone git@github.com:jelhan/croodle.git && cd croodle
+# Install API dependencies
 cd api/ && composer install --no-dev && cd ..
+# Install client dependencies
+cd client/ && pnpm install
+# Build the client
 pnpm run build
 ```
 
@@ -57,7 +60,7 @@ Have a look at `api/config.default.php` for available options.
 
 ## Development
 
-`ember serve` generates a development build of Croodle and starts
+`pnpm run start` generates a development build of Croodle and starts
 a server listening on `http://localhost:4200` which is serving it.
 If source files are changing, a rebuild and reload is triggered.
 
@@ -68,13 +71,13 @@ If you like to test against the real API, you should run the API
 using php built-in web server locally:
 
 ```sh
-php -S 127.0.0.1:8080 -t dist/
+php -S 127.0.0.1:8080 -t client/dist/
 ```
 
-Afterwards start ember-cli development server using `--proxy` option:
+Afterwards start the client's development server using `--proxy` option:
 
 ```sh
-ember server --proxy http://127.0.0.1:8080
+pnpm run start -- --proxy http://127.0.0.1:8080
 ```
 
 Ember-cli clears dist folder on each rebuild. If you like to keep
@@ -82,7 +85,7 @@ created polls over rebuild, configure api to use a non default folder
 to save your polls:
 
 ```sh
-CROODLE__DATA_DIR=/tmp/croodle_data php -S 127.0.0.1:8080 -t dist/
+CROODLE__DATA_DIR=/tmp/croodle_data php -S 127.0.0.1:8080 -t client/dist/
 ```
 
 ## Running tests
