@@ -9,7 +9,7 @@
     "release": true
   },
   "hooks": {
-    "before:git:bump": "yarn install && ember build --prod",
+    "before:git:bump": "pnpm install --frozen-lockfile && ember build --prod",
     "before:github:release": "cd dist && tar -czf ../croodle.tar.gz --exclude . --exclude .. * .* && mv ../croodle.tar.gz croodle-v${version}.tar.gz"
   },
   "npm": {
