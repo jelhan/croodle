@@ -106,7 +106,7 @@
     "prettier-plugin-ember-template-tag": "2.0.5",
     "qunit": "2.24.1",
     "qunit-dom": "3.4.0",
-    "sass": "1.86.0",
+    "sass": "1.86.1",
     "sinon": "20.0.0",
     "sjcl": "1.0.8",
     "stylelint": "16.17.0",
