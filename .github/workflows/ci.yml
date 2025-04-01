@@ -38,11 +38,6 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 9
-      - name: Install php
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '7.4'
-          extensions: mbstring, zip
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -138,11 +133,6 @@ jobs:
         with:
           node-version: 20
           cache: pnpm
-      - name: Install php
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.3
-          extensions: mbstring, zip
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: run tests in Safari
