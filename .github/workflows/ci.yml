@@ -77,7 +77,7 @@ jobs:
           CI: true
         run: npm run build --environment test
       - name: run tests in Chrome
-        run: npm run test:ember -- --launch Chrome --path dist
+        run: npm run test:ember -- --path dist
 
   test-firefox:
     name: test against Firefox
@@ -100,7 +100,7 @@ jobs:
           CI: true
         run: npm run build --environment test
       - name: run tests in Firefox
-        run: npm run test:ember -- --launch Firefox --path dist
+        run: npm run test:ember -- --config-file testem.firefox.js --path dist
 
   test-safari:
     name: test against Safari
@@ -124,7 +124,7 @@ jobs:
           CI: true
         run: npm run build --environment test
       - name: run tests in Safari
-        run: npm run test:ember -- --launch Safari --path dist
+        run: npm run test:ember -- --config-file testem.safari.js --path dist
 
   test-backend:
     name: Test php backend
