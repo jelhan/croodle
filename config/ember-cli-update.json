@@ -14,7 +14,7 @@
             "--ci-provider=github",
             "--embroider",
             "--typescript",
-	    "--pnpm"
+	          "--pnpm"
           ]
         }
       ]
