@@ -116,7 +116,7 @@ jobs:
         with:
           firefox-version: latest-esr
       - name: run tests in Firefox
-        run: pnpm run --filter client test:ember -- --config-file testem.firefox.js
+        run: pnpm run --filter client test:ember --config-file testem.firefox.js
 
   test-safari:
     name: test against Safari
@@ -136,7 +136,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: run tests in Safari
-        run: pnpm run --filter client test:ember -- --config-file testem.safari.js
+        run: pnpm run --filter client test:ember --config-file testem.safari.js
 
   test-backend:
     name: Test php backend
