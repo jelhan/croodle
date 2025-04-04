@@ -186,11 +186,11 @@ importers:
         specifier: 4.3.0
         version: 4.3.0
       ember-template-lint:
-        specifier: 7.0.2
-        version: 7.0.2(@babel/core@7.26.10)
+        specifier: 7.0.3
+        version: 7.0.3(@babel/core@7.26.10)
       ember-template-lint-plugin-prettier:
         specifier: 5.0.0
-        version: 5.0.0(ember-template-lint@7.0.2(@babel/core@7.26.10))(prettier@3.5.3)
+        version: 5.0.0(ember-template-lint@7.0.3(@babel/core@7.26.10))(prettier@3.5.3)
       ember-test-selectors:
         specifier: 7.0.0
         version: 7.0.0
@@ -3542,8 +3542,8 @@ packages:
       ember-template-lint: '>= 4.0.0'
       prettier: '>= 3.0.0'
 
-  ember-template-lint@7.0.2:
-    resolution: {integrity: sha512-3YhHVLqD48GK1M9ZXf3L+eH2800FYCtvENCLzazgiAlU50towMKCV9Dy+lF9XlXzQZSJZzxR16IGCgv8rkiesw==}
+  ember-template-lint@7.0.3:
+    resolution: {integrity: sha512-yqhB1AsobLiJ6NZkGdCO0YjOxFDV+CYFtViPqhTng4/HaRrKHNRWTFYNKhNDWIUtIksJGtB/giPY3aROy2gLSA==}
     engines: {node: ^18.18.0 || >= 20.9.0}
     hasBin: true
 
@@ -12147,14 +12147,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-template-lint-plugin-prettier@5.0.0(ember-template-lint@7.0.2(@babel/core@7.26.10))(prettier@3.5.3):
+  ember-template-lint-plugin-prettier@5.0.0(ember-template-lint@7.0.3(@babel/core@7.26.10))(prettier@3.5.3):
     dependencies:
       '@prettier/sync': 0.2.1(prettier@3.5.3)
-      ember-template-lint: 7.0.2(@babel/core@7.26.10)
+      ember-template-lint: 7.0.3(@babel/core@7.26.10)
       prettier: 3.5.3
       prettier-linter-helpers: 1.0.0
 
-  ember-template-lint@7.0.2(@babel/core@7.26.10):
+  ember-template-lint@7.0.3(@babel/core@7.26.10):
     dependencies:
       '@babel/generator': 7.27.0
       '@babel/parser': 7.27.0
