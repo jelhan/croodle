@@ -13,7 +13,7 @@
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "7.0.0",
     "concurrently": "9.1.2",
-    "release-it": "17.11.0"
+    "release-it": "18.1.2"
   },
   "overrides": {
     "@glimmer/validator": "0.94.8",
