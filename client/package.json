@@ -75,7 +75,7 @@
     "ember-fetch": "8.1.2",
     "ember-intl": "7.1.6",
     "ember-load-initializers": "3.0.1",
-    "ember-math-helpers": "4.2.1",
+    "ember-math-helpers": "5.0.0",
     "ember-modifier": "4.2.0",
     "ember-page-title": "9.0.1",
     "ember-power-calendar": "1.5.3",
