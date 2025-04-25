@@ -109,7 +109,7 @@
     "sass": "1.87.0",
     "sinon": "20.0.0",
     "sjcl": "1.0.8",
-    "stylelint": "16.19.0",
+    "stylelint": "16.19.1",
     "stylelint-config-standard-scss": "14.0.0",
     "stylelint-prettier": "5.0.3",
     "tracked-built-ins": "4.0.0",
