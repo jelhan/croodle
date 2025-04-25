@@ -150,8 +150,8 @@ importers:
         specifier: 8.1.2
         version: 8.1.2(encoding@0.1.13)
       ember-intl:
-        specifier: 7.1.6
-        version: 7.1.6(@ember/test-helpers@5.2.1(@babel/core@7.26.10)(@glint/template@1.5.2)(ember-source@6.3.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.99.6)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.6)
+        specifier: 7.1.7
+        version: 7.1.7(@ember/test-helpers@5.2.1(@babel/core@7.26.10)(@glint/template@1.5.2)(ember-source@6.3.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.99.6)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.6)
       ember-load-initializers:
         specifier: 3.0.1
         version: 3.0.1(ember-source@6.3.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.99.6))
@@ -3409,8 +3409,8 @@ packages:
   ember-inflector@5.0.2:
     resolution: {integrity: sha512-aoPaT7B3pbUHSi4ulf02iRaMMvPteuDBO8jA1SLLOl/JwnO2YI5F/MhNPaolxp8DWwAd/P6MNN+wD5bLwmiUIA==}
 
-  ember-intl@7.1.6:
-    resolution: {integrity: sha512-828AdJfj/tlMVolQ9XbNkG84mNx/ktBMpZmHoQwEAem3RM5l7y2w4ze42gP3ITTFKhR6ogJx30glZrZwezqJOA==}
+  ember-intl@7.1.7:
+    resolution: {integrity: sha512-2xrDaT4Kx8JTjh7v38/TD/leV1cu1bVCcz1R1AJbkor3eXXq+bQ1v2DPPGU/RuoEQZH4At4JWaLEOwVSGUacSw==}
     engines: {node: 18.* || >= 20}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.0 || ^4.0.0 || ^5.0.0
@@ -11889,7 +11889,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-intl@7.1.6(@ember/test-helpers@5.2.1(@babel/core@7.26.10)(@glint/template@1.5.2)(ember-source@6.3.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.99.6)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.6):
+  ember-intl@7.1.7(@ember/test-helpers@5.2.1(@babel/core@7.26.10)(@glint/template@1.5.2)(ember-source@6.3.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.99.6)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.6):
     dependencies:
       '@babel/core': 7.26.10(supports-color@8.1.1)
       '@formatjs/icu-messageformat-parser': 2.11.2
