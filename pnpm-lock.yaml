@@ -150,8 +150,8 @@ importers:
         specifier: 8.1.2
         version: 8.1.2(encoding@0.1.13)
       ember-intl:
-        specifier: 7.1.7
-        version: 7.1.7(@ember/test-helpers@5.2.1(@babel/core@7.27.1)(@glint/template@1.5.2)(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.27.1))(rsvp@4.8.5)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.8)
+        specifier: 7.1.8
+        version: 7.1.8(@ember/test-helpers@5.2.1(@babel/core@7.27.1)(@glint/template@1.5.2)(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.27.1))(rsvp@4.8.5)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.8)
       ember-load-initializers:
         specifier: 3.0.1
         version: 3.0.1(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.27.1))(rsvp@4.8.5))
@@ -3487,8 +3487,8 @@ packages:
   ember-inflector@5.0.2:
     resolution: {integrity: sha512-aoPaT7B3pbUHSi4ulf02iRaMMvPteuDBO8jA1SLLOl/JwnO2YI5F/MhNPaolxp8DWwAd/P6MNN+wD5bLwmiUIA==}
 
-  ember-intl@7.1.7:
-    resolution: {integrity: sha512-2xrDaT4Kx8JTjh7v38/TD/leV1cu1bVCcz1R1AJbkor3eXXq+bQ1v2DPPGU/RuoEQZH4At4JWaLEOwVSGUacSw==}
+  ember-intl@7.1.8:
+    resolution: {integrity: sha512-yP6Fjx6Ps6kfaNa5B8HkhzDngHoqYXnOnGR+eTyr81tTiPScMjJ1MEjCG+LDbiE5jnW3nszq7h6IVWyJnCvuzA==}
     engines: {node: 18.* || >= 20}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.0 || ^4.0.0 || ^5.0.0
@@ -5095,6 +5095,10 @@ packages:
 
   json-stable-stringify@1.2.1:
     resolution: {integrity: sha512-Lp6HbbBgosLmJbjx0pBLbgvx68FaFU1sdkmBuckmhhJ88kL13OA51CDtR2yJB50eCNMH9wRqtQNNiAqQH4YXnA==}
+    engines: {node: '>= 0.4'}
+
+  json-stable-stringify@1.3.0:
+    resolution: {integrity: sha512-qtYiSSFlwot9XHtF9bD9c7rwKjr+RecWT//ZnPvSmEjpV5mmPOCN4j8UjY5hbjNkOwZ/jQv3J6R1/pL7RwgMsg==}
     engines: {node: '>= 0.4'}
 
   json5@1.0.2:
@@ -12145,7 +12149,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-intl@7.1.7(@ember/test-helpers@5.2.1(@babel/core@7.27.1)(@glint/template@1.5.2)(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.27.1))(rsvp@4.8.5)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.8):
+  ember-intl@7.1.8(@ember/test-helpers@5.2.1(@babel/core@7.27.1)(@glint/template@1.5.2)(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.27.1))(rsvp@4.8.5)))(@glint/template@1.5.2)(typescript@5.8.3)(webpack@5.99.8):
     dependencies:
       '@babel/core': 7.27.1(supports-color@8.1.1)
       '@formatjs/icu-messageformat-parser': 2.11.2
@@ -12162,7 +12166,7 @@ snapshots:
       extend: 3.0.2
       intl-messageformat: 10.7.16
       js-yaml: 4.1.0
-      json-stable-stringify: 1.2.1
+      json-stable-stringify: 1.3.0
     optionalDependencies:
       '@ember/test-helpers': 5.2.1(@babel/core@7.27.1)(@glint/template@1.5.2)(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.27.1))(rsvp@4.8.5))
       typescript: 5.8.3
@@ -14285,6 +14289,14 @@ snapshots:
   json-stable-stringify-without-jsonify@1.0.1: {}
 
   json-stable-stringify@1.2.1:
+    dependencies:
+      call-bind: 1.0.8
+      call-bound: 1.0.4
+      isarray: 2.0.5
+      jsonify: 0.0.1
+      object-keys: 1.1.1
+
+  json-stable-stringify@1.3.0:
     dependencies:
       call-bind: 1.0.8
       call-bound: 1.0.4
