@@ -90,7 +90,7 @@
     "ember-test-selectors": "7.1.0",
     "ember-truth-helpers": "4.0.3",
     "eslint": "9.26.0",
-    "eslint-config-prettier": "10.1.3",
+    "eslint-config-prettier": "10.1.5",
     "eslint-plugin-ember": "12.5.0",
     "eslint-plugin-n": "17.17.0",
     "eslint-plugin-prettier": "5.4.0",
