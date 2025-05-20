@@ -115,7 +115,7 @@
     "tracked-built-ins": "4.0.0",
     "typescript": "5.8.3",
     "typescript-eslint": "8.32.1",
-    "webpack": "5.99.8",
+    "webpack": "5.99.9",
     "webpack-subresource-integrity-embroider": "0.2.4"
   },
   "ember": {
