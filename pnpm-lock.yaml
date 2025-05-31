@@ -228,7 +228,7 @@ importers:
         specifier: 4.7.0
         version: 4.7.0
       luxon:
-        specifier: ^3.6.1
+        specifier: 3.6.1
         version: 3.6.1
       miragejs:
         specifier: 0.1.48
