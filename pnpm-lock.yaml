@@ -178,7 +178,7 @@ importers:
         version: 13.1.1
       ember-sinon-qunit:
         specifier: 7.5.0
-        version: 7.5.0(@babel/core@7.27.4)(ember-source@6.5.0(@glimmer/component@1.1.2(@babel/core@7.27.4))(rsvp@4.8.5))(qunit@2.24.1)(sinon@20.0.0)
+        version: 7.5.0(@babel/core@7.27.4)(ember-source@6.5.0(@glimmer/component@1.1.2(@babel/core@7.27.4))(rsvp@4.8.5))(qunit@2.24.1)(sinon@21.0.0)
       ember-source:
         specifier: 6.5.0
         version: 6.5.0(@glimmer/component@1.1.2(@babel/core@7.27.4))(rsvp@4.8.5)
@@ -252,8 +252,8 @@ importers:
         specifier: 1.89.2
         version: 1.89.2
       sinon:
-        specifier: 20.0.0
-        version: 20.0.0
+        specifier: 21.0.0
+        version: 21.0.0
       sjcl:
         specifier: 1.0.8
         version: 1.0.8
@@ -6694,8 +6694,8 @@ packages:
   simple-html-tokenizer@0.5.11:
     resolution: {integrity: sha512-C2WEK/Z3HoSFbYq8tI7ni3eOo/NneSPRoPpcM7WdLjFOArFuyXEjAoCdOC3DgMfRyziZQ1hCNR4mrNdWEvD0og==}
 
-  sinon@20.0.0:
-    resolution: {integrity: sha512-+FXOAbdnj94AQIxH0w1v8gzNxkawVvNqE3jUzRLptR71Oykeu2RrQXXl/VQjKay+Qnh73fDt/oDfMo6xMeDQbQ==}
+  sinon@21.0.0:
+    resolution: {integrity: sha512-TOgRcwFPbfGtpqvZw+hyqJDvqfapr1qUlOizROIk4bBLjlsjlB00Pg6wMFXNtJRpu+eCZuVOaLatG7M8105kAw==}
 
   sjcl@1.0.8:
     resolution: {integrity: sha512-LzIjEQ0S0DpIgnxMEayM1rq9aGwGRG4OnZhCdjx7glTaJtf4zRfpg87ImfjSJjoW9vKpagd82McDOwbRT5kQKQ==}
@@ -12154,14 +12154,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-sinon-qunit@7.5.0(@babel/core@7.27.4)(ember-source@6.5.0(@glimmer/component@1.1.2(@babel/core@7.27.4))(rsvp@4.8.5))(qunit@2.24.1)(sinon@20.0.0):
+  ember-sinon-qunit@7.5.0(@babel/core@7.27.4)(ember-source@6.5.0(@glimmer/component@1.1.2(@babel/core@7.27.4))(rsvp@4.8.5))(qunit@2.24.1)(sinon@21.0.0):
     dependencies:
       '@embroider/addon-shim': 1.9.0
       '@types/sinon': 17.0.4
       decorator-transforms: 2.3.0(@babel/core@7.27.4)
       ember-source: 6.5.0(@glimmer/component@1.1.2(@babel/core@7.27.4))(rsvp@4.8.5)
       qunit: 2.24.1
-      sinon: 20.0.0
+      sinon: 21.0.0
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -15856,7 +15856,7 @@ snapshots:
 
   simple-html-tokenizer@0.5.11: {}
 
-  sinon@20.0.0:
+  sinon@21.0.0:
     dependencies:
       '@sinonjs/commons': 3.0.1
       '@sinonjs/fake-timers': 13.0.5
