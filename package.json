@@ -11,7 +11,7 @@
     "test:client": "pnpm run --filter client test"
   },
   "devDependencies": {
-    "@release-it-plugins/lerna-changelog": "7.0.0",
+    "@release-it-plugins/lerna-changelog": "8.0.1",
     "concurrently": "9.2.0",
     "release-it": "19.0.3"
   },
