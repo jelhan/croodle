@@ -213,8 +213,8 @@ importers:
         specifier: 5.5.1
         version: 5.5.1(@types/eslint@9.6.1)(eslint-config-prettier@10.1.5(eslint@9.29.0(jiti@2.4.2)))(eslint@9.29.0(jiti@2.4.2))(prettier@3.6.2)
       eslint-plugin-qunit:
-        specifier: 8.1.2
-        version: 8.1.2(eslint@9.29.0(jiti@2.4.2))
+        specifier: 8.2.2
+        version: 8.2.2(eslint@9.29.0(jiti@2.4.2))
       fs-extra:
         specifier: 11.3.0
         version: 11.3.0
@@ -3905,8 +3905,8 @@ packages:
       eslint-config-prettier:
         optional: true
 
-  eslint-plugin-qunit@8.1.2:
-    resolution: {integrity: sha512-2gDQdHlQW8GVXD7YYkO8vbm9Ldc60JeGMuQN5QlD48OeZ8znBvvoHWZZMeXjvoDPReGaLEvyuWrDtrI8bDbcqw==}
+  eslint-plugin-qunit@8.2.2:
+    resolution: {integrity: sha512-C56SpGPyUOgXWaTiQbwKaDQHEF7MbKUmWtKkIybK5vL3Dqk+4U3ng0wARIUxsk2YNPFzPvlQcMMP6jlQz2NlvQ==}
     engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
 
   eslint-scope@5.1.1:
@@ -12738,7 +12738,7 @@ snapshots:
       '@types/eslint': 9.6.1
       eslint-config-prettier: 10.1.5(eslint@9.29.0(jiti@2.4.2))
 
-  eslint-plugin-qunit@8.1.2(eslint@9.29.0(jiti@2.4.2)):
+  eslint-plugin-qunit@8.2.2(eslint@9.29.0(jiti@2.4.2)):
     dependencies:
       eslint-utils: 3.0.0(eslint@9.29.0(jiti@2.4.2))
       requireindex: 1.2.0
