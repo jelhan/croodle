@@ -63,8 +63,8 @@ importers:
         specifier: 1.5.2
         version: 1.5.2
       '@tsconfig/ember':
-        specifier: 3.0.10
-        version: 3.0.10
+        specifier: 3.0.11
+        version: 3.0.11
       '@types/eslint__js':
         specifier: 9.14.0
         version: 9.14.0
@@ -1753,8 +1753,8 @@ packages:
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
 
-  '@tsconfig/ember@3.0.10':
-    resolution: {integrity: sha512-qFIlJIMsn25frlp2WOtX/OxNxfsYeqM7OdSXB88vgvRqU9ElV3KpQc2EhmchoKpHoKB3oiLPIJNRuf5xcxjamw==}
+  '@tsconfig/ember@3.0.11':
+    resolution: {integrity: sha512-c9uaKBN4KxtdT/UNPPxoWghyoDsTRHzYb53Z5Fv9eum+4cok0U+hYwyKNjvCxkBjEPECS8QAyp8nGAhRifZnBQ==}
 
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
@@ -9702,7 +9702,7 @@ snapshots:
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
-  '@tsconfig/ember@3.0.10': {}
+  '@tsconfig/ember@3.0.11': {}
 
   '@types/acorn@4.0.6':
     dependencies:
