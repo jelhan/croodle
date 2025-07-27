@@ -92,7 +92,7 @@
     "eslint": "9.32.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-ember": "12.7.0",
-    "eslint-plugin-n": "17.21.0",
+    "eslint-plugin-n": "17.21.1",
     "eslint-plugin-prettier": "5.5.3",
     "eslint-plugin-qunit": "8.2.4",
     "fs-extra": "11.3.0",
