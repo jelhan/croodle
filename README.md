@@ -5,12 +5,12 @@
 
 Croodle is an end-to-end encrypted web application to schedule a date or to do a poll on a any topic. All data like title, description, number and labels of options, available answers and names of users and their selections are encrypted/decrypted in the browser using strong 256-bit AES encryption.
 
-[![Croodle Type](screenshots/0_type_PREVIEW.png)](https://github.com/jelhan/croodle/blob/master/screenshots/0_type.png)
-[![Croodle Title and Description](screenshots/1_title_desc_PREVIEW.png)](https://github.com/jelhan/croodle/blob/master/screenshots/1_title_desc.png)
-[![Croodle Days](screenshots/2_days_PREVIEW.png)](https://github.com/jelhan/croodle/blob/master/screenshots/2_days.png)
-[![Croodle Times](screenshots/3_times_PREVIEW.png)](https://github.com/jelhan/croodle/blob/master/screenshots/3_times.png)
-[![Croodle Settings](screenshots/4_settings_PREVIEW.png)](https://github.com/jelhan/croodle/blob/master/screenshots/4_settings.png)
-[![Croodle Votes](screenshots/5_votes_PREVIEW.png)](https://github.com/jelhan/croodle/blob/master/screenshots/5_votes.png)
+[<img alt="Croodle Type" src="screenshots/0_type.png" width="33%">](screenshots/0_type.png)
+[<img alt="Croodle Title and Description" src="screenshots/1_title_desc.png" width="33%">](screenshots/1_title_desc.png)
+[<img alt="Croodle Days" src="screenshots/2_days.png" width="33%">](screenshots/2_days.png)
+[<img alt="Croodle Times" src="screenshots/3_times.png" width="33%">](screenshots/3_times.png)
+[<img alt="Croodle Settings" src="screenshots/4_settings.png" width="33%">](screenshots/4_settings.png)
+[<img alt="Croodle Settings" src="screenshots/5_votes.png" width="33%">](screenshots/5_votes.png)
 
 This is an alpha version. Changes could brake backward compatibility. It is also not well tested and some features are missing. It is not meant for productive use yet.
 
