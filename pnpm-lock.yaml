@@ -69,8 +69,8 @@ importers:
         specifier: 9.14.0
         version: 9.14.0
       '@types/luxon':
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.7.1
+        version: 3.7.1
       '@types/qunit':
         specifier: 2.19.10
         version: 2.19.10
@@ -169,7 +169,7 @@ importers:
         version: 1.5.4(@babel/core@7.28.0)(@ember/test-helpers@5.2.2(@babel/core@7.28.0)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.0)))(@glint/template@1.5.2)(ember-concurrency@4.0.4(@babel/core@7.28.0)(@glint/template@1.5.2))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.0))(rsvp@4.8.5))
       ember-power-calendar-luxon:
         specifier: 2.0.0
-        version: 2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.5.4(@babel/core@7.28.0)(@ember/test-helpers@5.2.2(@babel/core@7.28.0)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.0)))(@glint/template@1.5.2)(ember-concurrency@4.0.4(@babel/core@7.28.0)(@glint/template@1.5.2))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.0))(rsvp@4.8.5)))(luxon@3.6.1)
+        version: 2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.5.4(@babel/core@7.28.0)(@ember/test-helpers@5.2.2(@babel/core@7.28.0)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.0)))(@glint/template@1.5.2)(ember-concurrency@4.0.4(@babel/core@7.28.0)(@glint/template@1.5.2))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.0))(rsvp@4.8.5)))(luxon@3.7.1)
       ember-qunit:
         specifier: 7.0.0
         version: 7.0.0(@ember/test-helpers@5.2.2(@babel/core@7.28.0)(@glint/template@1.5.2))(@glint/template@1.5.2)(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.0))(rsvp@4.8.5))(qunit@2.24.1)(webpack@5.100.2)
@@ -228,8 +228,8 @@ importers:
         specifier: 4.7.0
         version: 4.7.0
       luxon:
-        specifier: 3.6.1
-        version: 3.6.1
+        specifier: 3.7.1
+        version: 3.7.1
       miragejs:
         specifier: 0.1.48
         version: 0.1.48
@@ -1712,8 +1712,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/luxon@3.6.2':
-    resolution: {integrity: sha512-R/BdP7OxEMc44l2Ex5lSXHoIXTB2JLNa3y2QISIbr58U/YcsffyQrYW//hZSdrfxrjRZj3GcUoxMPGdO8gSYuw==}
+  '@types/luxon@3.7.1':
+    resolution: {integrity: sha512-H3iskjFIAn5SlJU7OuxUmTEpebK6TKB8rxZShDslBMZJ5u9S//KM1sbdAisiSrqwLQncVjnpi2OK2J51h+4lsg==}
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
@@ -5245,8 +5245,8 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  luxon@3.6.1:
-    resolution: {integrity: sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ==}
+  luxon@3.7.1:
+    resolution: {integrity: sha512-RkRWjA926cTvz5rAb1BqyWkKbbjzCGchDUIKMCUvNi17j6f6j8uHGDV82Aqcqtzd+icoYpELmG3ksgGiFNNcNg==}
     engines: {node: '>=12'}
 
   macos-release@3.4.0:
@@ -9505,7 +9505,7 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/luxon@3.6.2': {}
+  '@types/luxon@3.7.1': {}
 
   '@types/mdast@4.0.4':
     dependencies:
@@ -12036,12 +12036,12 @@ snapshots:
       - supports-color
       - webpack
 
-  ember-power-calendar-luxon@2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.5.4(@babel/core@7.28.0)(@ember/test-helpers@5.2.2(@babel/core@7.28.0)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.0)))(@glint/template@1.5.2)(ember-concurrency@4.0.4(@babel/core@7.28.0)(@glint/template@1.5.2))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.0))(rsvp@4.8.5)))(luxon@3.6.1):
+  ember-power-calendar-luxon@2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.5.4(@babel/core@7.28.0)(@ember/test-helpers@5.2.2(@babel/core@7.28.0)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.0)))(@glint/template@1.5.2)(ember-concurrency@4.0.4(@babel/core@7.28.0)(@glint/template@1.5.2))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.0))(rsvp@4.8.5)))(luxon@3.7.1):
     dependencies:
       '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1(@glint/template@1.5.2)
       ember-power-calendar: 1.5.4(@babel/core@7.28.0)(@ember/test-helpers@5.2.2(@babel/core@7.28.0)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.0))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.0)))(@glint/template@1.5.2)(ember-concurrency@4.0.4(@babel/core@7.28.0)(@glint/template@1.5.2))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.0))(rsvp@4.8.5))
-      luxon: 3.6.1
+      luxon: 3.7.1
     transitivePeerDependencies:
       - '@glint/template'
       - supports-color
@@ -14175,7 +14175,7 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  luxon@3.6.1: {}
+  luxon@3.7.1: {}
 
   macos-release@3.4.0: {}
 
