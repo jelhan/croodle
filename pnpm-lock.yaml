@@ -188,9 +188,6 @@ importers:
       ember-template-lint:
         specifier: 7.9.1
         version: 7.9.1
-      ember-template-lint-plugin-prettier:
-        specifier: 5.0.0
-        version: 5.0.0(ember-template-lint@7.9.1)(prettier@3.6.2)
       ember-test-selectors:
         specifier: 7.1.0
         version: 7.1.0
@@ -209,9 +206,6 @@ importers:
       eslint-plugin-n:
         specifier: 17.21.3
         version: 17.21.3(eslint@9.32.0(jiti@2.5.1))(typescript@5.9.2)
-      eslint-plugin-prettier:
-        specifier: 5.5.3
-        version: 5.5.3(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.32.0(jiti@2.5.1)))(eslint@9.32.0(jiti@2.5.1))(prettier@3.6.2)
       eslint-plugin-qunit:
         specifier: 8.2.5
         version: 8.2.5(eslint@9.32.0(jiti@2.5.1))
@@ -1586,10 +1580,6 @@ packages:
     resolution: {integrity: sha512-7J6ca1tK0duM2BgVB+CuFMh3idlIVASOP2QvOCbNWDc6JnvjtKa9nufPoJQQ4xrwBonwgT1TIhRRcEtzdVgWsA==}
     engines: {node: ^20.9.0 || >=22.0.0, npm: '>=10.8.2'}
 
-  '@pkgr/core@0.2.9':
-    resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
-    engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
-
   '@pnpm/constants@1001.2.0':
     resolution: {integrity: sha512-ohlStawRU3+C1AvUPtfkK+HfZ/5UbDGO79dujS2dbTpzl3O03L3Ggk7nnH361ubbMYZqp4yWlX030xhMGpr8Nw==}
     engines: {node: '>=18.12'}
@@ -1604,11 +1594,6 @@ packages:
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
-
-  '@prettier/sync@0.2.1':
-    resolution: {integrity: sha512-7ls1R6//+GPYD9vof1XaL5psViv83CwpdwlS8oUkWldYgbPhzZ3WgxIQMWqGyBmWPmoBfQg8C7jj7KI/ZuDHhQ==}
-    peerDependencies:
-      prettier: ^3.0.0
 
   '@release-it-plugins/lerna-changelog@8.0.1':
     resolution: {integrity: sha512-T3bdj8TWa+msrEKxeoXoRTXtr/YG5oE1zOxXvv+AKAI2Ng3RLIiY2bpJa85+TEe2wdaVdYlyPQPn1DOq3f+jAw==}
@@ -3604,13 +3589,6 @@ packages:
     resolution: {integrity: sha512-jZ5D6KLKU8up/AynZltmKh4lkXBPgTGSPgomprI/55XvIVqn42UNUpEz7ra/mO3QiGODDZOUesbggPe49i38sQ==}
     engines: {node: 16.* || >= 18}
 
-  ember-template-lint-plugin-prettier@5.0.0:
-    resolution: {integrity: sha512-aXUYM4yuIdPZ80+AsAU8QBwGSJJ/aAkRsNcQ5vI5HmXiBjzHlDc/ZhmP6iVcYuCmoA/3iKcssMAYwIDbuby4pg==}
-    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
-    peerDependencies:
-      ember-template-lint: '>= 4.0.0'
-      prettier: '>= 3.0.0'
-
   ember-template-lint@7.9.1:
     resolution: {integrity: sha512-uh5WU2sJKkQgDgIQovwv1D0fw2/RJnmyAHqIhaTYk68CfKQ/O5v31c1iXNu71qv3xeONi3QPl/rBW0EMdIFXWA==}
     engines: {node: ^18.18.0 || >= 20.9.0}
@@ -3782,20 +3760,6 @@ packages:
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.23.0'
-
-  eslint-plugin-prettier@5.5.3:
-    resolution: {integrity: sha512-NAdMYww51ehKfDyDhv59/eIItUVzU0Io9H2E8nHNGKEeeqlnci+1gCvrHib6EmZdf6GxF+LCV5K7UC65Ezvw7w==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      '@types/eslint': '>=8.0.0'
-      eslint: '>=8.0.0'
-      eslint-config-prettier: '>= 7.0.0 <10.0.0 || >=10.1.0'
-      prettier: '>=3.0.0'
-    peerDependenciesMeta:
-      '@types/eslint':
-        optional: true
-      eslint-config-prettier:
-        optional: true
 
   eslint-plugin-qunit@8.2.5:
     resolution: {integrity: sha512-qr7RJCYImKQjB+39q4q46i1l7p1V3joHzBE5CAYfxn5tfVFjrnjn/tw7q/kDyweU9kAIcLul0Dx/KWVUCb3BgA==}
@@ -6987,10 +6951,6 @@ packages:
     resolution: {integrity: sha512-vngT2JmkSapgq0z7uIoYtB9kWOOzMihAAYq/D3Pjm/ODOGMgS4r++B+OZ09U4hWR6EaOdy9eqQ7/8ygbH3wehA==}
     engines: {node: 8.* || >= 10.*}
 
-  synckit@0.11.11:
-    resolution: {integrity: sha512-MeQTA1r0litLUf0Rp/iisCaL8761lKAZHaimlbGK4j0HysC4PLfqygQj9srcs0m2RdtDYnF8UuYyKpbjHYp7Jw==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-
   tabbable@5.3.3:
     resolution: {integrity: sha512-QD9qKY3StfbZqWOPLp0++pOrAVb/HbUi5xCc8cUo4XjP19808oaMiDzn0leBY5mCespIBM0CIZePzZjgzR83kA==}
 
@@ -9359,8 +9319,6 @@ snapshots:
 
   '@phun-ky/typeof@1.2.8': {}
 
-  '@pkgr/core@0.2.9': {}
-
   '@pnpm/constants@1001.2.0': {}
 
   '@pnpm/error@1000.0.3':
@@ -9373,10 +9331,6 @@ snapshots:
       find-up: 5.0.0
 
   '@popperjs/core@2.11.8': {}
-
-  '@prettier/sync@0.2.1(prettier@3.6.2)':
-    dependencies:
-      prettier: 3.6.2
 
   '@release-it-plugins/lerna-changelog@8.0.1(release-it@19.0.4(@types/node@24.1.0))':
     dependencies:
@@ -12199,13 +12153,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-template-lint-plugin-prettier@5.0.0(ember-template-lint@7.9.1)(prettier@3.6.2):
-    dependencies:
-      '@prettier/sync': 0.2.1(prettier@3.6.2)
-      ember-template-lint: 7.9.1
-      prettier: 3.6.2
-      prettier-linter-helpers: 1.0.0
-
   ember-template-lint@7.9.1:
     dependencies:
       '@lint-todo/utils': 13.1.1
@@ -12449,16 +12396,6 @@ snapshots:
       ts-declaration-location: 1.0.7(typescript@5.9.2)
     transitivePeerDependencies:
       - typescript
-
-  eslint-plugin-prettier@5.5.3(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.32.0(jiti@2.5.1)))(eslint@9.32.0(jiti@2.5.1))(prettier@3.6.2):
-    dependencies:
-      eslint: 9.32.0(jiti@2.5.1)
-      prettier: 3.6.2
-      prettier-linter-helpers: 1.0.0
-      synckit: 0.11.11
-    optionalDependencies:
-      '@types/eslint': 9.6.1
-      eslint-config-prettier: 10.1.8(eslint@9.32.0(jiti@2.5.1))
 
   eslint-plugin-qunit@8.2.5(eslint@9.32.0(jiti@2.5.1)):
     dependencies:
@@ -16183,10 +16120,6 @@ snapshots:
       username-sync: 1.0.3
     transitivePeerDependencies:
       - supports-color
-
-  synckit@0.11.11:
-    dependencies:
-      '@pkgr/core': 0.2.9
 
   tabbable@5.3.3: {}
 
