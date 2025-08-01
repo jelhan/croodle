@@ -115,8 +115,7 @@ error:
       description: "Nous sommes désolés. Une erreur s'est produite.
         Veuillez réessayer plus tard."
 index:
-  title:
-    "Croodle simplifie le choix de dates et la prise de décision …<br/>… et protège vos données"
+  title: "Croodle simplifie le choix de dates et la prise de décision …<br/>… et protège vos données"
   features:
     title: Fonctions
     list:
@@ -159,8 +158,7 @@ options: Options
 poll:
   created-date: "Créer le {date}."
   expiration-date: "Expire le {date}."
-  expiration-date-warning:
-    "Ce sondage expire {timeToNow} et sera supprimé par la suite."
+  expiration-date-warning: "Ce sondage expire {timeToNow} et sera supprimé par la suite."
   tab-title:
     participation: Participants
     evaluation: Évaluation
