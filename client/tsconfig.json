@@ -11,13 +11,9 @@
     "paths": {
       "croodle/tests/*": ["tests/*"],
       "croodle/*": ["app/*"],
-      "fetch": [
-        "node_modules/ember-fetch"
-      ],
+      "fetch": ["node_modules/ember-fetch"],
       "*": ["types/*"]
     },
-    "types": [
-      "./node_modules/ember-source/types/stable"
-    ]
+    "types": ["./node_modules/ember-source/types/stable"]
   }
 }
