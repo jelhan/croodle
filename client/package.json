@@ -78,7 +78,7 @@
     "ember-math-helpers": "5.0.0",
     "ember-modifier": "4.2.2",
     "ember-page-title": "9.0.2",
-    "ember-power-calendar": "1.6.0",
+    "ember-power-calendar": "1.7.0",
     "ember-power-calendar-luxon": "2.0.0",
     "ember-qunit": "7.0.0",
     "ember-resolver": "13.1.1",
