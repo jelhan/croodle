@@ -90,7 +90,7 @@
     "ember-truth-helpers": "4.0.3",
     "eslint": "9.33.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-ember": "12.7.0",
+    "eslint-plugin-ember": "12.7.3",
     "eslint-plugin-n": "17.21.3",
     "eslint-plugin-qunit": "8.2.5",
     "fs-extra": "11.3.1",
