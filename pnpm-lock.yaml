@@ -162,8 +162,8 @@ importers:
         specifier: 4.2.2
         version: 4.2.2(@babel/core@7.28.3)
       ember-page-title:
-        specifier: 9.0.2
-        version: 9.0.2
+        specifier: 9.0.3
+        version: 9.0.3
       ember-power-calendar:
         specifier: 1.7.0
         version: 1.7.0(@babel/core@7.28.3)(@ember/test-helpers@5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.3))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.3))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.3)))(@glint/template@1.5.2)(ember-concurrency@4.0.4(@babel/core@7.28.3)(@glint/template@1.5.2))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.3))(rsvp@4.8.5))
@@ -3535,8 +3535,8 @@ packages:
     resolution: {integrity: sha512-jjafBnWfoA4VSSje476ft5G+urlvvuSDddwAJjKDCjKY9mbe3hAEsJiMBAaPObJRMm1FOglCuKjQZfwDDls6MQ==}
     engines: {node: 8.* || >= 10.*}
 
-  ember-page-title@9.0.2:
-    resolution: {integrity: sha512-ACklH6hemNB6tDAiwGo4e0tFIqVrAkTNqRmlLtLABlh+GynH7xkWm9q4fyc4Ysg9R1jP8OrsKcxWRittshRatA==}
+  ember-page-title@9.0.3:
+    resolution: {integrity: sha512-fedRHUsvq8tIZgOii8jTrfAyeq+la/9H5eAzhNNwEyzo7nDMmqK2SxsyBUGXprd8fOacsPabLlzlucMi/4mUpA==}
     engines: {node: 16.* || >= 18}
 
   ember-popper-modifier@4.1.1:
@@ -12021,7 +12021,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-page-title@9.0.2:
+  ember-page-title@9.0.3:
     dependencies:
       '@embroider/addon-shim': 1.10.0
       '@simple-dom/document': 1.4.0
