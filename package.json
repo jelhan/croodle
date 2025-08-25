@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "8.0.1",
-    "concurrently": "9.2.0",
+    "concurrently": "9.2.1",
     "release-it": "19.0.4"
   },
   "overrides": {

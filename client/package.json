@@ -52,7 +52,7 @@
     "@types/sjcl": "1.0.34",
     "bootstrap": "4.6.2",
     "broccoli-asset-rev": "3.0.0",
-    "concurrently": "9.2.0",
+    "concurrently": "9.2.1",
     "ember-auto-import": "2.10.0",
     "ember-bootstrap": "6.5.0",
     "ember-cli": "6.6.0",
