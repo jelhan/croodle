@@ -135,8 +135,8 @@ importers:
         specifier: 3.0.4
         version: 3.0.4(@ember/test-helpers@5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2))(@glint/template@1.5.2)(ember-qunit@7.0.0(@ember/test-helpers@5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2))(@glint/template@1.5.2)(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.3))(rsvp@4.8.5))(qunit@2.24.1)(webpack@5.101.3))(ember-source@6.6.0(@glimmer/component@1.1.2(@babel/core@7.28.3))(rsvp@4.8.5))(miragejs@0.1.48)(webpack@5.101.3)
       ember-cli-page-object:
-        specifier: 2.3.1
-        version: 2.3.1(@ember/test-helpers@5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2))
+        specifier: 2.3.2
+        version: 2.3.2(@ember/test-helpers@5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2))
       ember-cli-sass:
         specifier: 11.0.1
         version: 11.0.1
@@ -3371,8 +3371,8 @@ packages:
   ember-cli-normalize-entity-name@1.0.0:
     resolution: {integrity: sha512-rF4P1rW2P1gVX1ynZYPmuIf7TnAFDiJmIUFI1Xz16VYykUAyiOCme0Y22LeZq8rTzwBMiwBwoE3RO4GYWehXZA==}
 
-  ember-cli-page-object@2.3.1:
-    resolution: {integrity: sha512-QHxGVpGcPwdYRxTLKbnI9I39KjR9CRfHxngogqqMpRaSx19Qq2YhHLc5JKaJIIyMU5NXVqPmVFRtFGDj0AU5fQ==}
+  ember-cli-page-object@2.3.2:
+    resolution: {integrity: sha512-4RfcDMq7mRKs1ZlTQ4wKHeA6u39XuxhzeRqbC0XWRZgFfBnUjlwlIvuyuNzUEnKR9l+uvWVDioGerLIZLLz78w==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
       '@ember/jquery': '*'
@@ -11551,7 +11551,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-cli-page-object@2.3.1(@ember/test-helpers@5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2)):
+  ember-cli-page-object@2.3.2(@ember/test-helpers@5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2)):
     dependencies:
       '@ember/test-helpers': 5.2.2(@babel/core@7.28.3)(@glint/template@1.5.2)
       '@embroider/addon-shim': 1.10.0
