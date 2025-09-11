@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
-import { isPresent } from '@ember/utils';
 import { DateTime, Duration } from 'luxon';
 import { generatePassphrase } from '../utils/encryption';
 import Poll from '../models/poll';
@@ -45,13 +44,10 @@ export default class CreateSettingsComponent extends Component<CreateSettingsSig
   }
 
   get expirationDuration() {
-    // TODO: must be calculated based on model.expirationDate
-    return 'P3M';
+    return this.args.poll.expirationDuration;
   }
   set expirationDuration(value) {
-    this.args.poll.expirationDate = isPresent(value)
-      ? DateTime.local().plus(Duration.fromISO(value)).toISO()
-      : '';
+    this.args.poll.expirationDuration = value;
   }
 
   get expirationDurations() {
@@ -105,7 +101,7 @@ export default class CreateSettingsComponent extends Component<CreateSettingsSig
       anonymousUser,
       answerType,
       description,
-      expirationDate,
+      expirationDuration,
       forceAnswer,
       freetextOptions,
       dateOptions,
@@ -151,7 +147,11 @@ export default class CreateSettingsComponent extends Component<CreateSettingsSig
           anonymousUser,
           answerType,
           description,
-          expirationDate,
+          expirationDate: expirationDuration
+            ? DateTime.local()
+                .plus(Duration.fromISO(expirationDuration))
+                .toISO()
+            : '',
           forceAnswer,
           options: options.map((option) => {
             return { title: option };

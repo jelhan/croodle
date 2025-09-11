@@ -798,6 +798,53 @@ module('Acceptance | create a poll', function (hooks) {
     );
   });
 
+  test('create a poll with non-default expiration date', async function (assert) {
+    sinon.useFakeTimers({
+      now: new Date('2025-03-01'),
+      shouldAdvanceTime: true,
+    });
+
+    await visit('/create');
+    assert.strictEqual(currentRouteName(), 'create.index');
+
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.meta');
+
+    await fillIn('input[type="text"]', 'poll expiring next week');
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.options');
+
+    await pageCreateOptions.selectDates([
+      new Date('2025-03-02'),
+      new Date('2025-03-07'),
+    ]);
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
+
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.settings');
+    assert
+      .dom('.expiration-duration select')
+      .hasValue('P3M', 'poll expires in 3 months by default');
+
+    await fillIn('.expiration-duration select', 'P7D');
+    assert
+      .dom('.expiration-duration select')
+      .hasValue(
+        'P7D',
+        'expiration date reflects updated value after user input',
+      );
+
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
+    assert
+      .dom('.expirationDate')
+      .containsText(
+        'March 8, 2025',
+        'poll information reflect expiration date selected by user',
+      );
+  });
+
   test('create a poll and use back button (find a date)', async function (assert) {
     let days = [DateTime.fromISO('2016-01-02'), DateTime.fromISO('2016-01-13')];
 
