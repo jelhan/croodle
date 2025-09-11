@@ -10,7 +10,8 @@ class PollData {
   @tracked anonymousUser: boolean = false;
   @tracked answerType: AnswerType = 'YesNo';
   @tracked description: string = '';
-  @tracked expirationDuration: 'P7D' | 'P1M' | 'P3M' | 'P6M' | 'P1Y' | '' = 'P3M';
+  @tracked expirationDuration: 'P7D' | 'P1M' | 'P3M' | 'P6M' | 'P1Y' | '' =
+    'P3M';
   @tracked forceAnswer: boolean = true;
   @tracked freetextOptions: TrackedSet<string> = new TrackedSet();
   @tracked dateOptions: TrackedSet<string> = new TrackedSet();

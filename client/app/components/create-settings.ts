@@ -147,7 +147,11 @@ export default class CreateSettingsComponent extends Component<CreateSettingsSig
           anonymousUser,
           answerType,
           description,
-          expirationDate: expirationDuration ? DateTime.local().plus(Duration.fromISO(expirationDuration)).toISO() : '',
+          expirationDate: expirationDuration
+            ? DateTime.local()
+                .plus(Duration.fromISO(expirationDuration))
+                .toISO()
+            : '',
           forceAnswer,
           options: options.map((option) => {
             return { title: option };
