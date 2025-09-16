@@ -165,11 +165,11 @@ importers:
         specifier: 9.0.3
         version: 9.0.3
       ember-power-calendar:
-        specifier: 1.7.0
-        version: 1.7.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5))
+        specifier: 1.8.0
+        version: 1.8.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5))
       ember-power-calendar-luxon:
         specifier: 2.0.0
-        version: 2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.7.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5)))(luxon@3.7.2)
+        version: 2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.8.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5)))(luxon@3.7.2)
       ember-qunit:
         specifier: 7.0.0
         version: 7.0.0(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glint/template@1.5.2)(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5))(qunit@2.24.1)(webpack@5.101.3)
@@ -3551,8 +3551,8 @@ packages:
       ember-power-calendar: '*'
       luxon: ^3.4.4
 
-  ember-power-calendar@1.7.0:
-    resolution: {integrity: sha512-/Be1uXVkSgFPOuTneg4rvJVy/Ys4re6WSVLESAeJCtEBHzGrkkKKnwowPQfPv/FRG3xyHswOkS2/5QL1//JokA==}
+  ember-power-calendar@1.8.0:
+    resolution: {integrity: sha512-GqnQ+Scj8bxBYf4ld5vyc/IVjqo0DV9HcHxQrwPiChL3goDTmKCIRlBfqGnsyDQXaKyhLXF4sOPzr/w3x/INKw==}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.1 || ^4.0.4 || ^5.0.0
       '@glimmer/component': ^1.1.2 || ^2.0.0
@@ -12059,17 +12059,17 @@ snapshots:
       - supports-color
       - webpack
 
-  ember-power-calendar-luxon@2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.7.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5)))(luxon@3.7.2):
+  ember-power-calendar-luxon@2.0.0(@glint/template@1.5.2)(ember-power-calendar@1.8.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5)))(luxon@3.7.2):
     dependencies:
       '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1(@glint/template@1.5.2)
-      ember-power-calendar: 1.7.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5))
+      ember-power-calendar: 1.8.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5))
       luxon: 3.7.2
     transitivePeerDependencies:
       - '@glint/template'
       - supports-color
 
-  ember-power-calendar@1.7.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5)):
+  ember-power-calendar@1.8.0(@babel/core@7.28.4)(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/environment-ember-loose@1.5.2(@glimmer/component@1.1.2(@babel/core@7.28.4))(@glint/template@1.5.2)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.2(@babel/core@7.28.4)))(@glint/template@1.5.2)(ember-concurrency@4.0.6(@babel/core@7.28.4)(@glint/template@1.5.2))(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5)):
     dependencies:
       '@ember/test-helpers': 5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2)
       '@embroider/addon-shim': 1.10.0
