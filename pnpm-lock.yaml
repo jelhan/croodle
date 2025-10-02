@@ -150,8 +150,8 @@ importers:
         specifier: 8.1.2
         version: 8.1.2(encoding@0.1.13)
       ember-intl:
-        specifier: 7.4.0
-        version: 7.4.0(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glint/template@1.5.2)(typescript@5.9.3)(webpack@5.102.0)
+        specifier: 7.4.1
+        version: 7.4.1(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glint/template@1.5.2)(typescript@5.9.3)(webpack@5.102.0)
       ember-load-initializers:
         specifier: 3.0.1
         version: 3.0.1(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5))
@@ -3525,16 +3525,13 @@ packages:
   ember-inflector@5.0.2:
     resolution: {integrity: sha512-aoPaT7B3pbUHSi4ulf02iRaMMvPteuDBO8jA1SLLOl/JwnO2YI5F/MhNPaolxp8DWwAd/P6MNN+wD5bLwmiUIA==}
 
-  ember-intl@7.4.0:
-    resolution: {integrity: sha512-KAx7bT0S21KKrsxby1j4TyMBSs9LiSrDJnYmzEXyUSVSKMtmdgmx3djxKHSe/juv7g4QjsnW2OHTiKiSO5vr+Q==}
+  ember-intl@7.4.1:
+    resolution: {integrity: sha512-qFzlCbxeKAT6DPmx+iJTB0Aah1G7VbZfBhbkBgXYeDi9JkrjtertiPjFjHnDImhEG4mX7Znya9qTYaKBnLFmmg==}
     engines: {node: 18.* || >= 20}
     peerDependencies:
       '@ember/test-helpers': ^2.9.4 || ^3.2.0 || ^4.0.0 || ^5.0.0
-      typescript: ^5.0.0
     peerDependenciesMeta:
       '@ember/test-helpers':
-        optional: true
-      typescript:
         optional: true
 
   ember-load-initializers@3.0.1:
@@ -12013,7 +12010,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-intl@7.4.0(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glint/template@1.5.2)(typescript@5.9.3)(webpack@5.102.0):
+  ember-intl@7.4.1(@ember/test-helpers@5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2))(@glint/template@1.5.2)(typescript@5.9.3)(webpack@5.102.0):
     dependencies:
       '@babel/core': 7.28.4(supports-color@8.1.1)
       '@formatjs/icu-messageformat-parser': 2.11.2
@@ -12033,10 +12030,10 @@ snapshots:
       json-stable-stringify: 1.3.0
     optionalDependencies:
       '@ember/test-helpers': 5.3.0(@babel/core@7.28.4)(@glint/template@1.5.2)
-      typescript: 5.9.3
     transitivePeerDependencies:
       - '@glint/template'
       - supports-color
+      - typescript
       - webpack
 
   ember-load-initializers@3.0.1(ember-source@6.7.0(@glimmer/component@1.1.2(@babel/core@7.28.4))(rsvp@4.8.5)):
