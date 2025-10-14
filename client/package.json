@@ -83,7 +83,7 @@
     "ember-qunit": "7.0.0",
     "ember-resolver": "13.1.1",
     "ember-sinon-qunit": "7.5.0",
-    "ember-source": "6.7.0",
+    "ember-source": "6.8.0",
     "ember-template-imports": "4.3.0",
     "ember-template-lint": "7.9.3",
     "ember-test-selectors": "7.1.0",
