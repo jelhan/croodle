@@ -17,7 +17,7 @@
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "8.0.1",
     "concurrently": "9.2.1",
-    "release-it": "19.0.5"
+    "release-it": "19.0.6"
   },
   "overrides": {
     "@glimmer/validator": "0.95.0",
