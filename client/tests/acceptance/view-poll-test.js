@@ -6,8 +6,7 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
+import { setupApplicationTest } from 'croodle/tests/helpers';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import { DateTime } from 'luxon';
 module('Acceptance | view poll', function (hooks) {
@@ -16,7 +15,6 @@ module('Acceptance | view poll', function (hooks) {
   });
 
   setupApplicationTest(hooks);
-  setupMirage(hooks);
 
   test('poll url', async function (assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz012345789';

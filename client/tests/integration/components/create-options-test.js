@@ -1,13 +1,11 @@
 import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
+import { setupRenderingTest } from 'croodle/tests/helpers';
 import { render, findAll, blur, fillIn, focus } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { TrackedSet } from 'tracked-built-ins';
-import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | create options', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function () {
     this.store = this.owner.lookup('service:store');
