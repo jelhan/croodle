@@ -1,0 +1,240 @@
+action:
+  abort: Ezeztatu
+  back: Atzera
+  next: Aurrera
+  save: Grabatu
+answerTypes:
+  yes:
+    label: Bai
+  no:
+    label: Ez
+  maybe:
+    label: Baliteke
+  freeText:
+    label: "Testu librea"
+  yesNo:
+    label: "Bai, Ez"
+  yesNoMaybe:
+    label: "Bai, Ez, Baliteke"
+create:
+  index:
+    input:
+      pollType:
+        label: "Zein da inkestaren gaia?"
+  formStep:
+    type: "Inkesta mota"
+    meta: "Izenburua eta deskribapena"
+    options:
+      days: Egunak
+      text: Aukerak
+    options-datetime: Orduak
+    settings: Hobespenak
+  meta:
+    input:
+      title:
+        label: Izenburua
+        placeholder: "Inkestari izenburu bat gehitu."
+        validations:
+          valueMissing: "Inkestak izenburu bat behar du."
+          tooShort: "Izenburuak gutxienez bi karaktere behar ditu."
+      description:
+        label: Deskribapena
+        placeholder: "Hautuzkoa: Inkestari deskribapen bat gehitu."
+  options:
+    button:
+      add:
+        label: "Beste aukera bat gehitu"
+      delete:
+        label: "Aukera hau kendu"
+    options:
+      label: "Erantzuteko aukerak"
+    dates:
+      label: Eguna
+    error:
+      duplicatedOption: "Etiketa hori duen aukera bat lehendik ere badago."
+      invalidOption: "Aukera guztiek baliodun izan behar dute."
+      notEnoughDates: "Gutxienez egun bat aukeratu behar duzu."
+      valueMissing: "Aukera guztiek izen bat behar dute. Ezabatu baliodun ez diren aukerak."
+    defineTimes:
+      label: "Ordua finkatu?"
+    input:
+      moreOptions:
+        label: "Erantzuteko beste aukera batzuk gehitu"
+  options-datetime:
+    datetimes:
+      label: Ordua
+    more-inputs: "Beste ordutegi batzuk sartu"
+    copy-first-line: "Kopiatu eta itsatsi lehen eguneko orduak gainerako guztiei"
+    error:
+      correctTimeFormat: "Orduak formatu honetan idatzi behar
+        dira HH:MM (adibidez 13:15)."
+      duplicatedDate: "Dagoeneko egun eta ordu bererako aukera bat badago."
+      invalidTime: "Aukera bat gutxienez baliogabea da."
+      notEnoughTimes:
+        "Egun bakoitzeko baliozko ordu bat zehaztu behar da gutxienez.
+        Egun bakar bat aukeratzen bada, gutxienez bi ordutegi zehaztu beharko dira."
+      partiallyFilledTime: "Mesedez, sartu baliozko ordu bat, orduak eta minutuak barne. Osoak ez diren sarrerak ez dira onartzen."
+    fix-validation-errors-first-day:
+      "Kopiatu aurretik, lehen eguneko baliozkotze-errore guztiak
+      zuzendu behar dituzu."
+  settings:
+    answerType:
+      label: "Zer erantzun egon beharko lirateke eskuragarri?"
+    anonymousUser:
+      label: "Parte-hartzaile anonimoak onartu behar dira?"
+    expirationDate:
+      label: "Noiz bukatu eta ezabatu behar da inkesta?"
+    expirationDurations:
+      P7D: "Aste baten buruan"
+      P1M: "Hilabete baten buruan"
+      P3M: "3 hilabeteren buruan"
+      P6M: "6 hilabeteren buruan"
+      P1Y: "Urte baten buruan"
+      never: Inoiz
+    forceAnswer:
+      label: "Aukera guztiei erantzutera behartu?"
+  title: "Inkesta bat sortu"
+error:
+  poll:
+    decryptionFailed:
+      title: "Desenkriptatzeak huts egin du"
+      description:
+        "Inkestaren deszifratze-datuek huts egin dute. Hori, seguru asko,
+        okerreko zifratze-gako batek eragin du. Mesedez, sartutako URLa berrikusi, bereziki
+        galdera-markaren ondorengo zatia."
+    notFound:
+      title: "Ezin izan da inkesta aurkitu."
+      description: "Bilatzen ari zaren inkesta ez da aurkitu. Hainbat arrazoi
+        izan daitezke horren atzean, hala nola:"
+      reasons:
+        expired: "Inkesta iraungi da eta ezabatu da."
+        typo: "URLan errore bat dago. Mesedez, egiaztatu ondo idatzi duzula,
+          batez ere galdera-ikurraren aurreko zatia."
+    savingFailed:
+      title: "Gordetzeak huts egin du."
+      description:
+        "Inkesta ezin izan da gorde. Mesedez, egiaztatu zure sare-konexioa eta saia zaitez geroago.
+        Arazoak jarraitzen badu, webgunearen administratzailearekin harremanetan jarri, mesedez."
+  generic:
+    unexpected:
+      title: "Ustekabeko errore bat gertatu da"
+      description: "Barkatu. Errore bat gertatu da. Saia zaitez berriz
+        geroago."
+index:
+  title: "Croodlek hitzordua aukeratzea eta erabakiak hartzea errazten du… <br/>… eta zure datuak babesten ditu"
+  features:
+    title: Ezaugarriak
+    list:
+      overview:
+        "<strong>Aurkitu data bat</strong> edo <strong>egin inkesta bat</strong>
+        nahi adina lagunekin."
+      privacy: "Zure datuak pribatuak dira. Zuzenean <strong>zifratuko</strong>
+        dira zure web nabigatzailean. Inkestarako esteka jasotzen dutenek
+        baino ez dute jakingo zertaz den."
+      options: "Nahi adina <strong>erantzun aukera</strong>
+        eman ditzakezu. Zure data gogokoenak <strong>egutegian</strong> hauta ditzakezu
+        edo <strong>galde-sorta bat</strong> sortu."
+      answers:
+        "<strong>Aurrez definitutako erantzun-aukerak</strong> erabil ditzakezu, adibidez,
+        <i>bai</i>, <i>ez</i>, <i>agian</i>, edo <strong>erantzun pertsonalizatuak</strong>
+        onartu."
+      evaluation:
+        "<strong>Hobetsitako erantzunen berrikuspen automatiko</strong> baten bidez,
+        ikuspegi orokorra mantenduko duzu."
+  link:
+    have-a-try: "Saiatu orain"
+  hoster:
+    title: "Zure Croodle propioa antolatu."
+    text:
+      'Ez duzu zertan konfiantza osoa izan Croodle honen instalazioan. Croodle software librea da eta
+      zure zerbitzarian instala dezakezu. Horretarako, mega byte gutxi batzuk,
+      PHP eta SSL-enkriptatze bat besterik ez duzu behar. Softwarea eta instalatzeko aholkuak
+      hemen daude: <a href="https://github.com/jelhan/croodle">GitHub</a>.'
+modal:
+  save-retry:
+    title: "Gordetzeak huts egin du."
+    text: "<p>Ezin izan da zure inkesta gorde. Mesedez, egiaztatu
+      zure interneteko konexioa eta saiatu berriro.</p><p>Honek ez badu funtzionatzen, zerbitzariaren epe laburreko
+      matxura bat izan liteke arrazoia. Itxaron minutu batzuk, mesedez, berriro saiatu
+      arte. Orria zabalik utz dezakezu.</p><p>p>Mesedez,jarri harremanetan gunearen administratzailearekin
+      arazoak segitzen badu.</p>"
+    button-retry: "Berriz saiatu"
+options: Aukerak
+poll:
+  created-date: "Data honetan sortu da:{date}."
+  expiration-date: "Data honetan iraungitzen da:{date}."
+  expiration-date-warning: "Inkesta hau {timeToNow} egun barru bukatuko da eta gero ezabatuko da."
+  tab-title:
+    participation: Parte-hartzaileak
+    evaluation: Ebaluazioa
+  error:
+    newUser:
+      everyOptionIsAnswered: "Mesedez, erantzun aukera guztiei."
+    name:
+      duplicate: "Beste parte-hartzaile batek izen hori erabili du jada. Hauta ezazu izen bakar bat."
+      valueMissing: "Erabiltzaile izen bat sartu behar duzu."
+    selection:
+      valueMissing: "Otoiz, erantzun aukera honi."
+  evaluation:
+  label: Ebaluazioa
+  overview: Berrikuspena
+  participantTable: "Parte-hartzaileak eta beren erantzunak"
+  bestOption:
+    label:
+      findADate:
+        "{count, plural, =1 {Hobetsitako data hau da:} other {Hobetsitako
+        datak hauek dira:}}"
+      makeAPoll:
+        "{count, plural, =1 {Hobetsitako aukera hau da:} other {Hobetsitako
+        aukerak hauek dira}}"
+  bestOptionParticipants:
+    findADate:
+      yes: "{count, plural, =1 {Pertsona batek ahal du.} other {# pertsonek
+        ahal dute.}}"
+      maybe:
+        "{count, plural, =1 {Agian pertsona batek ahalko luke} other {# pertsonek
+        ahalko lukete, agian.}}"
+      no: "{count, plural, =1 {Pertsona batek ezin du.} other {#
+        pertsonek ezin dute.}}"
+    makeAPoll:
+      yes: "{count, plural, =1 {Pertsona batek aukera hau gustukoa du.} other {#
+        pertsonek aukera hau gustukoa dute.}}"
+      maybe:
+        "{count, plural, =1 {Agian, pertsona batek aukera hori gustukoa izango luke.} other
+        {# pertsonek, agian, aukera hori gustukoa izango lukete.}}"
+      no: "{count, plural, =1 {Pertsona batek ez du aukera hau gustuko} other
+        {# pertsonek ez dute aukera hau gustuko.}}"
+  lastParticipation: "Azken parte-hartzea duela {ago} izan da."
+  participants:
+    "{count, plural, =1 {Pertsona batek parte hartu du inkestan.} other
+    {# pertsonek parte hartu dute inkestan.}}"
+  input:
+    newUserName:
+      label: Izena
+      placeholder: "Zure izena"
+    showEvaluation:
+      hide: Ezkutatu
+      show: Erakutsi
+  link:
+    copied: "Kopiatua!"
+    copy-label: "Kopiatu esteka arbelera"
+  modal:
+    timezoneDiffers:
+      title: "Zein ordu-eremutan erakutsi behar dira datak?"
+      body: "Inkesta zure ordu-eremu ez den beste baterako sortu
+        zen. Zein ordu-eremutan aurkeztu behar dira datak?"
+      button:
+        useLocalTimezone: "Nire ordu-eremuan"
+        usePollTimezone: "Jatorrizko ordu-eremuan"
+  share:
+    title: "Partekatu esteka eta gonbidatu beste batzuk inkestan parte hartzera."
+    notice:
+      "Esteka duten guztiek ikus dezakete zure inkesta. Datu pribatuak baditu,
+      esteka posta elektroniko enkriptatu baten bidez, edo puntutik-puntura enkriptatuko
+      duen txat baten bidez soilik partekatu behar duzu."
+pollTypes:
+  findADate:
+    label: "Data bat aurkitu nahi dut. (adib. hitzordu baterako ordua eta eguna erabakitzeko)"
+  makeAPoll:
+    label: "Galdera bati erantzun nahi diot. (adib. Non da kaferik hoberena?)"
+times: Orduak

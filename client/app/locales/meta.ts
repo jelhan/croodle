@@ -4,6 +4,7 @@ export default {
   en: 'english',
   'en-gb': 'english (GB)',
   es: 'español',
+  eu: 'euskara',
   fr: 'français',
   it: 'italiano',
   nb: 'norsk',
