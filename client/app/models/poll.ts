@@ -247,10 +247,12 @@ export default class Poll {
     };
 
     // TODO: Handle network connectivity issue
-    const response = await waitForFetch(fetch(apiUrl('polls'), {
-      body: JSON.stringify(payload),
-      method: 'POST',
-    }));
+    const response = await waitForFetch(
+      fetch(apiUrl('polls'), {
+        body: JSON.stringify(payload),
+        method: 'POST',
+      }),
+    );
 
     if (!response.ok) {
       throw new Error(
