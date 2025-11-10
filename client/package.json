@@ -74,7 +74,6 @@
     "ember-cli-mirage": "3.0.4",
     "ember-cli-page-object": "2.3.2",
     "ember-cli-sass": "11.0.1",
-    "ember-composable-helpers": "5.0.0",
     "ember-decorators": "6.1.1",
     "ember-intl": "7.4.1",
     "ember-load-initializers": "3.0.1",
