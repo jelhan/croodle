@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import { registerDestructor } from '@ember/destroyable';
 import type RouterService from '@ember/routing/router-service';
 import type { CreateMetaRouteModel } from '../routes/create/meta';
+import type Owner from '@ember/owner';
 
 export interface CreateMetaSignature {
   Args: {
@@ -25,7 +26,7 @@ export default class CreateMetaComponent extends Component<CreateMetaSignature> 
     this.router.transitionTo('create.options');
   }
 
-  constructor(owner: unknown, args: CreateMetaSignature['Args']) {
+  constructor(owner: Owner, args: CreateMetaSignature['Args']) {
     super(owner, args);
 
     registerDestructor(this, () => {

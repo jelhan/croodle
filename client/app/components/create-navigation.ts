@@ -5,6 +5,7 @@ import type RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { registerDestructor } from '@ember/destroyable';
+import type Owner from '@ember/owner';
 
 export interface CreateNavigationSignature {
   // The arguments accepted by the component
@@ -22,7 +23,7 @@ export interface CreateNavigationSignature {
 export default class CreateNavigation extends Component<CreateNavigationSignature> {
   @service declare router: RouterService;
 
-  constructor(owner: unknown, args: CreateNavigationSignature['Args']) {
+  constructor(owner: Owner, args: CreateNavigationSignature['Args']) {
     super(owner, args);
 
     const updateVisitedSteps = () => {
