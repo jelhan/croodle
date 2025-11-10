@@ -6,7 +6,7 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'ember-qunit';
+import { setupApplicationTest } from 'croodle/tests/helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import pageParticipation from 'croodle/tests/pages/poll/participation';
 import { DateTime } from 'luxon';
