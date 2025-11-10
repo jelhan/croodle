@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupTest } from 'ember-qunit';
+import { setupTest } from 'croodle/tests/helpers';
 import localesMeta from 'croodle/locales/meta';
 
 module('Integration | translations', function (hooks) {
