@@ -11,8 +11,7 @@ import {
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'croodle/tests/helpers';
-import { setupMirage } from 'ember-cli-mirage/test-support';
-import { setupIntl, t } from 'ember-intl/test-support';
+import { t } from 'ember-intl/test-support';
 import {
   setupBrowserNavigationButtons,
   backButton,
@@ -34,8 +33,6 @@ module('Acceptance | create a poll', function (hooks) {
   });
 
   setupApplicationTest(hooks);
-  setupMirage(hooks);
-  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function (assert) {
     assert.asyncThrows = asyncThrowsAssertion;
