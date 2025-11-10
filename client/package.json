@@ -39,7 +39,7 @@
     "@ember/test-waiters": "^4.1.1",
     "@embroider/compat": "3.9.1",
     "@embroider/core": "3.5.7",
-    "@embroider/macros": "^1.18.1",
+    "@embroider/macros": "^1.19.1",
     "@embroider/webpack": "4.1.1",
     "@eslint/js": "9.39.1",
     "@glimmer/component": "2.0.0",
