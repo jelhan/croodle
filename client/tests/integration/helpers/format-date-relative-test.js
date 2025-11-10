@@ -3,11 +3,9 @@ import { setupRenderingTest } from 'croodle/tests/helpers';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { DateTime } from 'luxon';
-import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Helper | format-date-relative', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks, 'en');
 
   test('it formats an ISO date to relative duration from now', async function (assert) {
     this.set('date', DateTime.local().plus({ hours: 6 }));
