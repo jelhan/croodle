@@ -8,6 +8,7 @@ import IntlMessage from '../utils/intl-message';
 import type RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
 import type { CreateOptionsDatetimeRouteModel } from 'croodle/routes/create/options-datetime';
+import type Owner from '@ember/owner';
 
 class FormDataTimeOption {
   formData;
@@ -245,7 +246,7 @@ export default class CreateOptionsDatetime extends Component<CreateOptoinsDateti
     }
   }
 
-  constructor(owner: unknown, args: CreateOptoinsDatetimeSignature['Args']) {
+  constructor(owner: Owner, args: CreateOptoinsDatetimeSignature['Args']) {
     super(owner, args);
 
     const handleTransition = (transition: Transition) => {
