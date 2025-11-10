@@ -17,9 +17,6 @@ module.exports = function (defaults) {
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
     },
-    'ember-fetch': {
-      nativePromise: true,
-    },
     autoprefixer: {
       browsers: ['last 2 ios version'],
       cascade: false,
@@ -63,6 +60,11 @@ module.exports = function (defaults) {
             // We don't want it to be included in the bundle.
             crypto: false,
           },
+        },
+      },
+      styleLoaderOptions: {
+        attributes: {
+          nonce: 'must-not-be-present-in-production-builds',
         },
       },
     },

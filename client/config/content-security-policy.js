@@ -1,5 +1,5 @@
-module.exports = function () {
-  return {
+module.exports = function (environment) {
+  const csp = {
     delivery: ['meta'],
     enabled: true,
     failTests: true,
@@ -14,4 +14,13 @@ module.exports = function () {
     },
     reportOnly: false,
   };
+
+  if (environment === 'test') {
+    // ember-qunit uses style-loader which requires a nonce to not break CSP
+    csp.policy['style-src'].push(
+      "'nonce-must-not-be-present-in-production-builds'",
+    );
+  }
+
+  return csp;
 };
