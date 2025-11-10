@@ -89,9 +89,6 @@ importers:
       '@types/sjcl':
         specifier: 1.0.34
         version: 1.0.34
-      '@warp-drive/ember':
-        specifier: ~5.6.0
-        version: 5.6.0(@ember/test-waiters@4.1.1(@glint/template@1.7.2))(@glint/template@1.7.2)
       bootstrap:
         specifier: 4.6.2
         version: 4.6.2(jquery@3.7.1)(popper.js@1.16.1)
@@ -1873,21 +1870,6 @@ packages:
   '@typescript-eslint/visitor-keys@8.46.4':
     resolution: {integrity: sha512-/++5CYLQqsO9HFGLI7APrxBJYo+5OCMpViuhV8q5/Qa3o5mMrF//eQHks+PXcsAVaLdn817fMuS7zqoXNNZGaw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@warp-drive/build-config@5.6.0':
-    resolution: {integrity: sha512-7qdE7x1U0yRhbGy1wO47lirgKO6cjMqmKJUdLhpIhX31fIo0MM2/6n8p/+2rNTlZiCMhLNeV7RelA8LoIkxW3Q==}
-
-  '@warp-drive/core@5.6.0':
-    resolution: {integrity: sha512-pUt2QEWzhMkBD3tzjpDmycNsVQsvUBXfQpIrIQ8K55BS1b5fXNKXc/srOi6XoSy+elh7V7sgjdEZLOWP3ttcRw==}
-
-  '@warp-drive/ember@5.6.0':
-    resolution: {integrity: sha512-vdDudXsF1SGmzSW1waYDtsqe9LA3FnzYHP+Biiq48aMWncHgEfkOupg8BG4Kyi+FnW7HxD86O6roiSuC93+f3Q==}
-    peerDependencies:
-      '@ember/test-waiters': ^3.1.0 || ^4.0.0
-      ember-provide-consume-context: ^0.7.0
-    peerDependenciesMeta:
-      ember-provide-consume-context:
-        optional: true
 
   '@webassemblyjs/ast@1.14.1':
     resolution: {integrity: sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ==}
@@ -9615,33 +9597,6 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.46.4
       eslint-visitor-keys: 4.2.1
-
-  '@warp-drive/build-config@5.6.0(@glint/template@1.7.2)':
-    dependencies:
-      '@embroider/addon-shim': 1.10.0
-      '@embroider/macros': 1.19.1(@glint/template@1.7.2)
-      babel-import-util: 2.1.1
-      semver: 7.7.3
-    transitivePeerDependencies:
-      - '@glint/template'
-      - supports-color
-
-  '@warp-drive/core@5.6.0(@glint/template@1.7.2)':
-    dependencies:
-      '@embroider/macros': 1.19.1(@glint/template@1.7.2)
-      '@warp-drive/build-config': 5.6.0(@glint/template@1.7.2)
-    transitivePeerDependencies:
-      - '@glint/template'
-      - supports-color
-
-  '@warp-drive/ember@5.6.0(@ember/test-waiters@4.1.1(@glint/template@1.7.2))(@glint/template@1.7.2)':
-    dependencies:
-      '@ember/test-waiters': 4.1.1(@glint/template@1.7.2)
-      '@embroider/macros': 1.19.1(@glint/template@1.7.2)
-      '@warp-drive/core': 5.6.0(@glint/template@1.7.2)
-    transitivePeerDependencies:
-      - '@glint/template'
-      - supports-color
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
