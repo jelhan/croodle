@@ -50,8 +50,8 @@ export default class ApplicationRoute extends Route {
   beforeModel() {
     // Start mirage in development
     if (macroCondition(isDevelopingApp() && !isTesting())) {
-      const startMirage = importSync('client/mirage/config');
-      startMirage.default({ environment: 'development' });
+      const { createServer: startMirage } = importSync('client/mirage');
+      startMirage({ environment: 'development' });
     }
 
     // Set locale
