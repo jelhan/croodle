@@ -1,6 +1,6 @@
 import { createServer } from 'miragejs';
 import factories from './factories';
-import identityManagers from './identityManagers';
+import identityManagers from './identity-managers';
 import models from './models';
 import serializers from './serializers';
 import { pluralize, singularize } from 'ember-inflector';
