@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'croodle/tests/helpers';
-import { setupMirage } from 'ember-cli-mirage/test-support';
+import { setupMirage } from '../helpers/mirage';
 import sjcl from 'sjcl';
 
 module('Integration | Mirage api mocking', function (hooks) {

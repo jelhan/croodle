@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import { macroCondition, isDevelopingApp, isTesting, importSync } from '@embroider/macros';
 import localesMeta from 'croodle/locales/meta';
 import type IntlService from 'ember-intl/services/intl';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
@@ -47,6 +48,12 @@ export default class ApplicationRoute extends Route {
   @service declare powerCalendar: PowerCalendarService;
 
   beforeModel() {
+    // Start mirage in development
+    if (macroCondition(isDevelopingApp() && !isTesting())) {
+      const startMirage = importSync('client/mirage/config');
+      startMirage.default({ environment: 'development' });
+    }
+
     // Set locale
     const supportedLocales = Object.keys(localesMeta);
     const locale = getLocale(supportedLocales);

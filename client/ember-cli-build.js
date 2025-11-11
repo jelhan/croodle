@@ -68,5 +68,6 @@ module.exports = function (defaults) {
         },
       },
     },
+    staticAppPaths: ['mirage'],
   });
 };

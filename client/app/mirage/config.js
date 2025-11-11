@@ -1,8 +1,24 @@
 import { createServer } from 'miragejs';
+import factories from './factories';
+import identityManagers from './identityManagers';
+import models from './models';
+import serializers from './serializers';
+import { pluralize, singularize } from 'ember-inflector';
 
 export default function (config) {
   const finalConfig = {
     ...config,
+
+    models,
+    identityManagers,
+    serializers,
+    factories,
+
+    inflector: {
+      pluralize,
+      singularize,
+    },
+
     routes,
   };
 

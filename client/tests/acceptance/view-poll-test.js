@@ -20,7 +20,7 @@ module('Acceptance | view poll', function (hooks) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz012345789';
     let poll = this.server.create('poll', { encryptionKey });
     let pollUrl = `/poll/${poll.id}?encryptionKey=${encryptionKey}`;
-
+debugger;
     await visit(pollUrl);
     assert
       .dom('[data-test-poll-url]')
