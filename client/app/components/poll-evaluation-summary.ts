@@ -1,10 +1,10 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import type IntlService from 'ember-intl/services/intl';
-import type Option from 'croodle/models/option';
-import type User from 'croodle/models/user';
-import type { Answer } from 'croodle/utils/answers-for-answer-type';
-import type Poll from 'croodle/models/poll';
+import type Option from '@croodle/client/models/option';
+import type User from '@croodle/client/models/user';
+import type { Answer } from '@croodle/client/utils/answers-for-answer-type';
+import type Poll from '@croodle/client/models/poll';
 
 export interface PollEvaluationSummarySignature {
   Args: {

@@ -1,7 +1,7 @@
 import PageObject from 'ember-cli-page-object';
-import { definition as Poll } from 'croodle/tests/pages/poll';
-import { defaultsForApplication } from 'croodle/tests/pages/defaults';
-import { hasFocus } from 'croodle/tests/pages/helpers';
+import { definition as Poll } from '@croodle/client/tests/pages/poll';
+import { defaultsForApplication } from '@croodle/client/tests/pages/defaults';
+import { hasFocus } from '@croodle/client/tests/pages/helpers';
 
 let { collection, fillable, text, visitable } = PageObject;
 

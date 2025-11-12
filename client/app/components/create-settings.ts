@@ -7,7 +7,7 @@ import { generatePassphrase } from '../utils/encryption';
 import Poll from '../models/poll';
 import type IntlService from 'ember-intl/services/intl';
 import type RouterService from '@ember/routing/router-service';
-import type { CreateSettingsRouteModel } from 'croodle/routes/create/settings';
+import type { CreateSettingsRouteModel } from '@croodle/client/routes/create/settings';
 
 export interface CreateSettingsSignature {
   Args: {

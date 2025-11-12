@@ -7,8 +7,8 @@ import {
   isVisible,
   text,
 } from 'ember-cli-page-object';
-import { defaultsForCreate } from 'croodle/tests/pages/defaults';
-import { hasFocus } from 'croodle/tests/pages/helpers';
+import { defaultsForCreate } from '@croodle/client/tests/pages/defaults';
+import { hasFocus } from '@croodle/client/tests/pages/helpers';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import { isArray } from '@ember/array';
 import { assert } from '@ember/debug';

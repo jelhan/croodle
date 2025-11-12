@@ -6,8 +6,8 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'croodle/tests/helpers';
-import pageParticipation from 'croodle/tests/pages/poll/participation';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
+import pageParticipation from '@croodle/client/tests/pages/poll/participation';
 import { DateTime } from 'luxon';
 module('Acceptance | view poll', function (hooks) {
   hooks.beforeEach(function () {

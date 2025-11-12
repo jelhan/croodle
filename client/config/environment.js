@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'croodle',
+    modulePrefix: '@croodle/client',
     environment,
     rootURL: '',
     locationType: 'hash',

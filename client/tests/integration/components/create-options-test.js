@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupRenderingTest } from 'croodle/tests/helpers';
+import { setupRenderingTest } from '@croodle/client/tests/helpers';
 import { render, findAll, blur, fillIn, focus } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { TrackedSet } from 'tracked-built-ins';

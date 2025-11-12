@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import { setupTest } from 'croodle/tests/helpers';
-import Poll from 'croodle/models/poll';
+import { setupTest } from '@croodle/client/tests/helpers';
+import Poll from '@croodle/client/models/poll';
 
 function generateMockPoll(overwrites?: Partial<Poll>): Poll {
   return new Poll({

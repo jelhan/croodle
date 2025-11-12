@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { TrackedSet } from 'tracked-built-ins';
-import type { CreateRouteModel } from 'croodle/routes/create';
+import type { CreateRouteModel } from '@croodle/client/routes/create';
 import type RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
 import { action } from '@ember/object';

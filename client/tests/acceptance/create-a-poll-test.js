@@ -10,19 +10,19 @@ import {
   waitFor,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'croodle/tests/helpers';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
 import { t } from 'ember-intl/test-support';
 import {
   setupBrowserNavigationButtons,
   backButton,
 } from 'ember-cli-browser-navigation-button-test-helper/test-support';
 import { DateTime } from 'luxon';
-import pageCreateIndex from 'croodle/tests/pages/create/index';
-import pageCreateMeta from 'croodle/tests/pages/create/meta';
-import pageCreateOptions from 'croodle/tests/pages/create/options';
-import pageCreateOptionsDatetime from 'croodle/tests/pages/create/options-datetime';
-import pageCreateSettings from 'croodle/tests/pages/create/settings';
-import pagePollParticipation from 'croodle/tests/pages/poll/participation';
+import pageCreateIndex from '@croodle/client/tests/pages/create/index';
+import pageCreateMeta from '@croodle/client/tests/pages/create/meta';
+import pageCreateOptions from '@croodle/client/tests/pages/create/options';
+import pageCreateOptionsDatetime from '@croodle/client/tests/pages/create/options-datetime';
+import pageCreateSettings from '@croodle/client/tests/pages/create/settings';
+import pagePollParticipation from '@croodle/client/tests/pages/poll/participation';
 import asyncThrowsAssertion from '../assertions/async-throws';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import sinon from 'sinon';

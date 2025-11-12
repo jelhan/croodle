@@ -143,9 +143,6 @@ importers:
       ember-cli-inject-live-reload:
         specifier: https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c
         version: https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c
-      ember-cli-mirage:
-        specifier: 3.0.4
-        version: 3.0.4(@ember/test-helpers@5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2))(@glint/template@1.7.2)(ember-qunit@9.0.4(@ember/test-helpers@5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2))(@glint/template@1.7.2)(qunit@2.24.2))(ember-source@6.8.1(@glimmer/component@2.0.0)(rsvp@4.8.5))(miragejs@0.1.48)(webpack@5.102.1)
       ember-cli-page-object:
         specifier: 2.3.2
         version: 2.3.2(@ember/test-helpers@5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2))
@@ -155,6 +152,9 @@ importers:
       ember-decorators:
         specifier: 6.1.1
         version: 6.1.1
+      ember-inflector:
+        specifier: ^6.0.0
+        version: 6.0.0(@babel/core@7.28.5)
       ember-intl:
         specifier: 7.4.1
         version: 7.4.1(@ember/test-helpers@5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2))(@glint/template@1.7.2)(typescript@5.9.3)(webpack@5.102.1)
@@ -3362,26 +3362,6 @@ packages:
   ember-cli-is-package-missing@1.0.0:
     resolution: {integrity: sha512-9hEoZj6Au5onlSDdcoBqYEPT8ehlYntZPxH8pBKV0GO7LNel88otSAQsCfXvbi2eKE+MaSeLG/gNaCI5UdWm9g==}
 
-  ember-cli-mirage@3.0.4:
-    resolution: {integrity: sha512-JpfZJIrvUAcwOVQ44aAzlYSbGiO4/nqnVAbzAKU4kztqgYvYGBa27FX5WxfpIGZMBdnt6OKh78rsimChWo6f/Q==}
-    engines: {node: 16.* || >= 18}
-    peerDependencies:
-      '@ember-data/model': '*'
-      '@ember/test-helpers': '*'
-      ember-data: '*'
-      ember-qunit: '*'
-      ember-source: '>= 3.28.0'
-      miragejs: ^0.1.43
-    peerDependenciesMeta:
-      '@ember-data/model':
-        optional: true
-      '@ember/test-helpers':
-        optional: true
-      ember-data:
-        optional: true
-      ember-qunit:
-        optional: true
-
   ember-cli-normalize-entity-name@1.0.0:
     resolution: {integrity: sha512-rF4P1rW2P1gVX1ynZYPmuIf7TnAFDiJmIUFI1Xz16VYykUAyiOCme0Y22LeZq8rTzwBMiwBwoE3RO4GYWehXZA==}
 
@@ -3478,8 +3458,8 @@ packages:
     resolution: {integrity: sha512-uNmv1cPG/4qsac8oIf5txJ2FZ8p88LEpG4P3dNcjsJS98Y8hd0GPMFwVqpnzI78Lz7VYRGQWY4jnE4qm5R3j4g==}
     engines: {node: 12.* || 14.* || >= 16}
 
-  ember-inflector@5.0.2:
-    resolution: {integrity: sha512-aoPaT7B3pbUHSi4ulf02iRaMMvPteuDBO8jA1SLLOl/JwnO2YI5F/MhNPaolxp8DWwAd/P6MNN+wD5bLwmiUIA==}
+  ember-inflector@6.0.0:
+    resolution: {integrity: sha512-g6trqBhQHRwlq9bBmoyxhAl0tD0/CaTKK0xWPUgi3BfxFOgGG1bbiwAx+tjyiAkLzDqU+ihyjtT+sd41y6K1hA==}
 
   ember-intl@7.4.1:
     resolution: {integrity: sha512-qFzlCbxeKAT6DPmx+iJTB0Aah1G7VbZfBhbkBgXYeDi9JkrjtertiPjFjHnDImhEG4mX7Znya9qTYaKBnLFmmg==}
@@ -11428,27 +11408,6 @@ snapshots:
 
   ember-cli-is-package-missing@1.0.0: {}
 
-  ember-cli-mirage@3.0.4(@ember/test-helpers@5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2))(@glint/template@1.7.2)(ember-qunit@9.0.4(@ember/test-helpers@5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2))(@glint/template@1.7.2)(qunit@2.24.2))(ember-source@6.8.1(@glimmer/component@2.0.0)(rsvp@4.8.5))(miragejs@0.1.48)(webpack@5.102.1):
-    dependencies:
-      '@babel/core': 7.28.5(supports-color@8.1.1)
-      '@embroider/macros': 1.19.1(@glint/template@1.7.2)
-      broccoli-file-creator: 2.1.1
-      broccoli-funnel: 3.0.8
-      broccoli-merge-trees: 4.2.0
-      ember-auto-import: 2.11.2(@glint/template@1.7.2)(webpack@5.102.1)
-      ember-cli-babel: 8.2.0(@babel/core@7.28.5)
-      ember-get-config: 2.1.1(@glint/template@1.7.2)
-      ember-inflector: 5.0.2(@babel/core@7.28.5)
-      ember-source: 6.8.1(@glimmer/component@2.0.0)(rsvp@4.8.5)
-      miragejs: 0.1.48
-    optionalDependencies:
-      '@ember/test-helpers': 5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2)
-      ember-qunit: 9.0.4(@ember/test-helpers@5.4.0(@babel/core@7.28.5)(@glint/template@1.7.2))(@glint/template@1.7.2)(qunit@2.24.2)
-    transitivePeerDependencies:
-      - '@glint/template'
-      - supports-color
-      - webpack
-
   ember-cli-normalize-entity-name@1.0.0:
     dependencies:
       silent-error: 1.1.1
@@ -11751,7 +11710,7 @@ snapshots:
       - '@glint/template'
       - supports-color
 
-  ember-inflector@5.0.2(@babel/core@7.28.5):
+  ember-inflector@6.0.0(@babel/core@7.28.5):
     dependencies:
       '@embroider/addon-shim': 1.10.0
       decorator-transforms: 2.3.0(@babel/core@7.28.5)

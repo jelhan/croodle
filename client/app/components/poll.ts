@@ -3,8 +3,8 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { DateTime } from 'luxon';
 import type RouterService from '@ember/routing/router-service';
-import type { PollRouteModel } from 'croodle/routes/poll';
-import type PollSettingsService from 'croodle/services/poll-settings';
+import type { PollRouteModel } from '@croodle/client/routes/poll';
+import type PollSettingsService from '@croodle/client/services/poll-settings';
 import type IntlService from 'ember-intl/services/intl';
 
 export interface PollSignature {

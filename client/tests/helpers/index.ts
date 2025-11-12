@@ -4,7 +4,7 @@ import {
   setupTest as upstreamSetupTest,
   type SetupTestOptions,
 } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
+import { setupMirage } from './mirage';
 import { setupIntl } from 'ember-intl/test-support';
 
 // This file exists to provide wrappers around ember-qunit's

@@ -1,8 +1,8 @@
 import { findAll, click, currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'croodle/tests/helpers';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
 import { t } from 'ember-intl/test-support';
-import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
+import PollEvaluationPage from '@croodle/client/tests/pages/poll/evaluation';
 import { DateTime } from 'luxon';
 
 module('Acceptance | view evaluation', function (hooks) {

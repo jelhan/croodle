@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 import IntlMessage from '../utils/intl-message';
 import type RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
-import type { CreateOptionsDatetimeRouteModel } from 'croodle/routes/create/options-datetime';
+import type { CreateOptionsDatetimeRouteModel } from '@croodle/client/routes/create/options-datetime';
 import type Owner from '@ember/owner';
 
 class FormDataTimeOption {
