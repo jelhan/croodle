@@ -1,5 +1,5 @@
-import createServer from "./server";
+import { startServer as startMirage } from "./server";
 
 export {
-  createServer
+  startMirage
 }

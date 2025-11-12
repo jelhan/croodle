@@ -5,7 +5,7 @@ import models from './models';
 import serializers from './serializers';
 import { pluralize, singularize } from 'ember-inflector';
 
-export default function (config) {
+export function startServer(config) {
   const finalConfig = {
     ...config,
 
