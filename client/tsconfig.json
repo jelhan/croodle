@@ -14,6 +14,10 @@
       "fetch": ["node_modules/ember-fetch"],
       "*": ["types/*"]
     },
-    "types": ["ember-source/types"]
+    "types": [
+      "ember-source/types",
+      "@embroider/core/virtual",
+      "vite/client"
+    ]
   }
 }
