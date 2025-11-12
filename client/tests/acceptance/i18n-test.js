@@ -1,6 +1,6 @@
 import { fillIn, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'croodle/tests/helpers';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
 
 module('Acceptance | i18n', function (hooks) {
   hooks.beforeEach(function () {

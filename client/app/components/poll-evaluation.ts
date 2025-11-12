@@ -1,8 +1,8 @@
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
 import type IntlService from 'ember-intl/services/intl';
-import type { PollEvaluationRouteModel } from 'croodle/routes/poll/evaluation';
-import type PollSettingsService from 'croodle/services/poll-settings';
+import type { PollEvaluationRouteModel } from '@croodle/client/routes/poll/evaluation';
+import type PollSettingsService from '@croodle/client/services/poll-settings';
 
 export interface PollEvaluationSignature {
   // The arguments accepted by the component

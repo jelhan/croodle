@@ -4,7 +4,7 @@ import RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
 import { tracked } from '@glimmer/tracking';
 import { TrackedSet } from 'tracked-built-ins';
-import type { AnswerType, PollType } from 'croodle/models/poll';
+import type { AnswerType, PollType } from '@croodle/client/models/poll';
 
 class PollData {
   @tracked anonymousUser: boolean = false;

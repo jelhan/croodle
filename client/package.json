@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "@croodle/client",
   "version": "0.7.0",
   "private": true,
   "repository": "https://github.com/jelhan/croodle",

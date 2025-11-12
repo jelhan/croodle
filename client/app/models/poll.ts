@@ -4,7 +4,7 @@ import { TrackedArray } from 'tracked-built-ins';
 import { NotFoundError, apiUrl } from '../utils/api';
 import { decrypt, encrypt } from '../utils/encryption';
 import answersForAnswerType from '../utils/answers-for-answer-type';
-import config from 'croodle/config/environment';
+import config from '@croodle/client/config/environment';
 import type { SelectionInput } from './selection';
 import { waitForFetch } from '@ember/test-waiters';
 

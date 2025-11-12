@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupTest } from 'croodle/tests/helpers';
+import { setupTest } from '@croodle/client/tests/helpers';
 import { setupMirage } from '../helpers/mirage';
 import sjcl from 'sjcl';
 

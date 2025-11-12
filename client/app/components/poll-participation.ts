@@ -1,16 +1,16 @@
 import Component from '@glimmer/component';
 import User from '../models/user';
-import type { PollParticipationRouteModel } from 'croodle/routes/poll/participation';
+import type { PollParticipationRouteModel } from '@croodle/client/routes/poll/participation';
 import type RouterService from '@ember/routing/router-service';
-import type Poll from 'croodle/models/poll';
-import type Option from 'croodle/models/option';
-import type { SelectionInput } from 'croodle/models/selection';
-import type PollSettingsService from 'croodle/services/poll-settings';
+import type Poll from '@croodle/client/models/poll';
+import type Option from '@croodle/client/models/option';
+import type { SelectionInput } from '@croodle/client/models/selection';
+import type PollSettingsService from '@croodle/client/services/poll-settings';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { TrackedArray } from 'tracked-built-ins';
-import IntlMessage from 'croodle/utils/intl-message';
+import IntlMessage from '@croodle/client/utils/intl-message';
 
 class FormDataSelections {
   @tracked value = null;

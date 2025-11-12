@@ -1,5 +1,5 @@
 import EmberRouter from '@ember/routing/router';
-import config from 'croodle/config/environment';
+import config from '@croodle/client/config/environment';
 
 export default class Router extends EmberRouter {
   location = config.locationType;

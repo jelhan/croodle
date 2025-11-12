@@ -4,4 +4,4 @@ import poll from './poll';
 export default {
   application,
   poll,
-}
+};

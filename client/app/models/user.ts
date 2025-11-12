@@ -1,5 +1,5 @@
 import Selection, { type SelectionInput } from './selection';
-import config from 'croodle/config/environment';
+import config from '@croodle/client/config/environment';
 import { encrypt } from '../utils/encryption';
 import { apiUrl } from '../utils/api';
 import type Poll from './poll';

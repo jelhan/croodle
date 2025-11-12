@@ -1,6 +1,6 @@
 import { attribute, collection, create, text } from 'ember-cli-page-object';
-import { definition as Poll } from 'croodle/tests/pages/poll';
-import { defaultsForApplication } from 'croodle/tests/pages/defaults';
+import { definition as Poll } from '@croodle/client/tests/pages/poll';
+import { defaultsForApplication } from '@croodle/client/tests/pages/defaults';
 
 export default create(
   Object.assign({}, defaultsForApplication, Poll, {

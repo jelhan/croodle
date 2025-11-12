@@ -1,5 +1,5 @@
-import Application from 'croodle/app';
-import config from 'croodle/config/environment';
+import Application from '@croodle/client/app';
+import config from '@croodle/client/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

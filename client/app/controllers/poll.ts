@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import type { PollRouteModel } from 'croodle/routes/poll';
+import type { PollRouteModel } from '@croodle/client/routes/poll';
 
 export default class PollController extends Controller {
   declare model: PollRouteModel;

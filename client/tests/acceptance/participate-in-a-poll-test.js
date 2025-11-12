@@ -7,10 +7,10 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'croodle/tests/helpers';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
 import { t } from 'ember-intl/test-support';
-import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
-import pollParticipate from 'croodle/tests/helpers/poll-participate';
+import PollEvaluationPage from '@croodle/client/tests/pages/poll/evaluation';
+import pollParticipate from '@croodle/client/tests/helpers/poll-participate';
 
 module('Acceptance | participate in a poll', function (hooks) {
   let yesLabel;

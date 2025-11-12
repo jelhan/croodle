@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { tracked } from '@glimmer/tracking';
-import type { PollType } from 'croodle/models/poll';
+import type { PollType } from '@croodle/client/models/poll';
 import type { CreateRouteModel } from '../create';
 
 class FormData {

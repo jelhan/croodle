@@ -4,4 +4,4 @@ import user from './user';
 export default {
   poll,
   user,
-}
+};

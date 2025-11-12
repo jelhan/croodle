@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupTest } from 'croodle/tests/helpers';
+import { setupTest } from '@croodle/client/tests/helpers';
 
 module('Unit | Route | application', function (hooks) {
   setupTest(hooks);

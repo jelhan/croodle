@@ -9,8 +9,8 @@
     // work with TypeScript.
     "baseUrl": ".",
     "paths": {
-      "croodle/tests/*": ["tests/*"],
-      "croodle/*": ["app/*"],
+      "@croodle/client/tests/*": ["tests/*"],
+      "@croodle/client/*": ["app/*"],
       "fetch": ["node_modules/ember-fetch"],
       "*": ["types/*"]
     },

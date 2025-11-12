@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import type Poll from 'croodle/models/poll';
+import type Poll from '@croodle/client/models/poll';
 import { DateTime } from 'luxon';
 
 export interface PollEvaluationParticipantsTableSignature {
