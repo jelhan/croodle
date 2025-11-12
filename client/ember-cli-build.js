@@ -1,10 +1,17 @@
-'use strict';
-
+'use strict';;
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity-embroider');
 const path = require('path');
 
-module.exports = function (defaults) {
+const {
+  compatBuild
+} = require("@embroider/compat");
+
+module.exports = async function(defaults) {
+  const {
+    buildOnce
+  } = await import("@embroider/vite");
+
   const app = new EmberApp(defaults, {
     buildInfoOptions: {
       metaTemplate: 'version={SEMVER}',
@@ -31,17 +38,12 @@ module.exports = function (defaults) {
   app.import('node_modules/open-iconic/font/fonts/open-iconic.ttf');
   app.import('node_modules/open-iconic/font/fonts/open-iconic.woff');
 
-  const { Webpack } = require('@embroider/webpack');
-  return require('@embroider/compat').compatBuild(app, Webpack, {
+  return compatBuild(app, buildOnce, {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
     staticEmberSource: true,
     staticInvokables: true,
-    skipBabel: [
-      {
-        package: 'qunit',
-      },
-    ],
+
     packagerOptions: {
       webpackConfig: {
         devtool: 'source-map',
@@ -68,6 +70,7 @@ module.exports = function (defaults) {
         },
       },
     },
-    staticAppPaths: ['mirage'],
+
+    staticAppPaths: ['mirage']
   });
 };
