@@ -56,7 +56,11 @@ export default class ApplicationRoute extends Route {
 
   beforeModel() {
     // Start mirage in development
-    if (macroCondition(isDevelopingApp() && !isTesting() && !getOwnConfig().disableMirage)) {
+    if (
+      macroCondition(
+        isDevelopingApp() && !isTesting() && !getOwnConfig().disableMirage,
+      )
+    ) {
       const { startMirage } = importSync('@croodle/client/mirage') as {
         startMirage: typeof _startMirage;
       };
