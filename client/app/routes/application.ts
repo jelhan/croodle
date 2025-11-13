@@ -11,6 +11,7 @@ import localesMeta from '@croodle/client/locales/meta';
 import type IntlService from 'ember-intl/services/intl';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';
 import { type startMirage as _startMirage } from '../mirage';
+import { type CroodleMacrosConfig } from '../config/macros';
 
 type supportedLocales = string[];
 
@@ -58,7 +59,7 @@ export default class ApplicationRoute extends Route {
     // Start mirage in development
     if (
       macroCondition(
-        isDevelopingApp() && !isTesting() && !getOwnConfig().disableMirage,
+        isDevelopingApp() && !isTesting() && !getOwnConfig<CroodleMacrosConfig>().disableMirage,
       )
     ) {
       const { startMirage } = importSync('@croodle/client/mirage') as {
