@@ -5,7 +5,14 @@ const SubresourceIntegrityPlugin = require('webpack-subresource-integrity-embroi
 const path = require('path');
 
 module.exports = function (defaults) {
+  const shouldProxyApiRequests = process.argv.includes('--proxy');
+
   const app = new EmberApp(defaults, {
+    '@embroider/macros': {
+      setOwnConfig: {
+        disableMirage: shouldProxyApiRequests,
+      },
+    },
     buildInfoOptions: {
       metaTemplate: 'version={SEMVER}',
     },

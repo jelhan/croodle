@@ -5,6 +5,7 @@ import {
   isDevelopingApp,
   isTesting,
   importSync,
+  getOwnConfig,
 } from '@embroider/macros';
 import localesMeta from '@croodle/client/locales/meta';
 import type IntlService from 'ember-intl/services/intl';
@@ -55,7 +56,7 @@ export default class ApplicationRoute extends Route {
 
   beforeModel() {
     // Start mirage in development
-    if (macroCondition(isDevelopingApp() && !isTesting())) {
+    if (macroCondition(isDevelopingApp() && !isTesting() && !getOwnConfig().disableMirage)) {
       const { startMirage } = importSync('@croodle/client/mirage') as {
         startMirage: typeof _startMirage;
       };
