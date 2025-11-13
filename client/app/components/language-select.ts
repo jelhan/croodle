@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import localesMeta from 'croodle/locales/meta';
+import localesMeta from '@croodle/client/locales/meta';
 import { action } from '@ember/object';
 import type IntlService from 'ember-intl/services/intl';
 import type PowerCalendarService from 'ember-power-calendar/services/power-calendar';

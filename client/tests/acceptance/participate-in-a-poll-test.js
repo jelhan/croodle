@@ -7,11 +7,10 @@ import {
   visit,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'ember-qunit';
-import { setupIntl, t } from 'ember-intl/test-support';
-import { setupMirage } from 'ember-cli-mirage/test-support';
-import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
-import pollParticipate from 'croodle/tests/helpers/poll-participate';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
+import { t } from 'ember-intl/test-support';
+import PollEvaluationPage from '@croodle/client/tests/pages/poll/evaluation';
+import pollParticipate from '@croodle/client/tests/helpers/poll-participate';
 
 module('Acceptance | participate in a poll', function (hooks) {
   let yesLabel;
@@ -22,8 +21,6 @@ module('Acceptance | participate in a poll', function (hooks) {
   });
 
   setupApplicationTest(hooks);
-  setupIntl(hooks, 'en');
-  setupMirage(hooks);
 
   hooks.beforeEach(function () {
     yesLabel = t('answerTypes.yes.label').toString();

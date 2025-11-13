@@ -1,7 +1,7 @@
 .cr-poll-link {
   &__link {
     position: relative;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
     background: gray("200");
     padding: map-get($spacers, 3) map-get($spacers, 3) 3em;
   }

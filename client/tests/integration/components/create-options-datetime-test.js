@@ -1,12 +1,10 @@
 import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
+import { setupRenderingTest } from '@croodle/client/tests/helpers';
 import { render, click, findAll } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | create options datetime', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function () {
     this.store = this.owner.lookup('service:store');

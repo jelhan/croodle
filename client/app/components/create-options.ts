@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 import type RouterService from '@ember/routing/router-service';
 import type { CreateOptionsRouteModel } from '../routes/create/options';
 import type Transition from '@ember/routing/transition';
+import type Owner from '@ember/owner';
 
 export class FormDataOption {
   @tracked value;
@@ -145,7 +146,7 @@ export default class CreateOptions extends Component<CreateOptionsSignature> {
     }
   }
 
-  constructor(owner: unknown, args: CreateOptionsSignature['Args']) {
+  constructor(owner: Owner, args: CreateOptionsSignature['Args']) {
     super(owner, args);
 
     const handleTransition = (transition: Transition) => {

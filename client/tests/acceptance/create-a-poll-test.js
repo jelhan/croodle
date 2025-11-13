@@ -10,20 +10,19 @@ import {
   waitFor,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
-import { setupIntl, t } from 'ember-intl/test-support';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
+import { t } from 'ember-intl/test-support';
 import {
   setupBrowserNavigationButtons,
   backButton,
 } from 'ember-cli-browser-navigation-button-test-helper/test-support';
 import { DateTime } from 'luxon';
-import pageCreateIndex from 'croodle/tests/pages/create/index';
-import pageCreateMeta from 'croodle/tests/pages/create/meta';
-import pageCreateOptions from 'croodle/tests/pages/create/options';
-import pageCreateOptionsDatetime from 'croodle/tests/pages/create/options-datetime';
-import pageCreateSettings from 'croodle/tests/pages/create/settings';
-import pagePollParticipation from 'croodle/tests/pages/poll/participation';
+import pageCreateIndex from '@croodle/client/tests/pages/create/index';
+import pageCreateMeta from '@croodle/client/tests/pages/create/meta';
+import pageCreateOptions from '@croodle/client/tests/pages/create/options';
+import pageCreateOptionsDatetime from '@croodle/client/tests/pages/create/options-datetime';
+import pageCreateSettings from '@croodle/client/tests/pages/create/settings';
+import pagePollParticipation from '@croodle/client/tests/pages/poll/participation';
 import asyncThrowsAssertion from '../assertions/async-throws';
 import { calendarSelect } from 'ember-power-calendar/test-support/helpers';
 import sinon from 'sinon';
@@ -34,8 +33,6 @@ module('Acceptance | create a poll', function (hooks) {
   });
 
   setupApplicationTest(hooks);
-  setupMirage(hooks);
-  setupIntl(hooks, 'en');
 
   hooks.beforeEach(function (assert) {
     assert.asyncThrows = asyncThrowsAssertion;
@@ -796,6 +793,53 @@ module('Acceptance | create a poll', function (hooks) {
       ['option a'],
       'options are labeled correctly',
     );
+  });
+
+  test('create a poll with non-default expiration date', async function (assert) {
+    sinon.useFakeTimers({
+      now: new Date('2025-03-01'),
+      shouldAdvanceTime: true,
+    });
+
+    await visit('/create');
+    assert.strictEqual(currentRouteName(), 'create.index');
+
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.meta');
+
+    await fillIn('input[type="text"]', 'poll expiring next week');
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.options');
+
+    await pageCreateOptions.selectDates([
+      new Date('2025-03-02'),
+      new Date('2025-03-07'),
+    ]);
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.options-datetime');
+
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'create.settings');
+    assert
+      .dom('.expiration-duration select')
+      .hasValue('P3M', 'poll expires in 3 months by default');
+
+    await fillIn('.expiration-duration select', 'P7D');
+    assert
+      .dom('.expiration-duration select')
+      .hasValue(
+        'P7D',
+        'expiration date reflects updated value after user input',
+      );
+
+    await click('button[type="submit"]');
+    assert.strictEqual(currentRouteName(), 'poll.participation');
+    assert
+      .dom('.expirationDate')
+      .containsText(
+        'March 8, 2025',
+        'poll information reflect expiration date selected by user',
+      );
   });
 
   test('create a poll and use back button (find a date)', async function (assert) {

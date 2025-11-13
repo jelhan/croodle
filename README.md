@@ -5,6 +5,13 @@
 
 Croodle is an end-to-end encrypted web application to schedule a date or to do a poll on a any topic. All data like title, description, number and labels of options, available answers and names of users and their selections are encrypted/decrypted in the browser using strong 256-bit AES encryption.
 
+[<img alt="Screenshot of Croodle's poll creation step: Type of poll"          src="screenshots/0_type.png"       width="30%">](screenshots/0_type.png)
+[<img alt="Screenshot of Croodle's poll creation step: Title and description" src="screenshots/1_title_desc.png" width="30%">](screenshots/1_title_desc.png)
+[<img alt="Screenshot of Croodle's poll creation step: Days"                  src="screenshots/2_days.png"       width="30%">](screenshots/2_days.png)
+[<img alt="Screenshot of Croodle's poll creation step: Times"                 src="screenshots/3_times.png"      width="30%">](screenshots/3_times.png)
+[<img alt="Screenshot of Croodle's poll creation step: Settings"              src="screenshots/4_settings.png"   width="30%">](screenshots/4_settings.png)
+[<img alt="Screenshot of Croodle's poll voting"                               src="screenshots/5_votes.png"      width="30%">](screenshots/5_votes.png)
+
 This is an alpha version. Changes could brake backward compatibility. It is also not well tested and some features are missing. It is not meant for productive use yet.
 
 Croodle is inspired by [PrivateBin](https://github.com/PrivateBin/PrivateBin) and, of course, by Doodle.

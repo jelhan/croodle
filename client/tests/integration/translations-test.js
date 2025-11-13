@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import { setupTest } from 'ember-qunit';
-import localesMeta from 'croodle/locales/meta';
+import { setupTest } from '@croodle/client/tests/helpers';
+import localesMeta from '@croodle/client/locales/meta';
 
 module('Integration | translations', function (hooks) {
   setupTest(hooks);

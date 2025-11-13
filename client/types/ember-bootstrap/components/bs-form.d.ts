@@ -19,7 +19,7 @@ type BsFormComponent = ComponentLike<{
       },
     ];
   };
-  Element: HTMLDivElement;
+  Element: HTMLFormElement;
 }>;
 
 export default BsFormComponent;

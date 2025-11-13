@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/ember/tsconfig.json",
+  "extends": "@tsconfig/ember",
   "glint": {
     "environment": ["ember-loose", "ember-template-imports"]
   },
@@ -9,15 +9,11 @@
     // work with TypeScript.
     "baseUrl": ".",
     "paths": {
-      "croodle/tests/*": ["tests/*"],
-      "croodle/*": ["app/*"],
-      "fetch": [
-        "node_modules/ember-fetch"
-      ],
+      "@croodle/client/tests/*": ["tests/*"],
+      "@croodle/client/*": ["app/*"],
+      "fetch": ["node_modules/ember-fetch"],
       "*": ["types/*"]
     },
-    "types": [
-      "./node_modules/ember-source/types/stable"
-    ]
+    "types": ["ember-source/types"]
   }
 }

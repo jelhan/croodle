@@ -17,9 +17,6 @@ module.exports = function (defaults) {
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
     },
-    'ember-fetch': {
-      nativePromise: true,
-    },
     autoprefixer: {
       browsers: ['last 2 ios version'],
       cascade: false,
@@ -38,10 +35,8 @@ module.exports = function (defaults) {
   return require('@embroider/compat').compatBuild(app, Webpack, {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
-    staticHelpers: true,
-    staticModifiers: true,
-    staticComponents: true,
     staticEmberSource: true,
+    staticInvokables: true,
     skipBabel: [
       {
         package: 'qunit',
@@ -67,6 +62,12 @@ module.exports = function (defaults) {
           },
         },
       },
+      styleLoaderOptions: {
+        attributes: {
+          nonce: 'must-not-be-present-in-production-builds',
+        },
+      },
     },
+    staticAppPaths: ['mirage'],
   });
 };

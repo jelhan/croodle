@@ -1,13 +1,11 @@
 import { module, test } from 'qunit';
-import { setupRenderingTest } from 'croodle/tests/helpers';
+import { setupRenderingTest } from '@croodle/client/tests/helpers';
 import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import sinon from 'sinon';
-import { setupIntl } from 'ember-intl/test-support';
 
 module('Integration | Component | share-poll-url', function (hooks) {
   setupRenderingTest(hooks);
-  setupIntl(hooks, 'en');
 
   test('it shows poll url', async function (assert) {
     sinon.stub(this.owner.lookup('service:router'), 'currentURL').value('/foo');

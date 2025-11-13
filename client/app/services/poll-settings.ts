@@ -1,6 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 import Service from '@ember/service';
-import type Poll from 'croodle/models/poll';
+import type Poll from '@croodle/client/models/poll';
 
 class PollSettings {
   #poll: Poll;

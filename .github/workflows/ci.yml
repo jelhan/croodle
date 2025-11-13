@@ -14,15 +14,15 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -33,7 +33,7 @@ jobs:
     name: test bundlesize
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -43,9 +43,9 @@ jobs:
         with:
           version: 9
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -56,15 +56,15 @@ jobs:
     name: test CSP in .htaccess
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -75,15 +75,15 @@ jobs:
     name: test against Chrome
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -99,15 +99,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-chrome
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -123,15 +123,15 @@ jobs:
     runs-on: macos-latest
     needs: test-chrome
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
       - name: Install Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -146,7 +146,7 @@ jobs:
         php-versions: ["7.2", "7.3", "7.4", "8.0", "8.1", "8.2", "8.3"]
     steps:
       - name: Checkout repository files
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install php
         uses: shivammathur/setup-php@v2
         with:

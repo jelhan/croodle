@@ -23,7 +23,7 @@ module.exports = function (/* environment */) {
      * @type {String}
      * @default "'translations'"
      */
-    inputPath: 'translations',
+    inputPath: '../translations',
 
     /**
      * Prevents the translations from being bundled with the application code.

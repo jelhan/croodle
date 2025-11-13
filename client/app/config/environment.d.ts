@@ -1,6 +1,6 @@
 /**
  * Type declarations for
- *    import config from 'croodle/config/environment'
+ *    import config from '@croodle/client/config/environment'
  */
 declare const config: {
   environment: string;

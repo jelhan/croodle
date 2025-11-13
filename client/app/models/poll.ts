@@ -4,9 +4,9 @@ import { TrackedArray } from 'tracked-built-ins';
 import { NotFoundError, apiUrl } from '../utils/api';
 import { decrypt, encrypt } from '../utils/encryption';
 import answersForAnswerType from '../utils/answers-for-answer-type';
-import fetch from 'fetch';
-import config from 'croodle/config/environment';
+import config from '@croodle/client/config/environment';
 import type { SelectionInput } from './selection';
+import { waitForFetch } from '@ember/test-waiters';
 
 const DAY_STRING_LENGTH = 10; // 'YYYY-MM-DD'.length
 
@@ -130,7 +130,7 @@ export default class Poll {
     const url = apiUrl(`polls/${id}`);
 
     // TODO: Handle network connectivity error
-    const response = await fetch(url);
+    const response = await waitForFetch(fetch(url));
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -247,10 +247,12 @@ export default class Poll {
     };
 
     // TODO: Handle network connectivity issue
-    const response = await fetch(apiUrl('polls'), {
-      body: JSON.stringify(payload),
-      method: 'POST',
-    });
+    const response = await waitForFetch(
+      fetch(apiUrl('polls'), {
+        body: JSON.stringify(payload),
+        method: 'POST',
+      }),
+    );
 
     if (!response.ok) {
       throw new Error(

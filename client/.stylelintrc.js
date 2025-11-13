@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  extends: ['stylelint-config-standard-scss', 'stylelint-prettier/recommended'],
+  extends: ['stylelint-config-standard-scss'],
   rules: {
     'declaration-block-no-duplicate-properties': null,
     'no-descending-specificity': null,

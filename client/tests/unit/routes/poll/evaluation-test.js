@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { setupTest } from 'ember-qunit';
+import { setupTest } from '@croodle/client/tests/helpers';
 
 module('Unit | Route | poll/evaluation', function (hooks) {
   setupTest(hooks);

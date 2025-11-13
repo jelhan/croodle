@@ -1,9 +1,9 @@
 import Selection, { type SelectionInput } from './selection';
-import config from 'croodle/config/environment';
+import config from '@croodle/client/config/environment';
 import { encrypt } from '../utils/encryption';
 import { apiUrl } from '../utils/api';
-import fetch from 'fetch';
 import type Poll from './poll';
+import { waitForFetch } from '@ember/test-waiters';
 
 type UserInput = {
   creationDate: string;
@@ -59,10 +59,12 @@ export default class User {
     };
 
     // TODO: handle network connectivity issues
-    const response = await fetch(apiUrl(`users`), {
-      body: JSON.stringify(payload),
-      method: 'POST',
-    });
+    const response = await waitForFetch(
+      fetch(apiUrl(`users`), {
+        body: JSON.stringify(payload),
+        method: 'POST',
+      }),
+    );
 
     if (!response.ok) {
       throw new Error(

@@ -2,18 +2,16 @@ import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
-import { DateTime } from 'luxon';
 import { tracked } from '@glimmer/tracking';
 import { TrackedSet } from 'tracked-built-ins';
-import type { AnswerType, PollType } from 'croodle/models/poll';
+import type { AnswerType, PollType } from '@croodle/client/models/poll';
 
 class PollData {
   @tracked anonymousUser: boolean = false;
   @tracked answerType: AnswerType = 'YesNo';
   @tracked description: string = '';
-  @tracked expirationDate: string = DateTime.local()
-    .plus({ months: 3 })
-    .toISO();
+  @tracked expirationDuration: 'P7D' | 'P1M' | 'P3M' | 'P6M' | 'P1Y' | '' =
+    'P3M';
   @tracked forceAnswer: boolean = true;
   @tracked freetextOptions: TrackedSet<string> = new TrackedSet();
   @tracked dateOptions: TrackedSet<string> = new TrackedSet();

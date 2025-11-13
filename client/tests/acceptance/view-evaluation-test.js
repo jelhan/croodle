@@ -1,9 +1,8 @@
 import { findAll, click, currentRouteName, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest } from 'ember-qunit';
-import { setupMirage } from 'ember-cli-mirage/test-support';
-import { setupIntl, t } from 'ember-intl/test-support';
-import PollEvaluationPage from 'croodle/tests/pages/poll/evaluation';
+import { setupApplicationTest } from '@croodle/client/tests/helpers';
+import { t } from 'ember-intl/test-support';
+import PollEvaluationPage from '@croodle/client/tests/pages/poll/evaluation';
 import { DateTime } from 'luxon';
 
 module('Acceptance | view evaluation', function (hooks) {
@@ -12,8 +11,6 @@ module('Acceptance | view evaluation', function (hooks) {
   });
 
   setupApplicationTest(hooks);
-  setupIntl(hooks, 'en');
-  setupMirage(hooks);
 
   test('evaluation summary is not present for poll without participants', async function (assert) {
     let encryptionKey = 'abcdefghijklmnopqrstuvwxyz0123456789';
