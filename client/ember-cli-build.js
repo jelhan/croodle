@@ -42,9 +42,6 @@ module.exports = async function (defaults) {
   app.import('node_modules/open-iconic/font/fonts/open-iconic.woff');
 
   return compatBuild(app, buildOnce, {
-    staticAddonTestSupportTrees: true,
-    staticAddonTrees: true,
-    staticEmberSource: true,
     staticInvokables: true,
 
     packagerOptions: {
