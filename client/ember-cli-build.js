@@ -8,11 +8,18 @@ const {
 } = require("@embroider/compat");
 
 module.exports = async function(defaults) {
+  const shouldProxyApiRequests = process.argv.includes('--proxy');
+
   const {
     buildOnce
   } = await import("@embroider/vite");
 
   const app = new EmberApp(defaults, {
+    '@embroider/macros': {
+      setOwnConfig: {
+        disableMirage: shouldProxyApiRequests,
+      },
+    },
     buildInfoOptions: {
       metaTemplate: 'version={SEMVER}',
     },

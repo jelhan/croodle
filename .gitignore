@@ -3,3 +3,6 @@
 
 # dependencies
 /node_modules/
+
+# temporary development data
+/tmp/

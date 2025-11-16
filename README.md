@@ -42,8 +42,10 @@ If you like to build Croodle yourself, you have to install [node](https://nodejs
 ```shell
 # Clone repository
 git clone git@github.com:jelhan/croodle.git && cd croodle
+
 # Install dependencies
 pnpm install
+
 # Build croodle
 pnpm run build
 ```
@@ -65,50 +67,32 @@ Have a look at `api/config.default.php` for available options.
 
 ## Development
 
-`pnpm run start` generates a development build of Croodle and starts
-a server listening on `http://localhost:4200` which is serving it.
+`pnpm dev` generates a development build of Croodle and starts
+a server serving the client on `http://localhost:4200` and another one
+serving the API on `http://localhost:8000`.
 If source files are changing, a rebuild and reload is triggered.
 
 By default Croodle uses an api mock in development. Since that one
 does not persist records all polls are gone after a reload.
 
-If you like to test against the real API, you should run the API
-using php built-in web server locally:
-
-```sh
-php -S 127.0.0.1:8080 -t client/dist/
-```
-
-Afterwards start the client's development server using `--proxy` option:
-
-```sh
-pnpm run start -- --proxy http://127.0.0.1:8080
-```
-
-Ember-cli clears dist folder on each rebuild. If you like to keep
-created polls over rebuild, configure api to use a non default folder
-to save your polls:
-
-```sh
-CROODLE__DATA_DIR=/tmp/croodle_data php -S 127.0.0.1:8080 -t client/dist/
-```
+If you like to test a production build, build Croodle with `pnpm build`
+and start a server previwing the build with `pnpm preview`.
 
 ## Running tests
 
-### Ember
+Tests for both Client and API can be run with `pnpm test`.
 
-`ember test --server` is the prefered way to run tests in Chrome. Results are reported in command-line and browser. Files are watched for changes.
+### Client
 
-If you like to run tests only once in a headless Chrome and Firefox execute `ember test`. This is also used in CI.
+You can run the tests for the client on the command line with `pnpm test:client`.
+Alternatively you can run Croodle with `pnpm start` and open the tests at `http://localhost:4200/tests`.
 
-Additionally tests are available in all development builds. This allows you to execute the tests in any browser of your choice by running `ember serve` and opening `http://locahost:4200/tests`.
-
-Tests are run against a mock-api provided by [ember-cli-mirage](http://www.ember-cli-mirage.com/). Therefor they don't cover system integration.
+Tests are run against a mock-api provided by [MirageJS](https://miragejs.com/).
+Therefore they don't cover system integration.
 
 ### API
 
-API tests are provided by Codeception. To run them change current
-directory to `/api` and execute `./vendor/bin/codecept run`. You have
+API tests are provided by Codeception. You can run them with `pnpm test:api`. You have
 to install composer development requirements before (`composer install`
 without `--no-dev` option).
 
