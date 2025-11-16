@@ -1,5 +1,5 @@
-'use strict';;
-if (typeof module !== "undefined") {
+'use strict';
+if (typeof module !== 'undefined') {
   module.exports = {
     test_page: 'tests/index.html?hidepassed',
     disable_watching: true,

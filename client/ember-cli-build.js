@@ -1,18 +1,14 @@
-'use strict';;
+'use strict';
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity-embroider');
 const path = require('path');
 
-const {
-  compatBuild
-} = require("@embroider/compat");
+const { compatBuild } = require('@embroider/compat');
 
-module.exports = async function(defaults) {
+module.exports = async function (defaults) {
   const shouldProxyApiRequests = process.argv.includes('--proxy');
 
-  const {
-    buildOnce
-  } = await import("@embroider/vite");
+  const { buildOnce } = await import('@embroider/vite');
 
   const app = new EmberApp(defaults, {
     '@embroider/macros': {
@@ -78,6 +74,6 @@ module.exports = async function(defaults) {
       },
     },
 
-    staticAppPaths: ['mirage']
+    staticAppPaths: ['mirage'],
   });
 };
