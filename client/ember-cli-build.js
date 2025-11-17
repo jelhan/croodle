@@ -64,11 +64,6 @@ module.exports = async function (defaults) {
           },
         },
       },
-      styleLoaderOptions: {
-        attributes: {
-          nonce: 'must-not-be-present-in-production-builds',
-        },
-      },
     },
 
     staticAppPaths: ['mirage'],
