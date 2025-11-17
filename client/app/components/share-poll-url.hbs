@@ -4,10 +4,11 @@
     <small>
       <code class="cr-poll-link__url" data-test-poll-url>{{this.pollUrl}}</code>
     </small>
-    <CopyButton
-      @text={{this.pollUrl}}
-      @onSuccess={{this.showCopySuccessMessage}}
-      class="btn btn-secondary cr-poll-link__copy-btn btn-sm"
+    <BsButton
+      @onClick={{this.copyUrlToClipboard}}
+      @type="secondary"
+      @size="sm"
+      class="cr-poll-link__copy-btn"
       data-test-button="copy-link"
     >
       {{t "poll.link.copy-label"}}&nbsp;
@@ -24,7 +25,7 @@
       >
         {{t "poll.link.copied"}}
       </BsTooltip>
-    </CopyButton>
+    </BsButton>
   </p>
   <small class="text-muted">
     {{t "poll.share.notice"}}

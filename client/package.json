@@ -68,7 +68,7 @@
     "ember-cli-browser-navigation-button-test-helper": "0.3.0",
     "ember-cli-browserstack": "3.0.0",
     "ember-cli-bundlesize": "jelhan/ember-cli-bundlesize#713aa162762e07b75e468f1f7eb1fa35d643eb9a",
-    "ember-cli-clipboard": "1.3.0",
+    "ember-cli-clean-css": "3.0.0",
     "ember-cli-content-security-policy": "2.0.3",
     "ember-cli-deprecation-workflow": "^3.4.0",
     "ember-cli-htmlbars": "6.3.0",

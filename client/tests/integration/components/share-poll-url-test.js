@@ -17,11 +17,16 @@ module('Integration | Component | share-poll-url', function (hooks) {
 
   test('user can copy the link to the clipboard', async function (assert) {
     sinon.stub(this.owner.lookup('service:router'), 'currentURL').value('/foo');
-    const execCommandFake = sinon.stub(document, 'execCommand');
+    sinon.mock(window.location);
+    const clipboardWriteTextMock = sinon
+      .mock(navigator.clipboard)
+      .expects('writeText');
 
     await render(hbs`<SharePollUrl />`);
     await click('[data-test-button="copy-link"]');
-    assert.ok(execCommandFake.calledOnce);
-    assert.deepEqual(execCommandFake.firstCall.args, ['copy']);
+    assert.ok(clipboardWriteTextMock.calledOnce);
+    assert.deepEqual(clipboardWriteTextMock.firstCall.args, [
+      `${document.location.href}#/foo`,
+    ]);
   });
 });
