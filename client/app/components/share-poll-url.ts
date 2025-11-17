@@ -28,7 +28,11 @@ export default class SharePollUrlComponent extends Component {
   }
 
   @action
-  showCopySuccessMessage() {
+  async copyUrlToClipboard() {
+    const { pollUrl } = this;
+
+    await navigator.clipboard.writeText(pollUrl);
+
     this.shouldShowCopySuccessMessage = true;
   }
 }
