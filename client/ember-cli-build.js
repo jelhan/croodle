@@ -38,8 +38,12 @@ module.exports = async function (defaults) {
     },
   });
 
-  app.import('node_modules/open-iconic/font/fonts/open-iconic.ttf');
-  app.import('node_modules/open-iconic/font/fonts/open-iconic.woff');
+  app.import('node_modules/open-iconic/font/fonts/open-iconic.ttf', {
+    destDir: 'assets/open-iconic/font/fonts/',
+  });
+  app.import('node_modules/open-iconic/font/fonts/open-iconic.woff', {
+    destDir: 'assets/open-iconic/font/fonts/',
+  });
 
   return compatBuild(app, buildOnce, {
     staticInvokables: true,
