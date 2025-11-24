@@ -9,6 +9,8 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from '@croodle/client/tests/helpers';
 import pageParticipation from '@croodle/client/tests/pages/poll/participation';
 import { DateTime } from 'luxon';
+import Sinon from 'sinon';
+
 module('Acceptance | view poll', function (hooks) {
   hooks.beforeEach(function () {
     window.localStorage.setItem('locale', 'en');
@@ -29,10 +31,25 @@ module('Acceptance | view poll', function (hooks) {
         'share link is shown',
       );
 
-    await click('.copy-btn');
+    const clipboardWriteTextMock = Sinon.mock(navigator.clipboard).expects(
+      'writeText',
+    );
+
+    await click('[data-test-button="copy-link"]');
     assert
       .dom('[data-test-tooltip="copied"]')
       .isVisible('shows success message that URL has been copied');
+    assert.true(
+      clipboardWriteTextMock.calledOnce,
+      'invoked Clipboard.writeText API exactly once',
+    );
+    assert.deepEqual(
+      clipboardWriteTextMock.getCall(0).args,
+      [
+        `${document.location.href}#/poll/${poll.id}/participation?encryptionKey=${encryptionKey}`,
+      ],
+      'invoked Clipboard.writeText API with poll URL',
+    );
   });
 
   module('expiration warning', function () {
