@@ -138,8 +138,8 @@ importers:
         specifier: 6.3.0
         version: 6.3.0
       ember-cli-inject-live-reload:
-        specifier: https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c
-        version: https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c
+        specifier: github:jelhan/ember-cli-inject-live-reload#39c289e20aa5bd398da6f480e416e53b2973ef9c&path:lib
+        version: https://codeload.github.com/jelhan/ember-cli-inject-live-reload/tar.gz/39c289e20aa5bd398da6f480e416e53b2973ef9c#path:lib
       ember-cli-page-object:
         specifier: 2.3.2
         version: 2.3.2(@ember/test-helpers@5.4.1(@babel/core@7.28.5)(@glint/template@1.7.3))
@@ -3338,8 +3338,8 @@ packages:
     resolution: {integrity: sha512-N9Y80oZfcfWLsqickMfRd9YByVcTGyhYRnYQ2XVPVrp6jyUyOeRWmEAPh7ERSXpp8Ws4hr/JB9QVQrn/yZa+Ag==}
     engines: {node: 12.* || 14.* || >= 16}
 
-  ember-cli-inject-live-reload@https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c:
-    resolution: {tarball: https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c}
+  ember-cli-inject-live-reload@https://codeload.github.com/jelhan/ember-cli-inject-live-reload/tar.gz/39c289e20aa5bd398da6f480e416e53b2973ef9c#path:lib:
+    resolution: {path: lib, tarball: https://codeload.github.com/jelhan/ember-cli-inject-live-reload/tar.gz/39c289e20aa5bd398da6f480e416e53b2973ef9c}
     version: 2.1.0
     engines: {node: 6.* || 8.* || >= 10.*}
 
@@ -11334,7 +11334,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-cli-inject-live-reload@https://gitpkg.now.sh/jelhan/ember-cli-inject-live-reload/lib?39c289e20aa5bd398da6f480e416e53b2973ef9c:
+  ember-cli-inject-live-reload@https://codeload.github.com/jelhan/ember-cli-inject-live-reload/tar.gz/39c289e20aa5bd398da6f480e416e53b2973ef9c#path:lib:
     dependencies:
       clean-base-url: 1.0.0
       ember-cli-version-checker: 3.1.3
