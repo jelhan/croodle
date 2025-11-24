@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 
-test("create a poll", async ({ page }) => {
+test("create a poll for finding a date (without time) and participate in it", async ({
+  page,
+}) => {
   // Arrange current date to be May 1, 2025
   await page.clock.setFixedTime(new Date("2025-05-01"));
 
@@ -42,7 +44,7 @@ test("create a poll", async ({ page }) => {
 
   // Configure poll to never expire as server would clean it up
   // immediately otherwise
-  await page.getByLabel('expire').selectOption({ label: 'Never' });
+  await page.getByLabel("expire").selectOption({ label: "Never" });
 
   await expect(page).toHaveTitle("Create a poll | Croodle");
   await expect(page).toHaveURL("/#/create/settings");
@@ -53,10 +55,39 @@ test("create a poll", async ({ page }) => {
   // Assert that filled in poll data is shown
   await assertSavedPoll();
 
-  // Reload the poll and ensure that filled in poll data is still shown
+  // Participate in the poll
+  await page.getByLabel("Name").fill("John Doe");
+  await page
+    .locator(".row")
+    .filter({ hasText: "Thursday, May 1, 2025" })
+    .getByLabel("Yes")
+    .check({ force: true });
+  await page
+    .locator(".row")
+    .filter({ hasText: "Friday, May 9, 2025" })
+    .getByLabel("No")
+    .check({ force: true });
+  await page.getByRole('button', { name: 'Save' }).click();
+
+  // Assert that participation is saved
+  await assertSavedParticipation();
+
+  // Go back to participation page
+  await page.getByRole('link', { name: 'Attend' }).click();
+
+  await expect(page).toHaveURL(
+    /\/#\/poll\/[a-zA-Z0-9]+\/participation\?encryptionKey=[a-zA-Z0-9]+/,
+  );
+
+  // Reload the poll
   await page.reload();
 
+  // Ensure that poll data is still shown as expected after reload
   await assertSavedPoll();
+
+  // Ensure that participation is still shown as expected after reload
+  await page.getByRole('link', { name: 'Evaluation' }).click();
+  await assertSavedParticipation();
 
   async function assertSavedPoll() {
     await expect(page).toHaveTitle("Example poll | Croodle");
@@ -72,5 +103,17 @@ test("create a poll", async ({ page }) => {
     await expect(
       page.locator(".selections label.col-form-label").last(),
     ).toHaveText("Friday, May 9, 2025");
+  }
+
+  async function assertSavedParticipation() {
+    await expect(page).toHaveURL(
+      /\/#\/poll\/[a-zA-Z0-9]+\/evaluation\?encryptionKey=[a-zA-Z0-9]+/,
+    );
+    await expect(
+      page.getByRole('row', { name: 'John Doe' }).getByRole('cell').nth(1)
+    ).toHaveText('Yes');
+    await expect(
+      page.getByRole('row', { name: 'John Doe' }).getByRole('cell').last()
+    ).toHaveText('No');
   }
 });
