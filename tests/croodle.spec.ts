@@ -40,6 +40,10 @@ test("create a poll", async ({ page }) => {
   // Continue without providing times
   await page.getByRole("button", { name: "Next" }).click();
 
+  // Configure poll to never expire as server would clean it up
+  // immediately otherwise
+  await page.getByLabel('expire').selectOption({ label: 'Never' });
+
   await expect(page).toHaveTitle("Create a poll | Croodle");
   await expect(page).toHaveURL("/#/create/settings");
 
