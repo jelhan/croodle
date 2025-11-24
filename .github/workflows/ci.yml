@@ -189,6 +189,9 @@ jobs:
           extensions: mbstring, zip
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Install PHP dependencies
+        run: composer install
+        working-directory: ./api
       - name: Install Playwright Browsers
         run: pnpm --filter tests exec playwright install --with-deps
       - name: Build Croodle
