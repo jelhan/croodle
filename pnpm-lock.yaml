@@ -24,10 +24,10 @@ importers:
         specifier: 7.28.5
         version: 7.28.5(supports-color@8.1.1)
       '@babel/eslint-parser':
-        specifier: ^7.28.4
+        specifier: 7.28.4
         version: 7.28.4(@babel/core@7.28.5)(eslint@9.39.1(jiti@2.6.1))
       '@babel/plugin-proposal-decorators':
-        specifier: ^7.28.0
+        specifier: 7.28.0
         version: 7.28.0(@babel/core@7.28.5)
       '@ember/optional-features':
         specifier: 2.3.0
@@ -39,7 +39,7 @@ importers:
         specifier: 5.4.1
         version: 5.4.1(@babel/core@7.28.5)(@glint/template@1.7.3)
       '@ember/test-waiters':
-        specifier: ^4.1.1
+        specifier: 4.1.1
         version: 4.1.1(@glint/template@1.7.3)
       '@embroider/compat':
         specifier: 3.9.1
@@ -48,7 +48,7 @@ importers:
         specifier: 3.5.7
         version: 3.5.7(@glint/template@1.7.3)
       '@embroider/macros':
-        specifier: ^1.19.1
+        specifier: 1.19.1
         version: 1.19.1(@glint/template@1.7.3)
       '@embroider/webpack':
         specifier: 4.1.1
@@ -132,7 +132,7 @@ importers:
         specifier: 3.3.3
         version: 3.3.3(ember-cli@6.8.0(@types/node@24.7.2)(handlebars@4.7.8)(underscore@1.13.7))
       ember-cli-deprecation-workflow:
-        specifier: ^3.4.0
+        specifier: 3.4.0
         version: 3.4.0(ember-source@6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5))
       ember-cli-htmlbars:
         specifier: 7.0.0
@@ -150,7 +150,7 @@ importers:
         specifier: 6.1.1
         version: 6.1.1
       ember-inflector:
-        specifier: ^6.0.0
+        specifier: 6.0.0
         version: 6.0.0(@babel/core@7.28.5)
       ember-intl:
         specifier: 7.4.1
@@ -7677,7 +7677,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.5(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7704,7 +7704,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.5(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7793,7 +7793,7 @@ snapshots:
       '@babel/core': 7.28.5(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-remap-async-to-generator': 7.27.1(@babel/core@7.28.5)(supports-color@8.1.1)
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7840,7 +7840,7 @@ snapshots:
       '@babel/helper-globals': 7.28.0
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-replace-supers': 7.27.1(@babel/core@7.28.5)(supports-color@8.1.1)
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7854,7 +7854,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.5(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7911,7 +7911,7 @@ snapshots:
       '@babel/core': 7.28.5(supports-color@8.1.1)
       '@babel/helper-compilation-targets': 7.27.2
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7957,7 +7957,7 @@ snapshots:
       '@babel/helper-module-transforms': 7.28.3(@babel/core@7.28.5)(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7997,7 +7997,7 @@ snapshots:
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/plugin-transform-destructuring': 7.28.0(@babel/core@7.28.5)(supports-color@8.1.1)
       '@babel/plugin-transform-parameters': 7.27.7(@babel/core@7.28.5)
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.5(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8239,7 +8239,7 @@ snapshots:
       '@babel/parser': 7.28.5
       '@babel/types': 7.28.5
 
-  '@babel/traverse@7.28.4(supports-color@8.1.1)':
+  '@babel/traverse@7.28.4':
     dependencies:
       '@babel/code-frame': 7.27.1
       '@babel/generator': 7.28.3
@@ -8430,7 +8430,7 @@ snapshots:
 
   '@ember/test-waiters@4.1.1(@glint/template@1.7.3)':
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.19.1(@glint/template@1.7.3)
     transitivePeerDependencies:
       - '@glint/template'
@@ -8473,7 +8473,7 @@ snapshots:
       '@babel/plugin-transform-runtime': 7.28.3(@babel/core@7.28.5)
       '@babel/preset-env': 7.28.3(@babel/core@7.28.5)(supports-color@8.1.1)
       '@babel/runtime': 7.28.4
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.4
       '@embroider/core': 3.5.7(@glint/template@1.7.3)
       '@embroider/macros': 1.16.13(@glint/template@1.7.3)
       '@types/babel__code-frame': 7.0.6
@@ -8520,7 +8520,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.28.5(supports-color@8.1.1)
       '@babel/parser': 7.28.4
-      '@babel/traverse': 7.28.4(supports-color@8.1.1)
+      '@babel/traverse': 7.28.4
       '@embroider/macros': 1.16.13(@glint/template@1.7.3)
       '@embroider/shared-internals': 2.9.1(supports-color@8.1.1)
       assert-never: 1.4.0
@@ -11096,7 +11096,7 @@ snapshots:
 
   ember-assign-helper@0.5.1:
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
     transitivePeerDependencies:
       - supports-color
 
@@ -11702,7 +11702,7 @@ snapshots:
 
   ember-inflector@6.0.0(@babel/core@7.28.5):
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       decorator-transforms: 2.3.0(@babel/core@7.28.5)
     transitivePeerDependencies:
       - '@babel/core'
