@@ -10,13 +10,13 @@ importers:
     devDependencies:
       '@release-it-plugins/lerna-changelog':
         specifier: 8.0.1
-        version: 8.0.1(release-it@19.0.6(@types/node@24.7.2))
+        version: 8.0.1(release-it@19.1.0(@types/node@24.7.2))
       concurrently:
         specifier: 9.2.1
         version: 9.2.1
       release-it:
-        specifier: 19.0.6
-        version: 19.0.6(@types/node@24.7.2)
+        specifier: 19.1.0
+        version: 19.1.0(@types/node@24.7.2)
 
   client:
     devDependencies:
@@ -6161,8 +6161,8 @@ packages:
     resolution: {integrity: sha512-NZQZdC5wOE/H3UT28fVGL+ikOZcEzfMGk/c3iN9UGxzWHMa1op7274oyiUVrAG4B2EuFhus8SvkaYnhvW92p9Q==}
     hasBin: true
 
-  release-it@19.0.6:
-    resolution: {integrity: sha512-XTCNZ2mV9wjASQmc2bcQjA+ImJiFMijbFSyQE6lDmP1Plq17acjYaoY5FmJb5Lh/Nv4UDwfRlKQMv1DvHFKf1g==}
+  release-it@19.1.0:
+    resolution: {integrity: sha512-XgAIZVKgHgOBUUoLFrUfXHG4cUDiXPWFW0AHIAgk17Tk9JbIjz9YyAU8MyQer7dWkfG5IpNU9QH8tViQZGfhaw==}
     engines: {node: ^20.12.0 || >=22.0.0}
     hasBin: true
 
@@ -9236,13 +9236,13 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@release-it-plugins/lerna-changelog@8.0.1(release-it@19.0.6(@types/node@24.7.2))':
+  '@release-it-plugins/lerna-changelog@8.0.1(release-it@19.1.0(@types/node@24.7.2))':
     dependencies:
       execa: 5.1.1
       lerna-changelog: 2.2.0
       lodash: 4.17.21
       mdast-util-from-markdown: 2.0.2
-      release-it: 19.0.6(@types/node@24.7.2)
+      release-it: 19.1.0(@types/node@24.7.2)
       tmp: 0.2.5
       validate-peer-dependencies: 2.2.0
       which: 5.0.0
@@ -14951,7 +14951,7 @@ snapshots:
     dependencies:
       jsesc: 3.1.0
 
-  release-it@19.0.6(@types/node@24.7.2):
+  release-it@19.1.0(@types/node@24.7.2):
     dependencies:
       '@nodeutils/defaults-deep': 1.1.0
       '@octokit/rest': 22.0.0
