@@ -246,8 +246,8 @@ importers:
         specifier: 3.5.0
         version: 3.5.0
       sass:
-        specifier: 1.97.0
-        version: 1.97.0
+        specifier: 1.97.1
+        version: 1.97.1
       sinon:
         specifier: 21.0.1
         version: 21.0.1
@@ -6446,8 +6446,8 @@ packages:
     engines: {node: 10.* || >= 12.*}
     hasBin: true
 
-  sass@1.97.0:
-    resolution: {integrity: sha512-KR0igP1z4avUJetEuIeOdDlwaUDvkH8wSx7FdSjyYBS3dpyX3TzHfAMO0G1Q4/3cdjcmi3r7idh+KCmKqS+KeQ==}
+  sass@1.97.1:
+    resolution: {integrity: sha512-uf6HoO8fy6ClsrShvMgaKUn14f2EHQLQRtpsZZLeU/Mv0Q1K5P0+x2uvH6Cub39TVVbWNSrraUhDAoFph6vh0A==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -15315,7 +15315,7 @@ snapshots:
       minimist: 1.2.8
       walker: 1.0.8
 
-  sass@1.97.0:
+  sass@1.97.1:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.4
