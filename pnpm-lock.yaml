@@ -10,13 +10,13 @@ importers:
     devDependencies:
       '@release-it-plugins/lerna-changelog':
         specifier: 8.0.1
-        version: 8.0.1(release-it@19.2.0(@types/node@24.7.2))
+        version: 8.0.1(release-it@19.2.1(@types/node@24.7.2))
       concurrently:
         specifier: 9.2.1
         version: 9.2.1
       release-it:
-        specifier: 19.2.0
-        version: 19.2.0(@types/node@24.7.2)
+        specifier: 19.2.1
+        version: 19.2.1(@types/node@24.7.2)
 
   client:
     devDependencies:
@@ -5378,10 +5378,6 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
-  mime-types@3.0.1:
-    resolution: {integrity: sha512-xRc4oEhT6eaBpU1XF7AjpOFD+xQmXNB5OVKwp4tqCuBpHLS/ZbBDrc07mYTDqVMg6PfxUjjNp85O6Cd2Z/5HWA==}
-    engines: {node: '>= 0.6'}
-
   mime-types@3.0.2:
     resolution: {integrity: sha512-Lbgzdk0h4juoQ9fCKXW4by0UJqj+nOOrI9MJ1sSj4nI8aI2eo1qmvQEie4VD1glsS250n15LsWsYtCugiStS5A==}
     engines: {node: '>=18'}
@@ -6239,8 +6235,8 @@ packages:
     resolution: {integrity: sha512-NZQZdC5wOE/H3UT28fVGL+ikOZcEzfMGk/c3iN9UGxzWHMa1op7274oyiUVrAG4B2EuFhus8SvkaYnhvW92p9Q==}
     hasBin: true
 
-  release-it@19.2.0:
-    resolution: {integrity: sha512-dMIVyNGckKu2UWDvPfwIw+VMhJbs9qB4b3M5p8szYdKd25h0+P/LSBFYq3+uHQ9n99w/yX+ZnoMHSnjnC/wq7w==}
+  release-it@19.2.1:
+    resolution: {integrity: sha512-Tu9kZKtCJkrLG6nD0OLbVdVP8wHgpQBpRvtZQmdEgGHDwg0FiiHmdnnPskTQllPWJFMtpHo3O7MHtr8/AWEFbA==}
     engines: {node: ^20.12.0 || >=22.0.0}
     hasBin: true
 
@@ -9329,13 +9325,13 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@release-it-plugins/lerna-changelog@8.0.1(release-it@19.2.0(@types/node@24.7.2))':
+  '@release-it-plugins/lerna-changelog@8.0.1(release-it@19.2.1(@types/node@24.7.2))':
     dependencies:
       execa: 5.1.1
       lerna-changelog: 2.2.0
       lodash: 4.17.21
       mdast-util-from-markdown: 2.0.2
-      release-it: 19.2.0(@types/node@24.7.2)
+      release-it: 19.2.1(@types/node@24.7.2)
       tmp: 0.2.5
       validate-peer-dependencies: 2.2.0
       which: 5.0.0
@@ -10495,7 +10491,7 @@ snapshots:
       handlebars: 4.7.8
       heimdalljs: 0.2.6
       heimdalljs-logger: 0.1.10
-      mime-types: 3.0.1
+      mime-types: 3.0.2
       resolve-path: 1.4.0
       rimraf: 6.1.2
       sane: 5.0.1
@@ -14255,10 +14251,6 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
-  mime-types@3.0.1:
-    dependencies:
-      mime-db: 1.54.0
-
   mime-types@3.0.2:
     dependencies:
       mime-db: 1.54.0
@@ -15116,7 +15108,7 @@ snapshots:
     dependencies:
       jsesc: 3.1.0
 
-  release-it@19.2.0(@types/node@24.7.2):
+  release-it@19.2.1(@types/node@24.7.2):
     dependencies:
       '@nodeutils/defaults-deep': 1.1.0
       '@octokit/rest': 22.0.1
