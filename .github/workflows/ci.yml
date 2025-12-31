@@ -50,7 +50,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: pnpm run --filter client test:bundlesize
+        run: pnpm --filter client run test:bundlesize
 
   test-csp-header:
     name: test CSP in .htaccess
@@ -69,7 +69,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
-        run: pnpm run --filter client test:csp-header
+        run: pnpm --filter client run test:csp-header
 
   test-chrome:
     name: test against Chrome
@@ -92,7 +92,7 @@ jobs:
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install ./google-chrome-stable_current_amd64.deb
       - name: run tests in Chrome
-        run: pnpm run --filter client test:ember
+        run: pnpm --filter client run test:ember
 
   test-firefox:
     name: test against Firefox
@@ -116,7 +116,7 @@ jobs:
         with:
           firefox-version: latest-esr
       - name: run tests in Firefox
-        run: pnpm run --filter client test:ember --config-file testem.firefox.js
+        run: pnpm --filter client run test:ember -- --config-file testem.firefox.js
 
   test-safari:
     name: test against Safari
@@ -136,14 +136,14 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: run tests in Safari
-        run: pnpm run --filter client test:ember --config-file testem.safari.js
+        run: pnpm --filter client run test:ember -- --config-file testem.safari.js
 
   test-backend:
     name: Test php backend
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
+        php-versions: ["7.2", "7.3", "7.4", "8.0", "8.1", "8.2", "8.3"]
     steps:
       - name: Checkout repository files
         uses: actions/checkout@v6
@@ -158,3 +158,49 @@ jobs:
       - name: Run backend tests
         run: ./vendor/bin/codecept run
         working-directory: ./api
+
+  test-e2e:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    # end-to-end tests should only run after and if all independent tests for api and client passed
+    needs:
+      - lint
+      - test-bundlesize
+      - test-csp-header
+      - test-chrome
+      - test-firefox
+      - test-safari
+      - test-backend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Install php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, zip
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install PHP dependencies
+        run: composer install
+        working-directory: ./api
+      - name: Install Playwright Browsers
+        run: pnpm --filter tests exec playwright install --with-deps
+      - name: Build Croodle
+        run: pnpm run build
+      - name: Run Playwright tests
+        run: pnpm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: tests/playwright-report/
+          retention-days: 30
