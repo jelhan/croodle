@@ -24,10 +24,10 @@ importers:
         specifier: 7.28.5
         version: 7.28.5(supports-color@8.1.1)
       '@babel/eslint-parser':
-        specifier: ^7.28.4
+        specifier: 7.28.4
         version: 7.28.4(@babel/core@7.28.5)(eslint@9.39.2(jiti@2.6.1))
       '@babel/plugin-proposal-decorators':
-        specifier: ^7.28.0
+        specifier: 7.28.0
         version: 7.28.0(@babel/core@7.28.5)
       '@ember/optional-features':
         specifier: 2.3.0
@@ -39,7 +39,7 @@ importers:
         specifier: 5.4.1
         version: 5.4.1(@babel/core@7.28.5)(@glint/template@1.7.3)
       '@ember/test-waiters':
-        specifier: ^4.1.1
+        specifier: 4.1.1
         version: 4.1.1(@glint/template@1.7.3)
       '@embroider/compat':
         specifier: 3.9.3
@@ -48,7 +48,7 @@ importers:
         specifier: 3.5.9
         version: 3.5.9(@glint/template@1.7.3)
       '@embroider/macros':
-        specifier: ^1.19.1
+        specifier: 1.19.1
         version: 1.19.1(@glint/template@1.7.3)
       '@embroider/webpack':
         specifier: 4.1.2
@@ -132,7 +132,7 @@ importers:
         specifier: 3.3.3
         version: 3.3.3(ember-cli@6.9.1(@types/node@24.7.2)(handlebars@4.7.8)(underscore@1.13.7))
       ember-cli-deprecation-workflow:
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0(@babel/core@7.28.5)
       ember-cli-htmlbars:
         specifier: 7.0.0
@@ -150,7 +150,7 @@ importers:
         specifier: 6.1.1
         version: 6.1.1
       ember-inflector:
-        specifier: ^6.0.0
+        specifier: 6.0.0
         version: 6.0.0(@babel/core@7.28.5)
       ember-intl:
         specifier: 7.4.1
@@ -8459,7 +8459,7 @@ snapshots:
 
   '@ember/test-waiters@4.1.1(@glint/template@1.7.3)':
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.19.1(@glint/template@1.7.3)
     transitivePeerDependencies:
       - '@glint/template'
@@ -9435,7 +9435,7 @@ snapshots:
 
   '@types/glob@9.0.0':
     dependencies:
-      glob: 9.3.5
+      glob: 13.0.0
 
   '@types/http-errors@2.0.5': {}
 
@@ -11779,7 +11779,7 @@ snapshots:
 
   ember-inflector@6.0.0(@babel/core@7.28.5):
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       decorator-transforms: 2.3.0(@babel/core@7.28.5)
     transitivePeerDependencies:
       - '@babel/core'
