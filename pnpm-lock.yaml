@@ -10,13 +10,13 @@ importers:
     devDependencies:
       '@release-it-plugins/lerna-changelog':
         specifier: 8.0.1
-        version: 8.0.1(release-it@19.2.3(@types/node@24.7.2))
+        version: 8.0.1(release-it@19.2.4(@types/node@24.7.2))
       concurrently:
         specifier: 9.2.1
         version: 9.2.1
       release-it:
-        specifier: 19.2.3
-        version: 19.2.3(@types/node@24.7.2)
+        specifier: 19.2.4
+        version: 19.2.4(@types/node@24.7.2)
 
   client:
     devDependencies:
@@ -6288,8 +6288,8 @@ packages:
     resolution: {integrity: sha512-NZQZdC5wOE/H3UT28fVGL+ikOZcEzfMGk/c3iN9UGxzWHMa1op7274oyiUVrAG4B2EuFhus8SvkaYnhvW92p9Q==}
     hasBin: true
 
-  release-it@19.2.3:
-    resolution: {integrity: sha512-GTSfrKb0cPmssEFliX0+WQBHC6NiDsMR/M8Y2tkvct/TO36BjB5XV6LO5BUTYV12C3+f78Y8aroku7jCyNiDeA==}
+  release-it@19.2.4:
+    resolution: {integrity: sha512-BwaJwQYUIIAKuDYvpqQTSoy0U7zIy6cHyEjih/aNaFICphGahia4cjDANuFXb7gVZ51hIK9W0io6fjNQWXqICg==}
     engines: {node: ^20.12.0 || >=22.0.0}
     hasBin: true
 
@@ -7225,8 +7225,8 @@ packages:
   undici-types@7.14.0:
     resolution: {integrity: sha512-QQiYxHuyZ9gQUIrmPo3IA+hUl4KYk8uSA7cHrcKd/l3p1OTpZcM0Tbp9x7FAtXdAYhlasd60ncPpgu6ihG6TOA==}
 
-  undici@6.22.0:
-    resolution: {integrity: sha512-hU/10obOIu62MGYjdskASR3CUAiYaFTtC9Pa6vHyf//mAipSvSQg6od2CnJswq7fvzNS3zJhxoRkgNVaHurWKw==}
+  undici@6.23.0:
+    resolution: {integrity: sha512-VfQPToRA5FZs/qJxLIinmU59u0r7LXqoJkCzinq3ckNJp3vKEh7jTWN589YQ5+aoAC/TGRLyJLCPKcLQbM8r9g==}
     engines: {node: '>=18.17'}
 
   unicode-canonical-property-names-ecmascript@2.0.1:
@@ -9454,13 +9454,13 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@release-it-plugins/lerna-changelog@8.0.1(release-it@19.2.3(@types/node@24.7.2))':
+  '@release-it-plugins/lerna-changelog@8.0.1(release-it@19.2.4(@types/node@24.7.2))':
     dependencies:
       execa: 5.1.1
       lerna-changelog: 2.2.0
       lodash: 4.17.21
       mdast-util-from-markdown: 2.0.2
-      release-it: 19.2.3(@types/node@24.7.2)
+      release-it: 19.2.4(@types/node@24.7.2)
       tmp: 0.2.5
       validate-peer-dependencies: 2.2.0
       which: 5.0.0
@@ -15239,7 +15239,7 @@ snapshots:
     dependencies:
       jsesc: 3.1.0
 
-  release-it@19.2.3(@types/node@24.7.2):
+  release-it@19.2.4(@types/node@24.7.2):
     dependencies:
       '@nodeutils/defaults-deep': 1.1.0
       '@octokit/rest': 22.0.1
@@ -15260,7 +15260,7 @@ snapshots:
       proxy-agent: 6.5.0
       semver: 7.7.3
       tinyglobby: 0.2.15
-      undici: 6.22.0
+      undici: 6.23.0
       url-join: 5.0.0
       wildcard-match: 5.1.4
       yargs-parser: 21.1.1
@@ -16438,7 +16438,7 @@ snapshots:
 
   undici-types@7.14.0: {}
 
-  undici@6.22.0: {}
+  undici@6.23.0: {}
 
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
