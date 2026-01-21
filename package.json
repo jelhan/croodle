@@ -12,10 +12,11 @@
     "lint": "concurrently \"pnpm:lint:*\" --names \"lint:\" --prefixColors auto",
     "lint:client": "pnpm run --filter @croodle/client lint",
     "lint:translations": "prettier translations/ --check",
-    "preview": "php -S 127.0.0.1:4200 -t dist/",
+    "preview": "CROODLE__DATA_DIR='../../tmp/data/' php -S 127.0.0.1:4200 -t dist/",
     "test": "concurrently \"pnpm:test:*\" --names \"test:\" --prefixColors auto",
     "test:api": "cd api && ./vendor/bin/codecept run",
-    "test:client": "pnpm run --filter @croodle/client test"
+    "test:client": "pnpm run --filter @croodle/client test",
+    "test:e2e": "pnpm run --filter tests test"
   },
   "devDependencies": {
     "@release-it-plugins/lerna-changelog": "8.0.1",
