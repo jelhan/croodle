@@ -95,7 +95,7 @@
     "eslint-plugin-n": "17.23.2",
     "eslint-plugin-qunit": "8.2.5",
     "fs-extra": "11.3.3",
-    "globals": "16.5.0",
+    "globals": "17.3.0",
     "lerna-changelog": "2.2.0",
     "loader.js": "4.7.0",
     "luxon": "3.7.2",
