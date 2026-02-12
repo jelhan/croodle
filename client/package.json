@@ -60,7 +60,7 @@
     "ember-bootstrap": "6.7.0",
     "ember-cli": "6.10.0",
     "ember-cli-app-version": "7.0.0",
-    "ember-cli-babel": "8.2.0",
+    "ember-cli-babel": "8.3.1",
     "ember-cli-browser-navigation-button-test-helper": "0.3.0",
     "ember-cli-browserstack": "3.0.0",
     "ember-cli-bundlesize": "jelhan/ember-cli-bundlesize#713aa162762e07b75e468f1f7eb1fa35d643eb9a",
