@@ -177,8 +177,8 @@ importers:
         specifier: 9.0.4
         version: 9.0.4(@ember/test-helpers@5.4.1(@babel/core@7.29.0)(@glint/template@1.7.4))(@glint/template@1.7.4)(qunit@2.25.0)
       ember-resolver:
-        specifier: 13.1.1
-        version: 13.1.1
+        specifier: 13.2.0
+        version: 13.2.0
       ember-sinon-qunit:
         specifier: 7.5.0
         version: 7.5.0(@babel/core@7.29.0)(ember-source@6.11.0(@glimmer/component@2.0.0)(rsvp@4.8.5))(qunit@2.25.0)(sinon@21.0.1)
@@ -3748,9 +3748,8 @@ packages:
     resolution: {integrity: sha512-jbjOQWs+eN4bETCCSfxtN4vdgSVYrV0YQaVrao/C0d0JOafN0x2dljevW/OaV5px1m4yRBdeuqtxHTwahWPXdg==}
     engines: {node: 20.* || >= 22}
 
-  ember-resolver@13.1.1:
-    resolution: {integrity: sha512-rA4RDuTm/F9AzYX2+g7EY3QWU48kyF9+Ck8IE8VQipnlwv2Q42kdRWiw7hfeQbRxx6XoSZCak6nzAG9ePd/+Ug==}
-    engines: {node: 14.* || 16.* || >= 18}
+  ember-resolver@13.2.0:
+    resolution: {integrity: sha512-A+BffoSKC0ngiczbgaz/IOY66ovZVRRHHIDDi+d7so5i0By8xuB4nXgZZ6Dv3u/3WwoUyixgUvb0xTUO+MtupA==}
 
   ember-rfc176-data@0.3.18:
     resolution: {integrity: sha512-JtuLoYGSjay1W3MQAxt3eINWXNYYQliK90tLwtb8aeCuQK8zKGCRbBodVIrkcTqshULMnRuTOS6t1P7oQk3g6Q==}
@@ -12451,11 +12450,7 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-resolver@13.1.1:
-    dependencies:
-      ember-cli-babel: 7.26.11
-    transitivePeerDependencies:
-      - supports-color
+  ember-resolver@13.2.0: {}
 
   ember-rfc176-data@0.3.18: {}
 
