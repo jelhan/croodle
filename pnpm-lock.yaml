@@ -24,10 +24,10 @@ importers:
         specifier: 7.29.0
         version: 7.29.0(supports-color@8.1.1)
       '@babel/eslint-parser':
-        specifier: ^7.28.4
+        specifier: 7.28.4
         version: 7.28.4(@babel/core@7.29.0)(eslint@9.39.3(jiti@2.6.1))
       '@babel/plugin-proposal-decorators':
-        specifier: ^7.28.0
+        specifier: 7.28.0
         version: 7.28.0(@babel/core@7.29.0)
       '@ember/optional-features':
         specifier: 3.0.0
@@ -39,7 +39,7 @@ importers:
         specifier: 5.4.1
         version: 5.4.1(@babel/core@7.29.0)(@glint/template@1.7.4)
       '@ember/test-waiters':
-        specifier: ^4.1.1
+        specifier: 4.1.1
         version: 4.1.1(@babel/core@7.29.0)(@glint/template@1.7.4)
       '@embroider/compat':
         specifier: 3.9.3
@@ -48,7 +48,7 @@ importers:
         specifier: 3.5.9
         version: 3.5.9(@glint/template@1.7.4)
       '@embroider/macros':
-        specifier: ^1.20.0
+        specifier: 1.20.0
         version: 1.20.0(@babel/core@7.29.0)(@glint/template@1.7.4)
       '@embroider/webpack':
         specifier: 4.1.2
@@ -132,7 +132,7 @@ importers:
         specifier: 3.3.3
         version: 3.3.3(ember-cli@6.11.0(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7))
       ember-cli-deprecation-workflow:
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0(@babel/core@7.29.0)
       ember-cli-htmlbars:
         specifier: 7.0.0
@@ -150,7 +150,7 @@ importers:
         specifier: 6.1.1
         version: 6.1.1
       ember-inflector:
-        specifier: ^6.0.0
+        specifier: 6.0.0
         version: 6.0.0(@babel/core@7.29.0)
       ember-intl:
         specifier: 7.4.1
@@ -7943,7 +7943,7 @@ snapshots:
 
   '@babel/helper-annotate-as-pure@7.27.3':
     dependencies:
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
 
   '@babel/helper-compilation-targets@7.28.6':
     dependencies:
@@ -7961,7 +7961,7 @@ snapshots:
       '@babel/helper-optimise-call-expression': 7.27.1
       '@babel/helper-replace-supers': 7.27.1(@babel/core@7.29.0)(supports-color@8.1.1)
       '@babel/helper-skip-transparent-expression-wrappers': 7.27.1(supports-color@8.1.1)
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -7988,14 +7988,14 @@ snapshots:
 
   '@babel/helper-member-expression-to-functions@7.27.1(supports-color@8.1.1)':
     dependencies:
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
-      '@babel/types': 7.28.6
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
+      '@babel/types': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-module-imports@7.27.1':
     dependencies:
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
       '@babel/types': 7.28.6
     transitivePeerDependencies:
       - supports-color
@@ -8018,7 +8018,7 @@ snapshots:
 
   '@babel/helper-optimise-call-expression@7.27.1':
     dependencies:
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
 
   '@babel/helper-plugin-utils@7.27.1': {}
 
@@ -8036,14 +8036,14 @@ snapshots:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-member-expression-to-functions': 7.27.1(supports-color@8.1.1)
       '@babel/helper-optimise-call-expression': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
   '@babel/helper-skip-transparent-expression-wrappers@7.27.1(supports-color@8.1.1)':
     dependencies:
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
-      '@babel/types': 7.28.6
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
+      '@babel/types': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -8059,7 +8059,7 @@ snapshots:
     dependencies:
       '@babel/template': 7.28.6
       '@babel/traverse': 7.29.0(supports-color@8.1.1)
-      '@babel/types': 7.28.6
+      '@babel/types': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
@@ -8084,7 +8084,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8111,7 +8111,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8200,7 +8200,7 @@ snapshots:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-remap-async-to-generator': 7.27.1(@babel/core@7.29.0)(supports-color@8.1.1)
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8247,7 +8247,7 @@ snapshots:
       '@babel/helper-globals': 7.28.0
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-replace-supers': 7.27.1(@babel/core@7.29.0)(supports-color@8.1.1)
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8261,7 +8261,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8318,7 +8318,7 @@ snapshots:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-compilation-targets': 7.28.6
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8364,7 +8364,7 @@ snapshots:
       '@babel/helper-module-transforms': 7.28.6(@babel/core@7.29.0)(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8404,7 +8404,7 @@ snapshots:
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/plugin-transform-destructuring': 7.28.0(@babel/core@7.29.0)(supports-color@8.1.1)
       '@babel/plugin-transform-parameters': 7.27.7(@babel/core@7.29.0)
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8658,7 +8658,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/traverse@7.28.6(supports-color@8.1.1)':
+  '@babel/traverse@7.28.6':
     dependencies:
       '@babel/code-frame': 7.28.6
       '@babel/generator': 7.28.6
@@ -8863,7 +8863,7 @@ snapshots:
 
   '@ember/test-waiters@4.1.1(@babel/core@7.29.0)(@glint/template@1.7.4)':
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.20.0(@babel/core@7.29.0)(@glint/template@1.7.4)
     transitivePeerDependencies:
       - '@babel/core'
@@ -12303,7 +12303,7 @@ snapshots:
 
   ember-inflector@6.0.0(@babel/core@7.29.0):
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       decorator-transforms: 2.3.0(@babel/core@7.29.0)
     transitivePeerDependencies:
       - '@babel/core'
@@ -15486,7 +15486,7 @@ snapshots:
 
   prettier-plugin-ember-template-tag@2.1.3(prettier@3.6.2):
     dependencies:
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.28.6
       content-tag: 4.1.0
       prettier: 3.6.2
     transitivePeerDependencies:
