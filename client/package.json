@@ -94,7 +94,7 @@
     "eslint-plugin-ember": "12.7.5",
     "eslint-plugin-n": "17.24.0",
     "eslint-plugin-qunit": "8.2.6",
-    "fs-extra": "11.3.3",
+    "fs-extra": "11.3.4",
     "globals": "17.4.0",
     "lerna-changelog": "2.2.0",
     "loader.js": "4.7.0",
