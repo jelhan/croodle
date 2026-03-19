@@ -18,11 +18,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 9.15.9
       - name: Install Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.14.0
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -37,15 +37,15 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 9.15.9
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 9.15.9
       - name: Install Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.14.0
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -60,11 +60,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 9.15.9
       - name: Install Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.14.0
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -79,11 +79,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 9.15.9
       - name: Install Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.14.0
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -103,11 +103,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 9.15.9
       - name: Install Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.14.0
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
@@ -127,11 +127,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 9.15.9
       - name: Install Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 24.14.0
           cache: pnpm
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
