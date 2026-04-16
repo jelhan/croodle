@@ -237,8 +237,8 @@ importers:
         specifier: 3.6.2
         version: 3.6.2
       prettier-plugin-ember-template-tag:
-        specifier: 2.1.3
-        version: 2.1.3(prettier@3.6.2)
+        specifier: 2.1.4
+        version: 2.1.4(prettier@3.6.2)
       qunit:
         specifier: 2.25.0
         version: 2.25.0
@@ -2455,7 +2455,7 @@ packages:
   basic-ftp@5.0.5:
     resolution: {integrity: sha512-4Bcg1P8xhUuqcii/S0Z9wiHIrQVPMermM1any+MX5GeGD7faD3/msQUDGLol9wOcz4/jbg/WJnGqoJF6LiBdtg==}
     engines: {node: '>=10.0.0'}
-    deprecated: Security vulnerability fixed in 5.2.0, please upgrade
+    deprecated: Security vulnerability fixed in 5.2.1, please upgrade
 
   before-after-hook@4.0.0:
     resolution: {integrity: sha512-q6tR3RPqIB1pMiTRMFcZwuG5T8vwp+vUvEG0vuI6B+Rikh5BfPp2fQ82c925FOs+b0lcFQ8CFrL+KbilfZFhOQ==}
@@ -6276,8 +6276,8 @@ packages:
   pretender@3.4.7:
     resolution: {integrity: sha512-jkPAvt1BfRi0RKamweJdEcnjkeu7Es8yix3bJ+KgBC5VpG/Ln4JE3hYN6vJym4qprm8Xo5adhWpm3HCoft1dOw==}
 
-  prettier-plugin-ember-template-tag@2.1.3:
-    resolution: {integrity: sha512-FfAvkU+fqDC3Zs8+qGhBHYuwq1DED+UTPMH33QXxivZxRekkItBNXfi1Y+YkIbhCnu6UeTE2aYdbQSLlkOC2bA==}
+  prettier-plugin-ember-template-tag@2.1.4:
+    resolution: {integrity: sha512-KMjDL4UFDuLpFD69SlhW2AB5YQ3AUS/1NNBjdY/rXko180eWo1VNeCvyZdqNR4Zamii/6Y/E3D/ey8BmhKLaJw==}
     engines: {node: 18.* || >= 20}
     peerDependencies:
       prettier: '>= 3.0.0'
@@ -7966,7 +7966,7 @@ snapshots:
 
   '@babel/helper-module-imports@7.27.1':
     dependencies:
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
       '@babel/types': 7.28.6
     transitivePeerDependencies:
       - supports-color
@@ -8055,7 +8055,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8082,7 +8082,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8171,7 +8171,7 @@ snapshots:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-remap-async-to-generator': 7.27.1(@babel/core@7.29.0)(supports-color@8.1.1)
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8218,7 +8218,7 @@ snapshots:
       '@babel/helper-globals': 7.28.0
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-replace-supers': 7.27.1(@babel/core@7.29.0)(supports-color@8.1.1)
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8232,7 +8232,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8289,7 +8289,7 @@ snapshots:
       '@babel/core': 7.29.0(supports-color@8.1.1)
       '@babel/helper-compilation-targets': 7.28.6
       '@babel/helper-plugin-utils': 7.27.1
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8335,7 +8335,7 @@ snapshots:
       '@babel/helper-module-transforms': 7.28.6(@babel/core@7.29.0)(supports-color@8.1.1)
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8375,7 +8375,7 @@ snapshots:
       '@babel/helper-plugin-utils': 7.27.1
       '@babel/plugin-transform-destructuring': 7.28.0(@babel/core@7.29.0)(supports-color@8.1.1)
       '@babel/plugin-transform-parameters': 7.27.7(@babel/core@7.29.0)
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -15373,9 +15373,9 @@ snapshots:
       fake-xml-http-request: 2.1.2
       route-recognizer: 0.3.4
 
-  prettier-plugin-ember-template-tag@2.1.3(prettier@3.6.2):
+  prettier-plugin-ember-template-tag@2.1.4(prettier@3.6.2):
     dependencies:
-      '@babel/traverse': 7.28.6(supports-color@8.1.1)
+      '@babel/traverse': 7.29.0(supports-color@8.1.1)
       content-tag: 4.1.0
       prettier: 3.6.2
     transitivePeerDependencies:
