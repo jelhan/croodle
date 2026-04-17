@@ -105,8 +105,8 @@ importers:
         specifier: 6.7.0
         version: 6.7.0(@babel/core@7.29.0)(@ember/string@4.0.1)(@glimmer/component@2.1.1)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.5.2(@glimmer/component@2.1.1)(@glint/template@1.7.7)(ember-cli-htmlbars@7.0.1(@babel/core@7.29.0)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)))(ember-modifier@4.3.0(@babel/core@7.29.0)))(@glint/template@1.7.7)(ember-modifier@4.3.0(@babel/core@7.29.0))(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))(webpack@5.105.4)
       ember-cli:
-        specifier: 6.11.2
-        version: 6.11.2(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7)
+        specifier: 6.12.0
+        version: 6.12.0(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7)
       ember-cli-app-version:
         specifier: 7.0.0
         version: 7.0.0(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))
@@ -130,7 +130,7 @@ importers:
         version: 2.0.3
       ember-cli-dependency-checker:
         specifier: 3.3.3
-        version: 3.3.3(ember-cli@6.11.2(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7))
+        version: 3.3.3(ember-cli@6.12.0(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7))
       ember-cli-deprecation-workflow:
         specifier: ^4.0.0
         version: 4.0.0(@babel/core@7.29.0)
@@ -1002,14 +1002,14 @@ packages:
   '@ember-tooling/blueprint-model@0.5.0':
     resolution: {integrity: sha512-2zAebSmmzpUO2wt6EyfX5TlcmvB9cTkteuZ3QhPmXLMthUpU5nUifcz3hlYcXPK7WM0HdO9qL4GdGQCoxhzaGg==}
 
-  '@ember-tooling/classic-build-addon-blueprint@6.11.2':
-    resolution: {integrity: sha512-csfwl0IOK/J8rIfRoQcpaAsIe/R326ZubcH6gIhe4EfAl5vxg4cbpDr2ZF4N037PTiCnDWoD1PQFRT0Lmyb0zA==}
+  '@ember-tooling/classic-build-addon-blueprint@6.12.0':
+    resolution: {integrity: sha512-2sf34DIJO6RnpzcQy0A4RmGNwukE4vihHv/b9loDZzV4lnFNOTyHua09S5ai4szO7Iv91Q2OPEgOBo09yG+7SQ==}
 
-  '@ember-tooling/classic-build-app-blueprint@6.11.2':
-    resolution: {integrity: sha512-5XPJBmdn/vYx5oDuxNhii8AqAqaXAcqLq80Q1DwGo4lXUauMflbLApgy+ddCOPNXj2VADTrOvo1m6VW8olrqsw==}
+  '@ember-tooling/classic-build-app-blueprint@6.12.0':
+    resolution: {integrity: sha512-dU6ig33VN+SA2yrkyJGdCMzJ6hB0fRVXpcSpnmWl2RI7TQCxlQsYR162BkMUdRN6ZWbycalDjWGW0r8KrIxzgA==}
 
-  '@ember/app-blueprint@6.11.0':
-    resolution: {integrity: sha512-zsY7HqSktkVH9vRup8g0jC8+lvRk0bvEeQ22zUVej5H1WHRZzN70N9nGH3Oibgo/d4qZIZT7WNqktm1ctxDYYQ==}
+  '@ember/app-blueprint@6.12.0':
+    resolution: {integrity: sha512-9+c5r+0kI90lWDmTB6//Gzz/BArEba5v/msBFgF8+HW2b6vwUeaQgbFauo+vNa+rPHARy1cxzImKqruZ63LQ4w==}
 
   '@ember/edition-utils@1.2.0':
     resolution: {integrity: sha512-VmVq/8saCaPdesQmftPqbFtxJWrzxNGSQ+e8x8LLe3Hjm36pJ04Q8LeORGZkAeOhldoUX9seLGmSaHeXkIqoog==}
@@ -3596,8 +3596,8 @@ packages:
     resolution: {integrity: sha512-rk7GY+FmLn/2e22HsZs0Ycrz8HQ1W3Fv+2TFOuEFW9optnDXDgkntPBIl6gact/LHsfBM5RKbM3dHsIIeLgl0Q==}
     engines: {node: 10.* || >= 12.*}
 
-  ember-cli@6.11.2:
-    resolution: {integrity: sha512-l7whnquetTEdblOB76ihpllesZKSUk26lMd/oPDN2VtToNGTXBrtBJADZIdyQ6fqo9IQz4lUfv7R8FC8U5HO7Q==}
+  ember-cli@6.12.0:
+    resolution: {integrity: sha512-DDFTHdDofuRCZnu5FO79patRi1W4ndKFLcgb0MsspC+jyS9hgxDepBBFuV6daIjaTq5RvWdZRf5tjQ141VmcTw==}
     engines: {node: '>= 20.19.0'}
     hasBin: true
 
@@ -5377,6 +5377,9 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
+
   log-symbols@2.2.0:
     resolution: {integrity: sha512-VeIAFslyIerEJLXHziedo2basKbMKtTw3vfn5IzG0XTjhAVEJyNHnL2p7vc+wBDSdQuUpNw3M2u6xb9QsAY5Eg==}
     engines: {node: '>=4'}
@@ -6599,11 +6602,6 @@ packages:
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
-  rimraf@2.6.3:
-    resolution: {integrity: sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==}
-    deprecated: Rimraf versions prior to v4 are no longer supported
-    hasBin: true
-
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
     deprecated: Rimraf versions prior to v4 are no longer supported
@@ -7219,10 +7217,6 @@ packages:
   temp-fs@0.9.9:
     resolution: {integrity: sha512-WfecDCR1xC9b0nsrzSaxPf3ZuWeWLUWblW4vlDQAa1biQaKHiImHnJfeQocQe/hXKMcolRzgkcVX/7kK4zoWbw==}
     engines: {node: '>=0.8.0'}
-
-  temp@0.9.4:
-    resolution: {integrity: sha512-yYrrsWnrXMcdsnu/7YMYAofM1ktpL5By7vZhf15CrXijWWrEYZks5AXBudalfSWJLlnen/QUJUB5aoB0kqZUGA==}
-    engines: {node: '>=6.0.0'}
 
   terser-webpack-plugin@5.3.17:
     resolution: {integrity: sha512-YR7PtUp6GMU91BgSJmlaX/rS2lGDbAF7D+Wtq7hRO+MiljNmodYvqslzCFiYVAgW+Qoaaia/QUIP4lGXufjdZw==}
@@ -8764,21 +8758,21 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ember-tooling/classic-build-addon-blueprint@6.11.2':
+  '@ember-tooling/classic-build-addon-blueprint@6.12.0':
     dependencies:
       '@ember-tooling/blueprint-model': 0.5.0
       chalk: 5.6.2
       ember-cli-normalize-entity-name: 1.0.0
       ember-cli-string-utils: 1.1.0
       fs-extra: 11.3.4
-      lodash: 4.17.21
+      lodash: 4.18.1
       silent-error: 1.1.1
       sort-package-json: 2.15.1
       walk-sync: 3.0.0
     transitivePeerDependencies:
       - supports-color
 
-  '@ember-tooling/classic-build-app-blueprint@6.11.2':
+  '@ember-tooling/classic-build-app-blueprint@6.12.0':
     dependencies:
       '@ember-tooling/blueprint-model': 0.5.0
       chalk: 5.6.2
@@ -8786,7 +8780,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ember/app-blueprint@6.11.0':
+  '@ember/app-blueprint@6.12.0':
     dependencies:
       chalk: 4.1.2
       ejs: 3.1.10
@@ -11814,10 +11808,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-cli-dependency-checker@3.3.3(ember-cli@6.11.2(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7)):
+  ember-cli-dependency-checker@3.3.3(ember-cli@6.12.0(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7)):
     dependencies:
       chalk: 2.4.2
-      ember-cli: 6.11.2(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7)
+      ember-cli: 6.12.0(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7)
       find-yarn-workspace-root: 2.0.0
       is-git-url: 1.0.0
       resolve: 1.22.10
@@ -11981,13 +11975,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-cli@6.11.2(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7):
+  ember-cli@6.12.0(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7):
     dependencies:
       '@ember-tooling/blueprint-blueprint': 0.2.1
       '@ember-tooling/blueprint-model': 0.5.0
-      '@ember-tooling/classic-build-addon-blueprint': 6.11.2
-      '@ember-tooling/classic-build-app-blueprint': 6.11.2
-      '@ember/app-blueprint': 6.11.0
+      '@ember-tooling/classic-build-addon-blueprint': 6.12.0
+      '@ember-tooling/classic-build-app-blueprint': 6.12.0
+      '@ember/app-blueprint': 6.12.0
       '@pnpm/find-workspace-dir': 1000.1.3
       babel-remove-types: 1.0.2
       broccoli: 4.0.0
@@ -12060,7 +12054,6 @@ snapshots:
       silent-error: 1.1.1
       sort-package-json: 3.6.0
       symlink-or-copy: 1.3.1
-      temp: 0.9.4
       testem: 3.17.0(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7)
       tiny-lr: 2.0.0
       tree-sync: 2.1.0
@@ -14400,6 +14393,8 @@ snapshots:
 
   lodash@4.17.21: {}
 
+  lodash@4.18.1: {}
+
   log-symbols@2.2.0:
     dependencies:
       chalk: 2.4.2
@@ -15731,10 +15726,6 @@ snapshots:
     dependencies:
       glob: 7.2.3
 
-  rimraf@2.6.3:
-    dependencies:
-      glob: 7.2.3
-
   rimraf@2.7.1:
     dependencies:
       glob: 7.2.3
@@ -16519,11 +16510,6 @@ snapshots:
   temp-fs@0.9.9:
     dependencies:
       rimraf: 2.5.4
-
-  temp@0.9.4:
-    dependencies:
-      mkdirp: 0.5.6
-      rimraf: 2.6.3
 
   terser-webpack-plugin@5.3.17(webpack@5.105.4):
     dependencies:
