@@ -49,7 +49,7 @@
     "@glint/environment-ember-template-imports": "1.5.2",
     "@glint/template": "1.7.8",
     "@tsconfig/ember": "3.0.12",
-    "@types/luxon": "3.7.1",
+    "@types/luxon": "3.7.2",
     "@types/qunit": "2.19.13",
     "@types/rsvp": "4.0.9",
     "@types/sjcl": "1.0.34",
