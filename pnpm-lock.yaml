@@ -216,8 +216,8 @@ importers:
         specifier: 11.3.6
         version: 11.3.6
       globals:
-        specifier: 17.5.0
-        version: 17.5.0
+        specifier: 17.7.0
+        version: 17.7.0
       lerna-changelog:
         specifier: 2.2.0
         version: 2.2.0
@@ -4517,8 +4517,8 @@ packages:
     resolution: {integrity: sha512-7ACyT3wmyp3I61S4fG682L0VA2RGD9otkqGJIwNUMF1SWUombIIk+af1unuDYgMm082aHYwD+mzJvv9Iu8dsgg==}
     engines: {node: '>=18'}
 
-  globals@17.5.0:
-    resolution: {integrity: sha512-qoV+HK2yFl/366t2/Cb3+xxPUo5BuMynomoDmiaZBIdbs+0pYbjfZU+twLhGKp4uCZ/+NbtpVepH5bGCxRyy2g==}
+  globals@17.7.0:
+    resolution: {integrity: sha512-Czmyns5dUsq4seFBR/Kdydhmo8y9kC79hiSkPn0YcGtNnYWnrgt0vjrSjx9tspoDGWm2CMarffRuLjM4xUz8xg==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -13472,7 +13472,7 @@ snapshots:
 
   globals@15.15.0: {}
 
-  globals@17.5.0: {}
+  globals@17.7.0: {}
 
   globalthis@1.0.4:
     dependencies:
