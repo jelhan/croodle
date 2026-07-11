@@ -81,8 +81,8 @@ importers:
         specifier: 3.7.2
         version: 3.7.2
       '@types/qunit':
-        specifier: 2.19.13
-        version: 2.19.13
+        specifier: 2.19.14
+        version: 2.19.14
       '@types/rsvp':
         specifier: 4.0.9
         version: 4.0.9
@@ -175,13 +175,13 @@ importers:
         version: 2.0.0(@babel/core@7.29.7)(@glint/template@1.7.8)(ember-power-calendar@1.8.1(@babel/core@7.29.7)(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(@glimmer/component@2.1.1)(@glint/environment-ember-loose@1.5.2(@glimmer/component@2.1.1)(@glint/template@1.7.8)(ember-cli-htmlbars@7.0.1(@babel/core@7.29.7)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)))(ember-modifier@4.3.0(@babel/core@7.29.7)))(@glint/template@1.7.8)(ember-concurrency@4.0.6(@babel/core@7.29.7)(@glint/template@1.7.8))(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)))(luxon@3.7.2)
       ember-qunit:
         specifier: 9.1.0
-        version: 9.1.0(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(qunit@2.25.0)
+        version: 9.1.0(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(qunit@2.26.0)
       ember-resolver:
         specifier: 13.2.0
         version: 13.2.0
       ember-sinon-qunit:
         specifier: 7.5.0
-        version: 7.5.0(@babel/core@7.29.7)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))(qunit@2.25.0)(sinon@21.1.2)
+        version: 7.5.0(@babel/core@7.29.7)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))(qunit@2.26.0)(sinon@21.1.2)
       ember-source:
         specifier: 6.12.0
         version: 6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)
@@ -240,8 +240,8 @@ importers:
         specifier: 2.1.7
         version: 2.1.7(prettier@3.6.2)
       qunit:
-        specifier: 2.25.0
-        version: 2.25.0
+        specifier: 2.26.0
+        version: 2.26.0
       qunit-dom:
         specifier: 3.5.1
         version: 3.5.1
@@ -1901,8 +1901,8 @@ packages:
   '@types/qs@6.14.0':
     resolution: {integrity: sha512-eOunJqu0K1923aExK6y8p6fsihYEn/BYuQ4g0CxAAgFc4b/ZLN4CrsRZ55srTdqoiLzU2B2evC+apEIxprEzkQ==}
 
-  '@types/qunit@2.19.13':
-    resolution: {integrity: sha512-N4xp3v4s7f0jb2Oij6+6xw5QhH7/IgHCoGIFLCWtbEWoPkGYp8Te4mIwIP21qaurr6ed5JiPMiy2/ZoiGPkLIw==}
+  '@types/qunit@2.19.14':
+    resolution: {integrity: sha512-ou2RMtwyDnW1btrMnDMZeL6V5/yRRbuHKrRC6y8IuzDljjVzw6wPCVFb8p4qJD0NkUkf3BdZeJJIBzjK1BUUDQ==}
 
   '@types/range-parser@1.2.7':
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
@@ -6383,8 +6383,8 @@ packages:
   qunit-theme-ember@1.0.0:
     resolution: {integrity: sha512-vdMVVo6ecdCkWttMTKeyq1ZTLGHcA6zdze2zhguNuc3ritlJMhOXY5RDseqazOwqZVfCg3rtlmL3fMUyIzUyFQ==}
 
-  qunit@2.25.0:
-    resolution: {integrity: sha512-MONPKgjavgTqArCwZOEz8nEMbA19zNXIp5ZOW9rPYj5cbgQp0fiI36c9dPTSzTRRzx+KcfB5eggYB/ENqxi0+w==}
+  qunit@2.26.0:
+    resolution: {integrity: sha512-KSv16YomcYmiK90qTOJl3Bm5IvTf2upqQDdBQWCvSQWe94FWobnUgKOpvpvZdG7VkDt3TJSI8k8g9+GGGEd7Fw==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -9837,7 +9837,7 @@ snapshots:
 
   '@types/qs@6.14.0': {}
 
-  '@types/qunit@2.19.13': {}
+  '@types/qunit@2.19.14': {}
 
   '@types/range-parser@1.2.7': {}
 
@@ -12264,11 +12264,11 @@ snapshots:
       - ember-source
       - supports-color
 
-  ember-qunit@9.1.0(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(qunit@2.25.0):
+  ember-qunit@9.1.0(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(qunit@2.26.0):
     dependencies:
       '@ember/test-helpers': 5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8)
       '@embroider/addon-shim': 1.10.2
-      qunit: 2.25.0
+      qunit: 2.26.0
       qunit-theme-ember: 1.0.0
     transitivePeerDependencies:
       - supports-color
@@ -12305,13 +12305,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  ember-sinon-qunit@7.5.0(@babel/core@7.29.7)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))(qunit@2.25.0)(sinon@21.1.2):
+  ember-sinon-qunit@7.5.0(@babel/core@7.29.7)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5))(qunit@2.26.0)(sinon@21.1.2):
     dependencies:
       '@embroider/addon-shim': 1.10.0
       '@types/sinon': 17.0.4
       decorator-transforms: 2.3.0(@babel/core@7.29.7)
       ember-source: 6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)
-      qunit: 2.25.0
+      qunit: 2.26.0
       sinon: 21.1.2
     transitivePeerDependencies:
       - '@babel/core'
@@ -15429,7 +15429,7 @@ snapshots:
 
   qunit-theme-ember@1.0.0: {}
 
-  qunit@2.25.0:
+  qunit@2.26.0:
     dependencies:
       commander: 7.2.0
       node-watch: 0.7.3
