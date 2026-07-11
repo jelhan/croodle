@@ -81,7 +81,7 @@
     "ember-page-title": "9.0.3",
     "ember-power-calendar": "1.8.1",
     "ember-power-calendar-luxon": "2.0.0",
-    "ember-qunit": "9.0.4",
+    "ember-qunit": "9.1.0",
     "ember-resolver": "13.2.0",
     "ember-sinon-qunit": "7.5.0",
     "ember-source": "6.12.0",
