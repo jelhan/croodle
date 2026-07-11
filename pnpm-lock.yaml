@@ -174,8 +174,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0(@babel/core@7.29.7)(@glint/template@1.7.8)(ember-power-calendar@1.8.1(@babel/core@7.29.7)(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(@glimmer/component@2.1.1)(@glint/environment-ember-loose@1.5.2(@glimmer/component@2.1.1)(@glint/template@1.7.8)(ember-cli-htmlbars@7.0.1(@babel/core@7.29.7)(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)))(ember-modifier@4.3.0(@babel/core@7.29.7)))(@glint/template@1.7.8)(ember-concurrency@4.0.6(@babel/core@7.29.7)(@glint/template@1.7.8))(ember-source@6.12.0(@glimmer/component@2.1.1)(rsvp@4.8.5)))(luxon@3.7.2)
       ember-qunit:
-        specifier: 9.0.4
-        version: 9.0.4(@babel/core@7.29.7)(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(@glint/template@1.7.8)(qunit@2.25.0)
+        specifier: 9.1.0
+        version: 9.1.0(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(qunit@2.25.0)
       ember-resolver:
         specifier: 13.2.0
         version: 13.2.0
@@ -3688,8 +3688,8 @@ packages:
       '@glimmer/component': ^1.1.2 || ^2.0.0
       ember-concurrency: ^4.0.4 || ^5.1.0
 
-  ember-qunit@9.0.4:
-    resolution: {integrity: sha512-rv6gKvrdXdPBTdSZC5co82eIcDWWVR7RjafU/c+5TTz290oXhIHPoVuZbcO2F5RiAqkTW0jKzwkCP8y+2tCjFw==}
+  ember-qunit@9.1.0:
+    resolution: {integrity: sha512-dE32lSODyv4em0ACBS8PDzrAIPKR75hhSpn/au0qFBlzbdmNA/VVsgv2aoFAVRdlQ0zYJ8EiNPFqsBFciIeXVA==}
     peerDependencies:
       '@ember/test-helpers': '>=3.0.3'
       qunit: ^2.13.0
@@ -12264,16 +12264,13 @@ snapshots:
       - ember-source
       - supports-color
 
-  ember-qunit@9.0.4(@babel/core@7.29.7)(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(@glint/template@1.7.8)(qunit@2.25.0):
+  ember-qunit@9.1.0(@ember/test-helpers@5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8))(qunit@2.25.0):
     dependencies:
       '@ember/test-helpers': 5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8)
-      '@embroider/addon-shim': 1.10.0
-      '@embroider/macros': 1.20.0(@babel/core@7.29.7)(@glint/template@1.7.8)
+      '@embroider/addon-shim': 1.10.2
       qunit: 2.25.0
       qunit-theme-ember: 1.0.0
     transitivePeerDependencies:
-      - '@babel/core'
-      - '@glint/template'
       - supports-color
 
   ember-ref-bucket@5.0.8(@babel/core@7.29.7)(@glint/template@1.7.8)(webpack@5.106.2):
