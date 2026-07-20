@@ -24,10 +24,10 @@ importers:
         specifier: 7.29.7
         version: 7.29.7(supports-color@8.1.1)
       '@babel/eslint-parser':
-        specifier: ^7.28.4
+        specifier: 7.28.4
         version: 7.28.4(@babel/core@7.29.7)(eslint@9.39.5(jiti@2.6.1))
       '@babel/plugin-proposal-decorators':
-        specifier: ^7.28.0
+        specifier: 7.28.0
         version: 7.28.0(@babel/core@7.29.7)
       '@ember/optional-features':
         specifier: 3.0.0
@@ -39,7 +39,7 @@ importers:
         specifier: 5.4.3
         version: 5.4.3(@babel/core@7.29.7)(@glint/template@1.7.8)
       '@ember/test-waiters':
-        specifier: ^4.1.1
+        specifier: 4.1.1
         version: 4.1.1(@babel/core@7.29.7)(@glint/template@1.7.8)
       '@embroider/compat':
         specifier: 3.9.4
@@ -48,7 +48,7 @@ importers:
         specifier: 3.5.10
         version: 3.5.10(@glint/template@1.7.8)
       '@embroider/macros':
-        specifier: ^1.20.0
+        specifier: 1.20.0
         version: 1.20.0(@babel/core@7.29.7)(@glint/template@1.7.8)
       '@embroider/webpack':
         specifier: 4.1.2
@@ -132,7 +132,7 @@ importers:
         specifier: 3.3.3
         version: 3.3.3(ember-cli@6.12.0(@types/node@24.7.2)(ejs@3.1.10)(handlebars@4.7.8)(underscore@1.13.7))
       ember-cli-deprecation-workflow:
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0(@babel/core@7.29.7)
       ember-cli-htmlbars:
         specifier: 7.0.1
@@ -150,7 +150,7 @@ importers:
         specifier: 6.1.1
         version: 6.1.1
       ember-inflector:
-        specifier: ^6.0.0
+        specifier: 6.0.0
         version: 6.0.0(@babel/core@7.29.7)
       ember-intl:
         specifier: 7.5.0
@@ -876,10 +876,6 @@ packages:
 
   '@babel/template@7.29.7':
     resolution: {integrity: sha512-puq+Gf35oI24FeN11LkoUQFqv9uwNeWpxXZi/Ji3rRIoKAzKnxRaZ+Gkj0vKS9ZCiTESfng1N9LyOyXvo+m+Gg==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/traverse@7.29.0':
-    resolution: {integrity: sha512-4HPiQr0X7+waHfyXPZpWPfWL/J7dcN1mx9gL6WdQVMbPnF3+ZhSMs8tCxN7oHddJE9fhNE7+lxdnlyemKfJRuA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/traverse@7.29.7':
@@ -7894,7 +7890,7 @@ snapshots:
       '@babel/helper-optimise-call-expression': 7.27.1
       '@babel/helper-replace-supers': 7.27.1(@babel/core@7.29.7)(supports-color@8.1.1)
       '@babel/helper-skip-transparent-expression-wrappers': 7.27.1(supports-color@8.1.1)
-      '@babel/traverse': 7.29.0(supports-color@8.1.1)
+      '@babel/traverse': 7.29.7(supports-color@8.1.1)
       semver: 6.3.1
     transitivePeerDependencies:
       - supports-color
@@ -8589,18 +8585,6 @@ snapshots:
       '@babel/parser': 7.29.7
       '@babel/types': 7.29.7
 
-  '@babel/traverse@7.29.0(supports-color@8.1.1)':
-    dependencies:
-      '@babel/code-frame': 7.29.7
-      '@babel/generator': 7.29.7
-      '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.29.7
-      '@babel/template': 7.29.7
-      '@babel/types': 7.29.7
-      debug: 4.4.3(supports-color@8.1.1)
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/traverse@7.29.7(supports-color@8.1.1)':
     dependencies:
       '@babel/code-frame': 7.29.7
@@ -8790,7 +8774,7 @@ snapshots:
 
   '@ember/test-waiters@4.1.1(@babel/core@7.29.7)(@glint/template@1.7.8)':
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.20.0(@babel/core@7.29.7)(@glint/template@1.7.8)
     transitivePeerDependencies:
       - '@babel/core'
@@ -8799,7 +8783,7 @@ snapshots:
 
   '@embroider/addon-shim@1.10.0':
     dependencies:
-      '@embroider/shared-internals': 3.0.1
+      '@embroider/shared-internals': 3.0.2
       broccoli-funnel: 3.0.8
       common-ancestor-path: 1.0.1
       semver: 7.7.3
@@ -8923,7 +8907,7 @@ snapshots:
       babel-import-util: 3.0.1
       ember-cli-babel: 8.3.1(@babel/core@7.29.7)
       find-up: 5.0.0
-      lodash: 4.17.21
+      lodash: 4.18.1
       resolve: 1.22.11
       semver: 7.7.3
     optionalDependencies:
@@ -8980,8 +8964,8 @@ snapshots:
       fs-extra: 9.1.0
       is-subdir: 1.2.0
       js-string-escape: 1.0.1
-      lodash: 4.17.21
-      minimatch: 3.1.2
+      lodash: 4.18.1
+      minimatch: 3.1.5
       pkg-entry-points: 1.1.1
       resolve-package-path: 4.0.3
       resolve.exports: 2.0.3
@@ -12132,7 +12116,7 @@ snapshots:
 
   ember-inflector@6.0.0(@babel/core@7.29.7):
     dependencies:
-      '@embroider/addon-shim': 1.10.0
+      '@embroider/addon-shim': 1.10.2
       decorator-transforms: 2.3.0(@babel/core@7.29.7)
     transitivePeerDependencies:
       - '@babel/core'
