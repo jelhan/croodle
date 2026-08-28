@@ -112,7 +112,7 @@
     "stylelint-config-standard-scss": "17.0.0",
     "tracked-built-ins": "4.0.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.58.2",
+    "typescript-eslint": "8.68.0",
     "webpack": "5.106.2",
     "webpack-subresource-integrity-embroider": "0.2.4"
   },
