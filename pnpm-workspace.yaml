@@ -1,2 +1,6 @@
 packages:
   - client
+
+trustPolicy: no-downgrade
+blockExoticSubdeps: true
+minimumReleaseAge: 10080
